@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Meteur Online Shopping</title>
-    <meta name="description" content="Shop phones, electronics, fashion, home appliances and more at Meteur Online Shopping.">
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabase-config.js"></script>
@@ -30,6 +28,8 @@
         }
 
         .header-top {
+            max-width: 1400px;
+            margin: auto;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -39,7 +39,7 @@
         .logo {
             color: white;
             text-decoration: none;
-            font-size: 28px;
+            font-size: 30px;
             font-weight: bold;
         }
 
@@ -54,8 +54,8 @@
             padding: 13px;
             border: none;
             outline: none;
-            font-size: 15px;
             border-radius: 5px 0 0 5px;
+            font-size: 15px;
         }
 
         .search-box button {
@@ -63,12 +63,13 @@
             background: #222;
             color: white;
             padding: 0 20px;
-            cursor: pointer;
             border-radius: 0 5px 5px 0;
+            cursor: pointer;
         }
 
         nav {
-            margin-top: 15px;
+            max-width: 1400px;
+            margin: 15px auto 0;
             display: flex;
             gap: 20px;
             flex-wrap: wrap;
@@ -81,14 +82,13 @@
         }
 
         .hero {
+            max-width: 1400px;
+            width: 90%;
+            margin: 25px auto;
             background: linear-gradient(135deg, #ff6b00, #ff9d45);
             color: white;
-            padding: 55px 5%;
-        }
-
-        .hero-content {
-            max-width: 1400px;
-            margin: auto;
+            border-radius: 10px;
+            padding: 55px;
         }
 
         .hero h1 {
@@ -98,7 +98,6 @@
 
         .hero p {
             font-size: 18px;
-            max-width: 650px;
             margin-bottom: 25px;
         }
 
@@ -106,9 +105,9 @@
             display: inline-block;
             background: white;
             color: #ff6b00;
-            text-decoration: none;
-            padding: 13px 25px;
+            padding: 13px 22px;
             border-radius: 5px;
+            text-decoration: none;
             font-weight: bold;
         }
 
@@ -118,22 +117,18 @@
             margin: 35px auto;
         }
 
-        .section {
-            margin-bottom: 45px;
-        }
-
-        .section-header {
+        .section-title {
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
             margin-bottom: 18px;
         }
 
-        .section-header h2 {
-            font-size: 26px;
+        .section-title h2 {
+            font-size: 25px;
         }
 
-        .section-header a {
+        .section-title a {
             color: #ff6b00;
             text-decoration: none;
             font-weight: bold;
@@ -141,8 +136,8 @@
 
         .products {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 18px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
         }
 
         .product-card {
@@ -161,22 +156,35 @@
 
         .product-image {
             width: 100%;
-            height: 210px;
+            height: 220px;
             object-fit: cover;
             display: block;
         }
 
+        .badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: #e53935;
+            color: white;
+            padding: 6px 9px;
+            font-size: 11px;
+            font-weight: bold;
+            border-radius: 4px;
+            z-index: 1;
+        }
+
         .wishlist-btn {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 38px;
-            height: 38px;
+            top: 12px;
+            right: 12px;
+            width: 40px;
+            height: 40px;
             border: none;
             border-radius: 50%;
             background: white;
             color: #777;
-            font-size: 21px;
+            font-size: 22px;
             cursor: pointer;
             box-shadow: 0 2px 8px rgba(0,0,0,0.15);
             z-index: 2;
@@ -186,82 +194,87 @@
             color: #ff6b00;
         }
 
-        .badge {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: #ff6b00;
-            color: white;
-            padding: 6px 9px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: bold;
-        }
-
         .product-info {
-            padding: 14px;
+            padding: 15px;
         }
 
         .category {
             color: #777;
-            font-size: 12px;
+            font-size: 13px;
             margin-bottom: 7px;
         }
 
         .product-name {
-            display: block;
             color: #222;
             text-decoration: none;
             font-weight: bold;
-            min-height: 40px;
+            display: block;
+            min-height: 42px;
             margin-bottom: 8px;
         }
 
         .rating {
             color: #f5a623;
-            font-size: 13px;
+            font-size: 14px;
             margin-bottom: 8px;
         }
 
         .price {
             color: #ff6b00;
-            font-size: 19px;
+            font-size: 20px;
             font-weight: bold;
         }
 
         .old-price {
             color: #888;
-            font-size: 12px;
             text-decoration: line-through;
-            margin-left: 5px;
+            font-size: 13px;
+            margin-left: 6px;
+        }
+
+        .discount {
+            display: inline-block;
+            margin-left: 6px;
+            background: #fff0e6;
+            color: #ff6b00;
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: bold;
         }
 
         .stock {
-            color: #666;
-            font-size: 12px;
-            margin: 7px 0;
+            color: #555;
+            font-size: 13px;
+            margin: 8px 0;
         }
 
         .add-cart {
             width: 100%;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
+            padding: 11px;
             background: #ff6b00;
             color: white;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
             font-weight: bold;
+            margin-top: 8px;
         }
 
         .add-cart:hover {
             background: #e85f00;
         }
 
+        .add-cart:disabled {
+            background: #999;
+            cursor: not-allowed;
+        }
+
         .loading,
         .empty,
         .error {
             background: white;
-            padding: 35px;
+            padding: 40px;
             text-align: center;
             border-radius: 8px;
             grid-column: 1 / -1;
@@ -277,24 +290,19 @@
             gap: 15px;
         }
 
-        .category-box {
+        .category-card {
             background: white;
-            padding: 25px 15px;
+            padding: 22px 10px;
             text-align: center;
             border-radius: 8px;
             text-decoration: none;
             color: #222;
-            font-weight: bold;
             box-shadow: 0 2px 7px rgba(0,0,0,0.05);
+            font-weight: bold;
         }
 
-        .category-box:hover {
+        .category-card:hover {
             color: #ff6b00;
-        }
-
-        .category-icon {
-            font-size: 35px;
-            margin-bottom: 10px;
         }
 
         footer {
@@ -324,16 +332,17 @@
         }
 
         .copyright {
-            text-align: center;
-            color: #aaa;
-            margin-top: 30px;
+            max-width: 1400px;
+            margin: 30px auto 0;
             padding-top: 20px;
             border-top: 1px solid #444;
+            text-align: center;
+            color: #aaa;
         }
 
         @media (max-width: 1100px) {
             .products {
-                grid-template-columns: repeat(4, 1fr);
+                grid-template-columns: repeat(3, 1fr);
             }
 
             .categories {
@@ -341,7 +350,7 @@
             }
         }
 
-        @media (max-width: 800px) {
+        @media (max-width: 700px) {
             .header-top {
                 flex-direction: column;
                 align-items: stretch;
@@ -351,27 +360,21 @@
                 max-width: none;
             }
 
-            .products {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .footer-content {
-                grid-template-columns: repeat(2, 1fr);
+            .hero {
+                padding: 35px 25px;
             }
 
             .hero h1 {
                 font-size: 32px;
             }
-        }
 
-        @media (max-width: 500px) {
             .products {
-                grid-template-columns: 1fr 1fr;
-                gap: 10px;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
             }
 
             .product-image {
-                height: 170px;
+                height: 180px;
             }
 
             .categories {
@@ -379,11 +382,13 @@
             }
 
             .footer-content {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr);
             }
+        }
 
-            nav {
-                gap: 12px;
+        @media (max-width: 500px) {
+            .footer-content {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -392,6 +397,7 @@
 <body>
 
 <header>
+
     <div class="header-top">
 
         <a href="index.html" class="logo">
@@ -399,12 +405,17 @@
         </a>
 
         <div class="search-box">
+
             <input
                 type="text"
                 id="searchInput"
                 placeholder="Search products..."
             >
-            <button onclick="searchProducts()">Search</button>
+
+            <button onclick="searchProducts()">
+                Search
+            </button>
+
         </div>
 
     </div>
@@ -419,115 +430,168 @@
         <a href="cart.html">Cart</a>
         <a href="dashboard.html">My Account</a>
     </nav>
+
 </header>
 
-<section class="hero">
-    <div class="hero-content">
-        <h1>Shop Everything You Need</h1>
-        <p>
-            Discover great products, exciting deals and new arrivals
-            at Meteur Online Shopping.
-        </p>
 
-        <a href="shop.html" class="hero-btn">
-            Shop Now
-        </a>
-    </div>
+<section class="hero">
+
+    <h1>Shop Smart with Meteur</h1>
+
+    <p>
+        Discover quality products, great deals and convenient online shopping.
+    </p>
+
+    <a href="shop.html" class="hero-btn">
+        Shop Now
+    </a>
+
 </section>
 
-<main class="container">
 
-    <section class="section">
-        <div class="section-header">
-            <h2>Shop by Category</h2>
-            <a href="categories.html">View All</a>
-        </div>
+<main>
 
-        <div class="categories">
+    <section class="container">
 
-            <a href="shop.html?category=Phones%20and%20Tablets"
-               class="category-box">
-                <div class="category-icon">📱</div>
-                Phones & Tablets
-            </a>
+        <div class="section-title">
 
-            <a href="shop.html?category=Computing"
-               class="category-box">
-                <div class="category-icon">💻</div>
-                Computing
-            </a>
-
-            <a href="shop.html?category=Electronics"
-               class="category-box">
-                <div class="category-icon">🎧</div>
-                Electronics
-            </a>
-
-            <a href="shop.html?category=Fashion"
-               class="category-box">
-                <div class="category-icon">👕</div>
-                Fashion
-            </a>
-
-            <a href="shop.html?category=Shoes"
-               class="category-box">
-                <div class="category-icon">👟</div>
-                Shoes
-            </a>
-
-            <a href="shop.html?category=Home%20and%20Appliances"
-               class="category-box">
-                <div class="category-icon">🏠</div>
-                Home & Appliances
-            </a>
-
-        </div>
-    </section>
-
-
-    <section class="section">
-
-        <div class="section-header">
             <h2>🔥 Flash Deals</h2>
-            <a href="deals.html">View All Deals</a>
+
+            <a href="deals.html">
+                View All
+            </a>
+
         </div>
 
-        <div class="products" id="dealsProducts">
+        <div
+            class="products"
+            id="dealsProducts"
+        >
+
             <div class="loading">
                 Loading deals...
             </div>
+
         </div>
 
     </section>
 
 
-    <section class="section">
+    <section class="container">
 
-        <div class="section-header">
+        <div class="section-title">
+
             <h2>✨ New Arrivals</h2>
-            <a href="new-arrivals.html">View All</a>
+
+            <a href="new-arrivals.html">
+                View All
+            </a>
+
         </div>
 
-        <div class="products" id="newProducts">
+        <div
+            class="products"
+            id="newProducts"
+        >
+
             <div class="loading">
                 Loading new arrivals...
             </div>
+
         </div>
 
     </section>
 
 
-    <section class="section">
+    <section class="container">
 
-        <div class="section-header">
+        <div class="section-title">
+
             <h2>⭐ Popular Products</h2>
-            <a href="shop.html">Shop All</a>
+
+            <a href="shop.html">
+                View All
+            </a>
+
         </div>
 
-        <div class="products" id="popularProducts">
+        <div
+            class="products"
+            id="popularProducts"
+        >
+
             <div class="loading">
                 Loading popular products...
             </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="container">
+
+        <div class="section-title">
+
+            <h2>Shop by Category</h2>
+
+            <a href="categories.html">
+                All Categories
+            </a>
+
+        </div>
+
+
+        <div class="categories">
+
+            <a
+                href="shop.html?category=Phones%20and%20Tablets"
+                class="category-card"
+            >
+                📱<br>
+                Phones & Tablets
+            </a>
+
+            <a
+                href="shop.html?category=Computing"
+                class="category-card"
+            >
+                💻<br>
+                Computing
+            </a>
+
+            <a
+                href="shop.html?category=Electronics"
+                class="category-card"
+            >
+                🎧<br>
+                Electronics
+            </a>
+
+            <a
+                href="shop.html?category=Fashion"
+                class="category-card"
+            >
+                👕<br>
+                Fashion
+            </a>
+
+            <a
+                href="shop.html?category=Kitchen"
+                class="category-card"
+            >
+                🍳<br>
+                Kitchen
+            </a>
+
+            <a
+                href="shop.html?category=Home%20and%20Appliances"
+                class="category-card"
+            >
+                🏠<br>
+                Home & Appliances
+            </a>
+
         </div>
 
     </section>
@@ -540,38 +604,54 @@
     <div class="footer-content">
 
         <div>
+
             <h3>Meteur</h3>
+
             <p>
                 Your trusted online shopping marketplace.
             </p>
+
         </div>
 
+
         <div>
+
             <h3>Shopping</h3>
+
             <a href="shop.html">Shop All</a>
             <a href="deals.html">Deals</a>
             <a href="new-arrivals.html">New Arrivals</a>
             <a href="categories.html">Categories</a>
+
         </div>
 
+
         <div>
+
             <h3>Customer Service</h3>
+
             <a href="help.html">Help Center</a>
             <a href="contact.html">Contact Us</a>
             <a href="shipping.html">Shipping</a>
             <a href="returns.html">Returns & Refunds</a>
             <a href="track-order.html">Track Order</a>
+
         </div>
 
+
         <div>
+
             <h3>About</h3>
+
             <a href="about.html">About Meteur</a>
             <a href="privacy.html">Privacy Policy</a>
             <a href="terms.html">Terms & Conditions</a>
             <a href="sell.html">Sell on Meteur</a>
+
         </div>
 
     </div>
+
 
     <div class="copyright">
         © 2026 Meteur Online Shopping. All rights reserved.
@@ -583,10 +663,8 @@
 <script>
 
     let allProducts = [];
-    let wishlistIds = new Set();
 
-    const fallbackImage =
-        "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80";
+    let wishlistIds = new Set();
 
 
     async function getCurrentUser() {
@@ -603,11 +681,13 @@
 
         wishlistIds = new Set();
 
-        const user = await getCurrentUser();
+        const user =
+            await getCurrentUser();
 
         if (!user) {
             return;
         }
+
 
         const {
             data,
@@ -615,9 +695,14 @@
         } = await supabaseClient
             .from("wishlist")
             .select("product_id")
-            .eq("user_id", user.id);
+            .eq(
+                "user_id",
+                user.id
+            );
+
 
         if (error) {
+
             console.error(
                 "Wishlist loading error:",
                 error
@@ -626,36 +711,63 @@
             return;
         }
 
-        (data || []).forEach(item => {
-            wishlistIds.add(item.product_id);
-        });
+
+        (data || []).forEach(
+            item => {
+
+                wishlistIds.add(
+                    item.product_id
+                );
+
+            }
+        );
     }
 
 
-    async function toggleWishlist(productId, button) {
+    async function toggleWishlist(
+        productId,
+        button
+    ) {
 
-        const user = await getCurrentUser();
+        const user =
+            await getCurrentUser();
+
 
         if (!user) {
 
             window.location.href =
                 "login.html?redirect=" +
-                encodeURIComponent("index.html");
+                encodeURIComponent(
+                    "index.html"
+                );
 
             return;
         }
 
+
         button.disabled = true;
 
-        if (wishlistIds.has(productId)) {
+
+        if (
+            wishlistIds.has(
+                productId
+            )
+        ) {
 
             const {
                 error
             } = await supabaseClient
                 .from("wishlist")
                 .delete()
-                .eq("user_id", user.id)
-                .eq("product_id", productId);
+                .eq(
+                    "user_id",
+                    user.id
+                )
+                .eq(
+                    "product_id",
+                    productId
+                );
+
 
             if (error) {
 
@@ -670,11 +782,17 @@
                 return;
             }
 
-            wishlistIds.delete(productId);
 
-            button.classList.remove("active");
+            wishlistIds.delete(
+                productId
+            );
+
+            button.classList.remove(
+                "active"
+            );
 
             button.innerHTML = "♡";
+
 
         } else {
 
@@ -683,9 +801,15 @@
             } = await supabaseClient
                 .from("wishlist")
                 .insert({
-                    user_id: user.id,
-                    product_id: productId
+
+                    user_id:
+                        user.id,
+
+                    product_id:
+                        productId
+
                 });
+
 
             if (error) {
 
@@ -700,58 +824,212 @@
                 return;
             }
 
-            wishlistIds.add(productId);
 
-            button.classList.add("active");
+            wishlistIds.add(
+                productId
+            );
+
+            button.classList.add(
+                "active"
+            );
 
             button.innerHTML = "♥";
         }
+
 
         button.disabled = false;
     }
 
 
-    function addToCart(product) {
+    async function addToCart(
+        productId,
+        button
+    ) {
 
-        let cart =
-            JSON.parse(
-                localStorage.getItem("meteurCart") || "[]"
-            );
+        const user =
+            await getCurrentUser();
 
-        const existing =
-            cart.find(
-                item => item.id === product.id
-            );
 
-        if (existing) {
+        if (!user) {
 
-            existing.quantity += 1;
+            window.location.href =
+                "login.html?redirect=" +
+                encodeURIComponent(
+                    "index.html"
+                );
 
-        } else {
-
-            cart.push({
-                id: product.id,
-                name: product.name,
-                price: Number(product.price),
-                image_url: product.image_url,
-                quantity: 1,
-                stock: product.stock
-            });
+            return;
         }
 
-        localStorage.setItem(
-            "meteurCart",
-            JSON.stringify(cart)
-        );
 
-        alert(
-            product.name +
-            " added to cart."
-        );
+        button.disabled = true;
+
+        button.textContent =
+            "Adding...";
+
+
+        try {
+
+            const product =
+                allProducts.find(
+                    item =>
+                        item.id ===
+                        productId
+                );
+
+
+            if (!product) {
+
+                throw new Error(
+                    "Product not found."
+                );
+
+            }
+
+
+            const stock =
+                Number(
+                    product.stock || 0
+                );
+
+
+            const {
+                data: existing,
+                error: existingError
+            } = await supabaseClient
+
+                .from("cart_items")
+
+                .select(
+                    "id, quantity"
+                )
+
+                .eq(
+                    "user_id",
+                    user.id
+                )
+
+                .eq(
+                    "product_id",
+                    productId
+                )
+
+                .maybeSingle();
+
+
+            if (existingError) {
+                throw existingError;
+            }
+
+
+            const currentQuantity =
+                existing
+                    ? Number(
+                        existing.quantity
+                    )
+                    : 0;
+
+
+            if (
+                currentQuantity + 1 >
+                stock
+            ) {
+
+                alert(
+                    "You cannot add more than the available stock."
+                );
+
+                return;
+            }
+
+
+            if (existing) {
+
+                const {
+                    error
+                } = await supabaseClient
+
+                    .from("cart_items")
+
+                    .update({
+
+                        quantity:
+                            currentQuantity + 1,
+
+                        updated_at:
+                            new Date().toISOString()
+
+                    })
+
+                    .eq(
+                        "id",
+                        existing.id
+                    );
+
+
+                if (error) {
+                    throw error;
+                }
+
+
+            } else {
+
+                const {
+                    error
+                } = await supabaseClient
+
+                    .from("cart_items")
+
+                    .insert({
+
+                        user_id:
+                            user.id,
+
+                        product_id:
+                            productId,
+
+                        quantity: 1
+
+                    });
+
+
+                if (error) {
+                    throw error;
+                }
+
+            }
+
+
+            alert(
+                product.name +
+                " added to your cart."
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Cart error:",
+                error
+            );
+
+            alert(
+                "Unable to add this product to your cart."
+            );
+
+        } finally {
+
+            button.disabled = false;
+
+            button.textContent =
+                "Add to Cart";
+        }
     }
 
 
-    function getStars(rating) {
+    function getStars(
+        rating
+    ) {
 
         const value =
             Math.round(
@@ -765,33 +1043,75 @@
     }
 
 
-    function createProductCard(product) {
+    function getDiscount(
+        product
+    ) {
 
         const price =
-            Number(product.price || 0);
+            Number(
+                product.price || 0
+            );
 
         const oldPrice =
-            Number(product.old_price || 0);
+            Number(
+                product.old_price || 0
+            );
+
+
+        if (
+            oldPrice <= price ||
+            oldPrice === 0
+        ) {
+
+            return 0;
+        }
+
+
+        return Math.round(
+            (
+                (oldPrice - price) /
+                oldPrice
+            ) * 100
+        );
+    }
+
+
+    function createProductCard(
+        product
+    ) {
+
+        const price =
+            Number(
+                product.price || 0
+            );
+
+        const oldPrice =
+            Number(
+                product.old_price || 0
+            );
+
+        const stock =
+            Number(
+                product.stock || 0
+            );
 
         const discount =
-            oldPrice > price
-                ? Math.round(
-                    ((oldPrice - price) /
-                    oldPrice) * 100
-                )
-                : 0;
-
-        const isWishlisted =
-            wishlistIds.has(product.id);
+            getDiscount(
+                product
+            );
 
         const image =
             product.image_url ||
-            fallbackImage;
+            "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80";
 
-        const stock =
-            Number(product.stock || 0);
+        const wishlisted =
+            wishlistIds.has(
+                product.id
+            );
+
 
         return `
+
             <article class="product-card">
 
                 ${
@@ -804,24 +1124,34 @@
                         : ""
                 }
 
+
                 <button
                     class="wishlist-btn ${
-                        isWishlisted ? "active" : ""
+                        wishlisted
+                            ? "active"
+                            : ""
                     }"
                     onclick="toggleWishlist(
                         '${product.id}',
                         this
                     )"
-                    title="Wishlist"
+                    title="Add to wishlist"
                 >
+
                     ${
-                        isWishlisted
+                        wishlisted
                             ? "♥"
                             : "♡"
                     }
+
                 </button>
 
-                <a href="product.html?id=${encodeURIComponent(product.id)}">
+
+                <a
+                    href="product.html?id=${encodeURIComponent(
+                        product.id
+                    )}"
+                >
 
                     <img
                         class="product-image"
@@ -832,22 +1162,29 @@
 
                 </a>
 
+
                 <div class="product-info">
 
                     <div class="category">
                         ${product.category}
                     </div>
 
+
                     <a
                         class="product-name"
-                        href="product.html?id=${encodeURIComponent(product.id)}"
+                        href="product.html?id=${encodeURIComponent(
+                            product.id
+                        )}"
                     >
                         ${product.name}
                     </a>
 
+
                     <div class="rating">
 
-                        ${getStars(product.rating)}
+                        ${getStars(
+                            product.rating
+                        )}
 
                         <span style="color:#777;">
                             (${product.review_count || 0})
@@ -855,11 +1192,13 @@
 
                     </div>
 
+
                     <div>
 
                         <span class="price">
                             KSh ${price.toLocaleString()}
                         </span>
+
 
                         ${
                             oldPrice > price
@@ -867,11 +1206,22 @@
                                     <span class="old-price">
                                         KSh ${oldPrice.toLocaleString()}
                                     </span>
+
+                                    ${
+                                        discount > 0
+                                            ? `
+                                                <span class="discount">
+                                                    -${discount}%
+                                                </span>
+                                            `
+                                            : ""
+                                    }
                                 `
                                 : ""
                         }
 
                     </div>
+
 
                     <div class="stock">
 
@@ -883,48 +1233,70 @@
 
                     </div>
 
+
                     <button
                         class="add-cart"
-                        onclick='addToCart(${JSON.stringify(product).replace(/'/g, "&#39;")})'
-                        ${stock <= 0 ? "disabled" : ""}
+                        onclick="addToCart(
+                            '${product.id}',
+                            this
+                        )"
+                        ${
+                            stock <= 0
+                                ? "disabled"
+                                : ""
+                        }
                     >
+
                         ${
                             stock > 0
                                 ? "Add to Cart"
                                 : "Out of Stock"
                         }
+
                     </button>
 
                 </div>
 
             </article>
+
         `;
     }
 
 
     function renderProducts(
         products,
-        containerId,
-        emptyMessage
+        containerId
     ) {
 
         const container =
-            document.getElementById(containerId);
+            document.getElementById(
+                containerId
+            );
+
 
         if (!products.length) {
 
             container.innerHTML = `
+
                 <div class="empty">
-                    <h3>${emptyMessage}</h3>
+
+                    <h3>
+                        No products available
+                    </h3>
+
                 </div>
+
             `;
 
             return;
         }
 
+
         container.innerHTML =
             products
-                .map(createProductCard)
+                .map(
+                    createProductCard
+                )
                 .join("");
     }
 
@@ -935,19 +1307,21 @@
 
             await loadWishlist();
 
+
             const {
                 data,
                 error
             } = await supabaseClient
+
                 .from("products")
-                .select("*")
-                .order("created_at", {
-                    ascending: false
-                });
+
+                .select("*");
+
 
             if (error) {
                 throw error;
             }
+
 
             allProducts =
                 data || [];
@@ -959,76 +1333,79 @@
                         product =>
                             product.is_deal === true
                     )
-                    .slice(0, 5);
-
-            renderProducts(
-                deals,
-                "dealsProducts",
-                "No deals available right now."
-            );
+                    .slice(0, 4);
 
 
-            const newProducts =
+            const newArrivals =
                 allProducts
                     .filter(
                         product =>
                             product.is_new === true
                     )
-                    .slice(0, 5);
-
-            renderProducts(
-                newProducts,
-                "newProducts",
-                "No new arrivals available right now."
-            );
+                    .slice(0, 4);
 
 
             const popular =
                 [...allProducts]
                     .sort(
                         (a, b) =>
-                            Number(b.rating || 0) -
-                            Number(a.rating || 0)
+                            Number(
+                                b.rating || 0
+                            ) -
+                            Number(
+                                a.rating || 0
+                            )
                     )
-                    .slice(0, 5);
+                    .slice(0, 4);
+
+
+            renderProducts(
+                deals,
+                "dealsProducts"
+            );
+
+            renderProducts(
+                newArrivals,
+                "newProducts"
+            );
 
             renderProducts(
                 popular,
-                "popularProducts",
-                "No popular products available right now."
+                "popularProducts"
             );
+
 
         } catch (error) {
 
             console.error(
-                "Supabase products error:",
+                "Product loading error:",
                 error
             );
+
 
             document.getElementById(
                 "dealsProducts"
             ).innerHTML = `
                 <div class="error">
                     Unable to load products.
-                    Please refresh the page.
                 </div>
             `;
+
 
             document.getElementById(
                 "newProducts"
             ).innerHTML = `
                 <div class="error">
                     Unable to load products.
-                    Please refresh the page.
                 </div>
             `;
+
 
             document.getElementById(
                 "popularProducts"
             ).innerHTML = `
                 <div class="error">
                     Unable to load products.
-                    Please refresh the page.
                 </div>
             `;
         }
@@ -1039,28 +1416,40 @@
 
         const query =
             document
-                .getElementById("searchInput")
+                .getElementById(
+                    "searchInput"
+                )
                 .value
                 .trim();
+
 
         if (!query) {
             return;
         }
 
+
         window.location.href =
             "shop.html?search=" +
-            encodeURIComponent(query);
+            encodeURIComponent(
+                query
+            );
     }
 
 
     document
-        .getElementById("searchInput")
+        .getElementById(
+            "searchInput"
+        )
         .addEventListener(
             "keydown",
             function(event) {
 
-                if (event.key === "Enter") {
+                if (
+                    event.key === "Enter"
+                ) {
+
                     searchProducts();
+
                 }
 
             }

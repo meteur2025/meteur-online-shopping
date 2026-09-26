@@ -3,137 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Wishlist - Meteur Online Shopping</title>
-    <meta name="description" content="View and manage your favorite products on Meteur Online Shopping.">
 
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <title>My Wishlist - Meteur Online Shopping</title>
 
     <link rel="stylesheet" href="style.css">
 
     <style>
         .wishlist-page {
-            padding: 30px 5%;
-            min-height: 550px;
+            padding: 45px 20px 70px;
+            background: #f7f7f7;
+            min-height: 70vh;
         }
 
-        .breadcrumb {
-            margin-bottom: 25px;
-            color: #777;
-            font-size: 14px;
-        }
-
-        .breadcrumb a {
-            color: #ff7900;
-            text-decoration: none;
+        .wishlist-container {
+            max-width: 1100px;
+            margin: auto;
         }
 
         .wishlist-header {
-            background: #fff;
-            padding: 25px;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            border: 1px solid #eee;
+            background: linear-gradient(135deg, #f4511e, #ff7a45);
+            color: white;
+            border-radius: 14px;
+            padding: 35px;
+            margin-bottom: 25px;
         }
 
         .wishlist-header h1 {
             margin: 0 0 8px;
-            font-size: 26px;
+            font-size: 32px;
         }
 
         .wishlist-header p {
-            color: #777;
             margin: 0;
+            opacity: .95;
         }
 
-        .wishlist-grid {
+        .wishlist-grid-layout {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 18px;
+            grid-template-columns: 260px 1fr;
+            gap: 25px;
+        }
+
+        .wishlist-menu,
+        .wishlist-card {
+            background: white;
+            border-radius: 14px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, .07);
+        }
+
+        .wishlist-menu {
+            padding: 15px;
+            height: fit-content;
+        }
+
+        .wishlist-menu a {
+            display: block;
+            padding: 14px 15px;
+            color: #333;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 5px;
+        }
+
+        .wishlist-menu a:hover,
+        .wishlist-menu a.active {
+            background: #fff1eb;
+            color: #f4511e;
+        }
+
+        .logout-button {
+            width: 100%;
+            border: 1px solid #e53935;
+            background: white;
+            color: #e53935;
+            padding: 12px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .logout-button:hover {
+            background: #fff4f4;
         }
 
         .wishlist-card {
-            background: #fff;
-            border: 1px solid #eee;
-            border-radius: 6px;
-            overflow: hidden;
-            position: relative;
-            transition: 0.2s ease;
+            padding: 30px;
         }
 
-        .wishlist-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+        .wishlist-card h2 {
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+
+        .wishlist-description {
+            color: #777;
+            margin-bottom: 25px;
+        }
+
+        .wishlist-products {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .wishlist-product {
+            border: 1px solid #e8e8e8;
+            border-radius: 10px;
+            overflow: hidden;
+            background: white;
         }
 
         .wishlist-image {
+            width: 100%;
             height: 190px;
-            background: #f7f7f7;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 65px;
-            color: #ff7900;
-            position: relative;
+            object-fit: cover;
+            display: block;
         }
 
-        .remove-wishlist {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            width: 36px;
-            height: 36px;
-            border: none;
-            border-radius: 50%;
-            background: #fff;
-            color: #e53935;
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+        .wishlist-product-info {
+            padding: 17px;
         }
 
-        .remove-wishlist:hover {
-            background: #e53935;
-            color: #fff;
-        }
-
-        .wishlist-info {
-            padding: 16px;
-        }
-
-        .wishlist-info h3 {
-            font-size: 16px;
-            margin: 0 0 10px;
-            line-height: 1.4;
-        }
-
-        .wishlist-info h3 a {
-            color: #222;
-            text-decoration: none;
-        }
-
-        .wishlist-rating {
-            color: #ff9900;
-            font-size: 13px;
-            margin-bottom: 10px;
-        }
-
-        .wishlist-rating span {
-            color: #777;
-            margin-left: 5px;
+        .wishlist-product-name {
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 8px;
         }
 
         .wishlist-price {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 14px;
-        }
-
-        .wishlist-old-price {
-            color: #999;
-            font-size: 13px;
-            text-decoration: line-through;
-            margin-left: 6px;
-            font-weight: 400;
+            color: #f4511e;
+            font-size: 19px;
+            font-weight: 800;
+            margin-bottom: 13px;
         }
 
         .wishlist-actions {
@@ -141,107 +143,98 @@
             gap: 8px;
         }
 
-        .wishlist-actions button,
-        .wishlist-actions a {
+        .add-cart-button,
+        .remove-button {
             flex: 1;
-            padding: 11px 8px;
-            border-radius: 4px;
-            border: none;
-            text-align: center;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 600;
+            padding: 10px;
+            border-radius: 6px;
             cursor: pointer;
+            font-weight: 600;
         }
 
-        .add-cart-btn {
-            background: #ff7900;
-            color: #fff;
+        .add-cart-button {
+            border: none;
+            background: #f4511e;
+            color: white;
         }
 
-        .add-cart-btn:hover {
-            background: #e86d00;
+        .add-cart-button:hover {
+            background: #d84315;
         }
 
-        .view-btn {
-            background: #f2f2f2;
-            color: #333;
+        .remove-button {
+            border: 1px solid #ddd;
+            background: white;
+            color: #555;
         }
 
-        .view-btn:hover {
-            background: #e8e8e8;
+        .remove-button:hover {
+            border-color: #e53935;
+            color: #e53935;
         }
 
         .empty-wishlist {
-            background: #fff;
             text-align: center;
-            padding: 80px 20px;
-            border-radius: 6px;
-            border: 1px solid #eee;
+            padding: 50px 20px;
+            border: 1px dashed #ddd;
+            border-radius: 12px;
         }
 
-        .empty-wishlist i {
-            font-size: 75px;
-            color: #ddd;
-            margin-bottom: 20px;
+        .empty-icon {
+            font-size: 55px;
+            margin-bottom: 15px;
         }
 
-        .empty-wishlist h2 {
-            margin-bottom: 10px;
+        .empty-wishlist h3 {
+            margin: 0 0 10px;
         }
 
         .empty-wishlist p {
             color: #777;
-            margin-bottom: 25px;
+            line-height: 1.7;
+            margin-bottom: 22px;
         }
 
-        .shop-now-btn {
+        .shop-button {
             display: inline-block;
-            background: #ff7900;
-            color: #fff;
-            padding: 13px 30px;
-            border-radius: 4px;
+            background: #f4511e;
+            color: white;
             text-decoration: none;
-            font-weight: 600;
+            padding: 13px 25px;
+            border-radius: 7px;
+            font-weight: bold;
         }
 
-        .shop-now-btn:hover {
-            background: #e86d00;
-        }
-
-        .wishlist-count {
+        .loading {
+            text-align: center;
+            padding: 40px;
             color: #777;
-            font-size: 14px;
-            margin-top: 5px;
         }
 
-        @media (max-width: 1050px) {
-            .wishlist-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
+        .error-message {
+            display: none;
+            background: #fff0f0;
+            color: #b42318;
+            padding: 14px;
+            border-radius: 8px;
+            margin-bottom: 20px;
         }
 
         @media (max-width: 800px) {
-            .wishlist-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .wishlist-page {
-                padding: 25px 3%;
-            }
-        }
-
-        @media (max-width: 560px) {
-            .wishlist-grid {
+            .wishlist-grid-layout {
                 grid-template-columns: 1fr;
             }
 
-            .wishlist-header h1 {
-                font-size: 22px;
+            .wishlist-products {
+                grid-template-columns: 1fr;
             }
 
-            .wishlist-image {
-                height: 220px;
+            .wishlist-header {
+                padding: 28px 22px;
+            }
+
+            .wishlist-card {
+                padding: 22px;
             }
         }
     </style>
@@ -249,343 +242,609 @@
 
 <body>
 
-    <!-- TOP BAR -->
-    <div class="top-bar">
-        <div class="container">
-            <span>Welcome to Meteur Online Shopping</span>
+<header>
+    <div class="container">
 
-            <div class="top-links">
-                <a href="#">Help Center</a>
-                <a href="#">Track Order</a>
-                <a href="#">Sell on Meteur</a>
+        <div class="top-bar">
+
+            <div class="logo">
+                <a href="index.html">🛒 Meteur</a>
             </div>
-        </div>
-    </div>
 
-    <!-- HEADER -->
-    <header class="main-header">
-        <div class="container header-content">
+            <div class="search-box">
 
-            <a href="index.html" class="logo">
-                <i class="fa-solid fa-bag-shopping"></i>
-                <div>
-                    <strong>Meteur</strong>
-                    <small>ONLINE SHOPPING</small>
-                </div>
-            </a>
-
-            <form class="search-box" id="searchForm">
                 <input
                     type="text"
                     id="searchInput"
-                    placeholder="Search products, brands and categories..."
-                    required
+                    placeholder="Search products..."
                 >
-                <button type="submit">
-                    <i class="fa-solid fa-search"></i>
+
+                <button onclick="searchProducts()">
+                    Search
                 </button>
-            </form>
+
+            </div>
 
             <div class="header-actions">
-                <a href="login.html">
-                    <i class="fa-regular fa-user"></i>
-                    <span>Account</span>
+
+                <a href="dashboard.html">
+                    Account
                 </a>
 
-                <a href="wishlist.html" class="active">
-                    <i class="fa-regular fa-heart"></i>
-                    <span>Wishlist</span>
+                <a href="wishlist.html">
+                    ♡ Wishlist
                 </a>
 
                 <a href="cart.html">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    <span>Cart</span>
-                    <b id="cartCount">0</b>
+                    🛒 Cart (<span id="cartCount">0</span>)
                 </a>
+
             </div>
 
         </div>
-    </header>
 
-    <!-- NAVIGATION -->
-    <nav class="main-nav">
-        <div class="container nav-content">
-
-            <button class="categories-btn">
-                <i class="fa-solid fa-bars"></i>
-                Categories
-            </button>
-
+        <nav>
             <a href="index.html">Home</a>
             <a href="shop.html">Shop</a>
-            <a href="index.html#flash-deals">Flash Deals</a>
-            <a href="shop.html">Categories</a>
-            <a href="shop.html">New Arrivals</a>
-            <a href="shop.html">Popular</a>
+            <a href="categories.html">Categories</a>
+            <a href="deals.html">Deals</a>
+            <a href="new-arrivals.html">New Arrivals</a>
+            <a href="sell.html">Sell on Meteur</a>
+        </nav>
 
-        </div>
-    </nav>
+    </div>
+</header>
 
-    <!-- WISHLIST -->
-    <main class="wishlist-page">
 
-        <div class="breadcrumb">
-            <a href="index.html">Home</a>
-            <span> / </span>
-            My Wishlist
-        </div>
+<main class="wishlist-page">
+
+    <div class="wishlist-container">
 
         <div class="wishlist-header">
+
             <h1>My Wishlist</h1>
-            <p>Save your favorite products and come back to them anytime.</p>
-            <div class="wishlist-count" id="wishlistCount">
-                0 items saved
-            </div>
+
+            <p>
+                Save products you love and come back to them anytime.
+            </p>
+
         </div>
 
-        <div id="wishlistContainer"></div>
 
-    </main>
+        <div id="loadingMessage" class="loading">
+            Checking your account...
+        </div>
 
-    <!-- NEWSLETTER -->
-    <section class="newsletter">
-        <div class="container">
-            <div>
-                <h2>Subscribe to our newsletter</h2>
-                <p>Get updates about new products, deals and special offers.</p>
-            </div>
 
-            <form id="newsletterForm">
-                <input
-                    type="email"
-                    placeholder="Enter your email address"
-                    required
+        <div
+            id="errorMessage"
+            class="error-message"
+        ></div>
+
+
+        <div
+            id="wishlistContent"
+            class="wishlist-grid-layout"
+            style="display:none;"
+        >
+
+            <aside class="wishlist-menu">
+
+                <a href="dashboard.html">
+                    🏠 Dashboard
+                </a>
+
+                <a href="profile.html">
+                    👤 My Profile
+                </a>
+
+                <a href="orders.html">
+                    📦 My Orders
+                </a>
+
+                <a href="wishlist.html" class="active">
+                    ♡ Wishlist
+                </a>
+
+                <a href="addresses.html">
+                    📍 My Addresses
+                </a>
+
+                <button
+                    class="logout-button"
+                    onclick="logoutUser()"
                 >
-                <button type="submit">Subscribe</button>
-            </form>
-        </div>
-    </section>
+                    Log Out
+                </button>
 
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="container footer-grid">
+            </aside>
 
-            <div>
-                <h3>Meteur Online Shopping</h3>
-                <p>
-                    Your trusted online shopping marketplace in Kenya.
-                    Shop products from different categories and enjoy
-                    convenient delivery.
-                </p>
-            </div>
 
-            <div>
-                <h3>Customer Service</h3>
-                <a href="#">Help Center</a>
-                <a href="#">Track Order</a>
-                <a href="#">Returns & Refunds</a>
-                <a href="#">Contact Us</a>
-            </div>
+            <section class="wishlist-card">
 
-            <div>
-                <h3>Shopping</h3>
-                <a href="shop.html">All Products</a>
-                <a href="shop.html">Electronics</a>
-                <a href="shop.html">Fashion</a>
-                <a href="shop.html">Beauty</a>
-            </div>
+                <h2>Saved Products</h2>
 
-            <div>
-                <h3>Contact</h3>
-                <p>
-                    <i class="fa-solid fa-phone"></i>
-                    0711842260
+                <p class="wishlist-description">
+                    Products you save to your wishlist will appear here.
                 </p>
 
-                <p>
-                    <i class="fa-solid fa-envelope"></i>
-                    daghlusmeteur@gmail.com
-                </p>
 
-                <p>
-                    <i class="fa-solid fa-location-dot"></i>
-                    Kenya
-                </p>
-            </div>
+                <div
+                    id="wishlistProducts"
+                    class="wishlist-products"
+                ></div>
 
-        </div>
 
-        <div class="footer-bottom">
-            <p>© 2026 Meteur Online Shopping. All rights reserved.</p>
-        </div>
-    </footer>
+                <div
+                    id="emptyWishlist"
+                    class="empty-wishlist"
+                    style="display:none;"
+                >
 
-    <script src="script.js"></script>
-
-    <script>
-        const wishlistContainer =
-            document.getElementById("wishlistContainer");
-
-        const wishlistCount =
-            document.getElementById("wishlistCount");
-
-        let wishlist =
-            JSON.parse(localStorage.getItem("meteurWishlist")) || [];
-
-        function saveWishlist() {
-            localStorage.setItem(
-                "meteurWishlist",
-                JSON.stringify(wishlist)
-            );
-        }
-
-        function renderWishlist() {
-
-            if (!wishlist || wishlist.length === 0) {
-
-                wishlistCount.textContent = "0 items saved";
-
-                wishlistContainer.innerHTML = `
-                    <div class="empty-wishlist">
-                        <i class="fa-regular fa-heart"></i>
-
-                        <h2>Your wishlist is empty</h2>
-
-                        <p>
-                            You haven't saved any products yet.
-                            Browse our marketplace and add products
-                            you love to your wishlist.
-                        </p>
-
-                        <a href="shop.html" class="shop-now-btn">
-                            <i class="fa-solid fa-bag-shopping"></i>
-                            Start Shopping
-                        </a>
+                    <div class="empty-icon">
+                        ♡
                     </div>
-                `;
 
-                return;
-            }
+                    <h3>
+                        Your wishlist is empty
+                    </h3>
 
-            wishlistCount.textContent =
-                wishlist.length +
-                (wishlist.length === 1
-                    ? " item saved"
-                    : " items saved");
+                    <p>
+                        You haven't saved any products yet.
+                        Browse our shop and add products you would
+                        like to purchase later.
+                    </p>
 
-            wishlistContainer.innerHTML = `
-                <div class="wishlist-grid">
-                    ${wishlist.map((product, index) => `
+                    <a
+                        href="shop.html"
+                        class="shop-button"
+                    >
+                        Browse Products
+                    </a>
 
-                        <div class="wishlist-card">
-
-                            <div class="wishlist-image">
-
-                                <i class="${product.icon || "fa-solid fa-box"}"></i>
-
-                                <button
-                                    class="remove-wishlist"
-                                    onclick="removeFromWishlist(${index})"
-                                    title="Remove from wishlist"
-                                >
-                                    <i class="fa-solid fa-xmark"></i>
-                                </button>
-
-                            </div>
-
-                            <div class="wishlist-info">
-
-                                <h3>
-                                    <a href="product.html">
-                                        ${product.name || "Product"}
-                                    </a>
-                                </h3>
-
-                                <div class="wishlist-rating">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-regular fa-star"></i>
-                                    <span>Customer rating</span>
-                                </div>
-
-                                <div class="wishlist-price">
-                                    KSh ${Number(product.price || 0).toLocaleString()}
-                                </div>
-
-                                <div class="wishlist-actions">
-
-                                    <button
-                                        class="add-cart-btn"
-                                        onclick="addWishlistToCart(${index})"
-                                    >
-                                        <i class="fa-solid fa-cart-plus"></i>
-                                        Add to Cart
-                                    </button>
-
-                                    <a
-                                        href="product.html"
-                                        class="view-btn"
-                                    >
-                                        View
-                                    </a>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    `).join("")}
                 </div>
+
+            </section>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<footer>
+
+    <div class="container">
+
+        <div class="footer-grid">
+
+            <div>
+
+                <h3>Meteur</h3>
+
+                <p>
+                    Your trusted Kenyan online shopping marketplace.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h4>Shopping</h4>
+
+                <a href="shop.html">Shop</a><br>
+                <a href="categories.html">Categories</a><br>
+                <a href="deals.html">Deals</a><br>
+                <a href="new-arrivals.html">New Arrivals</a>
+
+            </div>
+
+
+            <div>
+
+                <h4>Customer Service</h4>
+
+                <a href="help.html">Help Center</a><br>
+                <a href="faq.html">FAQ</a><br>
+                <a href="track-order.html">Track Order</a><br>
+                <a href="returns.html">Returns</a><br>
+                <a href="shipping.html">Shipping</a>
+
+            </div>
+
+
+            <div>
+
+                <h4>Company</h4>
+
+                <a href="about.html">About Us</a><br>
+                <a href="sell.html">Sell on Meteur</a><br>
+                <a href="privacy.html">Privacy Policy</a><br>
+                <a href="terms.html">Terms & Conditions</a>
+
+            </div>
+
+        </div>
+
+
+        <p class="copyright">
+            © 2026 Meteur Online Shopping. All rights reserved.
+        </p>
+
+    </div>
+
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="supabase-config.js"></script>
+
+<script src="script.js"></script>
+
+
+<script>
+
+function updateCartCount() {
+
+    const cart =
+        JSON.parse(
+            localStorage.getItem("meteurCart")
+        ) || [];
+
+    const total =
+        cart.reduce(
+            function(sum, product) {
+                return sum + (product.quantity || 1);
+            },
+            0
+        );
+
+    const cartCount =
+        document.getElementById("cartCount");
+
+    if (cartCount) {
+        cartCount.textContent = total;
+    }
+}
+
+
+function searchProducts() {
+
+    const input =
+        document.getElementById("searchInput");
+
+    if (!input) {
+        return;
+    }
+
+    const search =
+        input.value.trim();
+
+    if (search) {
+
+        window.location.href =
+            "shop.html?search=" +
+            encodeURIComponent(search);
+
+    }
+}
+
+
+function showError(message) {
+
+    const errorBox =
+        document.getElementById("errorMessage");
+
+    errorBox.textContent = message;
+
+    errorBox.style.display = "block";
+
+}
+
+
+function getWishlist() {
+
+    return JSON.parse(
+        localStorage.getItem("meteurWishlist")
+    ) || [];
+
+}
+
+
+function saveWishlist(wishlist) {
+
+    localStorage.setItem(
+        "meteurWishlist",
+        JSON.stringify(wishlist)
+    );
+
+}
+
+
+function addToCart(product) {
+
+    const cart =
+        JSON.parse(
+            localStorage.getItem("meteurCart")
+        ) || [];
+
+
+    const existing =
+        cart.find(
+            function(item) {
+                return String(item.id) === String(product.id);
+            }
+        );
+
+
+    if (existing) {
+
+        existing.quantity =
+            (existing.quantity || 1) + 1;
+
+    } else {
+
+        cart.push({
+
+            id: product.id,
+
+            name: product.name,
+
+            price: Number(product.price),
+
+            image: product.image,
+
+            quantity: 1
+
+        });
+
+    }
+
+
+    localStorage.setItem(
+        "meteurCart",
+        JSON.stringify(cart)
+    );
+
+
+    updateCartCount();
+
+
+    alert(
+        product.name +
+        " has been added to your cart."
+    );
+
+}
+
+
+function removeFromWishlist(productId) {
+
+    let wishlist =
+        getWishlist();
+
+
+    wishlist =
+        wishlist.filter(
+            function(product) {
+                return String(product.id) !== String(productId);
+            }
+        );
+
+
+    saveWishlist(wishlist);
+
+
+    renderWishlist();
+
+}
+
+
+function renderWishlist() {
+
+    const wishlist =
+        getWishlist();
+
+
+    const productsContainer =
+        document.getElementById("wishlistProducts");
+
+
+    const emptyWishlist =
+        document.getElementById("emptyWishlist");
+
+
+    productsContainer.innerHTML = "";
+
+
+    if (wishlist.length === 0) {
+
+        productsContainer.style.display =
+            "none";
+
+        emptyWishlist.style.display =
+            "block";
+
+        return;
+    }
+
+
+    productsContainer.style.display =
+        "grid";
+
+    emptyWishlist.style.display =
+        "none";
+
+
+    wishlist.forEach(
+        function(product) {
+
+            const card =
+                document.createElement("article");
+
+
+            card.className =
+                "wishlist-product";
+
+
+            const image =
+                product.image ||
+                "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80";
+
+
+            const price =
+                Number(product.price || 0);
+
+
+            card.innerHTML = `
+
+                <img
+                    src="${image}"
+                    alt="${product.name || "Product"}"
+                    class="wishlist-image"
+                    loading="lazy"
+                >
+
+                <div class="wishlist-product-info">
+
+                    <div class="wishlist-product-name">
+                        ${product.name || "Product"}
+                    </div>
+
+                    <div class="wishlist-price">
+                        KSh ${price.toLocaleString("en-KE")}
+                    </div>
+
+                    <div class="wishlist-actions">
+
+                        <button
+                            class="add-cart-button"
+                            onclick='addToCart(${JSON.stringify(product)})'
+                        >
+                            Add to Cart
+                        </button>
+
+                        <button
+                            class="remove-button"
+                            onclick="removeFromWishlist('${product.id}')"
+                        >
+                            Remove
+                        </button>
+
+                    </div>
+
+                </div>
+
             `;
+
+
+            productsContainer.appendChild(card);
+
+        }
+    );
+
+}
+
+
+async function loadWishlistPage() {
+
+    try {
+
+        const {
+            data,
+            error
+        } = await supabaseClient.auth.getUser();
+
+
+        if (error || !data.user) {
+
+            window.location.href =
+                "login.html?redirect=wishlist.html";
+
+            return;
         }
 
-        function removeFromWishlist(index) {
 
-            wishlist.splice(index, 1);
+        document.getElementById("loadingMessage").style.display =
+            "none";
 
-            saveWishlist();
 
-            renderWishlist();
-        }
+        document.getElementById("wishlistContent").style.display =
+            "grid";
 
-        function addWishlistToCart(index) {
-
-            const product = wishlist[index];
-
-            let cart =
-                JSON.parse(localStorage.getItem("meteurCart")) || [];
-
-            const existingProduct =
-                cart.find(item => item.name === product.name);
-
-            if (existingProduct) {
-                existingProduct.quantity =
-                    (existingProduct.quantity || 1) + 1;
-            } else {
-                cart.push({
-                    name: product.name,
-                    price: Number(product.price || 0),
-                    quantity: 1
-                });
-            }
-
-            localStorage.setItem(
-                "meteurCart",
-                JSON.stringify(cart)
-            );
-
-            if (typeof updateCartCount === "function") {
-                updateCartCount();
-            }
-
-            alert(product.name + " has been added to your cart.");
-        }
 
         renderWishlist();
-    </script>
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        document.getElementById("loadingMessage").style.display =
+            "none";
+
+        showError(
+            "Unable to load your account. Please try again."
+        );
+
+    }
+
+}
+
+
+async function logoutUser() {
+
+    const {
+        error
+    } = await supabaseClient.auth.signOut();
+
+
+    if (error) {
+
+        showError(
+            "Unable to log out. Please try again."
+        );
+
+        return;
+    }
+
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+const searchInput =
+    document.getElementById("searchInput");
+
+
+if (searchInput) {
+
+    searchInput.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Enter") {
+
+                searchProducts();
+
+            }
+
+        }
+    );
+
+}
+
+
+updateCartCount();
+
+loadWishlistPage();
+
+</script>
 
 </body>
 </html>

@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>My Addresses - Meteur Online Shopping</title>
 
     <link rel="stylesheet" href="style.css">
@@ -35,7 +34,6 @@
 
         .addresses-header p {
             margin: 0;
-            opacity: .95;
         }
 
         .addresses-layout {
@@ -48,7 +46,7 @@
         .addresses-card {
             background: white;
             border-radius: 14px;
-            box-shadow: 0 3px 15px rgba(0, 0, 0, .07);
+            box-shadow: 0 3px 15px rgba(0,0,0,.07);
         }
 
         .account-menu {
@@ -83,10 +81,6 @@
             margin-top: 10px;
         }
 
-        .logout-button:hover {
-            background: #fff4f4;
-        }
-
         .addresses-card {
             padding: 30px;
         }
@@ -116,7 +110,6 @@
             border-radius: 7px;
             cursor: pointer;
             font-weight: bold;
-            white-space: nowrap;
         }
 
         .add-button:hover {
@@ -138,7 +131,6 @@
 
         .address-form h3 {
             margin-top: 0;
-            margin-bottom: 20px;
         }
 
         .form-grid {
@@ -179,7 +171,8 @@
         }
 
         .checkbox-group {
-            display: flex;
+            display: flex !important;
+            flex-direction: row !important;
             align-items: center;
             gap: 8px;
         }
@@ -194,24 +187,33 @@
             margin-top: 20px;
         }
 
-        .save-button {
-            border: none;
-            background: #f4511e;
-            color: white;
+        .save-button,
+        .cancel-button {
             padding: 12px 22px;
             border-radius: 7px;
             cursor: pointer;
             font-weight: bold;
         }
 
+        .save-button {
+            border: none;
+            background: #f4511e;
+            color: white;
+        }
+
+        .save-button:hover {
+            background: #d84315;
+        }
+
+        .save-button:disabled {
+            opacity: .6;
+            cursor: not-allowed;
+        }
+
         .cancel-button {
             border: 1px solid #ddd;
             background: white;
             color: #444;
-            padding: 12px 22px;
-            border-radius: 7px;
-            cursor: pointer;
-            font-weight: bold;
         }
 
         .addresses-list {
@@ -223,7 +225,6 @@
             border: 1px solid #e5e5e5;
             border-radius: 10px;
             padding: 20px;
-            position: relative;
         }
 
         .address-item.default {
@@ -256,6 +257,7 @@
             display: flex;
             gap: 8px;
             margin-top: 15px;
+            flex-wrap: wrap;
         }
 
         .address-actions button {
@@ -379,13 +381,9 @@
 
             <div class="header-actions">
 
-                <a href="dashboard.html">
-                    Account
-                </a>
+                <a href="dashboard.html">Account</a>
 
-                <a href="wishlist.html">
-                    ♡ Wishlist
-                </a>
+                <a href="wishlist.html">♡ Wishlist</a>
 
                 <a href="cart.html">
                     🛒 Cart (<span id="cartCount">0</span>)
@@ -436,21 +434,13 @@
 
             <aside class="account-menu">
 
-                <a href="dashboard.html">
-                    🏠 Dashboard
-                </a>
+                <a href="dashboard.html">🏠 Dashboard</a>
 
-                <a href="profile.html">
-                    👤 My Profile
-                </a>
+                <a href="profile.html">👤 My Profile</a>
 
-                <a href="orders.html">
-                    📦 My Orders
-                </a>
+                <a href="orders.html">📦 My Orders</a>
 
-                <a href="wishlist.html">
-                    ♡ Wishlist
-                </a>
+                <a href="wishlist.html">♡ Wishlist</a>
 
                 <a href="addresses.html" class="active">
                     📍 My Addresses
@@ -471,15 +461,11 @@
                 <div class="addresses-title-row">
 
                     <div>
-
-                        <h2>
-                            Delivery Addresses
-                        </h2>
+                        <h2>Delivery Addresses</h2>
 
                         <p>
                             Add and manage the addresses you use for delivery.
                         </p>
-
                     </div>
 
                     <button
@@ -492,16 +478,10 @@
                 </div>
 
 
-                <div
-                    id="message"
-                    class="message"
-                ></div>
+                <div id="message" class="message"></div>
 
 
-                <div
-                    id="addressForm"
-                    class="address-form"
-                >
+                <div id="addressForm" class="address-form">
 
                     <h3 id="formTitle">
                         Add Delivery Address
@@ -572,77 +552,24 @@
                                         Select county
                                     </option>
 
-                                    <option>
-                                        Nairobi
-                                    </option>
-
-                                    <option>
-                                        Mombasa
-                                    </option>
-
-                                    <option>
-                                        Kisumu
-                                    </option>
-
-                                    <option>
-                                        Nakuru
-                                    </option>
-
-                                    <option>
-                                        Kiambu
-                                    </option>
-
-                                    <option>
-                                        Machakos
-                                    </option>
-
-                                    <option>
-                                        Kajiado
-                                    </option>
-
-                                    <option>
-                                        Kirinyaga
-                                    </option>
-
-                                    <option>
-                                        Nyeri
-                                    </option>
-
-                                    <option>
-                                        Murang'a
-                                    </option>
-
-                                    <option>
-                                        Meru
-                                    </option>
-
-                                    <option>
-                                        Embu
-                                    </option>
-
-                                    <option>
-                                        Laikipia
-                                    </option>
-
-                                    <option>
-                                        Kakamega
-                                    </option>
-
-                                    <option>
-                                        Bungoma
-                                    </option>
-
-                                    <option>
-                                        Uasin Gishu
-                                    </option>
-
-                                    <option>
-                                        Kisii
-                                    </option>
-
-                                    <option>
-                                        Other
-                                    </option>
+                                    <option>Nairobi</option>
+                                    <option>Mombasa</option>
+                                    <option>Kisumu</option>
+                                    <option>Nakuru</option>
+                                    <option>Kiambu</option>
+                                    <option>Machakos</option>
+                                    <option>Kajiado</option>
+                                    <option>Kirinyaga</option>
+                                    <option>Nyeri</option>
+                                    <option>Murang'a</option>
+                                    <option>Meru</option>
+                                    <option>Embu</option>
+                                    <option>Laikipia</option>
+                                    <option>Kakamega</option>
+                                    <option>Bungoma</option>
+                                    <option>Uasin Gishu</option>
+                                    <option>Kisii</option>
+                                    <option>Other</option>
 
                                 </select>
 
@@ -766,13 +693,9 @@
                     style="display:none;"
                 >
 
-                    <div class="icon">
-                        📍
-                    </div>
+                    <div class="icon">📍</div>
 
-                    <h3>
-                        No delivery addresses
-                    </h3>
+                    <h3>No delivery addresses</h3>
 
                     <p>
                         Add a delivery address to make checkout easier.
@@ -870,17 +793,12 @@ let editingAddressId = null;
 function updateCartCount() {
 
     const cart =
-        JSON.parse(
-            localStorage.getItem("meteurCart")
-        ) || [];
+        JSON.parse(localStorage.getItem("meteurCart")) || [];
 
     const total =
-        cart.reduce(
-            function(sum, product) {
-                return sum + (product.quantity || 1);
-            },
-            0
-        );
+        cart.reduce(function(sum, product) {
+            return sum + (product.quantity || 1);
+        }, 0);
 
     const cartCount =
         document.getElementById("cartCount");
@@ -893,11 +811,10 @@ function updateCartCount() {
 
 function searchProducts() {
 
-    const input =
-        document.getElementById("searchInput");
-
     const search =
-        input.value.trim();
+        document.getElementById("searchInput")
+        .value
+        .trim();
 
     if (search) {
 
@@ -914,8 +831,7 @@ function showMessage(message, type) {
     const box =
         document.getElementById("message");
 
-    box.textContent =
-        message;
+    box.textContent = message;
 
     box.className =
         "message " + type;
@@ -959,38 +875,45 @@ function closeAddressForm() {
 }
 
 
-function getStoredAddresses() {
+async function loadAddresses() {
 
-    return JSON.parse(
-        localStorage.getItem(
-            "meteurAddresses_" +
-            currentUser.id
-        )
-    ) || [];
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("addresses")
+        .select("*")
+        .eq("user_id", currentUser.id)
+        .order("is_default", {
+            ascending: false
+        })
+        .order("created_at", {
+            ascending: false
+        });
+
+
+    if (error) {
+
+        console.error(error);
+
+        showMessage(
+            "Unable to load your addresses. Please try again.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    renderAddresses(data || []);
 
 }
 
 
-function saveStoredAddresses(addresses) {
-
-    localStorage.setItem(
-        "meteurAddresses_" +
-        currentUser.id,
-        JSON.stringify(addresses)
-    );
-
-}
-
-
-function renderAddresses() {
-
-    const addresses =
-        getStoredAddresses();
-
+function renderAddresses(addresses) {
 
     const list =
         document.getElementById("addressesList");
-
 
     const empty =
         document.getElementById("emptyAddresses");
@@ -999,17 +922,15 @@ function renderAddresses() {
     list.innerHTML = "";
 
 
-    if (addresses.length === 0) {
+    if (!addresses.length) {
 
-        empty.style.display =
-            "block";
+        empty.style.display = "block";
 
         return;
     }
 
 
-    empty.style.display =
-        "none";
+    empty.style.display = "none";
 
 
     addresses.forEach(function(address) {
@@ -1017,27 +938,26 @@ function renderAddresses() {
         const item =
             document.createElement("div");
 
-
         item.className =
             "address-item" +
-            (address.isDefault ? " default" : "");
+            (address.is_default ? " default" : "");
 
 
         item.innerHTML = `
 
             ${
-                address.isDefault
+                address.is_default
                 ? '<span class="address-badge">Default Address</span>'
-                : ''
+                : ""
             }
 
             <h3>
-                ${escapeHTML(address.name)}
+                ${escapeHTML(address.address_name)}
             </h3>
 
             <p>
                 <strong>
-                    ${escapeHTML(address.recipientName)}
+                    ${escapeHTML(address.recipient_name)}
                 </strong>
             </p>
 
@@ -1046,34 +966,39 @@ function renderAddresses() {
             </p>
 
             <p>
-                ${escapeHTML(address.addressLine)},
+                ${escapeHTML(address.address_line)},
                 ${escapeHTML(address.town)},
                 ${escapeHTML(address.county)}
-                ${address.postalCode
-                    ? ", " + escapeHTML(address.postalCode)
+                ${
+                    address.postal_code
+                    ? ", " + escapeHTML(address.postal_code)
                     : ""
                 }
             </p>
 
             ${
-                address.deliveryNote
-                ? `<p>
-                    <strong>Delivery note:</strong>
-                    ${escapeHTML(address.deliveryNote)}
-                   </p>`
+                address.delivery_note
+                ? `
+                    <p>
+                        <strong>Delivery note:</strong>
+                        ${escapeHTML(address.delivery_note)}
+                    </p>
+                `
                 : ""
             }
 
             <div class="address-actions">
 
                 ${
-                    !address.isDefault
-                    ? `<button
-                        class="default-button"
-                        onclick="makeDefault('${address.id}')"
-                       >
-                        Make Default
-                       </button>`
+                    !address.is_default
+                    ? `
+                        <button
+                            class="default-button"
+                            onclick="makeDefault('${address.id}')"
+                        >
+                            Make Default
+                        </button>
+                    `
                     : ""
                 }
 
@@ -1092,7 +1017,6 @@ function renderAddresses() {
                 </button>
 
             </div>
-
         `;
 
 
@@ -1119,29 +1043,33 @@ document
     .getElementById("addressFormElement")
     .addEventListener(
         "submit",
-        function(event) {
+        async function(event) {
 
             event.preventDefault();
 
 
-            const addresses =
-                getStoredAddresses();
+            const saveButton =
+                document.getElementById("saveButton");
 
 
-            const address = {
+            saveButton.disabled = true;
 
-                id:
-                    editingAddressId ||
-                    "address-" +
-                    Date.now(),
+            saveButton.textContent =
+                "Saving...";
 
-                name:
+
+            const addressData = {
+
+                user_id:
+                    currentUser.id,
+
+                address_name:
                     document
                         .getElementById("addressName")
                         .value
                         .trim(),
 
-                recipientName:
+                recipient_name:
                     document
                         .getElementById("recipientName")
                         .value
@@ -1164,25 +1092,25 @@ document
                         .value
                         .trim(),
 
-                addressLine:
+                address_line:
                     document
                         .getElementById("addressLine")
                         .value
                         .trim(),
 
-                postalCode:
+                postal_code:
                     document
                         .getElementById("postalCode")
                         .value
-                        .trim(),
+                        .trim() || null,
 
-                deliveryNote:
+                delivery_note:
                     document
                         .getElementById("deliveryNote")
                         .value
-                        .trim(),
+                        .trim() || null,
 
-                isDefault:
+                is_default:
                     document
                         .getElementById("isDefault")
                         .checked
@@ -1190,107 +1118,172 @@ document
             };
 
 
-            if (address.isDefault) {
+            try {
 
-                addresses.forEach(
-                    function(item) {
-                        item.isDefault = false;
+                if (addressData.is_default) {
+
+                    const {
+                        error: defaultError
+                    } =
+                    await supabaseClient
+                        .from("addresses")
+                        .update({
+                            is_default: false
+                        })
+                        .eq("user_id", currentUser.id);
+
+
+                    if (defaultError) {
+                        throw defaultError;
                     }
-                );
 
-            }
-
-
-            const existingIndex =
-                addresses.findIndex(
-                    function(item) {
-                        return item.id === address.id;
-                    }
-                );
-
-
-            if (existingIndex >= 0) {
-
-                addresses[existingIndex] =
-                    address;
-
-            } else {
-
-                if (addresses.length === 0) {
-                    address.isDefault = true;
                 }
 
-                addresses.push(address);
+
+                let result;
+
+
+                if (editingAddressId) {
+
+                    result =
+                        await supabaseClient
+                            .from("addresses")
+                            .update(addressData)
+                            .eq("id", editingAddressId)
+                            .eq("user_id", currentUser.id);
+
+
+                } else {
+
+                    result =
+                        await supabaseClient
+                            .from("addresses")
+                            .insert(addressData);
+
+                }
+
+
+                if (result.error) {
+                    throw result.error;
+                }
+
+
+                closeAddressForm();
+
+                await loadAddresses();
+
+
+                showMessage(
+                    editingAddressId
+                        ? "Address updated successfully."
+                        : "Address saved successfully.",
+                    "success"
+                );
+
+
+            } catch (error) {
+
+                console.error(error);
+
+                showMessage(
+                    "Unable to save the address. Please try again.",
+                    "error"
+                );
+
+            } finally {
+
+                saveButton.disabled = false;
+
+                saveButton.textContent =
+                    "Save Address";
 
             }
-
-
-            saveStoredAddresses(addresses);
-
-
-            closeAddressForm();
-
-            renderAddresses();
-
-
-            showMessage(
-                "Your delivery address has been saved.",
-                "success"
-            );
 
         }
     );
 
 
-function editAddress(id) {
+async function editAddress(id) {
 
-    const addresses =
-        getStoredAddresses();
+    const {
+        data,
+        error
+    } =
+    await supabaseClient
+        .from("addresses")
+        .select("*")
+        .eq("id", id)
+        .eq("user_id", currentUser.id)
+        .single();
 
 
-    const address =
-        addresses.find(
-            function(item) {
-                return item.id === id;
-            }
+    if (error || !data) {
+
+        showMessage(
+            "Unable to load this address.",
+            "error"
         );
 
-
-    if (!address) {
         return;
     }
 
 
     editingAddressId =
-        id;
+        data.id;
 
 
-    document.getElementById("addressName").value =
-        address.name || "";
+    document
+        .getElementById("addressName")
+        .value =
+        data.address_name || "";
 
-    document.getElementById("recipientName").value =
-        address.recipientName || "";
 
-    document.getElementById("phone").value =
-        address.phone || "";
+    document
+        .getElementById("recipientName")
+        .value =
+        data.recipient_name || "";
 
-    document.getElementById("county").value =
-        address.county || "";
 
-    document.getElementById("town").value =
-        address.town || "";
+    document
+        .getElementById("phone")
+        .value =
+        data.phone || "";
 
-    document.getElementById("addressLine").value =
-        address.addressLine || "";
 
-    document.getElementById("postalCode").value =
-        address.postalCode || "";
+    document
+        .getElementById("county")
+        .value =
+        data.county || "";
 
-    document.getElementById("deliveryNote").value =
-        address.deliveryNote || "";
 
-    document.getElementById("isDefault").checked =
-        Boolean(address.isDefault);
+    document
+        .getElementById("town")
+        .value =
+        data.town || "";
+
+
+    document
+        .getElementById("addressLine")
+        .value =
+        data.address_line || "";
+
+
+    document
+        .getElementById("postalCode")
+        .value =
+        data.postal_code || "";
+
+
+    document
+        .getElementById("deliveryNote")
+        .value =
+        data.delivery_note || "";
+
+
+    document
+        .getElementById("isDefault")
+        .checked =
+        Boolean(data.is_default);
 
 
     openAddressForm();
@@ -1298,53 +1291,67 @@ function editAddress(id) {
 }
 
 
-function makeDefault(id) {
+async function makeDefault(id) {
 
-    const addresses =
-        getStoredAddresses();
+    try {
+
+        const {
+            error: clearError
+        } =
+        await supabaseClient
+            .from("addresses")
+            .update({
+                is_default: false
+            })
+            .eq("user_id", currentUser.id);
 
 
-    addresses.forEach(
-        function(address) {
-
-            address.isDefault =
-                address.id === id;
-
+        if (clearError) {
+            throw clearError;
         }
-    );
 
 
-    saveStoredAddresses(addresses);
+        const {
+            error
+        } =
+        await supabaseClient
+            .from("addresses")
+            .update({
+                is_default: true
+            })
+            .eq("id", id)
+            .eq("user_id", currentUser.id);
 
-    renderAddresses();
+
+        if (error) {
+            throw error;
+        }
 
 
-    showMessage(
-        "Default delivery address updated.",
-        "success"
-    );
+        await loadAddresses();
+
+
+        showMessage(
+            "Default delivery address updated.",
+            "success"
+        );
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        showMessage(
+            "Unable to update the default address.",
+            "error"
+        );
+
+    }
 
 }
 
 
-function deleteAddress(id) {
-
-    const addresses =
-        getStoredAddresses();
-
-
-    const address =
-        addresses.find(
-            function(item) {
-                return item.id === id;
-            }
-        );
-
-
-    if (!address) {
-        return;
-    }
-
+async function deleteAddress(id) {
 
     const confirmed =
         confirm(
@@ -1357,34 +1364,89 @@ function deleteAddress(id) {
     }
 
 
-    let updated =
-        addresses.filter(
-            function(item) {
-                return item.id !== id;
+    try {
+
+        const {
+            data: address,
+            error: findError
+        } =
+        await supabaseClient
+            .from("addresses")
+            .select("is_default")
+            .eq("id", id)
+            .eq("user_id", currentUser.id)
+            .single();
+
+
+        if (findError) {
+            throw findError;
+        }
+
+
+        const {
+            error
+        } =
+        await supabaseClient
+            .from("addresses")
+            .delete()
+            .eq("id", id)
+            .eq("user_id", currentUser.id);
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        if (address && address.is_default) {
+
+            const {
+                data: remaining
+            } =
+            await supabaseClient
+                .from("addresses")
+                .select("id")
+                .eq("user_id", currentUser.id)
+                .order("created_at", {
+                    ascending: true
+                })
+                .limit(1);
+
+
+            if (remaining && remaining.length > 0) {
+
+                await supabaseClient
+                    .from("addresses")
+                    .update({
+                        is_default: true
+                    })
+                    .eq("id", remaining[0].id)
+                    .eq("user_id", currentUser.id);
+
             }
+
+        }
+
+
+        await loadAddresses();
+
+
+        showMessage(
+            "Address deleted successfully.",
+            "success"
         );
 
 
-    if (
-        address.isDefault &&
-        updated.length > 0
-    ) {
+    } catch (error) {
 
-        updated[0].isDefault =
-            true;
+        console.error(error);
+
+        showMessage(
+            "Unable to delete the address.",
+            "error"
+        );
 
     }
-
-
-    saveStoredAddresses(updated);
-
-    renderAddresses();
-
-
-    showMessage(
-        "Address deleted successfully.",
-        "success"
-    );
 
 }
 
@@ -1397,7 +1459,7 @@ async function loadAddressesPage() {
             data,
             error
         } =
-            await supabaseClient.auth.getUser();
+        await supabaseClient.auth.getUser();
 
 
         if (error || !data.user) {
@@ -1425,13 +1487,12 @@ async function loadAddressesPage() {
             "grid";
 
 
-        renderAddresses();
+        await loadAddresses();
 
 
     } catch (error) {
 
         console.error(error);
-
 
         document
             .getElementById("loadingMessage")
@@ -1448,7 +1509,7 @@ async function logoutUser() {
     const {
         error
     } =
-        await supabaseClient.auth.signOut();
+    await supabaseClient.auth.signOut();
 
 
     if (error) {
@@ -1479,9 +1540,7 @@ if (searchInput) {
         function(event) {
 
             if (event.key === "Enter") {
-
                 searchProducts();
-
             }
 
         }

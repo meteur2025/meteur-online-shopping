@@ -6,9 +6,6 @@
 
     <title>Page Not Found - Meteur Online Shopping</title>
 
-    <meta name="description"
-          content="The page you are looking for could not be found on Meteur Online Shopping.">
-
     <link rel="stylesheet" href="style.css">
 
     <style>
@@ -17,36 +14,50 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 50px 20px;
+            padding: 60px 20px;
         }
 
         .error-card {
-            background: white;
-            max-width: 650px;
             width: 100%;
+            max-width: 750px;
+            background: white;
+            border-radius: 16px;
+            padding: 50px 35px;
             text-align: center;
-            padding: 50px 30px;
-            border-radius: 10px;
-            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 18px rgba(0, 0, 0, .08);
         }
 
-        .error-number {
-            font-size: 100px;
+        .error-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background: #fff3ed;
+            color: #f4511e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+        }
+
+        .error-code {
+            color: #f4511e;
+            font-size: 76px;
             line-height: 1;
             font-weight: 800;
-            color: #ff7900;
-            margin-bottom: 15px;
+            margin: 0 0 10px;
         }
 
         .error-card h1 {
             font-size: 32px;
-            margin-bottom: 15px;
+            margin: 0 0 15px;
         }
 
         .error-card p {
+            max-width: 570px;
+            margin: 0 auto 25px;
             color: #666;
-            line-height: 1.7;
-            margin-bottom: 25px;
+            line-height: 1.8;
         }
 
         .error-actions {
@@ -54,64 +65,90 @@
             justify-content: center;
             gap: 12px;
             flex-wrap: wrap;
+            margin-bottom: 30px;
         }
 
-        .error-button {
+        .primary-button,
+        .secondary-button {
             display: inline-block;
-            padding: 13px 22px;
-            border-radius: 5px;
+            padding: 13px 25px;
+            border-radius: 7px;
             text-decoration: none;
             font-weight: bold;
         }
 
-        .home-button {
-            background: #ff7900;
+        .primary-button {
+            background: #f4511e;
             color: white;
         }
 
-        .home-button:hover {
-            background: #e86f00;
-        }
-
-        .shop-button {
-            border: 1px solid #ddd;
+        .secondary-button {
+            background: #f2f2f2;
             color: #333;
-            background: white;
         }
 
-        .shop-button:hover {
-            background: #f5f5f5;
+        .quick-links {
+            border-top: 1px solid #eee;
+            padding-top: 25px;
         }
 
-        .error-links {
-            margin-top: 30px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
+        .quick-links h2 {
+            font-size: 20px;
+            margin-bottom: 18px;
         }
 
-        .error-links a {
-            color: #f57224;
+        .quick-link-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .quick-link {
+            background: #fafafa;
+            border: 1px solid #eee;
+            border-radius: 9px;
+            padding: 15px 10px;
             text-decoration: none;
+            color: #333;
+            transition: .2s;
+        }
+
+        .quick-link:hover {
+            border-color: #f4511e;
+            color: #f4511e;
+        }
+
+        .quick-link span {
+            display: block;
+            font-size: 25px;
+            margin-bottom: 7px;
+        }
+
+        .search-help {
+            margin-top: 25px;
+            color: #777;
             font-size: 14px;
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 650px) {
+            .error-page {
+                padding: 35px 15px;
+            }
+
             .error-card {
                 padding: 40px 20px;
             }
 
-            .error-number {
-                font-size: 75px;
+            .error-code {
+                font-size: 60px;
             }
 
             .error-card h1 {
-                font-size: 26px;
+                font-size: 27px;
             }
 
-            .error-button {
-                width: 100%;
+            .quick-link-grid {
+                grid-template-columns: 1fr 1fr;
             }
         }
     </style>
@@ -119,209 +156,300 @@
 
 <body>
 
-    <!-- Top Bar -->
-    <div class="top-bar">
-        <div class="container">
+<header>
+    <div class="container">
 
-            <span>Welcome to Meteur Online Shopping</span>
+        <div class="top-bar">
 
-            <div>
-                <a href="help.html">Help Center</a>
-                <a href="track-order.html">Track Order</a>
-                <a href="sell.html">Sell on Meteur</a>
+            <div class="logo">
+                <a href="index.html">🛒 Meteur</a>
             </div>
 
-        </div>
-    </div>
-
-    <!-- Header -->
-    <header class="main-header">
-
-        <div class="container header-content">
-
-            <a href="index.html" class="logo">
-                <i class="fas fa-shopping-bag"></i>
-                <span>Meteur</span>
-                <small>ONLINE SHOPPING</small>
-            </a>
-
-            <form class="search-box" id="searchForm">
+            <div class="search-box">
 
                 <input
-                    type="search"
+                    type="text"
                     id="searchInput"
-                    placeholder="Search products, brands and categories"
+                    placeholder="Search products..."
                 >
 
-                <button type="submit">
-                    <i class="fas fa-search"></i>
+                <button onclick="searchProducts()">
+                    Search
                 </button>
 
-            </form>
+            </div>
 
             <div class="header-actions">
 
                 <a href="login.html">
-                    <i class="fas fa-user"></i>
-                    <span>Account</span>
+                    Account
                 </a>
 
                 <a href="wishlist.html">
-                    <i class="fas fa-heart"></i>
-                    <span>Wishlist</span>
+                    ♡ Wishlist
                 </a>
 
                 <a href="cart.html">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span>Cart <b id="cartCount">0</b></span>
+                    🛒 Cart (<span id="cartCount">0</span>)
                 </a>
 
             </div>
 
         </div>
 
-    </header>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="shop.html">Shop</a>
+            <a href="categories.html">Categories</a>
+            <a href="deals.html">Deals</a>
+            <a href="new-arrivals.html">New Arrivals</a>
+            <a href="sell.html">Sell on Meteur</a>
+        </nav>
 
-    <!-- Navigation -->
-    <nav class="main-nav">
+    </div>
+</header>
 
-        <div class="container nav-content">
 
-            <a href="categories.html">
-                <i class="fas fa-bars"></i> Categories
+<main class="error-page">
+
+    <section class="error-card">
+
+        <div class="error-icon">
+            🔍
+        </div>
+
+        <div class="error-code">
+            404
+        </div>
+
+        <h1>
+            Page Not Found
+        </h1>
+
+        <p>
+            Sorry, the page you are looking for doesn't exist,
+            may have been moved, or the address may be incorrect.
+            Don't worry — there are plenty of products waiting
+            for you on Meteur.
+        </p>
+
+
+        <div class="error-actions">
+
+            <a href="index.html" class="primary-button">
+                Back to Home
             </a>
 
-            <a href="index.html">Home</a>
-
-            <a href="shop.html">Shop</a>
-
-            <a href="deals.html">Flash Deals</a>
-
-            <a href="categories.html">Categories</a>
-
-            <a href="new-arrivals.html">New Arrivals</a>
-
-            <a href="shop.html">Popular</a>
+            <a href="shop.html" class="secondary-button">
+                Start Shopping
+            </a>
 
         </div>
 
-    </nav>
 
-    <!-- 404 Content -->
-    <main class="error-page">
+        <div class="quick-links">
 
-        <div class="error-card">
+            <h2>
+                Quick Links
+            </h2>
 
-            <div class="error-number">
-                404
-            </div>
+            <div class="quick-link-grid">
 
-            <h1>Page Not Found</h1>
+                <a href="categories.html" class="quick-link">
 
-            <p>
-                Sorry, the page you are looking for does not exist,
-                may have been moved, or the link may be incorrect.
-            </p>
+                    <span>🛍️</span>
 
-            <div class="error-actions">
-
-                <a href="index.html"
-                   class="error-button home-button">
-                    Back to Home
-                </a>
-
-                <a href="shop.html"
-                   class="error-button shop-button">
-                    Start Shopping
-                </a>
-
-            </div>
-
-            <div class="error-links">
-
-                <a href="categories.html">
                     Categories
+
                 </a>
 
-                <a href="deals.html">
-                    Flash Deals
+
+                <a href="deals.html" class="quick-link">
+
+                    <span>🔥</span>
+
+                    Deals
+
                 </a>
 
-                <a href="contact.html">
-                    Contact Us
+
+                <a href="new-arrivals.html" class="quick-link">
+
+                    <span>✨</span>
+
+                    New Arrivals
+
                 </a>
 
-                <a href="help.html">
+
+                <a href="help.html" class="quick-link">
+
+                    <span>❓</span>
+
                     Help Center
+
                 </a>
 
             </div>
 
         </div>
 
-    </main>
 
-    <!-- Footer -->
-    <footer class="footer">
+        <p class="search-help">
+            You can also use the search bar above to find what
+            you're looking for.
+        </p>
 
-        <div class="container footer-grid">
+    </section>
+
+</main>
+
+
+<footer>
+
+    <div class="container">
+
+        <div class="footer-grid">
 
             <div>
 
-                <h3>Meteur Online Shopping</h3>
+                <h3>
+                    Meteur
+                </h3>
 
                 <p>
-                    A Kenyan online shopping marketplace offering
-                    products across multiple categories.
+                    Your trusted Kenyan online shopping marketplace.
                 </p>
 
             </div>
 
+
             <div>
 
-                <h3>Customer Service</h3>
+                <h4>
+                    Shopping
+                </h4>
 
-                <a href="help.html">Help Center</a>
-                <a href="contact.html">Contact Us</a>
-                <a href="track-order.html">Track Order</a>
-                <a href="returns.html">Returns & Refunds</a>
+                <a href="shop.html">Shop</a><br>
+                <a href="categories.html">Categories</a><br>
+                <a href="deals.html">Deals</a><br>
+                <a href="new-arrivals.html">New Arrivals</a>
 
             </div>
 
+
             <div>
 
-                <h3>Shopping</h3>
+                <h4>
+                    Customer Service
+                </h4>
 
-                <a href="shop.html">Shop Products</a>
-                <a href="categories.html">Categories</a>
-                <a href="deals.html">Flash Deals</a>
-                <a href="wishlist.html">Wishlist</a>
+                <a href="help.html">Help Center</a><br>
+                <a href="faq.html">FAQ</a><br>
+                <a href="track-order.html">Track Order</a><br>
+                <a href="returns.html">Returns</a><br>
+                <a href="shipping.html">Shipping</a>
 
             </div>
 
+
             <div>
 
-                <h3>Contact</h3>
+                <h4>
+                    Company
+                </h4>
 
-                <p>📞 0711842260</p>
-                <p>✉️ daghlusmeteur@gmail.com</p>
-                <p>🇰🇪 Kenya</p>
+                <a href="about.html">About Us</a><br>
+                <a href="sell.html">Sell on Meteur</a><br>
+                <a href="privacy.html">Privacy Policy</a><br>
+                <a href="terms.html">Terms & Conditions</a>
 
             </div>
 
         </div>
 
-        <div class="footer-bottom">
 
-            <p>
-                © 2026 Meteur Online Shopping. All rights reserved.
-            </p>
+        <p class="copyright">
+            © 2026 Meteur Online Shopping. All rights reserved.
+        </p>
 
-        </div>
+    </div>
 
-    </footer>
+</footer>
 
-    <script src="script.js"></script>
+
+<script src="script.js"></script>
+
+<script>
+
+function updateCartCount() {
+
+    const cart =
+        JSON.parse(
+            localStorage.getItem("meteurCart")
+        ) || [];
+
+    const total =
+        cart.reduce(
+            function(sum, product) {
+                return sum + (product.quantity || 1);
+            },
+            0
+        );
+
+    const cartCount =
+        document.getElementById("cartCount");
+
+    if (cartCount) {
+        cartCount.textContent = total;
+    }
+}
+
+
+function searchProducts() {
+
+    const input =
+        document.getElementById("searchInput");
+
+    if (!input) {
+        return;
+    }
+
+    const search =
+        input.value.trim();
+
+    if (search) {
+
+        window.location.href =
+            "shop.html?search=" +
+            encodeURIComponent(search);
+
+    }
+}
+
+
+const searchInput =
+    document.getElementById("searchInput");
+
+if (searchInput) {
+
+    searchInput.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Enter") {
+                searchProducts();
+            }
+
+        }
+    );
+
+}
+
+
+updateCartCount();
+
+</script>
 
 </body>
 </html>

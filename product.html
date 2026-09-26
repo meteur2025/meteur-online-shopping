@@ -3,298 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Samsung Galaxy Smartphone - Meteur Online Shopping</title>
+
+    <title>Product Details | Meteur Online Shopping</title>
+
     <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
 
     <style>
         .product-page {
+            padding: 40px 5%;
+            background: #f7f7f7;
+            min-height: 70vh;
+        }
+
+        .product-container {
             max-width: 1200px;
-            margin: 0 auto;
-            padding: 35px 20px;
-        }
-
-        .breadcrumb {
-            margin-bottom: 25px;
-            color: #666;
-            font-size: 14px;
-        }
-
-        .breadcrumb a {
-            color: #f4511e;
-            text-decoration: none;
-        }
-
-        .product-main {
+            margin: auto;
+            background: #fff;
+            border-radius: 12px;
+            padding: 30px;
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 45px;
-            background: #fff;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 2px 10px rgba(0,0,0,.06);
         }
 
-        .gallery {
-            display: grid;
-            grid-template-columns: 90px 1fr;
-            gap: 15px;
-        }
-
-        .thumbnails {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .thumbnail {
-            width: 82px;
-            height: 82px;
-            object-fit: cover;
-            border: 2px solid transparent;
-            border-radius: 8px;
-            cursor: pointer;
-            background: #f5f5f5;
-        }
-
-        .thumbnail.active {
-            border-color: #f4511e;
-        }
-
-        .main-image-box {
-            width: 100%;
-            min-height: 500px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #f7f7f7;
-            border-radius: 10px;
-            overflow: hidden;
+        .product-gallery {
+            position: relative;
         }
 
         .main-image {
             width: 100%;
             height: 500px;
             object-fit: cover;
+            border-radius: 10px;
+            background: #f3f3f3;
         }
 
-        .product-details h1 {
-            font-size: 30px;
-            margin: 0 0 12px;
+        .thumbnail-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            overflow-x: auto;
         }
 
-        .product-rating {
-            margin-bottom: 20px;
-            color: #f59e0b;
+        .thumbnail {
+            width: 75px;
+            height: 75px;
+            object-fit: cover;
+            border-radius: 7px;
+            cursor: pointer;
+            border: 2px solid transparent;
         }
 
-        .product-price {
+        .thumbnail.active {
+            border-color: #ff6b00;
+        }
+
+        .product-info h1 {
             font-size: 32px;
-            font-weight: bold;
-            color: #f4511e;
-            margin: 15px 0;
+            margin: 8px 0 15px;
+        }
+
+        .category {
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .rating {
+            color: #f5a623;
+            margin-bottom: 20px;
+        }
+
+        .price {
+            font-size: 32px;
+            font-weight: 800;
+            color: #222;
         }
 
         .old-price {
-            color: #888;
-            font-size: 17px;
+            color: #999;
             text-decoration: line-through;
             margin-left: 10px;
-        }
-
-        .discount {
-            display: inline-block;
-            background: #ffe0d5;
-            color: #d84315;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 13px;
-            font-weight: bold;
-            margin-left: 8px;
+            font-size: 16px;
         }
 
         .description {
+            margin: 25px 0;
             color: #555;
             line-height: 1.7;
-            margin: 20px 0;
         }
 
         .stock {
-            color: #16803c;
-            font-weight: bold;
+            font-weight: 700;
             margin-bottom: 20px;
         }
 
-        .quantity-area {
+        .quantity-box {
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin: 20px 0;
+            gap: 10px;
+            margin-bottom: 20px;
         }
 
-        .quantity-control {
-            display: flex;
-            align-items: center;
+        .quantity-box button {
+            width: 38px;
+            height: 38px;
             border: 1px solid #ddd;
-            border-radius: 6px;
-            overflow: hidden;
-        }
-
-        .quantity-control button {
-            width: 40px;
-            height: 40px;
-            border: none;
-            background: #f5f5f5;
-            font-size: 20px;
+            background: #fff;
             cursor: pointer;
+            font-size: 20px;
+            border-radius: 5px;
         }
 
-        .quantity-control input {
-            width: 55px;
-            height: 40px;
-            border: none;
+        .quantity-box input {
+            width: 60px;
+            height: 38px;
             text-align: center;
-            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
         }
 
         .action-buttons {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            display: flex;
             gap: 12px;
-            margin-top: 20px;
+            flex-wrap: wrap;
         }
 
         .action-buttons button {
-            padding: 14px;
+            padding: 13px 22px;
             border-radius: 7px;
+            border: none;
             cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
+            font-weight: 700;
         }
 
-        .add-button {
-            background: white;
-            color: #f4511e;
-            border: 2px solid #f4511e;
-        }
-
-        .buy-button {
-            background: #f4511e;
+        .add-cart {
+            background: #ff6b00;
             color: white;
-            border: 2px solid #f4511e;
+        }
+
+        .buy-now {
+            background: #222;
+            color: white;
         }
 
         .wishlist {
-            width: 100%;
-            margin-top: 12px;
-            padding: 13px;
             background: white;
-            border: 1px solid #ddd;
-            border-radius: 7px;
-            cursor: pointer;
-            font-size: 15px;
+            border: 1px solid #ddd !important;
         }
 
-        .product-features {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-top: 30px;
-        }
-
-        .feature-box {
-            padding: 18px;
-            border: 1px solid #eee;
-            border-radius: 8px;
+        .product-loading,
+        .product-error {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 50px;
+            background: white;
             text-align: center;
-        }
-
-        .feature-box strong {
-            display: block;
-            margin-bottom: 6px;
-        }
-
-        .related {
-            margin-top: 45px;
-        }
-
-        .related h2 {
-            margin-bottom: 20px;
-        }
-
-        .related-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-        }
-
-        .related-card {
-            background: white;
             border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
         }
 
-        .related-card img {
-            width: 100%;
-            height: 210px;
-            object-fit: cover;
+        .product-error {
+            color: #b00020;
         }
 
-        .related-info {
-            padding: 15px;
+        .product-extra {
+            max-width: 1200px;
+            margin: 25px auto 0;
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
         }
 
-        .related-info h3 {
-            font-size: 16px;
-            margin: 0 0 8px;
-        }
-
-        .related-price {
-            color: #f4511e;
-            font-weight: bold;
+        .product-extra h2 {
+            margin-bottom: 15px;
         }
 
         @media (max-width: 850px) {
-            .product-main {
+            .product-container {
                 grid-template-columns: 1fr;
+                gap: 25px;
+                padding: 20px;
             }
 
-            .related-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .main-image {
+                height: 400px;
+            }
+
+            .product-info h1 {
+                font-size: 26px;
             }
         }
 
-        @media (max-width: 550px) {
-            .gallery {
-                grid-template-columns: 1fr;
-            }
-
-            .thumbnails {
-                order: 2;
-                flex-direction: row;
-                overflow-x: auto;
-            }
-
-            .main-image-box,
+        @media (max-width: 500px) {
             .main-image {
-                height: 380px;
-                min-height: 380px;
+                height: 300px;
             }
 
-            .product-details h1 {
-                font-size: 24px;
-            }
-
-            .action-buttons {
-                grid-template-columns: 1fr;
-            }
-
-            .product-features {
-                grid-template-columns: 1fr;
-            }
-
-            .related-grid {
-                grid-template-columns: 1fr;
+            .product-page {
+                padding: 25px 4%;
             }
         }
     </style>
@@ -302,459 +212,670 @@
 
 <body>
 
-<header>
-    <div class="container">
+<header class="site-header">
 
-        <div class="top-bar">
+    <div class="header-main">
 
-            <div class="logo">
-                <a href="index.html">🛒 Meteur</a>
-            </div>
+        <a href="index.html" class="logo">
+            Meteur
+        </a>
 
-            <div class="search-box">
-                <input
-                    type="text"
-                    id="searchInput"
-                    placeholder="Search products..."
-                >
-                <button onclick="searchProducts()">Search</button>
-            </div>
+        <div class="header-search">
 
-            <div class="header-actions">
-                <a href="login.html">Account</a>
-                <a href="wishlist.html">♡ Wishlist</a>
-                <a href="cart.html">
-                    🛒 Cart (<span id="cartCount">0</span>)
-                </a>
-            </div>
+            <input
+                type="text"
+                id="headerSearch"
+                placeholder="Search products..."
+            >
+
+            <button onclick="performSearch()">
+                Search
+            </button>
 
         </div>
 
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="shop.html">Shop</a>
-            <a href="categories.html">Categories</a>
-            <a href="deals.html">Deals</a>
-            <a href="new-arrivals.html">New Arrivals</a>
-            <a href="sell.html">Sell on Meteur</a>
-        </nav>
+        <div class="header-actions">
+
+            <a href="login.html">Account</a>
+
+            <a href="wishlist.html">
+                Wishlist
+            </a>
+
+            <a href="cart.html">
+                Cart (<span id="cartCount">0</span>)
+            </a>
+
+        </div>
 
     </div>
+
+    <nav class="main-nav">
+
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="categories.html">Categories</a>
+        <a href="deals.html">Deals</a>
+        <a href="new-arrivals.html">New Arrivals</a>
+
+    </nav>
+
 </header>
 
 <main class="product-page">
 
-    <div class="breadcrumb">
-        <a href="index.html">Home</a> /
-        <a href="shop.html">Shop</a> /
-        Electronics /
-        Samsung Galaxy Smartphone
+    <div id="loading" class="product-loading">
+        <h2>Loading product...</h2>
+        <p>Please wait.</p>
     </div>
 
-    <section class="product-main">
+    <div id="productContainer" style="display:none;">
 
-        <!-- PRODUCT GALLERY -->
-        <div class="gallery">
+        <div class="product-container">
 
-            <div class="thumbnails">
-
-                <img
-                    class="thumbnail active"
-                    src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80"
-                    alt="Samsung smartphone front"
-                    onclick="changeImage(this.src, this)"
-                >
+            <div class="product-gallery">
 
                 <img
-                    class="thumbnail"
-                    src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=800&q=80"
-                    alt="Smartphone"
-                    onclick="changeImage(this.src, this)"
-                >
-
-                <img
-                    class="thumbnail"
-                    src="https://images.unsplash.com/photo-1565849904461-04a58ad377e0?auto=format&fit=crop&w=800&q=80"
-                    alt="Smartphone display"
-                    onclick="changeImage(this.src, this)"
-                >
-
-                <img
-                    class="thumbnail"
-                    src="https://images.unsplash.com/photo-1512499617640-c2f999098c01?auto=format&fit=crop&w=800&q=80"
-                    alt="Mobile phone"
-                    onclick="changeImage(this.src, this)"
-                >
-
-            </div>
-
-            <div class="main-image-box">
-                <img
-                    id="mainProductImage"
+                    id="mainImage"
                     class="main-image"
-                    src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=1000&q=85"
-                    alt="Samsung Galaxy Smartphone"
+                    src=""
+                    alt="Product"
                 >
+
+                <div
+                    id="thumbnailRow"
+                    class="thumbnail-row"
+                ></div>
+
             </div>
 
-        </div>
+            <div class="product-info">
 
-        <!-- PRODUCT INFORMATION -->
-        <div class="product-details">
+                <div id="productCategory" class="category"></div>
 
-            <h1>Samsung Galaxy Smartphone</h1>
+                <h1 id="productName"></h1>
 
-            <div class="product-rating">
-                ★★★★★
-                <span style="color:#666;">
-                    4.8 (24 customer reviews)
-                </span>
-            </div>
+                <div id="productRating" class="rating"></div>
 
-            <div class="product-price">
-                KSh 28,999
+                <div>
 
-                <span class="old-price">
-                    KSh 32,000
-                </span>
+                    <span id="productPrice" class="price"></span>
 
-                <span class="discount">
-                    9% OFF
-                </span>
-            </div>
+                    <span
+                        id="productOldPrice"
+                        class="old-price"
+                    ></span>
 
-            <p class="description">
-                Experience smooth performance, a bright display,
-                powerful cameras and reliable battery life with this
-                modern smartphone. Suitable for everyday communication,
-                entertainment, photography, social media and work.
-            </p>
+                </div>
 
-            <div class="stock">
-                ✓ In Stock
-            </div>
+                <p
+                    id="productDescription"
+                    class="description"
+                ></p>
 
-            <div>
-                <strong>Product Details</strong>
+                <div
+                    id="productStock"
+                    class="stock"
+                ></div>
 
-                <ul>
-                    <li>Modern Android smartphone</li>
-                    <li>High-quality display</li>
-                    <li>Powerful camera system</li>
-                    <li>Long-lasting battery</li>
-                    <li>Fast and reliable performance</li>
-                </ul>
-            </div>
+                <div class="quantity-box">
 
-            <div class="quantity-area">
-
-                <strong>Quantity:</strong>
-
-                <div class="quantity-control">
-
-                    <button onclick="decreaseQuantity()">−</button>
+                    <button onclick="changeQuantity(-1)">
+                        −
+                    </button>
 
                     <input
                         id="quantity"
                         type="number"
                         value="1"
                         min="1"
-                        max="10"
                     >
 
-                    <button onclick="increaseQuantity()">+</button>
+                    <button onclick="changeQuantity(1)">
+                        +
+                    </button>
 
                 </div>
 
-            </div>
+                <div class="action-buttons">
 
-            <div class="action-buttons">
+                    <button
+                        class="add-cart"
+                        onclick="addToCart()"
+                    >
+                        Add to Cart
+                    </button>
 
-                <button
-                    class="add-button"
-                    onclick="addProductToCart()">
-                    🛒 Add to Cart
-                </button>
+                    <button
+                        class="buy-now"
+                        onclick="buyNow()"
+                    >
+                        Buy Now
+                    </button>
 
-                <button
-                    class="buy-button"
-                    onclick="buyNow()">
-                    Buy Now
-                </button>
+                    <button
+                        class="wishlist"
+                        onclick="addToWishlist()"
+                    >
+                        ♡ Wishlist
+                    </button>
 
-            </div>
-
-            <button
-                class="wishlist"
-                onclick="addToWishlist()">
-                ♡ Add to Wishlist
-            </button>
-
-            <div class="product-features">
-
-                <div class="feature-box">
-                    <strong>🚚 Delivery</strong>
-                    <span>Fast delivery across Kenya</span>
-                </div>
-
-                <div class="feature-box">
-                    <strong>🔄 Returns</strong>
-                    <span>Easy return process</span>
-                </div>
-
-                <div class="feature-box">
-                    <strong>🔒 Secure</strong>
-                    <span>Secure checkout</span>
                 </div>
 
             </div>
 
         </div>
 
-    </section>
+        <div class="product-extra">
 
-    <!-- RELATED PRODUCTS -->
+            <h2>Product Information</h2>
 
-    <section class="related">
-
-        <h2>You May Also Like</h2>
-
-        <div class="related-grid">
-
-            <div class="related-card">
-                <img
-                    src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80"
-                    alt="Wireless headphones"
-                >
-
-                <div class="related-info">
-                    <h3>Premium Wireless Headphones</h3>
-                    <div class="related-price">KSh 4,999</div>
-                </div>
-            </div>
-
-            <div class="related-card">
-                <img
-                    src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80"
-                    alt="Smart watch"
-                >
-
-                <div class="related-info">
-                    <h3>Smart Fitness Watch</h3>
-                    <div class="related-price">KSh 6,499</div>
-                </div>
-            </div>
-
-            <div class="related-card">
-                <img
-                    src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=800&q=80"
-                    alt="Laptop"
-                >
-
-                <div class="related-info">
-                    <h3>Modern Laptop Computer</h3>
-                    <div class="related-price">KSh 69,999</div>
-                </div>
-            </div>
-
-            <div class="related-card">
-                <img
-                    src="https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=800&q=80"
-                    alt="Bluetooth speaker"
-                >
-
-                <div class="related-info">
-                    <h3>Portable Bluetooth Speaker</h3>
-                    <div class="related-price">KSh 3,999</div>
-                </div>
-            </div>
+            <p>
+                Shop with confidence on Meteur Online Shopping.
+                Product information, pricing and availability are
+                loaded directly from the Meteur product database.
+            </p>
 
         </div>
 
-    </section>
+    </div>
+
+    <div
+        id="errorContainer"
+        class="product-error"
+        style="display:none;"
+    >
+
+        <h2>Product not found</h2>
+
+        <p>
+            We could not find this product.
+            Please return to the shop and choose another product.
+        </p>
+
+        <br>
+
+        <a href="shop.html">
+            Back to Shop
+        </a>
+
+    </div>
 
 </main>
 
-<footer>
-    <div class="container">
+<footer class="site-footer">
 
-        <div class="footer-grid">
+    <div class="footer-content">
 
-            <div>
-                <h3>Meteur</h3>
-                <p>Your trusted Kenyan online shopping marketplace.</p>
-            </div>
+        <div>
 
-            <div>
-                <h4>Shopping</h4>
-                <a href="shop.html">Shop</a><br>
-                <a href="categories.html">Categories</a><br>
-                <a href="deals.html">Deals</a><br>
-                <a href="new-arrivals.html">New Arrivals</a>
-            </div>
+            <h3>Meteur Online Shopping</h3>
 
-            <div>
-                <h4>Customer Service</h4>
-                <a href="help.html">Help Center</a><br>
-                <a href="contact.html">Contact Us</a><br>
-                <a href="track-order.html">Track Order</a><br>
-                <a href="returns.html">Returns</a>
-            </div>
-
-            <div>
-                <h4>Account</h4>
-                <a href="login.html">Login</a><br>
-                <a href="register.html">Create Account</a><br>
-                <a href="orders.html">My Orders</a><br>
-                <a href="wishlist.html">Wishlist</a>
-            </div>
+            <p>
+                Your modern Kenyan online marketplace.
+            </p>
 
         </div>
 
-        <p class="copyright">
-            © 2026 Meteur Online Shopping. All rights reserved.
-        </p>
+        <div>
+
+            <h4>Shopping</h4>
+
+            <a href="shop.html">Shop</a>
+            <a href="categories.html">Categories</a>
+            <a href="deals.html">Deals</a>
+            <a href="new-arrivals.html">New Arrivals</a>
+
+        </div>
+
+        <div>
+
+            <h4>Customer Service</h4>
+
+            <a href="help.html">Help Center</a>
+            <a href="faq.html">FAQ</a>
+            <a href="contact.html">Contact</a>
+            <a href="track-order.html">Track Order</a>
+
+        </div>
 
     </div>
+
+    <div class="footer-bottom">
+        © 2026 Meteur Online Shopping. All rights reserved.
+    </div>
+
 </footer>
 
 <script src="script.js"></script>
 
 <script>
-    const productName = "Samsung Galaxy Smartphone";
-    const productPrice = 28999;
 
-    function changeImage(imageUrl, thumbnail) {
-        document.getElementById("mainProductImage").src = imageUrl;
+let currentProduct = null;
 
-        document.querySelectorAll(".thumbnail").forEach(function(item) {
-            item.classList.remove("active");
-        });
+/* Get product ID from URL */
 
-        thumbnail.classList.add("active");
+const urlParams = new URLSearchParams(
+    window.location.search
+);
+
+const productId = urlParams.get("id");
+
+/* Load product */
+
+async function loadProduct() {
+
+    if (!productId) {
+
+        showError();
+        return;
+
     }
 
-    function increaseQuantity() {
-        const input = document.getElementById("quantity");
-        let quantity = parseInt(input.value) || 1;
+    try {
 
-        if (quantity < 10) {
-            quantity++;
+        const { data, error } = await supabaseClient
+            .from("products")
+            .select("*")
+            .eq("id", productId)
+            .single();
+
+        if (error) {
+            throw error;
         }
 
-        input.value = quantity;
-    }
+        if (!data) {
 
-    function decreaseQuantity() {
-        const input = document.getElementById("quantity");
-        let quantity = parseInt(input.value) || 1;
+            showError();
+            return;
 
-        if (quantity > 1) {
-            quantity--;
         }
 
-        input.value = quantity;
-    }
+        currentProduct = data;
 
-    function addProductToCart() {
-        const quantity =
-            parseInt(document.getElementById("quantity").value) || 1;
+        displayProduct(data);
 
-        let cart =
-            JSON.parse(localStorage.getItem("meteurCart")) || [];
+    } catch (error) {
 
-        const existingProduct =
-            cart.find(product => product.name === productName);
-
-        if (existingProduct) {
-            existingProduct.quantity += quantity;
-        } else {
-            cart.push({
-                name: productName,
-                price: productPrice,
-                quantity: quantity
-            });
-        }
-
-        localStorage.setItem(
-            "meteurCart",
-            JSON.stringify(cart)
+        console.error(
+            "Product loading error:",
+            error
         );
 
-        updateCartCount();
+        showError();
+
+    }
+
+}
+
+/* Display product */
+
+function displayProduct(product) {
+
+    document.getElementById("loading").style.display =
+        "none";
+
+    document.getElementById("productContainer").style.display =
+        "block";
+
+    document.getElementById("productName").textContent =
+        product.name;
+
+    document.getElementById("productCategory").textContent =
+        product.category;
+
+    document.getElementById("productPrice").textContent =
+        "KSh " +
+        Number(product.price).toLocaleString();
+
+    document.getElementById("productDescription").textContent =
+        product.description ||
+        "Quality product available from Meteur Online Shopping.";
+
+    const rating =
+        Number(product.rating || 0);
+
+    const reviewCount =
+        Number(product.review_count || 0);
+
+    document.getElementById("productRating").textContent =
+        "★".repeat(Math.round(rating)) +
+        "☆".repeat(5 - Math.round(rating)) +
+        ` ${rating.toFixed(1)} (${reviewCount} reviews)`;
+
+    if (product.old_price) {
+
+        document.getElementById("productOldPrice").textContent =
+            "KSh " +
+            Number(product.old_price).toLocaleString();
+
+    } else {
+
+        document.getElementById("productOldPrice").textContent =
+            "";
+
+    }
+
+    const stock =
+        Number(product.stock || 0);
+
+    if (stock > 0) {
+
+        document.getElementById("productStock").textContent =
+            `${stock} items available`;
+
+    } else {
+
+        document.getElementById("productStock").textContent =
+            "Currently out of stock";
+
+    }
+
+    const mainImage =
+        product.image_url ||
+        "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=900&q=80";
+
+    document.getElementById("mainImage").src =
+        mainImage;
+
+    document.getElementById("mainImage").alt =
+        product.name;
+
+    const thumbnailRow =
+        document.getElementById("thumbnailRow");
+
+    thumbnailRow.innerHTML = `
+        <img
+            class="thumbnail active"
+            src="${escapeHtml(mainImage)}"
+            alt="${escapeHtml(product.name)}"
+            onclick="changeMainImage(this)"
+        >
+    `;
+
+    document.title =
+        product.name +
+        " | Meteur Online Shopping";
+
+}
+
+/* Change main image */
+
+function changeMainImage(element) {
+
+    document.getElementById("mainImage").src =
+        element.src;
+
+    document
+        .querySelectorAll(".thumbnail")
+        .forEach(item =>
+            item.classList.remove("active")
+        );
+
+    element.classList.add("active");
+
+}
+
+/* Quantity */
+
+function changeQuantity(amount) {
+
+    const input =
+        document.getElementById("quantity");
+
+    let quantity =
+        Number(input.value) || 1;
+
+    quantity += amount;
+
+    if (quantity < 1) {
+        quantity = 1;
+    }
+
+    if (
+        currentProduct &&
+        currentProduct.stock > 0 &&
+        quantity > currentProduct.stock
+    ) {
+
+        quantity =
+            currentProduct.stock;
+
+    }
+
+    input.value = quantity;
+
+}
+
+/* Add to cart */
+
+function addToCart() {
+
+    if (!currentProduct) {
+        return;
+    }
+
+    const quantity =
+        Number(
+            document.getElementById("quantity").value
+        ) || 1;
+
+    if (
+        currentProduct.stock <= 0
+    ) {
+
+        alert("This product is currently out of stock.");
+        return;
+
+    }
+
+    if (
+        quantity > currentProduct.stock
+    ) {
 
         alert(
-            quantity +
-            " × " +
-            productName +
-            " added to your cart."
+            `Only ${currentProduct.stock} items are available.`
         );
+
+        return;
+
     }
 
-    function buyNow() {
-        addProductToCart();
-        window.location.href = "checkout.html";
+    let cart =
+        JSON.parse(
+            localStorage.getItem("meteurCart")
+        ) || [];
+
+    const existing =
+        cart.find(
+            item => item.id === currentProduct.id
+        );
+
+    if (existing) {
+
+        existing.quantity =
+            Number(existing.quantity || 0) +
+            quantity;
+
+    } else {
+
+        cart.push({
+
+            id: currentProduct.id,
+
+            name: currentProduct.name,
+
+            price: Number(currentProduct.price),
+
+            image: currentProduct.image_url,
+
+            quantity: quantity
+
+        });
+
     }
 
-    function addToWishlist() {
-        let wishlist =
-            JSON.parse(localStorage.getItem("meteurWishlist")) || [];
+    localStorage.setItem(
+        "meteurCart",
+        JSON.stringify(cart)
+    );
 
-        if (!wishlist.includes(productName)) {
-            wishlist.push(productName);
+    updateCartCount();
 
-            localStorage.setItem(
-                "meteurWishlist",
-                JSON.stringify(wishlist)
-            );
+    alert(
+        `${currentProduct.name} added to your cart.`
+    );
 
-            alert(productName + " has been added to your wishlist.");
-        } else {
-            alert(productName + " is already in your wishlist.");
-        }
+}
+
+/* Buy now */
+
+function buyNow() {
+
+    addToCart();
+
+    window.location.href =
+        "cart.html";
+
+}
+
+/* Wishlist */
+
+function addToWishlist() {
+
+    if (!currentProduct) {
+        return;
     }
 
-    function updateCartCount() {
-        const cart =
-            JSON.parse(localStorage.getItem("meteurCart")) || [];
+    let wishlist =
+        JSON.parse(
+            localStorage.getItem("meteurWishlist")
+        ) || [];
 
-        const totalItems = cart.reduce(
-            (total, product) =>
-                total + (product.quantity || 1),
+    const exists =
+        wishlist.some(
+            item => item.id === currentProduct.id
+        );
+
+    if (exists) {
+
+        alert(
+            "This product is already in your wishlist."
+        );
+
+        return;
+
+    }
+
+    wishlist.push({
+
+        id: currentProduct.id,
+
+        name: currentProduct.name,
+
+        price: Number(currentProduct.price),
+
+        image: currentProduct.image_url
+
+    });
+
+    localStorage.setItem(
+        "meteurWishlist",
+        JSON.stringify(wishlist)
+    );
+
+    alert(
+        `${currentProduct.name} added to your wishlist.`
+    );
+
+}
+
+/* Cart count */
+
+function updateCartCount() {
+
+    const cart =
+        JSON.parse(
+            localStorage.getItem("meteurCart")
+        ) || [];
+
+    const count =
+        cart.reduce(
+            (total, item) =>
+                total +
+                Number(item.quantity || 1),
             0
         );
 
-        const cartCount =
-            document.getElementById("cartCount");
+    const element =
+        document.getElementById("cartCount");
 
-        if (cartCount) {
-            cartCount.textContent = totalItems;
-        }
+    if (element) {
+        element.textContent = count;
     }
 
-    function searchProducts() {
-        const input =
-            document.getElementById("searchInput");
+}
 
-        const searchTerm =
-            input.value.trim();
+/* Search */
 
-        if (searchTerm) {
-            window.location.href =
-                "shop.html?search=" +
-                encodeURIComponent(searchTerm);
-        }
+function performSearch() {
+
+    const search =
+        document
+            .getElementById("headerSearch")
+            .value
+            .trim();
+
+    if (!search) {
+        return;
     }
 
-    document
-        .getElementById("searchInput")
-        .addEventListener("keydown", function(event) {
-            if (event.key === "Enter") {
-                searchProducts();
-            }
-        });
+    window.location.href =
+        "shop.html?search=" +
+        encodeURIComponent(search);
 
-    updateCartCount();
+}
+
+/* Escape HTML */
+
+function escapeHtml(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+/* Show error */
+
+function showError() {
+
+    document.getElementById("loading").style.display =
+        "none";
+
+    document.getElementById("productContainer").style.display =
+        "none";
+
+    document.getElementById("errorContainer").style.display =
+        "block";
+
+}
+
+/* Start */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        updateCartCount();
+        loadProduct();
+
+    }
+);
+
 </script>
 
 </body>

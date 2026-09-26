@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Wishlist - Meteur Online Shopping</title>
+    <title>Wishlist | Meteur Online Shopping</title>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabase-config.js"></script>
@@ -22,30 +22,53 @@
         }
 
         header {
-            background: #f97316;
+            background: #f68b1e;
             color: white;
-            padding: 18px 5%;
-        }
-
-        .header-inner {
-            max-width: 1200px;
-            margin: auto;
+            padding: 15px 5%;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
         }
 
         .logo {
-            font-size: 24px;
+            color: white;
+            text-decoration: none;
+            font-size: 25px;
             font-weight: bold;
         }
 
-        .header-links {
+        .search {
+            flex: 1;
+            max-width: 550px;
             display: flex;
-            gap: 18px;
         }
 
-        .header-links a {
+        .search input {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            outline: none;
+            border-radius: 5px 0 0 5px;
+            font-size: 15px;
+        }
+
+        .search button {
+            padding: 13px 20px;
+            border: none;
+            background: #222;
+            color: white;
+            cursor: pointer;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-links a {
             color: white;
             text-decoration: none;
             font-weight: bold;
@@ -53,7 +76,7 @@
 
         .container {
             max-width: 1200px;
-            margin: 35px auto;
+            margin: 30px auto;
             padding: 0 20px;
         }
 
@@ -61,216 +84,146 @@
             margin-bottom: 25px;
         }
 
-        .message {
-            padding: 14px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            display: none;
-        }
-
-        .error {
-            background: #fee2e2;
-            color: #991b1b;
-        }
-
-        .success {
-            background: #dcfce7;
-            color: #166534;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 60px 20px;
-            background: white;
-            border-radius: 12px;
-        }
-
-        .products {
+        .wishlist-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
             gap: 20px;
         }
 
         .product-card {
             background: white;
-            border-radius: 12px;
+            border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             position: relative;
         }
 
-        .product-image {
+        .product-card img {
             width: 100%;
             height: 220px;
             object-fit: cover;
             display: block;
         }
 
-        .remove {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 35px;
-            height: 35px;
-            border: none;
-            border-radius: 50%;
-            background: white;
-            color: #dc2626;
-            font-size: 20px;
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-        }
-
-        .remove:hover {
-            background: #fee2e2;
-        }
-
         .product-info {
-            padding: 16px;
+            padding: 15px;
         }
 
-        .category {
-            color: #f97316;
-            font-size: 12px;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        .product-name {
-            margin-top: 7px;
-            font-size: 16px;
+        .product-info h3 {
+            font-size: 17px;
+            margin-bottom: 10px;
             min-height: 42px;
         }
 
-        .rating {
-            margin-top: 8px;
-            font-size: 13px;
-            color: #666;
-        }
-
-        .stars {
-            color: #f59e0b;
+        .product-info h3 a {
+            color: #222;
+            text-decoration: none;
         }
 
         .price {
-            margin-top: 10px;
-            font-size: 19px;
+            color: #f68b1e;
+            font-size: 20px;
             font-weight: bold;
         }
 
         .old-price {
-            margin-left: 7px;
-            color: #999;
+            color: #888;
             text-decoration: line-through;
-            font-size: 13px;
-            font-weight: normal;
+            font-size: 14px;
+            margin-top: 3px;
+        }
+
+        .rating {
+            color: #f68b1e;
+            margin: 8px 0;
+            font-size: 14px;
         }
 
         .stock {
-            margin-top: 7px;
             font-size: 13px;
-            color: #16a34a;
+            margin-bottom: 12px;
         }
 
-        .out-stock {
-            color: #dc2626;
-        }
-
-        .actions {
+        .buttons {
             display: flex;
             gap: 8px;
-            margin-top: 14px;
         }
 
-        .button {
+        .btn {
             flex: 1;
-            padding: 10px;
-            border-radius: 7px;
             border: none;
+            padding: 11px 8px;
+            border-radius: 5px;
             cursor: pointer;
             font-weight: bold;
-            text-decoration: none;
-            text-align: center;
-            font-size: 13px;
         }
 
-        .cart-button {
-            background: #f97316;
+        .cart-btn {
+            background: #f68b1e;
             color: white;
         }
 
-        .cart-button:hover {
-            background: #ea580c;
-        }
-
-        .view-button {
+        .remove-btn {
             background: #eee;
-            color: #222;
+            color: #333;
         }
 
-        .cart-button:disabled {
-            background: #aaa;
+        .btn:disabled {
+            opacity: 0.6;
             cursor: not-allowed;
         }
 
         .empty {
             background: white;
-            border-radius: 12px;
-            padding: 65px 20px;
+            padding: 50px 20px;
             text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            border-radius: 8px;
         }
 
-        .empty h2 {
-            margin-bottom: 10px;
-        }
-
-        .empty p {
-            color: #666;
-            margin-bottom: 20px;
-        }
-
-        .shop-button {
+        .empty a {
             display: inline-block;
-            background: #f97316;
+            margin-top: 20px;
+            background: #f68b1e;
             color: white;
+            padding: 12px 20px;
+            border-radius: 5px;
             text-decoration: none;
-            padding: 13px 22px;
-            border-radius: 7px;
             font-weight: bold;
         }
 
+        .loading {
+            text-align: center;
+            padding: 50px;
+            font-size: 18px;
+        }
+
         footer {
+            margin-top: 50px;
             background: #222;
             color: white;
             text-align: center;
-            padding: 30px;
-            margin-top: 40px;
+            padding: 35px 5%;
         }
 
-        @media (max-width: 1000px) {
-            .products {
-                grid-template-columns: repeat(3, 1fr);
-            }
+        footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
         }
 
-        @media (max-width: 750px) {
-            .products {
-                grid-template-columns: repeat(2, 1fr);
+        @media (max-width: 700px) {
+            header {
+                flex-direction: column;
+                align-items: stretch;
             }
 
-            .header-inner {
-                gap: 15px;
-            }
-        }
-
-        @media (max-width: 500px) {
-            .products {
-                grid-template-columns: 1fr;
+            .search {
+                max-width: none;
             }
 
-            .product-image {
-                height: 250px;
+            .nav-links {
+                justify-content: center;
+                flex-wrap: wrap;
             }
         }
     </style>
@@ -279,373 +232,93 @@
 <body>
 
 <header>
-    <div class="header-inner">
-        <div class="logo">Meteur Online Shopping</div>
 
-        <div class="header-links">
-            <a href="index.html">Home</a>
-            <a href="shop.html">Shop</a>
-            <a href="cart.html">Cart</a>
-            <a href="dashboard.html">Account</a>
-        </div>
+    <a href="index.html" class="logo">Meteur</a>
+
+    <form class="search" id="searchForm">
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search products..."
+        >
+        <button type="submit">Search</button>
+    </form>
+
+    <div class="nav-links">
+        <a href="shop.html">Shop</a>
+        <a href="wishlist.html">Wishlist</a>
+        <a href="cart.html">Cart</a>
+        <a href="dashboard.html">Account</a>
     </div>
+
 </header>
 
-<div class="container">
+<main class="container">
 
     <h1>My Wishlist</h1>
 
-    <div id="message" class="message"></div>
-
     <div id="wishlistContainer">
-        <div class="loading">
-            Loading your wishlist...
-        </div>
+        <div class="loading">Loading your wishlist...</div>
     </div>
 
-</div>
+</main>
 
 <footer>
+
     <p>© 2026 Meteur Online Shopping. All rights reserved.</p>
+
+    <br>
+
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="shipping.html">Shipping</a>
+    <a href="returns.html">Returns</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html">Terms</a>
+
 </footer>
 
 <script>
 
-    const wishlistContainer =
-        document.getElementById("wishlistContainer");
-
-    const messageBox =
-        document.getElementById("message");
-
     let currentUser = null;
 
-    function showMessage(message, type) {
+    const container =
+        document.getElementById("wishlistContainer");
 
-        messageBox.textContent = message;
+    async function getCurrentUser() {
 
-        messageBox.className =
-            "message " + type;
+        const {
+            data: { user },
+            error
+        } = await supabaseClient.auth.getUser();
 
-        messageBox.style.display = "block";
-
-        setTimeout(() => {
-            messageBox.style.display = "none";
-        }, 3000);
-    }
-
-    function formatMoney(amount) {
-
-        return "KSh " +
-            Number(amount || 0).toLocaleString("en-KE", {
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 2
-            });
-
-    }
-
-    function renderStars(rating) {
-
-        const rounded =
-            Math.round(Number(rating) || 0);
-
-        return "★".repeat(rounded) +
-            "☆".repeat(5 - rounded);
-
-    }
-
-    function escapeHTML(value) {
-
-        const div =
-            document.createElement("div");
-
-        div.textContent =
-            value == null ? "" : String(value);
-
-        return div.innerHTML;
-
-    }
-
-    function getCart() {
-
-        try {
-
-            const cart =
-                JSON.parse(
-                    localStorage.getItem("meteurCart") || "[]"
-                );
-
-            return Array.isArray(cart)
-                ? cart
-                : [];
-
-        } catch (error) {
-
-            return [];
-
+        if (error) {
+            console.error("Authentication error:", error);
+            return null;
         }
 
-    }
-
-    function saveCart(cart) {
-
-        localStorage.setItem(
-            "meteurCart",
-            JSON.stringify(cart)
-        );
-
-    }
-
-    function addToCart(product) {
-
-        const cart =
-            getCart();
-
-        const existing =
-            cart.find(
-                item => item.id === product.id
-            );
-
-        if (existing) {
-
-            existing.quantity =
-                (Number(existing.quantity) || 1) + 1;
-
-        } else {
-
-            cart.push({
-                id: product.id,
-                name: product.name,
-                price: Number(product.price),
-                image: product.image_url,
-                quantity: 1
-            });
-
-        }
-
-        saveCart(cart);
-
-        showMessage(
-            "Product added to cart.",
-            "success"
-        );
-
-    }
-
-    function renderWishlist(items) {
-
-        if (!items || items.length === 0) {
-
-            wishlistContainer.innerHTML = `
-                <div class="empty">
-
-                    <h2>Your wishlist is empty</h2>
-
-                    <p>
-                        Save products you love and find them here later.
-                    </p>
-
-                    <a
-                        href="shop.html"
-                        class="shop-button"
-                    >
-                        Start Shopping
-                    </a>
-
-                </div>
-            `;
-
-            return;
-
-        }
-
-        const products =
-            items
-                .map(item => item.products)
-                .filter(Boolean);
-
-        if (products.length === 0) {
-
-            wishlistContainer.innerHTML = `
-                <div class="empty">
-
-                    <h2>Your wishlist is empty</h2>
-
-                    <p>
-                        Start adding products you love.
-                    </p>
-
-                    <a
-                        href="shop.html"
-                        class="shop-button"
-                    >
-                        Browse Products
-                    </a>
-
-                </div>
-            `;
-
-            return;
-
-        }
-
-        wishlistContainer.innerHTML = `
-            <div class="products" id="productsGrid"></div>
-        `;
-
-        const grid =
-            document.getElementById("productsGrid");
-
-        products.forEach(product => {
-
-            const stock =
-                Number(product.stock) || 0;
-
-            const card =
-                document.createElement("div");
-
-            card.className =
-                "product-card";
-
-            card.innerHTML = `
-
-                <button
-                    class="remove"
-                    title="Remove from wishlist"
-                    data-product-id="${product.id}"
-                >
-                    ×
-                </button>
-
-                <a href="product.html?id=${encodeURIComponent(product.id)}">
-
-                    <img
-                        class="product-image"
-                        src="${escapeHTML(
-                            product.image_url ||
-                            "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600"
-                        )}"
-                        alt="${escapeHTML(product.name)}"
-                    >
-
-                </a>
-
-                <div class="product-info">
-
-                    <div class="category">
-                        ${escapeHTML(product.category)}
-                    </div>
-
-                    <div class="product-name">
-                        ${escapeHTML(product.name)}
-                    </div>
-
-                    <div class="rating">
-
-                        <span class="stars">
-                            ${renderStars(product.rating)}
-                        </span>
-
-                        ${Number(product.rating || 0).toFixed(1)}
-                        (${Number(product.review_count || 0)} reviews)
-
-                    </div>
-
-                    <div class="price">
-
-                        ${formatMoney(product.price)}
-
-                        ${
-                            product.old_price
-                            ? `
-                                <span class="old-price">
-                                    ${formatMoney(product.old_price)}
-                                </span>
-                            `
-                            : ""
-                        }
-
-                    </div>
-
-                    <div class="
-                        ${stock > 0 ? "stock" : "stock out-stock"}
-                    ">
-                        ${
-                            stock > 0
-                            ? `${stock} available`
-                            : "Out of stock"
-                        }
-                    </div>
-
-                    <div class="actions">
-
-                        <button
-                            class="button cart-button"
-                            data-add-product="${product.id}"
-                            ${stock <= 0 ? "disabled" : ""}
-                        >
-                            ${stock > 0 ? "Add to Cart" : "Out of Stock"}
-                        </button>
-
-                        <a
-                            class="button view-button"
-                            href="product.html?id=${encodeURIComponent(product.id)}"
-                        >
-                            View
-                        </a>
-
-                    </div>
-
-                </div>
-            `;
-
-            const removeButton =
-                card.querySelector(".remove");
-
-            removeButton.addEventListener(
-                "click",
-                () => removeFromWishlist(product.id)
-            );
-
-            const addButton =
-                card.querySelector("[data-add-product]");
-
-            if (addButton) {
-
-                addButton.addEventListener(
-                    "click",
-                    () => addToCart(product)
-                );
-
-            }
-
-            grid.appendChild(card);
-
-        });
-
+        return user;
     }
 
     async function loadWishlist() {
 
-        const {
-            data: sessionData,
-            error: sessionError
-        } = await supabaseClient.auth.getSession();
+        currentUser = await getCurrentUser();
 
-        if (
-            sessionError ||
-            !sessionData ||
-            !sessionData.session
-        ) {
+        if (!currentUser) {
 
-            window.location.href =
-                "login.html?redirect=wishlist.html";
+            container.innerHTML = `
+                <div class="empty">
+                    <h2>Please log in</h2>
+                    <p>You need to log in to view your wishlist.</p>
+
+                    <a href="login.html?redirect=wishlist.html">
+                        Login
+                    </a>
+                </div>
+            `;
 
             return;
-
         }
-
-        currentUser =
-            sessionData.session.user;
 
         const {
             data,
@@ -655,7 +328,6 @@
             .select(`
                 id,
                 product_id,
-                created_at,
                 products (
                     id,
                     name,
@@ -670,70 +342,322 @@
                 )
             `)
             .eq("user_id", currentUser.id)
-            .order("created_at", {
-                ascending: false
-            });
+            .order("created_at", { ascending: false });
 
         if (error) {
 
-            console.error(
-                "Wishlist loading error:",
-                error
-            );
+            console.error("Wishlist loading error:", error);
 
-            wishlistContainer.innerHTML = "";
-
-            showMessage(
-                "We could not load your wishlist. Please try again.",
-                "error"
-            );
+            container.innerHTML = `
+                <div class="empty">
+                    <h2>Unable to load wishlist</h2>
+                    <p>Please refresh the page and try again.</p>
+                </div>
+            `;
 
             return;
+        }
 
+        if (!data || data.length === 0) {
+
+            container.innerHTML = `
+                <div class="empty">
+                    <h2>Your wishlist is empty</h2>
+                    <p>Save products here so you can find them later.</p>
+
+                    <a href="shop.html">
+                        Continue Shopping
+                    </a>
+                </div>
+            `;
+
+            return;
         }
 
         renderWishlist(data);
-
     }
 
-    async function removeFromWishlist(productId) {
+    function renderWishlist(items) {
+
+        container.innerHTML = `
+            <div class="wishlist-grid">
+
+                ${items.map(item => {
+
+                    const product = item.products;
+
+                    if (!product) {
+                        return "";
+                    }
+
+                    const price =
+                        Number(product.price || 0)
+                        .toLocaleString();
+
+                    const oldPrice =
+                        product.old_price
+                        ? Number(product.old_price)
+                            .toLocaleString()
+                        : "";
+
+                    const rating =
+                        Number(product.rating || 0)
+                        .toFixed(1);
+
+                    const stockText =
+                        product.stock > 0
+                        ? `${product.stock} available`
+                        : "Out of stock";
+
+                    const image =
+                        product.image_url ||
+                        "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=700&q=80";
+
+                    return `
+                        <div class="product-card">
+
+                            <a href="product.html?id=${encodeURIComponent(product.id)}">
+                                <img
+                                    src="${escapeAttribute(image)}"
+                                    alt="${escapeAttribute(product.name)}"
+                                >
+                            </a>
+
+                            <div class="product-info">
+
+                                <h3>
+                                    <a href="product.html?id=${encodeURIComponent(product.id)}">
+                                        ${escapeHtml(product.name)}
+                                    </a>
+                                </h3>
+
+                                <div class="price">
+                                    KSh ${price}
+                                </div>
+
+                                ${
+                                    oldPrice
+                                    ? `
+                                        <div class="old-price">
+                                            KSh ${oldPrice}
+                                        </div>
+                                    `
+                                    : ""
+                                }
+
+                                <div class="rating">
+                                    ★ ${rating}
+                                    (${Number(product.review_count || 0)} reviews)
+                                </div>
+
+                                <div class="stock">
+                                    ${stockText}
+                                </div>
+
+                                <div class="buttons">
+
+                                    <button
+                                        class="btn cart-btn"
+                                        onclick="addToCart('${product.id}', ${product.stock}, this)"
+                                        ${product.stock <= 0 ? "disabled" : ""}
+                                    >
+                                        Add to Cart
+                                    </button>
+
+                                    <button
+                                        class="btn remove-btn"
+                                        onclick="removeFromWishlist('${item.id}', this)"
+                                    >
+                                        Remove
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    `;
+
+                }).join("")}
+
+            </div>
+        `;
+    }
+
+    async function addToCart(productId, stock, button) {
+
+        if (!currentUser) {
+
+            window.location.href =
+                "login.html?redirect=wishlist.html";
+
+            return;
+        }
+
+        if (stock <= 0) {
+
+            alert("This product is out of stock.");
+
+            return;
+        }
+
+        button.disabled = true;
+        button.textContent = "Adding...";
+
+        try {
+
+            const {
+                data: existing,
+                error: existingError
+            } = await supabaseClient
+                .from("cart_items")
+                .select("id, quantity")
+                .eq("user_id", currentUser.id)
+                .eq("product_id", productId)
+                .maybeSingle();
+
+            if (existingError) {
+                throw existingError;
+            }
+
+            const existingQuantity =
+                existing ? Number(existing.quantity) : 0;
+
+            const newQuantity =
+                existingQuantity + 1;
+
+            if (newQuantity > stock) {
+
+                alert(`Only ${stock} item(s) are available.`);
+
+                button.disabled = false;
+                button.textContent = "Add to Cart";
+
+                return;
+            }
+
+            if (existing) {
+
+                const {
+                    error: updateError
+                } = await supabaseClient
+                    .from("cart_items")
+                    .update({
+                        quantity: newQuantity,
+                        updated_at: new Date().toISOString()
+                    })
+                    .eq("id", existing.id)
+                    .eq("user_id", currentUser.id);
+
+                if (updateError) {
+                    throw updateError;
+                }
+
+            } else {
+
+                const {
+                    error: insertError
+                } = await supabaseClient
+                    .from("cart_items")
+                    .insert({
+                        user_id: currentUser.id,
+                        product_id: productId,
+                        quantity: 1
+                    });
+
+                if (insertError) {
+                    throw insertError;
+                }
+            }
+
+            alert("Product added to your cart.");
+
+        } catch (error) {
+
+            console.error("Add to cart error:", error);
+
+            alert(
+                "Could not add this product to your cart. Please try again."
+            );
+
+        } finally {
+
+            button.disabled = false;
+            button.textContent = "Add to Cart";
+        }
+    }
+
+    async function removeFromWishlist(wishlistId, button) {
 
         if (!currentUser) {
             return;
         }
+
+        button.disabled = true;
+        button.textContent = "Removing...";
 
         const {
             error
         } = await supabaseClient
             .from("wishlist")
             .delete()
-            .eq("user_id", currentUser.id)
-            .eq("product_id", productId);
+            .eq("id", wishlistId)
+            .eq("user_id", currentUser.id);
 
         if (error) {
 
-            console.error(
-                "Wishlist removal error:",
-                error
+            console.error("Remove wishlist error:", error);
+
+            alert(
+                "Could not remove the product. Please try again."
             );
 
-            showMessage(
-                "Could not remove this product.",
-                "error"
-            );
+            button.disabled = false;
+            button.textContent = "Remove";
 
             return;
-
         }
 
-        showMessage(
-            "Product removed from wishlist.",
-            "success"
-        );
-
         await loadWishlist();
-
     }
+
+    function escapeHtml(value) {
+
+        return String(value ?? "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+    function escapeAttribute(value) {
+        return escapeHtml(value);
+    }
+
+    document
+        .getElementById("searchForm")
+        .addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            const search =
+                document
+                    .getElementById("searchInput")
+                    .value
+                    .trim();
+
+            if (search) {
+
+                window.location.href =
+                    `shop.html?search=${encodeURIComponent(search)}`;
+
+            } else {
+
+                window.location.href =
+                    "shop.html";
+            }
+        });
 
     loadWishlist();
 

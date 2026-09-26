@@ -3,65 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flash Deals - Meteur Online Shopping</title>
-    <meta name="description" content="Shop the latest flash deals and discounted products at Meteur Online Shopping.">
+
+    <title>Deals - Meteur Online Shopping</title>
+
     <link rel="stylesheet" href="style.css">
 
     <style>
+        .deals-page {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
         .deals-hero {
-            background: linear-gradient(135deg, #ff7900, #ff9900);
+            background: linear-gradient(135deg, #f4511e, #ff7043);
             color: white;
-            padding: 50px 20px;
+            padding: 45px 30px;
+            border-radius: 12px;
+            margin-bottom: 35px;
             text-align: center;
         }
 
         .deals-hero h1 {
-            font-size: 42px;
-            margin-bottom: 10px;
+            margin: 0 0 10px;
+            font-size: 36px;
         }
 
         .deals-hero p {
-            font-size: 18px;
-            margin-bottom: 25px;
+            margin: 0;
+            font-size: 17px;
         }
 
-        .deal-timer {
-            display: inline-flex;
-            gap: 12px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 10px;
-        }
-
-        .timer-box {
-            background: rgba(255,255,255,0.18);
-            border: 1px solid rgba(255,255,255,0.35);
-            border-radius: 8px;
-            padding: 12px 18px;
-            min-width: 70px;
-        }
-
-        .timer-box strong {
-            display: block;
-            font-size: 24px;
-        }
-
-        .timer-box span {
-            font-size: 12px;
-        }
-
-        .deals-section {
-            max-width: 1200px;
-            margin: 35px auto;
-            padding: 0 20px;
-        }
-
-        .deals-section h2 {
-            font-size: 28px;
+        .section-title {
             margin-bottom: 20px;
         }
 
-        .deal-grid {
+        .deals-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 20px;
@@ -69,15 +46,24 @@
 
         .deal-card {
             background: white;
-            border-radius: 8px;
+            border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-            transition: transform 0.2s ease;
             position: relative;
+            transition: 0.25s ease;
         }
 
         .deal-card:hover {
             transform: translateY(-4px);
+            box-shadow: 0 5px 18px rgba(0,0,0,0.14);
+        }
+
+        .deal-image {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+            display: block;
+            background: #f5f5f5;
         }
 
         .deal-badge {
@@ -87,116 +73,163 @@
             background: #e53935;
             color: white;
             padding: 6px 10px;
-            border-radius: 4px;
+            border-radius: 5px;
             font-size: 12px;
             font-weight: bold;
-            z-index: 2;
         }
 
-        .deal-image {
-            height: 210px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #f7f7f7;
-            font-size: 75px;
+        .deal-wishlist {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 38px;
+            height: 38px;
+            border: none;
+            border-radius: 50%;
+            background: white;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
         }
 
-        .deal-content {
-            padding: 18px;
+        .deal-info {
+            padding: 16px;
         }
 
-        .deal-content h3 {
+        .deal-info h3 {
+            margin: 0 0 8px;
             font-size: 17px;
-            margin-bottom: 10px;
+            line-height: 1.4;
         }
 
         .deal-rating {
-            color: #f5a623;
+            color: #f59e0b;
             font-size: 14px;
-            margin-bottom: 10px;
+            margin-bottom: 9px;
         }
 
         .deal-price {
-            font-size: 22px;
+            color: #f4511e;
+            font-size: 20px;
             font-weight: bold;
-            color: #f57224;
         }
 
-        .old-price {
+        .deal-old-price {
             color: #888;
             text-decoration: line-through;
-            margin-left: 8px;
-            font-size: 14px;
+            font-size: 13px;
+            margin-left: 6px;
         }
 
         .deal-save {
-            color: #2e7d32;
+            color: #16803c;
             font-size: 13px;
-            margin: 8px 0 15px;
+            margin: 7px 0 13px;
+            font-weight: bold;
         }
 
         .deal-button {
             width: 100%;
             border: none;
-            background: #ff7900;
+            background: #f4511e;
             color: white;
-            padding: 12px;
-            border-radius: 5px;
+            padding: 11px;
+            border-radius: 6px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 14px;
         }
 
         .deal-button:hover {
-            background: #e86f00;
+            background: #d84315;
         }
 
-        .deal-info {
+        .deal-banner {
+            margin: 40px 0;
+            min-height: 220px;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            background-image:
+                url("https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1400&q=85");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+        }
+
+        .deal-banner-content {
+            background: rgba(0,0,0,0.62);
+            color: white;
+            padding: 28px;
+            width: 100%;
+        }
+
+        .deal-banner-content h2 {
+            margin: 0 0 8px;
+            font-size: 28px;
+        }
+
+        .deal-banner-content p {
+            margin: 0;
+        }
+
+        .deal-info-boxes {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .deal-info-box {
             background: white;
-            border-radius: 8px;
             padding: 25px;
-            margin-top: 35px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.07);
         }
 
-        .deal-info h2 {
-            margin-bottom: 12px;
+        .deal-info-box .icon {
+            font-size: 30px;
+            margin-bottom: 10px;
         }
 
-        .deal-info p {
-            line-height: 1.7;
-            color: #555;
+        .deal-info-box h3 {
+            margin: 5px 0 8px;
         }
 
-        @media (max-width: 1000px) {
-            .deal-grid {
+        .deal-info-box p {
+            color: #666;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 1100px) {
+            .deals-grid {
                 grid-template-columns: repeat(3, 1fr);
             }
         }
 
-        @media (max-width: 750px) {
-            .deal-grid {
+        @media (max-width: 800px) {
+            .deals-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
 
-            .deals-hero h1 {
-                font-size: 32px;
+            .deal-info-boxes {
+                grid-template-columns: 1fr;
             }
         }
 
-        @media (max-width: 500px) {
-            .deal-grid {
+        @media (max-width: 520px) {
+            .deals-grid {
                 grid-template-columns: 1fr;
             }
 
-            .deals-hero {
-                padding: 35px 15px;
+            .deals-hero h1 {
+                font-size: 28px;
             }
 
-            .timer-box {
-                min-width: 60px;
-                padding: 10px;
+            .deal-banner-content h2 {
+                font-size: 23px;
             }
         }
     </style>
@@ -204,351 +237,647 @@
 
 <body>
 
-    <!-- Top Bar -->
-    <div class="top-bar">
-        <div class="container">
-            <span>Welcome to Meteur Online Shopping</span>
-            <div>
-                <a href="help.html">Help Center</a>
-                <a href="track-order.html">Track Order</a>
-                <a href="sell.html">Sell on Meteur</a>
+<header>
+    <div class="container">
+
+        <div class="top-bar">
+
+            <div class="logo">
+                <a href="index.html">🛒 Meteur</a>
             </div>
-        </div>
-    </div>
 
-    <!-- Header -->
-    <header class="main-header">
-        <div class="container header-content">
+            <div class="search-box">
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search products..."
+                >
 
-            <a href="index.html" class="logo">
-                <i class="fas fa-shopping-bag"></i>
-                <span>Meteur</span>
-                <small>ONLINE SHOPPING</small>
-            </a>
-
-            <form class="search-box" id="searchForm">
-                <input type="search" id="searchInput" placeholder="Search products, brands and categories">
-                <button type="submit">
-                    <i class="fas fa-search"></i>
+                <button onclick="searchProducts()">
+                    Search
                 </button>
-            </form>
+            </div>
 
             <div class="header-actions">
-                <a href="login.html">
-                    <i class="fas fa-user"></i>
-                    <span>Account</span>
-                </a>
-
-                <a href="wishlist.html">
-                    <i class="fas fa-heart"></i>
-                    <span>Wishlist</span>
-                </a>
-
+                <a href="login.html">Account</a>
+                <a href="wishlist.html">♡ Wishlist</a>
                 <a href="cart.html">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span>Cart <b id="cartCount">0</b></span>
+                    🛒 Cart (<span id="cartCount">0</span>)
                 </a>
             </div>
 
         </div>
-    </header>
 
-    <!-- Navigation -->
-    <nav class="main-nav">
-        <div class="container nav-content">
-            <a href="categories.html">
-                <i class="fas fa-bars"></i> Categories
-            </a>
+        <nav>
             <a href="index.html">Home</a>
             <a href="shop.html">Shop</a>
-            <a href="deals.html" class="active">Flash Deals</a>
             <a href="categories.html">Categories</a>
+            <a href="deals.html">Deals</a>
             <a href="new-arrivals.html">New Arrivals</a>
-            <a href="shop.html">Popular</a>
-        </div>
-    </nav>
+            <a href="sell.html">Sell on Meteur</a>
+        </nav>
 
-    <!-- Hero -->
+    </div>
+</header>
+
+<main class="deals-page">
+
     <section class="deals-hero">
-        <h1>🔥 Flash Deals</h1>
-        <p>Limited-time offers. Big savings. Shop before the deals end!</p>
-
-        <div class="deal-timer">
-            <div class="timer-box">
-                <strong id="hours">08</strong>
-                <span>Hours</span>
-            </div>
-
-            <div class="timer-box">
-                <strong id="minutes">45</strong>
-                <span>Minutes</span>
-            </div>
-
-            <div class="timer-box">
-                <strong id="seconds">00</strong>
-                <span>Seconds</span>
-            </div>
-        </div>
+        <h1>🔥 Hot Deals</h1>
+        <p>
+            Save more on selected products available at Meteur Online Shopping.
+        </p>
     </section>
 
-    <!-- Deals -->
-    <main class="deals-section">
+    <h2 class="section-title">
+        Today's Deals
+    </h2>
 
-        <h2>Today's Best Deals</h2>
+    <section class="deals-grid">
 
-        <div class="deal-grid">
+        <!-- DEAL 1 -->
+        <article class="deal-card">
 
-            <div class="deal-card">
-                <span class="deal-badge">20% OFF</span>
-                <div class="deal-image">📱</div>
-                <div class="deal-content">
-                    <h3>Premium Android Smartphone</h3>
-                    <div class="deal-rating">★★★★★ 4.8</div>
-                    <div>
-                        <span class="deal-price">KSh 24,999</span>
-                        <span class="old-price">KSh 31,250</span>
-                    </div>
-                    <div class="deal-save">Save KSh 6,251</div>
-                    <button class="deal-button add-to-cart"
-                            data-product="Premium Android Smartphone"
-                            data-price="24999">
-                        Add to Cart
-                    </button>
+            <span class="deal-badge">-9%</span>
+
+            <button
+                class="deal-wishlist"
+                onclick="addToWishlist('Samsung Galaxy Smartphone')">
+                ♡
+            </button>
+
+            <img
+                class="deal-image"
+                src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=900&q=85"
+                alt="Samsung Galaxy Smartphone"
+            >
+
+            <div class="deal-info">
+
+                <h3>
+                    Samsung Galaxy Smartphone
+                </h3>
+
+                <div class="deal-rating">
+                    ★★★★★ (24)
                 </div>
-            </div>
 
-            <div class="deal-card">
-                <span class="deal-badge">35% OFF</span>
-                <div class="deal-image">🎧</div>
-                <div class="deal-content">
-                    <h3>Wireless Bluetooth Headphones</h3>
-                    <div class="deal-rating">★★★★★ 4.7</div>
-                    <div>
-                        <span class="deal-price">KSh 3,899</span>
-                        <span class="old-price">KSh 5,999</span>
-                    </div>
-                    <div class="deal-save">Save KSh 2,100</div>
-                    <button class="deal-button add-to-cart"
-                            data-product="Wireless Bluetooth Headphones"
-                            data-price="3899">
-                        Add to Cart
-                    </button>
+                <div class="deal-price">
+                    KSh 28,999
+                    <span class="deal-old-price">
+                        KSh 32,000
+                    </span>
                 </div>
-            </div>
 
-            <div class="deal-card">
-                <span class="deal-badge">28% OFF</span>
-                <div class="deal-image">👟</div>
-                <div class="deal-content">
-                    <h3>Men's Casual Sneakers</h3>
-                    <div class="deal-rating">★★★★☆ 4.5</div>
-                    <div>
-                        <span class="deal-price">KSh 2,499</span>
-                        <span class="old-price">KSh 3,499</span>
-                    </div>
-                    <div class="deal-save">Save KSh 1,000</div>
-                    <button class="deal-button add-to-cart"
-                            data-product="Men's Casual Sneakers"
-                            data-price="2499">
-                        Add to Cart
-                    </button>
+                <div class="deal-save">
+                    Save KSh 3,001
                 </div>
-            </div>
 
-            <div class="deal-card">
-                <span class="deal-badge">15% OFF</span>
-                <div class="deal-image">💻</div>
-                <div class="deal-content">
-                    <h3>Modern Laptop Computer</h3>
-                    <div class="deal-rating">★★★★★ 4.9</div>
-                    <div>
-                        <span class="deal-price">KSh 59,999</span>
-                        <span class="old-price">KSh 70,000</span>
-                    </div>
-                    <div class="deal-save">Save KSh 10,001</div>
-                    <button class="deal-button add-to-cart"
-                            data-product="Modern Laptop Computer"
-                            data-price="59999">
-                        Add to Cart
-                    </button>
+                <button
+                    class="deal-button"
+                    onclick="addProductToCart('Samsung Galaxy Smartphone', 28999)">
+                    Add to Cart
+                </button>
+
+            </div>
+        </article>
+
+        <!-- DEAL 2 -->
+        <article class="deal-card">
+
+            <span class="deal-badge">-20%</span>
+
+            <button
+                class="deal-wishlist"
+                onclick="addToWishlist('Wireless Headphones')">
+                ♡
+            </button>
+
+            <img
+                class="deal-image"
+                src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=900&q=85"
+                alt="Wireless Headphones"
+            >
+
+            <div class="deal-info">
+
+                <h3>
+                    Premium Wireless Headphones
+                </h3>
+
+                <div class="deal-rating">
+                    ★★★★★ (31)
                 </div>
-            </div>
 
-            <div class="deal-card">
-                <span class="deal-badge">22% OFF</span>
-                <div class="deal-image">⌚</div>
-                <div class="deal-content">
-                    <h3>Smart Watch Series</h3>
-                    <div class="deal-rating">★★★★★ 4.6</div>
-                    <div>
-                        <span class="deal-price">KSh 4,999</span>
-                        <span class="old-price">KSh 6,399</span>
-                    </div>
-                    <div class="deal-save">Save KSh 1,400</div>
-                    <button class="deal-button add-to-cart"
-                            data-product="Smart Watch Series"
-                            data-price="4999">
-                        Add to Cart
-                    </button>
+                <div class="deal-price">
+                    KSh 4,999
+                    <span class="deal-old-price">
+                        KSh 6,250
+                    </span>
                 </div>
-            </div>
 
-            <div class="deal-card">
-                <span class="deal-badge">18% OFF</span>
-                <div class="deal-image">📷</div>
-                <div class="deal-content">
-                    <h3>Digital Camera</h3>
-                    <div class="deal-rating">★★★★★ 4.7</div>
-                    <div>
-                        <span class="deal-price">KSh 28,500</span>
-                        <span class="old-price">KSh 34,500</span>
-                    </div>
-                    <div class="deal-save">Save KSh 6,000</div>
-                    <button class="deal-button add-to-cart"
-                            data-product="Digital Camera"
-                            data-price="28500">
-                        Add to Cart
-                    </button>
+                <div class="deal-save">
+                    Save KSh 1,251
                 </div>
-            </div>
 
-            <div class="deal-card">
-                <span class="deal-badge">25% OFF</span>
-                <div class="deal-image">🌸</div>
-                <div class="deal-content">
-                    <h3>Premium Fragrance</h3>
-                    <div class="deal-rating">★★★★☆ 4.4</div>
-                    <div>
-                        <span class="deal-price">KSh 3,250</span>
-                        <span class="old-price">KSh 4,350</span>
-                    </div>
-                    <div class="deal-save">Save KSh 1,100</div>
-                    <button class="deal-button add-to-cart"
-                            data-product="Premium Fragrance"
-                            data-price="3250">
-                        Add to Cart
-                    </button>
+                <button
+                    class="deal-button"
+                    onclick="addProductToCart('Premium Wireless Headphones', 4999)">
+                    Add to Cart
+                </button>
+
+            </div>
+        </article>
+
+        <!-- DEAL 3 -->
+        <article class="deal-card">
+
+            <span class="deal-badge">-19%</span>
+
+            <button
+                class="deal-wishlist"
+                onclick="addToWishlist('Smart Fitness Watch')">
+                ♡
+            </button>
+
+            <img
+                class="deal-image"
+                src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=900&q=85"
+                alt="Smart Fitness Watch"
+            >
+
+            <div class="deal-info">
+
+                <h3>
+                    Smart Fitness Watch
+                </h3>
+
+                <div class="deal-rating">
+                    ★★★★☆ (18)
                 </div>
-            </div>
 
-            <div class="deal-card">
-                <span class="deal-badge">20% OFF</span>
-                <div class="deal-image">🥤</div>
-                <div class="deal-content">
-                    <h3>Electric Kitchen Blender</h3>
-                    <div class="deal-rating">★★★★★ 4.6</div>
-                    <div>
-                        <span class="deal-price">KSh 5,499</span>
-                        <span class="old-price">KSh 6,899</span>
-                    </div>
-                    <div class="deal-save">Save KSh 1,400</div>
-                    <button class="deal-button add-to-cart"
-                            data-product="Electric Kitchen Blender"
-                            data-price="5499">
-                        Add to Cart
-                    </button>
+                <div class="deal-price">
+                    KSh 6,499
+                    <span class="deal-old-price">
+                        KSh 8,000
+                    </span>
                 </div>
+
+                <div class="deal-save">
+                    Save KSh 1,501
+                </div>
+
+                <button
+                    class="deal-button"
+                    onclick="addProductToCart('Smart Fitness Watch', 6499)">
+                    Add to Cart
+                </button>
+
             </div>
+        </article>
 
-        </div>
+        <!-- DEAL 4 -->
+        <article class="deal-card">
 
-        <div class="deal-info">
-            <h2>About Meteur Flash Deals</h2>
+            <span class="deal-badge">-20%</span>
+
+            <button
+                class="deal-wishlist"
+                onclick="addToWishlist('Running Sneakers')">
+                ♡
+            </button>
+
+            <img
+                class="deal-image"
+                src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=85"
+                alt="Running Sneakers"
+            >
+
+            <div class="deal-info">
+
+                <h3>
+                    Men's Running Sneakers
+                </h3>
+
+                <div class="deal-rating">
+                    ★★★★★ (42)
+                </div>
+
+                <div class="deal-price">
+                    KSh 5,999
+                    <span class="deal-old-price">
+                        KSh 7,500
+                    </span>
+                </div>
+
+                <div class="deal-save">
+                    Save KSh 1,501
+                </div>
+
+                <button
+                    class="deal-button"
+                    onclick="addProductToCart('Mens Running Sneakers', 5999)">
+                    Add to Cart
+                </button>
+
+            </div>
+        </article>
+
+        <!-- DEAL 5 -->
+        <article class="deal-card">
+
+            <span class="deal-badge">-7%</span>
+
+            <button
+                class="deal-wishlist"
+                onclick="addToWishlist('Modern Laptop Computer')">
+                ♡
+            </button>
+
+            <img
+                class="deal-image"
+                src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=900&q=85"
+                alt="Laptop Computer"
+            >
+
+            <div class="deal-info">
+
+                <h3>
+                    Modern Laptop Computer
+                </h3>
+
+                <div class="deal-rating">
+                    ★★★★★ (27)
+                </div>
+
+                <div class="deal-price">
+                    KSh 69,999
+                    <span class="deal-old-price">
+                        KSh 75,000
+                    </span>
+                </div>
+
+                <div class="deal-save">
+                    Save KSh 5,001
+                </div>
+
+                <button
+                    class="deal-button"
+                    onclick="addProductToCart('Modern Laptop Computer', 69999)">
+                    Add to Cart
+                </button>
+
+            </div>
+        </article>
+
+        <!-- DEAL 6 -->
+        <article class="deal-card">
+
+            <span class="deal-badge">-25%</span>
+
+            <button
+                class="deal-wishlist"
+                onclick="addToWishlist('Premium Cotton T-Shirt')">
+                ♡
+            </button>
+
+            <img
+                class="deal-image"
+                src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=85"
+                alt="Cotton T-Shirt"
+            >
+
+            <div class="deal-info">
+
+                <h3>
+                    Premium Cotton T-Shirt
+                </h3>
+
+                <div class="deal-rating">
+                    ★★★★☆ (16)
+                </div>
+
+                <div class="deal-price">
+                    KSh 1,499
+                    <span class="deal-old-price">
+                        KSh 2,000
+                    </span>
+                </div>
+
+                <div class="deal-save">
+                    Save KSh 501
+                </div>
+
+                <button
+                    class="deal-button"
+                    onclick="addProductToCart('Premium Cotton T-Shirt', 1499)">
+                    Add to Cart
+                </button>
+
+            </div>
+        </article>
+
+        <!-- DEAL 7 -->
+        <article class="deal-card">
+
+            <span class="deal-badge">-17%</span>
+
+            <button
+                class="deal-wishlist"
+                onclick="addToWishlist('Travel Laptop Backpack')">
+                ♡
+            </button>
+
+            <img
+                class="deal-image"
+                src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=900&q=85"
+                alt="Travel Laptop Backpack"
+            >
+
+            <div class="deal-info">
+
+                <h3>
+                    Travel & Laptop Backpack
+                </h3>
+
+                <div class="deal-rating">
+                    ★★★★★ (28)
+                </div>
+
+                <div class="deal-price">
+                    KSh 3,499
+                    <span class="deal-old-price">
+                        KSh 4,200
+                    </span>
+                </div>
+
+                <div class="deal-save">
+                    Save KSh 701
+                </div>
+
+                <button
+                    class="deal-button"
+                    onclick="addProductToCart('Travel and Laptop Backpack', 3499)">
+                    Add to Cart
+                </button>
+
+            </div>
+        </article>
+
+        <!-- DEAL 8 -->
+        <article class="deal-card">
+
+            <span class="deal-badge">-20%</span>
+
+            <button
+                class="deal-wishlist"
+                onclick="addToWishlist('Portable Bluetooth Speaker')">
+                ♡
+            </button>
+
+            <img
+                class="deal-image"
+                src="https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=900&q=85"
+                alt="Bluetooth Speaker"
+            >
+
+            <div class="deal-info">
+
+                <h3>
+                    Portable Bluetooth Speaker
+                </h3>
+
+                <div class="deal-rating">
+                    ★★★★☆ (25)
+                </div>
+
+                <div class="deal-price">
+                    KSh 3,999
+                    <span class="deal-old-price">
+                        KSh 5,000
+                    </span>
+                </div>
+
+                <div class="deal-save">
+                    Save KSh 1,001
+                </div>
+
+                <button
+                    class="deal-button"
+                    onclick="addProductToCart('Portable Bluetooth Speaker', 3999)">
+                    Add to Cart
+                </button>
+
+            </div>
+        </article>
+
+    </section>
+
+    <section class="deal-banner">
+
+        <div class="deal-banner-content">
+            <h2>🛍️ Shop More. Save More.</h2>
+
             <p>
-                Meteur Flash Deals brings selected products together at
-                promotional prices for a limited period. Browse electronics,
-                fashion, beauty, home products and other popular categories.
-                Add your preferred products to the cart and continue to checkout
-                when you are ready to place your order.
+                Explore electronics, fashion, computing, accessories,
+                home products and more at Meteur Online Shopping.
             </p>
         </div>
 
-    </main>
-
-    <!-- Newsletter -->
-    <section class="newsletter">
-        <div class="container">
-            <h2>Get the Latest Deals</h2>
-            <p>Subscribe to receive updates about new products and promotions.</p>
-
-            <form id="newsletterForm">
-                <input type="email" placeholder="Enter your email address" required>
-                <button type="submit">Subscribe</button>
-            </form>
-        </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container footer-grid">
+    <section class="deal-info-boxes">
+
+        <div class="deal-info-box">
+            <div class="icon">🚚</div>
+
+            <h3>Fast Delivery</h3>
+
+            <p>
+                Get your orders delivered to locations across Kenya.
+            </p>
+        </div>
+
+        <div class="deal-info-box">
+            <div class="icon">🔒</div>
+
+            <h3>Secure Shopping</h3>
+
+            <p>
+                Shop through a secure and easy-to-use checkout experience.
+            </p>
+        </div>
+
+        <div class="deal-info-box">
+            <div class="icon">💰</div>
+
+            <h3>Great Prices</h3>
+
+            <p>
+                Find selected products at discounted promotional prices.
+            </p>
+        </div>
+
+    </section>
+
+</main>
+
+<footer>
+    <div class="container">
+
+        <div class="footer-grid">
 
             <div>
-                <h3>Meteur Online Shopping</h3>
+                <h3>Meteur</h3>
+
                 <p>
-                    A Kenyan online shopping marketplace offering products
-                    across multiple categories.
+                    Your trusted Kenyan online shopping marketplace.
                 </p>
             </div>
 
             <div>
-                <h3>Customer Service</h3>
-                <a href="help.html">Help Center</a>
-                <a href="contact.html">Contact Us</a>
-                <a href="track-order.html">Track Order</a>
-                <a href="returns.html">Returns & Refunds</a>
+                <h4>Shopping</h4>
+
+                <a href="shop.html">Shop</a><br>
+                <a href="categories.html">Categories</a><br>
+                <a href="deals.html">Deals</a><br>
+                <a href="new-arrivals.html">New Arrivals</a>
             </div>
 
             <div>
-                <h3>Shopping</h3>
-                <a href="shop.html">Shop Products</a>
-                <a href="categories.html">Categories</a>
-                <a href="deals.html">Flash Deals</a>
+                <h4>Customer Service</h4>
+
+                <a href="help.html">Help Center</a><br>
+                <a href="contact.html">Contact Us</a><br>
+                <a href="track-order.html">Track Order</a><br>
+                <a href="returns.html">Returns</a>
+            </div>
+
+            <div>
+                <h4>Account</h4>
+
+                <a href="login.html">Login</a><br>
+                <a href="register.html">Create Account</a><br>
+                <a href="orders.html">My Orders</a><br>
                 <a href="wishlist.html">Wishlist</a>
             </div>
 
-            <div>
-                <h3>Contact</h3>
-                <p>📞 0711842260</p>
-                <p>✉️ daghlusmeteur@gmail.com</p>
-                <p>🇰🇪 Kenya</p>
-            </div>
-
         </div>
 
-        <div class="footer-bottom">
-            <p>© 2026 Meteur Online Shopping. All rights reserved.</p>
-        </div>
-    </footer>
+        <p class="copyright">
+            © 2026 Meteur Online Shopping. All rights reserved.
+        </p>
 
-    <script src="script.js"></script>
+    </div>
+</footer>
 
-    <script>
-        let totalSeconds = (8 * 60 * 60) + (45 * 60);
+<script src="script.js"></script>
 
-        function updateTimer() {
-            if (totalSeconds <= 0) {
-                totalSeconds = (8 * 60 * 60) + (45 * 60);
-            }
+<script>
+    function addProductToCart(name, price) {
 
-            const hours = Math.floor(totalSeconds / 3600);
-            const minutes = Math.floor((totalSeconds % 3600) / 60);
-            const seconds = totalSeconds % 60;
+        let cart =
+            JSON.parse(localStorage.getItem("meteurCart")) || [];
 
-            document.getElementById("hours").textContent =
-                String(hours).padStart(2, "0");
+        const existingProduct =
+            cart.find(product => product.name === name);
 
-            document.getElementById("minutes").textContent =
-                String(minutes).padStart(2, "0");
+        if (existingProduct) {
 
-            document.getElementById("seconds").textContent =
-                String(seconds).padStart(2, "0");
+            existingProduct.quantity += 1;
 
-            totalSeconds--;
+        } else {
+
+            cart.push({
+                name: name,
+                price: price,
+                quantity: 1
+            });
+
         }
 
-        updateTimer();
-        setInterval(updateTimer, 1000);
-    </script>
+        localStorage.setItem(
+            "meteurCart",
+            JSON.stringify(cart)
+        );
+
+        updateCartCount();
+
+        alert(name + " has been added to your cart.");
+    }
+
+    function addToWishlist(name) {
+
+        let wishlist =
+            JSON.parse(localStorage.getItem("meteurWishlist")) || [];
+
+        if (!wishlist.includes(name)) {
+
+            wishlist.push(name);
+
+            localStorage.setItem(
+                "meteurWishlist",
+                JSON.stringify(wishlist)
+            );
+
+            alert(name + " has been added to your wishlist.");
+
+        } else {
+
+            alert(name + " is already in your wishlist.");
+
+        }
+    }
+
+    function updateCartCount() {
+
+        const cart =
+            JSON.parse(localStorage.getItem("meteurCart")) || [];
+
+        const totalItems =
+            cart.reduce(
+                (total, product) =>
+                    total + (product.quantity || 1),
+                0
+            );
+
+        const cartCount =
+            document.getElementById("cartCount");
+
+        if (cartCount) {
+            cartCount.textContent = totalItems;
+        }
+    }
+
+    function searchProducts() {
+
+        const input =
+            document.getElementById("searchInput");
+
+        const searchTerm =
+            input.value.trim();
+
+        if (searchTerm) {
+
+            window.location.href =
+                "shop.html?search=" +
+                encodeURIComponent(searchTerm);
+
+        }
+    }
+
+    document
+        .getElementById("searchInput")
+        .addEventListener("keydown", function(event) {
+
+            if (event.key === "Enter") {
+                searchProducts();
+            }
+
+        });
+
+    updateCartCount();
+</script>
 
 </body>
 </html>

@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Customers - Meteur Online Shopping</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            color: #222;
+        }
+
+        header {
+            background: #f68b1e;
+            color: white;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .header-actions a,
+        .header-actions button {
+            background: white;
+            color: #f68b1e;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 14px;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 18px;
+        }
+
+        .page-title {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .page-title h2 {
+            margin: 0 0 8px;
+        }
+
+        .page-title p {
+            margin: 0;
+            color: #666;
+        }
+
+        .notice {
+            background: #fff3cd;
+            color: #664d03;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .message {
+            display: none;
+            padding: 14px;
+            margin-bottom: 20px;
+            border-radius: 7px;
+            background: #f8d7da;
+            color: #842029;
+        }
+
+        .toolbar {
+            background: white;
+            padding: 18px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .toolbar input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        .customer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .customer-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .customer-card h3 {
+            margin: 0 0 12px;
+            color: #f68b1e;
+        }
+
+        .customer-card p {
+            margin: 8px 0;
+            line-height: 1.5;
+            word-break: break-word;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .loading,
+        .empty {
+            background: white;
+            padding: 40px;
+            text-align: center;
+            border-radius: 10px;
+            color: #666;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-actions {
+                width: 100%;
+            }
+
+            .header-actions a,
+            .header-actions button {
+                flex: 1;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Meteur Online Shopping — Admin</h1>
+
+    <div class="header-actions">
+        <a href="admin-dashboard.html">Dashboard</a>
+        <a href="index.html">View Store</a>
+        <button id="logoutBtn">Logout</button>
+    </div>
+</header>
+
+<main>
+
+    <section class="page-title">
+        <h2>Customer Management</h2>
+        <p>Review registered customer information available to the marketplace.</p>
+    </section>
+
+    <div class="notice">
+        Customer authentication accounts are securely managed by Supabase Auth.
+        This page displays customer profile information stored in the Meteur
+        profile system and does not expose customer passwords or authentication secrets.
+    </div>
+
+    <div id="message" class="message"></div>
+
+    <div class="toolbar">
+        <input
+            type="search"
+            id="searchInput"
+            placeholder="Search customers by name, email or phone..."
+        >
+    </div>
+
+    <div id="loading" class="loading">
+        Loading customers...
+    </div>
+
+    <div id="customerGrid" class="customer-grid"></div>
+
+</main>
+
+<script>
+
+    const message =
+        document.getElementById("message");
+
+    const loading =
+        document.getElementById("loading");
+
+    const customerGrid =
+        document.getElementById("customerGrid");
+
+    const searchInput =
+        document.getElementById("searchInput");
+
+    let customers = [];
+
+    function escapeHtml(value) {
+
+        return String(value ?? "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+    function showMessage(text) {
+
+        message.textContent = text;
+        message.style.display = "block";
+    }
+
+    function hideMessage() {
+
+        message.style.display = "none";
+    }
+
+    async function checkAdmin() {
+
+        const {
+            data: { user },
+            error: authError
+        } = await supabaseClient.auth.getUser();
+
+        if (authError || !user) {
+
+            window.location.href =
+                "login.html?redirect=admin-customers.html";
+
+            return false;
+        }
+
+        const {
+            data: admin,
+            error: adminError
+        } = await supabaseClient
+            .from("admins")
+            .select("*")
+            .eq("user_id", user.id)
+            .eq("status", "Active")
+            .maybeSingle();
+
+        if (adminError || !admin) {
+
+            document.body.innerHTML = `
+                <main style="max-width:700px;margin:80px auto;padding:20px;text-align:center;">
+                    <h2>Administrator Access Required</h2>
+                    <p>Your account does not have active administrator access.</p>
+                    <a href="index.html">Back to Store</a>
+                </main>
+            `;
+
+            return false;
+        }
+
+        return true;
+    }
+
+    async function loadCustomers() {
+
+        loading.style.display = "block";
+        customerGrid.innerHTML = "";
+        hideMessage();
+
+        /*
+         * The browser cannot securely query auth.users directly.
+         * We therefore use the public profiles available through
+         * seller/customer-related records.
+         *
+         * Customers who have orders will appear through their
+         * order information once administrator order access is configured.
+         */
+
+        const {
+            data: orderCustomers,
+            error
+        } = await supabaseClient
+            .from("orders")
+            .select(`
+                user_id,
+                customer_email,
+                recipient_name,
+                phone,
+                county,
+                town,
+                created_at
+            `)
+            .order("created_at", { ascending: false });
+
+        loading.style.display = "none";
+
+        if (error) {
+
+            console.error(error);
+
+            showMessage(
+                "Customer information cannot be loaded yet because administrator access to marketplace orders has not been configured."
+            );
+
+            customerGrid.innerHTML = `
+                <div class="empty">
+                    <h3>Customer management needs database permissions</h3>
+                    <p>
+                        Supabase Auth protects customer accounts.
+                        The administrator system will use a secure backend
+                        connection to provide customer management without
+                        exposing passwords or authentication secrets.
+                    </p>
+                </div>
+            `;
+
+            return;
+        }
+
+        const uniqueCustomers = new Map();
+
+        (orderCustomers || []).forEach(customer => {
+
+            if (!customer.user_id) {
+                return;
+            }
+
+            if (!uniqueCustomers.has(customer.user_id)) {
+
+                uniqueCustomers.set(
+                    customer.user_id,
+                    customer
+                );
+            }
+        });
+
+        customers =
+            Array.from(uniqueCustomers.values());
+
+        renderCustomers();
+    }
+
+    function renderCustomers() {
+
+        const search =
+            searchInput.value
+                .trim()
+                .toLowerCase();
+
+        const filtered =
+            customers.filter(customer => {
+
+                return (
+                    String(customer.customer_email || "")
+                        .toLowerCase()
+                        .includes(search) ||
+
+                    String(customer.recipient_name || "")
+                        .toLowerCase()
+                        .includes(search) ||
+
+                    String(customer.phone || "")
+                        .toLowerCase()
+                        .includes(search)
+                );
+            });
+
+        if (filtered.length === 0) {
+
+            customerGrid.innerHTML = `
+                <div class="empty">
+                    <h3>No customers found</h3>
+                    <p>
+                        Customer accounts will appear here when
+                        administrator database access is configured.
+                    </p>
+                </div>
+            `;
+
+            return;
+        }
+
+        customerGrid.innerHTML =
+            filtered.map(customer => {
+
+                const joinedDate =
+                    customer.created_at
+                        ? new Date(
+                            customer.created_at
+                        ).toLocaleString()
+                        : "Not available";
+
+                return `
+                    <article class="customer-card">
+
+                        <h3>
+                            ${escapeHtml(
+                                customer.recipient_name ||
+                                "Customer"
+                            )}
+                        </h3>
+
+                        <p>
+                            <span class="label">
+                                Email:
+                            </span>
+                            ${escapeHtml(
+                                customer.customer_email ||
+                                "Not available"
+                            )}
+                        </p>
+
+                        <p>
+                            <span class="label">
+                                Phone:
+                            </span>
+                            ${escapeHtml(
+                                customer.phone ||
+                                "Not available"
+                            )}
+                        </p>
+
+                        <p>
+                            <span class="label">
+                                County:
+                            </span>
+                            ${escapeHtml(
+                                customer.county ||
+                                "Not available"
+                            )}
+                        </p>
+
+                        <p>
+                            <span class="label">
+                                Town:
+                            </span>
+                            ${escapeHtml(
+                                customer.town ||
+                                "Not available"
+                            )}
+                        </p>
+
+                        <p>
+                            <span class="label">
+                                Customer ID:
+                            </span>
+                            ${escapeHtml(
+                                customer.user_id
+                            )}
+                        </p>
+
+                        <p>
+                            <span class="label">
+                                Latest order activity:
+                            </span>
+                            ${escapeHtml(
+                                joinedDate
+                            )}
+                        </p>
+
+                    </article>
+                `;
+
+            }).join("");
+    }
+
+    searchInput.addEventListener(
+        "input",
+        renderCustomers
+    );
+
+    document.getElementById("logoutBtn")
+        .addEventListener(
+            "click",
+            async () => {
+
+                await supabaseClient.auth.signOut();
+
+                window.location.href =
+                    "login.html";
+            }
+        );
+
+    async function init() {
+
+        const isAdmin =
+            await checkAdmin();
+
+        if (!isAdmin) {
+            return;
+        }
+
+        await loadCustomers();
+    }
+
+    init();
+
+</script>
+
+</body>
+</html>

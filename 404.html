@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Page Not Found - Meteur Online Shopping</title>
+
+    <meta name="description"
+          content="The page you are looking for could not be found on Meteur Online Shopping.">
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .error-page {
+            min-height: 65vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 50px 20px;
+        }
+
+        .error-card {
+            background: white;
+            max-width: 650px;
+            width: 100%;
+            text-align: center;
+            padding: 50px 30px;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+        }
+
+        .error-number {
+            font-size: 100px;
+            line-height: 1;
+            font-weight: 800;
+            color: #ff7900;
+            margin-bottom: 15px;
+        }
+
+        .error-card h1 {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .error-card p {
+            color: #666;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        .error-actions {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .error-button {
+            display: inline-block;
+            padding: 13px 22px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .home-button {
+            background: #ff7900;
+            color: white;
+        }
+
+        .home-button:hover {
+            background: #e86f00;
+        }
+
+        .shop-button {
+            border: 1px solid #ddd;
+            color: #333;
+            background: white;
+        }
+
+        .shop-button:hover {
+            background: #f5f5f5;
+        }
+
+        .error-links {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .error-links a {
+            color: #f57224;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+            .error-card {
+                padding: 40px 20px;
+            }
+
+            .error-number {
+                font-size: 75px;
+            }
+
+            .error-card h1 {
+                font-size: 26px;
+            }
+
+            .error-button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+
+            <span>Welcome to Meteur Online Shopping</span>
+
+            <div>
+                <a href="help.html">Help Center</a>
+                <a href="track-order.html">Track Order</a>
+                <a href="sell.html">Sell on Meteur</a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="main-header">
+
+        <div class="container header-content">
+
+            <a href="index.html" class="logo">
+                <i class="fas fa-shopping-bag"></i>
+                <span>Meteur</span>
+                <small>ONLINE SHOPPING</small>
+            </a>
+
+            <form class="search-box" id="searchForm">
+
+                <input
+                    type="search"
+                    id="searchInput"
+                    placeholder="Search products, brands and categories"
+                >
+
+                <button type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+
+            </form>
+
+            <div class="header-actions">
+
+                <a href="login.html">
+                    <i class="fas fa-user"></i>
+                    <span>Account</span>
+                </a>
+
+                <a href="wishlist.html">
+                    <i class="fas fa-heart"></i>
+                    <span>Wishlist</span>
+                </a>
+
+                <a href="cart.html">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Cart <b id="cartCount">0</b></span>
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+    <!-- Navigation -->
+    <nav class="main-nav">
+
+        <div class="container nav-content">
+
+            <a href="categories.html">
+                <i class="fas fa-bars"></i> Categories
+            </a>
+
+            <a href="index.html">Home</a>
+
+            <a href="shop.html">Shop</a>
+
+            <a href="deals.html">Flash Deals</a>
+
+            <a href="categories.html">Categories</a>
+
+            <a href="new-arrivals.html">New Arrivals</a>
+
+            <a href="shop.html">Popular</a>
+
+        </div>
+
+    </nav>
+
+    <!-- 404 Content -->
+    <main class="error-page">
+
+        <div class="error-card">
+
+            <div class="error-number">
+                404
+            </div>
+
+            <h1>Page Not Found</h1>
+
+            <p>
+                Sorry, the page you are looking for does not exist,
+                may have been moved, or the link may be incorrect.
+            </p>
+
+            <div class="error-actions">
+
+                <a href="index.html"
+                   class="error-button home-button">
+                    Back to Home
+                </a>
+
+                <a href="shop.html"
+                   class="error-button shop-button">
+                    Start Shopping
+                </a>
+
+            </div>
+
+            <div class="error-links">
+
+                <a href="categories.html">
+                    Categories
+                </a>
+
+                <a href="deals.html">
+                    Flash Deals
+                </a>
+
+                <a href="contact.html">
+                    Contact Us
+                </a>
+
+                <a href="help.html">
+                    Help Center
+                </a>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+
+        <div class="container footer-grid">
+
+            <div>
+
+                <h3>Meteur Online Shopping</h3>
+
+                <p>
+                    A Kenyan online shopping marketplace offering
+                    products across multiple categories.
+                </p>
+
+            </div>
+
+            <div>
+
+                <h3>Customer Service</h3>
+
+                <a href="help.html">Help Center</a>
+                <a href="contact.html">Contact Us</a>
+                <a href="track-order.html">Track Order</a>
+                <a href="returns.html">Returns & Refunds</a>
+
+            </div>
+
+            <div>
+
+                <h3>Shopping</h3>
+
+                <a href="shop.html">Shop Products</a>
+                <a href="categories.html">Categories</a>
+                <a href="deals.html">Flash Deals</a>
+                <a href="wishlist.html">Wishlist</a>
+
+            </div>
+
+            <div>
+
+                <h3>Contact</h3>
+
+                <p>📞 0711842260</p>
+                <p>✉️ daghlusmeteur@gmail.com</p>
+                <p>🇰🇪 Kenya</p>
+
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+
+            <p>
+                © 2026 Meteur Online Shopping. All rights reserved.
+            </p>
+
+        </div>
+
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

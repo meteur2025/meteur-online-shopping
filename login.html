@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | Meteur Online Shopping</title>
+
+    <meta name="description" content="Login to your Meteur Online Shopping customer account.">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .auth-page {
+            min-height: 650px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 50px 20px;
+            background: #f5f5f5;
+        }
+
+        .auth-container {
+            width: 100%;
+            max-width: 460px;
+        }
+
+        .auth-card {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 35px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.10);
+        }
+
+        .auth-logo {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .auth-logo i {
+            font-size: 38px;
+            color: #ff9900;
+            margin-bottom: 8px;
+        }
+
+        .auth-logo h1 {
+            font-size: 28px;
+            color: #222;
+            margin: 0;
+        }
+
+        .auth-logo span {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #777;
+            margin-top: 3px;
+        }
+
+        .auth-title {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .auth-title h2 {
+            font-size: 24px;
+            color: #222;
+            margin-bottom: 7px;
+        }
+
+        .auth-title p {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 7px;
+            color: #333;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+        }
+
+        .form-group input {
+            width: 100%;
+            height: 48px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 0 14px 0 42px;
+            font-size: 14px;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus {
+            border-color: #ff9900;
+            box-shadow: 0 0 0 2px rgba(255,153,0,0.12);
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #777;
+        }
+
+        .password-toggle i {
+            position: static;
+            transform: none;
+        }
+
+        .auth-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 5px 0 22px;
+            font-size: 13px;
+        }
+
+        .remember {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            color: #555;
+        }
+
+        .remember input {
+            accent-color: #ff9900;
+        }
+
+        .forgot-link {
+            color: #f57c00;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .forgot-link:hover {
+            text-decoration: underline;
+        }
+
+        .login-btn {
+            width: 100%;
+            height: 50px;
+            border: none;
+            border-radius: 5px;
+            background: #ff9900;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .login-btn:hover {
+            background: #e88900;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 25px 0;
+            color: #999;
+            font-size: 13px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #ddd;
+        }
+
+        .register-box {
+            text-align: center;
+            background: #fafafa;
+            border: 1px solid #eee;
+            padding: 18px;
+            border-radius: 5px;
+        }
+
+        .register-box p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .register-btn {
+            display: inline-block;
+            color: #f57c00;
+            border: 1px solid #ff9900;
+            padding: 10px 25px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .register-btn:hover {
+            background: #ff9900;
+            color: #fff;
+        }
+
+        .security-note {
+            text-align: center;
+            margin-top: 20px;
+            color: #777;
+            font-size: 12px;
+        }
+
+        .security-note i {
+            color: #ff9900;
+            margin-right: 5px;
+        }
+
+        .auth-message {
+            display: none;
+            padding: 12px;
+            margin-bottom: 18px;
+            border-radius: 5px;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        @media (max-width: 560px) {
+            .auth-page {
+                padding: 30px 15px;
+            }
+
+            .auth-card {
+                padding: 25px 20px;
+            }
+
+            .auth-options {
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <span>Welcome to Meteur Online Shopping</span>
+
+            <div class="top-links">
+                <a href="#">Help Center</a>
+                <a href="#">Track Order</a>
+                <a href="#">Sell on Meteur</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="main-header">
+        <div class="container header-content">
+
+            <a href="index.html" class="logo">
+                <i class="fas fa-shopping-bag"></i>
+                <div>
+                    <strong>Meteur</strong>
+                    <span>ONLINE SHOPPING</span>
+                </div>
+            </a>
+
+            <form class="search-box" id="searchForm">
+                <input
+                    type="search"
+                    id="searchInput"
+                    placeholder="Search products, brands and categories..."
+                    aria-label="Search products"
+                >
+                <button type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+
+            <div class="header-actions">
+                <a href="login.html" class="header-action active">
+                    <i class="far fa-user"></i>
+                    <span>Account</span>
+                </a>
+
+                <a href="wishlist.html" class="header-action">
+                    <i class="far fa-heart"></i>
+                    <span>Wishlist</span>
+                </a>
+
+                <a href="cart.html" class="header-action cart-action">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Cart</span>
+                    <b id="cartCount">0</b>
+                </a>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- NAVIGATION -->
+    <nav class="main-nav">
+        <div class="container nav-content">
+
+            <a href="shop.html" class="category-button">
+                <i class="fas fa-bars"></i>
+                All Categories
+            </a>
+
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="shop.html">Shop</a>
+                <a href="index.html#flash-deals">Flash Deals</a>
+                <a href="index.html#categories">Categories</a>
+                <a href="index.html#new-arrivals">New Arrivals</a>
+                <a href="index.html#popular">Popular</a>
+            </div>
+
+        </div>
+    </nav>
+
+    <!-- LOGIN PAGE -->
+    <main class="auth-page">
+
+        <div class="auth-container">
+
+            <div class="auth-card">
+
+                <div class="auth-logo">
+                    <i class="fas fa-shopping-bag"></i>
+                    <h1>Meteur</h1>
+                    <span>ONLINE SHOPPING</span>
+                </div>
+
+                <div class="auth-title">
+                    <h2>Welcome Back</h2>
+                    <p>Login to your Meteur customer account</p>
+                </div>
+
+                <div class="auth-message" id="authMessage"></div>
+
+                <form id="loginForm">
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+
+                        <div class="input-wrapper">
+                            <i class="far fa-envelope"></i>
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="Enter your email address"
+                                required
+                                autocomplete="email"
+                            >
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock"></i>
+
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Enter your password"
+                                required
+                                minlength="6"
+                                autocomplete="current-password"
+                            >
+
+                            <span class="password-toggle" id="passwordToggle">
+                                <i class="far fa-eye"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="auth-options">
+
+                        <label class="remember">
+                            <input type="checkbox" id="rememberMe">
+                            Remember me
+                        </label>
+
+                        <a href="forgot-password.html" class="forgot-link">
+                            Forgot password?
+                        </a>
+
+                    </div>
+
+                    <button type="submit" class="login-btn">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Login
+                    </button>
+
+                </form>
+
+                <div class="divider">
+                    <span>New to Meteur?</span>
+                </div>
+
+                <div class="register-box">
+                    <p>Create an account to start shopping</p>
+
+                    <a href="register.html" class="register-btn">
+                        Create Account
+                    </a>
+                </div>
+
+                <div class="security-note">
+                    <i class="fas fa-shield-alt"></i>
+                    Your account information will be securely protected.
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+
+        <div class="container footer-grid">
+
+            <div>
+                <h3>Meteur Online Shopping</h3>
+                <p>
+                    Your trusted Kenyan online shopping marketplace.
+                    Shop conveniently from anywhere in Kenya.
+                </p>
+            </div>
+
+            <div>
+                <h3>Customer Service</h3>
+                <a href="#">Help Center</a>
+                <a href="#">Delivery Information</a>
+                <a href="#">Returns & Refunds</a>
+                <a href="#">Contact Us</a>
+            </div>
+
+            <div>
+                <h3>My Account</h3>
+                <a href="login.html">Login</a>
+                <a href="register.html">Create Account</a>
+                <a href="orders.html">My Orders</a>
+                <a href="wishlist.html">Wishlist</a>
+            </div>
+
+            <div>
+                <h3>Contact Us</h3>
+                <p>
+                    <i class="fas fa-phone"></i>
+                    0711842260
+                </p>
+
+                <p>
+                    <i class="fas fa-envelope"></i>
+                    daghlusmeteur@gmail.com
+                </p>
+
+                <p>
+                    <i class="fas fa-map-marker-alt"></i>
+                    Kenya
+                </p>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 Meteur Online Shopping. All Rights Reserved.</p>
+        </div>
+
+    </footer>
+
+    <script src="script.js"></script>
+
+    <script>
+        const loginForm = document.getElementById("loginForm");
+        const authMessage = document.getElementById("authMessage");
+        const passwordToggle = document.getElementById("passwordToggle");
+        const passwordInput = document.getElementById("password");
+
+        passwordToggle.addEventListener("click", function () {
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                passwordToggle.innerHTML = '<i class="far fa-eye-slash"></i>';
+            } else {
+                passwordInput.type = "password";
+                passwordToggle.innerHTML = '<i class="far fa-eye"></i>';
+            }
+        });
+
+        loginForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value;
+
+            if (!email || !password) {
+                authMessage.style.display = "block";
+                authMessage.style.background = "#fff3cd";
+                authMessage.style.color = "#856404";
+                authMessage.textContent = "Please enter your email and password.";
+                return;
+            }
+
+            authMessage.style.display = "block";
+            authMessage.style.background = "#e8f5e9";
+            authMessage.style.color = "#2e7d32";
+            authMessage.textContent =
+                "Login form is ready. Secure account authentication will be connected during the account setup stage.";
+        });
+    </script>
+
+</body>
+</html>

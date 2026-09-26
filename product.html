@@ -4,207 +4,270 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Product Details | Meteur Online Shopping</title>
-
-    <link rel="stylesheet" href="style.css">
+    <title>Product - Meteur Online Shopping</title>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabase-config.js"></script>
 
     <style>
-        .product-page {
-            padding: 40px 5%;
-            background: #f7f7f7;
-            min-height: 70vh;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
-        .product-container {
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f5f5;
+            color: #222;
+        }
+
+        header {
+            background: #f97316;
+            color: white;
+            padding: 18px 5%;
+        }
+
+        .header-inner {
             max-width: 1200px;
             margin: auto;
-            background: #fff;
-            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 35px auto;
+            padding: 0 20px;
+        }
+
+        .breadcrumb {
+            margin-bottom: 20px;
+            color: #666;
+        }
+
+        .breadcrumb a {
+            color: #f97316;
+            text-decoration: none;
+        }
+
+        .product {
+            background: white;
+            border-radius: 14px;
             padding: 30px;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 45px;
-            box-shadow: 0 2px 10px rgba(0,0,0,.06);
+            gap: 40px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
         }
 
-        .product-gallery {
-            position: relative;
-        }
-
-        .main-image {
+        .product-image {
             width: 100%;
             height: 500px;
             object-fit: cover;
-            border-radius: 10px;
-            background: #f3f3f3;
-        }
-
-        .thumbnail-row {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-            overflow-x: auto;
-        }
-
-        .thumbnail {
-            width: 75px;
-            height: 75px;
-            object-fit: cover;
-            border-radius: 7px;
-            cursor: pointer;
-            border: 2px solid transparent;
-        }
-
-        .thumbnail.active {
-            border-color: #ff6b00;
-        }
-
-        .product-info h1 {
-            font-size: 32px;
-            margin: 8px 0 15px;
+            border-radius: 12px;
         }
 
         .category {
-            color: #777;
+            color: #f97316;
             font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
             margin-bottom: 10px;
         }
 
+        h1 {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
         .rating {
-            color: #f5a623;
+            color: #666;
             margin-bottom: 20px;
         }
 
+        .stars {
+            color: #f59e0b;
+            font-size: 18px;
+        }
+
         .price {
-            font-size: 32px;
-            font-weight: 800;
-            color: #222;
+            font-size: 30px;
+            font-weight: bold;
+            color: #111;
+            margin-bottom: 5px;
         }
 
         .old-price {
             color: #999;
             text-decoration: line-through;
+            font-size: 17px;
             margin-left: 10px;
-            font-size: 16px;
+            font-weight: normal;
         }
 
-        .description {
-            margin: 25px 0;
-            color: #555;
-            line-height: 1.7;
+        .saving {
+            color: #16a34a;
+            font-weight: bold;
+            margin: 10px 0 20px;
         }
 
         .stock {
-            font-weight: 700;
+            font-weight: bold;
+            color: #16a34a;
             margin-bottom: 20px;
         }
 
-        .quantity-box {
+        .out-stock {
+            color: #dc2626;
+        }
+
+        .description {
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        .quantity-area {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             margin-bottom: 20px;
         }
 
-        .quantity-box button {
+        .quantity-area button {
             width: 38px;
             height: 38px;
-            border: 1px solid #ddd;
-            background: #fff;
+            border: 1px solid #ccc;
+            background: white;
             cursor: pointer;
+            border-radius: 6px;
             font-size: 20px;
-            border-radius: 5px;
         }
 
-        .quantity-box input {
-            width: 60px;
-            height: 38px;
+        .quantity {
+            min-width: 35px;
             text-align: center;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            font-weight: bold;
         }
 
-        .action-buttons {
+        .actions {
             display: flex;
             gap: 12px;
             flex-wrap: wrap;
         }
 
-        .action-buttons button {
-            padding: 13px 22px;
-            border-radius: 7px;
+        .button {
             border: none;
+            border-radius: 8px;
+            padding: 14px 20px;
+            font-weight: bold;
+            font-size: 15px;
             cursor: pointer;
-            font-weight: 700;
         }
 
-        .add-cart {
-            background: #ff6b00;
+        .cart-button {
+            background: #f97316;
             color: white;
         }
 
-        .buy-now {
+        .buy-button {
+            background: #111;
+            color: white;
+        }
+
+        .wishlist-button {
+            background: white;
+            color: #f97316;
+            border: 2px solid #f97316;
+        }
+
+        .wishlist-button.active {
+            background: #fff7ed;
+        }
+
+        .button:disabled {
+            background: #aaa;
+            border-color: #aaa;
+            cursor: not-allowed;
+        }
+
+        .message {
+            display: none;
+            padding: 14px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .success {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .loading {
+            background: white;
+            padding: 60px;
+            text-align: center;
+            border-radius: 12px;
+        }
+
+        footer {
             background: #222;
             color: white;
-        }
-
-        .wishlist {
-            background: white;
-            border: 1px solid #ddd !important;
-        }
-
-        .product-loading,
-        .product-error {
-            max-width: 900px;
-            margin: 50px auto;
-            padding: 50px;
-            background: white;
             text-align: center;
-            border-radius: 10px;
+            padding: 30px;
+            margin-top: 40px;
         }
 
-        .product-error {
-            color: #b00020;
-        }
-
-        .product-extra {
-            max-width: 1200px;
-            margin: 25px auto 0;
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
-        }
-
-        .product-extra h2 {
-            margin-bottom: 15px;
-        }
-
-        @media (max-width: 850px) {
-            .product-container {
+        @media (max-width: 800px) {
+            .product {
                 grid-template-columns: 1fr;
-                gap: 25px;
-                padding: 20px;
             }
 
-            .main-image {
-                height: 400px;
+            .product-image {
+                height: 350px;
             }
 
-            .product-info h1 {
-                font-size: 26px;
+            h1 {
+                font-size: 25px;
             }
         }
 
         @media (max-width: 500px) {
-            .main-image {
-                height: 300px;
+            .product {
+                padding: 20px;
             }
 
-            .product-page {
-                padding: 25px 4%;
+            .actions {
+                flex-direction: column;
+            }
+
+            .button {
+                width: 100%;
             }
         }
     </style>
@@ -212,669 +275,768 @@
 
 <body>
 
-<header class="site-header">
+<header>
+    <div class="header-inner">
 
-    <div class="header-main">
-
-        <a href="index.html" class="logo">
-            Meteur
-        </a>
-
-        <div class="header-search">
-
-            <input
-                type="text"
-                id="headerSearch"
-                placeholder="Search products..."
-            >
-
-            <button onclick="performSearch()">
-                Search
-            </button>
-
+        <div class="logo">
+            Meteur Online Shopping
         </div>
 
-        <div class="header-actions">
-
-            <a href="login.html">Account</a>
-
-            <a href="wishlist.html">
-                Wishlist
-            </a>
-
-            <a href="cart.html">
-                Cart (<span id="cartCount">0</span>)
-            </a>
-
+        <div class="nav">
+            <a href="index.html">Home</a>
+            <a href="shop.html">Shop</a>
+            <a href="wishlist.html">Wishlist</a>
+            <a href="cart.html">Cart</a>
+            <a href="dashboard.html">Account</a>
         </div>
 
     </div>
-
-    <nav class="main-nav">
-
-        <a href="index.html">Home</a>
-        <a href="shop.html">Shop</a>
-        <a href="categories.html">Categories</a>
-        <a href="deals.html">Deals</a>
-        <a href="new-arrivals.html">New Arrivals</a>
-
-    </nav>
-
 </header>
 
-<main class="product-page">
+<div class="container">
 
-    <div id="loading" class="product-loading">
-        <h2>Loading product...</h2>
-        <p>Please wait.</p>
+    <div class="breadcrumb">
+        <a href="shop.html">Shop</a>
+        <span> / Product</span>
     </div>
 
-    <div id="productContainer" style="display:none;">
+    <div id="message" class="message"></div>
 
-        <div class="product-container">
-
-            <div class="product-gallery">
-
-                <img
-                    id="mainImage"
-                    class="main-image"
-                    src=""
-                    alt="Product"
-                >
-
-                <div
-                    id="thumbnailRow"
-                    class="thumbnail-row"
-                ></div>
-
-            </div>
-
-            <div class="product-info">
-
-                <div id="productCategory" class="category"></div>
-
-                <h1 id="productName"></h1>
-
-                <div id="productRating" class="rating"></div>
-
-                <div>
-
-                    <span id="productPrice" class="price"></span>
-
-                    <span
-                        id="productOldPrice"
-                        class="old-price"
-                    ></span>
-
-                </div>
-
-                <p
-                    id="productDescription"
-                    class="description"
-                ></p>
-
-                <div
-                    id="productStock"
-                    class="stock"
-                ></div>
-
-                <div class="quantity-box">
-
-                    <button onclick="changeQuantity(-1)">
-                        −
-                    </button>
-
-                    <input
-                        id="quantity"
-                        type="number"
-                        value="1"
-                        min="1"
-                    >
-
-                    <button onclick="changeQuantity(1)">
-                        +
-                    </button>
-
-                </div>
-
-                <div class="action-buttons">
-
-                    <button
-                        class="add-cart"
-                        onclick="addToCart()"
-                    >
-                        Add to Cart
-                    </button>
-
-                    <button
-                        class="buy-now"
-                        onclick="buyNow()"
-                    >
-                        Buy Now
-                    </button>
-
-                    <button
-                        class="wishlist"
-                        onclick="addToWishlist()"
-                    >
-                        ♡ Wishlist
-                    </button>
-
-                </div>
-
-            </div>
-
+    <div id="productContainer">
+        <div class="loading">
+            Loading product...
         </div>
-
-        <div class="product-extra">
-
-            <h2>Product Information</h2>
-
-            <p>
-                Shop with confidence on Meteur Online Shopping.
-                Product information, pricing and availability are
-                loaded directly from the Meteur product database.
-            </p>
-
-        </div>
-
     </div>
 
-    <div
-        id="errorContainer"
-        class="product-error"
-        style="display:none;"
-    >
+</div>
 
-        <h2>Product not found</h2>
-
-        <p>
-            We could not find this product.
-            Please return to the shop and choose another product.
-        </p>
-
-        <br>
-
-        <a href="shop.html">
-            Back to Shop
-        </a>
-
-    </div>
-
-</main>
-
-<footer class="site-footer">
-
-    <div class="footer-content">
-
-        <div>
-
-            <h3>Meteur Online Shopping</h3>
-
-            <p>
-                Your modern Kenyan online marketplace.
-            </p>
-
-        </div>
-
-        <div>
-
-            <h4>Shopping</h4>
-
-            <a href="shop.html">Shop</a>
-            <a href="categories.html">Categories</a>
-            <a href="deals.html">Deals</a>
-            <a href="new-arrivals.html">New Arrivals</a>
-
-        </div>
-
-        <div>
-
-            <h4>Customer Service</h4>
-
-            <a href="help.html">Help Center</a>
-            <a href="faq.html">FAQ</a>
-            <a href="contact.html">Contact</a>
-            <a href="track-order.html">Track Order</a>
-
-        </div>
-
-    </div>
-
-    <div class="footer-bottom">
-        © 2026 Meteur Online Shopping. All rights reserved.
-    </div>
-
+<footer>
+    <p>© 2026 Meteur Online Shopping. All rights reserved.</p>
 </footer>
-
-<script src="script.js"></script>
 
 <script>
 
-let currentProduct = null;
+    let product = null;
+    let currentUser = null;
+    let quantity = 1;
+    let isInWishlist = false;
 
-/* Get product ID from URL */
+    const productContainer =
+        document.getElementById("productContainer");
 
-const urlParams = new URLSearchParams(
-    window.location.search
-);
+    const messageBox =
+        document.getElementById("message");
 
-const productId = urlParams.get("id");
+    function formatMoney(amount) {
 
-/* Load product */
-
-async function loadProduct() {
-
-    if (!productId) {
-
-        showError();
-        return;
+        return "KSh " +
+            Number(amount || 0).toLocaleString("en-KE", {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 2
+            });
 
     }
 
-    try {
+    function escapeHTML(value) {
 
-        const { data, error } = await supabaseClient
+        const div =
+            document.createElement("div");
+
+        div.textContent =
+            value == null ? "" : String(value);
+
+        return div.innerHTML;
+
+    }
+
+    function renderStars(rating) {
+
+        const rounded =
+            Math.round(Number(rating) || 0);
+
+        return "★".repeat(rounded) +
+            "☆".repeat(5 - rounded);
+
+    }
+
+    function showMessage(message, type) {
+
+        messageBox.textContent =
+            message;
+
+        messageBox.className =
+            "message " + type;
+
+        messageBox.style.display =
+            "block";
+
+        setTimeout(() => {
+
+            messageBox.style.display =
+                "none";
+
+        }, 3000);
+
+    }
+
+    function getCart() {
+
+        try {
+
+            const cart =
+                JSON.parse(
+                    localStorage.getItem("meteurCart") || "[]"
+                );
+
+            return Array.isArray(cart)
+                ? cart
+                : [];
+
+        } catch (error) {
+
+            return [];
+
+        }
+
+    }
+
+    function saveCart(cart) {
+
+        localStorage.setItem(
+            "meteurCart",
+            JSON.stringify(cart)
+        );
+
+    }
+
+    function addToCart() {
+
+        if (!product) {
+            return;
+        }
+
+        const stock =
+            Number(product.stock) || 0;
+
+        if (stock <= 0) {
+
+            showMessage(
+                "This product is out of stock.",
+                "error"
+            );
+
+            return;
+        }
+
+        const cart =
+            getCart();
+
+        const existing =
+            cart.find(
+                item => item.id === product.id
+            );
+
+        if (existing) {
+
+            const newQuantity =
+                (Number(existing.quantity) || 1) +
+                quantity;
+
+            existing.quantity =
+                Math.min(newQuantity, stock);
+
+        } else {
+
+            cart.push({
+
+                id: product.id,
+
+                name: product.name,
+
+                price: Number(product.price),
+
+                image: product.image_url,
+
+                quantity: Math.min(quantity, stock)
+
+            });
+
+        }
+
+        saveCart(cart);
+
+        showMessage(
+            "Product added to your cart.",
+            "success"
+        );
+
+    }
+
+    function buyNow() {
+
+        if (!product) {
+            return;
+        }
+
+        const stock =
+            Number(product.stock) || 0;
+
+        if (stock <= 0) {
+
+            showMessage(
+                "This product is out of stock.",
+                "error"
+            );
+
+            return;
+        }
+
+        const cart =
+            getCart();
+
+        const existing =
+            cart.find(
+                item => item.id === product.id
+            );
+
+        if (existing) {
+
+            existing.quantity =
+                Math.min(
+                    (Number(existing.quantity) || 1) + quantity,
+                    stock
+                );
+
+        } else {
+
+            cart.push({
+
+                id: product.id,
+
+                name: product.name,
+
+                price: Number(product.price),
+
+                image: product.image_url,
+
+                quantity:
+                    Math.min(quantity, stock)
+
+            });
+
+        }
+
+        saveCart(cart);
+
+        window.location.href =
+            "checkout.html";
+
+    }
+
+    async function checkWishlist() {
+
+        if (!currentUser || !product) {
+            return;
+        }
+
+        const {
+            data,
+            error
+        } = await supabaseClient
+            .from("wishlist")
+            .select("id")
+            .eq("user_id", currentUser.id)
+            .eq("product_id", product.id)
+            .maybeSingle();
+
+        if (error) {
+
+            console.error(
+                "Wishlist check error:",
+                error
+            );
+
+            return;
+        }
+
+        isInWishlist =
+            Boolean(data);
+
+        updateWishlistButton();
+
+    }
+
+    function updateWishlistButton() {
+
+        const button =
+            document.getElementById("wishlistButton");
+
+        if (!button) {
+            return;
+        }
+
+        if (isInWishlist) {
+
+            button.textContent =
+                "♥ Saved to Wishlist";
+
+            button.classList.add("active");
+
+        } else {
+
+            button.textContent =
+                "♡ Add to Wishlist";
+
+            button.classList.remove("active");
+
+        }
+
+    }
+
+    async function toggleWishlist() {
+
+        if (!currentUser) {
+
+            window.location.href =
+                "login.html?redirect=" +
+                encodeURIComponent(
+                    "product.html?id=" + product.id
+                );
+
+            return;
+        }
+
+        if (!product) {
+            return;
+        }
+
+        const button =
+            document.getElementById("wishlistButton");
+
+        button.disabled = true;
+
+        if (isInWishlist) {
+
+            const {
+                error
+            } = await supabaseClient
+                .from("wishlist")
+                .delete()
+                .eq("user_id", currentUser.id)
+                .eq("product_id", product.id);
+
+            if (error) {
+
+                console.error(
+                    "Wishlist removal error:",
+                    error
+                );
+
+                showMessage(
+                    "Could not remove the product from your wishlist.",
+                    "error"
+                );
+
+                button.disabled = false;
+
+                return;
+            }
+
+            isInWishlist = false;
+
+            showMessage(
+                "Product removed from your wishlist.",
+                "success"
+            );
+
+        } else {
+
+            const {
+                error
+            } = await supabaseClient
+                .from("wishlist")
+                .insert([{
+                    user_id: currentUser.id,
+                    product_id: product.id
+                }]);
+
+            if (error) {
+
+                if (error.code === "23505") {
+
+                    isInWishlist = true;
+
+                } else {
+
+                    console.error(
+                        "Wishlist insert error:",
+                        error
+                    );
+
+                    showMessage(
+                        "Could not add the product to your wishlist.",
+                        "error"
+                    );
+
+                    button.disabled = false;
+
+                    return;
+                }
+
+            } else {
+
+                isInWishlist = true;
+
+            }
+
+            showMessage(
+                "Product saved to your wishlist.",
+                "success"
+            );
+
+        }
+
+        updateWishlistButton();
+
+        button.disabled = false;
+
+    }
+
+    function changeQuantity(amount) {
+
+        if (!product) {
+            return;
+        }
+
+        const stock =
+            Number(product.stock) || 0;
+
+        quantity += amount;
+
+        if (quantity < 1) {
+            quantity = 1;
+        }
+
+        if (stock > 0 && quantity > stock) {
+            quantity = stock;
+        }
+
+        const quantityDisplay =
+            document.getElementById("quantity");
+
+        if (quantityDisplay) {
+
+            quantityDisplay.textContent =
+                quantity;
+
+        }
+
+    }
+
+    function renderProduct() {
+
+        const stock =
+            Number(product.stock) || 0;
+
+        const savings =
+            product.old_price &&
+            Number(product.old_price) > Number(product.price)
+                ? Number(product.old_price) -
+                  Number(product.price)
+                : 0;
+
+        productContainer.innerHTML = `
+
+            <div class="product">
+
+                <div>
+
+                    <img
+                        class="product-image"
+                        src="${escapeHTML(
+                            product.image_url ||
+                            "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800"
+                        )}"
+                        alt="${escapeHTML(product.name)}"
+                    >
+
+                </div>
+
+                <div>
+
+                    <div class="category">
+                        ${escapeHTML(product.category)}
+                    </div>
+
+                    <h1>
+                        ${escapeHTML(product.name)}
+                    </h1>
+
+                    <div class="rating">
+
+                        <span class="stars">
+                            ${renderStars(product.rating)}
+                        </span>
+
+                        ${Number(product.rating || 0).toFixed(1)}
+
+                        ·
+
+                        ${Number(product.review_count || 0)}
+                        reviews
+
+                    </div>
+
+                    <div class="price">
+
+                        ${formatMoney(product.price)}
+
+                        ${
+                            product.old_price
+                            ? `
+                                <span class="old-price">
+                                    ${formatMoney(product.old_price)}
+                                </span>
+                            `
+                            : ""
+                        }
+
+                    </div>
+
+                    ${
+                        savings > 0
+                        ? `
+                            <div class="saving">
+                                Save ${formatMoney(savings)}
+                            </div>
+                        `
+                        : ""
+                    }
+
+                    <div class="${
+                        stock > 0
+                            ? "stock"
+                            : "stock out-stock"
+                    }">
+
+                        ${
+                            stock > 0
+                                ? `${stock} items available`
+                                : "Out of stock"
+                        }
+
+                    </div>
+
+                    <p class="description">
+
+                        ${
+                            escapeHTML(
+                                product.description ||
+                                "No description is currently available for this product."
+                            )
+                        }
+
+                    </p>
+
+                    ${
+                        stock > 0
+                        ? `
+                            <div class="quantity-area">
+
+                                <button
+                                    type="button"
+                                    id="minusButton"
+                                >
+                                    −
+                                </button>
+
+                                <span
+                                    class="quantity"
+                                    id="quantity"
+                                >
+                                    1
+                                </span>
+
+                                <button
+                                    type="button"
+                                    id="plusButton"
+                                >
+                                    +
+                                </button>
+
+                            </div>
+                        `
+                        : ""
+                    }
+
+                    <div class="actions">
+
+                        <button
+                            type="button"
+                            class="button wishlist-button"
+                            id="wishlistButton"
+                        >
+                            ♡ Add to Wishlist
+                        </button>
+
+                        <button
+                            type="button"
+                            class="button cart-button"
+                            id="cartButton"
+                            ${stock <= 0 ? "disabled" : ""}
+                        >
+                            Add to Cart
+                        </button>
+
+                        <button
+                            type="button"
+                            class="button buy-button"
+                            id="buyButton"
+                            ${stock <= 0 ? "disabled" : ""}
+                        >
+                            Buy Now
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        `;
+
+        document
+            .getElementById("wishlistButton")
+            .addEventListener(
+                "click",
+                toggleWishlist
+            );
+
+        if (stock > 0) {
+
+            document
+                .getElementById("minusButton")
+                .addEventListener(
+                    "click",
+                    () => changeQuantity(-1)
+                );
+
+            document
+                .getElementById("plusButton")
+                .addEventListener(
+                    "click",
+                    () => changeQuantity(1)
+                );
+
+            document
+                .getElementById("cartButton")
+                .addEventListener(
+                    "click",
+                    addToCart
+                );
+
+            document
+                .getElementById("buyButton")
+                .addEventListener(
+                    "click",
+                    buyNow
+                );
+
+        }
+
+        updateWishlistButton();
+
+    }
+
+    async function loadProduct() {
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+        const productId =
+            params.get("id");
+
+        if (!productId) {
+
+            productContainer.innerHTML = `
+                <div class="loading">
+                    Product not found.
+                    <br><br>
+                    <a href="shop.html">
+                        Return to Shop
+                    </a>
+                </div>
+            `;
+
+            return;
+
+        }
+
+        const {
+            data,
+            error
+        } = await supabaseClient
             .from("products")
             .select("*")
             .eq("id", productId)
             .single();
 
-        if (error) {
-            throw error;
-        }
+        if (error || !data) {
 
-        if (!data) {
+            console.error(
+                "Product loading error:",
+                error
+            );
 
-            showError();
+            productContainer.innerHTML = `
+                <div class="loading">
+                    We could not load this product.
+                    <br><br>
+                    <a href="shop.html">
+                        Return to Shop
+                    </a>
+                </div>
+            `;
+
             return;
 
         }
 
-        currentProduct = data;
+        product =
+            data;
 
-        displayProduct(data);
+        renderProduct();
 
-    } catch (error) {
-
-        console.error(
-            "Product loading error:",
-            error
-        );
-
-        showError();
+        await checkWishlist();
 
     }
 
-}
+    async function loadUser() {
 
-/* Display product */
+        const {
+            data
+        } = await supabaseClient.auth.getUser();
 
-function displayProduct(product) {
+        if (data && data.user) {
 
-    document.getElementById("loading").style.display =
-        "none";
+            currentUser =
+                data.user;
 
-    document.getElementById("productContainer").style.display =
-        "block";
-
-    document.getElementById("productName").textContent =
-        product.name;
-
-    document.getElementById("productCategory").textContent =
-        product.category;
-
-    document.getElementById("productPrice").textContent =
-        "KSh " +
-        Number(product.price).toLocaleString();
-
-    document.getElementById("productDescription").textContent =
-        product.description ||
-        "Quality product available from Meteur Online Shopping.";
-
-    const rating =
-        Number(product.rating || 0);
-
-    const reviewCount =
-        Number(product.review_count || 0);
-
-    document.getElementById("productRating").textContent =
-        "★".repeat(Math.round(rating)) +
-        "☆".repeat(5 - Math.round(rating)) +
-        ` ${rating.toFixed(1)} (${reviewCount} reviews)`;
-
-    if (product.old_price) {
-
-        document.getElementById("productOldPrice").textContent =
-            "KSh " +
-            Number(product.old_price).toLocaleString();
-
-    } else {
-
-        document.getElementById("productOldPrice").textContent =
-            "";
+        }
 
     }
 
-    const stock =
-        Number(product.stock || 0);
+    async function initialize() {
 
-    if (stock > 0) {
+        await loadUser();
 
-        document.getElementById("productStock").textContent =
-            `${stock} items available`;
-
-    } else {
-
-        document.getElementById("productStock").textContent =
-            "Currently out of stock";
+        await loadProduct();
 
     }
 
-    const mainImage =
-        product.image_url ||
-        "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=900&q=80";
-
-    document.getElementById("mainImage").src =
-        mainImage;
-
-    document.getElementById("mainImage").alt =
-        product.name;
-
-    const thumbnailRow =
-        document.getElementById("thumbnailRow");
-
-    thumbnailRow.innerHTML = `
-        <img
-            class="thumbnail active"
-            src="${escapeHtml(mainImage)}"
-            alt="${escapeHtml(product.name)}"
-            onclick="changeMainImage(this)"
-        >
-    `;
-
-    document.title =
-        product.name +
-        " | Meteur Online Shopping";
-
-}
-
-/* Change main image */
-
-function changeMainImage(element) {
-
-    document.getElementById("mainImage").src =
-        element.src;
-
-    document
-        .querySelectorAll(".thumbnail")
-        .forEach(item =>
-            item.classList.remove("active")
-        );
-
-    element.classList.add("active");
-
-}
-
-/* Quantity */
-
-function changeQuantity(amount) {
-
-    const input =
-        document.getElementById("quantity");
-
-    let quantity =
-        Number(input.value) || 1;
-
-    quantity += amount;
-
-    if (quantity < 1) {
-        quantity = 1;
-    }
-
-    if (
-        currentProduct &&
-        currentProduct.stock > 0 &&
-        quantity > currentProduct.stock
-    ) {
-
-        quantity =
-            currentProduct.stock;
-
-    }
-
-    input.value = quantity;
-
-}
-
-/* Add to cart */
-
-function addToCart() {
-
-    if (!currentProduct) {
-        return;
-    }
-
-    const quantity =
-        Number(
-            document.getElementById("quantity").value
-        ) || 1;
-
-    if (
-        currentProduct.stock <= 0
-    ) {
-
-        alert("This product is currently out of stock.");
-        return;
-
-    }
-
-    if (
-        quantity > currentProduct.stock
-    ) {
-
-        alert(
-            `Only ${currentProduct.stock} items are available.`
-        );
-
-        return;
-
-    }
-
-    let cart =
-        JSON.parse(
-            localStorage.getItem("meteurCart")
-        ) || [];
-
-    const existing =
-        cart.find(
-            item => item.id === currentProduct.id
-        );
-
-    if (existing) {
-
-        existing.quantity =
-            Number(existing.quantity || 0) +
-            quantity;
-
-    } else {
-
-        cart.push({
-
-            id: currentProduct.id,
-
-            name: currentProduct.name,
-
-            price: Number(currentProduct.price),
-
-            image: currentProduct.image_url,
-
-            quantity: quantity
-
-        });
-
-    }
-
-    localStorage.setItem(
-        "meteurCart",
-        JSON.stringify(cart)
-    );
-
-    updateCartCount();
-
-    alert(
-        `${currentProduct.name} added to your cart.`
-    );
-
-}
-
-/* Buy now */
-
-function buyNow() {
-
-    addToCart();
-
-    window.location.href =
-        "cart.html";
-
-}
-
-/* Wishlist */
-
-function addToWishlist() {
-
-    if (!currentProduct) {
-        return;
-    }
-
-    let wishlist =
-        JSON.parse(
-            localStorage.getItem("meteurWishlist")
-        ) || [];
-
-    const exists =
-        wishlist.some(
-            item => item.id === currentProduct.id
-        );
-
-    if (exists) {
-
-        alert(
-            "This product is already in your wishlist."
-        );
-
-        return;
-
-    }
-
-    wishlist.push({
-
-        id: currentProduct.id,
-
-        name: currentProduct.name,
-
-        price: Number(currentProduct.price),
-
-        image: currentProduct.image_url
-
-    });
-
-    localStorage.setItem(
-        "meteurWishlist",
-        JSON.stringify(wishlist)
-    );
-
-    alert(
-        `${currentProduct.name} added to your wishlist.`
-    );
-
-}
-
-/* Cart count */
-
-function updateCartCount() {
-
-    const cart =
-        JSON.parse(
-            localStorage.getItem("meteurCart")
-        ) || [];
-
-    const count =
-        cart.reduce(
-            (total, item) =>
-                total +
-                Number(item.quantity || 1),
-            0
-        );
-
-    const element =
-        document.getElementById("cartCount");
-
-    if (element) {
-        element.textContent = count;
-    }
-
-}
-
-/* Search */
-
-function performSearch() {
-
-    const search =
-        document
-            .getElementById("headerSearch")
-            .value
-            .trim();
-
-    if (!search) {
-        return;
-    }
-
-    window.location.href =
-        "shop.html?search=" +
-        encodeURIComponent(search);
-
-}
-
-/* Escape HTML */
-
-function escapeHtml(value) {
-
-    return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-
-}
-
-/* Show error */
-
-function showError() {
-
-    document.getElementById("loading").style.display =
-        "none";
-
-    document.getElementById("productContainer").style.display =
-        "none";
-
-    document.getElementById("errorContainer").style.display =
-        "block";
-
-}
-
-/* Start */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
-
-        updateCartCount();
-        loadProduct();
-
-    }
-);
+    initialize();
 
 </script>
 

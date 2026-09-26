@@ -4,130 +4,318 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Shipping Information - Meteur Online Shopping</title>
-
-    <meta name="description" content="Shipping and delivery information for Meteur Online Shopping.">
-
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <title>Shipping & Delivery - Meteur Online Shopping</title>
 
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        .shipping-page {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 45px 20px 70px;
+        }
+
+        .shipping-hero {
+            min-height: 310px;
+            border-radius: 14px;
+            margin-bottom: 35px;
+            display: flex;
+            align-items: center;
+            background:
+                linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.55)),
+                url("https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1600&q=85");
+            background-size: cover;
+            background-position: center;
+        }
+
+        .shipping-hero-content {
+            color: white;
+            padding: 50px;
+        }
+
+        .shipping-hero h1 {
+            font-size: 42px;
+            margin: 0 0 12px;
+        }
+
+        .shipping-hero p {
+            max-width: 680px;
+            margin: 0;
+            font-size: 17px;
+            line-height: 1.7;
+        }
+
+        .shipping-intro,
+        .shipping-section {
+            background: white;
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,.08);
+            margin-bottom: 25px;
+        }
+
+        .shipping-intro h2,
+        .shipping-section h2 {
+            margin-top: 0;
+            color: #222;
+        }
+
+        .shipping-intro p,
+        .shipping-section p {
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .shipping-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .shipping-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,.07);
+        }
+
+        .shipping-card .icon {
+            font-size: 35px;
+            margin-bottom: 12px;
+        }
+
+        .shipping-card h3 {
+            margin: 0 0 10px;
+        }
+
+        .shipping-card p {
+            color: #666;
+            line-height: 1.7;
+        }
+
+        .shipping-section ul {
+            color: #555;
+            line-height: 1.8;
+            padding-left: 25px;
+        }
+
+        .shipping-section li {
+            margin-bottom: 8px;
+        }
+
+        .notice {
+            background: #fff5ef;
+            border-left: 4px solid #f4511e;
+            padding: 18px;
+            border-radius: 6px;
+            color: #555;
+            line-height: 1.7;
+            margin: 20px 0;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .step {
+            background: #f8f8f8;
+            padding: 20px;
+            border-radius: 9px;
+            text-align: center;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: #f4511e;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            font-weight: bold;
+        }
+
+        .step strong {
+            display: block;
+            margin-bottom: 7px;
+        }
+
+        .step p {
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .delivery-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .delivery-table th,
+        .delivery-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            text-align: left;
+        }
+
+        .delivery-table th {
+            background: #f7f7f7;
+        }
+
+        .contact-box {
+            background: #f4511e;
+            color: white;
+            padding: 35px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .contact-box h2 {
+            margin-top: 0;
+        }
+
+        .contact-box p {
+            max-width: 650px;
+            margin: 0 auto 20px;
+            line-height: 1.7;
+        }
+
+        .contact-box a {
+            display: inline-block;
+            background: white;
+            color: #f4511e;
+            padding: 12px 25px;
+            border-radius: 7px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        @media (max-width: 850px) {
+            .shipping-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .steps {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .shipping-page {
+                padding: 25px 15px 50px;
+            }
+
+            .shipping-hero {
+                min-height: 260px;
+            }
+
+            .shipping-hero-content {
+                padding: 30px 22px;
+            }
+
+            .shipping-hero h1 {
+                font-size: 32px;
+            }
+
+            .shipping-grid,
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .shipping-intro,
+            .shipping-section {
+                padding: 25px 20px;
+            }
+
+            .delivery-table {
+                font-size: 14px;
+            }
+
+            .delivery-table th,
+            .delivery-table td {
+                padding: 10px 7px;
+            }
+
+            .contact-box {
+                padding: 30px 20px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-    <!-- Top Bar -->
-    <div class="top-bar">
-        <div class="container">
+<header>
+    <div class="container">
 
-            <span>Welcome to Meteur Online Shopping</span>
+        <div class="top-bar">
 
-            <div class="top-links">
-                <a href="faq.html">Help Center</a>
-                <a href="track-order.html">Track Order</a>
-                <a href="sell.html">Sell on Meteur</a>
+            <div class="logo">
+                <a href="index.html">🛒 Meteur</a>
             </div>
 
-        </div>
-    </div>
-
-
-    <!-- Header -->
-    <header class="main-header">
-
-        <div class="container header-content">
-
-            <a href="index.html" class="logo">
-
-                <i class="fas fa-shopping-bag"></i>
-
-                <div>
-                    <strong>Meteur</strong>
-                    <small>ONLINE SHOPPING</small>
-                </div>
-
-            </a>
-
-
-            <form class="search-box" id="searchForm">
+            <div class="search-box">
 
                 <input
                     type="text"
                     id="searchInput"
-                    placeholder="Search for products, brands and more..."
-                    required
+                    placeholder="Search products..."
                 >
 
-                <button type="submit">
-                    <i class="fas fa-search"></i>
+                <button onclick="searchProducts()">
+                    Search
                 </button>
 
-            </form>
-
+            </div>
 
             <div class="header-actions">
 
-                <a href="login.html">
-                    <i class="fas fa-user"></i>
-                    <span>Account</span>
-                </a>
+                <a href="login.html">Account</a>
 
                 <a href="wishlist.html">
-                    <i class="fas fa-heart"></i>
-                    <span>Wishlist</span>
+                    ♡ Wishlist
                 </a>
 
                 <a href="cart.html">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span>Cart</span>
-                    <b id="cartCount">0</b>
+                    🛒 Cart (<span id="cartCount">0</span>)
                 </a>
 
             </div>
 
         </div>
 
-    </header>
-
-
-    <!-- Navigation -->
-    <nav class="main-nav">
-
-        <div class="container nav-content">
-
-            <a href="shop.html" class="category-button">
-                <i class="fas fa-bars"></i>
-                Categories
-            </a>
-
+        <nav>
             <a href="index.html">Home</a>
             <a href="shop.html">Shop</a>
-            <a href="shop.html">Flash Deals</a>
-            <a href="shop.html">Categories</a>
-            <a href="shop.html">New Arrivals</a>
-            <a href="shop.html">Popular</a>
+            <a href="categories.html">Categories</a>
+            <a href="deals.html">Deals</a>
+            <a href="new-arrivals.html">New Arrivals</a>
+            <a href="sell.html">Sell on Meteur</a>
+        </nav>
 
-        </div>
+    </div>
+</header>
 
-    </nav>
 
+<main class="shipping-page">
 
-    <!-- Hero -->
-    <section style="
-        background: linear-gradient(135deg, #ff9900, #ff6a00);
-        color: white;
-        padding: 55px 20px;
-        text-align: center;
-    ">
+    <section class="shipping-hero">
 
-        <div class="container">
+        <div class="shipping-hero-content">
 
-            <h1 style="font-size: 38px; margin-bottom: 10px;">
-                Shipping Information
+            <h1>
+                Shipping & Delivery
             </h1>
 
-            <p style="font-size: 17px; margin: 0;">
-                Delivery information for Meteur Online Shopping customers.
+            <p>
+                Learn how Meteur orders are prepared, shipped and
+                delivered to customers.
             </p>
 
         </div>
@@ -135,399 +323,549 @@
     </section>
 
 
-    <!-- Shipping Content -->
-    <main class="container" style="padding: 50px 20px;">
-
-        <div style="
-            background: white;
-            padding: 35px;
-            border-radius: 10px;
-            box-shadow: 0 3px 15px rgba(0,0,0,0.06);
-            max-width: 1000px;
-            margin: auto;
-            line-height: 1.8;
-        ">
-
-            <p>
-                <strong>Last updated:</strong> September 2026
-            </p>
-
-
-            <!-- Delivery Cards -->
-            <div style="
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                gap: 20px;
-                margin: 30px 0;
-            ">
-
-                <div style="
-                    padding: 25px;
-                    background: #fff7e6;
-                    border-radius: 8px;
-                    text-align: center;
-                ">
-
-                    <i class="fas fa-truck"
-                       style="font-size: 32px; color: #ff7900; margin-bottom: 12px;">
-                    </i>
-
-                    <h3>Reliable Delivery</h3>
-
-                    <p>
-                        Orders will be delivered to supported locations.
-                    </p>
-
-                </div>
-
-
-                <div style="
-                    padding: 25px;
-                    background: #fff7e6;
-                    border-radius: 8px;
-                    text-align: center;
-                ">
-
-                    <i class="fas fa-location-dot"
-                       style="font-size: 32px; color: #ff7900; margin-bottom: 12px;">
-                    </i>
-
-                    <h3>Kenya Delivery</h3>
-
-                    <p>
-                        Delivery services are planned for customers across
-                        supported areas in Kenya.
-                    </p>
-
-                </div>
-
-
-                <div style="
-                    padding: 25px;
-                    background: #fff7e6;
-                    border-radius: 8px;
-                    text-align: center;
-                ">
-
-                    <i class="fas fa-box"
-                       style="font-size: 32px; color: #ff7900; margin-bottom: 12px;">
-                    </i>
-
-                    <h3>Order Tracking</h3>
-
-                    <p>
-                        Customers will be able to track eligible orders.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <h2>1. Delivery Overview</h2>
-
-            <p>
-                Meteur Online Shopping is designed to provide customers with
-                convenient delivery options for products purchased through
-                the marketplace.
-            </p>
-
-            <p>
-                The current website is a front-end demonstration. Real
-                delivery services and logistics integrations will be
-                connected before production transactions are enabled.
-            </p>
-
-
-            <h2>2. Delivery Locations</h2>
-
-            <p>
-                Future production delivery services may be available to
-                selected locations throughout Kenya.
-            </p>
-
-            <p>
-                Delivery availability may depend on the customer's location,
-                seller arrangements, product availability, and the delivery
-                service supporting the order.
-            </p>
-
-
-            <h2>3. Delivery Address</h2>
-
-            <p>
-                Customers should provide an accurate delivery address when
-                placing an order.
-            </p>
-
-            <p>
-                The address may include:
-            </p>
-
-            <ul>
-                <li>Customer name</li>
-                <li>Phone number</li>
-                <li>County</li>
-                <li>Town or city</li>
-                <li>Specific delivery location</li>
-                <li>Additional delivery instructions</li>
-            </ul>
-
-
-            <h2>4. Delivery Charges</h2>
-
-            <p>
-                Delivery charges may depend on factors such as delivery
-                location, package size, product type, seller arrangements,
-                and the selected delivery service.
-            </p>
-
-            <p>
-                Any applicable delivery charge should be displayed before
-                an order is confirmed in the production checkout system.
-            </p>
-
-
-            <h2>5. Delivery Times</h2>
-
-            <p>
-                Delivery times may vary depending on the customer's location,
-                product availability, seller processing time, courier
-                operations, weather, public holidays, and other circumstances.
-            </p>
-
-            <p>
-                Estimated delivery information will be provided through the
-                production ordering system when available.
-            </p>
-
-
-            <h2>6. Order Processing</h2>
-
-            <p>
-                Orders may require processing before they are handed over to
-                a delivery service.
-            </p>
-
-            <p>
-                Customers may receive order confirmation and future tracking
-                information when the production order system is connected.
-            </p>
-
-
-            <h2>7. Tracking an Order</h2>
-
-            <p>
-                Meteur Online Shopping includes an order tracking interface
-                that is prepared for future real-time tracking integration.
-            </p>
-
-            <p>
-                You can visit the tracking page here:
-            </p>
-
-            <p>
-                <a href="track-order.html"
-                   style="
-                       color: #ff7900;
-                       font-weight: 700;
-                       text-decoration: none;
-                   ">
-                    Track Your Order
-                </a>
-            </p>
-
-
-            <h2>8. Delayed Deliveries</h2>
-
-            <p>
-                Delivery may occasionally be delayed because of circumstances
-                outside the direct control of the marketplace or delivery
-                provider.
-            </p>
-
-            <p>
-                Customers should contact support if they need assistance with
-                a delayed order.
-            </p>
-
-
-            <h2>9. Delivery Problems</h2>
-
-            <p>
-                If an order arrives damaged, incomplete, incorrect, or has
-                another delivery-related problem, customers should contact
-                customer support as soon as possible.
-            </p>
-
-            <p>
-                Information about returns and refunds is available on our
-                <a href="returns.html">Returns & Refunds</a> page.
-            </p>
-
-
-            <h2>10. Customer Support</h2>
-
-            <p>
-                Meteur Online Shopping customer support can assist with
-                delivery questions, order information, and other marketplace
-                enquiries.
-            </p>
-
-            <p>
-
-                <strong>Phone:</strong>
-                <a href="tel:0711842260">0711842260</a>
-
-                <br>
-
-                <strong>Email:</strong>
-                <a href="mailto:daghlusmeteur@gmail.com">
-                    daghlusmeteur@gmail.com
-                </a>
-
-                <br>
-
-                <strong>Location:</strong> Kenya
-
-            </p>
-
-
-            <!-- Important Notice -->
-            <div style="
-                margin-top: 30px;
-                padding: 22px;
-                background: #fff7e6;
-                border-left: 4px solid #ff9900;
-                border-radius: 6px;
-            ">
-
-                <strong>Important:</strong>
-
-                Meteur Online Shopping is currently a front-end
-                demonstration. Real courier integrations, live order
-                tracking, delivery confirmation, and production logistics
-                services will be connected before real customer orders are
-                processed.
-
-            </div>
-
-
-            <!-- Buttons -->
-            <div style="
-                margin-top: 30px;
-                text-align: center;
-            ">
-
-                <a href="track-order.html"
-                   style="
-                       display: inline-block;
-                       background: #ff7900;
-                       color: white;
-                       padding: 13px 25px;
-                       border-radius: 5px;
-                       text-decoration: none;
-                       font-weight: 600;
-                   ">
-
-                    Track Order
-
-                </a>
-
-
-                <a href="contact.html"
-                   style="
-                       display: inline-block;
-                       margin-left: 10px;
-                       background: #222;
-                       color: white;
-                       padding: 13px 25px;
-                       border-radius: 5px;
-                       text-decoration: none;
-                       font-weight: 600;
-                   ">
-
-                    Contact Support
-
-                </a>
-
-            </div>
+    <section class="shipping-intro">
+
+        <h2>
+            Delivery Information
+        </h2>
+
+        <p>
+            Meteur Online Shopping connects customers with products
+            from our marketplace. Delivery arrangements may vary
+            depending on the product, seller, destination and
+            delivery option selected during checkout.
+        </p>
+
+        <p>
+            The estimated delivery information shown during the
+            shopping or checkout process should be used as the
+            primary guide for an individual order.
+        </p>
+
+        <div class="notice">
+
+            <strong>Important:</strong>
+            Delivery estimates are not guaranteed arrival times.
+            Delays may occur because of weather, traffic, public
+            holidays, courier operations, remote destinations or
+            other circumstances outside the normal delivery process.
 
         </div>
 
-    </main>
+    </section>
 
 
-    <!-- Footer -->
-    <footer class="footer">
+    <section class="shipping-grid">
 
-        <div class="container">
+        <div class="shipping-card">
 
-            <div class="footer-grid">
+            <div class="icon">🚚</div>
 
-                <div>
+            <h3>
+                Door Delivery
+            </h3>
 
-                    <h3>Meteur Online Shopping</h3>
+            <p>
+                Depending on availability, eligible orders may be
+                delivered to the address provided during checkout.
+            </p>
 
-                    <p>
-                        A modern Kenyan online marketplace designed to make
-                        shopping simple, convenient and accessible.
-                    </p>
+        </div>
 
+
+        <div class="shipping-card">
+
+            <div class="icon">📍</div>
+
+            <h3>
+                Order Tracking
+            </h3>
+
+            <p>
+                Customers can use the order tracking page when
+                tracking information is available.
+            </p>
+
+        </div>
+
+
+        <div class="shipping-card">
+
+            <div class="icon">📦</div>
+
+            <h3>
+                Secure Packaging
+            </h3>
+
+            <p>
+                Products are prepared for transportation according
+                to the applicable seller and delivery arrangements.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <section class="shipping-section">
+
+        <h2>
+            How Delivery Works
+        </h2>
+
+        <div class="steps">
+
+            <div class="step">
+
+                <div class="step-number">
+                    1
                 </div>
 
+                <strong>
+                    Place Order
+                </strong>
 
-                <div>
-
-                    <h3>Customer Service</h3>
-
-                    <a href="faq.html">FAQ</a>
-                    <a href="contact.html">Contact Us</a>
-                    <a href="track-order.html">Track Order</a>
-                    <a href="returns.html">Returns</a>
-
-                </div>
-
-
-                <div>
-
-                    <h3>About</h3>
-
-                    <a href="about.html">About Us</a>
-                    <a href="privacy.html">Privacy Policy</a>
-                    <a href="terms.html">Terms & Conditions</a>
-                    <a href="shipping.html">Shipping Information</a>
-
-                </div>
-
-
-                <div>
-
-                    <h3>Contact</h3>
-
-                    <p>0711842260</p>
-                    <p>daghlusmeteur@gmail.com</p>
-                    <p>Kenya</p>
-
-                </div>
+                <p>
+                    Complete checkout and provide the required
+                    delivery information.
+                </p>
 
             </div>
 
 
-            <div class="footer-bottom">
+            <div class="step">
+
+                <div class="step-number">
+                    2
+                </div>
+
+                <strong>
+                    Order Processing
+                </strong>
 
                 <p>
-                    © 2026 Meteur Online Shopping. All rights reserved.
+                    The order is reviewed and prepared for dispatch.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    3
+                </div>
+
+                <strong>
+                    Shipment
+                </strong>
+
+                <p>
+                    The package is handed to the applicable
+                    delivery service.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    4
+                </div>
+
+                <strong>
+                    Delivery
+                </strong>
+
+                <p>
+                    The order is delivered using the selected
+                    delivery arrangement.
                 </p>
 
             </div>
 
         </div>
 
-    </footer>
+    </section>
 
 
-    <script src="script.js"></script>
+    <section class="shipping-section">
+
+        <h2>
+            Delivery Estimates
+        </h2>
+
+        <p>
+            Delivery times can differ based on the destination,
+            product availability, seller location and courier
+            arrangements.
+        </p>
+
+        <table class="delivery-table">
+
+            <thead>
+                <tr>
+                    <th>Delivery Area</th>
+                    <th>Typical Estimate</th>
+                    <th>Important Note</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td>Major urban areas</td>
+                    <td>1–5 business days</td>
+                    <td>Depends on product and courier</td>
+                </tr>
+
+                <tr>
+                    <td>Other towns</td>
+                    <td>2–7 business days</td>
+                    <td>May require additional transit time</td>
+                </tr>
+
+                <tr>
+                    <td>Remote areas</td>
+                    <td>3–10 business days</td>
+                    <td>Delivery availability may vary</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+        <div class="notice">
+
+            These are general planning estimates for the website
+            experience and should not be treated as guaranteed
+            delivery times. The checkout estimate for a specific
+            order may be different.
+
+        </div>
+
+    </section>
+
+
+    <section class="shipping-section">
+
+        <h2>
+            Shipping Costs
+        </h2>
+
+        <p>
+            Shipping charges may vary according to the product,
+            destination, package size, seller and available delivery
+            method.
+        </p>
+
+        <p>
+            Where applicable, the delivery charge will be displayed
+            during checkout before the order is completed.
+        </p>
+
+    </section>
+
+
+    <section class="shipping-section">
+
+        <h2>
+            Delivery Address
+        </h2>
+
+        <p>
+            Customers should provide an accurate and complete
+            delivery address when placing an order.
+        </p>
+
+        <ul>
+            <li>Provide the correct phone number.</li>
+            <li>Provide accurate location or address details.</li>
+            <li>Include useful delivery instructions where available.</li>
+            <li>Keep your phone available when delivery is expected.</li>
+        </ul>
+
+        <div class="notice">
+
+            An incorrect or incomplete address may cause delivery
+            delays, failed delivery attempts or additional delivery
+            arrangements.
+
+        </div>
+
+    </section>
+
+
+    <section class="shipping-section">
+
+        <h2>
+            Failed Delivery Attempts
+        </h2>
+
+        <p>
+            If a courier cannot complete delivery because the
+            recipient is unavailable or the delivery information
+            cannot be confirmed, another delivery attempt or
+            alternative collection arrangement may be required.
+        </p>
+
+        <p>
+            Customers should follow the instructions provided by
+            the relevant delivery service or Meteur support team.
+        </p>
+
+    </section>
+
+
+    <section class="shipping-section">
+
+        <h2>
+            Delayed Orders
+        </h2>
+
+        <p>
+            If your order takes longer than the estimated delivery
+            period, check the available tracking information first.
+        </p>
+
+        <p>
+            If tracking information is unavailable or you need
+            assistance, contact Meteur customer support with your
+            order details.
+        </p>
+
+    </section>
+
+
+    <section class="shipping-section">
+
+        <h2>
+            Damaged Packages
+        </h2>
+
+        <p>
+            If a package appears damaged when you receive it,
+            document the condition where possible and contact
+            customer support as soon as reasonably possible.
+        </p>
+
+        <p>
+            Photographs or other information may be requested to
+            help investigate the delivery issue.
+        </p>
+
+    </section>
+
+
+    <section class="shipping-section">
+
+        <h2>
+            Order Tracking
+        </h2>
+
+        <p>
+            When tracking information is available, customers can
+            use their order details to check the latest delivery
+            status.
+        </p>
+
+        <p>
+            Tracking updates may take some time to appear after a
+            package has been dispatched.
+        </p>
+
+        <p>
+            <a href="track-order.html">
+                Track your order →
+            </a>
+        </p>
+
+    </section>
+
+
+    <section class="shipping-section">
+
+        <h2>
+            Delivery Restrictions
+        </h2>
+
+        <p>
+            Some products, destinations or delivery methods may
+            have special restrictions. Availability may depend on
+            the product and the delivery network serving the
+            destination.
+        </p>
+
+    </section>
+
+
+    <section class="contact-box">
+
+        <h2>
+            Need Help With Delivery?
+        </h2>
+
+        <p>
+            If you have a question about an order, delivery delay,
+            tracking information or shipping issue, our customer
+            support team can help.
+        </p>
+
+        <a href="contact.html">
+            Contact Support →
+        </a>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <div class="container">
+
+        <div class="footer-grid">
+
+            <div>
+
+                <h3>
+                    Meteur
+                </h3>
+
+                <p>
+                    Your trusted Kenyan online shopping marketplace.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Shopping
+                </h4>
+
+                <a href="shop.html">Shop</a><br>
+                <a href="categories.html">Categories</a><br>
+                <a href="deals.html">Deals</a><br>
+                <a href="new-arrivals.html">New Arrivals</a>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Customer Service
+                </h4>
+
+                <a href="help.html">Help Center</a><br>
+                <a href="faq.html">FAQ</a><br>
+                <a href="track-order.html">Track Order</a><br>
+                <a href="returns.html">Returns</a><br>
+                <a href="shipping.html">Shipping</a>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Company
+                </h4>
+
+                <a href="about.html">About Us</a><br>
+                <a href="sell.html">Sell on Meteur</a><br>
+                <a href="privacy.html">Privacy Policy</a><br>
+                <a href="terms.html">Terms & Conditions</a>
+
+            </div>
+
+        </div>
+
+
+        <p class="copyright">
+            © 2026 Meteur Online Shopping. All rights reserved.
+        </p>
+
+    </div>
+
+</footer>
+
+
+<script src="script.js"></script>
+
+<script>
+
+function updateCartCount() {
+
+    const cart =
+        JSON.parse(
+            localStorage.getItem("meteurCart")
+        ) || [];
+
+    const total =
+        cart.reduce(
+            function(sum, product) {
+                return sum + (product.quantity || 1);
+            },
+            0
+        );
+
+    const cartCount =
+        document.getElementById("cartCount");
+
+    if (cartCount) {
+        cartCount.textContent = total;
+    }
+}
+
+
+function searchProducts() {
+
+    const input =
+        document.getElementById("searchInput");
+
+    if (!input) {
+        return;
+    }
+
+    const search =
+        input.value.trim();
+
+    if (search) {
+
+        window.location.href =
+            "shop.html?search=" +
+            encodeURIComponent(search);
+
+    }
+}
+
+
+const searchInput =
+    document.getElementById("searchInput");
+
+if (searchInput) {
+
+    searchInput.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Enter") {
+                searchProducts();
+            }
+
+        }
+    );
+
+}
+
+
+updateCartCount();
+
+</script>
 
 </body>
 </html>

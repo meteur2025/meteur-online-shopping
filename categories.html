@@ -6,33 +6,50 @@
 
     <title>Categories - Meteur Online Shopping</title>
 
-    <meta name="description" content="Browse all product categories on Meteur Online Shopping.">
-
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
     <link rel="stylesheet" href="style.css">
 
     <style>
+        .categories-page {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
         .categories-hero {
-            background: linear-gradient(135deg, #ff9900, #ff6a00);
+            min-height: 300px;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 35px;
+            background-image:
+                url("https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1500&q=85");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+        }
+
+        .categories-hero-content {
+            width: 100%;
+            padding: 45px;
             color: white;
-            text-align: center;
-            padding: 60px 20px;
+            background: rgba(0, 0, 0, 0.55);
         }
 
         .categories-hero h1 {
-            font-size: 40px;
-            margin-bottom: 12px;
+            margin: 0 0 10px;
+            font-size: 38px;
         }
 
         .categories-hero p {
-            font-size: 18px;
+            max-width: 650px;
             margin: 0;
+            line-height: 1.6;
+            font-size: 17px;
         }
 
-        .categories-section {
-            padding: 45px 20px;
+        .category-title {
+            margin: 0 0 22px;
         }
 
         .category-grid {
@@ -43,84 +60,141 @@
 
         .category-card {
             background: white;
-            padding: 30px 20px;
             border-radius: 10px;
-            text-align: center;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
             text-decoration: none;
             color: #222;
-            box-shadow: 0 3px 15px rgba(0,0,0,0.06);
-            transition: 0.2s;
+            transition: 0.25s ease;
         }
 
         .category-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 7px 18px rgba(0, 0, 0, 0.14);
         }
 
-        .category-icon {
-            width: 75px;
-            height: 75px;
-            margin: 0 auto 18px;
-            border-radius: 50%;
-            background: #fff3df;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .category-icon i {
-            font-size: 32px;
-            color: #ff7900;
-        }
-
-        .category-card h3 {
-            margin-bottom: 8px;
-        }
-
-        .category-card p {
-            margin: 0;
-            color: #777;
-            font-size: 14px;
-            line-height: 1.5;
-        }
-
-        .category-button-link {
-            display: inline-block;
-            margin-top: 18px;
-            padding: 10px 20px;
-            background: #ff7900;
-            color: white;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: 600;
+        .category-image {
+            width: 100%;
+            height: 190px;
+            object-fit: cover;
+            display: block;
         }
 
         .category-info {
-            background: white;
-            padding: 35px;
-            border-radius: 10px;
-            box-shadow: 0 3px 15px rgba(0,0,0,0.06);
-            line-height: 1.8;
+            padding: 17px;
         }
 
-        @media (max-width: 1000px) {
+        .category-info h3 {
+            margin: 0 0 7px;
+            font-size: 18px;
+        }
+
+        .category-info p {
+            margin: 0 0 12px;
+            color: #777;
+            font-size: 14px;
+        }
+
+        .category-link {
+            color: #f4511e;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .featured-section {
+            margin-top: 45px;
+        }
+
+        .featured-box {
+            background: #fff3ed;
+            border-radius: 12px;
+            padding: 35px;
+            text-align: center;
+        }
+
+        .featured-box h2 {
+            margin: 0 0 10px;
+        }
+
+        .featured-box p {
+            color: #666;
+            margin: 0 0 20px;
+        }
+
+        .shop-button {
+            display: inline-block;
+            background: #f4511e;
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .shop-button:hover {
+            background: #d84315;
+        }
+
+        .popular-categories {
+            margin-top: 45px;
+        }
+
+        .popular-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .popular-item {
+            background: white;
+            padding: 22px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.07);
+        }
+
+        .popular-item h3 {
+            margin: 0 0 8px;
+        }
+
+        .popular-item p {
+            color: #666;
+            line-height: 1.5;
+            margin: 0 0 12px;
+        }
+
+        .popular-item a {
+            color: #f4511e;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        @media (max-width: 1100px) {
             .category-grid {
                 grid-template-columns: repeat(3, 1fr);
             }
         }
 
-        @media (max-width: 750px) {
+        @media (max-width: 800px) {
             .category-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
+
+            .popular-list {
+                grid-template-columns: 1fr;
+            }
         }
 
-        @media (max-width: 500px) {
+        @media (max-width: 520px) {
             .category-grid {
                 grid-template-columns: 1fr;
             }
 
+            .categories-hero-content {
+                padding: 30px 20px;
+            }
+
             .categories-hero h1 {
-                font-size: 32px;
+                font-size: 28px;
             }
         }
     </style>
@@ -128,113 +202,76 @@
 
 <body>
 
-    <!-- Top Bar -->
-    <div class="top-bar">
-        <div class="container">
+<header>
+    <div class="container">
 
-            <span>Welcome to Meteur Online Shopping</span>
+        <div class="top-bar">
 
-            <div class="top-links">
-                <a href="faq.html">Help Center</a>
-                <a href="track-order.html">Track Order</a>
-                <a href="sell.html">Sell on Meteur</a>
+            <div class="logo">
+                <a href="index.html">🛒 Meteur</a>
             </div>
 
-        </div>
-    </div>
-
-
-    <!-- Header -->
-    <header class="main-header">
-
-        <div class="container header-content">
-
-            <a href="index.html" class="logo">
-
-                <i class="fas fa-shopping-bag"></i>
-
-                <div>
-                    <strong>Meteur</strong>
-                    <small>ONLINE SHOPPING</small>
-                </div>
-
-            </a>
-
-
-            <form class="search-box" id="searchForm">
+            <div class="search-box">
 
                 <input
                     type="text"
                     id="searchInput"
-                    placeholder="Search for products, brands and more..."
-                    required
+                    placeholder="Search products..."
                 >
 
-                <button type="submit">
-                    <i class="fas fa-search"></i>
+                <button onclick="searchProducts()">
+                    Search
                 </button>
 
-            </form>
-
+            </div>
 
             <div class="header-actions">
 
                 <a href="login.html">
-                    <i class="fas fa-user"></i>
-                    <span>Account</span>
+                    Account
                 </a>
 
                 <a href="wishlist.html">
-                    <i class="fas fa-heart"></i>
-                    <span>Wishlist</span>
+                    ♡ Wishlist
                 </a>
 
                 <a href="cart.html">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span>Cart</span>
-                    <b id="cartCount">0</b>
+                    🛒 Cart (<span id="cartCount">0</span>)
                 </a>
 
             </div>
 
         </div>
 
-    </header>
-
-
-    <!-- Navigation -->
-    <nav class="main-nav">
-
-        <div class="container nav-content">
-
-            <a href="shop.html" class="category-button">
-                <i class="fas fa-bars"></i>
-                Categories
-            </a>
+        <nav>
 
             <a href="index.html">Home</a>
             <a href="shop.html">Shop</a>
-            <a href="shop.html">Flash Deals</a>
             <a href="categories.html">Categories</a>
-            <a href="shop.html">New Arrivals</a>
-            <a href="shop.html">Popular</a>
+            <a href="deals.html">Deals</a>
+            <a href="new-arrivals.html">New Arrivals</a>
+            <a href="sell.html">Sell on Meteur</a>
 
-        </div>
+        </nav>
 
-    </nav>
+    </div>
+</header>
 
 
-    <!-- Hero -->
+<main class="categories-page">
+
     <section class="categories-hero">
 
-        <div class="container">
+        <div class="categories-hero-content">
 
             <h1>
                 Shop by Category
             </h1>
 
             <p>
-                Find the products you need from our growing marketplace.
+                Explore a wide selection of products on Meteur Online Shopping.
+                Choose a category and discover products for your home,
+                work, fashion, technology and everyday needs.
             </p>
 
         </div>
@@ -242,355 +279,430 @@
     </section>
 
 
-    <!-- Categories -->
-    <section class="categories-section">
+    <h2 class="category-title">
+        All Categories
+    </h2>
 
-        <div class="container">
 
-            <div style="
-                text-align:center;
-                margin-bottom:35px;
-            ">
+    <section class="category-grid">
 
-                <h2>
-                    All Categories
-                </h2>
+        <!-- Electronics -->
+        <a href="shop.html?category=electronics" class="category-card">
 
-                <p>
-                    Choose a category to start shopping.
-                </p>
-
-            </div>
-
-
-            <div class="category-grid">
-
-                <!-- Electronics -->
-                <a href="shop.html?category=Electronics"
-                   class="category-card">
-
-                    <div class="category-icon">
-                        <i class="fas fa-tv"></i>
-                    </div>
-
-                    <h3>Electronics</h3>
-
-                    <p>
-                        TVs, speakers, gadgets and electronic accessories.
-                    </p>
-
-                    <span class="category-button-link">
-                        Shop Now
-                    </span>
-
-                </a>
-
-
-                <!-- Phones -->
-                <a href="shop.html?category=Phones%20and%20Tablets"
-                   class="category-card">
-
-                    <div class="category-icon">
-                        <i class="fas fa-mobile-screen"></i>
-                    </div>
-
-                    <h3>Phones & Tablets</h3>
-
-                    <p>
-                        Smartphones, tablets, chargers and mobile accessories.
-                    </p>
-
-                    <span class="category-button-link">
-                        Shop Now
-                    </span>
-
-                </a>
-
-
-                <!-- Fashion -->
-                <a href="shop.html?category=Fashion"
-                   class="category-card">
-
-                    <div class="category-icon">
-                        <i class="fas fa-shirt"></i>
-                    </div>
-
-                    <h3>Fashion</h3>
-
-                    <p>
-                        Clothing, casual wear and everyday fashion products.
-                    </p>
-
-                    <span class="category-button-link">
-                        Shop Now
-                    </span>
-
-                </a>
-
-
-                <!-- Shoes -->
-                <a href="shop.html?category=Shoes"
-                   class="category-card">
-
-                    <div class="category-icon">
-                        <i class="fas fa-shoe-prints"></i>
-                    </div>
-
-                    <h3>Shoes</h3>
-
-                    <p>
-                        Sneakers, casual shoes, formal footwear and more.
-                    </p>
-
-                    <span class="category-button-link">
-                        Shop Now
-                    </span>
-
-                </a>
-
-
-                <!-- Beauty -->
-                <a href="shop.html?category=Beauty"
-                   class="category-card">
-
-                    <div class="category-icon">
-                        <i class="fas fa-spa"></i>
-                    </div>
-
-                    <h3>Beauty</h3>
-
-                    <p>
-                        Beauty, fragrance, personal care and grooming products.
-                    </p>
-
-                    <span class="category-button-link">
-                        Shop Now
-                    </span>
-
-                </a>
-
-
-                <!-- Home -->
-                <a href="shop.html?category=Home%20and%20Appliances"
-                   class="category-card">
-
-                    <div class="category-icon">
-                        <i class="fas fa-house"></i>
-                    </div>
-
-                    <h3>Home & Appliances</h3>
-
-                    <p>
-                        Kitchen appliances, home essentials and household
-                        products.
-                    </p>
-
-                    <span class="category-button-link">
-                        Shop Now
-                    </span>
-
-                </a>
-
-
-                <!-- Computing -->
-                <a href="shop.html?category=Computing"
-                   class="category-card">
-
-                    <div class="category-icon">
-                        <i class="fas fa-laptop"></i>
-                    </div>
-
-                    <h3>Computing</h3>
-
-                    <p>
-                        Laptops, keyboards, computer accessories and more.
-                    </p>
-
-                    <span class="category-button-link">
-                        Shop Now
-                    </span>
-
-                </a>
-
-
-                <!-- Groceries -->
-                <a href="shop.html?category=Groceries"
-                   class="category-card">
-
-                    <div class="category-icon">
-                        <i class="fas fa-basket-shopping"></i>
-                    </div>
-
-                    <h3>Groceries</h3>
-
-                    <p>
-                        Everyday food, household supplies and grocery items.
-                    </p>
-
-                    <span class="category-button-link">
-                        Shop Now
-                    </span>
-
-                </a>
-
-
-                <!-- Accessories -->
-                <a href="shop.html?category=Accessories"
-                   class="category-card">
-
-                    <div class="category-icon">
-                        <i class="fas fa-gem"></i>
-                    </div>
-
-                    <h3>Accessories</h3>
-
-                    <p>
-                        Watches, bags, accessories and everyday essentials.
-                    </p>
-
-                    <span class="category-button-link">
-                        Shop Now
-                    </span>
-
-                </a>
-
-
-                <!-- Cameras -->
-                <a href="shop.html?category=Electronics"
-                   class="category-card">
-
-                    <div class="category-icon">
-                        <i class="fas fa-camera"></i>
-                    </div>
-
-                    <h3>Cameras</h3>
-
-                    <p>
-                        Digital cameras, photography accessories and equipment.
-                    </p>
-
-                    <span class="category-button-link">
-                        Shop Now
-                    </span>
-
-                </a>
-
-
-                <!-- Kitchen -->
-                <a href="shop.html?category=Home%20and%20Appliances"
-                   class="category-card">
-
-                    <div class="category-icon">
-                        <i class="fas fa-blender"></i>
-                    </div>
-
-                    <h3>Kitchen</h3>
-
-                    <p>
-                        Blenders, cookware, kitchen appliances and essentials.
-                    </p>
-
-                    <span class="category-button-link">
-                        Shop Now
-                    </span>
-
-                </a>
-
-
-                <!-- Smart Devices -->
-                <a href="shop.html?category=Electronics"
-                   class="category-card">
-
-                    <div class="category-icon">
-                        <i class="fas fa-watch-smart"></i>
-                    </div>
-
-                    <h3>Smart Devices</h3>
-
-                    <p>
-                        Smart watches, wearable technology and connected
-                        devices.
-                    </p>
-
-                    <span class="category-button-link">
-                        Shop Now
-                    </span>
-
-                </a>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- Information -->
-    <section class="categories-section" style="background:#f5f5f5;">
-
-        <div class="container">
+            <img
+                class="category-image"
+                src="https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=900&q=85"
+                alt="Electronics"
+            >
 
             <div class="category-info">
 
-                <h2>
-                    Find What You Need
-                </h2>
+                <h3>
+                    Electronics
+                </h3>
 
                 <p>
-                    Meteur Online Shopping is designed to bring different
-                    product categories together in one convenient marketplace.
+                    Phones, headphones, speakers and electronic devices.
                 </p>
 
-                <p>
-                    Whether you are looking for electronics, fashion,
-                    computing products, home appliances, beauty products,
-                    groceries or accessories, you can browse the available
-                    products through the Shop page.
-                </p>
-
-                <p>
-                    New categories and products can be added as the
-                    marketplace grows.
-                </p>
+                <span class="category-link">
+                    Shop Electronics →
+                </span>
 
             </div>
+
+        </a>
+
+
+        <!-- Phones -->
+        <a href="shop.html?category=phones" class="category-card">
+
+            <img
+                class="category-image"
+                src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=900&q=85"
+                alt="Phones and tablets"
+            >
+
+            <div class="category-info">
+
+                <h3>
+                    Phones & Tablets
+                </h3>
+
+                <p>
+                    Smartphones, tablets and mobile accessories.
+                </p>
+
+                <span class="category-link">
+                    Shop Phones →
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <!-- Fashion -->
+        <a href="shop.html?category=fashion" class="category-card">
+
+            <img
+                class="category-image"
+                src="https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=900&q=85"
+                alt="Fashion"
+            >
+
+            <div class="category-info">
+
+                <h3>
+                    Fashion
+                </h3>
+
+                <p>
+                    Clothing, outfits and everyday fashion.
+                </p>
+
+                <span class="category-link">
+                    Shop Fashion →
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <!-- Shoes -->
+        <a href="shop.html?category=shoes" class="category-card">
+
+            <img
+                class="category-image"
+                src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=85"
+                alt="Shoes"
+            >
+
+            <div class="category-info">
+
+                <h3>
+                    Shoes
+                </h3>
+
+                <p>
+                    Sneakers, casual shoes and stylish footwear.
+                </p>
+
+                <span class="category-link">
+                    Shop Shoes →
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <!-- Beauty -->
+        <a href="shop.html?category=beauty" class="category-card">
+
+            <img
+                class="category-image"
+                src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=900&q=85"
+                alt="Beauty products"
+            >
+
+            <div class="category-info">
+
+                <h3>
+                    Beauty
+                </h3>
+
+                <p>
+                    Beauty, skincare and personal care products.
+                </p>
+
+                <span class="category-link">
+                    Shop Beauty →
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <!-- Home -->
+        <a href="shop.html?category=home" class="category-card">
+
+            <img
+                class="category-image"
+                src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=900&q=85"
+                alt="Home and appliances"
+            >
+
+            <div class="category-info">
+
+                <h3>
+                    Home & Appliances
+                </h3>
+
+                <p>
+                    Useful products and appliances for your home.
+                </p>
+
+                <span class="category-link">
+                    Shop Home →
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <!-- Computing -->
+        <a href="shop.html?category=computing" class="category-card">
+
+            <img
+                class="category-image"
+                src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=900&q=85"
+                alt="Computing"
+            >
+
+            <div class="category-info">
+
+                <h3>
+                    Computing
+                </h3>
+
+                <p>
+                    Laptops, computers and accessories.
+                </p>
+
+                <span class="category-link">
+                    Shop Computing →
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <!-- Groceries -->
+        <a href="shop.html?category=groceries" class="category-card">
+
+            <img
+                class="category-image"
+                src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=900&q=85"
+                alt="Groceries"
+            >
+
+            <div class="category-info">
+
+                <h3>
+                    Groceries
+                </h3>
+
+                <p>
+                    Everyday food and household grocery items.
+                </p>
+
+                <span class="category-link">
+                    Shop Groceries →
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <!-- Accessories -->
+        <a href="shop.html?category=accessories" class="category-card">
+
+            <img
+                class="category-image"
+                src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=900&q=85"
+                alt="Accessories"
+            >
+
+            <div class="category-info">
+
+                <h3>
+                    Accessories
+                </h3>
+
+                <p>
+                    Bags, sunglasses, watches and other accessories.
+                </p>
+
+                <span class="category-link">
+                    Shop Accessories →
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <!-- Cameras -->
+        <a href="shop.html?category=cameras" class="category-card">
+
+            <img
+                class="category-image"
+                src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=900&q=85"
+                alt="Cameras"
+            >
+
+            <div class="category-info">
+
+                <h3>
+                    Cameras
+                </h3>
+
+                <p>
+                    Digital cameras and photography equipment.
+                </p>
+
+                <span class="category-link">
+                    Shop Cameras →
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <!-- Kitchen -->
+        <a href="shop.html?category=kitchen" class="category-card">
+
+            <img
+                class="category-image"
+                src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=900&q=85"
+                alt="Kitchen products"
+            >
+
+            <div class="category-info">
+
+                <h3>
+                    Kitchen
+                </h3>
+
+                <p>
+                    Kitchen equipment, appliances and useful tools.
+                </p>
+
+                <span class="category-link">
+                    Shop Kitchen →
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <!-- Smart Devices -->
+        <a href="shop.html?category=smart-devices" class="category-card">
+
+            <img
+                class="category-image"
+                src="https://images.unsplash.com/photo-1558008258-3256797b43f3?auto=format&fit=crop&w=900&q=85"
+                alt="Smart devices"
+            >
+
+            <div class="category-info">
+
+                <h3>
+                    Smart Devices
+                </h3>
+
+                <p>
+                    Smartwatches, connected devices and modern technology.
+                </p>
+
+                <span class="category-link">
+                    Shop Smart Devices →
+                </span>
+
+            </div>
+
+        </a>
+
+    </section>
+
+
+    <section class="featured-section">
+
+        <div class="featured-box">
+
+            <h2>
+                Looking for something specific?
+            </h2>
+
+            <p>
+                Browse all available products and use the search and
+                shopping filters to find what you need.
+            </p>
+
+            <a href="shop.html" class="shop-button">
+                Browse All Products
+            </a>
 
         </div>
 
     </section>
 
 
-    <!-- CTA -->
-    <section class="categories-section">
+    <section class="popular-categories">
 
-        <div class="container">
+        <h2 class="category-title">
+            Popular Shopping Areas
+        </h2>
 
-            <div style="
-                background:#fff7e6;
-                border-radius:10px;
-                padding:40px 20px;
-                text-align:center;
-            ">
+        <div class="popular-list">
 
-                <i class="fas fa-cart-shopping"
-                   style="
-                       font-size:42px;
-                       color:#ff7900;
-                       margin-bottom:15px;
-                   ">
-                </i>
+            <div class="popular-item">
 
-                <h2>
-                    Ready to Start Shopping?
-                </h2>
+                <h3>
+                    📱 Technology
+                </h3>
 
                 <p>
-                    Browse all available products on Meteur Online Shopping.
+                    Discover smartphones, computers, smart devices,
+                    headphones and other technology products.
                 </p>
 
-                <a href="shop.html"
-                   class="category-button-link">
-                    Browse Products
+                <a href="shop.html">
+                    Explore Technology →
+                </a>
+
+            </div>
+
+
+            <div class="popular-item">
+
+                <h3>
+                    👕 Fashion
+                </h3>
+
+                <p>
+                    Find clothing, footwear, sunglasses and accessories
+                    for everyday style.
+                </p>
+
+                <a href="shop.html">
+                    Explore Fashion →
+                </a>
+
+            </div>
+
+
+            <div class="popular-item">
+
+                <h3>
+                    🏠 Home
+                </h3>
+
+                <p>
+                    Shop appliances, kitchen products and useful items
+                    for your home.
+                </p>
+
+                <a href="shop.html">
+                    Explore Home →
                 </a>
 
             </div>
@@ -599,77 +711,171 @@
 
     </section>
 
-
-    <!-- Footer -->
-    <footer class="footer">
-
-        <div class="container">
-
-            <div class="footer-grid">
-
-                <div>
-
-                    <h3>Meteur Online Shopping</h3>
-
-                    <p>
-                        A modern Kenyan online marketplace designed to make
-                        shopping simple, convenient and accessible.
-                    </p>
-
-                </div>
+</main>
 
 
-                <div>
+<footer>
 
-                    <h3>Customer Service</h3>
+    <div class="container">
 
-                    <a href="faq.html">FAQ</a>
-                    <a href="contact.html">Contact Us</a>
-                    <a href="track-order.html">Track Order</a>
-                    <a href="returns.html">Returns</a>
+        <div class="footer-grid">
 
-                </div>
+            <div>
 
+                <h3>
+                    Meteur
+                </h3>
 
-                <div>
-
-                    <h3>About</h3>
-
-                    <a href="about.html">About Us</a>
-                    <a href="privacy.html">Privacy Policy</a>
-                    <a href="terms.html">Terms & Conditions</a>
-                    <a href="shipping.html">Shipping Information</a>
-
-                </div>
-
-
-                <div>
-
-                    <h3>Contact</h3>
-
-                    <p>0711842260</p>
-                    <p>daghlusmeteur@gmail.com</p>
-                    <p>Kenya</p>
-
-                </div>
+                <p>
+                    Your trusted Kenyan online shopping marketplace.
+                </p>
 
             </div>
 
 
-            <div class="footer-bottom">
+            <div>
 
-                <p>
-                    © 2026 Meteur Online Shopping. All rights reserved.
-                </p>
+                <h4>
+                    Shopping
+                </h4>
+
+                <a href="shop.html">
+                    Shop
+                </a><br>
+
+                <a href="categories.html">
+                    Categories
+                </a><br>
+
+                <a href="deals.html">
+                    Deals
+                </a><br>
+
+                <a href="new-arrivals.html">
+                    New Arrivals
+                </a>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Customer Service
+                </h4>
+
+                <a href="help.html">
+                    Help Center
+                </a><br>
+
+                <a href="contact.html">
+                    Contact Us
+                </a><br>
+
+                <a href="track-order.html">
+                    Track Order
+                </a><br>
+
+                <a href="returns.html">
+                    Returns
+                </a>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Account
+                </h4>
+
+                <a href="login.html">
+                    Login
+                </a><br>
+
+                <a href="register.html">
+                    Create Account
+                </a><br>
+
+                <a href="orders.html">
+                    My Orders
+                </a><br>
+
+                <a href="wishlist.html">
+                    Wishlist
+                </a>
 
             </div>
 
         </div>
 
-    </footer>
+
+        <p class="copyright">
+            © 2026 Meteur Online Shopping. All rights reserved.
+        </p>
+
+    </div>
+
+</footer>
 
 
-    <script src="script.js"></script>
+<script src="script.js"></script>
+
+<script>
+
+    function updateCartCount() {
+
+        const cart =
+            JSON.parse(localStorage.getItem("meteurCart")) || [];
+
+        const totalItems =
+            cart.reduce(
+                (total, product) =>
+                    total + (product.quantity || 1),
+                0
+            );
+
+        const cartCount =
+            document.getElementById("cartCount");
+
+        if (cartCount) {
+            cartCount.textContent = totalItems;
+        }
+    }
+
+
+    function searchProducts() {
+
+        const input =
+            document.getElementById("searchInput");
+
+        const searchTerm =
+            input.value.trim();
+
+        if (searchTerm) {
+
+            window.location.href =
+                "shop.html?search=" +
+                encodeURIComponent(searchTerm);
+
+        }
+    }
+
+
+    document
+        .getElementById("searchInput")
+        .addEventListener("keydown", function(event) {
+
+            if (event.key === "Enter") {
+                searchProducts();
+            }
+
+        });
+
+
+    updateCartCount();
+
+</script>
 
 </body>
 </html>

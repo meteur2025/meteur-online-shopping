@@ -3,22 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop - Meteur Online Shopping</title>
+
+    <title>Shop | Meteur Online Shopping</title>
+
     <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
 
     <style>
         .shop-page {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 30px 20px;
+            padding: 35px 5%;
+            background: #f7f7f7;
+            min-height: 70vh;
         }
 
-        .shop-header {
+        .shop-heading {
             margin-bottom: 25px;
         }
 
-        .shop-header h1 {
+        .shop-heading h1 {
             margin-bottom: 8px;
+            font-size: 32px;
         }
 
         .shop-layout {
@@ -29,163 +35,213 @@
 
         .filters {
             background: #fff;
-            border-radius: 10px;
             padding: 20px;
+            border-radius: 10px;
             height: fit-content;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            box-shadow: 0 2px 8px rgba(0,0,0,.06);
         }
 
         .filters h3 {
-            margin-top: 0;
+            margin-bottom: 15px;
         }
 
-        .filter-group {
-            margin-bottom: 25px;
+        .category-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
         }
 
-        .filter-group h4 {
-            margin-bottom: 12px;
+        .category-list li {
+            margin-bottom: 10px;
         }
 
-        .filter-group label {
-            display: block;
-            margin: 9px 0;
+        .category-list button {
+            width: 100%;
+            border: none;
+            background: transparent;
+            text-align: left;
+            padding: 8px;
             cursor: pointer;
+            border-radius: 6px;
         }
 
-        .products-top {
+        .category-list button:hover,
+        .category-list button.active {
+            background: #ff6b00;
+            color: white;
+        }
+
+        .shop-topbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
             gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .results-count {
+            font-weight: 600;
         }
 
         .sort-select {
             padding: 10px 14px;
             border: 1px solid #ddd;
-            border-radius: 6px;
+            border-radius: 7px;
             background: white;
         }
 
         .products-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
+            gap: 18px;
         }
 
         .product-card {
             background: #fff;
             border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
             position: relative;
-            transition: 0.25s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,.06);
+            transition: transform .2s, box-shadow .2s;
         }
 
         .product-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 5px 18px rgba(0,0,0,0.13);
+            box-shadow: 0 6px 18px rgba(0,0,0,.12);
         }
 
         .product-image {
             width: 100%;
-            height: 220px;
+            height: 210px;
             object-fit: cover;
             display: block;
-            background: #f5f5f5;
         }
 
-        .product-info {
+        .product-content {
             padding: 15px;
         }
 
-        .product-info h3 {
-            font-size: 16px;
-            margin: 0 0 8px;
-            line-height: 1.4;
+        .product-name {
+            font-size: 15px;
+            min-height: 42px;
+            margin-bottom: 8px;
+            color: #222;
+        }
+
+        .product-category {
+            color: #777;
+            font-size: 12px;
+            margin-bottom: 8px;
         }
 
         .rating {
-            color: #f59e0b;
-            font-size: 14px;
+            color: #f5a623;
+            font-size: 13px;
             margin-bottom: 8px;
+        }
+
+        .price-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
         }
 
         .price {
             font-size: 19px;
-            font-weight: bold;
-            color: #f4511e;
-            margin-bottom: 12px;
+            font-weight: 700;
+            color: #222;
         }
 
         .old-price {
-            color: #888;
+            color: #999;
             text-decoration: line-through;
             font-size: 13px;
-            margin-left: 5px;
-        }
-
-        .add-cart {
-            width: 100%;
-            border: none;
-            padding: 11px;
-            border-radius: 6px;
-            background: #f4511e;
-            color: white;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .add-cart:hover {
-            background: #d84315;
-        }
-
-        .wishlist-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            border: none;
-            background: white;
-            font-size: 19px;
-            cursor: pointer;
-            box-shadow: 0 2px 7px rgba(0,0,0,0.15);
         }
 
         .badge {
             position: absolute;
             top: 10px;
             left: 10px;
-            background: #f4511e;
-            color: white;
+            background: #ff6b00;
+            color: #fff;
             padding: 5px 9px;
             border-radius: 4px;
-            font-size: 12px;
-            font-weight: bold;
+            font-size: 11px;
+            font-weight: 700;
         }
 
-        .pagination {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin: 35px 0;
-        }
-
-        .pagination button {
-            border: 1px solid #ddd;
+        .wishlist-btn {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            width: 34px;
+            height: 34px;
+            border: none;
+            border-radius: 50%;
             background: white;
-            padding: 9px 14px;
-            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            box-shadow: 0 2px 8px rgba(0,0,0,.12);
+        }
+
+        .add-cart-btn {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            background: #ff6b00;
+            color: white;
+            font-weight: 700;
             cursor: pointer;
         }
 
-        .pagination button.active {
-            background: #f4511e;
+        .add-cart-btn:hover {
+            background: #e85f00;
+        }
+
+        .loading,
+        .empty-products,
+        .error-products {
+            grid-column: 1 / -1;
+            background: white;
+            padding: 50px 20px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .loading {
+            color: #777;
+        }
+
+        .error-products {
+            color: #b00020;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 8px;
+            max-width: 650px;
+            margin-bottom: 25px;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 13px;
+            border: 1px solid #ddd;
+            border-radius: 7px;
+        }
+
+        .search-box button {
+            padding: 13px 20px;
+            border: none;
+            border-radius: 7px;
+            background: #ff6b00;
             color: white;
-            border-color: #f4511e;
+            font-weight: 700;
+            cursor: pointer;
         }
 
         @media (max-width: 1100px) {
@@ -204,14 +260,13 @@
             }
         }
 
-        @media (max-width: 500px) {
+        @media (max-width: 520px) {
             .products-grid {
                 grid-template-columns: 1fr;
             }
 
-            .products-top {
-                flex-direction: column;
-                align-items: flex-start;
+            .shop-page {
+                padding: 25px 4%;
             }
         }
     </style>
@@ -219,467 +274,156 @@
 
 <body>
 
-<header>
-    <div class="container">
-        <div class="top-bar">
-            <div class="logo">
-                <a href="index.html">🛒 Meteur</a>
-            </div>
+<header class="site-header">
+    <div class="header-main">
 
-            <div class="search-box">
-                <input
-                    type="text"
-                    id="searchInput"
-                    placeholder="Search products..."
-                >
-                <button onclick="searchProducts()">Search</button>
-            </div>
+        <a href="index.html" class="logo">
+            Meteur
+        </a>
 
-            <div class="header-actions">
-                <a href="login.html">Account</a>
-                <a href="wishlist.html">♡ Wishlist</a>
-                <a href="cart.html">🛒 Cart (<span id="cartCount">0</span>)</a>
-            </div>
+        <div class="header-search">
+            <input
+                type="text"
+                id="headerSearch"
+                placeholder="Search products..."
+            >
+            <button onclick="performHeaderSearch()">Search</button>
         </div>
 
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="shop.html">Shop</a>
-            <a href="categories.html">Categories</a>
-            <a href="deals.html">Deals</a>
-            <a href="new-arrivals.html">New Arrivals</a>
-            <a href="sell.html">Sell on Meteur</a>
-        </nav>
+        <div class="header-actions">
+            <a href="login.html">Account</a>
+            <a href="wishlist.html">Wishlist</a>
+            <a href="cart.html">
+                Cart (<span id="cartCount">0</span>)
+            </a>
+        </div>
+
     </div>
+
+    <nav class="main-nav">
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="categories.html">Categories</a>
+        <a href="deals.html">Deals</a>
+        <a href="new-arrivals.html">New Arrivals</a>
+    </nav>
 </header>
 
 <main class="shop-page">
 
-    <div class="shop-header">
+    <div class="shop-heading">
         <h1>Shop All Products</h1>
-        <p>Discover quality products at great prices from Meteur Online Shopping.</p>
+        <p>Discover products and great deals from Meteur Online Shopping.</p>
+    </div>
+
+    <div class="search-box">
+        <input
+            type="text"
+            id="productSearch"
+            placeholder="Search products..."
+        >
+        <button onclick="searchProducts()">Search</button>
     </div>
 
     <div class="shop-layout">
 
         <aside class="filters">
 
-            <div class="filter-group">
-                <h3>Categories</h3>
+            <h3>Categories</h3>
 
-                <label>
-                    <input type="checkbox"> Electronics
-                </label>
+            <ul class="category-list">
 
-                <label>
-                    <input type="checkbox"> Phones & Tablets
-                </label>
+                <li>
+                    <button class="active" onclick="filterCategory('all', this)">
+                        All Products
+                    </button>
+                </li>
 
-                <label>
-                    <input type="checkbox"> Fashion
-                </label>
+                <li>
+                    <button onclick="filterCategory('Phones and Tablets', this)">
+                        Phones & Tablets
+                    </button>
+                </li>
 
-                <label>
-                    <input type="checkbox"> Shoes
-                </label>
+                <li>
+                    <button onclick="filterCategory('Computing', this)">
+                        Computing
+                    </button>
+                </li>
 
-                <label>
-                    <input type="checkbox"> Beauty
-                </label>
+                <li>
+                    <button onclick="filterCategory('Electronics', this)">
+                        Electronics
+                    </button>
+                </li>
 
-                <label>
-                    <input type="checkbox"> Home & Appliances
-                </label>
+                <li>
+                    <button onclick="filterCategory('Fashion', this)">
+                        Fashion
+                    </button>
+                </li>
 
-                <label>
-                    <input type="checkbox"> Computing
-                </label>
+                <li>
+                    <button onclick="filterCategory('Shoes', this)">
+                        Shoes
+                    </button>
+                </li>
 
-                <label>
-                    <input type="checkbox"> Accessories
-                </label>
-            </div>
+                <li>
+                    <button onclick="filterCategory('Smart Devices', this)">
+                        Smart Devices
+                    </button>
+                </li>
 
-            <div class="filter-group">
-                <h4>Price</h4>
+                <li>
+                    <button onclick="filterCategory('Cameras', this)">
+                        Cameras
+                    </button>
+                </li>
 
-                <label>
-                    <input type="radio" name="price"> Under KSh 2,000
-                </label>
+                <li>
+                    <button onclick="filterCategory('Kitchen', this)">
+                        Kitchen
+                    </button>
+                </li>
 
-                <label>
-                    <input type="radio" name="price"> KSh 2,000 - 5,000
-                </label>
+                <li>
+                    <button onclick="filterCategory('Home and Appliances', this)">
+                        Home & Appliances
+                    </button>
+                </li>
 
-                <label>
-                    <input type="radio" name="price"> KSh 5,000 - 20,000
-                </label>
-
-                <label>
-                    <input type="radio" name="price"> Above KSh 20,000
-                </label>
-            </div>
-
-            <div class="filter-group">
-                <h4>Rating</h4>
-
-                <label>
-                    <input type="checkbox"> ⭐⭐⭐⭐⭐
-                </label>
-
-                <label>
-                    <input type="checkbox"> ⭐⭐⭐⭐ & above
-                </label>
-
-                <label>
-                    <input type="checkbox"> ⭐⭐⭐ & above
-                </label>
-            </div>
+            </ul>
 
         </aside>
 
         <section>
 
-            <div class="products-top">
-                <strong>12 Products</strong>
+            <div class="shop-topbar">
 
-                <select class="sort-select" id="sortProducts">
-                    <option>Sort: Popular</option>
-                    <option>Price: Low to High</option>
-                    <option>Price: High to Low</option>
-                    <option>Newest</option>
-                    <option>Top Rated</option>
+                <div class="results-count">
+                    <span id="resultsCount">Loading products...</span>
+                </div>
+
+                <select
+                    id="sortProducts"
+                    class="sort-select"
+                    onchange="sortProducts()"
+                >
+                    <option value="newest">Newest</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="rating">Highest Rated</option>
                 </select>
-            </div>
-
-            <div class="products-grid">
-
-                <!-- Product 1 -->
-                <article class="product-card">
-                    <span class="badge">SALE</span>
-
-                    <button class="wishlist-btn"
-                        onclick="addToWishlist('Samsung Galaxy Smartphone')">
-                        ♡
-                    </button>
-
-                    <img
-                        class="product-image"
-                        src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80"
-                        alt="Samsung Galaxy Smartphone"
-                    >
-
-                    <div class="product-info">
-                        <h3>Samsung Galaxy Smartphone</h3>
-                        <div class="rating">★★★★★ (24)</div>
-                        <div class="price">
-                            KSh 28,999
-                            <span class="old-price">KSh 32,000</span>
-                        </div>
-
-                        <button class="add-cart"
-                            onclick="addProductToCart('Samsung Galaxy Smartphone', 28999)">
-                            Add to Cart
-                        </button>
-                    </div>
-                </article>
-
-                <!-- Product 2 -->
-                <article class="product-card">
-                    <button class="wishlist-btn"
-                        onclick="addToWishlist('Wireless Headphones')">
-                        ♡
-                    </button>
-
-                    <img
-                        class="product-image"
-                        src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80"
-                        alt="Wireless Headphones"
-                    >
-
-                    <div class="product-info">
-                        <h3>Premium Wireless Headphones</h3>
-                        <div class="rating">★★★★★ (31)</div>
-                        <div class="price">KSh 4,999</div>
-
-                        <button class="add-cart"
-                            onclick="addProductToCart('Premium Wireless Headphones', 4999)">
-                            Add to Cart
-                        </button>
-                    </div>
-                </article>
-
-                <!-- Product 3 -->
-                <article class="product-card">
-                    <span class="badge">NEW</span>
-
-                    <button class="wishlist-btn"
-                        onclick="addToWishlist('Smart Watch')">
-                        ♡
-                    </button>
-
-                    <img
-                        class="product-image"
-                        src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80"
-                        alt="Smart Watch"
-                    >
-
-                    <div class="product-info">
-                        <h3>Smart Fitness Watch</h3>
-                        <div class="rating">★★★★☆ (18)</div>
-                        <div class="price">KSh 6,499</div>
-
-                        <button class="add-cart"
-                            onclick="addProductToCart('Smart Fitness Watch', 6499)">
-                            Add to Cart
-                        </button>
-                    </div>
-                </article>
-
-                <!-- Product 4 -->
-                <article class="product-card">
-                    <button class="wishlist-btn"
-                        onclick="addToWishlist('Running Shoes')">
-                        ♡
-                    </button>
-
-                    <img
-                        class="product-image"
-                        src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80"
-                        alt="Running Shoes"
-                    >
-
-                    <div class="product-info">
-                        <h3>Men's Running Sneakers</h3>
-                        <div class="rating">★★★★★ (42)</div>
-                        <div class="price">KSh 5,999</div>
-
-                        <button class="add-cart"
-                            onclick="addProductToCart('Mens Running Sneakers', 5999)">
-                            Add to Cart
-                        </button>
-                    </div>
-                </article>
-
-                <!-- Product 5 -->
-                <article class="product-card">
-                    <span class="badge">SALE</span>
-
-                    <button class="wishlist-btn"
-                        onclick="addToWishlist('Laptop')">
-                        ♡
-                    </button>
-
-                    <img
-                        class="product-image"
-                        src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=800&q=80"
-                        alt="Laptop computer"
-                    >
-
-                    <div class="product-info">
-                        <h3>Modern Laptop Computer</h3>
-                        <div class="rating">★★★★★ (27)</div>
-                        <div class="price">
-                            KSh 69,999
-                            <span class="old-price">KSh 75,000</span>
-                        </div>
-
-                        <button class="add-cart"
-                            onclick="addProductToCart('Modern Laptop Computer', 69999)">
-                            Add to Cart
-                        </button>
-                    </div>
-                </article>
-
-                <!-- Product 6 -->
-                <article class="product-card">
-                    <button class="wishlist-btn"
-                        onclick="addToWishlist('Fashion T-Shirt')">
-                        ♡
-                    </button>
-
-                    <img
-                        class="product-image"
-                        src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=80"
-                        alt="Fashion T-Shirt"
-                    >
-
-                    <div class="product-info">
-                        <h3>Premium Cotton T-Shirt</h3>
-                        <div class="rating">★★★★☆ (16)</div>
-                        <div class="price">KSh 1,499</div>
-
-                        <button class="add-cart"
-                            onclick="addProductToCart('Premium Cotton T-Shirt', 1499)">
-                            Add to Cart
-                        </button>
-                    </div>
-                </article>
-
-                <!-- Product 7 -->
-                <article class="product-card">
-                    <button class="wishlist-btn"
-                        onclick="addToWishlist('Sunglasses')">
-                        ♡
-                    </button>
-
-                    <img
-                        class="product-image"
-                        src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=800&q=80"
-                        alt="Fashion sunglasses"
-                    >
-
-                    <div class="product-info">
-                        <h3>Classic Fashion Sunglasses</h3>
-                        <div class="rating">★★★★★ (22)</div>
-                        <div class="price">KSh 2,499</div>
-
-                        <button class="add-cart"
-                            onclick="addProductToCart('Classic Fashion Sunglasses', 2499)">
-                            Add to Cart
-                        </button>
-                    </div>
-                </article>
-
-                <!-- Product 8 -->
-                <article class="product-card">
-                    <span class="badge">NEW</span>
-
-                    <button class="wishlist-btn"
-                        onclick="addToWishlist('Women's Shoes')">
-                        ♡
-                    </button>
-
-                    <img
-                        class="product-image"
-                        src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=800&q=80"
-                        alt="Women's shoes"
-                    >
-
-                    <div class="product-info">
-                        <h3>Women's Fashion Shoes</h3>
-                        <div class="rating">★★★★☆ (19)</div>
-                        <div class="price">KSh 3,999</div>
-
-                        <button class="add-cart"
-                            onclick="addProductToCart('Womens Fashion Shoes', 3999)">
-                            Add to Cart
-                        </button>
-                    </div>
-                </article>
-
-                <!-- Product 9 -->
-                <article class="product-card">
-                    <button class="wishlist-btn"
-                        onclick="addToWishlist('Digital Camera')">
-                        ♡
-                    </button>
-
-                    <img
-                        class="product-image"
-                        src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=800&q=80"
-                        alt="Digital camera"
-                    >
-
-                    <div class="product-info">
-                        <h3>Digital Camera</h3>
-                        <div class="rating">★★★★★ (15)</div>
-                        <div class="price">KSh 42,999</div>
-
-                        <button class="add-cart"
-                            onclick="addProductToCart('Digital Camera', 42999)">
-                            Add to Cart
-                        </button>
-                    </div>
-                </article>
-
-                <!-- Product 10 -->
-                <article class="product-card">
-                    <button class="wishlist-btn"
-                        onclick="addToWishlist('Coffee Maker')">
-                        ♡
-                    </button>
-
-                    <img
-                        class="product-image"
-                        src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80"
-                        alt="Coffee maker"
-                    >
-
-                    <div class="product-info">
-                        <h3>Home Coffee Maker</h3>
-                        <div class="rating">★★★★☆ (12)</div>
-                        <div class="price">KSh 8,499</div>
-
-                        <button class="add-cart"
-                            onclick="addProductToCart('Home Coffee Maker', 8499)">
-                            Add to Cart
-                        </button>
-                    </div>
-                </article>
-
-                <!-- Product 11 -->
-                <article class="product-card">
-                    <span class="badge">SALE</span>
-
-                    <button class="wishlist-btn"
-                        onclick="addToWishlist('Backpack')">
-                        ♡
-                    </button>
-
-                    <img
-                        class="product-image"
-                        src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=80"
-                        alt="Travel backpack"
-                    >
-
-                    <div class="product-info">
-                        <h3>Travel & Laptop Backpack</h3>
-                        <div class="rating">★★★★★ (28)</div>
-                        <div class="price">
-                            KSh 3,499
-                            <span class="old-price">KSh 4,500</span>
-                        </div>
-
-                        <button class="add-cart"
-                            onclick="addProductToCart('Travel and Laptop Backpack', 3499)">
-                            Add to Cart
-                        </button>
-                    </div>
-                </article>
-
-                <!-- Product 12 -->
-                <article class="product-card">
-                    <button class="wishlist-btn"
-                        onclick="addToWishlist('Bluetooth Speaker')">
-                        ♡
-                    </button>
-
-                    <img
-                        class="product-image"
-                        src="https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=800&q=80"
-                        alt="Bluetooth speaker"
-                    >
-
-                    <div class="product-info">
-                        <h3>Portable Bluetooth Speaker</h3>
-                        <div class="rating">★★★★☆ (25)</div>
-                        <div class="price">KSh 3,999</div>
-
-                        <button class="add-cart"
-                            onclick="addProductToCart('Portable Bluetooth Speaker', 3999)">
-                            Add to Cart
-                        </button>
-                    </div>
-                </article>
 
             </div>
 
-            <div class="pagination">
-                <button class="active">1</button>
-                <button>2</button>
-                <button>3</button>
-                <button>Next →</button>
+            <div id="productsGrid" class="products-grid">
+
+                <div class="loading">
+                    Loading products from Meteur database...
+                </div>
+
             </div>
 
         </section>
@@ -688,129 +432,440 @@
 
 </main>
 
-<footer>
-    <div class="container">
+<footer class="site-footer">
 
-        <div class="footer-grid">
+    <div class="footer-content">
 
-            <div>
-                <h3>Meteur</h3>
-                <p>Your trusted Kenyan online shopping marketplace.</p>
-            </div>
-
-            <div>
-                <h4>Shopping</h4>
-                <a href="shop.html">Shop</a><br>
-                <a href="categories.html">Categories</a><br>
-                <a href="deals.html">Deals</a><br>
-                <a href="new-arrivals.html">New Arrivals</a>
-            </div>
-
-            <div>
-                <h4>Customer Service</h4>
-                <a href="help.html">Help Center</a><br>
-                <a href="contact.html">Contact Us</a><br>
-                <a href="track-order.html">Track Order</a><br>
-                <a href="returns.html">Returns</a>
-            </div>
-
-            <div>
-                <h4>Account</h4>
-                <a href="login.html">Login</a><br>
-                <a href="register.html">Create Account</a><br>
-                <a href="orders.html">My Orders</a><br>
-                <a href="wishlist.html">Wishlist</a>
-            </div>
-
+        <div>
+            <h3>Meteur Online Shopping</h3>
+            <p>Your modern Kenyan online marketplace.</p>
         </div>
 
-        <p class="copyright">
-            © 2026 Meteur Online Shopping. All rights reserved.
-        </p>
+        <div>
+            <h4>Shopping</h4>
+            <a href="shop.html">Shop</a>
+            <a href="categories.html">Categories</a>
+            <a href="deals.html">Deals</a>
+            <a href="new-arrivals.html">New Arrivals</a>
+        </div>
+
+        <div>
+            <h4>Customer Service</h4>
+            <a href="help.html">Help Center</a>
+            <a href="faq.html">FAQ</a>
+            <a href="contact.html">Contact</a>
+            <a href="track-order.html">Track Order</a>
+        </div>
 
     </div>
+
+    <div class="footer-bottom">
+        © 2026 Meteur Online Shopping. All rights reserved.
+    </div>
+
 </footer>
 
 <script src="script.js"></script>
 
 <script>
-    function addProductToCart(name, price) {
-        let cart = JSON.parse(localStorage.getItem("meteurCart")) || [];
 
-        const existingProduct = cart.find(product => product.name === name);
+let allProducts = [];
+let currentCategory = "all";
+let currentSearch = "";
 
-        if (existingProduct) {
-            existingProduct.quantity += 1;
-        } else {
-            cart.push({
-                name: name,
-                price: price,
-                quantity: 1
-            });
+/* Load products from Supabase */
+
+async function loadProducts() {
+
+    const grid = document.getElementById("productsGrid");
+
+    grid.innerHTML = `
+        <div class="loading">
+            Loading products from Meteur database...
+        </div>
+    `;
+
+    try {
+
+        const { data, error } = await supabaseClient
+            .from("products")
+            .select("*")
+            .order("created_at", { ascending: false });
+
+        if (error) {
+            throw error;
         }
 
-        localStorage.setItem("meteurCart", JSON.stringify(cart));
+        allProducts = data || [];
 
-        updateCartCount();
+        renderProducts();
 
-        alert(name + " has been added to your cart.");
+    } catch (error) {
+
+        console.error("Product loading error:", error);
+
+        grid.innerHTML = `
+            <div class="error-products">
+                <h3>Unable to load products</h3>
+                <p>Please refresh the page and try again.</p>
+            </div>
+        `;
+
+        document.getElementById("resultsCount").textContent =
+            "Products could not be loaded.";
+
     }
 
-    function updateCartCount() {
-        const cart = JSON.parse(localStorage.getItem("meteurCart")) || [];
+}
 
-        const totalItems = cart.reduce(
-            (total, product) => total + (product.quantity || 1),
+/* Render products */
+
+function renderProducts() {
+
+    const grid = document.getElementById("productsGrid");
+
+    let products = [...allProducts];
+
+    if (currentCategory !== "all") {
+
+        products = products.filter(product =>
+            product.category === currentCategory
+        );
+
+    }
+
+    if (currentSearch.trim() !== "") {
+
+        const search = currentSearch.toLowerCase();
+
+        products = products.filter(product =>
+            product.name.toLowerCase().includes(search) ||
+            product.category.toLowerCase().includes(search) ||
+            (product.description || "").toLowerCase().includes(search)
+        );
+
+    }
+
+    applySorting(products);
+
+    document.getElementById("resultsCount").textContent =
+        `${products.length} product${products.length === 1 ? "" : "s"} found`;
+
+    if (products.length === 0) {
+
+        grid.innerHTML = `
+            <div class="empty-products">
+                <h3>No products found</h3>
+                <p>Try another search or category.</p>
+            </div>
+        `;
+
+        return;
+
+    }
+
+    grid.innerHTML = products.map(product => {
+
+        const image =
+            product.image_url ||
+            "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80";
+
+        const oldPrice = product.old_price
+            ? `<span class="old-price">KSh ${Number(product.old_price).toLocaleString()}</span>`
+            : "";
+
+        const badge = product.badge
+            ? `<span class="badge">${escapeHtml(product.badge)}</span>`
+            : "";
+
+        const rating = Number(product.rating || 0);
+
+        const stars = "★".repeat(Math.round(rating));
+
+        return `
+            <article class="product-card">
+
+                ${badge}
+
+                <button
+                    class="wishlist-btn"
+                    onclick='addToWishlist(${JSON.stringify(product)})'
+                    aria-label="Add to wishlist"
+                >
+                    ♡
+                </button>
+
+                <a href="product.html?id=${product.id}">
+                    <img
+                        class="product-image"
+                        src="${escapeHtml(image)}"
+                        alt="${escapeHtml(product.name)}"
+                        loading="lazy"
+                    >
+                </a>
+
+                <div class="product-content">
+
+                    <div class="product-category">
+                        ${escapeHtml(product.category)}
+                    </div>
+
+                    <h3 class="product-name">
+                        ${escapeHtml(product.name)}
+                    </h3>
+
+                    <div class="rating">
+                        ${stars}
+                        <span>
+                            (${Number(product.review_count || 0)})
+                        </span>
+                    </div>
+
+                    <div class="price-row">
+
+                        <span class="price">
+                            KSh ${Number(product.price).toLocaleString()}
+                        </span>
+
+                        ${oldPrice}
+
+                    </div>
+
+                    <button
+                        class="add-cart-btn"
+                        onclick='addProductToCart(${JSON.stringify(product)})'
+                    >
+                        Add to Cart
+                    </button>
+
+                </div>
+
+            </article>
+        `;
+
+    }).join("");
+
+}
+
+/* Category filtering */
+
+function filterCategory(category, button) {
+
+    currentCategory = category;
+
+    document
+        .querySelectorAll(".category-list button")
+        .forEach(btn => btn.classList.remove("active"));
+
+    button.classList.add("active");
+
+    renderProducts();
+
+}
+
+/* Search */
+
+function searchProducts() {
+
+    currentSearch =
+        document.getElementById("productSearch").value.trim();
+
+    renderProducts();
+
+}
+
+function performHeaderSearch() {
+
+    const value =
+        document.getElementById("headerSearch").value.trim();
+
+    if (value) {
+
+        window.location.href =
+            "shop.html?search=" +
+            encodeURIComponent(value);
+
+    }
+
+}
+
+/* Sorting */
+
+function sortProducts() {
+
+    renderProducts();
+
+}
+
+function applySorting(products) {
+
+    const sort =
+        document.getElementById("sortProducts").value;
+
+    if (sort === "price-low") {
+
+        products.sort((a, b) =>
+            Number(a.price) - Number(b.price)
+        );
+
+    }
+
+    if (sort === "price-high") {
+
+        products.sort((a, b) =>
+            Number(b.price) - Number(a.price)
+        );
+
+    }
+
+    if (sort === "rating") {
+
+        products.sort((a, b) =>
+            Number(b.rating) - Number(a.rating)
+        );
+
+    }
+
+}
+
+/* Add product to cart */
+
+function addProductToCart(product) {
+
+    let cart =
+        JSON.parse(localStorage.getItem("meteurCart")) || [];
+
+    const existing =
+        cart.find(item => item.id === product.id);
+
+    if (existing) {
+
+        existing.quantity =
+            Number(existing.quantity || 1) + 1;
+
+    } else {
+
+        cart.push({
+            id: product.id,
+            name: product.name,
+            price: Number(product.price),
+            image: product.image_url,
+            quantity: 1
+        });
+
+    }
+
+    localStorage.setItem(
+        "meteurCart",
+        JSON.stringify(cart)
+    );
+
+    updateCartCount();
+
+    alert(`${product.name} added to your cart.`);
+
+}
+
+/* Wishlist */
+
+function addToWishlist(product) {
+
+    let wishlist =
+        JSON.parse(localStorage.getItem("meteurWishlist")) || [];
+
+    const exists =
+        wishlist.some(item => item.id === product.id);
+
+    if (!exists) {
+
+        wishlist.push({
+            id: product.id,
+            name: product.name,
+            price: Number(product.price),
+            image: product.image_url
+        });
+
+        localStorage.setItem(
+            "meteurWishlist",
+            JSON.stringify(wishlist)
+        );
+
+        alert(`${product.name} added to your wishlist.`);
+
+    } else {
+
+        alert("This product is already in your wishlist.");
+
+    }
+
+}
+
+/* Cart count */
+
+function updateCartCount() {
+
+    const cart =
+        JSON.parse(localStorage.getItem("meteurCart")) || [];
+
+    const count =
+        cart.reduce(
+            (total, item) =>
+                total + Number(item.quantity || 1),
             0
         );
 
-        const cartCount = document.getElementById("cartCount");
+    const element =
+        document.getElementById("cartCount");
 
-        if (cartCount) {
-            cartCount.textContent = totalItems;
-        }
+    if (element) {
+        element.textContent = count;
     }
 
-    function addToWishlist(name) {
-        let wishlist =
-            JSON.parse(localStorage.getItem("meteurWishlist")) || [];
+}
 
-        if (!wishlist.includes(name)) {
-            wishlist.push(name);
-            localStorage.setItem(
-                "meteurWishlist",
-                JSON.stringify(wishlist)
-            );
+/* HTML escaping */
 
-            alert(name + " has been added to your wishlist.");
-        } else {
-            alert(name + " is already in your wishlist.");
-        }
-    }
+function escapeHtml(value) {
 
-    function searchProducts() {
-        const searchInput =
-            document.getElementById("searchInput");
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 
-        const searchTerm =
-            searchInput.value.trim();
+}
 
-        if (searchTerm) {
-            window.location.href =
-                "shop.html?search=" +
-                encodeURIComponent(searchTerm);
-        }
-    }
+/* Read search parameter */
 
-    document
-        .getElementById("searchInput")
-        .addEventListener("keydown", function(event) {
-            if (event.key === "Enter") {
-                searchProducts();
-            }
-        });
+const urlParams =
+    new URLSearchParams(window.location.search);
+
+const urlSearch =
+    urlParams.get("search");
+
+if (urlSearch) {
+
+    currentSearch = urlSearch;
+
+    document.addEventListener("DOMContentLoaded", () => {
+
+        document.getElementById("productSearch").value =
+            urlSearch;
+
+    });
+
+}
+
+/* Start */
+
+document.addEventListener("DOMContentLoaded", () => {
 
     updateCartCount();
+    loadProducts();
+
+});
+
 </script>
 
 </body>

@@ -3,1042 +3,815 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Shop | Meteur Online Shopping</title>
-
-    <meta
-        name="description"
-        content="Shop electronics, fashion, beauty, home appliances, phones, computing products and more at Meteur Online Shopping."
-    >
-
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    >
-
+    <title>Shop - Meteur Online Shopping</title>
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        .shop-page {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        .shop-header {
+            margin-bottom: 25px;
+        }
+
+        .shop-header h1 {
+            margin-bottom: 8px;
+        }
+
+        .shop-layout {
+            display: grid;
+            grid-template-columns: 230px 1fr;
+            gap: 25px;
+        }
+
+        .filters {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            height: fit-content;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .filters h3 {
+            margin-top: 0;
+        }
+
+        .filter-group {
+            margin-bottom: 25px;
+        }
+
+        .filter-group h4 {
+            margin-bottom: 12px;
+        }
+
+        .filter-group label {
+            display: block;
+            margin: 9px 0;
+            cursor: pointer;
+        }
+
+        .products-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+
+        .sort-select {
+            padding: 10px 14px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background: white;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .product-card {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            position: relative;
+            transition: 0.25s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 5px 18px rgba(0,0,0,0.13);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+            background: #f5f5f5;
+        }
+
+        .product-info {
+            padding: 15px;
+        }
+
+        .product-info h3 {
+            font-size: 16px;
+            margin: 0 0 8px;
+            line-height: 1.4;
+        }
+
+        .rating {
+            color: #f59e0b;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .price {
+            font-size: 19px;
+            font-weight: bold;
+            color: #f4511e;
+            margin-bottom: 12px;
+        }
+
+        .old-price {
+            color: #888;
+            text-decoration: line-through;
+            font-size: 13px;
+            margin-left: 5px;
+        }
+
+        .add-cart {
+            width: 100%;
+            border: none;
+            padding: 11px;
+            border-radius: 6px;
+            background: #f4511e;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .add-cart:hover {
+            background: #d84315;
+        }
+
+        .wishlist-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: white;
+            font-size: 19px;
+            cursor: pointer;
+            box-shadow: 0 2px 7px rgba(0,0,0,0.15);
+        }
+
+        .badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #f4511e;
+            color: white;
+            padding: 5px 9px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin: 35px 0;
+        }
+
+        .pagination button {
+            border: 1px solid #ddd;
+            background: white;
+            padding: 9px 14px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .pagination button.active {
+            background: #f4511e;
+            color: white;
+            border-color: #f4511e;
+        }
+
+        @media (max-width: 1100px) {
+            .products-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 800px) {
+            .shop-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 500px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .products-top {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-    <!-- TOP BAR -->
-    <div class="top-bar">
-        <div class="container top-bar-content">
-
-            <span>Welcome to Meteur Online Shopping</span>
-
-            <div class="top-links">
-                <a href="#">Help Center</a>
-                <a href="#">Track Order</a>
-                <a href="#">Sell on Meteur</a>
+<header>
+    <div class="container">
+        <div class="top-bar">
+            <div class="logo">
+                <a href="index.html">🛒 Meteur</a>
             </div>
 
+            <div class="search-box">
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search products..."
+                >
+                <button onclick="searchProducts()">Search</button>
+            </div>
+
+            <div class="header-actions">
+                <a href="login.html">Account</a>
+                <a href="wishlist.html">♡ Wishlist</a>
+                <a href="cart.html">🛒 Cart (<span id="cartCount">0</span>)</a>
+            </div>
         </div>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="shop.html">Shop</a>
+            <a href="categories.html">Categories</a>
+            <a href="deals.html">Deals</a>
+            <a href="new-arrivals.html">New Arrivals</a>
+            <a href="sell.html">Sell on Meteur</a>
+        </nav>
+    </div>
+</header>
+
+<main class="shop-page">
+
+    <div class="shop-header">
+        <h1>Shop All Products</h1>
+        <p>Discover quality products at great prices from Meteur Online Shopping.</p>
     </div>
 
+    <div class="shop-layout">
 
-    <!-- HEADER -->
-    <header class="main-header">
+        <aside class="filters">
 
-        <div class="container header-content">
+            <div class="filter-group">
+                <h3>Categories</h3>
 
-            <!-- LOGO -->
-            <a href="index.html" class="logo">
+                <label>
+                    <input type="checkbox"> Electronics
+                </label>
 
-                <span class="logo-icon">
-                    <i class="fa-solid fa-bag-shopping"></i>
-                </span>
+                <label>
+                    <input type="checkbox"> Phones & Tablets
+                </label>
 
-                <span>
-                    <strong>Meteur</strong>
-                    <small>ONLINE SHOPPING</small>
-                </span>
+                <label>
+                    <input type="checkbox"> Fashion
+                </label>
 
-            </a>
+                <label>
+                    <input type="checkbox"> Shoes
+                </label>
 
+                <label>
+                    <input type="checkbox"> Beauty
+                </label>
 
-            <!-- SEARCH -->
-            <form class="search-box" id="searchForm">
+                <label>
+                    <input type="checkbox"> Home & Appliances
+                </label>
 
-                <input
-                    type="search"
-                    id="searchInput"
-                    placeholder="Search for products, brands and categories..."
-                    autocomplete="off"
-                >
+                <label>
+                    <input type="checkbox"> Computing
+                </label>
 
-                <button type="submit">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    Search
-                </button>
-
-            </form>
-
-
-            <!-- HEADER ACTIONS -->
-            <div class="header-actions">
-
-                <a href="login.html">
-                    <i class="fa-regular fa-user"></i>
-                    <span>Account</span>
-                </a>
-
-                <a href="wishlist.html">
-                    <i class="fa-regular fa-heart"></i>
-                    <span>Wishlist</span>
-                </a>
-
-                <a href="cart.html" class="cart-link">
-
-                    <i class="fa-solid fa-cart-shopping"></i>
-
-                    <span>
-                        Cart
-                        <b id="cartCount">0</b>
-                    </span>
-
-                </a>
-
+                <label>
+                    <input type="checkbox"> Accessories
+                </label>
             </div>
 
-        </div>
+            <div class="filter-group">
+                <h4>Price</h4>
 
-    </header>
+                <label>
+                    <input type="radio" name="price"> Under KSh 2,000
+                </label>
 
+                <label>
+                    <input type="radio" name="price"> KSh 2,000 - 5,000
+                </label>
 
-    <!-- NAVIGATION -->
-    <nav class="main-nav">
+                <label>
+                    <input type="radio" name="price"> KSh 5,000 - 20,000
+                </label>
 
-        <div class="container nav-content">
-
-            <button class="categories-button">
-                <i class="fa-solid fa-bars"></i>
-                Categories
-            </button>
-
-            <a href="index.html">Home</a>
-
-            <a href="shop.html" class="active">Shop</a>
-
-            <a href="shop.html?category=deals">Flash Deals</a>
-
-            <a href="shop.html?category=categories">Categories</a>
-
-            <a href="shop.html?category=new">New Arrivals</a>
-
-            <a href="shop.html?category=popular">Popular</a>
-
-        </div>
-
-    </nav>
-
-
-    <!-- PAGE HEADER -->
-    <section class="shop-header">
-
-        <div class="container">
-
-            <div class="breadcrumb">
-                <a href="index.html">Home</a>
-                <span>/</span>
-                <span>Shop</span>
+                <label>
+                    <input type="radio" name="price"> Above KSh 20,000
+                </label>
             </div>
 
-            <h1>Shop All Products</h1>
-
-            <p>
-                Discover quality products at great prices from Meteur Online Shopping.
-            </p>
-
-        </div>
-
-    </section>
-
-
-    <!-- SHOP AREA -->
-    <main class="container shop-layout">
-
-
-        <!-- SIDEBAR -->
-        <aside class="shop-sidebar">
-
-            <div class="filter-box">
-
-                <h3>
-                    <i class="fa-solid fa-list"></i>
-                    Categories
-                </h3>
-
-                <a href="shop.html">
-                    All Products
-                </a>
-
-                <a href="shop.html?category=electronics">
-                    Electronics
-                </a>
-
-                <a href="shop.html?category=phones">
-                    Phones & Tablets
-                </a>
-
-                <a href="shop.html?category=fashion">
-                    Fashion
-                </a>
-
-                <a href="shop.html?category=shoes">
-                    Shoes
-                </a>
-
-                <a href="shop.html?category=beauty">
-                    Beauty
-                </a>
-
-                <a href="shop.html?category=home">
-                    Home & Appliances
-                </a>
-
-                <a href="shop.html?category=computing">
-                    Computing
-                </a>
-
-                <a href="shop.html?category=groceries">
-                    Groceries
-                </a>
-
-                <a href="shop.html?category=accessories">
-                    Accessories
-                </a>
-
-            </div>
-
-
-            <div class="filter-box">
-
-                <h3>
-                    <i class="fa-solid fa-tag"></i>
-                    Price Range
-                </h3>
+            <div class="filter-group">
+                <h4>Rating</h4>
 
                 <label>
-                    <input type="checkbox">
-                    Under KSh 1,000
+                    <input type="checkbox"> ⭐⭐⭐⭐⭐
                 </label>
 
                 <label>
-                    <input type="checkbox">
-                    KSh 1,000 - KSh 5,000
+                    <input type="checkbox"> ⭐⭐⭐⭐ & above
                 </label>
 
                 <label>
-                    <input type="checkbox">
-                    KSh 5,000 - KSh 20,000
+                    <input type="checkbox"> ⭐⭐⭐ & above
                 </label>
-
-                <label>
-                    <input type="checkbox">
-                    KSh 20,000 - KSh 50,000
-                </label>
-
-                <label>
-                    <input type="checkbox">
-                    Above KSh 50,000
-                </label>
-
-            </div>
-
-
-            <div class="filter-box">
-
-                <h3>
-                    <i class="fa-solid fa-star"></i>
-                    Customer Rating
-                </h3>
-
-                <label>
-                    <input type="checkbox">
-                    ★★★★★
-                </label>
-
-                <label>
-                    <input type="checkbox">
-                    ★★★★☆ & above
-                </label>
-
-                <label>
-                    <input type="checkbox">
-                    ★★★☆☆ & above
-                </label>
-
             </div>
 
         </aside>
 
+        <section>
 
-        <!-- PRODUCTS -->
-        <section class="shop-products">
+            <div class="products-top">
+                <strong>12 Products</strong>
 
-            <div class="shop-toolbar">
-
-                <div>
-                    <strong>Featured Products</strong>
-                    <span> | Quality products at competitive prices</span>
-                </div>
-
-                <select id="sortProducts">
-
-                    <option value="featured">
-                        Sort: Featured
-                    </option>
-
-                    <option value="low">
-                        Price: Low to High
-                    </option>
-
-                    <option value="high">
-                        Price: High to Low
-                    </option>
-
-                    <option value="new">
-                        Newest Products
-                    </option>
-
+                <select class="sort-select" id="sortProducts">
+                    <option>Sort: Popular</option>
+                    <option>Price: Low to High</option>
+                    <option>Price: High to Low</option>
+                    <option>Newest</option>
+                    <option>Top Rated</option>
                 </select>
-
             </div>
 
+            <div class="products-grid">
 
-            <!-- PRODUCT GRID -->
-            <div class="product-grid">
-
-
-                <!-- PRODUCT 1 -->
+                <!-- Product 1 -->
                 <article class="product-card">
+                    <span class="badge">SALE</span>
 
-                    <div class="product-image">
+                    <button class="wishlist-btn"
+                        onclick="addToWishlist('Samsung Galaxy Smartphone')">
+                        ♡
+                    </button>
 
-                        <span class="discount-badge">
-                            -20%
-                        </span>
-
-                        <i class="fa-solid fa-mobile-screen-button"></i>
-
-                        <button class="wishlist-button">
-                            <i class="fa-regular fa-heart"></i>
-                        </button>
-
-                    </div>
+                    <img
+                        class="product-image"
+                        src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80"
+                        alt="Samsung Galaxy Smartphone"
+                    >
 
                     <div class="product-info">
-
-                        <span class="product-category">
-                            Phones & Tablets
-                        </span>
-
-                        <h3>
-                            Premium Android Smartphone
-                        </h3>
-
-                        <div class="rating">
-                            ★★★★★
-                            <span>(24)</span>
-                        </div>
-
+                        <h3>Samsung Galaxy Smartphone</h3>
+                        <div class="rating">★★★★★ (24)</div>
                         <div class="price">
-                            KSh 24,999
-                            <del>KSh 31,250</del>
+                            KSh 28,999
+                            <span class="old-price">KSh 32,000</span>
                         </div>
 
-                        <button
-                            class="add-cart"
-                            data-product="Premium Android Smartphone"
-                            data-price="24999"
-                        >
-                            <i class="fa-solid fa-cart-plus"></i>
+                        <button class="add-cart"
+                            onclick="addProductToCart('Samsung Galaxy Smartphone', 28999)">
                             Add to Cart
                         </button>
-
                     </div>
-
                 </article>
 
-
-                <!-- PRODUCT 2 -->
+                <!-- Product 2 -->
                 <article class="product-card">
+                    <button class="wishlist-btn"
+                        onclick="addToWishlist('Wireless Headphones')">
+                        ♡
+                    </button>
 
-                    <div class="product-image">
-
-                        <span class="discount-badge">
-                            -35%
-                        </span>
-
-                        <i class="fa-solid fa-headphones"></i>
-
-                        <button class="wishlist-button">
-                            <i class="fa-regular fa-heart"></i>
-                        </button>
-
-                    </div>
+                    <img
+                        class="product-image"
+                        src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80"
+                        alt="Wireless Headphones"
+                    >
 
                     <div class="product-info">
+                        <h3>Premium Wireless Headphones</h3>
+                        <div class="rating">★★★★★ (31)</div>
+                        <div class="price">KSh 4,999</div>
 
-                        <span class="product-category">
-                            Electronics
-                        </span>
-
-                        <h3>
-                            Wireless Bluetooth Headphones
-                        </h3>
-
-                        <div class="rating">
-                            ★★★★☆
-                            <span>(18)</span>
-                        </div>
-
-                        <div class="price">
-                            KSh 3,899
-                            <del>KSh 5,999</del>
-                        </div>
-
-                        <button
-                            class="add-cart"
-                            data-product="Wireless Bluetooth Headphones"
-                            data-price="3899"
-                        >
-                            <i class="fa-solid fa-cart-plus"></i>
+                        <button class="add-cart"
+                            onclick="addProductToCart('Premium Wireless Headphones', 4999)">
                             Add to Cart
                         </button>
-
                     </div>
-
                 </article>
 
-
-                <!-- PRODUCT 3 -->
+                <!-- Product 3 -->
                 <article class="product-card">
+                    <span class="badge">NEW</span>
 
-                    <div class="product-image">
+                    <button class="wishlist-btn"
+                        onclick="addToWishlist('Smart Watch')">
+                        ♡
+                    </button>
 
-                        <span class="discount-badge">
-                            -28%
-                        </span>
-
-                        <i class="fa-solid fa-shoe-prints"></i>
-
-                        <button class="wishlist-button">
-                            <i class="fa-regular fa-heart"></i>
-                        </button>
-
-                    </div>
+                    <img
+                        class="product-image"
+                        src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80"
+                        alt="Smart Watch"
+                    >
 
                     <div class="product-info">
+                        <h3>Smart Fitness Watch</h3>
+                        <div class="rating">★★★★☆ (18)</div>
+                        <div class="price">KSh 6,499</div>
 
-                        <span class="product-category">
-                            Shoes
-                        </span>
-
-                        <h3>
-                            Men's Casual Sneakers
-                        </h3>
-
-                        <div class="rating">
-                            ★★★★★
-                            <span>(31)</span>
-                        </div>
-
-                        <div class="price">
-                            KSh 2,499
-                            <del>KSh 3,499</del>
-                        </div>
-
-                        <button
-                            class="add-cart"
-                            data-product="Men's Casual Sneakers"
-                            data-price="2499"
-                        >
-                            <i class="fa-solid fa-cart-plus"></i>
+                        <button class="add-cart"
+                            onclick="addProductToCart('Smart Fitness Watch', 6499)">
                             Add to Cart
                         </button>
-
                     </div>
-
                 </article>
 
-
-                <!-- PRODUCT 4 -->
+                <!-- Product 4 -->
                 <article class="product-card">
+                    <button class="wishlist-btn"
+                        onclick="addToWishlist('Running Shoes')">
+                        ♡
+                    </button>
 
-                    <div class="product-image">
-
-                        <span class="discount-badge">
-                            -15%
-                        </span>
-
-                        <i class="fa-solid fa-laptop"></i>
-
-                        <button class="wishlist-button">
-                            <i class="fa-regular fa-heart"></i>
-                        </button>
-
-                    </div>
+                    <img
+                        class="product-image"
+                        src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80"
+                        alt="Running Shoes"
+                    >
 
                     <div class="product-info">
+                        <h3>Men's Running Sneakers</h3>
+                        <div class="rating">★★★★★ (42)</div>
+                        <div class="price">KSh 5,999</div>
 
-                        <span class="product-category">
-                            Computing
-                        </span>
-
-                        <h3>
-                            Modern Laptop Computer
-                        </h3>
-
-                        <div class="rating">
-                            ★★★★☆
-                            <span>(15)</span>
-                        </div>
-
-                        <div class="price">
-                            KSh 59,999
-                            <del>KSh 70,000</del>
-                        </div>
-
-                        <button
-                            class="add-cart"
-                            data-product="Modern Laptop Computer"
-                            data-price="59999"
-                        >
-                            <i class="fa-solid fa-cart-plus"></i>
+                        <button class="add-cart"
+                            onclick="addProductToCart('Mens Running Sneakers', 5999)">
                             Add to Cart
                         </button>
-
                     </div>
-
                 </article>
 
-
-                <!-- PRODUCT 5 -->
+                <!-- Product 5 -->
                 <article class="product-card">
+                    <span class="badge">SALE</span>
 
-                    <div class="product-image">
+                    <button class="wishlist-btn"
+                        onclick="addToWishlist('Laptop')">
+                        ♡
+                    </button>
 
-                        <span class="discount-badge">
-                            NEW
-                        </span>
-
-                        <i class="fa-solid fa-clock"></i>
-
-                        <button class="wishlist-button">
-                            <i class="fa-regular fa-heart"></i>
-                        </button>
-
-                    </div>
+                    <img
+                        class="product-image"
+                        src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=800&q=80"
+                        alt="Laptop computer"
+                    >
 
                     <div class="product-info">
-
-                        <span class="product-category">
-                            Accessories
-                        </span>
-
-                        <h3>
-                            Smart Watch Series
-                        </h3>
-
-                        <div class="rating">
-                            ★★★★★
-                            <span>(12)</span>
-                        </div>
-
+                        <h3>Modern Laptop Computer</h3>
+                        <div class="rating">★★★★★ (27)</div>
                         <div class="price">
-                            KSh 4,999
+                            KSh 69,999
+                            <span class="old-price">KSh 75,000</span>
                         </div>
 
-                        <button
-                            class="add-cart"
-                            data-product="Smart Watch Series"
-                            data-price="4999"
-                        >
-                            <i class="fa-solid fa-cart-plus"></i>
+                        <button class="add-cart"
+                            onclick="addProductToCart('Modern Laptop Computer', 69999)">
                             Add to Cart
                         </button>
-
                     </div>
-
                 </article>
 
-
-                <!-- PRODUCT 6 -->
+                <!-- Product 6 -->
                 <article class="product-card">
+                    <button class="wishlist-btn"
+                        onclick="addToWishlist('Fashion T-Shirt')">
+                        ♡
+                    </button>
 
-                    <div class="product-image">
-
-                        <i class="fa-solid fa-camera"></i>
-
-                        <button class="wishlist-button">
-                            <i class="fa-regular fa-heart"></i>
-                        </button>
-
-                    </div>
+                    <img
+                        class="product-image"
+                        src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=80"
+                        alt="Fashion T-Shirt"
+                    >
 
                     <div class="product-info">
+                        <h3>Premium Cotton T-Shirt</h3>
+                        <div class="rating">★★★★☆ (16)</div>
+                        <div class="price">KSh 1,499</div>
 
-                        <span class="product-category">
-                            Electronics
-                        </span>
-
-                        <h3>
-                            Digital Camera
-                        </h3>
-
-                        <div class="rating">
-                            ★★★★☆
-                            <span>(9)</span>
-                        </div>
-
-                        <div class="price">
-                            KSh 28,500
-                        </div>
-
-                        <button
-                            class="add-cart"
-                            data-product="Digital Camera"
-                            data-price="28500"
-                        >
-                            <i class="fa-solid fa-cart-plus"></i>
+                        <button class="add-cart"
+                            onclick="addProductToCart('Premium Cotton T-Shirt', 1499)">
                             Add to Cart
                         </button>
-
                     </div>
-
                 </article>
 
-
-                <!-- PRODUCT 7 -->
+                <!-- Product 7 -->
                 <article class="product-card">
+                    <button class="wishlist-btn"
+                        onclick="addToWishlist('Sunglasses')">
+                        ♡
+                    </button>
 
-                    <div class="product-image">
-
-                        <span class="discount-badge">
-                            -10%
-                        </span>
-
-                        <i class="fa-solid fa-spray-can-sparkles"></i>
-
-                        <button class="wishlist-button">
-                            <i class="fa-regular fa-heart"></i>
-                        </button>
-
-                    </div>
+                    <img
+                        class="product-image"
+                        src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=800&q=80"
+                        alt="Fashion sunglasses"
+                    >
 
                     <div class="product-info">
+                        <h3>Classic Fashion Sunglasses</h3>
+                        <div class="rating">★★★★★ (22)</div>
+                        <div class="price">KSh 2,499</div>
 
-                        <span class="product-category">
-                            Beauty
-                        </span>
-
-                        <h3>
-                            Premium Fragrance
-                        </h3>
-
-                        <div class="rating">
-                            ★★★★★
-                            <span>(22)</span>
-                        </div>
-
-                        <div class="price">
-                            KSh 3,250
-                            <del>KSh 3,600</del>
-                        </div>
-
-                        <button
-                            class="add-cart"
-                            data-product="Premium Fragrance"
-                            data-price="3250"
-                        >
-                            <i class="fa-solid fa-cart-plus"></i>
+                        <button class="add-cart"
+                            onclick="addProductToCart('Classic Fashion Sunglasses', 2499)">
                             Add to Cart
                         </button>
-
                     </div>
-
                 </article>
 
-
-                <!-- PRODUCT 8 -->
+                <!-- Product 8 -->
                 <article class="product-card">
+                    <span class="badge">NEW</span>
 
-                    <div class="product-image">
+                    <button class="wishlist-btn"
+                        onclick="addToWishlist('Women's Shoes')">
+                        ♡
+                    </button>
 
-                        <span class="discount-badge">
-                            -18%
-                        </span>
-
-                        <i class="fa-solid fa-blender"></i>
-
-                        <button class="wishlist-button">
-                            <i class="fa-regular fa-heart"></i>
-                        </button>
-
-                    </div>
+                    <img
+                        class="product-image"
+                        src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=800&q=80"
+                        alt="Women's shoes"
+                    >
 
                     <div class="product-info">
+                        <h3>Women's Fashion Shoes</h3>
+                        <div class="rating">★★★★☆ (19)</div>
+                        <div class="price">KSh 3,999</div>
 
-                        <span class="product-category">
-                            Home & Appliances
-                        </span>
-
-                        <h3>
-                            Electric Kitchen Blender
-                        </h3>
-
-                        <div class="rating">
-                            ★★★★☆
-                            <span>(16)</span>
-                        </div>
-
-                        <div class="price">
-                            KSh 5,499
-                            <del>KSh 6,700</del>
-                        </div>
-
-                        <button
-                            class="add-cart"
-                            data-product="Electric Kitchen Blender"
-                            data-price="5499"
-                        >
-                            <i class="fa-solid fa-cart-plus"></i>
+                        <button class="add-cart"
+                            onclick="addProductToCart('Womens Fashion Shoes', 3999)">
                             Add to Cart
                         </button>
-
                     </div>
-
                 </article>
 
-
-                <!-- PRODUCT 9 -->
+                <!-- Product 9 -->
                 <article class="product-card">
+                    <button class="wishlist-btn"
+                        onclick="addToWishlist('Digital Camera')">
+                        ♡
+                    </button>
 
-                    <div class="product-image">
-
-                        <i class="fa-solid fa-shirt"></i>
-
-                        <button class="wishlist-button">
-                            <i class="fa-regular fa-heart"></i>
-                        </button>
-
-                    </div>
+                    <img
+                        class="product-image"
+                        src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=800&q=80"
+                        alt="Digital camera"
+                    >
 
                     <div class="product-info">
+                        <h3>Digital Camera</h3>
+                        <div class="rating">★★★★★ (15)</div>
+                        <div class="price">KSh 42,999</div>
 
-                        <span class="product-category">
-                            Fashion
-                        </span>
-
-                        <h3>
-                            Men's Premium Casual Shirt
-                        </h3>
-
-                        <div class="rating">
-                            ★★★★☆
-                            <span>(14)</span>
-                        </div>
-
-                        <div class="price">
-                            KSh 2,199
-                        </div>
-
-                        <button
-                            class="add-cart"
-                            data-product="Men's Premium Casual Shirt"
-                            data-price="2199"
-                        >
-                            <i class="fa-solid fa-cart-plus"></i>
+                        <button class="add-cart"
+                            onclick="addProductToCart('Digital Camera', 42999)">
                             Add to Cart
                         </button>
-
                     </div>
-
                 </article>
 
-
-                <!-- PRODUCT 10 -->
+                <!-- Product 10 -->
                 <article class="product-card">
+                    <button class="wishlist-btn"
+                        onclick="addToWishlist('Coffee Maker')">
+                        ♡
+                    </button>
 
-                    <div class="product-image">
-
-                        <i class="fa-solid fa-keyboard"></i>
-
-                        <button class="wishlist-button">
-                            <i class="fa-regular fa-heart"></i>
-                        </button>
-
-                    </div>
+                    <img
+                        class="product-image"
+                        src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80"
+                        alt="Coffee maker"
+                    >
 
                     <div class="product-info">
+                        <h3>Home Coffee Maker</h3>
+                        <div class="rating">★★★★☆ (12)</div>
+                        <div class="price">KSh 8,499</div>
 
-                        <span class="product-category">
-                            Computing
-                        </span>
+                        <button class="add-cart"
+                            onclick="addProductToCart('Home Coffee Maker', 8499)">
+                            Add to Cart
+                        </button>
+                    </div>
+                </article>
 
-                        <h3>
-                            Wireless Keyboard & Mouse
-                        </h3>
+                <!-- Product 11 -->
+                <article class="product-card">
+                    <span class="badge">SALE</span>
 
-                        <div class="rating">
-                            ★★★★★
-                            <span>(20)</span>
-                        </div>
+                    <button class="wishlist-btn"
+                        onclick="addToWishlist('Backpack')">
+                        ♡
+                    </button>
 
+                    <img
+                        class="product-image"
+                        src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=80"
+                        alt="Travel backpack"
+                    >
+
+                    <div class="product-info">
+                        <h3>Travel & Laptop Backpack</h3>
+                        <div class="rating">★★★★★ (28)</div>
                         <div class="price">
                             KSh 3,499
+                            <span class="old-price">KSh 4,500</span>
                         </div>
 
-                        <button
-                            class="add-cart"
-                            data-product="Wireless Keyboard & Mouse"
-                            data-price="3499"
-                        >
-                            <i class="fa-solid fa-cart-plus"></i>
+                        <button class="add-cart"
+                            onclick="addProductToCart('Travel and Laptop Backpack', 3499)">
                             Add to Cart
                         </button>
-
                     </div>
-
                 </article>
 
-
-                <!-- PRODUCT 11 -->
+                <!-- Product 12 -->
                 <article class="product-card">
+                    <button class="wishlist-btn"
+                        onclick="addToWishlist('Bluetooth Speaker')">
+                        ♡
+                    </button>
 
-                    <div class="product-image">
-
-                        <i class="fa-solid fa-basket-shopping"></i>
-
-                        <button class="wishlist-button">
-                            <i class="fa-regular fa-heart"></i>
-                        </button>
-
-                    </div>
+                    <img
+                        class="product-image"
+                        src="https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=800&q=80"
+                        alt="Bluetooth speaker"
+                    >
 
                     <div class="product-info">
+                        <h3>Portable Bluetooth Speaker</h3>
+                        <div class="rating">★★★★☆ (25)</div>
+                        <div class="price">KSh 3,999</div>
 
-                        <span class="product-category">
-                            Groceries
-                        </span>
-
-                        <h3>
-                            Family Grocery Package
-                        </h3>
-
-                        <div class="rating">
-                            ★★★★☆
-                            <span>(11)</span>
-                        </div>
-
-                        <div class="price">
-                            KSh 4,750
-                        </div>
-
-                        <button
-                            class="add-cart"
-                            data-product="Family Grocery Package"
-                            data-price="4750"
-                        >
-                            <i class="fa-solid fa-cart-plus"></i>
+                        <button class="add-cart"
+                            onclick="addProductToCart('Portable Bluetooth Speaker', 3999)">
                             Add to Cart
                         </button>
-
                     </div>
-
-                </article>
-
-
-                <!-- PRODUCT 12 -->
-                <article class="product-card">
-
-                    <div class="product-image">
-
-                        <span class="discount-badge">
-                            -25%
-                        </span>
-
-                        <i class="fa-solid fa-tablet-screen-button"></i>
-
-                        <button class="wishlist-button">
-                            <i class="fa-regular fa-heart"></i>
-                        </button>
-
-                    </div>
-
-                    <div class="product-info">
-
-                        <span class="product-category">
-                            Phones & Tablets
-                        </span>
-
-                        <h3>
-                            Android Tablet 10 Inch
-                        </h3>
-
-                        <div class="rating">
-                            ★★★★☆
-                            <span>(17)</span>
-                        </div>
-
-                        <div class="price">
-                            KSh 14,999
-                            <del>KSh 19,999</del>
-                        </div>
-
-                        <button
-                            class="add-cart"
-                            data-product="Android Tablet 10 Inch"
-                            data-price="14999"
-                        >
-                            <i class="fa-solid fa-cart-plus"></i>
-                            Add to Cart
-                        </button>
-
-                    </div>
-
                 </article>
 
             </div>
 
-
-            <!-- PAGINATION -->
             <div class="pagination">
-
                 <button class="active">1</button>
                 <button>2</button>
                 <button>3</button>
-
-                <button>
-                    <i class="fa-solid fa-chevron-right"></i>
-                </button>
-
+                <button>Next →</button>
             </div>
 
         </section>
 
-    </main>
+    </div>
 
+</main>
 
-    <!-- NEWSLETTER -->
-    <section class="newsletter">
+<footer>
+    <div class="container">
 
-        <div class="container newsletter-content">
+        <div class="footer-grid">
 
             <div>
-                <h2>Stay Updated</h2>
-
-                <p>
-                    Subscribe to receive new products, special offers and shopping updates.
-                </p>
+                <h3>Meteur</h3>
+                <p>Your trusted Kenyan online shopping marketplace.</p>
             </div>
 
-            <form id="newsletterForm">
-
-                <input
-                    type="email"
-                    placeholder="Enter your email address"
-                    required
-                >
-
-                <button type="submit">
-                    Subscribe
-                </button>
-
-            </form>
-
-        </div>
-
-    </section>
-
-
-    <!-- FOOTER -->
-    <footer class="footer">
-
-        <div class="container footer-grid">
-
             <div>
-
-                <a href="index.html" class="footer-logo">
-                    <i class="fa-solid fa-bag-shopping"></i>
-                    Meteur
-                </a>
-
-                <p>
-                    Your trusted online shopping destination in Kenya.
-                    Shop quality products at competitive prices.
-                </p>
-
+                <h4>Shopping</h4>
+                <a href="shop.html">Shop</a><br>
+                <a href="categories.html">Categories</a><br>
+                <a href="deals.html">Deals</a><br>
+                <a href="new-arrivals.html">New Arrivals</a>
             </div>
 
-
             <div>
-
-                <h3>Customer Service</h3>
-
-                <a href="#">Help Center</a>
-                <a href="#">Delivery Information</a>
-                <a href="#">Returns & Refunds</a>
-                <a href="#">Track Order</a>
-
+                <h4>Customer Service</h4>
+                <a href="help.html">Help Center</a><br>
+                <a href="contact.html">Contact Us</a><br>
+                <a href="track-order.html">Track Order</a><br>
+                <a href="returns.html">Returns</a>
             </div>
 
-
             <div>
-
-                <h3>About Meteur</h3>
-
-                <a href="#">About Us</a>
-                <a href="#">Contact Us</a>
-                <a href="#">Terms & Conditions</a>
-                <a href="#">Privacy Policy</a>
-
-            </div>
-
-
-            <div>
-
-                <h3>Contact Us</h3>
-
-                <p>
-                    <i class="fa-solid fa-phone"></i>
-                    0711842260
-                </p>
-
-                <p>
-                    <i class="fa-solid fa-envelope"></i>
-                    daghlusmeteur@gmail.com
-                </p>
-
-                <p>
-                    <i class="fa-solid fa-location-dot"></i>
-                    Kenya
-                </p>
-
+                <h4>Account</h4>
+                <a href="login.html">Login</a><br>
+                <a href="register.html">Create Account</a><br>
+                <a href="orders.html">My Orders</a><br>
+                <a href="wishlist.html">Wishlist</a>
             </div>
 
         </div>
 
+        <p class="copyright">
+            © 2026 Meteur Online Shopping. All rights reserved.
+        </p>
 
-        <div class="footer-bottom">
+    </div>
+</footer>
 
-            <div class="container">
+<script src="script.js"></script>
 
-                <p>
-                    © 2026 Meteur Online Shopping. All rights reserved.
-                </p>
+<script>
+    function addProductToCart(name, price) {
+        let cart = JSON.parse(localStorage.getItem("meteurCart")) || [];
 
-            </div>
+        const existingProduct = cart.find(product => product.name === name);
 
-        </div>
+        if (existingProduct) {
+            existingProduct.quantity += 1;
+        } else {
+            cart.push({
+                name: name,
+                price: price,
+                quantity: 1
+            });
+        }
 
-    </footer>
+        localStorage.setItem("meteurCart", JSON.stringify(cart));
 
+        updateCartCount();
 
-    <!-- JAVASCRIPT -->
-    <script src="script.js"></script>
+        alert(name + " has been added to your cart.");
+    }
+
+    function updateCartCount() {
+        const cart = JSON.parse(localStorage.getItem("meteurCart")) || [];
+
+        const totalItems = cart.reduce(
+            (total, product) => total + (product.quantity || 1),
+            0
+        );
+
+        const cartCount = document.getElementById("cartCount");
+
+        if (cartCount) {
+            cartCount.textContent = totalItems;
+        }
+    }
+
+    function addToWishlist(name) {
+        let wishlist =
+            JSON.parse(localStorage.getItem("meteurWishlist")) || [];
+
+        if (!wishlist.includes(name)) {
+            wishlist.push(name);
+            localStorage.setItem(
+                "meteurWishlist",
+                JSON.stringify(wishlist)
+            );
+
+            alert(name + " has been added to your wishlist.");
+        } else {
+            alert(name + " is already in your wishlist.");
+        }
+    }
+
+    function searchProducts() {
+        const searchInput =
+            document.getElementById("searchInput");
+
+        const searchTerm =
+            searchInput.value.trim();
+
+        if (searchTerm) {
+            window.location.href =
+                "shop.html?search=" +
+                encodeURIComponent(searchTerm);
+        }
+    }
+
+    document
+        .getElementById("searchInput")
+        .addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                searchProducts();
+            }
+        });
+
+    updateCartCount();
+</script>
 
 </body>
 </html>

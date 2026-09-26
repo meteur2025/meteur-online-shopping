@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>New Arrivals - Meteur Online Shopping</title>
+
+    <meta name="description"
+          content="Discover the latest products and new arrivals at Meteur Online Shopping.">
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .arrivals-hero {
+            background: linear-gradient(135deg, #ff7900, #ff9900);
+            color: white;
+            padding: 55px 20px;
+            text-align: center;
+        }
+
+        .arrivals-hero h1 {
+            font-size: 42px;
+            margin-bottom: 12px;
+        }
+
+        .arrivals-hero p {
+            font-size: 18px;
+            margin: 0;
+        }
+
+        .arrivals-section {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .arrivals-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            gap: 15px;
+        }
+
+        .arrivals-heading h2 {
+            font-size: 28px;
+            margin: 0;
+        }
+
+        .arrivals-heading a {
+            color: #f57224;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .arrival-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .arrival-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            position: relative;
+            transition: transform 0.2s ease;
+        }
+
+        .arrival-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .new-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: #f57224;
+            color: white;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        .arrival-image {
+            height: 210px;
+            background: #f7f7f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 75px;
+        }
+
+        .arrival-content {
+            padding: 18px;
+        }
+
+        .arrival-content h3 {
+            font-size: 17px;
+            margin: 0 0 10px;
+        }
+
+        .arrival-rating {
+            color: #f5a623;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .arrival-price {
+            color: #f57224;
+            font-size: 21px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .arrival-button {
+            width: 100%;
+            border: none;
+            background: #ff7900;
+            color: white;
+            padding: 12px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .arrival-button:hover {
+            background: #e86f00;
+        }
+
+        .arrival-info {
+            background: white;
+            margin-top: 35px;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+        }
+
+        .arrival-info h2 {
+            margin-top: 0;
+        }
+
+        .arrival-info p {
+            color: #555;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 1000px) {
+            .arrival-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 750px) {
+            .arrival-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .arrivals-hero h1 {
+                font-size: 32px;
+            }
+
+            .arrivals-heading {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .arrival-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <span>Welcome to Meteur Online Shopping</span>
+
+            <div>
+                <a href="help.html">Help Center</a>
+                <a href="track-order.html">Track Order</a>
+                <a href="sell.html">Sell on Meteur</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container header-content">
+
+            <a href="index.html" class="logo">
+                <i class="fas fa-shopping-bag"></i>
+                <span>Meteur</span>
+                <small>ONLINE SHOPPING</small>
+            </a>
+
+            <form class="search-box" id="searchForm">
+                <input
+                    type="search"
+                    id="searchInput"
+                    placeholder="Search products, brands and categories"
+                >
+
+                <button type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+
+            <div class="header-actions">
+
+                <a href="login.html">
+                    <i class="fas fa-user"></i>
+                    <span>Account</span>
+                </a>
+
+                <a href="wishlist.html">
+                    <i class="fas fa-heart"></i>
+                    <span>Wishlist</span>
+                </a>
+
+                <a href="cart.html">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Cart <b id="cartCount">0</b></span>
+                </a>
+
+            </div>
+
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="container nav-content">
+
+            <a href="categories.html">
+                <i class="fas fa-bars"></i> Categories
+            </a>
+
+            <a href="index.html">Home</a>
+
+            <a href="shop.html">Shop</a>
+
+            <a href="deals.html">Flash Deals</a>
+
+            <a href="categories.html">Categories</a>
+
+            <a href="new-arrivals.html" class="active">
+                New Arrivals
+            </a>
+
+            <a href="shop.html">Popular</a>
+
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="arrivals-hero">
+        <h1>✨ New Arrivals</h1>
+        <p>Discover the latest products added to Meteur Online Shopping.</p>
+    </section>
+
+    <!-- Products -->
+    <main class="arrivals-section">
+
+        <div class="arrivals-heading">
+            <h2>Latest Products</h2>
+            <a href="shop.html">View All Products →</a>
+        </div>
+
+        <div class="arrival-grid">
+
+            <!-- Product 1 -->
+            <div class="arrival-card">
+                <span class="new-badge">NEW</span>
+
+                <div class="arrival-image">
+                    ⌚
+                </div>
+
+                <div class="arrival-content">
+                    <h3>Smart Watch Series</h3>
+
+                    <div class="arrival-rating">
+                        ★★★★★ 4.6
+                    </div>
+
+                    <div class="arrival-price">
+                        KSh 4,999
+                    </div>
+
+                    <button
+                        class="arrival-button add-to-cart"
+                        data-product="Smart Watch Series"
+                        data-price="4999">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="arrival-card">
+                <span class="new-badge">NEW</span>
+
+                <div class="arrival-image">
+                    📷
+                </div>
+
+                <div class="arrival-content">
+                    <h3>Digital Camera</h3>
+
+                    <div class="arrival-rating">
+                        ★★★★★ 4.7
+                    </div>
+
+                    <div class="arrival-price">
+                        KSh 28,500
+                    </div>
+
+                    <button
+                        class="arrival-button add-to-cart"
+                        data-product="Digital Camera"
+                        data-price="28500">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="arrival-card">
+                <span class="new-badge">NEW</span>
+
+                <div class="arrival-image">
+                    🌸
+                </div>
+
+                <div class="arrival-content">
+                    <h3>Premium Fragrance</h3>
+
+                    <div class="arrival-rating">
+                        ★★★★☆ 4.4
+                    </div>
+
+                    <div class="arrival-price">
+                        KSh 3,250
+                    </div>
+
+                    <button
+                        class="arrival-button add-to-cart"
+                        data-product="Premium Fragrance"
+                        data-price="3250">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="arrival-card">
+                <span class="new-badge">NEW</span>
+
+                <div class="arrival-image">
+                    🥤
+                </div>
+
+                <div class="arrival-content">
+                    <h3>Electric Kitchen Blender</h3>
+
+                    <div class="arrival-rating">
+                        ★★★★★ 4.6
+                    </div>
+
+                    <div class="arrival-price">
+                        KSh 5,499
+                    </div>
+
+                    <button
+                        class="arrival-button add-to-cart"
+                        data-product="Electric Kitchen Blender"
+                        data-price="5499">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="arrival-card">
+                <span class="new-badge">NEW</span>
+
+                <div class="arrival-image">
+                    👕
+                </div>
+
+                <div class="arrival-content">
+                    <h3>Men's Premium Casual Shirt</h3>
+
+                    <div class="arrival-rating">
+                        ★★★★☆ 4.5
+                    </div>
+
+                    <div class="arrival-price">
+                        KSh 2,199
+                    </div>
+
+                    <button
+                        class="arrival-button add-to-cart"
+                        data-product="Men's Premium Casual Shirt"
+                        data-price="2199">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 6 -->
+            <div class="arrival-card">
+                <span class="new-badge">NEW</span>
+
+                <div class="arrival-image">
+                    ⌨️
+                </div>
+
+                <div class="arrival-content">
+                    <h3>Wireless Keyboard & Mouse</h3>
+
+                    <div class="arrival-rating">
+                        ★★★★★ 4.6
+                    </div>
+
+                    <div class="arrival-price">
+                        KSh 3,499
+                    </div>
+
+                    <button
+                        class="arrival-button add-to-cart"
+                        data-product="Wireless Keyboard & Mouse"
+                        data-price="3499">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 7 -->
+            <div class="arrival-card">
+                <span class="new-badge">NEW</span>
+
+                <div class="arrival-image">
+                    🛒
+                </div>
+
+                <div class="arrival-content">
+                    <h3>Family Grocery Package</h3>
+
+                    <div class="arrival-rating">
+                        ★★★★☆ 4.5
+                    </div>
+
+                    <div class="arrival-price">
+                        KSh 4,750
+                    </div>
+
+                    <button
+                        class="arrival-button add-to-cart"
+                        data-product="Family Grocery Package"
+                        data-price="4750">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 8 -->
+            <div class="arrival-card">
+                <span class="new-badge">NEW</span>
+
+                <div class="arrival-image">
+                    📱
+                </div>
+
+                <div class="arrival-content">
+                    <h3>Android Tablet 10 Inch</h3>
+
+                    <div class="arrival-rating">
+                        ★★★★★ 4.7
+                    </div>
+
+                    <div class="arrival-price">
+                        KSh 14,999
+                    </div>
+
+                    <button
+                        class="arrival-button add-to-cart"
+                        data-product="Android Tablet 10 Inch"
+                        data-price="14999">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="arrival-info">
+
+            <h2>Shop New Products at Meteur</h2>
+
+            <p>
+                Explore the newest products available on Meteur Online Shopping.
+                Our new arrivals section makes it easier to discover recently
+                added electronics, fashion, beauty, home products, computing
+                accessories and other items.
+            </p>
+
+            <p>
+                Select a product, add it to your shopping cart and continue
+                shopping or proceed to checkout when you are ready.
+            </p>
+
+        </div>
+
+    </main>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="container">
+
+            <h2>Get New Product Updates</h2>
+
+            <p>
+                Subscribe to receive updates about new products,
+                promotions and special offers.
+            </p>
+
+            <form id="newsletterForm">
+
+                <input
+                    type="email"
+                    placeholder="Enter your email address"
+                    required
+                >
+
+                <button type="submit">
+                    Subscribe
+                </button>
+
+            </form>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+
+        <div class="container footer-grid">
+
+            <div>
+                <h3>Meteur Online Shopping</h3>
+
+                <p>
+                    A Kenyan online shopping marketplace offering
+                    products across multiple categories.
+                </p>
+            </div>
+
+            <div>
+                <h3>Customer Service</h3>
+
+                <a href="help.html">Help Center</a>
+                <a href="contact.html">Contact Us</a>
+                <a href="track-order.html">Track Order</a>
+                <a href="returns.html">Returns & Refunds</a>
+            </div>
+
+            <div>
+                <h3>Shopping</h3>
+
+                <a href="shop.html">Shop Products</a>
+                <a href="categories.html">Categories</a>
+                <a href="deals.html">Flash Deals</a>
+                <a href="wishlist.html">Wishlist</a>
+            </div>
+
+            <div>
+                <h3>Contact</h3>
+
+                <p>📞 0711842260</p>
+                <p>✉️ daghlusmeteur@gmail.com</p>
+                <p>🇰🇪 Kenya</p>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>
+                © 2026 Meteur Online Shopping. All rights reserved.
+            </p>
+        </div>
+
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

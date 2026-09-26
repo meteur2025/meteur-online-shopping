@@ -3,270 +3,328 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Shop | Meteur Online Shopping</title>
-
-    <link rel="stylesheet" href="style.css">
+    <title>Shop - Meteur Online Shopping</title>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabase-config.js"></script>
 
     <style>
-        .shop-page {
-            padding: 35px 5%;
-            background: #f7f7f7;
-            min-height: 70vh;
-        }
-
-        .shop-heading {
-            margin-bottom: 25px;
-        }
-
-        .shop-heading h1 {
-            margin-bottom: 8px;
-            font-size: 32px;
-        }
-
-        .shop-layout {
-            display: grid;
-            grid-template-columns: 230px 1fr;
-            gap: 25px;
-        }
-
-        .filters {
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            height: fit-content;
-            box-shadow: 0 2px 8px rgba(0,0,0,.06);
-        }
-
-        .filters h3 {
-            margin-bottom: 15px;
-        }
-
-        .category-list {
-            list-style: none;
-            padding: 0;
+        * {
+            box-sizing: border-box;
             margin: 0;
+            padding: 0;
         }
 
-        .category-list li {
-            margin-bottom: 10px;
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f5f5;
+            color: #222;
         }
 
-        .category-list button {
-            width: 100%;
-            border: none;
-            background: transparent;
-            text-align: left;
-            padding: 8px;
-            cursor: pointer;
-            border-radius: 6px;
-        }
-
-        .category-list button:hover,
-        .category-list button.active {
+        header {
             background: #ff6b00;
             color: white;
+            padding: 15px 5%;
         }
 
-        .shop-topbar {
+        .header-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .logo {
+            color: white;
+            text-decoration: none;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .search-box {
+            flex: 1;
+            max-width: 600px;
+            display: flex;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            outline: none;
+            font-size: 15px;
+            border-radius: 5px 0 0 5px;
+        }
+
+        .search-box button {
+            border: none;
+            background: #222;
+            color: white;
+            padding: 0 20px;
+            cursor: pointer;
+            border-radius: 0 5px 5px 0;
+        }
+
+        nav {
+            margin-top: 15px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 30px auto;
+        }
+
+        .page-header {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .page-header h1 {
+            margin-bottom: 8px;
+        }
+
+        .toolbar {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             gap: 15px;
-            margin-bottom: 20px;
             flex-wrap: wrap;
         }
 
-        .results-count {
-            font-weight: 600;
-        }
-
-        .sort-select {
-            padding: 10px 14px;
+        .toolbar select {
+            padding: 10px;
             border: 1px solid #ddd;
-            border-radius: 7px;
-            background: white;
+            border-radius: 5px;
         }
 
-        .products-grid {
+        #productCount {
+            font-weight: bold;
+        }
+
+        .products {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 18px;
+            gap: 20px;
         }
 
         .product-card {
-            background: #fff;
-            border-radius: 10px;
+            background: white;
+            border-radius: 8px;
             overflow: hidden;
             position: relative;
-            box-shadow: 0 2px 8px rgba(0,0,0,.06);
-            transition: transform .2s, box-shadow .2s;
+            transition: 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
         }
 
         .product-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 6px 18px rgba(0,0,0,.12);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.12);
         }
 
         .product-image {
             width: 100%;
-            height: 210px;
+            height: 230px;
             object-fit: cover;
             display: block;
         }
 
-        .product-content {
+        .wishlist-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 38px;
+            height: 38px;
+            border: none;
+            border-radius: 50%;
+            background: white;
+            color: #777;
+            font-size: 21px;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            z-index: 2;
+        }
+
+        .wishlist-btn.active {
+            color: #ff6b00;
+        }
+
+        .badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: #ff6b00;
+            color: white;
+            padding: 6px 9px;
+            font-size: 12px;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        .product-info {
             padding: 15px;
         }
 
-        .product-name {
-            font-size: 15px;
-            min-height: 42px;
-            margin-bottom: 8px;
-            color: #222;
+        .category {
+            color: #777;
+            font-size: 13px;
+            margin-bottom: 7px;
         }
 
-        .product-category {
-            color: #777;
-            font-size: 12px;
+        .product-name {
+            color: #222;
+            text-decoration: none;
+            font-weight: bold;
+            display: block;
+            min-height: 42px;
             margin-bottom: 8px;
         }
 
         .rating {
             color: #f5a623;
-            font-size: 13px;
+            font-size: 14px;
             margin-bottom: 8px;
         }
 
-        .price-row {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-bottom: 12px;
-        }
-
         .price {
-            font-size: 19px;
-            font-weight: 700;
-            color: #222;
+            font-size: 20px;
+            font-weight: bold;
+            color: #ff6b00;
         }
 
         .old-price {
-            color: #999;
+            color: #888;
             text-decoration: line-through;
             font-size: 13px;
+            margin-left: 6px;
         }
 
-        .badge {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: #ff6b00;
-            color: #fff;
-            padding: 5px 9px;
-            border-radius: 4px;
-            font-size: 11px;
-            font-weight: 700;
+        .stock {
+            font-size: 13px;
+            color: #555;
+            margin: 8px 0;
         }
 
-        .wishlist-btn {
-            position: absolute;
-            right: 10px;
-            top: 10px;
-            width: 34px;
-            height: 34px;
-            border: none;
-            border-radius: 50%;
-            background: white;
-            cursor: pointer;
-            font-size: 18px;
-            box-shadow: 0 2px 8px rgba(0,0,0,.12);
-        }
-
-        .add-cart-btn {
+        .add-cart {
             width: 100%;
-            padding: 10px;
-            border: none;
-            border-radius: 6px;
+            padding: 11px;
             background: #ff6b00;
             color: white;
-            font-weight: 700;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
+            font-weight: bold;
+            margin-top: 8px;
         }
 
-        .add-cart-btn:hover {
+        .add-cart:hover {
             background: #e85f00;
         }
 
         .loading,
-        .empty-products,
-        .error-products {
-            grid-column: 1 / -1;
+        .error,
+        .empty {
             background: white;
-            padding: 50px 20px;
+            padding: 40px;
             text-align: center;
-            border-radius: 10px;
+            border-radius: 8px;
+            grid-column: 1 / -1;
         }
 
-        .loading {
-            color: #777;
+        .error {
+            color: #c62828;
         }
 
-        .error-products {
-            color: #b00020;
-        }
-
-        .search-box {
-            display: flex;
-            gap: 8px;
-            max-width: 650px;
-            margin-bottom: 25px;
-        }
-
-        .search-box input {
-            flex: 1;
-            padding: 13px;
-            border: 1px solid #ddd;
-            border-radius: 7px;
-        }
-
-        .search-box button {
-            padding: 13px 20px;
-            border: none;
-            border-radius: 7px;
-            background: #ff6b00;
+        footer {
+            background: #222;
             color: white;
-            font-weight: 700;
-            cursor: pointer;
+            padding: 40px 5%;
+            margin-top: 50px;
         }
 
-        @media (max-width: 1100px) {
-            .products-grid {
+        .footer-content {
+            max-width: 1400px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        footer h3 {
+            margin-bottom: 15px;
+        }
+
+        footer a {
+            color: #ddd;
+            text-decoration: none;
+            display: block;
+            margin: 8px 0;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            color: #aaa;
+        }
+
+        @media (max-width: 1000px) {
+            .products {
                 grid-template-columns: repeat(3, 1fr);
             }
-        }
 
-        @media (max-width: 800px) {
-            .shop-layout {
-                grid-template-columns: 1fr;
-            }
-
-            .products-grid {
+            .footer-content {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
 
-        @media (max-width: 520px) {
-            .products-grid {
+        @media (max-width: 700px) {
+            .header-top {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-box {
+                max-width: none;
+            }
+
+            .products {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .product-image {
+                height: 190px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 450px) {
+            .products {
                 grid-template-columns: 1fr;
             }
 
-            .shop-page {
-                padding: 25px 4%;
+            .product-image {
+                height: 250px;
             }
         }
     </style>
@@ -274,598 +332,488 @@
 
 <body>
 
-<header class="site-header">
-    <div class="header-main">
+<header>
+    <div class="header-top">
+        <a href="index.html" class="logo">Meteur</a>
 
-        <a href="index.html" class="logo">
-            Meteur
-        </a>
-
-        <div class="header-search">
+        <div class="search-box">
             <input
                 type="text"
-                id="headerSearch"
+                id="searchInput"
                 placeholder="Search products..."
             >
-            <button onclick="performHeaderSearch()">Search</button>
+            <button onclick="searchProducts()">Search</button>
         </div>
-
-        <div class="header-actions">
-            <a href="login.html">Account</a>
-            <a href="wishlist.html">Wishlist</a>
-            <a href="cart.html">
-                Cart (<span id="cartCount">0</span>)
-            </a>
-        </div>
-
     </div>
 
-    <nav class="main-nav">
+    <nav>
         <a href="index.html">Home</a>
         <a href="shop.html">Shop</a>
-        <a href="categories.html">Categories</a>
         <a href="deals.html">Deals</a>
         <a href="new-arrivals.html">New Arrivals</a>
+        <a href="categories.html">Categories</a>
+        <a href="wishlist.html">Wishlist</a>
+        <a href="cart.html">Cart</a>
+        <a href="dashboard.html">My Account</a>
     </nav>
 </header>
 
-<main class="shop-page">
+<main class="container">
 
-    <div class="shop-heading">
+    <section class="page-header">
         <h1>Shop All Products</h1>
-        <p>Discover products and great deals from Meteur Online Shopping.</p>
-    </div>
+        <p>Browse products available on Meteur Online Shopping.</p>
+    </section>
 
-    <div class="search-box">
-        <input
-            type="text"
-            id="productSearch"
-            placeholder="Search products..."
-        >
-        <button onclick="searchProducts()">Search</button>
-    </div>
+    <section class="toolbar">
+        <span id="productCount">Loading products...</span>
 
-    <div class="shop-layout">
+        <select id="sortSelect" onchange="sortProducts()">
+            <option value="default">Sort by</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+            <option value="rating">Highest Rated</option>
+            <option value="newest">Newest</option>
+        </select>
+    </section>
 
-        <aside class="filters">
-
-            <h3>Categories</h3>
-
-            <ul class="category-list">
-
-                <li>
-                    <button class="active" onclick="filterCategory('all', this)">
-                        All Products
-                    </button>
-                </li>
-
-                <li>
-                    <button onclick="filterCategory('Phones and Tablets', this)">
-                        Phones & Tablets
-                    </button>
-                </li>
-
-                <li>
-                    <button onclick="filterCategory('Computing', this)">
-                        Computing
-                    </button>
-                </li>
-
-                <li>
-                    <button onclick="filterCategory('Electronics', this)">
-                        Electronics
-                    </button>
-                </li>
-
-                <li>
-                    <button onclick="filterCategory('Fashion', this)">
-                        Fashion
-                    </button>
-                </li>
-
-                <li>
-                    <button onclick="filterCategory('Shoes', this)">
-                        Shoes
-                    </button>
-                </li>
-
-                <li>
-                    <button onclick="filterCategory('Smart Devices', this)">
-                        Smart Devices
-                    </button>
-                </li>
-
-                <li>
-                    <button onclick="filterCategory('Cameras', this)">
-                        Cameras
-                    </button>
-                </li>
-
-                <li>
-                    <button onclick="filterCategory('Kitchen', this)">
-                        Kitchen
-                    </button>
-                </li>
-
-                <li>
-                    <button onclick="filterCategory('Home and Appliances', this)">
-                        Home & Appliances
-                    </button>
-                </li>
-
-            </ul>
-
-        </aside>
-
-        <section>
-
-            <div class="shop-topbar">
-
-                <div class="results-count">
-                    <span id="resultsCount">Loading products...</span>
-                </div>
-
-                <select
-                    id="sortProducts"
-                    class="sort-select"
-                    onchange="sortProducts()"
-                >
-                    <option value="newest">Newest</option>
-                    <option value="price-low">Price: Low to High</option>
-                    <option value="price-high">Price: High to Low</option>
-                    <option value="rating">Highest Rated</option>
-                </select>
-
-            </div>
-
-            <div id="productsGrid" class="products-grid">
-
-                <div class="loading">
-                    Loading products from Meteur database...
-                </div>
-
-            </div>
-
-        </section>
-
-    </div>
+    <section class="products" id="products">
+        <div class="loading">
+            Loading products...
+        </div>
+    </section>
 
 </main>
 
-<footer class="site-footer">
-
+<footer>
     <div class="footer-content">
 
         <div>
-            <h3>Meteur Online Shopping</h3>
-            <p>Your modern Kenyan online marketplace.</p>
+            <h3>Meteur</h3>
+            <p>Your trusted online shopping marketplace.</p>
         </div>
 
         <div>
-            <h4>Shopping</h4>
-            <a href="shop.html">Shop</a>
-            <a href="categories.html">Categories</a>
+            <h3>Shopping</h3>
+            <a href="shop.html">Shop All</a>
             <a href="deals.html">Deals</a>
             <a href="new-arrivals.html">New Arrivals</a>
+            <a href="categories.html">Categories</a>
         </div>
 
         <div>
-            <h4>Customer Service</h4>
+            <h3>Customer Service</h3>
             <a href="help.html">Help Center</a>
-            <a href="faq.html">FAQ</a>
-            <a href="contact.html">Contact</a>
+            <a href="contact.html">Contact Us</a>
+            <a href="shipping.html">Shipping</a>
+            <a href="returns.html">Returns & Refunds</a>
             <a href="track-order.html">Track Order</a>
         </div>
 
+        <div>
+            <h3>About</h3>
+            <a href="about.html">About Meteur</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms & Conditions</a>
+            <a href="sell.html">Sell on Meteur</a>
+        </div>
+
     </div>
 
-    <div class="footer-bottom">
+    <div class="copyright">
         © 2026 Meteur Online Shopping. All rights reserved.
     </div>
-
 </footer>
 
-<script src="script.js"></script>
-
 <script>
+    let allProducts = [];
+    let wishlistIds = new Set();
 
-let allProducts = [];
-let currentCategory = "all";
-let currentSearch = "";
+    const productsContainer = document.getElementById("products");
+    const productCount = document.getElementById("productCount");
+    const searchInput = document.getElementById("searchInput");
 
-/* Load products from Supabase */
+    async function getCurrentUser() {
+        const {
+            data: { user }
+        } = await supabaseClient.auth.getUser();
 
-async function loadProducts() {
+        return user;
+    }
 
-    const grid = document.getElementById("productsGrid");
+    async function loadWishlist() {
+        wishlistIds = new Set();
 
-    grid.innerHTML = `
-        <div class="loading">
-            Loading products from Meteur database...
-        </div>
-    `;
+        const user = await getCurrentUser();
 
-    try {
-
-        const { data, error } = await supabaseClient
-            .from("products")
-            .select("*")
-            .order("created_at", { ascending: false });
-
-        if (error) {
-            throw error;
+        if (!user) {
+            return;
         }
 
-        allProducts = data || [];
-
-        renderProducts();
-
-    } catch (error) {
-
-        console.error("Product loading error:", error);
-
-        grid.innerHTML = `
-            <div class="error-products">
-                <h3>Unable to load products</h3>
-                <p>Please refresh the page and try again.</p>
-            </div>
-        `;
-
-        document.getElementById("resultsCount").textContent =
-            "Products could not be loaded.";
-
-    }
-
-}
-
-/* Render products */
-
-function renderProducts() {
-
-    const grid = document.getElementById("productsGrid");
-
-    let products = [...allProducts];
-
-    if (currentCategory !== "all") {
-
-        products = products.filter(product =>
-            product.category === currentCategory
-        );
-
-    }
-
-    if (currentSearch.trim() !== "") {
-
-        const search = currentSearch.toLowerCase();
-
-        products = products.filter(product =>
-            product.name.toLowerCase().includes(search) ||
-            product.category.toLowerCase().includes(search) ||
-            (product.description || "").toLowerCase().includes(search)
-        );
-
-    }
-
-    applySorting(products);
-
-    document.getElementById("resultsCount").textContent =
-        `${products.length} product${products.length === 1 ? "" : "s"} found`;
-
-    if (products.length === 0) {
-
-        grid.innerHTML = `
-            <div class="empty-products">
-                <h3>No products found</h3>
-                <p>Try another search or category.</p>
-            </div>
-        `;
-
-        return;
-
-    }
-
-    grid.innerHTML = products.map(product => {
-
-        const image =
-            product.image_url ||
-            "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80";
-
-        const oldPrice = product.old_price
-            ? `<span class="old-price">KSh ${Number(product.old_price).toLocaleString()}</span>`
-            : "";
-
-        const badge = product.badge
-            ? `<span class="badge">${escapeHtml(product.badge)}</span>`
-            : "";
-
-        const rating = Number(product.rating || 0);
-
-        const stars = "★".repeat(Math.round(rating));
-
-        return `
-            <article class="product-card">
-
-                ${badge}
-
-                <button
-                    class="wishlist-btn"
-                    onclick='addToWishlist(${JSON.stringify(product)})'
-                    aria-label="Add to wishlist"
-                >
-                    ♡
-                </button>
-
-                <a href="product.html?id=${product.id}">
-                    <img
-                        class="product-image"
-                        src="${escapeHtml(image)}"
-                        alt="${escapeHtml(product.name)}"
-                        loading="lazy"
-                    >
-                </a>
-
-                <div class="product-content">
-
-                    <div class="product-category">
-                        ${escapeHtml(product.category)}
-                    </div>
-
-                    <h3 class="product-name">
-                        ${escapeHtml(product.name)}
-                    </h3>
-
-                    <div class="rating">
-                        ${stars}
-                        <span>
-                            (${Number(product.review_count || 0)})
-                        </span>
-                    </div>
-
-                    <div class="price-row">
-
-                        <span class="price">
-                            KSh ${Number(product.price).toLocaleString()}
-                        </span>
-
-                        ${oldPrice}
-
-                    </div>
-
-                    <button
-                        class="add-cart-btn"
-                        onclick='addProductToCart(${JSON.stringify(product)})'
-                    >
-                        Add to Cart
-                    </button>
-
-                </div>
-
-            </article>
-        `;
-
-    }).join("");
-
-}
-
-/* Category filtering */
-
-function filterCategory(category, button) {
-
-    currentCategory = category;
-
-    document
-        .querySelectorAll(".category-list button")
-        .forEach(btn => btn.classList.remove("active"));
-
-    button.classList.add("active");
-
-    renderProducts();
-
-}
-
-/* Search */
-
-function searchProducts() {
-
-    currentSearch =
-        document.getElementById("productSearch").value.trim();
-
-    renderProducts();
-
-}
-
-function performHeaderSearch() {
-
-    const value =
-        document.getElementById("headerSearch").value.trim();
-
-    if (value) {
-
-        window.location.href =
-            "shop.html?search=" +
-            encodeURIComponent(value);
-
-    }
-
-}
-
-/* Sorting */
-
-function sortProducts() {
-
-    renderProducts();
-
-}
-
-function applySorting(products) {
-
-    const sort =
-        document.getElementById("sortProducts").value;
-
-    if (sort === "price-low") {
-
-        products.sort((a, b) =>
-            Number(a.price) - Number(b.price)
-        );
-
-    }
-
-    if (sort === "price-high") {
-
-        products.sort((a, b) =>
-            Number(b.price) - Number(a.price)
-        );
-
-    }
-
-    if (sort === "rating") {
-
-        products.sort((a, b) =>
-            Number(b.rating) - Number(a.rating)
-        );
-
-    }
-
-}
-
-/* Add product to cart */
-
-function addProductToCart(product) {
-
-    let cart =
-        JSON.parse(localStorage.getItem("meteurCart")) || [];
-
-    const existing =
-        cart.find(item => item.id === product.id);
-
-    if (existing) {
-
-        existing.quantity =
-            Number(existing.quantity || 1) + 1;
-
-    } else {
-
-        cart.push({
-            id: product.id,
-            name: product.name,
-            price: Number(product.price),
-            image: product.image_url,
-            quantity: 1
+        const { data, error } = await supabaseClient
+            .from("wishlist")
+            .select("product_id")
+            .eq("user_id", user.id);
+
+        if (error) {
+            console.error("Wishlist loading error:", error);
+            return;
+        }
+
+        data.forEach(item => {
+            wishlistIds.add(item.product_id);
         });
-
     }
 
-    localStorage.setItem(
-        "meteurCart",
-        JSON.stringify(cart)
-    );
+    async function toggleWishlist(productId, button) {
+        const user = await getCurrentUser();
 
-    updateCartCount();
+        if (!user) {
+            const returnUrl =
+                "shop.html";
 
-    alert(`${product.name} added to your cart.`);
+            window.location.href =
+                "login.html?redirect=" +
+                encodeURIComponent(returnUrl);
 
-}
+            return;
+        }
 
-/* Wishlist */
+        button.disabled = true;
 
-function addToWishlist(product) {
+        if (wishlistIds.has(productId)) {
 
-    let wishlist =
-        JSON.parse(localStorage.getItem("meteurWishlist")) || [];
+            const { error } = await supabaseClient
+                .from("wishlist")
+                .delete()
+                .eq("user_id", user.id)
+                .eq("product_id", productId);
 
-    const exists =
-        wishlist.some(item => item.id === product.id);
+            if (error) {
+                console.error(error);
+                alert("Unable to remove this product from your wishlist.");
+                button.disabled = false;
+                return;
+            }
 
-    if (!exists) {
+            wishlistIds.delete(productId);
+            button.classList.remove("active");
+            button.innerHTML = "♡";
 
-        wishlist.push({
-            id: product.id,
-            name: product.name,
-            price: Number(product.price),
-            image: product.image_url
-        });
+        } else {
+
+            const { error } = await supabaseClient
+                .from("wishlist")
+                .insert({
+                    user_id: user.id,
+                    product_id: productId
+                });
+
+            if (error) {
+                console.error(error);
+                alert("Unable to add this product to your wishlist.");
+                button.disabled = false;
+                return;
+            }
+
+            wishlistIds.add(productId);
+            button.classList.add("active");
+            button.innerHTML = "♥";
+        }
+
+        button.disabled = false;
+    }
+
+    function addToCart(product) {
+        let cart = JSON.parse(
+            localStorage.getItem("meteurCart") || "[]"
+        );
+
+        const existing = cart.find(
+            item => item.id === product.id
+        );
+
+        if (existing) {
+            existing.quantity += 1;
+        } else {
+            cart.push({
+                id: product.id,
+                name: product.name,
+                price: Number(product.price),
+                image_url: product.image_url,
+                quantity: 1,
+                stock: product.stock
+            });
+        }
 
         localStorage.setItem(
-            "meteurWishlist",
-            JSON.stringify(wishlist)
+            "meteurCart",
+            JSON.stringify(cart)
         );
 
-        alert(`${product.name} added to your wishlist.`);
-
-    } else {
-
-        alert("This product is already in your wishlist.");
-
+        alert(product.name + " added to cart.");
     }
 
-}
+    function getStars(rating) {
+        const rounded = Math.round(Number(rating) || 0);
 
-/* Cart count */
-
-function updateCartCount() {
-
-    const cart =
-        JSON.parse(localStorage.getItem("meteurCart")) || [];
-
-    const count =
-        cart.reduce(
-            (total, item) =>
-                total + Number(item.quantity || 1),
-            0
-        );
-
-    const element =
-        document.getElementById("cartCount");
-
-    if (element) {
-        element.textContent = count;
+        return "★".repeat(rounded) +
+               "☆".repeat(5 - rounded);
     }
 
-}
+    function renderProducts(products) {
 
-/* HTML escaping */
+        if (!products.length) {
+            productsContainer.innerHTML = `
+                <div class="empty">
+                    <h2>No products found</h2>
+                    <p>Try another search or category.</p>
+                </div>
+            `;
 
-function escapeHtml(value) {
+            productCount.textContent = "0 products";
+            return;
+        }
 
-    return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+        productCount.textContent =
+            products.length +
+            (products.length === 1 ? " product" : " products");
 
-}
+        productsContainer.innerHTML = products.map(product => {
 
-/* Read search parameter */
+            const price = Number(product.price || 0);
+            const oldPrice = Number(product.old_price || 0);
 
-const urlParams =
-    new URLSearchParams(window.location.search);
+            const discount =
+                oldPrice > price
+                    ? Math.round(
+                        ((oldPrice - price) / oldPrice) * 100
+                    )
+                    : 0;
 
-const urlSearch =
-    urlParams.get("search");
+            const isWishlisted =
+                wishlistIds.has(product.id);
 
-if (urlSearch) {
+            const image =
+                product.image_url ||
+                "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80";
 
-    currentSearch = urlSearch;
+            return `
+                <article class="product-card">
 
-    document.addEventListener("DOMContentLoaded", () => {
+                    ${
+                        product.badge
+                            ? `<span class="badge">${product.badge}</span>`
+                            : ""
+                    }
 
-        document.getElementById("productSearch").value =
-            urlSearch;
+                    ${
+                        discount > 0
+                            ? `<span class="badge" style="top:48px;">-${discount}%</span>`
+                            : ""
+                    }
 
-    });
+                    <button
+                        class="wishlist-btn ${isWishlisted ? "active" : ""}"
+                        onclick="toggleWishlist('${product.id}', this)"
+                        title="Add to wishlist"
+                    >
+                        ${isWishlisted ? "♥" : "♡"}
+                    </button>
 
-}
+                    <a href="product.html?id=${encodeURIComponent(product.id)}">
+                        <img
+                            class="product-image"
+                            src="${image}"
+                            alt="${product.name}"
+                            loading="lazy"
+                        >
+                    </a>
 
-/* Start */
+                    <div class="product-info">
 
-document.addEventListener("DOMContentLoaded", () => {
+                        <div class="category">
+                            ${product.category}
+                        </div>
 
-    updateCartCount();
+                        <a
+                            class="product-name"
+                            href="product.html?id=${encodeURIComponent(product.id)}"
+                        >
+                            ${product.name}
+                        </a>
+
+                        <div class="rating">
+                            ${getStars(product.rating)}
+                            <span style="color:#777;">
+                                (${product.review_count || 0})
+                            </span>
+                        </div>
+
+                        <div>
+                            <span class="price">
+                                KSh ${price.toLocaleString()}
+                            </span>
+
+                            ${
+                                oldPrice > price
+                                    ? `
+                                        <span class="old-price">
+                                            KSh ${oldPrice.toLocaleString()}
+                                        </span>
+                                    `
+                                    : ""
+                            }
+                        </div>
+
+                        <div class="stock">
+                            ${
+                                Number(product.stock) > 0
+                                    ? `${product.stock} available`
+                                    : "Out of stock"
+                            }
+                        </div>
+
+                        <button
+                            class="add-cart"
+                            onclick='addToCart(${JSON.stringify(product).replace(/'/g, "&#39;")})'
+                            ${Number(product.stock) <= 0 ? "disabled" : ""}
+                        >
+                            ${
+                                Number(product.stock) > 0
+                                    ? "Add to Cart"
+                                    : "Out of Stock"
+                            }
+                        </button>
+
+                    </div>
+                </article>
+            `;
+        }).join("");
+    }
+
+    async function loadProducts() {
+
+        productsContainer.innerHTML = `
+            <div class="loading">
+                Loading products...
+            </div>
+        `;
+
+        try {
+
+            await loadWishlist();
+
+            const {
+                data,
+                error
+            } = await supabaseClient
+                .from("products")
+                .select("*")
+                .order("created_at", {
+                    ascending: false
+                });
+
+            if (error) {
+                throw error;
+            }
+
+            allProducts = data || [];
+
+            renderProducts(allProducts);
+
+        } catch (error) {
+
+            console.error(
+                "Supabase products error:",
+                error
+            );
+
+            productsContainer.innerHTML = `
+                <div class="error">
+                    <h2>Unable to load products</h2>
+                    <p>Please refresh the page and try again.</p>
+                </div>
+            `;
+
+            productCount.textContent =
+                "Products unavailable";
+        }
+    }
+
+    function searchProducts() {
+
+        const query =
+            searchInput.value
+                .trim()
+                .toLowerCase();
+
+        if (!query) {
+            renderProducts(allProducts);
+            return;
+        }
+
+        const filtered =
+            allProducts.filter(product =>
+                product.name.toLowerCase().includes(query) ||
+                product.category.toLowerCase().includes(query) ||
+                (product.description || "")
+                    .toLowerCase()
+                    .includes(query)
+            );
+
+        renderProducts(filtered);
+    }
+
+    searchInput.addEventListener(
+        "input",
+        searchProducts
+    );
+
+    function sortProducts() {
+
+        const value =
+            document.getElementById("sortSelect").value;
+
+        const sorted = [...allProducts];
+
+        if (value === "price-low") {
+
+            sorted.sort(
+                (a, b) =>
+                    Number(a.price) -
+                    Number(b.price)
+            );
+
+        } else if (value === "price-high") {
+
+            sorted.sort(
+                (a, b) =>
+                    Number(b.price) -
+                    Number(a.price)
+            );
+
+        } else if (value === "rating") {
+
+            sorted.sort(
+                (a, b) =>
+                    Number(b.rating) -
+                    Number(a.rating)
+            );
+
+        } else if (value === "newest") {
+
+            sorted.sort(
+                (a, b) =>
+                    new Date(b.created_at) -
+                    new Date(a.created_at)
+            );
+        }
+
+        renderProducts(sorted);
+    }
+
     loadProducts();
-
-});
-
 </script>
 
 </body>

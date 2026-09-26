@@ -3,244 +3,229 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>My Orders - Meteur Online Shopping</title>
 
-    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
 
     <style>
-        .orders-page {
-            padding: 45px 20px 70px;
-            background: #f7f7f7;
-            min-height: 70vh;
-        }
-
-        .orders-container {
-            max-width: 1000px;
-            margin: auto;
-        }
-
-        .orders-header {
-            background: linear-gradient(135deg, #f4511e, #ff7a45);
-            color: white;
-            border-radius: 14px;
-            padding: 35px;
-            margin-bottom: 25px;
-        }
-
-        .orders-header h1 {
-            margin: 0 0 8px;
-            font-size: 32px;
-        }
-
-        .orders-header p {
+        * {
+            box-sizing: border-box;
             margin: 0;
-            opacity: .95;
+            padding: 0;
         }
 
-        .orders-grid {
-            display: grid;
-            grid-template-columns: 260px 1fr;
-            gap: 25px;
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f5f5;
+            color: #222;
         }
 
-        .orders-menu,
-        .orders-card {
-            background: white;
-            border-radius: 14px;
-            box-shadow: 0 3px 15px rgba(0, 0, 0, .07);
+        header {
+            background: #f97316;
+            color: white;
+            padding: 18px 5%;
         }
 
-        .orders-menu {
-            padding: 15px;
-            height: fit-content;
+        .header-inner {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .orders-menu a {
-            display: block;
-            padding: 14px 15px;
-            color: #333;
-            text-decoration: none;
-            border-radius: 8px;
-            margin-bottom: 5px;
-        }
-
-        .orders-menu a:hover,
-        .orders-menu a.active {
-            background: #fff1eb;
-            color: #f4511e;
-        }
-
-        .logout-button {
-            width: 100%;
-            border: 1px solid #e53935;
-            background: white;
-            color: #e53935;
-            padding: 12px;
-            border-radius: 7px;
-            cursor: pointer;
+        .logo {
+            font-size: 24px;
             font-weight: bold;
-            margin-top: 10px;
         }
 
-        .logout-button:hover {
-            background: #fff4f4;
+        .header-links {
+            display: flex;
+            gap: 18px;
         }
 
-        .orders-card {
-            padding: 30px;
+        .header-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
         }
 
-        .orders-card h2 {
-            margin-top: 0;
-            margin-bottom: 8px;
+        .container {
+            max-width: 1100px;
+            margin: 35px auto;
+            padding: 0 20px;
         }
 
-        .orders-description {
-            color: #777;
+        h1 {
             margin-bottom: 25px;
         }
 
-        .empty-orders {
-            text-align: center;
-            padding: 45px 20px;
-            border: 1px dashed #ddd;
+        .message {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .order-card {
+            background: white;
             border-radius: 12px;
-        }
-
-        .empty-icon {
-            font-size: 55px;
-            margin-bottom: 15px;
-        }
-
-        .empty-orders h3 {
-            margin: 0 0 10px;
-        }
-
-        .empty-orders p {
-            color: #777;
-            line-height: 1.7;
-            margin-bottom: 22px;
-        }
-
-        .shop-button {
-            display: inline-block;
-            background: #f4511e;
-            color: white;
-            text-decoration: none;
-            padding: 13px 25px;
-            border-radius: 7px;
-            font-weight: bold;
-        }
-
-        .shop-button:hover {
-            background: #d84315;
-        }
-
-        .order-item {
-            border: 1px solid #e8e8e8;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 15px;
+            padding: 22px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
         }
 
         .order-top {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             gap: 15px;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
         }
 
         .order-number {
+            font-size: 18px;
             font-weight: bold;
         }
 
         .order-date {
-            color: #777;
-            font-size: 14px;
+            color: #666;
+            font-size: 13px;
+            margin-top: 5px;
         }
 
-        .order-status {
-            display: inline-block;
-            padding: 6px 10px;
+        .status {
+            background: #fff7ed;
+            color: #c2410c;
+            padding: 7px 12px;
             border-radius: 20px;
-            background: #fff3cd;
-            color: #856404;
             font-size: 13px;
             font-weight: bold;
         }
 
-        .order-product {
+        .order-items {
+            margin-top: 15px;
+        }
+
+        .item {
             display: flex;
-            justify-content: space-between;
-            gap: 15px;
-            padding: 12px 0;
-            border-top: 1px solid #eee;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
         }
 
-        .order-product-name {
-            font-weight: 600;
+        .item img {
+            width: 65px;
+            height: 65px;
+            object-fit: cover;
+            border-radius: 8px;
         }
 
-        .order-product-quantity {
-            color: #777;
-            font-size: 14px;
+        .item-info {
+            flex: 1;
         }
 
-        .order-total {
-            border-top: 1px solid #eee;
-            margin-top: 12px;
-            padding-top: 15px;
-            display: flex;
-            justify-content: space-between;
+        .item-name {
             font-weight: bold;
         }
 
-        .order-actions {
-            margin-top: 15px;
+        .item-quantity {
+            color: #666;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        .item-price {
+            font-weight: bold;
+        }
+
+        .order-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 18px;
+            gap: 15px;
+        }
+
+        .total {
+            font-size: 19px;
+            font-weight: bold;
         }
 
         .track-button {
             display: inline-block;
-            border: 1px solid #f4511e;
-            color: #f4511e;
+            background: #f97316;
+            color: white;
             text-decoration: none;
-            padding: 9px 15px;
-            border-radius: 6px;
-            font-weight: 600;
+            padding: 11px 18px;
+            border-radius: 7px;
+            font-weight: bold;
         }
 
         .track-button:hover {
-            background: #fff3ed;
+            background: #ea580c;
+        }
+
+        .empty {
+            background: white;
+            text-align: center;
+            padding: 60px 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .empty h2 {
+            margin-bottom: 10px;
+        }
+
+        .empty p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .shop-button {
+            display: inline-block;
+            background: #f97316;
+            color: white;
+            text-decoration: none;
+            padding: 13px 22px;
+            border-radius: 7px;
+            font-weight: bold;
         }
 
         .loading {
             text-align: center;
-            padding: 40px;
-            color: #777;
+            padding: 50px;
+            color: #666;
         }
 
-        .error-message {
-            display: none;
-            background: #fff0f0;
-            color: #b42318;
-            padding: 14px;
-            border-radius: 8px;
-            margin-bottom: 20px;
+        footer {
+            background: #222;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 40px;
         }
 
-        @media (max-width: 750px) {
-            .orders-grid {
-                grid-template-columns: 1fr;
+        @media (max-width: 700px) {
+            .header-inner,
+            .order-top,
+            .order-bottom {
+                flex-direction: column;
+                align-items: flex-start;
             }
 
-            .orders-header {
-                padding: 28px 22px;
+            .header-links {
+                flex-wrap: wrap;
             }
 
-            .orders-card {
-                padding: 22px;
+            .item-price {
+                font-size: 14px;
             }
         }
     </style>
@@ -249,557 +234,290 @@
 <body>
 
 <header>
-    <div class="container">
+    <div class="header-inner">
+        <div class="logo">Meteur Online Shopping</div>
 
-        <div class="top-bar">
-
-            <div class="logo">
-                <a href="index.html">🛒 Meteur</a>
-            </div>
-
-            <div class="search-box">
-                <input
-                    type="text"
-                    id="searchInput"
-                    placeholder="Search products..."
-                >
-
-                <button onclick="searchProducts()">
-                    Search
-                </button>
-            </div>
-
-            <div class="header-actions">
-
-                <a href="dashboard.html">
-                    Account
-                </a>
-
-                <a href="wishlist.html">
-                    ♡ Wishlist
-                </a>
-
-                <a href="cart.html">
-                    🛒 Cart (<span id="cartCount">0</span>)
-                </a>
-
-            </div>
-
-        </div>
-
-        <nav>
+        <div class="header-links">
             <a href="index.html">Home</a>
             <a href="shop.html">Shop</a>
-            <a href="categories.html">Categories</a>
-            <a href="deals.html">Deals</a>
-            <a href="new-arrivals.html">New Arrivals</a>
-            <a href="sell.html">Sell on Meteur</a>
-        </nav>
-
+            <a href="dashboard.html">Account</a>
+        </div>
     </div>
 </header>
 
+<div class="container">
 
-<main class="orders-page">
+    <h1>My Orders</h1>
 
-    <div class="orders-container">
+    <div id="message" class="message"></div>
 
-        <div class="orders-header">
-
-            <h1>My Orders</h1>
-
-            <p>
-                View and track your Meteur Online Shopping orders.
-            </p>
-
+    <div id="ordersContainer">
+        <div class="loading">
+            Loading your orders...
         </div>
-
-
-        <div id="loadingMessage" class="loading">
-            Checking your account...
-        </div>
-
-
-        <div
-            id="errorMessage"
-            class="error-message"
-        ></div>
-
-
-        <div
-            id="ordersContent"
-            class="orders-grid"
-            style="display:none;"
-        >
-
-            <aside class="orders-menu">
-
-                <a href="dashboard.html">
-                    🏠 Dashboard
-                </a>
-
-                <a href="profile.html">
-                    👤 My Profile
-                </a>
-
-                <a href="orders.html" class="active">
-                    📦 My Orders
-                </a>
-
-                <a href="wishlist.html">
-                    ♡ Wishlist
-                </a>
-
-                <a href="addresses.html">
-                    📍 My Addresses
-                </a>
-
-                <button
-                    class="logout-button"
-                    onclick="logoutUser()"
-                >
-                    Log Out
-                </button>
-
-            </aside>
-
-
-            <section class="orders-card">
-
-                <h2>Your Orders</h2>
-
-                <p class="orders-description">
-                    Your completed and recent orders will appear here.
-                </p>
-
-
-                <div id="ordersList"></div>
-
-
-                <div
-                    id="emptyOrders"
-                    class="empty-orders"
-                    style="display:none;"
-                >
-
-                    <div class="empty-icon">
-                        📦
-                    </div>
-
-                    <h3>
-                        No orders yet
-                    </h3>
-
-                    <p>
-                        You haven't placed an order yet.
-                        Start shopping and your orders will appear here.
-                    </p>
-
-                    <a
-                        href="shop.html"
-                        class="shop-button"
-                    >
-                        Start Shopping
-                    </a>
-
-                </div>
-
-            </section>
-
-        </div>
-
     </div>
 
-</main>
-
+</div>
 
 <footer>
-
-    <div class="container">
-
-        <div class="footer-grid">
-
-            <div>
-
-                <h3>Meteur</h3>
-
-                <p>
-                    Your trusted Kenyan online shopping marketplace.
-                </p>
-
-            </div>
-
-
-            <div>
-
-                <h4>Shopping</h4>
-
-                <a href="shop.html">Shop</a><br>
-                <a href="categories.html">Categories</a><br>
-                <a href="deals.html">Deals</a><br>
-                <a href="new-arrivals.html">New Arrivals</a>
-
-            </div>
-
-
-            <div>
-
-                <h4>Customer Service</h4>
-
-                <a href="help.html">Help Center</a><br>
-                <a href="faq.html">FAQ</a><br>
-                <a href="track-order.html">Track Order</a><br>
-                <a href="returns.html">Returns</a><br>
-                <a href="shipping.html">Shipping</a>
-
-            </div>
-
-
-            <div>
-
-                <h4>Company</h4>
-
-                <a href="about.html">About Us</a><br>
-                <a href="sell.html">Sell on Meteur</a><br>
-                <a href="privacy.html">Privacy Policy</a><br>
-                <a href="terms.html">Terms & Conditions</a>
-
-            </div>
-
-        </div>
-
-
-        <p class="copyright">
-            © 2026 Meteur Online Shopping. All rights reserved.
-        </p>
-
-    </div>
-
+    <p>© 2026 Meteur Online Shopping. All rights reserved.</p>
 </footer>
-
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script src="supabase-config.js"></script>
-
-<script src="script.js"></script>
-
 
 <script>
 
-function updateCartCount() {
+    const ordersContainer =
+        document.getElementById("ordersContainer");
 
-    const cart =
-        JSON.parse(
-            localStorage.getItem("meteurCart")
-        ) || [];
+    const messageBox =
+        document.getElementById("message");
 
-    const total =
-        cart.reduce(
-            function(sum, product) {
-                return sum + (product.quantity || 1);
-            },
-            0
-        );
+    function formatMoney(amount) {
 
-    const cartCount =
-        document.getElementById("cartCount");
-
-    if (cartCount) {
-        cartCount.textContent = total;
-    }
-}
-
-
-function searchProducts() {
-
-    const input =
-        document.getElementById("searchInput");
-
-    if (!input) {
-        return;
-    }
-
-    const search =
-        input.value.trim();
-
-    if (search) {
-
-        window.location.href =
-            "shop.html?search=" +
-            encodeURIComponent(search);
-
-    }
-}
-
-
-function showError(message) {
-
-    const errorBox =
-        document.getElementById("errorMessage");
-
-    errorBox.textContent = message;
-
-    errorBox.style.display = "block";
-
-}
-
-
-function formatPrice(amount) {
-
-    return new Intl.NumberFormat(
-        "en-KE",
-        {
-            style: "currency",
-            currency: "KES"
-        }
-    ).format(amount);
-
-}
-
-
-function displayDemoOrders() {
-
-    const ordersList =
-        document.getElementById("ordersList");
-
-    const demoOrders =
-        JSON.parse(
-            localStorage.getItem("meteurOrders")
-        ) || [];
-
-
-    if (demoOrders.length === 0) {
-
-        document.getElementById("emptyOrders").style.display =
-            "block";
-
-        return;
-    }
-
-
-    ordersList.innerHTML = "";
-
-
-    demoOrders.forEach(function(order) {
-
-        const orderItem =
-            document.createElement("div");
-
-        orderItem.className =
-            "order-item";
-
-
-        let productsHTML = "";
-
-
-        if (Array.isArray(order.items)) {
-
-            order.items.forEach(function(item) {
-
-                productsHTML += `
-
-                    <div class="order-product">
-
-                        <div>
-
-                            <div class="order-product-name">
-                                ${item.name || "Product"}
-                            </div>
-
-                            <div class="order-product-quantity">
-                                Quantity: ${item.quantity || 1}
-                            </div>
-
-                        </div>
-
-                        <strong>
-                            ${formatPrice(
-                                Number(item.price || 0) *
-                                Number(item.quantity || 1)
-                            )}
-                        </strong>
-
-                    </div>
-
-                `;
-
+        return "KSh " +
+            Number(amount || 0).toLocaleString("en-KE", {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 2
             });
 
+    }
+
+    function showError(message) {
+
+        messageBox.textContent = message;
+        messageBox.style.display = "block";
+
+    }
+
+    function formatDate(dateString) {
+
+        if (!dateString) {
+            return "Date unavailable";
         }
 
+        return new Date(dateString).toLocaleDateString(
+            "en-KE",
+            {
+                year: "numeric",
+                month: "long",
+                day: "numeric"
+            }
+        );
 
-        const orderDate =
-            order.date ||
-            order.created_at ||
-            "Recently";
+    }
 
+    function renderOrders(orders) {
 
-        const orderNumber =
-            order.orderNumber ||
-            order.order_number ||
-            "MTR-" +
-            Math.floor(
-                100000 +
-                Math.random() * 900000
-            );
+        if (!orders || orders.length === 0) {
 
+            ordersContainer.innerHTML = `
+                <div class="empty">
+                    <h2>No orders yet</h2>
 
-        const total =
-            Number(order.total || 0);
+                    <p>
+                        You have not placed any orders on Meteur yet.
+                    </p>
 
-
-        orderItem.innerHTML = `
-
-            <div class="order-top">
-
-                <div>
-
-                    <div class="order-number">
-                        Order #${orderNumber}
-                    </div>
-
-                    <div class="order-date">
-                        ${orderDate}
-                    </div>
-
+                    <a href="shop.html" class="shop-button">
+                        Start Shopping
+                    </a>
                 </div>
-
-                <span class="order-status">
-                    ${order.status || "Processing"}
-                </span>
-
-            </div>
-
-            ${productsHTML}
-
-            <div class="order-total">
-
-                <span>
-                    Total
-                </span>
-
-                <span>
-                    ${formatPrice(total)}
-                </span>
-
-            </div>
-
-            <div class="order-actions">
-
-                <a
-                    href="track-order.html"
-                    class="track-button"
-                >
-                    Track Order
-                </a>
-
-            </div>
-
-        `;
-
-
-        ordersList.appendChild(orderItem);
-
-    });
-
-}
-
-
-async function loadOrdersPage() {
-
-    try {
-
-        const {
-            data,
-            error
-        } = await supabaseClient.auth.getUser();
-
-
-        if (error || !data.user) {
-
-            window.location.href =
-                "login.html?redirect=orders.html";
+            `;
 
             return;
         }
 
+        ordersContainer.innerHTML = "";
 
-        document.getElementById("loadingMessage").style.display =
-            "none";
+        orders.forEach(order => {
 
+            let items = [];
 
-        document.getElementById("ordersContent").style.display =
-            "grid";
+            try {
 
+                items = Array.isArray(order.items)
+                    ? order.items
+                    : JSON.parse(order.items || "[]");
 
-        displayDemoOrders();
+            } catch (error) {
 
-
-    } catch (error) {
-
-        console.error(error);
-
-        document.getElementById("loadingMessage").style.display =
-            "none";
-
-        showError(
-            "Unable to load your account. Please try again."
-        );
-
-    }
-
-}
-
-
-async function logoutUser() {
-
-    const {
-        error
-    } = await supabaseClient.auth.signOut();
-
-
-    if (error) {
-
-        showError(
-            "Unable to log out. Please try again."
-        );
-
-        return;
-    }
-
-
-    window.location.href =
-        "login.html";
-
-}
-
-
-const searchInput =
-    document.getElementById("searchInput");
-
-
-if (searchInput) {
-
-    searchInput.addEventListener(
-        "keydown",
-        function(event) {
-
-            if (event.key === "Enter") {
-
-                searchProducts();
+                items = [];
 
             }
 
+            const orderCard =
+                document.createElement("div");
+
+            orderCard.className = "order-card";
+
+            let itemsHTML = "";
+
+            if (items.length === 0) {
+
+                itemsHTML = `
+                    <p style="color:#666;">
+                        Order items unavailable.
+                    </p>
+                `;
+
+            } else {
+
+                itemsHTML = items.map(item => {
+
+                    const quantity =
+                        Number(item.quantity) || 1;
+
+                    const price =
+                        Number(item.price) || 0;
+
+                    const image =
+                        item.image ||
+                        "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300";
+
+                    return `
+                        <div class="item">
+
+                            <img
+                                src="${image}"
+                                alt="${item.name || "Product"}"
+                            >
+
+                            <div class="item-info">
+
+                                <div class="item-name">
+                                    ${item.name || "Product"}
+                                </div>
+
+                                <div class="item-quantity">
+                                    Quantity: ${quantity}
+                                </div>
+
+                            </div>
+
+                            <div class="item-price">
+                                ${formatMoney(price * quantity)}
+                            </div>
+
+                        </div>
+                    `;
+
+                }).join("");
+
+            }
+
+            orderCard.innerHTML = `
+
+                <div class="order-top">
+
+                    <div>
+                        <div class="order-number">
+                            Order ${order.order_number}
+                        </div>
+
+                        <div class="order-date">
+                            ${formatDate(order.created_at)}
+                        </div>
+                    </div>
+
+                    <div class="status">
+                        ${order.status || "Processing"}
+                    </div>
+
+                </div>
+
+                <div class="order-items">
+                    ${itemsHTML}
+                </div>
+
+                <div class="order-bottom">
+
+                    <div class="total">
+                        Total: ${formatMoney(order.total)}
+                    </div>
+
+                    <a
+                        href="track-order.html?order=${encodeURIComponent(order.order_number)}"
+                        class="track-button"
+                    >
+                        Track Order
+                    </a>
+
+                </div>
+            `;
+
+            ordersContainer.appendChild(orderCard);
+
+        });
+
+    }
+
+    async function loadOrders() {
+
+        try {
+
+            const {
+                data: sessionData,
+                error: sessionError
+            } = await supabaseClient.auth.getSession();
+
+            if (
+                sessionError ||
+                !sessionData ||
+                !sessionData.session
+            ) {
+
+                window.location.href =
+                    "login.html?redirect=orders.html";
+
+                return;
+
+            }
+
+            const user =
+                sessionData.session.user;
+
+            const {
+                data: orders,
+                error
+            } = await supabaseClient
+                .from("orders")
+                .select("*")
+                .eq("user_id", user.id)
+                .order("created_at", {
+                    ascending: false
+                });
+
+            if (error) {
+
+                console.error(
+                    "Orders loading error:",
+                    error
+                );
+
+                showError(
+                    "We could not load your orders. Please try again."
+                );
+
+                ordersContainer.innerHTML = "";
+
+                return;
+
+            }
+
+            renderOrders(orders);
+
+        } catch (error) {
+
+            console.error(error);
+
+            showError(
+                "Something went wrong while loading your orders."
+            );
+
         }
-    );
 
-}
+    }
 
-
-updateCartCount();
-
-loadOrdersPage();
+    loadOrders();
 
 </script>
 

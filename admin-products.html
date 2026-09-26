@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Products - Meteur Online Shopping</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            color: #222;
+        }
+
+        header {
+            background: #f68b1e;
+            color: white;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .header-actions a,
+        .header-actions button {
+            background: white;
+            color: #f68b1e;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 14px;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        main {
+            max-width: 1250px;
+            margin: 30px auto;
+            padding: 0 18px;
+        }
+
+        .page-title {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .page-title h2 {
+            margin: 0 0 8px;
+        }
+
+        .page-title p {
+            margin: 0;
+            color: #666;
+        }
+
+        .message {
+            display: none;
+            padding: 14px;
+            margin-bottom: 20px;
+            border-radius: 7px;
+            background: #fff3cd;
+            color: #664d03;
+        }
+
+        .toolbar {
+            background: white;
+            padding: 18px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .toolbar input,
+        .toolbar select {
+            flex: 1;
+            min-width: 200px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            background: #eee;
+            display: block;
+        }
+
+        .product-content {
+            padding: 18px;
+        }
+
+        .product-content h3 {
+            margin: 0 0 8px;
+            font-size: 18px;
+        }
+
+        .category {
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #f68b1e;
+        }
+
+        .old-price {
+            color: #999;
+            text-decoration: line-through;
+            margin-left: 8px;
+            font-size: 14px;
+        }
+
+        .info {
+            margin-top: 10px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #f68b1e;
+            color: white;
+            padding: 5px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .seller {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f7f7f7;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .actions button {
+            flex: 1;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .edit-btn {
+            background: #0d6efd;
+            color: white;
+        }
+
+        .delete-btn {
+            background: #dc3545;
+            color: white;
+        }
+
+        .empty,
+        .loading {
+            background: white;
+            padding: 40px;
+            text-align: center;
+            border-radius: 10px;
+            color: #666;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.55);
+            z-index: 1000;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            max-width: 700px;
+            margin: 30px auto;
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+        }
+
+        .modal-content h2 {
+            margin-top: 0;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .checkbox-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+
+        .checkbox-row label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: normal;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .modal-actions button {
+            flex: 1;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .save-btn {
+            background: #f68b1e;
+            color: white;
+        }
+
+        .cancel-btn {
+            background: #ddd;
+            color: #222;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-actions {
+                width: 100%;
+            }
+
+            .header-actions a,
+            .header-actions button {
+                flex: 1;
+                text-align: center;
+            }
+
+            .product-image {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Meteur Online Shopping — Admin</h1>
+
+    <div class="header-actions">
+        <a href="admin-dashboard.html">Dashboard</a>
+        <a href="index.html">View Store</a>
+        <button id="logoutBtn">Logout</button>
+    </div>
+</header>
+
+<main>
+
+    <section class="page-title">
+        <h2>Product Management</h2>
+        <p>Review, add, edit and remove marketplace products.</p>
+    </section>
+
+    <div id="message" class="message"></div>
+
+    <div class="toolbar">
+        <input
+            type="search"
+            id="searchInput"
+            placeholder="Search products..."
+        >
+
+        <select id="categoryFilter">
+            <option value="">All categories</option>
+        </select>
+    </div>
+
+    <div id="loading" class="loading">
+        Loading products...
+    </div>
+
+    <div id="productGrid" class="product-grid"></div>
+
+</main>
+
+<div id="productModal" class="modal">
+
+    <div class="modal-content">
+
+        <h2 id="modalTitle">Edit Product</h2>
+
+        <form id="productForm">
+
+            <input type="hidden" id="productId">
+
+            <div class="form-group">
+                <label for="productName">Product name</label>
+                <input type="text" id="productName" required>
+            </div>
+
+            <div class="form-group">
+                <label for="productCategory">Category</label>
+
+                <select id="productCategory" required>
+                    <option value="">Select category</option>
+                    <option>Phones and Tablets</option>
+                    <option>Computing</option>
+                    <option>Electronics</option>
+                    <option>Shoes</option>
+                    <option>Smart Devices</option>
+                    <option>Cameras</option>
+                    <option>Kitchen</option>
+                    <option>Fashion</option>
+                    <option>Home and Appliances</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="productPrice">Price (KSh)</label>
+                <input type="number" id="productPrice" min="1" step="0.01" required>
+            </div>
+
+            <div class="form-group">
+                <label for="productOldPrice">Old price (KSh)</label>
+                <input type="number" id="productOldPrice" min="0" step="0.01">
+            </div>
+
+            <div class="form-group">
+                <label for="productStock">Stock</label>
+                <input type="number" id="productStock" min="0" step="1" required>
+            </div>
+
+            <div class="form-group">
+                <label for="productImage">Image URL</label>
+                <input type="url" id="productImage" placeholder="https://...">
+            </div>
+
+            <div class="form-group">
+                <label for="productDescription">Description</label>
+                <textarea id="productDescription"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="productBadge">Badge</label>
+                <input type="text" id="productBadge" placeholder="Example: Hot Deal">
+            </div>
+
+            <div class="checkbox-row">
+
+                <label>
+                    <input type="checkbox" id="productDeal">
+                    Flash Deal
+                </label>
+
+                <label>
+                    <input type="checkbox" id="productNew">
+                    New Arrival
+                </label>
+
+            </div>
+
+            <div class="modal-actions">
+
+                <button
+                    type="submit"
+                    class="save-btn">
+                    Save Product
+                </button>
+
+                <button
+                    type="button"
+                    class="cancel-btn"
+                    id="cancelBtn">
+                    Cancel
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+
+    const message = document.getElementById("message");
+    const loading = document.getElementById("loading");
+    const productGrid = document.getElementById("productGrid");
+    const searchInput = document.getElementById("searchInput");
+    const categoryFilter = document.getElementById("categoryFilter");
+    const productModal = document.getElementById("productModal");
+    const productForm = document.getElementById("productForm");
+
+    let allProducts = [];
+    let adminUser = null;
+
+    function escapeHtml(value) {
+        return String(value ?? "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+    function showMessage(text) {
+        message.textContent = text;
+        message.style.display = "block";
+    }
+
+    function hideMessage() {
+        message.style.display = "none";
+    }
+
+    async function checkAdmin() {
+
+        const {
+            data: { user },
+            error: authError
+        } = await supabaseClient.auth.getUser();
+
+        if (authError || !user) {
+            window.location.href =
+                "login.html?redirect=admin-products.html";
+
+            return false;
+        }
+
+        adminUser = user;
+
+        const {
+            data: admin,
+            error: adminError
+        } = await supabaseClient
+            .from("admins")
+            .select("*")
+            .eq("user_id", user.id)
+            .eq("status", "Active")
+            .maybeSingle();
+
+        if (adminError || !admin) {
+
+            document.body.innerHTML = `
+                <main style="max-width:700px;margin:80px auto;padding:20px;text-align:center;">
+                    <h2>Administrator Access Required</h2>
+                    <p>Your account does not have active administrator access.</p>
+                    <a href="index.html">Back to Store</a>
+                </main>
+            `;
+
+            return false;
+        }
+
+        return true;
+    }
+
+    async function loadProducts() {
+
+        loading.style.display = "block";
+        productGrid.innerHTML = "";
+        hideMessage();
+
+        const {
+            data,
+            error
+        } = await supabaseClient
+            .from("products")
+            .select("*")
+            .order("created_at", { ascending: false });
+
+        loading.style.display = "none";
+
+        if (error) {
+
+            console.error(error);
+
+            showMessage(
+                "Products could not be loaded. Admin database permissions need to be configured."
+            );
+
+            return;
+        }
+
+        allProducts = data || [];
+
+        buildCategoryFilter();
+        renderProducts();
+    }
+
+    function buildCategoryFilter() {
+
+        const categories = [
+            ...new Set(
+                allProducts
+                    .map(product => product.category)
+                    .filter(Boolean)
+            )
+        ].sort();
+
+        categoryFilter.innerHTML =
+            `<option value="">All categories</option>` +
+            categories
+                .map(category =>
+                    `<option value="${escapeHtml(category)}">
+                        ${escapeHtml(category)}
+                    </option>`
+                )
+                .join("");
+    }
+
+    function renderProducts() {
+
+        const searchTerm =
+            searchInput.value.trim().toLowerCase();
+
+        const selectedCategory =
+            categoryFilter.value;
+
+        const filteredProducts =
+            allProducts.filter(product => {
+
+                const matchesSearch =
+                    !searchTerm ||
+                    String(product.name || "")
+                        .toLowerCase()
+                        .includes(searchTerm) ||
+                    String(product.description || "")
+                        .toLowerCase()
+                        .includes(searchTerm);
+
+                const matchesCategory =
+                    !selectedCategory ||
+                    product.category === selectedCategory;
+
+                return matchesSearch && matchesCategory;
+            });
+
+        if (filteredProducts.length === 0) {
+
+            productGrid.innerHTML = `
+                <div class="empty">
+                    <h3>No products found</h3>
+                    <p>Try another search or category.</p>
+                </div>
+            `;
+
+            return;
+        }
+
+        productGrid.innerHTML =
+            filteredProducts.map(product => {
+
+                const image =
+                    product.image_url ||
+                    "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80";
+
+                const price =
+                    Number(product.price || 0)
+                        .toLocaleString();
+
+                const oldPrice =
+                    product.old_price
+                        ? Number(product.old_price).toLocaleString()
+                        : "";
+
+                return `
+                    <article class="product-card">
+
+                        <img
+                            class="product-image"
+                            src="${escapeHtml(image)}"
+                            alt="${escapeHtml(product.name)}"
+                            onerror="this.src='https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80'"
+                        >
+
+                        <div class="product-content">
+
+                            <h3>
+                                ${escapeHtml(product.name)}
+                            </h3>
+
+                            <div class="category">
+                                ${escapeHtml(product.category)}
+                            </div>
+
+                            <div>
+                                <span class="price">
+                                    KSh ${price}
+                                </span>
+
+                                ${
+                                    oldPrice
+                                    ? `
+                                        <span class="old-price">
+                                            KSh ${oldPrice}
+                                        </span>
+                                    `
+                                    : ""
+                                }
+                            </div>
+
+                            <div class="info">
+                                <strong>Stock:</strong>
+                                ${Number(product.stock || 0)}
+                                <br>
+
+                                <strong>Rating:</strong>
+                                ${Number(product.rating || 0).toFixed(1)}
+                                / 5
+                                <br>
+
+                                <strong>Reviews:</strong>
+                                ${Number(product.review_count || 0)}
+                            </div>
+
+                            ${
+                                product.badge
+                                ? `
+                                    <span class="badge">
+                                        ${escapeHtml(product.badge)}
+                                    </span>
+                                `
+                                : ""
+                            }
+
+                            <div class="seller">
+                                <strong>Seller:</strong>
+                                ${
+                                    product.seller_id
+                                    ? "Marketplace seller"
+                                    : "Meteur catalogue"
+                                }
+                            </div>
+
+                            <div class="actions">
+
+                                <button
+                                    class="edit-btn"
+                                    onclick="openEditProduct('${product.id}')">
+                                    Edit
+                                </button>
+
+                                <button
+                                    class="delete-btn"
+                                    onclick="deleteProduct('${product.id}')">
+                                    Delete
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+                `;
+
+            }).join("");
+    }
+
+    function openEditProduct(productId) {
+
+        const product =
+            allProducts.find(item => item.id === productId);
+
+        if (!product) {
+            return;
+        }
+
+        document.getElementById("modalTitle").textContent =
+            "Edit Product";
+
+        document.getElementById("productId").value =
+            product.id;
+
+        document.getElementById("productName").value =
+            product.name || "";
+
+        document.getElementById("productCategory").value =
+            product.category || "";
+
+        document.getElementById("productPrice").value =
+            product.price || "";
+
+        document.getElementById("productOldPrice").value =
+            product.old_price || "";
+
+        document.getElementById("productStock").value =
+            product.stock || 0;
+
+        document.getElementById("productImage").value =
+            product.image_url || "";
+
+        document.getElementById("productDescription").value =
+            product.description || "";
+
+        document.getElementById("productBadge").value =
+            product.badge || "";
+
+        document.getElementById("productDeal").checked =
+            Boolean(product.is_deal);
+
+        document.getElementById("productNew").checked =
+            Boolean(product.is_new);
+
+        productModal.style.display = "block";
+    }
+
+    function closeModal() {
+        productModal.style.display = "none";
+        productForm.reset();
+        document.getElementById("productId").value = "";
+    }
+
+    productForm.addEventListener("submit", async event => {
+
+        event.preventDefault();
+
+        hideMessage();
+
+        const productId =
+            document.getElementById("productId").value;
+
+        const name =
+            document.getElementById("productName").value.trim();
+
+        const category =
+            document.getElementById("productCategory").value;
+
+        const price =
+            Number(document.getElementById("productPrice").value);
+
+        const oldPriceValue =
+            document.getElementById("productOldPrice").value;
+
+        const oldPrice =
+            oldPriceValue
+                ? Number(oldPriceValue)
+                : null;
+
+        const stock =
+            Number(document.getElementById("productStock").value);
+
+        const imageUrl =
+            document.getElementById("productImage").value.trim();
+
+        const description =
+            document.getElementById("productDescription").value.trim();
+
+        const badge =
+            document.getElementById("productBadge").value.trim();
+
+        const isDeal =
+            document.getElementById("productDeal").checked;
+
+        const isNew =
+            document.getElementById("productNew").checked;
+
+        if (!name || !category) {
+
+            showMessage(
+                "Product name and category are required."
+            );
+
+            return;
+        }
+
+        if (!Number.isFinite(price) || price <= 0) {
+
+            showMessage(
+                "Enter a valid product price."
+            );
+
+            return;
+        }
+
+        if (
+            oldPrice !== null &&
+            (!Number.isFinite(oldPrice) || oldPrice < 0)
+        ) {
+
+            showMessage(
+                "Enter a valid old price."
+            );
+
+            return;
+        }
+
+        if (!Number.isInteger(stock) || stock < 0) {
+
+            showMessage(
+                "Enter a valid stock quantity."
+            );
+
+            return;
+        }
+
+        const updates = {
+            name,
+            category,
+            price,
+            old_price: oldPrice,
+            stock,
+            image_url: imageUrl || null,
+            description: description || null,
+            badge: badge || null,
+            is_deal: isDeal,
+            is_new: isNew,
+            updated_at: new Date().toISOString()
+        };
+
+        const {
+            error
+        } = await supabaseClient
+            .from("products")
+            .update(updates)
+            .eq("id", productId);
+
+        if (error) {
+
+            console.error(error);
+
+            showMessage(
+                "Product could not be updated. Admin database permissions need to be configured."
+            );
+
+            return;
+        }
+
+        closeModal();
+
+        showMessage(
+            "Product updated successfully."
+        );
+
+        await loadProducts();
+    });
+
+    async function deleteProduct(productId) {
+
+        const product =
+            allProducts.find(item => item.id === productId);
+
+        if (!product) {
+            return;
+        }
+
+        const confirmed =
+            confirm(
+                `Delete "${product.name}" from the marketplace?`
+            );
+
+        if (!confirmed) {
+            return;
+        }
+
+        hideMessage();
+
+        const {
+            error
+        } = await supabaseClient
+            .from("products")
+            .delete()
+            .eq("id", productId);
+
+        if (error) {
+
+            console.error(error);
+
+            showMessage(
+                "Product could not be deleted. Admin database permissions need to be configured."
+            );
+
+            return;
+        }
+
+        showMessage(
+            "Product deleted successfully."
+        );
+
+        await loadProducts();
+    }
+
+    searchInput.addEventListener(
+        "input",
+        renderProducts
+    );
+
+    categoryFilter.addEventListener(
+        "change",
+        renderProducts
+    );
+
+    document.getElementById("cancelBtn")
+        .addEventListener(
+            "click",
+            closeModal
+        );
+
+    productModal.addEventListener(
+        "click",
+        event => {
+
+            if (event.target === productModal) {
+                closeModal();
+            }
+
+        }
+    );
+
+    document.getElementById("logoutBtn")
+        .addEventListener(
+            "click",
+            async () => {
+
+                await supabaseClient.auth.signOut();
+
+                window.location.href =
+                    "login.html";
+            }
+        );
+
+    async function init() {
+
+        const isAdmin =
+            await checkAdmin();
+
+        if (!isAdmin) {
+            return;
+        }
+
+        await loadProducts();
+    }
+
+    init();
+
+</script>
+
+</body>
+</html>

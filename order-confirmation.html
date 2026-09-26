@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Order Confirmation - Meteur Online Shopping</title>
+
+    <meta name="description"
+          content="Your Meteur Online Shopping order confirmation.">
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .confirmation-wrapper {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .confirmation-card {
+            background: white;
+            border-radius: 10px;
+            padding: 45px 30px;
+            text-align: center;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background: #e8f5e9;
+            color: #2e7d32;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 42px;
+        }
+
+        .confirmation-card h1 {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .confirmation-card > p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .order-number {
+            display: inline-block;
+            background: #fff3e8;
+            color: #f57224;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .confirmation-details {
+            max-width: 650px;
+            margin: 30px auto;
+            text-align: left;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            padding: 25px 0;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 10px 0;
+            border-bottom: 1px solid #f1f1f1;
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-row span:first-child {
+            color: #666;
+        }
+
+        .detail-row strong {
+            text-align: right;
+        }
+
+        .confirmation-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        .confirmation-button {
+            display: inline-block;
+            padding: 13px 22px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .primary-button {
+            background: #ff7900;
+            color: white;
+        }
+
+        .primary-button:hover {
+            background: #e86f00;
+        }
+
+        .secondary-button {
+            border: 1px solid #ddd;
+            color: #333;
+            background: white;
+        }
+
+        .secondary-button:hover {
+            background: #f7f7f7;
+        }
+
+        .next-steps {
+            margin-top: 35px;
+            text-align: left;
+            background: #f8f8f8;
+            border-radius: 8px;
+            padding: 25px;
+        }
+
+        .next-steps h2 {
+            margin-top: 0;
+            font-size: 22px;
+        }
+
+        .next-steps ol {
+            padding-left: 22px;
+            line-height: 1.9;
+            color: #555;
+        }
+
+        .support-note {
+            margin-top: 25px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .support-note a {
+            color: #f57224;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        @media (max-width: 600px) {
+            .confirmation-wrapper {
+                margin: 25px auto;
+            }
+
+            .confirmation-card {
+                padding: 35px 18px;
+            }
+
+            .confirmation-card h1 {
+                font-size: 26px;
+            }
+
+            .detail-row {
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            .detail-row strong {
+                text-align: left;
+            }
+
+            .confirmation-button {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <span>Welcome to Meteur Online Shopping</span>
+
+            <div>
+                <a href="help.html">Help Center</a>
+                <a href="track-order.html">Track Order</a>
+                <a href="sell.html">Sell on Meteur</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container header-content">
+
+            <a href="index.html" class="logo">
+                <i class="fas fa-shopping-bag"></i>
+                <span>Meteur</span>
+                <small>ONLINE SHOPPING</small>
+            </a>
+
+            <form class="search-box" id="searchForm">
+                <input
+                    type="search"
+                    id="searchInput"
+                    placeholder="Search products, brands and categories"
+                >
+
+                <button type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+
+            <div class="header-actions">
+
+                <a href="login.html">
+                    <i class="fas fa-user"></i>
+                    <span>Account</span>
+                </a>
+
+                <a href="wishlist.html">
+                    <i class="fas fa-heart"></i>
+                    <span>Wishlist</span>
+                </a>
+
+                <a href="cart.html">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Cart <b id="cartCount">0</b></span>
+                </a>
+
+            </div>
+
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="container nav-content">
+
+            <a href="categories.html">
+                <i class="fas fa-bars"></i> Categories
+            </a>
+
+            <a href="index.html">Home</a>
+
+            <a href="shop.html">Shop</a>
+
+            <a href="deals.html">Flash Deals</a>
+
+            <a href="categories.html">Categories</a>
+
+            <a href="new-arrivals.html">New Arrivals</a>
+
+            <a href="shop.html">Popular</a>
+
+        </div>
+    </nav>
+
+    <!-- Confirmation -->
+    <main class="confirmation-wrapper">
+
+        <section class="confirmation-card">
+
+            <div class="success-icon">
+                ✓
+            </div>
+
+            <h1>Thank You for Your Order!</h1>
+
+            <p>
+                Your order has been received successfully.
+                We appreciate you shopping with Meteur Online Shopping.
+            </p>
+
+            <div class="order-number">
+                Order Number: <span id="orderNumber">MET-10001</span>
+            </div>
+
+            <div class="confirmation-details">
+
+                <div class="detail-row">
+                    <span>Order Status</span>
+                    <strong>Order Received</strong>
+                </div>
+
+                <div class="detail-row">
+                    <span>Payment Method</span>
+                    <strong id="paymentMethod">M-Pesa</strong>
+                </div>
+
+                <div class="detail-row">
+                    <span>Delivery Location</span>
+                    <strong id="deliveryLocation">Kenya</strong>
+                </div>
+
+                <div class="detail-row">
+                    <span>Order Total</span>
+                    <strong id="orderTotal">KSh 0</strong>
+                </div>
+
+            </div>
+
+            <div class="confirmation-actions">
+
+                <a href="track-order.html"
+                   class="confirmation-button primary-button">
+                    Track Order
+                </a>
+
+                <a href="shop.html"
+                   class="confirmation-button secondary-button">
+                    Continue Shopping
+                </a>
+
+            </div>
+
+            <div class="next-steps">
+
+                <h2>What Happens Next?</h2>
+
+                <ol>
+                    <li>Your order information will be prepared for processing.</li>
+                    <li>The order will move through the delivery process.</li>
+                    <li>You can use the order number to check your order status.</li>
+                    <li>For assistance, contact Meteur customer support.</li>
+                </ol>
+
+            </div>
+
+            <p class="support-note">
+                Need help?
+                <a href="contact.html">Contact Customer Support</a>
+                or call <strong>0711842260</strong>.
+            </p>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+
+        <div class="container footer-grid">
+
+            <div>
+                <h3>Meteur Online Shopping</h3>
+
+                <p>
+                    A Kenyan online shopping marketplace offering
+                    products across multiple categories.
+                </p>
+            </div>
+
+            <div>
+                <h3>Customer Service</h3>
+
+                <a href="help.html">Help Center</a>
+                <a href="contact.html">Contact Us</a>
+                <a href="track-order.html">Track Order</a>
+                <a href="returns.html">Returns & Refunds</a>
+            </div>
+
+            <div>
+                <h3>Shopping</h3>
+
+                <a href="shop.html">Shop Products</a>
+                <a href="categories.html">Categories</a>
+                <a href="deals.html">Flash Deals</a>
+                <a href="wishlist.html">Wishlist</a>
+            </div>
+
+            <div>
+                <h3>Contact</h3>
+
+                <p>📞 0711842260</p>
+                <p>✉️ daghlusmeteur@gmail.com</p>
+                <p>🇰🇪 Kenya</p>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>
+                © 2026 Meteur Online Shopping. All rights reserved.
+            </p>
+        </div>
+
+    </footer>
+
+    <script src="script.js"></script>
+
+    <script>
+        function generateOrderNumber() {
+            const randomNumber = Math.floor(10000 + Math.random() * 90000);
+            return "MET-" + randomNumber;
+        }
+
+        const savedOrderNumber =
+            localStorage.getItem("meteurOrderNumber");
+
+        if (!savedOrderNumber) {
+            const newOrderNumber = generateOrderNumber();
+
+            localStorage.setItem(
+                "meteurOrderNumber",
+                newOrderNumber
+            );
+
+            document.getElementById("orderNumber").textContent =
+                newOrderNumber;
+        } else {
+            document.getElementById("orderNumber").textContent =
+                savedOrderNumber;
+        }
+
+        const cart =
+            JSON.parse(localStorage.getItem("meteurCart")) || [];
+
+        let subtotal = 0;
+
+        cart.forEach(item => {
+            subtotal += Number(item.price) * Number(item.quantity || 1);
+        });
+
+        const delivery = subtotal >= 5000 ? 0 : 250;
+        const total = subtotal + delivery;
+
+        document.getElementById("orderTotal").textContent =
+            "KSh " + total.toLocaleString();
+
+        const savedPayment =
+            localStorage.getItem("meteurPaymentMethod");
+
+        if (savedPayment) {
+            document.getElementById("paymentMethod").textContent =
+                savedPayment;
+        }
+
+        const savedTown =
+            localStorage.getItem("meteurDeliveryTown");
+
+        if (savedTown) {
+            document.getElementById("deliveryLocation").textContent =
+                savedTown + ", Kenya";
+        }
+    </script>
+
+</body>
+</html>

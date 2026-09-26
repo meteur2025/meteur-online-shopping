@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Orders | Meteur Online Shopping</title>
+
+    <meta name="description" content="View and track your Meteur Online Shopping orders.">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .account-page {
+            padding: 30px 20px 60px;
+            background: #f5f5f5;
+            min-height: 650px;
+        }
+
+        .account-breadcrumb {
+            max-width: 1200px;
+            margin: 0 auto 22px;
+            font-size: 13px;
+            color: #777;
+        }
+
+        .account-breadcrumb a {
+            color: #f57c00;
+            text-decoration: none;
+        }
+
+        .account-layout {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .account-sidebar {
+            background: #fff;
+            border-radius: 7px;
+            overflow: hidden;
+            height: fit-content;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        }
+
+        .account-user {
+            background: #ff9900;
+            color: #fff;
+            padding: 25px 20px;
+            text-align: center;
+        }
+
+        .user-avatar {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: #fff;
+            color: #ff9900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            font-size: 28px;
+        }
+
+        .account-user h3 {
+            margin-bottom: 4px;
+            font-size: 17px;
+        }
+
+        .account-user p {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .account-menu {
+            padding: 10px 0;
+        }
+
+        .account-menu a {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            padding: 13px 20px;
+            color: #555;
+            text-decoration: none;
+            font-size: 14px;
+            border-left: 3px solid transparent;
+        }
+
+        .account-menu a:hover,
+        .account-menu a.active {
+            background: #fff8e8;
+            color: #f57c00;
+            border-left-color: #ff9900;
+        }
+
+        .account-menu i {
+            width: 18px;
+            text-align: center;
+        }
+
+        .orders-content {
+            min-width: 0;
+        }
+
+        .page-heading {
+            background: #fff;
+            border-radius: 7px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        }
+
+        .page-heading h1 {
+            color: #222;
+            font-size: 24px;
+            margin-bottom: 7px;
+        }
+
+        .page-heading p {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .order-tabs {
+            background: #fff;
+            display: flex;
+            border-radius: 7px 7px 0 0;
+            overflow-x: auto;
+            border-bottom: 1px solid #eee;
+        }
+
+        .order-tab {
+            padding: 15px 20px;
+            border: none;
+            background: none;
+            font-size: 13px;
+            font-weight: 600;
+            color: #777;
+            cursor: pointer;
+            white-space: nowrap;
+            border-bottom: 3px solid transparent;
+        }
+
+        .order-tab.active,
+        .order-tab:hover {
+            color: #f57c00;
+            border-bottom-color: #ff9900;
+        }
+
+        .orders-list {
+            background: #fff;
+            padding: 25px;
+            border-radius: 0 0 7px 7px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        }
+
+        .empty-orders {
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .empty-orders i {
+            font-size: 50px;
+            color: #ddd;
+            margin-bottom: 18px;
+        }
+
+        .empty-orders h2 {
+            color: #444;
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .empty-orders p {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 22px;
+        }
+
+        .shop-button {
+            display: inline-block;
+            background: #ff9900;
+            color: #fff;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .shop-button:hover {
+            background: #e88900;
+        }
+
+        .order-info-box {
+            margin-top: 20px;
+            padding: 18px;
+            background: #fff8e8;
+            border-radius: 6px;
+            color: #795548;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .order-info-box i {
+            color: #ff9900;
+            margin-right: 6px;
+        }
+
+        @media (max-width: 900px) {
+            .account-layout {
+                grid-template-columns: 210px 1fr;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .account-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .account-menu {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .account-menu a {
+                padding: 12px 15px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .account-page {
+                padding: 20px 12px 40px;
+            }
+
+            .account-menu {
+                grid-template-columns: 1fr;
+            }
+
+            .page-heading,
+            .orders-list {
+                padding: 20px;
+            }
+
+            .order-tab {
+                padding: 13px 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+
+            <span>Welcome to Meteur Online Shopping</span>
+
+            <div class="top-links">
+                <a href="#">Help Center</a>
+                <a href="#">Track Order</a>
+                <a href="#">Sell on Meteur</a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="main-header">
+
+        <div class="container header-content">
+
+            <a href="index.html" class="logo">
+
+                <i class="fas fa-shopping-bag"></i>
+
+                <div>
+                    <strong>Meteur</strong>
+                    <span>ONLINE SHOPPING</span>
+                </div>
+
+            </a>
+
+            <form class="search-box" id="searchForm">
+
+                <input
+                    type="search"
+                    id="searchInput"
+                    placeholder="Search products, brands and categories..."
+                    aria-label="Search products"
+                >
+
+                <button type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+
+            </form>
+
+            <div class="header-actions">
+
+                <a href="dashboard.html" class="header-action active">
+                    <i class="far fa-user"></i>
+                    <span>Account</span>
+                </a>
+
+                <a href="wishlist.html" class="header-action">
+                    <i class="far fa-heart"></i>
+                    <span>Wishlist</span>
+                </a>
+
+                <a href="cart.html" class="header-action cart-action">
+
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Cart</span>
+                    <b id="cartCount">0</b>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+    <!-- NAVIGATION -->
+    <nav class="main-nav">
+
+        <div class="container nav-content">
+
+            <a href="shop.html" class="category-button">
+
+                <i class="fas fa-bars"></i>
+                All Categories
+
+            </a>
+
+            <div class="nav-links">
+
+                <a href="index.html">Home</a>
+                <a href="shop.html">Shop</a>
+                <a href="index.html#flash-deals">Flash Deals</a>
+                <a href="index.html#categories">Categories</a>
+                <a href="index.html#new-arrivals">New Arrivals</a>
+                <a href="index.html#popular">Popular</a>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+    <!-- ORDERS PAGE -->
+    <main class="account-page">
+
+        <div class="account-breadcrumb">
+
+            <a href="index.html">Home</a>
+            <span> / </span>
+
+            <a href="dashboard.html">My Account</a>
+
+            <span> / </span>
+
+            <span>My Orders</span>
+
+        </div>
+
+        <div class="account-layout">
+
+            <!-- SIDEBAR -->
+            <aside class="account-sidebar">
+
+                <div class="account-user">
+
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+
+                    <h3>My Account</h3>
+
+                    <p>Welcome to Meteur</p>
+
+                </div>
+
+                <nav class="account-menu">
+
+                    <a href="dashboard.html">
+
+                        <i class="fas fa-th-large"></i>
+                        Dashboard
+
+                    </a>
+
+                    <a href="orders.html" class="active">
+
+                        <i class="fas fa-box"></i>
+                        My Orders
+
+                    </a>
+
+                    <a href="wishlist.html">
+
+                        <i class="far fa-heart"></i>
+                        Wishlist
+
+                    </a>
+
+                    <a href="profile.html">
+
+                        <i class="far fa-user"></i>
+                        My Profile
+
+                    </a>
+
+                    <a href="#">
+
+                        <i class="fas fa-location-dot"></i>
+                        My Addresses
+
+                    </a>
+
+                    <a href="login.html">
+
+                        <i class="fas fa-sign-out-alt"></i>
+                        Logout
+
+                    </a>
+
+                </nav>
+
+            </aside>
+
+            <!-- ORDERS CONTENT -->
+            <section class="orders-content">
+
+                <div class="page-heading">
+
+                    <h1>My Orders</h1>
+
+                    <p>
+                        View your purchases and track your deliveries.
+                    </p>
+
+                </div>
+
+                <div class="order-tabs">
+
+                    <button class="order-tab active">
+                        All Orders
+                    </button>
+
+                    <button class="order-tab">
+                        Processing
+                    </button>
+
+                    <button class="order-tab">
+                        Shipped
+                    </button>
+
+                    <button class="order-tab">
+                        Delivered
+                    </button>
+
+                    <button class="order-tab">
+                        Cancelled
+                    </button>
+
+                </div>
+
+                <div class="orders-list">
+
+                    <div class="empty-orders">
+
+                        <i class="fas fa-box-open"></i>
+
+                        <h2>No Orders Yet</h2>
+
+                        <p>
+                            You haven't placed any orders.
+                            Your purchases will appear here.
+                        </p>
+
+                        <a href="shop.html" class="shop-button">
+                            Start Shopping
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div class="order-info-box">
+
+                    <i class="fas fa-circle-info"></i>
+
+                    <strong>Order tracking:</strong>
+
+                    Once you place an order, you will be able to
+                    view its order number, payment status, delivery
+                    status, products, total amount and delivery
+                    information from this page.
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+
+        <div class="container footer-grid">
+
+            <div>
+
+                <h3>Meteur Online Shopping</h3>
+
+                <p>
+                    Your trusted Kenyan online shopping marketplace.
+                    Shop conveniently from anywhere in Kenya.
+                </p>
+
+            </div>
+
+            <div>
+
+                <h3>Customer Service</h3>
+
+                <a href="#">Help Center</a>
+                <a href="#">Delivery Information</a>
+                <a href="#">Returns & Refunds</a>
+                <a href="#">Contact Us</a>
+
+            </div>
+
+            <div>
+
+                <h3>My Account</h3>
+
+                <a href="login.html">Login</a>
+                <a href="register.html">Create Account</a>
+                <a href="orders.html">My Orders</a>
+                <a href="wishlist.html">Wishlist</a>
+
+            </div>
+
+            <div>
+
+                <h3>Contact Us</h3>
+
+                <p>
+                    <i class="fas fa-phone"></i>
+                    0711842260
+                </p>
+
+                <p>
+                    <i class="fas fa-envelope"></i>
+                    daghlusmeteur@gmail.com
+                </p>
+
+                <p>
+                    <i class="fas fa-map-marker-alt"></i>
+                    Kenya
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+
+            <p>
+                © 2026 Meteur Online Shopping. All Rights Reserved.
+            </p>
+
+        </div>
+
+    </footer>
+
+    <script src="script.js"></script>
+
+    <script>
+        const orderTabs =
+            document.querySelectorAll(".order-tab");
+
+        orderTabs.forEach(function(tab) {
+
+            tab.addEventListener("click", function() {
+
+                orderTabs.forEach(function(item) {
+                    item.classList.remove("active");
+                });
+
+                tab.classList.add("active");
+
+            });
+
+        });
+    </script>
+
+</body>
+</html>

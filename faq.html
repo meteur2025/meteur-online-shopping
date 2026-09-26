@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FAQ - Meteur Online Shopping</title>
+
+    <meta name="description"
+          content="Frequently asked questions about Meteur Online Shopping.">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .faq-page {
+            min-height: 70vh;
+            padding: 40px 20px;
+            background: #f5f5f5;
+        }
+
+        .faq-container {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .faq-header {
+            background: linear-gradient(135deg, #ff7900, #ff9900);
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .faq-header i {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+
+        .faq-header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .faq-header p {
+            max-width: 650px;
+            margin: auto;
+            line-height: 1.7;
+        }
+
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .faq-question {
+            width: 100%;
+            border: none;
+            background: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: left;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            color: #222;
+        }
+
+        .faq-question:hover {
+            color: #ff7900;
+        }
+
+        .faq-question i {
+            color: #ff7900;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-answer {
+            display: none;
+            padding: 0 20px 20px;
+            color: #666;
+            line-height: 1.7;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-contact {
+            background: white;
+            margin-top: 30px;
+            padding: 30px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .faq-contact h2 {
+            margin-bottom: 10px;
+        }
+
+        .faq-contact p {
+            color: #666;
+            margin-bottom: 18px;
+        }
+
+        .faq-contact a {
+            display: inline-block;
+            background: #ff7900;
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .faq-contact a:hover {
+            background: #e66d00;
+        }
+
+        @media (max-width: 600px) {
+            .faq-page {
+                padding: 25px 12px;
+            }
+
+            .faq-header h1 {
+                font-size: 30px;
+            }
+
+            .faq-question {
+                padding: 17px;
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="faq-page">
+
+    <div class="faq-container">
+
+        <div class="faq-header">
+
+            <i class="fas fa-circle-question"></i>
+
+            <h1>Frequently Asked Questions</h1>
+
+            <p>
+                Find answers to common questions about shopping,
+                orders, delivery, payments, and returns at Meteur.
+            </p>
+
+        </div>
+
+        <div class="faq-list">
+
+            <div class="faq-item">
+
+                <button class="faq-question">
+
+                    <span>How do I place an order?</span>
+
+                    <i class="fas fa-chevron-down"></i>
+
+                </button>
+
+                <div class="faq-answer">
+
+                    Browse our products, select the product you want,
+                    add it to your shopping cart, and proceed to checkout.
+                    Follow the checkout instructions to complete your order.
+
+                </div>
+
+            </div>
+
+            <div class="faq-item">
+
+                <button class="faq-question">
+
+                    <span>Can I shop without creating an account?</span>
+
+                    <i class="fas fa-chevron-down"></i>
+
+                </button>
+
+                <div class="faq-answer">
+
+                    You can browse products without an account.
+                    Customer account features can be used to manage
+                    your orders, profile, wishlist, and delivery information.
+
+                </div>
+
+            </div>
+
+            <div class="faq-item">
+
+                <button class="faq-question">
+
+                    <span>What products can I buy from Meteur?</span>
+
+                    <i class="fas fa-chevron-down"></i>
+
+                </button>
+
+                <div class="faq-answer">
+
+                    Meteur Online Shopping features categories such as
+                    electronics, phones and tablets, fashion, shoes,
+                    beauty, home appliances, computing, groceries,
+                    and accessories.
+
+                </div>
+
+            </div>
+
+            <div class="faq-item">
+
+                <button class="faq-question">
+
+                    <span>Do you offer delivery?</span>
+
+                    <i class="fas fa-chevron-down"></i>
+
+                </button>
+
+                <div class="faq-answer">
+
+                    Yes. Delivery information is provided during the
+                    checkout process. Delivery charges may depend on
+                    the order and delivery location.
+
+                </div>
+
+            </div>
+
+            <div class="faq-item">
+
+                <button class="faq-question">
+
+                    <span>Can I add products to a wishlist?</span>
+
+                    <i class="fas fa-chevron-down"></i>
+
+                </button>
+
+                <div class="faq-answer">
+
+                    Yes. Use the wishlist button on supported products
+                    to save products you may want to purchase later.
+
+                </div>
+
+            </div>
+
+            <div class="faq-item">
+
+                <button class="faq-question">
+
+                    <span>How can I contact customer support?</span>
+
+                    <i class="fas fa-chevron-down"></i>
+
+                </button>
+
+                <div class="faq-answer">
+
+                    You can contact Meteur Online Shopping using:
+
+                    <br><br>
+
+                    Phone: 0711842260
+
+                    <br>
+
+                    Email: daghlusmeteur@gmail.com
+
+                </div>
+
+            </div>
+
+            <div class="faq-item">
+
+                <button class="faq-question">
+
+                    <span>How do I request help with an order?</span>
+
+                    <i class="fas fa-chevron-down"></i>
+
+                </button>
+
+                <div class="faq-answer">
+
+                    Contact customer support and provide your order
+                    information and the issue you are experiencing.
+                    Our support team can then assist you.
+
+                </div>
+
+            </div>
+
+            <div class="faq-item">
+
+                <button class="faq-question">
+
+                    <span>Can products be returned?</span>
+
+                    <i class="fas fa-chevron-down"></i>
+
+                </button>
+
+                <div class="faq-answer">
+
+                    Return eligibility depends on the applicable
+                    product and Meteur's return policy. Contact
+                    customer support for assistance with a return request.
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="faq-contact">
+
+            <h2>Still Need Help?</h2>
+
+            <p>
+                Our customer support team is available to help
+                with your shopping questions.
+            </p>
+
+            <a href="contact.html">
+                <i class="fas fa-headset"></i>
+                Contact Us
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+    const questions =
+        document.querySelectorAll(".faq-question");
+
+    questions.forEach(function(question) {
+
+        question.addEventListener("click", function() {
+
+            const currentItem =
+                question.parentElement;
+
+            document
+                .querySelectorAll(".faq-item")
+                .forEach(function(item) {
+
+                    if (item !== currentItem) {
+                        item.classList.remove("active");
+                    }
+
+                });
+
+            currentItem.classList.toggle("active");
+
+        });
+
+    });
+
+</script>
+
+</body>
+</html>

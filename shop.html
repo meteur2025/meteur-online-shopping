@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Shop - Meteur Online Shopping</title>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -28,6 +29,8 @@
         }
 
         .header-top {
+            max-width: 1400px;
+            margin: auto;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -43,7 +46,7 @@
 
         .search-box {
             flex: 1;
-            max-width: 600px;
+            max-width: 650px;
             display: flex;
         }
 
@@ -52,8 +55,8 @@
             padding: 13px;
             border: none;
             outline: none;
-            font-size: 15px;
             border-radius: 5px 0 0 5px;
+            font-size: 15px;
         }
 
         .search-box button {
@@ -61,12 +64,13 @@
             background: #222;
             color: white;
             padding: 0 20px;
-            cursor: pointer;
             border-radius: 0 5px 5px 0;
+            cursor: pointer;
         }
 
         nav {
-            margin-top: 15px;
+            max-width: 1400px;
+            margin: 15px auto 0;
             display: flex;
             gap: 20px;
             flex-wrap: wrap;
@@ -78,21 +82,30 @@
             font-weight: 600;
         }
 
+        .hero {
+            background: linear-gradient(135deg, #ff6b00, #ff9d45);
+            color: white;
+            padding: 40px 5%;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: auto;
+        }
+
+        .hero h1 {
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 17px;
+        }
+
         .container {
             width: 90%;
             max-width: 1400px;
             margin: 30px auto;
-        }
-
-        .page-header {
-            background: white;
-            padding: 25px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-
-        .page-header h1 {
-            margin-bottom: 8px;
         }
 
         .toolbar {
@@ -111,6 +124,7 @@
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 5px;
+            background: white;
         }
 
         #productCount {
@@ -128,8 +142,8 @@
             border-radius: 8px;
             overflow: hidden;
             position: relative;
-            transition: 0.2s;
             box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            transition: 0.2s;
         }
 
         .product-card:hover {
@@ -148,13 +162,13 @@
             position: absolute;
             top: 12px;
             right: 12px;
-            width: 38px;
-            height: 38px;
+            width: 40px;
+            height: 40px;
             border: none;
             border-radius: 50%;
             background: white;
             color: #777;
-            font-size: 21px;
+            font-size: 22px;
             cursor: pointer;
             box-shadow: 0 2px 8px rgba(0,0,0,0.15);
             z-index: 2;
@@ -170,10 +184,11 @@
             left: 12px;
             background: #ff6b00;
             color: white;
-            padding: 6px 9px;
+            padding: 6px 10px;
             font-size: 12px;
             font-weight: bold;
             border-radius: 4px;
+            z-index: 1;
         }
 
         .product-info {
@@ -202,9 +217,9 @@
         }
 
         .price {
+            color: #ff6b00;
             font-size: 20px;
             font-weight: bold;
-            color: #ff6b00;
         }
 
         .old-price {
@@ -215,8 +230,8 @@
         }
 
         .stock {
-            font-size: 13px;
             color: #555;
+            font-size: 13px;
             margin: 8px 0;
         }
 
@@ -236,11 +251,16 @@
             background: #e85f00;
         }
 
+        .add-cart:disabled {
+            background: #999;
+            cursor: not-allowed;
+        }
+
         .loading,
-        .error,
-        .empty {
+        .empty,
+        .error {
             background: white;
-            padding: 40px;
+            padding: 45px;
             text-align: center;
             border-radius: 8px;
             grid-column: 1 / -1;
@@ -277,10 +297,11 @@
         }
 
         .copyright {
-            text-align: center;
-            margin-top: 30px;
+            max-width: 1400px;
+            margin: 30px auto 0;
             padding-top: 20px;
             border-top: 1px solid #444;
+            text-align: center;
             color: #aaa;
         }
 
@@ -312,19 +333,19 @@
             .product-image {
                 height: 190px;
             }
+        }
+
+        @media (max-width: 500px) {
+            .products {
+                grid-template-columns: 1fr 1fr;
+            }
 
             .footer-content {
                 grid-template-columns: 1fr;
             }
-        }
 
-        @media (max-width: 450px) {
-            .products {
-                grid-template-columns: 1fr;
-            }
-
-            .product-image {
-                height: 250px;
+            .hero h1 {
+                font-size: 30px;
             }
         }
     </style>
@@ -333,17 +354,27 @@
 <body>
 
 <header>
+
     <div class="header-top">
-        <a href="index.html" class="logo">Meteur</a>
+
+        <a href="index.html" class="logo">
+            Meteur
+        </a>
 
         <div class="search-box">
+
             <input
                 type="text"
                 id="searchInput"
                 placeholder="Search products..."
             >
-            <button onclick="searchProducts()">Search</button>
+
+            <button onclick="searchProducts()">
+                Search
+            </button>
+
         </div>
+
     </div>
 
     <nav>
@@ -356,84 +387,157 @@
         <a href="cart.html">Cart</a>
         <a href="dashboard.html">My Account</a>
     </nav>
+
 </header>
+
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <h1>Shop All Products</h1>
+
+        <p>
+            Discover quality products at great prices on Meteur.
+        </p>
+
+    </div>
+
+</section>
+
 
 <main class="container">
 
-    <section class="page-header">
-        <h1>Shop All Products</h1>
-        <p>Browse products available on Meteur Online Shopping.</p>
-    </section>
+    <div class="toolbar">
 
-    <section class="toolbar">
-        <span id="productCount">Loading products...</span>
+        <span id="productCount">
+            Loading products...
+        </span>
 
-        <select id="sortSelect" onchange="sortProducts()">
-            <option value="default">Sort by</option>
-            <option value="price-low">Price: Low to High</option>
-            <option value="price-high">Price: High to Low</option>
-            <option value="rating">Highest Rated</option>
-            <option value="newest">Newest</option>
+        <select
+            id="sortSelect"
+            onchange="sortProducts()"
+        >
+
+            <option value="default">
+                Sort by
+            </option>
+
+            <option value="price-low">
+                Price: Low to High
+            </option>
+
+            <option value="price-high">
+                Price: High to Low
+            </option>
+
+            <option value="rating">
+                Highest Rated
+            </option>
+
+            <option value="newest">
+                Newest
+            </option>
+
         </select>
-    </section>
 
-    <section class="products" id="products">
+    </div>
+
+
+    <section
+        class="products"
+        id="products"
+    >
+
         <div class="loading">
             Loading products...
         </div>
+
     </section>
 
 </main>
 
+
 <footer>
+
     <div class="footer-content">
 
         <div>
+
             <h3>Meteur</h3>
-            <p>Your trusted online shopping marketplace.</p>
+
+            <p>
+                Your trusted online shopping marketplace.
+            </p>
+
         </div>
 
+
         <div>
+
             <h3>Shopping</h3>
+
             <a href="shop.html">Shop All</a>
             <a href="deals.html">Deals</a>
             <a href="new-arrivals.html">New Arrivals</a>
             <a href="categories.html">Categories</a>
+
         </div>
 
+
         <div>
+
             <h3>Customer Service</h3>
+
             <a href="help.html">Help Center</a>
             <a href="contact.html">Contact Us</a>
             <a href="shipping.html">Shipping</a>
             <a href="returns.html">Returns & Refunds</a>
             <a href="track-order.html">Track Order</a>
+
         </div>
 
+
         <div>
+
             <h3>About</h3>
+
             <a href="about.html">About Meteur</a>
             <a href="privacy.html">Privacy Policy</a>
             <a href="terms.html">Terms & Conditions</a>
             <a href="sell.html">Sell on Meteur</a>
+
         </div>
 
     </div>
 
+
     <div class="copyright">
         © 2026 Meteur Online Shopping. All rights reserved.
     </div>
+
 </footer>
 
+
 <script>
+
     let allProducts = [];
+
     let wishlistIds = new Set();
 
-    const productsContainer = document.getElementById("products");
-    const productCount = document.getElementById("productCount");
-    const searchInput = document.getElementById("searchInput");
+
+    const productsContainer =
+        document.getElementById("products");
+
+    const productCount =
+        document.getElementById("productCount");
+
+    const searchInput =
+        document.getElementById("searchInput");
+
 
     async function getCurrentUser() {
+
         const {
             data: { user }
         } = await supabaseClient.auth.getUser();
@@ -441,305 +545,684 @@
         return user;
     }
 
+
     async function loadWishlist() {
+
         wishlistIds = new Set();
 
-        const user = await getCurrentUser();
+        const user =
+            await getCurrentUser();
 
         if (!user) {
             return;
         }
 
-        const { data, error } = await supabaseClient
+
+        const {
+            data,
+            error
+        } = await supabaseClient
             .from("wishlist")
             .select("product_id")
-            .eq("user_id", user.id);
+            .eq(
+                "user_id",
+                user.id
+            );
+
 
         if (error) {
-            console.error("Wishlist loading error:", error);
+
+            console.error(
+                "Wishlist loading error:",
+                error
+            );
+
             return;
         }
 
-        data.forEach(item => {
-            wishlistIds.add(item.product_id);
-        });
+
+        (data || []).forEach(
+            item => {
+
+                wishlistIds.add(
+                    item.product_id
+                );
+
+            }
+        );
     }
 
-    async function toggleWishlist(productId, button) {
-        const user = await getCurrentUser();
+
+    async function toggleWishlist(
+        productId,
+        button
+    ) {
+
+        const user =
+            await getCurrentUser();
+
 
         if (!user) {
-            const returnUrl =
-                "shop.html";
 
             window.location.href =
                 "login.html?redirect=" +
-                encodeURIComponent(returnUrl);
+                encodeURIComponent(
+                    "shop.html"
+                );
 
             return;
         }
 
+
         button.disabled = true;
 
-        if (wishlistIds.has(productId)) {
 
-            const { error } = await supabaseClient
+        if (
+            wishlistIds.has(
+                productId
+            )
+        ) {
+
+            const {
+                error
+            } = await supabaseClient
                 .from("wishlist")
                 .delete()
-                .eq("user_id", user.id)
-                .eq("product_id", productId);
+                .eq(
+                    "user_id",
+                    user.id
+                )
+                .eq(
+                    "product_id",
+                    productId
+                );
+
 
             if (error) {
+
                 console.error(error);
-                alert("Unable to remove this product from your wishlist.");
+
+                alert(
+                    "Unable to remove this product from your wishlist."
+                );
+
                 button.disabled = false;
+
                 return;
             }
 
-            wishlistIds.delete(productId);
-            button.classList.remove("active");
+
+            wishlistIds.delete(
+                productId
+            );
+
+            button.classList.remove(
+                "active"
+            );
+
             button.innerHTML = "♡";
+
 
         } else {
 
-            const { error } = await supabaseClient
+            const {
+                error
+            } = await supabaseClient
                 .from("wishlist")
                 .insert({
-                    user_id: user.id,
-                    product_id: productId
+
+                    user_id:
+                        user.id,
+
+                    product_id:
+                        productId
+
                 });
 
+
             if (error) {
+
                 console.error(error);
-                alert("Unable to add this product to your wishlist.");
+
+                alert(
+                    "Unable to add this product to your wishlist."
+                );
+
                 button.disabled = false;
+
                 return;
             }
 
-            wishlistIds.add(productId);
-            button.classList.add("active");
+
+            wishlistIds.add(
+                productId
+            );
+
+            button.classList.add(
+                "active"
+            );
+
             button.innerHTML = "♥";
         }
+
 
         button.disabled = false;
     }
 
-    function addToCart(product) {
-        let cart = JSON.parse(
-            localStorage.getItem("meteurCart") || "[]"
-        );
 
-        const existing = cart.find(
-            item => item.id === product.id
-        );
+    async function addToCart(
+        productId,
+        button
+    ) {
 
-        if (existing) {
-            existing.quantity += 1;
-        } else {
-            cart.push({
-                id: product.id,
-                name: product.name,
-                price: Number(product.price),
-                image_url: product.image_url,
-                quantity: 1,
-                stock: product.stock
-            });
-        }
+        const user =
+            await getCurrentUser();
 
-        localStorage.setItem(
-            "meteurCart",
-            JSON.stringify(cart)
-        );
 
-        alert(product.name + " added to cart.");
-    }
+        if (!user) {
 
-    function getStars(rating) {
-        const rounded = Math.round(Number(rating) || 0);
+            window.location.href =
+                "login.html?redirect=" +
+                encodeURIComponent(
+                    "shop.html"
+                );
 
-        return "★".repeat(rounded) +
-               "☆".repeat(5 - rounded);
-    }
-
-    function renderProducts(products) {
-
-        if (!products.length) {
-            productsContainer.innerHTML = `
-                <div class="empty">
-                    <h2>No products found</h2>
-                    <p>Try another search or category.</p>
-                </div>
-            `;
-
-            productCount.textContent = "0 products";
             return;
         }
 
-        productCount.textContent =
-            products.length +
-            (products.length === 1 ? " product" : " products");
 
-        productsContainer.innerHTML = products.map(product => {
+        button.disabled = true;
 
-            const price = Number(product.price || 0);
-            const oldPrice = Number(product.old_price || 0);
+        button.textContent =
+            "Adding...";
 
-            const discount =
-                oldPrice > price
-                    ? Math.round(
-                        ((oldPrice - price) / oldPrice) * 100
+
+        try {
+
+            const {
+                data: existing,
+                error: existingError
+            } = await supabaseClient
+
+                .from("cart_items")
+
+                .select(
+                    "id, quantity"
+                )
+
+                .eq(
+                    "user_id",
+                    user.id
+                )
+
+                .eq(
+                    "product_id",
+                    productId
+                )
+
+                .maybeSingle();
+
+
+            if (existingError) {
+                throw existingError;
+            }
+
+
+            const product =
+                allProducts.find(
+                    item =>
+                        item.id ===
+                        productId
+                );
+
+
+            if (!product) {
+                throw new Error(
+                    "Product not found."
+                );
+            }
+
+
+            const stock =
+                Number(
+                    product.stock || 0
+                );
+
+
+            const currentQuantity =
+                existing
+                    ? Number(
+                        existing.quantity
                     )
                     : 0;
 
-            const isWishlisted =
-                wishlistIds.has(product.id);
 
-            const image =
-                product.image_url ||
-                "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80";
+            if (
+                currentQuantity + 1 >
+                stock
+            ) {
 
-            return `
-                <article class="product-card">
+                alert(
+                    "You cannot add more than the available stock."
+                );
 
-                    ${
-                        product.badge
-                            ? `<span class="badge">${product.badge}</span>`
-                            : ""
-                    }
+                button.disabled = false;
 
-                    ${
-                        discount > 0
-                            ? `<span class="badge" style="top:48px;">-${discount}%</span>`
-                            : ""
-                    }
+                button.textContent =
+                    "Add to Cart";
 
-                    <button
-                        class="wishlist-btn ${isWishlisted ? "active" : ""}"
-                        onclick="toggleWishlist('${product.id}', this)"
-                        title="Add to wishlist"
-                    >
-                        ${isWishlisted ? "♥" : "♡"}
-                    </button>
+                return;
+            }
 
-                    <a href="product.html?id=${encodeURIComponent(product.id)}">
-                        <img
-                            class="product-image"
-                            src="${image}"
-                            alt="${product.name}"
-                            loading="lazy"
-                        >
-                    </a>
 
-                    <div class="product-info">
+            if (existing) {
 
-                        <div class="category">
-                            ${product.category}
-                        </div>
+                const {
+                    error
+                } = await supabaseClient
 
-                        <a
-                            class="product-name"
-                            href="product.html?id=${encodeURIComponent(product.id)}"
-                        >
-                            ${product.name}
-                        </a>
+                    .from("cart_items")
 
-                        <div class="rating">
-                            ${getStars(product.rating)}
-                            <span style="color:#777;">
-                                (${product.review_count || 0})
-                            </span>
-                        </div>
+                    .update({
 
-                        <div>
-                            <span class="price">
-                                KSh ${price.toLocaleString()}
-                            </span>
+                        quantity:
+                            currentQuantity + 1,
+
+                        updated_at:
+                            new Date().toISOString()
+
+                    })
+
+                    .eq(
+                        "id",
+                        existing.id
+                    );
+
+
+                if (error) {
+                    throw error;
+                }
+
+
+            } else {
+
+                const {
+                    error
+                } = await supabaseClient
+
+                    .from("cart_items")
+
+                    .insert({
+
+                        user_id:
+                            user.id,
+
+                        product_id:
+                            productId,
+
+                        quantity: 1
+
+                    });
+
+
+                if (error) {
+                    throw error;
+                }
+            }
+
+
+            alert(
+                product.name +
+                " added to your cart."
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Cart error:",
+                error
+            );
+
+            alert(
+                "Unable to add this product to your cart."
+            );
+
+        } finally {
+
+            button.disabled = false;
+
+            button.textContent =
+                "Add to Cart";
+        }
+    }
+
+
+    function getStars(
+        rating
+    ) {
+
+        const value =
+            Math.round(
+                Number(rating) || 0
+            );
+
+        return (
+            "★".repeat(value) +
+            "☆".repeat(5 - value)
+        );
+    }
+
+
+    function renderProducts(
+        products
+    ) {
+
+        if (!products.length) {
+
+            productsContainer.innerHTML = `
+
+                <div class="empty">
+
+                    <h2>
+                        No products found
+                    </h2>
+
+                    <p>
+                        Try a different search.
+                    </p>
+
+                </div>
+
+            `;
+
+            productCount.textContent =
+                "0 products";
+
+            return;
+        }
+
+
+        productCount.textContent =
+            products.length +
+            (
+                products.length === 1
+                    ? " product"
+                    : " products"
+            );
+
+
+        productsContainer.innerHTML =
+            products.map(
+                product => {
+
+                    const price =
+                        Number(
+                            product.price || 0
+                        );
+
+                    const oldPrice =
+                        Number(
+                            product.old_price || 0
+                        );
+
+                    const stock =
+                        Number(
+                            product.stock || 0
+                        );
+
+                    const image =
+                        product.image_url ||
+                        "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80";
+
+                    const wishlisted =
+                        wishlistIds.has(
+                            product.id
+                        );
+
+
+                    return `
+
+                        <article class="product-card">
 
                             ${
-                                oldPrice > price
+                                product.badge
                                     ? `
-                                        <span class="old-price">
-                                            KSh ${oldPrice.toLocaleString()}
+                                        <span class="badge">
+                                            ${product.badge}
                                         </span>
                                     `
                                     : ""
                             }
-                        </div>
 
-                        <div class="stock">
-                            ${
-                                Number(product.stock) > 0
-                                    ? `${product.stock} available`
-                                    : "Out of stock"
-                            }
-                        </div>
 
-                        <button
-                            class="add-cart"
-                            onclick='addToCart(${JSON.stringify(product).replace(/'/g, "&#39;")})'
-                            ${Number(product.stock) <= 0 ? "disabled" : ""}
-                        >
-                            ${
-                                Number(product.stock) > 0
-                                    ? "Add to Cart"
-                                    : "Out of Stock"
-                            }
-                        </button>
+                            <button
+                                class="wishlist-btn ${
+                                    wishlisted
+                                        ? "active"
+                                        : ""
+                                }"
+                                onclick="toggleWishlist(
+                                    '${product.id}',
+                                    this
+                                )"
+                                title="Add to wishlist"
+                            >
 
-                    </div>
-                </article>
-            `;
-        }).join("");
+                                ${
+                                    wishlisted
+                                        ? "♥"
+                                        : "♡"
+                                }
+
+                            </button>
+
+
+                            <a
+                                href="product.html?id=${encodeURIComponent(
+                                    product.id
+                                )}"
+                            >
+
+                                <img
+                                    class="product-image"
+                                    src="${image}"
+                                    alt="${product.name}"
+                                    loading="lazy"
+                                >
+
+                            </a>
+
+
+                            <div class="product-info">
+
+                                <div class="category">
+                                    ${product.category}
+                                </div>
+
+
+                                <a
+                                    class="product-name"
+                                    href="product.html?id=${encodeURIComponent(
+                                        product.id
+                                    )}"
+                                >
+                                    ${product.name}
+                                </a>
+
+
+                                <div class="rating">
+
+                                    ${getStars(
+                                        product.rating
+                                    )}
+
+                                    <span style="color:#777;">
+                                        (${product.review_count || 0})
+                                    </span>
+
+                                </div>
+
+
+                                <div>
+
+                                    <span class="price">
+                                        KSh ${price.toLocaleString()}
+                                    </span>
+
+
+                                    ${
+                                        oldPrice > price
+                                            ? `
+                                                <span class="old-price">
+                                                    KSh ${oldPrice.toLocaleString()}
+                                                </span>
+                                            `
+                                            : ""
+                                    }
+
+                                </div>
+
+
+                                <div class="stock">
+
+                                    ${
+                                        stock > 0
+                                            ? `${stock} available`
+                                            : "Out of stock"
+                                    }
+
+                                </div>
+
+
+                                <button
+                                    class="add-cart"
+                                    onclick="addToCart(
+                                        '${product.id}',
+                                        this
+                                    )"
+                                    ${
+                                        stock <= 0
+                                            ? "disabled"
+                                            : ""
+                                    }
+                                >
+
+                                    ${
+                                        stock > 0
+                                            ? "Add to Cart"
+                                            : "Out of Stock"
+                                    }
+
+                                </button>
+
+                            </div>
+
+                        </article>
+
+                    `;
+
+                }
+            ).join("");
     }
+
 
     async function loadProducts() {
 
         productsContainer.innerHTML = `
+
             <div class="loading">
                 Loading products...
             </div>
+
         `;
+
 
         try {
 
             await loadWishlist();
 
+
             const {
                 data,
                 error
             } = await supabaseClient
+
                 .from("products")
+
                 .select("*")
-                .order("created_at", {
-                    ascending: false
-                });
+
+                .order(
+                    "created_at",
+                    {
+                        ascending: false
+                    }
+                );
+
 
             if (error) {
                 throw error;
             }
 
-            allProducts = data || [];
 
-            renderProducts(allProducts);
+            allProducts =
+                data || [];
+
+
+            renderProducts(
+                allProducts
+            );
+
+
+            const params =
+                new URLSearchParams(
+                    window.location.search
+                );
+
+
+            const search =
+                params.get("search");
+
+
+            if (search) {
+
+                searchInput.value =
+                    search;
+
+                searchProducts();
+
+            }
+
 
         } catch (error) {
 
             console.error(
-                "Supabase products error:",
+                "Products loading error:",
                 error
             );
 
+
             productsContainer.innerHTML = `
+
                 <div class="error">
-                    <h2>Unable to load products</h2>
-                    <p>Please refresh the page and try again.</p>
+
+                    <h2>
+                        Unable to load products
+                    </h2>
+
+                    <p>
+                        Please refresh the page and try again.
+                    </p>
+
                 </div>
+
             `;
 
             productCount.textContent =
                 "Products unavailable";
         }
     }
+
 
     function searchProducts() {
 
@@ -748,36 +1231,87 @@
                 .trim()
                 .toLowerCase();
 
+
         if (!query) {
-            renderProducts(allProducts);
+
+            renderProducts(
+                allProducts
+            );
+
             return;
         }
 
+
         const filtered =
-            allProducts.filter(product =>
-                product.name.toLowerCase().includes(query) ||
-                product.category.toLowerCase().includes(query) ||
-                (product.description || "")
-                    .toLowerCase()
-                    .includes(query)
+            allProducts.filter(
+                product =>
+
+                    product.name
+                        .toLowerCase()
+                        .includes(query)
+
+                    ||
+
+                    product.category
+                        .toLowerCase()
+                        .includes(query)
+
+                    ||
+
+                    (
+                        product.description ||
+                        ""
+                    )
+                        .toLowerCase()
+                        .includes(query)
             );
 
-        renderProducts(filtered);
+
+        renderProducts(
+            filtered
+        );
     }
+
 
     searchInput.addEventListener(
         "input",
         searchProducts
     );
 
+
+    searchInput.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.key === "Enter"
+            ) {
+
+                searchProducts();
+
+            }
+
+        }
+    );
+
+
     function sortProducts() {
 
         const value =
-            document.getElementById("sortSelect").value;
+            document
+                .getElementById(
+                    "sortSelect"
+                )
+                .value;
 
-        const sorted = [...allProducts];
 
-        if (value === "price-low") {
+        const sorted =
+            [...allProducts];
+
+
+        if (
+            value === "price-low"
+        ) {
 
             sorted.sort(
                 (a, b) =>
@@ -785,7 +1319,10 @@
                     Number(b.price)
             );
 
-        } else if (value === "price-high") {
+
+        } else if (
+            value === "price-high"
+        ) {
 
             sorted.sort(
                 (a, b) =>
@@ -793,15 +1330,21 @@
                     Number(a.price)
             );
 
-        } else if (value === "rating") {
+
+        } else if (
+            value === "rating"
+        ) {
 
             sorted.sort(
                 (a, b) =>
-                    Number(b.rating) -
-                    Number(a.rating)
+                    Number(b.rating || 0) -
+                    Number(a.rating || 0)
             );
 
-        } else if (value === "newest") {
+
+        } else if (
+            value === "newest"
+        ) {
 
             sorted.sort(
                 (a, b) =>
@@ -810,10 +1353,15 @@
             );
         }
 
-        renderProducts(sorted);
+
+        renderProducts(
+            sorted
+        );
     }
 
+
     loadProducts();
+
 </script>
 
 </body>

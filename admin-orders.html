@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Orders - Meteur Online Shopping</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            color: #222;
+        }
+
+        header {
+            background: #f68b1e;
+            color: white;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .header-actions a,
+        .header-actions button {
+            background: white;
+            color: #f68b1e;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 14px;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        main {
+            max-width: 1250px;
+            margin: 30px auto;
+            padding: 0 18px;
+        }
+
+        .page-title {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .page-title h2 {
+            margin: 0 0 8px;
+        }
+
+        .page-title p {
+            margin: 0;
+            color: #666;
+        }
+
+        .notice {
+            background: #fff3cd;
+            color: #664d03;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .message {
+            display: none;
+            padding: 14px;
+            border-radius: 7px;
+            margin-bottom: 20px;
+            background: #f8d7da;
+            color: #842029;
+        }
+
+        .toolbar {
+            background: white;
+            padding: 18px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .toolbar input,
+        .toolbar select {
+            flex: 1;
+            min-width: 200px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        .order-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+            gap: 20px;
+        }
+
+        .order-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .order-card h3 {
+            margin: 0 0 10px;
+            color: #f68b1e;
+        }
+
+        .order-card p {
+            margin: 8px 0;
+            line-height: 1.5;
+            word-break: break-word;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .processing {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .pending {
+            background: #cfe2ff;
+            color: #084298;
+        }
+
+        .paid {
+            background: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .shipped {
+            background: #cff4fc;
+            color: #055160;
+        }
+
+        .delivered {
+            background: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .cancelled {
+            background: #f8d7da;
+            color: #842029;
+        }
+
+        .items {
+            margin-top: 15px;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+
+        .item {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .item:last-child {
+            border-bottom: none;
+        }
+
+        .total {
+            font-size: 20px;
+            font-weight: bold;
+            color: #f68b1e;
+            margin-top: 15px;
+        }
+
+        .loading,
+        .empty {
+            background: white;
+            padding: 40px;
+            text-align: center;
+            border-radius: 10px;
+            color: #666;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-actions {
+                width: 100%;
+            }
+
+            .header-actions a,
+            .header-actions button {
+                flex: 1;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <h1>Meteur Online Shopping — Admin</h1>
+
+    <div class="header-actions">
+        <a href="admin-dashboard.html">Dashboard</a>
+        <a href="index.html">View Store</a>
+        <button id="logoutBtn">Logout</button>
+    </div>
+
+</header>
+
+<main>
+
+    <section class="page-title">
+        <h2>Order Management</h2>
+        <p>Review marketplace orders and customer delivery information.</p>
+    </section>
+
+    <div class="notice">
+        Order information is protected by Supabase Row Level Security.
+        Administrator access to all marketplace orders will be connected
+        through a secure administrator backend before public release.
+    </div>
+
+    <div id="message" class="message"></div>
+
+    <div class="toolbar">
+
+        <input
+            type="search"
+            id="searchInput"
+            placeholder="Search order number, email or customer..."
+        >
+
+        <select id="statusFilter">
+
+            <option value="">
+                All statuses
+            </option>
+
+            <option value="Processing">
+                Processing
+            </option>
+
+            <option value="Payment Pending">
+                Payment Pending
+            </option>
+
+            <option value="Paid">
+                Paid
+            </option>
+
+            <option value="Shipped">
+                Shipped
+            </option>
+
+            <option value="Delivered">
+                Delivered
+            </option>
+
+            <option value="Cancelled">
+                Cancelled
+            </option>
+
+        </select>
+
+    </div>
+
+    <div id="loading" class="loading">
+        Loading orders...
+    </div>
+
+    <div id="orderGrid" class="order-grid"></div>
+
+</main>
+
+<script>
+
+    const message =
+        document.getElementById("message");
+
+    const loading =
+        document.getElementById("loading");
+
+    const orderGrid =
+        document.getElementById("orderGrid");
+
+    const searchInput =
+        document.getElementById("searchInput");
+
+    const statusFilter =
+        document.getElementById("statusFilter");
+
+    let orders = [];
+
+    function escapeHtml(value) {
+
+        return String(value ?? "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+    function showMessage(text) {
+
+        message.textContent = text;
+        message.style.display = "block";
+    }
+
+    function hideMessage() {
+
+        message.style.display = "none";
+    }
+
+    function getStatusClass(status) {
+
+        const value =
+            String(status || "")
+                .toLowerCase();
+
+        if (value.includes("paid")) {
+            return "paid";
+        }
+
+        if (value.includes("pending")) {
+            return "pending";
+        }
+
+        if (value.includes("shipped")) {
+            return "shipped";
+        }
+
+        if (value.includes("delivered")) {
+            return "delivered";
+        }
+
+        if (value.includes("cancelled")) {
+            return "cancelled";
+        }
+
+        return "processing";
+    }
+
+    async function checkAdmin() {
+
+        const {
+            data: { user },
+            error: authError
+        } = await supabaseClient.auth.getUser();
+
+        if (authError || !user) {
+
+            window.location.href =
+                "login.html?redirect=admin-orders.html";
+
+            return false;
+        }
+
+        const {
+            data: admin,
+            error: adminError
+        } = await supabaseClient
+            .from("admins")
+            .select("*")
+            .eq("user_id", user.id)
+            .eq("status", "Active")
+            .maybeSingle();
+
+        if (adminError || !admin) {
+
+            document.body.innerHTML = `
+                <main style="max-width:700px;margin:80px auto;padding:20px;text-align:center;">
+                    <h2>Administrator Access Required</h2>
+                    <p>Your account does not have active administrator access.</p>
+                    <a href="index.html">Back to Store</a>
+                </main>
+            `;
+
+            return false;
+        }
+
+        return true;
+    }
+
+    async function loadOrders() {
+
+        loading.style.display = "block";
+        orderGrid.innerHTML = "";
+        hideMessage();
+
+        const {
+            data,
+            error
+        } = await supabaseClient
+            .from("orders")
+            .select("*")
+            .order("created_at", {
+                ascending: false
+            });
+
+        loading.style.display = "none";
+
+        if (error) {
+
+            console.error(error);
+
+            showMessage(
+                "Marketplace orders cannot be loaded yet because administrator order permissions have not been configured."
+            );
+
+            orderGrid.innerHTML = `
+                <div class="empty">
+
+                    <h3>
+                        Administrator order access needs configuration
+                    </h3>
+
+                    <p>
+                        Customer orders are protected by Supabase
+                        Row Level Security. A secure administrator
+                        backend will be connected before public release.
+                    </p>
+
+                </div>
+            `;
+
+            return;
+        }
+
+        orders = data || [];
+
+        renderOrders();
+    }
+
+    function renderOrders() {
+
+        const search =
+            searchInput.value
+                .trim()
+                .toLowerCase();
+
+        const selectedStatus =
+            statusFilter.value;
+
+        const filtered =
+            orders.filter(order => {
+
+                const matchesSearch =
+                    !search ||
+                    String(order.order_number || "")
+                        .toLowerCase()
+                        .includes(search) ||
+
+                    String(order.customer_email || "")
+                        .toLowerCase()
+                        .includes(search) ||
+
+                    String(order.recipient_name || "")
+                        .toLowerCase()
+                        .includes(search);
+
+                const matchesStatus =
+                    !selectedStatus ||
+                    order.status === selectedStatus;
+
+                return (
+                    matchesSearch &&
+                    matchesStatus
+                );
+            });
+
+        if (filtered.length === 0) {
+
+            orderGrid.innerHTML = `
+                <div class="empty">
+
+                    <h3>
+                        No orders found
+                    </h3>
+
+                    <p>
+                        Marketplace orders will appear here
+                        after administrator database access
+                        is configured.
+                    </p>
+
+                </div>
+            `;
+
+            return;
+        }
+
+        orderGrid.innerHTML =
+            filtered.map(order => {
+
+                const items =
+                    Array.isArray(order.items)
+                        ? order.items
+                        : [];
+
+                const createdDate =
+                    order.created_at
+                        ? new Date(
+                            order.created_at
+                        ).toLocaleString()
+                        : "Not available";
+
+                const status =
+                    order.status ||
+                    "Processing";
+
+                const itemHtml =
+                    items.length > 0
+                        ? items.map(item => {
+
+                            const quantity =
+                                Number(
+                                    item.quantity || 1
+                                );
+
+                            const price =
+                                Number(
+                                    item.price || 0
+                                );
+
+                            return `
+                                <div class="item">
+
+                                    <strong>
+                                        ${escapeHtml(
+                                            item.name ||
+                                            "Product"
+                                        )}
+                                    </strong>
+
+                                    <br>
+
+                                    Quantity:
+                                    ${quantity}
+
+                                    <br>
+
+                                    Price:
+                                    KSh
+                                    ${price.toLocaleString()}
+
+                                </div>
+                            `;
+
+                        }).join("")
+                        : `
+                            <div class="item">
+                                No item details available.
+                            </div>
+                        `;
+
+                return `
+                    <article class="order-card">
+
+                        <h3>
+                            Order
+                            ${escapeHtml(
+                                order.order_number
+                            )}
+                        </h3>
+
+                        <p>
+                            <span class="label">
+                                Status:
+                            </span>
+
+                            <span class="status ${getStatusClass(status)}">
+                                ${escapeHtml(status)}
+                            </span>
+                        </p>
+
+                        <p>
+                            <span class="label">
+                                Customer:
+                            </span>
+
+                            ${escapeHtml(
+                                order.recipient_name
+                            )}
+                        </p>
+
+                        <p>
+                            <span class="label">
+                                Email:
+                            </span>
+
+                            ${escapeHtml(
+                                order.customer_email
+                            )}
+                        </p>
+
+                        <p>
+                            <span class="label">
+                                Phone:
+                            </span>
+
+                            ${escapeHtml(
+                                order.phone
+                            )}
+                        </p>
+
+                        <p>
+                            <span class="label">
+                                County:
+                            </span>
+
+                            ${escapeHtml(
+                                order.county
+                            )}
+                        </p>
+
+                        <p>
+                            <span class="label">
+                                Town:
+                            </span>
+
+                            ${escapeHtml(
+                                order.town
+                            )}
+                        </p>
+
+                        <p>
+                            <span class="label">
+                                Address:
+                            </span>
+
+                            ${escapeHtml(
+                                order.address
+                            )}
+                        </p>
+
+                        <p>
+                            <span class="label">
+                                Payment:
+                            </span>
+
+                            ${escapeHtml(
+                                order.payment_method
+                            )}
+                        </p>
+
+                        <p>
+                            <span class="label">
+                                Order date:
+                            </span>
+
+                            ${escapeHtml(
+                                createdDate
+                            )}
+                        </p>
+
+                        ${
+                            order.delivery_note
+                            ? `
+                                <p>
+                                    <span class="label">
+                                        Delivery note:
+                                    </span>
+
+                                    ${escapeHtml(
+                                        order.delivery_note
+                                    )}
+                                </p>
+                            `
+                            : ""
+                        }
+
+                        <div class="items">
+
+                            <strong>
+                                Ordered products
+                            </strong>
+
+                            ${itemHtml}
+
+                        </div>
+
+                        <div class="info">
+
+                            <p>
+                                <span class="label">
+                                    Subtotal:
+                                </span>
+
+                                KSh
+                                ${Number(
+                                    order.subtotal || 0
+                                ).toLocaleString()}
+                            </p>
+
+                            <p>
+                                <span class="label">
+                                    Delivery:
+                                </span>
+
+                                KSh
+                                ${Number(
+                                    order.delivery_fee || 0
+                                ).toLocaleString()}
+                            </p>
+
+                            <div class="total">
+
+                                Total:
+                                KSh
+                                ${Number(
+                                    order.total || 0
+                                ).toLocaleString()}
+
+                            </div>
+
+                        </div>
+
+                    </article>
+                `;
+
+            }).join("");
+    }
+
+    searchInput.addEventListener(
+        "input",
+        renderOrders
+    );
+
+    statusFilter.addEventListener(
+        "change",
+        renderOrders
+    );
+
+    document.getElementById("logoutBtn")
+        .addEventListener(
+            "click",
+            async () => {
+
+                await supabaseClient.auth.signOut();
+
+                window.location.href =
+                    "login.html";
+            }
+        );
+
+    async function init() {
+
+        const isAdmin =
+            await checkAdmin();
+
+        if (!isAdmin) {
+            return;
+        }
+
+        await loadOrders();
+    }
+
+    init();
+
+</script>
+
+</body>
+</html>

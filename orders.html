@@ -4,253 +4,243 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>My Orders | Meteur Online Shopping</title>
-
-    <meta name="description" content="View and track your Meteur Online Shopping orders.">
-
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <title>My Orders - Meteur Online Shopping</title>
 
     <link rel="stylesheet" href="style.css">
 
     <style>
-        .account-page {
-            padding: 30px 20px 60px;
-            background: #f5f5f5;
-            min-height: 650px;
+        .orders-page {
+            padding: 45px 20px 70px;
+            background: #f7f7f7;
+            min-height: 70vh;
         }
 
-        .account-breadcrumb {
-            max-width: 1200px;
-            margin: 0 auto 22px;
-            font-size: 13px;
-            color: #777;
+        .orders-container {
+            max-width: 1000px;
+            margin: auto;
         }
 
-        .account-breadcrumb a {
-            color: #f57c00;
-            text-decoration: none;
+        .orders-header {
+            background: linear-gradient(135deg, #f4511e, #ff7a45);
+            color: white;
+            border-radius: 14px;
+            padding: 35px;
+            margin-bottom: 25px;
         }
 
-        .account-layout {
+        .orders-header h1 {
+            margin: 0 0 8px;
+            font-size: 32px;
+        }
+
+        .orders-header p {
+            margin: 0;
+            opacity: .95;
+        }
+
+        .orders-grid {
             display: grid;
-            grid-template-columns: 250px 1fr;
+            grid-template-columns: 260px 1fr;
             gap: 25px;
-            max-width: 1200px;
-            margin: 0 auto;
         }
 
-        .account-sidebar {
-            background: #fff;
-            border-radius: 7px;
-            overflow: hidden;
+        .orders-menu,
+        .orders-card {
+            background: white;
+            border-radius: 14px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, .07);
+        }
+
+        .orders-menu {
+            padding: 15px;
             height: fit-content;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
         }
 
-        .account-user {
-            background: #ff9900;
-            color: #fff;
-            padding: 25px 20px;
-            text-align: center;
-        }
-
-        .user-avatar {
-            width: 65px;
-            height: 65px;
-            border-radius: 50%;
-            background: #fff;
-            color: #ff9900;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 12px;
-            font-size: 28px;
-        }
-
-        .account-user h3 {
-            margin-bottom: 4px;
-            font-size: 17px;
-        }
-
-        .account-user p {
-            font-size: 12px;
-            opacity: 0.9;
-        }
-
-        .account-menu {
-            padding: 10px 0;
-        }
-
-        .account-menu a {
-            display: flex;
-            align-items: center;
-            gap: 13px;
-            padding: 13px 20px;
-            color: #555;
+        .orders-menu a {
+            display: block;
+            padding: 14px 15px;
+            color: #333;
             text-decoration: none;
-            font-size: 14px;
-            border-left: 3px solid transparent;
+            border-radius: 8px;
+            margin-bottom: 5px;
         }
 
-        .account-menu a:hover,
-        .account-menu a.active {
-            background: #fff8e8;
-            color: #f57c00;
-            border-left-color: #ff9900;
+        .orders-menu a:hover,
+        .orders-menu a.active {
+            background: #fff1eb;
+            color: #f4511e;
         }
 
-        .account-menu i {
-            width: 18px;
-            text-align: center;
-        }
-
-        .orders-content {
-            min-width: 0;
-        }
-
-        .page-heading {
-            background: #fff;
+        .logout-button {
+            width: 100%;
+            border: 1px solid #e53935;
+            background: white;
+            color: #e53935;
+            padding: 12px;
             border-radius: 7px;
-            padding: 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-        }
-
-        .page-heading h1 {
-            color: #222;
-            font-size: 24px;
-            margin-bottom: 7px;
-        }
-
-        .page-heading p {
-            color: #777;
-            font-size: 14px;
-        }
-
-        .order-tabs {
-            background: #fff;
-            display: flex;
-            border-radius: 7px 7px 0 0;
-            overflow-x: auto;
-            border-bottom: 1px solid #eee;
-        }
-
-        .order-tab {
-            padding: 15px 20px;
-            border: none;
-            background: none;
-            font-size: 13px;
-            font-weight: 600;
-            color: #777;
             cursor: pointer;
-            white-space: nowrap;
-            border-bottom: 3px solid transparent;
+            font-weight: bold;
+            margin-top: 10px;
         }
 
-        .order-tab.active,
-        .order-tab:hover {
-            color: #f57c00;
-            border-bottom-color: #ff9900;
+        .logout-button:hover {
+            background: #fff4f4;
         }
 
-        .orders-list {
-            background: #fff;
-            padding: 25px;
-            border-radius: 0 0 7px 7px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        .orders-card {
+            padding: 30px;
+        }
+
+        .orders-card h2 {
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+
+        .orders-description {
+            color: #777;
+            margin-bottom: 25px;
         }
 
         .empty-orders {
             text-align: center;
-            padding: 50px 20px;
+            padding: 45px 20px;
+            border: 1px dashed #ddd;
+            border-radius: 12px;
         }
 
-        .empty-orders i {
-            font-size: 50px;
-            color: #ddd;
-            margin-bottom: 18px;
+        .empty-icon {
+            font-size: 55px;
+            margin-bottom: 15px;
         }
 
-        .empty-orders h2 {
-            color: #444;
-            font-size: 20px;
-            margin-bottom: 8px;
+        .empty-orders h3 {
+            margin: 0 0 10px;
         }
 
         .empty-orders p {
-            color: #888;
-            font-size: 14px;
+            color: #777;
+            line-height: 1.7;
             margin-bottom: 22px;
         }
 
         .shop-button {
             display: inline-block;
-            background: #ff9900;
-            color: #fff;
+            background: #f4511e;
+            color: white;
             text-decoration: none;
-            padding: 12px 25px;
-            border-radius: 5px;
-            font-size: 14px;
-            font-weight: 700;
+            padding: 13px 25px;
+            border-radius: 7px;
+            font-weight: bold;
         }
 
         .shop-button:hover {
-            background: #e88900;
+            background: #d84315;
         }
 
-        .order-info-box {
-            margin-top: 20px;
-            padding: 18px;
-            background: #fff8e8;
-            border-radius: 6px;
-            color: #795548;
+        .order-item {
+            border: 1px solid #e8e8e8;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .order-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .order-number {
+            font-weight: bold;
+        }
+
+        .order-date {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .order-status {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 20px;
+            background: #fff3cd;
+            color: #856404;
             font-size: 13px;
-            line-height: 1.6;
+            font-weight: bold;
         }
 
-        .order-info-box i {
-            color: #ff9900;
-            margin-right: 6px;
+        .order-product {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 12px 0;
+            border-top: 1px solid #eee;
         }
 
-        @media (max-width: 900px) {
-            .account-layout {
-                grid-template-columns: 210px 1fr;
-            }
+        .order-product-name {
+            font-weight: 600;
         }
 
-        @media (max-width: 700px) {
-            .account-layout {
+        .order-product-quantity {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .order-total {
+            border-top: 1px solid #eee;
+            margin-top: 12px;
+            padding-top: 15px;
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+        }
+
+        .order-actions {
+            margin-top: 15px;
+        }
+
+        .track-button {
+            display: inline-block;
+            border: 1px solid #f4511e;
+            color: #f4511e;
+            text-decoration: none;
+            padding: 9px 15px;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .track-button:hover {
+            background: #fff3ed;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #777;
+        }
+
+        .error-message {
+            display: none;
+            background: #fff0f0;
+            color: #b42318;
+            padding: 14px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 750px) {
+            .orders-grid {
                 grid-template-columns: 1fr;
             }
 
-            .account-menu {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
+            .orders-header {
+                padding: 28px 22px;
             }
 
-            .account-menu a {
-                padding: 12px 15px;
-            }
-        }
-
-        @media (max-width: 500px) {
-            .account-page {
-                padding: 20px 12px 40px;
-            }
-
-            .account-menu {
-                grid-template-columns: 1fr;
-            }
-
-            .page-heading,
-            .orders-list {
-                padding: 20px;
-            }
-
-            .order-tab {
-                padding: 13px 15px;
+            .orders-card {
+                padding: 22px;
             }
         }
     </style>
@@ -258,254 +248,159 @@
 
 <body>
 
-    <!-- TOP BAR -->
-    <div class="top-bar">
-        <div class="container top-bar-content">
+<header>
+    <div class="container">
 
-            <span>Welcome to Meteur Online Shopping</span>
+        <div class="top-bar">
 
-            <div class="top-links">
-                <a href="#">Help Center</a>
-                <a href="#">Track Order</a>
-                <a href="#">Sell on Meteur</a>
+            <div class="logo">
+                <a href="index.html">🛒 Meteur</a>
             </div>
 
-        </div>
-    </div>
-
-    <!-- HEADER -->
-    <header class="main-header">
-
-        <div class="container header-content">
-
-            <a href="index.html" class="logo">
-
-                <i class="fas fa-shopping-bag"></i>
-
-                <div>
-                    <strong>Meteur</strong>
-                    <span>ONLINE SHOPPING</span>
-                </div>
-
-            </a>
-
-            <form class="search-box" id="searchForm">
-
+            <div class="search-box">
                 <input
-                    type="search"
+                    type="text"
                     id="searchInput"
-                    placeholder="Search products, brands and categories..."
-                    aria-label="Search products"
+                    placeholder="Search products..."
                 >
 
-                <button type="submit">
-                    <i class="fas fa-search"></i>
+                <button onclick="searchProducts()">
+                    Search
                 </button>
-
-            </form>
+            </div>
 
             <div class="header-actions">
 
-                <a href="dashboard.html" class="header-action active">
-                    <i class="far fa-user"></i>
-                    <span>Account</span>
+                <a href="dashboard.html">
+                    Account
                 </a>
 
-                <a href="wishlist.html" class="header-action">
-                    <i class="far fa-heart"></i>
-                    <span>Wishlist</span>
+                <a href="wishlist.html">
+                    ♡ Wishlist
                 </a>
 
-                <a href="cart.html" class="header-action cart-action">
-
-                    <i class="fas fa-shopping-cart"></i>
-                    <span>Cart</span>
-                    <b id="cartCount">0</b>
-
+                <a href="cart.html">
+                    🛒 Cart (<span id="cartCount">0</span>)
                 </a>
 
             </div>
 
         </div>
 
-    </header>
-
-    <!-- NAVIGATION -->
-    <nav class="main-nav">
-
-        <div class="container nav-content">
-
-            <a href="shop.html" class="category-button">
-
-                <i class="fas fa-bars"></i>
-                All Categories
-
-            </a>
-
-            <div class="nav-links">
-
-                <a href="index.html">Home</a>
-                <a href="shop.html">Shop</a>
-                <a href="index.html#flash-deals">Flash Deals</a>
-                <a href="index.html#categories">Categories</a>
-                <a href="index.html#new-arrivals">New Arrivals</a>
-                <a href="index.html#popular">Popular</a>
-
-            </div>
-
-        </div>
-
-    </nav>
-
-    <!-- ORDERS PAGE -->
-    <main class="account-page">
-
-        <div class="account-breadcrumb">
-
+        <nav>
             <a href="index.html">Home</a>
-            <span> / </span>
+            <a href="shop.html">Shop</a>
+            <a href="categories.html">Categories</a>
+            <a href="deals.html">Deals</a>
+            <a href="new-arrivals.html">New Arrivals</a>
+            <a href="sell.html">Sell on Meteur</a>
+        </nav>
 
-            <a href="dashboard.html">My Account</a>
+    </div>
+</header>
 
-            <span> / </span>
 
-            <span>My Orders</span>
+<main class="orders-page">
+
+    <div class="orders-container">
+
+        <div class="orders-header">
+
+            <h1>My Orders</h1>
+
+            <p>
+                View and track your Meteur Online Shopping orders.
+            </p>
 
         </div>
 
-        <div class="account-layout">
 
-            <!-- SIDEBAR -->
-            <aside class="account-sidebar">
+        <div id="loadingMessage" class="loading">
+            Checking your account...
+        </div>
 
-                <div class="account-user">
 
-                    <div class="user-avatar">
-                        <i class="fas fa-user"></i>
-                    </div>
+        <div
+            id="errorMessage"
+            class="error-message"
+        ></div>
 
-                    <h3>My Account</h3>
 
-                    <p>Welcome to Meteur</p>
+        <div
+            id="ordersContent"
+            class="orders-grid"
+            style="display:none;"
+        >
 
-                </div>
+            <aside class="orders-menu">
 
-                <nav class="account-menu">
+                <a href="dashboard.html">
+                    🏠 Dashboard
+                </a>
 
-                    <a href="dashboard.html">
+                <a href="profile.html">
+                    👤 My Profile
+                </a>
 
-                        <i class="fas fa-th-large"></i>
-                        Dashboard
+                <a href="orders.html" class="active">
+                    📦 My Orders
+                </a>
 
-                    </a>
+                <a href="wishlist.html">
+                    ♡ Wishlist
+                </a>
 
-                    <a href="orders.html" class="active">
+                <a href="addresses.html">
+                    📍 My Addresses
+                </a>
 
-                        <i class="fas fa-box"></i>
-                        My Orders
-
-                    </a>
-
-                    <a href="wishlist.html">
-
-                        <i class="far fa-heart"></i>
-                        Wishlist
-
-                    </a>
-
-                    <a href="profile.html">
-
-                        <i class="far fa-user"></i>
-                        My Profile
-
-                    </a>
-
-                    <a href="#">
-
-                        <i class="fas fa-location-dot"></i>
-                        My Addresses
-
-                    </a>
-
-                    <a href="login.html">
-
-                        <i class="fas fa-sign-out-alt"></i>
-                        Logout
-
-                    </a>
-
-                </nav>
+                <button
+                    class="logout-button"
+                    onclick="logoutUser()"
+                >
+                    Log Out
+                </button>
 
             </aside>
 
-            <!-- ORDERS CONTENT -->
-            <section class="orders-content">
 
-                <div class="page-heading">
+            <section class="orders-card">
 
-                    <h1>My Orders</h1>
+                <h2>Your Orders</h2>
 
-                    <p>
-                        View your purchases and track your deliveries.
-                    </p>
+                <p class="orders-description">
+                    Your completed and recent orders will appear here.
+                </p>
 
-                </div>
 
-                <div class="order-tabs">
+                <div id="ordersList"></div>
 
-                    <button class="order-tab active">
-                        All Orders
-                    </button>
 
-                    <button class="order-tab">
-                        Processing
-                    </button>
+                <div
+                    id="emptyOrders"
+                    class="empty-orders"
+                    style="display:none;"
+                >
 
-                    <button class="order-tab">
-                        Shipped
-                    </button>
-
-                    <button class="order-tab">
-                        Delivered
-                    </button>
-
-                    <button class="order-tab">
-                        Cancelled
-                    </button>
-
-                </div>
-
-                <div class="orders-list">
-
-                    <div class="empty-orders">
-
-                        <i class="fas fa-box-open"></i>
-
-                        <h2>No Orders Yet</h2>
-
-                        <p>
-                            You haven't placed any orders.
-                            Your purchases will appear here.
-                        </p>
-
-                        <a href="shop.html" class="shop-button">
-                            Start Shopping
-                        </a>
-
+                    <div class="empty-icon">
+                        📦
                     </div>
 
-                </div>
+                    <h3>
+                        No orders yet
+                    </h3>
 
-                <div class="order-info-box">
+                    <p>
+                        You haven't placed an order yet.
+                        Start shopping and your orders will appear here.
+                    </p>
 
-                    <i class="fas fa-circle-info"></i>
-
-                    <strong>Order tracking:</strong>
-
-                    Once you place an order, you will be able to
-                    view its order number, payment status, delivery
-                    status, products, total amount and delivery
-                    information from this page.
+                    <a
+                        href="shop.html"
+                        class="shop-button"
+                    >
+                        Start Shopping
+                    </a>
 
                 </div>
 
@@ -513,99 +408,400 @@
 
         </div>
 
-    </main>
+    </div>
 
-    <!-- FOOTER -->
-    <footer class="footer">
+</main>
 
-        <div class="container footer-grid">
+
+<footer>
+
+    <div class="container">
+
+        <div class="footer-grid">
 
             <div>
 
-                <h3>Meteur Online Shopping</h3>
+                <h3>Meteur</h3>
 
                 <p>
                     Your trusted Kenyan online shopping marketplace.
-                    Shop conveniently from anywhere in Kenya.
                 </p>
 
             </div>
 
+
             <div>
 
-                <h3>Customer Service</h3>
+                <h4>Shopping</h4>
 
-                <a href="#">Help Center</a>
-                <a href="#">Delivery Information</a>
-                <a href="#">Returns & Refunds</a>
-                <a href="#">Contact Us</a>
+                <a href="shop.html">Shop</a><br>
+                <a href="categories.html">Categories</a><br>
+                <a href="deals.html">Deals</a><br>
+                <a href="new-arrivals.html">New Arrivals</a>
 
             </div>
 
+
             <div>
 
-                <h3>My Account</h3>
+                <h4>Customer Service</h4>
 
-                <a href="login.html">Login</a>
-                <a href="register.html">Create Account</a>
-                <a href="orders.html">My Orders</a>
-                <a href="wishlist.html">Wishlist</a>
+                <a href="help.html">Help Center</a><br>
+                <a href="faq.html">FAQ</a><br>
+                <a href="track-order.html">Track Order</a><br>
+                <a href="returns.html">Returns</a><br>
+                <a href="shipping.html">Shipping</a>
 
             </div>
 
+
             <div>
 
-                <h3>Contact Us</h3>
+                <h4>Company</h4>
 
-                <p>
-                    <i class="fas fa-phone"></i>
-                    0711842260
-                </p>
-
-                <p>
-                    <i class="fas fa-envelope"></i>
-                    daghlusmeteur@gmail.com
-                </p>
-
-                <p>
-                    <i class="fas fa-map-marker-alt"></i>
-                    Kenya
-                </p>
+                <a href="about.html">About Us</a><br>
+                <a href="sell.html">Sell on Meteur</a><br>
+                <a href="privacy.html">Privacy Policy</a><br>
+                <a href="terms.html">Terms & Conditions</a>
 
             </div>
 
         </div>
 
-        <div class="footer-bottom">
 
-            <p>
-                © 2026 Meteur Online Shopping. All Rights Reserved.
-            </p>
+        <p class="copyright">
+            © 2026 Meteur Online Shopping. All rights reserved.
+        </p>
 
-        </div>
+    </div>
 
-    </footer>
+</footer>
 
-    <script src="script.js"></script>
 
-    <script>
-        const orderTabs =
-            document.querySelectorAll(".order-tab");
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-        orderTabs.forEach(function(tab) {
+<script src="supabase-config.js"></script>
 
-            tab.addEventListener("click", function() {
+<script src="script.js"></script>
 
-                orderTabs.forEach(function(item) {
-                    item.classList.remove("active");
-                });
 
-                tab.classList.add("active");
+<script>
+
+function updateCartCount() {
+
+    const cart =
+        JSON.parse(
+            localStorage.getItem("meteurCart")
+        ) || [];
+
+    const total =
+        cart.reduce(
+            function(sum, product) {
+                return sum + (product.quantity || 1);
+            },
+            0
+        );
+
+    const cartCount =
+        document.getElementById("cartCount");
+
+    if (cartCount) {
+        cartCount.textContent = total;
+    }
+}
+
+
+function searchProducts() {
+
+    const input =
+        document.getElementById("searchInput");
+
+    if (!input) {
+        return;
+    }
+
+    const search =
+        input.value.trim();
+
+    if (search) {
+
+        window.location.href =
+            "shop.html?search=" +
+            encodeURIComponent(search);
+
+    }
+}
+
+
+function showError(message) {
+
+    const errorBox =
+        document.getElementById("errorMessage");
+
+    errorBox.textContent = message;
+
+    errorBox.style.display = "block";
+
+}
+
+
+function formatPrice(amount) {
+
+    return new Intl.NumberFormat(
+        "en-KE",
+        {
+            style: "currency",
+            currency: "KES"
+        }
+    ).format(amount);
+
+}
+
+
+function displayDemoOrders() {
+
+    const ordersList =
+        document.getElementById("ordersList");
+
+    const demoOrders =
+        JSON.parse(
+            localStorage.getItem("meteurOrders")
+        ) || [];
+
+
+    if (demoOrders.length === 0) {
+
+        document.getElementById("emptyOrders").style.display =
+            "block";
+
+        return;
+    }
+
+
+    ordersList.innerHTML = "";
+
+
+    demoOrders.forEach(function(order) {
+
+        const orderItem =
+            document.createElement("div");
+
+        orderItem.className =
+            "order-item";
+
+
+        let productsHTML = "";
+
+
+        if (Array.isArray(order.items)) {
+
+            order.items.forEach(function(item) {
+
+                productsHTML += `
+
+                    <div class="order-product">
+
+                        <div>
+
+                            <div class="order-product-name">
+                                ${item.name || "Product"}
+                            </div>
+
+                            <div class="order-product-quantity">
+                                Quantity: ${item.quantity || 1}
+                            </div>
+
+                        </div>
+
+                        <strong>
+                            ${formatPrice(
+                                Number(item.price || 0) *
+                                Number(item.quantity || 1)
+                            )}
+                        </strong>
+
+                    </div>
+
+                `;
 
             });
 
-        });
-    </script>
+        }
+
+
+        const orderDate =
+            order.date ||
+            order.created_at ||
+            "Recently";
+
+
+        const orderNumber =
+            order.orderNumber ||
+            order.order_number ||
+            "MTR-" +
+            Math.floor(
+                100000 +
+                Math.random() * 900000
+            );
+
+
+        const total =
+            Number(order.total || 0);
+
+
+        orderItem.innerHTML = `
+
+            <div class="order-top">
+
+                <div>
+
+                    <div class="order-number">
+                        Order #${orderNumber}
+                    </div>
+
+                    <div class="order-date">
+                        ${orderDate}
+                    </div>
+
+                </div>
+
+                <span class="order-status">
+                    ${order.status || "Processing"}
+                </span>
+
+            </div>
+
+            ${productsHTML}
+
+            <div class="order-total">
+
+                <span>
+                    Total
+                </span>
+
+                <span>
+                    ${formatPrice(total)}
+                </span>
+
+            </div>
+
+            <div class="order-actions">
+
+                <a
+                    href="track-order.html"
+                    class="track-button"
+                >
+                    Track Order
+                </a>
+
+            </div>
+
+        `;
+
+
+        ordersList.appendChild(orderItem);
+
+    });
+
+}
+
+
+async function loadOrdersPage() {
+
+    try {
+
+        const {
+            data,
+            error
+        } = await supabaseClient.auth.getUser();
+
+
+        if (error || !data.user) {
+
+            window.location.href =
+                "login.html?redirect=orders.html";
+
+            return;
+        }
+
+
+        document.getElementById("loadingMessage").style.display =
+            "none";
+
+
+        document.getElementById("ordersContent").style.display =
+            "grid";
+
+
+        displayDemoOrders();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        document.getElementById("loadingMessage").style.display =
+            "none";
+
+        showError(
+            "Unable to load your account. Please try again."
+        );
+
+    }
+
+}
+
+
+async function logoutUser() {
+
+    const {
+        error
+    } = await supabaseClient.auth.signOut();
+
+
+    if (error) {
+
+        showError(
+            "Unable to log out. Please try again."
+        );
+
+        return;
+    }
+
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+const searchInput =
+    document.getElementById("searchInput");
+
+
+if (searchInput) {
+
+    searchInput.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Enter") {
+
+                searchProducts();
+
+            }
+
+        }
+    );
+
+}
+
+
+updateCartCount();
+
+loadOrdersPage();
+
+</script>
 
 </body>
 </html>

@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Checkout | Meteur Online Shopping</title>
+
+    <meta
+        name="description"
+        content="Complete your Meteur Online Shopping order securely."
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .checkout-page {
+            padding: 35px 0 60px;
+        }
+
+        .checkout-title {
+            margin-bottom: 25px;
+        }
+
+        .checkout-title h1 {
+            margin: 12px 0 8px;
+        }
+
+        .checkout-layout {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 25px;
+            align-items: start;
+        }
+
+        .checkout-box,
+        .order-summary-box {
+            background: #fff;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .checkout-box {
+            margin-bottom: 20px;
+        }
+
+        .checkout-box h2,
+        .order-summary-box h2 {
+            margin: 0 0 20px;
+            font-size: 20px;
+        }
+
+        .checkout-box h2 i {
+            color: #ff7900;
+            margin-right: 8px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            outline: none;
+            background: #fff;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #ff7900;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .required {
+            color: #d9534f;
+        }
+
+        .payment-options {
+            display: grid;
+            gap: 12px;
+        }
+
+        .payment-option {
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .payment-option:hover {
+            border-color: #ff7900;
+        }
+
+        .payment-option input {
+            accent-color: #ff7900;
+        }
+
+        .payment-option i {
+            font-size: 22px;
+            color: #ff7900;
+        }
+
+        .payment-option strong {
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        .payment-option span {
+            display: block;
+            font-size: 12px;
+            color: #777;
+        }
+
+        .mpesa-note {
+            margin-top: 15px;
+            background: #f7f7f7;
+            border-radius: 6px;
+            padding: 14px;
+            font-size: 13px;
+            color: #555;
+        }
+
+        .order-summary-item {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 13px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+
+        .order-summary-item span:last-child {
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 18px;
+            margin-top: 5px;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .place-order-button {
+            width: 100%;
+            margin-top: 20px;
+            border: 0;
+            background: #ff7900;
+            color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .place-order-button:hover {
+            background: #e86d00;
+        }
+
+        .place-order-button:disabled {
+            background: #aaa;
+            cursor: not-allowed;
+        }
+
+        .checkout-security {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-top: 15px;
+            font-size: 12px;
+            color: #777;
+            line-height: 1.5;
+        }
+
+        .checkout-security i {
+            color: #ff7900;
+            font-size: 20px;
+        }
+
+        .login-notice {
+            background: #fff7ed;
+            border: 1px solid #ffd7b0;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .login-notice a {
+            color: #ff7900;
+            font-weight: 700;
+        }
+
+        .empty-checkout {
+            background: #fff;
+            padding: 60px 25px;
+            text-align: center;
+            border-radius: 8px;
+        }
+
+        .empty-checkout i {
+            font-size: 60px;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+
+        .empty-checkout h2 {
+            margin-bottom: 10px;
+        }
+
+        .empty-checkout p {
+            color: #777;
+            margin-bottom: 25px;
+        }
+
+        .back-shopping {
+            display: inline-block;
+            background: #ff7900;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-weight: 700;
+        }
+
+        @media (max-width: 850px) {
+            .checkout-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: auto;
+            }
+
+            .checkout-box,
+            .order-summary-box {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+
+            <span>Welcome to Meteur Online Shopping</span>
+
+            <div class="top-links">
+                <a href="#">Help Center</a>
+                <a href="#">Track Order</a>
+                <a href="#">Sell on Meteur</a>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- HEADER -->
+    <header class="main-header">
+
+        <div class="container header-content">
+
+            <a href="index.html" class="logo">
+
+                <span class="logo-icon">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                </span>
+
+                <span>
+                    <strong>Meteur</strong>
+                    <small>ONLINE SHOPPING</small>
+                </span>
+
+            </a>
+
+
+            <form class="search-box" id="searchForm">
+
+                <input
+                    type="search"
+                    id="searchInput"
+                    placeholder="Search for products, brands and categories..."
+                >
+
+                <button type="submit">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    Search
+                </button>
+
+            </form>
+
+
+            <div class="header-actions">
+
+                <a href="login.html">
+                    <i class="fa-regular fa-user"></i>
+                    <span>Account</span>
+                </a>
+
+                <a href="wishlist.html">
+                    <i class="fa-regular fa-heart"></i>
+                    <span>Wishlist</span>
+                </a>
+
+                <a href="cart.html" class="cart-link">
+
+                    <i class="fa-solid fa-cart-shopping"></i>
+
+                    <span>
+                        Cart
+                        <b id="cartCount">0</b>
+                    </span>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- NAVIGATION -->
+    <nav class="main-nav">
+
+        <div class="container nav-content">
+
+            <button class="categories-button">
+                <i class="fa-solid fa-bars"></i>
+                Categories
+            </button>
+
+            <a href="index.html">Home</a>
+            <a href="shop.html">Shop</a>
+            <a href="shop.html?category=deals">Flash Deals</a>
+            <a href="shop.html?category=categories">Categories</a>
+            <a href="shop.html?category=new">New Arrivals</a>
+            <a href="shop.html?category=popular">Popular</a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- CHECKOUT -->
+    <main class="container checkout-page">
+
+        <div class="checkout-title">
+
+            <div class="breadcrumb">
+
+                <a href="index.html">Home</a>
+
+                <span>/</span>
+
+                <a href="cart.html">Cart</a>
+
+                <span>/</span>
+
+                <span>Checkout</span>
+
+            </div>
+
+            <h1>Checkout</h1>
+
+            <p>
+                Enter your delivery details and select your preferred payment method.
+            </p>
+
+        </div>
+
+
+        <div id="checkoutContent"></div>
+
+    </main>
+
+
+    <!-- NEWSLETTER -->
+    <section class="newsletter">
+
+        <div class="container newsletter-content">
+
+            <div>
+
+                <h2>Stay Updated</h2>
+
+                <p>
+                    Subscribe for new products, special offers and shopping updates.
+                </p>
+
+            </div>
+
+            <form id="newsletterForm">
+
+                <input
+                    type="email"
+                    placeholder="Enter your email address"
+                    required
+                >
+
+                <button type="submit">
+                    Subscribe
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+
+        <div class="container footer-grid">
+
+            <div>
+
+                <a href="index.html" class="footer-logo">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    Meteur
+                </a>
+
+                <p>
+                    Your trusted online shopping destination in Kenya.
+                    Shop quality products at competitive prices.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h3>Customer Service</h3>
+
+                <a href="#">Help Center</a>
+                <a href="#">Delivery Information</a>
+                <a href="#">Returns & Refunds</a>
+                <a href="#">Track Order</a>
+
+            </div>
+
+
+            <div>
+
+                <h3>About Meteur</h3>
+
+                <a href="#">About Us</a>
+                <a href="#">Contact Us</a>
+                <a href="#">Terms & Conditions</a>
+                <a href="#">Privacy Policy</a>
+
+            </div>
+
+
+            <div>
+
+                <h3>Contact Us</h3>
+
+                <p>
+                    <i class="fa-solid fa-phone"></i>
+                    0711842260
+                </p>
+
+                <p>
+                    <i class="fa-solid fa-envelope"></i>
+                    daghlusmeteur@gmail.com
+                </p>
+
+                <p>
+                    <i class="fa-solid fa-location-dot"></i>
+                    Kenya
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <div class="container">
+
+                <p>
+                    © 2026 Meteur Online Shopping. All rights reserved.
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+
+    <!-- CHECKOUT FUNCTIONALITY -->
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const checkoutContent =
+                document.getElementById("checkoutContent");
+
+            let cart =
+                JSON.parse(localStorage.getItem("meteurCart")) || [];
+
+
+            function formatPrice(price) {
+
+                return "KSh " +
+                    Number(price).toLocaleString("en-KE");
+
+            }
+
+
+            function renderCheckout() {
+
+                if (cart.length === 0) {
+
+                    checkoutContent.innerHTML = `
+
+                        <div class="empty-checkout">
+
+                            <i class="fa-solid fa-cart-shopping"></i>
+
+                            <h2>Your Cart Is Empty</h2>
+
+                            <p>
+                                Add products to your cart before proceeding to checkout.
+                            </p>
+
+                            <a
+                                href="shop.html"
+                                class="back-shopping"
+                            >
+                                Continue Shopping
+                            </a>
+
+                        </div>
+
+                    `;
+
+                    return;
+
+                }
+
+
+                let subtotal = 0;
+
+                cart.forEach(function (item) {
+
+                    subtotal +=
+                        Number(item.price) *
+                        Number(item.quantity);
+
+                });
+
+
+                const delivery =
+                    subtotal >= 5000 ? 0 : 250;
+
+                const total =
+                    subtotal + delivery;
+
+
+                let itemsHTML = "";
+
+
+                cart.forEach(function (item) {
+
+                    itemsHTML += `
+
+                        <div class="order-summary-item">
+
+                            <span>
+                                ${item.name}
+                                × ${item.quantity}
+                            </span>
+
+                            <span>
+                                ${formatPrice(
+                                    Number(item.price) *
+                                    Number(item.quantity)
+                                )}
+                            </span>
+
+                        </div>
+
+                    `;
+
+                });
+
+
+                checkoutContent.innerHTML = `
+
+                    <div class="login-notice">
+
+                        <i class="fa-solid fa-circle-info"></i>
+
+                        Already have a Meteur account?
+
+                        <a href="login.html">
+                            Log in
+                        </a>
+
+                        for a faster checkout.
+
+                    </div>
+
+
+                    <div class="checkout-layout">
+
+
+                        <div>
+
+
+                            <!-- DELIVERY DETAILS -->
+                            <section class="checkout-box">
+
+                                <h2>
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    Delivery Information
+                                </h2>
+
+
+                                <form id="checkoutForm">
+
+                                    <div class="form-grid">
+
+
+                                        <div class="form-group">
+
+                                            <label>
+                                                First Name
+                                                <span class="required">*</span>
+                                            </label>
+
+                                            <input
+                                                type="text"
+                                                name="firstName"
+                                                placeholder="First name"
+                                                required
+                                            >
+
+                                        </div>
+
+
+                                        <div class="form-group">
+
+                                            <label>
+                                                Last Name
+                                                <span class="required">*</span>
+                                            </label>
+
+                                            <input
+                                                type="text"
+                                                name="lastName"
+                                                placeholder="Last name"
+                                                required
+                                            >
+
+                                        </div>
+
+
+                                        <div class="form-group">
+
+                                            <label>
+                                                Phone Number
+                                                <span class="required">*</span>
+                                            </label>
+
+                                            <input
+                                                type="tel"
+                                                name="phone"
+                                                placeholder="07XXXXXXXX"
+                                                required
+                                            >
+
+                                        </div>
+
+
+                                        <div class="form-group">
+
+                                            <label>
+                                                Email Address
+                                                <span class="required">*</span>
+                                            </label>
+
+                                            <input
+                                                type="email"
+                                                name="email"
+                                                placeholder="you@example.com"
+                                                required
+                                            >
+
+                                        </div>
+
+
+                                        <div class="form-group">
+
+                                            <label>
+                                                County
+                                                <span class="required">*</span>
+                                            </label>
+
+                                            <select
+                                                name="county"
+                                                required
+                                            >
+
+                                                <option value="">
+                                                    Select County
+                                                </option>
+
+                                                <option>
+                                                    Nairobi
+                                                </option>
+
+                                                <option>
+                                                    Kirinyaga
+                                                </option>
+
+                                                <option>
+                                                    Kiambu
+                                                </option>
+
+                                                <option>
+                                                    Murang'a
+                                                </option>
+
+                                                <option>
+                                                    Nakuru
+                                                </option>
+
+                                                <option>
+                                                    Mombasa
+                                                </option>
+
+                                                <option>
+                                                    Kisumu
+                                                </option>
+
+                                                <option>
+                                                    Uasin Gishu
+                                                </option>
+
+                                                <option>
+                                                    Kakamega
+                                                </option>
+
+                                                <option>
+                                                    Bungoma
+                                                </option>
+
+                                                <option>
+                                                    Meru
+                                                </option>
+
+                                                <option>
+                                                    Nyeri
+                                                </option>
+
+                                                <option>
+                                                    Machakos
+                                                </option>
+
+                                                <option>
+                                                    Kajiado
+                                                </option>
+
+                                                <option>
+                                                    Other
+                                                </option>
+
+                                            </select>
+
+                                        </div>
+
+
+                                        <div class="form-group">
+
+                                            <label>
+                                                Town / City
+                                                <span class="required">*</span>
+                                            </label>
+
+                                            <input
+                                                type="text"
+                                                name="town"
+                                                placeholder="Town or city"
+                                                required
+                                            >
+
+                                        </div>
+
+
+                                        <div class="form-group full">
+
+                                            <label>
+                                                Delivery Address
+                                                <span class="required">*</span>
+                                            </label>
+
+                                            <input
+                                                type="text"
+                                                name="address"
+                                                placeholder="Building, street, estate or landmark"
+                                                required
+                                            >
+
+                                        </div>
+
+
+                                        <div class="form-group full">
+
+                                            <label>
+                                                Additional Delivery Instructions
+                                            </label>
+
+                                            <textarea
+                                                name="instructions"
+                                                placeholder="Optional instructions for the delivery team"
+                                            ></textarea>
+
+                                        </div>
+
+                                    </div>
+
+                                </form>
+
+                            </section>
+
+
+                            <!-- PAYMENT -->
+                            <section class="checkout-box">
+
+                                <h2>
+                                    <i class="fa-solid fa-credit-card"></i>
+                                    Payment Method
+                                </h2>
+
+
+                                <div class="payment-options">
+
+
+                                    <label class="payment-option">
+
+                                        <input
+                                            type="radio"
+                                            name="paymentMethod"
+                                            value="mpesa"
+                                            checked
+                                        >
+
+                                        <i class="fa-solid fa-mobile-screen-button"></i>
+
+                                        <div>
+
+                                            <strong>
+                                                M-Pesa
+                                            </strong>
+
+                                            <span>
+                                                Pay securely using your Safaricom M-Pesa number.
+                                            </span>
+
+                                        </div>
+
+                                    </label>
+
+
+                                    <label class="payment-option">
+
+                                        <input
+                                            type="radio"
+                                            name="paymentMethod"
+                                            value="cash"
+                                        >
+
+                                        <i class="fa-solid fa-money-bill"></i>
+
+                                        <div>
+
+                                            <strong>
+                                                Cash on Delivery
+                                            </strong>
+
+                                            <span>
+                                                Availability may depend on delivery location.
+                                            </span>
+
+                                        </div>
+
+                                    </label>
+
+                                </div>
+
+
+                                <div class="mpesa-note">
+
+                                    <i class="fa-solid fa-circle-info"></i>
+
+                                    M-Pesa payment will be connected to the
+                                    secure payment service during the production
+                                    integration stage. Do not enter payment PINs
+                                    or other confidential credentials on this page.
+
+                                </div>
+
+                            </section>
+
+                        </div>
+
+
+                        <!-- ORDER SUMMARY -->
+                        <aside class="order-summary-box">
+
+                            <h2>
+                                Order Summary
+                            </h2>
+
+
+                            ${itemsHTML}
+
+
+                            <div class="order-summary-item">
+
+                                <span>
+                                    Subtotal
+                                </span>
+
+                                <span>
+                                    ${formatPrice(subtotal)}
+                                </span>
+
+                            </div>
+
+
+                            <div class="order-summary-item">
+
+                                <span>
+                                    Delivery
+                                </span>
+
+                                <span>
+                                    ${
+                                        delivery === 0
+                                        ? "FREE"
+                                        : formatPrice(delivery)
+                                    }
+                                </span>
+
+                            </div>
+
+
+                            <div class="summary-total">
+
+                                <span>
+                                    Total
+                                </span>
+
+                                <span>
+                                    ${formatPrice(total)}
+                                </span>
+
+                            </div>
+
+
+                            <button
+                                type="button"
+                                class="place-order-button"
+                                id="placeOrderButton"
+                            >
+                                Continue to Payment
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+
+
+                            <div class="checkout-security">
+
+                                <i class="fa-solid fa-shield-halved"></i>
+
+                                <span>
+                                    Your checkout details are protected.
+                                    Never share your M-Pesa PIN with anyone.
+                                </span>
+
+                            </div>
+
+                        </aside>
+
+                    </div>
+
+                `;
+
+
+                const checkoutForm =
+                    document.getElementById("checkoutForm");
+
+                const placeOrderButton =
+                    document.getElementById("placeOrderButton");
+
+
+                placeOrderButton.addEventListener(
+                    "click",
+                    function () {
+
+                        if (!checkoutForm.checkValidity()) {
+
+                            checkoutForm.reportValidity();
+
+                            return;
+
+                        }
+
+
+                        const paymentMethod =
+                            document.querySelector(
+                                'input[name="paymentMethod"]:checked'
+                            );
+
+
+                        if (!paymentMethod) {
+
+                            alert(
+                                "Please select a payment method."
+                            );
+
+                            return;
+
+                        }
+
+
+                        if (paymentMethod.value === "mpesa") {
+
+                            alert(
+                                "M-Pesa payment connection will be activated after the secure Daraja backend integration is configured."
+                            );
+
+                            return;
+
+                        }
+
+
+                        if (paymentMethod.value === "cash") {
+
+                            alert(
+                                "Cash on Delivery is currently prepared as a checkout option. Order processing will be connected to the customer account system."
+                            );
+
+                        }
+
+                    }
+                );
+
+            }
+
+
+            renderCheckout();
+
+        });
+
+    </script>
+
+</body>
+</html>

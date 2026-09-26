@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Sellers - Meteur Online Shopping</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f6f6f6;
+            color: #222;
+        }
+
+        header {
+            background: #f68b1e;
+            color: white;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .header-actions a,
+        .header-actions button {
+            border: none;
+            background: white;
+            color: #f68b1e;
+            padding: 10px 14px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 18px;
+        }
+
+        .page-title {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .page-title h2 {
+            margin: 0 0 8px;
+        }
+
+        .page-title p {
+            margin: 0;
+            color: #666;
+        }
+
+        .message {
+            display: none;
+            padding: 14px;
+            border-radius: 7px;
+            margin-bottom: 20px;
+            background: #fff3cd;
+            color: #664d03;
+        }
+
+        .seller-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .seller-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .seller-card h3 {
+            margin: 0 0 8px;
+            color: #f68b1e;
+        }
+
+        .seller-card p {
+            margin: 8px 0;
+            line-height: 1.5;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-approved {
+            background: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .status-rejected {
+            background: #f8d7da;
+            color: #842029;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 18px;
+            flex-wrap: wrap;
+        }
+
+        .actions button {
+            border: none;
+            padding: 10px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .approve-btn {
+            background: #198754;
+            color: white;
+        }
+
+        .reject-btn {
+            background: #dc3545;
+            color: white;
+        }
+
+        .pending-btn {
+            background: #ffc107;
+            color: #222;
+        }
+
+        .empty {
+            background: white;
+            padding: 40px;
+            text-align: center;
+            border-radius: 10px;
+            color: #666;
+        }
+
+        .loading {
+            background: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-actions {
+                width: 100%;
+            }
+
+            .header-actions a,
+            .header-actions button {
+                flex: 1;
+                text-align: center;
+            }
+
+            main {
+                margin-top: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Meteur Online Shopping — Admin</h1>
+
+    <div class="header-actions">
+        <a href="admin-dashboard.html">Dashboard</a>
+        <a href="index.html">View Store</a>
+        <button id="logoutBtn">Logout</button>
+    </div>
+</header>
+
+<main>
+
+    <section class="page-title">
+        <h2>Seller Management</h2>
+        <p>Review seller applications and manage seller approval status.</p>
+    </section>
+
+    <div id="message" class="message"></div>
+
+    <div id="loading" class="loading">
+        Loading seller applications...
+    </div>
+
+    <div id="sellerGrid" class="seller-grid"></div>
+
+</main>
+
+<script>
+    const message = document.getElementById("message");
+    const loading = document.getElementById("loading");
+    const sellerGrid = document.getElementById("sellerGrid");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    function escapeHtml(value) {
+        return String(value ?? "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+    function showMessage(text) {
+        message.textContent = text;
+        message.style.display = "block";
+    }
+
+    function hideMessage() {
+        message.style.display = "none";
+    }
+
+    function getStatusClass(status) {
+        const cleanStatus = String(status || "").toLowerCase();
+
+        if (cleanStatus === "approved") {
+            return "status-approved";
+        }
+
+        if (cleanStatus === "rejected") {
+            return "status-rejected";
+        }
+
+        return "status-pending";
+    }
+
+    async function checkAdmin() {
+        const {
+            data: { user },
+            error: authError
+        } = await supabaseClient.auth.getUser();
+
+        if (authError || !user) {
+            window.location.href = "login.html?redirect=admin-sellers.html";
+            return null;
+        }
+
+        const { data: admin, error: adminError } = await supabaseClient
+            .from("admins")
+            .select("*")
+            .eq("user_id", user.id)
+            .eq("status", "Active")
+            .maybeSingle();
+
+        if (adminError || !admin) {
+            document.body.innerHTML = `
+                <main style="max-width:700px;margin:80px auto;padding:20px;text-align:center;">
+                    <h2>Administrator Access Required</h2>
+                    <p>Your account does not have active administrator access.</p>
+                    <a href="index.html">Back to Store</a>
+                </main>
+            `;
+            return null;
+        }
+
+        return admin;
+    }
+
+    async function loadSellers() {
+        loading.style.display = "block";
+        sellerGrid.innerHTML = "";
+        hideMessage();
+
+        const {
+            data: sellers,
+            error
+        } = await supabaseClient
+            .from("sellers")
+            .select("*")
+            .order("created_at", { ascending: false });
+
+        loading.style.display = "none";
+
+        if (error) {
+            console.error(error);
+            showMessage(
+                "Seller applications could not be loaded. Admin database permissions need to be configured."
+            );
+            return;
+        }
+
+        if (!sellers || sellers.length === 0) {
+            sellerGrid.innerHTML = `
+                <div class="empty">
+                    <h3>No seller applications yet</h3>
+                    <p>Seller applications will appear here when users register as sellers.</p>
+                </div>
+            `;
+            return;
+        }
+
+        sellerGrid.innerHTML = sellers.map(seller => {
+            const status = seller.status || "Pending";
+            const statusClass = getStatusClass(status);
+
+            return `
+                <article class="seller-card">
+
+                    <h3>${escapeHtml(seller.store_name)}</h3>
+
+                    <p>
+                        <span class="label">Status:</span>
+                        <span class="status ${statusClass}">
+                            ${escapeHtml(status)}
+                        </span>
+                    </p>
+
+                    <p>
+                        <span class="label">Owner:</span>
+                        ${escapeHtml(seller.owner_name)}
+                    </p>
+
+                    <p>
+                        <span class="label">Email:</span>
+                        ${escapeHtml(seller.email)}
+                    </p>
+
+                    <p>
+                        <span class="label">Phone:</span>
+                        ${escapeHtml(seller.phone)}
+                    </p>
+
+                    <p>
+                        <span class="label">County:</span>
+                        ${escapeHtml(seller.county || "Not provided")}
+                    </p>
+
+                    <p>
+                        <span class="label">Town:</span>
+                        ${escapeHtml(seller.town || "Not provided")}
+                    </p>
+
+                    <p>
+                        <span class="label">Address:</span>
+                        ${escapeHtml(seller.address || "Not provided")}
+                    </p>
+
+                    <p>
+                        <span class="label">Description:</span>
+                        ${escapeHtml(seller.description || "No description provided")}
+                    </p>
+
+                    <p>
+                        <span class="label">Application date:</span>
+                        ${seller.created_at
+                            ? new Date(seller.created_at).toLocaleString()
+                            : "Unknown"}
+                    </p>
+
+                    <div class="actions">
+                        <button
+                            class="approve-btn"
+                            onclick="updateSellerStatus('${seller.id}', 'Approved')">
+                            Approve
+                        </button>
+
+                        <button
+                            class="reject-btn"
+                            onclick="updateSellerStatus('${seller.id}', 'Rejected')">
+                            Reject
+                        </button>
+
+                        <button
+                            class="pending-btn"
+                            onclick="updateSellerStatus('${seller.id}', 'Pending')">
+                            Pending
+                        </button>
+                    </div>
+
+                </article>
+            `;
+        }).join("");
+    }
+
+    async function updateSellerStatus(sellerId, newStatus) {
+        const confirmed = confirm(
+            `Change this seller status to ${newStatus}?`
+        );
+
+        if (!confirmed) {
+            return;
+        }
+
+        hideMessage();
+
+        const {
+            error
+        } = await supabaseClient
+            .from("sellers")
+            .update({
+                status: newStatus,
+                updated_at: new Date().toISOString()
+            })
+            .eq("id", sellerId);
+
+        if (error) {
+            console.error(error);
+
+            showMessage(
+                "Seller status could not be changed. Admin update permissions need to be configured."
+            );
+
+            return;
+        }
+
+        showMessage(`Seller status changed to ${newStatus}.`);
+
+        await loadSellers();
+    }
+
+    logoutBtn.addEventListener("click", async () => {
+        await supabaseClient.auth.signOut();
+        window.location.href = "login.html";
+    });
+
+    async function init() {
+        const admin = await checkAdmin();
+
+        if (!admin) {
+            return;
+        }
+
+        await loadSellers();
+    }
+
+    init();
+</script>
+
+</body>
+</html>

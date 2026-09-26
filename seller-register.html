@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Become a Seller | Meteur Online Shopping</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f7f7f7;
+            color: #222;
+        }
+
+        header {
+            background: #f97316;
+            color: white;
+            padding: 18px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .back-link {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .hero h1 {
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 14px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .section-title {
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: #f97316;
+        }
+
+        textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            border: none;
+            background: #f97316;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 25px;
+        }
+
+        .submit-btn:hover {
+            background: #ea580c;
+        }
+
+        .submit-btn:disabled {
+            background: #aaa;
+            cursor: not-allowed;
+        }
+
+        .message {
+            margin-top: 18px;
+            padding: 14px;
+            border-radius: 8px;
+            display: none;
+            line-height: 1.5;
+        }
+
+        .success {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .info {
+            background: #fff7ed;
+            color: #9a3412;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 700px) {
+            header {
+                padding: 16px 20px;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            main {
+                margin: 25px auto;
+            }
+
+            .hero h1 {
+                font-size: 27px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .field.full {
+                grid-column: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">Meteur</div>
+    <a class="back-link" href="index.html">Back to Shopping</a>
+</header>
+
+<main>
+
+    <section class="hero">
+        <h1>Become a Seller</h1>
+        <p>
+            Start selling your products to customers through Meteur Online Shopping.
+        </p>
+    </section>
+
+    <div class="card">
+
+        <div class="info">
+            Your seller application will be created with a <strong>Pending</strong>
+            status. Seller approval and seller tools will be managed through the
+            Meteur seller and admin systems.
+        </div>
+
+        <h2 class="section-title">Seller Information</h2>
+
+        <form id="sellerForm">
+
+            <div class="form-grid">
+
+                <div class="field">
+                    <label for="storeName">Store Name</label>
+                    <input
+                        type="text"
+                        id="storeName"
+                        placeholder="Your store name"
+                        required
+                    >
+                </div>
+
+                <div class="field">
+                    <label for="ownerName">Owner Name</label>
+                    <input
+                        type="text"
+                        id="ownerName"
+                        placeholder="Your full name"
+                        required
+                    >
+                </div>
+
+                <div class="field">
+                    <label for="phone">Phone Number</label>
+                    <input
+                        type="tel"
+                        id="phone"
+                        placeholder="07XXXXXXXX"
+                        required
+                    >
+                </div>
+
+                <div class="field">
+                    <label for="email">Email Address</label>
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Your email"
+                        required
+                    >
+                </div>
+
+                <div class="field">
+                    <label for="county">County</label>
+                    <input
+                        type="text"
+                        id="county"
+                        placeholder="Your county"
+                    >
+                </div>
+
+                <div class="field">
+                    <label for="town">Town</label>
+                    <input
+                        type="text"
+                        id="town"
+                        placeholder="Your town"
+                    >
+                </div>
+
+                <div class="field full">
+                    <label for="address">Business Address</label>
+                    <input
+                        type="text"
+                        id="address"
+                        placeholder="Business or operating address"
+                    >
+                </div>
+
+                <div class="field full">
+                    <label for="description">Store Description</label>
+                    <textarea
+                        id="description"
+                        placeholder="Tell customers about your store and products"
+                    ></textarea>
+                </div>
+
+            </div>
+
+            <button
+                type="submit"
+                class="submit-btn"
+                id="submitBtn"
+            >
+                Submit Seller Application
+            </button>
+
+        </form>
+
+        <div id="message" class="message"></div>
+
+    </div>
+
+</main>
+
+<script>
+
+    const form = document.getElementById("sellerForm");
+    const submitBtn = document.getElementById("submitBtn");
+    const message = document.getElementById("message");
+
+    function showMessage(text, type) {
+        message.textContent = text;
+        message.className = "message " + type;
+        message.style.display = "block";
+    }
+
+    async function loadUser() {
+
+        const {
+            data: { user },
+            error
+        } = await supabaseClient.auth.getUser();
+
+        if (error || !user) {
+            window.location.href =
+                "login.html?redirect=seller-register.html";
+            return null;
+        }
+
+        return user;
+    }
+
+    async function checkExistingSeller(user) {
+
+        const {
+            data,
+            error
+        } = await supabaseClient
+            .from("sellers")
+            .select("id, status, store_name")
+            .eq("user_id", user.id)
+            .maybeSingle();
+
+        if (error) {
+            console.error("Seller lookup error:", error);
+            return;
+        }
+
+        if (data) {
+
+            showMessage(
+                `You already have a seller application for "${data.store_name}". Current status: ${data.status}.`,
+                "info"
+            );
+
+            submitBtn.disabled = true;
+        }
+    }
+
+    async function initializePage() {
+
+        const user = await loadUser();
+
+        if (!user) {
+            return;
+        }
+
+        document.getElementById("email").value = user.email || "";
+
+        const firstName =
+            user.user_metadata?.first_name || "";
+
+        const lastName =
+            user.user_metadata?.last_name || "";
+
+        const fullName =
+            `${firstName} ${lastName}`.trim();
+
+        if (fullName) {
+            document.getElementById("ownerName").value = fullName;
+        }
+
+        const phone =
+            user.user_metadata?.phone || "";
+
+        if (phone) {
+            document.getElementById("phone").value = phone;
+        }
+
+        await checkExistingSeller(user);
+    }
+
+    form.addEventListener("submit", async function(event) {
+
+        event.preventDefault();
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Submitting...";
+
+        message.style.display = "none";
+
+        try {
+
+            const {
+                data: { user },
+                error: userError
+            } = await supabaseClient.auth.getUser();
+
+            if (userError || !user) {
+
+                window.location.href =
+                    "login.html?redirect=seller-register.html";
+
+                return;
+            }
+
+            const storeName =
+                document.getElementById("storeName").value.trim();
+
+            const ownerName =
+                document.getElementById("ownerName").value.trim();
+
+            const phone =
+                document.getElementById("phone").value.trim();
+
+            const email =
+                document.getElementById("email").value.trim();
+
+            const county =
+                document.getElementById("county").value.trim();
+
+            const town =
+                document.getElementById("town").value.trim();
+
+            const address =
+                document.getElementById("address").value.trim();
+
+            const description =
+                document.getElementById("description").value.trim();
+
+            if (!storeName || !ownerName || !phone || !email) {
+
+                showMessage(
+                    "Please complete all required fields.",
+                    "error"
+                );
+
+                submitBtn.disabled = false;
+                submitBtn.textContent =
+                    "Submit Seller Application";
+
+                return;
+            }
+
+            const {
+                data: existingSeller,
+                error: existingError
+            } = await supabaseClient
+                .from("sellers")
+                .select("id")
+                .eq("user_id", user.id)
+                .maybeSingle();
+
+            if (existingError) {
+                throw existingError;
+            }
+
+            if (existingSeller) {
+
+                showMessage(
+                    "You already have a seller application.",
+                    "error"
+                );
+
+                submitBtn.disabled = true;
+                submitBtn.textContent =
+                    "Application Already Submitted";
+
+                return;
+            }
+
+            const {
+                error: insertError
+            } = await supabaseClient
+                .from("sellers")
+                .insert({
+                    user_id: user.id,
+                    store_name: storeName,
+                    owner_name: ownerName,
+                    phone: phone,
+                    email: email,
+                    county: county,
+                    town: town,
+                    address: address,
+                    description: description,
+                    status: "Pending"
+                });
+
+            if (insertError) {
+                throw insertError;
+            }
+
+            showMessage(
+                "Seller application submitted successfully. Your application is now Pending.",
+                "success"
+            );
+
+            form.reset();
+
+            document.getElementById("email").value =
+                user.email || "";
+
+            submitBtn.textContent =
+                "Application Submitted";
+
+        } catch (error) {
+
+            console.error("Seller registration error:", error);
+
+            showMessage(
+                error.message ||
+                "Unable to submit seller application.",
+                "error"
+            );
+
+            submitBtn.disabled = false;
+            submitBtn.textContent =
+                "Submit Seller Application";
+        }
+
+    });
+
+    initializePage();
+
+</script>
+
+</body>
+</html>

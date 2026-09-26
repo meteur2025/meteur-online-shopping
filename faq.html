@@ -6,86 +6,134 @@
 
     <title>FAQ - Meteur Online Shopping</title>
 
-    <meta name="description"
-          content="Frequently asked questions about Meteur Online Shopping.">
-
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
     <link rel="stylesheet" href="style.css">
 
     <style>
         .faq-page {
-            min-height: 70vh;
-            padding: 40px 20px;
-            background: #f5f5f5;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 30px 20px 60px;
         }
 
-        .faq-container {
-            max-width: 900px;
-            margin: auto;
-        }
-
-        .faq-header {
-            background: linear-gradient(135deg, #ff7900, #ff9900);
-            color: white;
-            text-align: center;
-            padding: 50px 20px;
+        .faq-hero {
+            min-height: 300px;
             border-radius: 12px;
-            margin-bottom: 30px;
+            overflow: hidden;
+            margin-bottom: 40px;
+            background-image:
+                url("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1500&q=85");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
         }
 
-        .faq-header i {
-            font-size: 50px;
-            margin-bottom: 15px;
+        .faq-hero-content {
+            width: 100%;
+            padding: 50px;
+            color: white;
+            background: rgba(0, 0, 0, 0.58);
         }
 
-        .faq-header h1 {
-            font-size: 36px;
-            margin-bottom: 10px;
+        .faq-hero h1 {
+            margin: 0 0 12px;
+            font-size: 40px;
         }
 
-        .faq-header p {
-            max-width: 650px;
-            margin: auto;
+        .faq-hero p {
+            max-width: 700px;
+            margin: 0;
+            font-size: 17px;
             line-height: 1.7;
         }
 
-        .faq-list {
+        .faq-search {
+            background: white;
+            padding: 22px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            margin-bottom: 35px;
+        }
+
+        .faq-search label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .faq-search-box {
             display: flex;
-            flex-direction: column;
-            gap: 12px;
+            gap: 10px;
+        }
+
+        .faq-search-box input {
+            flex: 1;
+            padding: 13px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .faq-search-box input:focus {
+            border-color: #f4511e;
+        }
+
+        .faq-search-box button {
+            border: none;
+            background: #f4511e;
+            color: white;
+            padding: 13px 22px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .faq-search-box button:hover {
+            background: #d84315;
+        }
+
+        .faq-section {
+            margin-bottom: 40px;
+        }
+
+        .faq-section h2 {
+            margin-bottom: 18px;
+            font-size: 26px;
         }
 
         .faq-item {
             background: white;
             border-radius: 8px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
 
         .faq-question {
             width: 100%;
             border: none;
             background: white;
-            padding: 20px;
+            padding: 19px 20px;
+            text-align: left;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            text-align: left;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            color: #222;
+            gap: 15px;
         }
 
         .faq-question:hover {
-            color: #ff7900;
+            background: #fff8f4;
         }
 
-        .faq-question i {
-            color: #ff7900;
-            transition: transform 0.3s ease;
+        .faq-icon {
+            color: #f4511e;
+            font-size: 22px;
+            min-width: 22px;
+            text-align: center;
         }
 
         .faq-answer {
@@ -95,57 +143,79 @@
             line-height: 1.7;
         }
 
-        .faq-item.active .faq-answer {
+        .faq-answer.open {
             display: block;
         }
 
-        .faq-item.active .faq-question i {
-            transform: rotate(180deg);
+        .faq-answer p {
+            margin: 0;
         }
 
-        .faq-contact {
-            background: white;
-            margin-top: 30px;
-            padding: 30px;
-            text-align: center;
-            border-radius: 10px;
-        }
-
-        .faq-contact h2 {
-            margin-bottom: 10px;
-        }
-
-        .faq-contact p {
-            color: #666;
-            margin-bottom: 18px;
-        }
-
-        .faq-contact a {
-            display: inline-block;
-            background: #ff7900;
-            color: white;
+        .faq-answer a {
+            color: #f4511e;
+            font-weight: bold;
             text-decoration: none;
-            padding: 12px 25px;
+        }
+
+        .no-results {
+            display: none;
+            background: #fff3ed;
+            padding: 20px;
+            border-radius: 8px;
+            color: #666;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .faq-cta {
+            margin-top: 45px;
+            padding: 35px;
+            border-radius: 12px;
+            background: #f4511e;
+            color: white;
+            text-align: center;
+        }
+
+        .faq-cta h2 {
+            margin: 0 0 10px;
+        }
+
+        .faq-cta p {
+            margin: 0 auto 20px;
+            max-width: 650px;
+            line-height: 1.6;
+        }
+
+        .faq-cta a {
+            display: inline-block;
+            padding: 12px 24px;
+            background: white;
+            color: #f4511e;
             border-radius: 6px;
+            text-decoration: none;
             font-weight: bold;
         }
 
-        .faq-contact a:hover {
-            background: #e66d00;
-        }
-
         @media (max-width: 600px) {
-            .faq-page {
-                padding: 25px 12px;
+            .faq-hero-content {
+                padding: 30px 20px;
             }
 
-            .faq-header h1 {
+            .faq-hero h1 {
                 font-size: 30px;
             }
 
+            .faq-search-box {
+                flex-direction: column;
+            }
+
+            .faq-search-box button {
+                width: 100%;
+            }
+
             .faq-question {
-                padding: 17px;
                 font-size: 15px;
+                padding: 16px;
             }
         }
     </style>
@@ -153,240 +223,827 @@
 
 <body>
 
-<div class="faq-page">
+<header>
+    <div class="container">
 
-    <div class="faq-container">
+        <div class="top-bar">
 
-        <div class="faq-header">
+            <div class="logo">
+                <a href="index.html">🛒 Meteur</a>
+            </div>
 
-            <i class="fas fa-circle-question"></i>
+            <div class="search-box">
 
-            <h1>Frequently Asked Questions</h1>
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search products..."
+                >
+
+                <button onclick="searchProducts()">
+                    Search
+                </button>
+
+            </div>
+
+            <div class="header-actions">
+
+                <a href="login.html">
+                    Account
+                </a>
+
+                <a href="wishlist.html">
+                    ♡ Wishlist
+                </a>
+
+                <a href="cart.html">
+                    🛒 Cart (<span id="cartCount">0</span>)
+                </a>
+
+            </div>
+
+        </div>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="shop.html">Shop</a>
+            <a href="categories.html">Categories</a>
+            <a href="deals.html">Deals</a>
+            <a href="new-arrivals.html">New Arrivals</a>
+            <a href="sell.html">Sell on Meteur</a>
+        </nav>
+
+    </div>
+</header>
+
+
+<main class="faq-page">
+
+    <section class="faq-hero">
+
+        <div class="faq-hero-content">
+
+            <h1>
+                Frequently Asked Questions
+            </h1>
 
             <p>
                 Find answers to common questions about shopping,
-                orders, delivery, payments, and returns at Meteur.
+                accounts, orders, delivery, payments and returns
+                on Meteur Online Shopping.
             </p>
 
         </div>
 
-        <div class="faq-list">
+    </section>
 
-            <div class="faq-item">
 
-                <button class="faq-question">
+    <section class="faq-search">
 
-                    <span>How do I place an order?</span>
+        <label for="faqSearch">
+            Search frequently asked questions
+        </label>
 
-                    <i class="fas fa-chevron-down"></i>
+        <div class="faq-search-box">
 
-                </button>
+            <input
+                type="text"
+                id="faqSearch"
+                placeholder="Example: How do I track my order?"
+            >
 
-                <div class="faq-answer">
+            <button onclick="searchFAQ()">
+                Search FAQ
+            </button>
 
-                    Browse our products, select the product you want,
-                    add it to your shopping cart, and proceed to checkout.
-                    Follow the checkout instructions to complete your order.
+        </div>
 
-                </div>
+    </section>
 
-            </div>
 
-            <div class="faq-item">
+    <div
+        class="no-results"
+        id="noResults"
+    >
+        No FAQ matched your search. Try different keywords or
+        <a href="contact.html">contact us</a>.
+    </div>
 
-                <button class="faq-question">
 
-                    <span>Can I shop without creating an account?</span>
+    <!-- SHOPPING -->
 
-                    <i class="fas fa-chevron-down"></i>
+    <section class="faq-section">
 
-                </button>
+        <h2>
+            🛍️ Shopping
+        </h2>
 
-                <div class="faq-answer">
 
-                    You can browse products without an account.
-                    Customer account features can be used to manage
-                    your orders, profile, wishlist, and delivery information.
+        <div class="faq-item">
 
-                </div>
+            <button
+                class="faq-question"
+                onclick="toggleFAQ(this)"
+            >
+                How do I shop on Meteur?
+                <span class="faq-icon">+</span>
+            </button>
 
-            </div>
+            <div class="faq-answer">
 
-            <div class="faq-item">
-
-                <button class="faq-question">
-
-                    <span>What products can I buy from Meteur?</span>
-
-                    <i class="fas fa-chevron-down"></i>
-
-                </button>
-
-                <div class="faq-answer">
-
-                    Meteur Online Shopping features categories such as
-                    electronics, phones and tablets, fashion, shoes,
-                    beauty, home appliances, computing, groceries,
-                    and accessories.
-
-                </div>
-
-            </div>
-
-            <div class="faq-item">
-
-                <button class="faq-question">
-
-                    <span>Do you offer delivery?</span>
-
-                    <i class="fas fa-chevron-down"></i>
-
-                </button>
-
-                <div class="faq-answer">
-
-                    Yes. Delivery information is provided during the
-                    checkout process. Delivery charges may depend on
-                    the order and delivery location.
-
-                </div>
-
-            </div>
-
-            <div class="faq-item">
-
-                <button class="faq-question">
-
-                    <span>Can I add products to a wishlist?</span>
-
-                    <i class="fas fa-chevron-down"></i>
-
-                </button>
-
-                <div class="faq-answer">
-
-                    Yes. Use the wishlist button on supported products
-                    to save products you may want to purchase later.
-
-                </div>
-
-            </div>
-
-            <div class="faq-item">
-
-                <button class="faq-question">
-
-                    <span>How can I contact customer support?</span>
-
-                    <i class="fas fa-chevron-down"></i>
-
-                </button>
-
-                <div class="faq-answer">
-
-                    You can contact Meteur Online Shopping using:
-
-                    <br><br>
-
-                    Phone: 0711842260
-
-                    <br>
-
-                    Email: daghlusmeteur@gmail.com
-
-                </div>
-
-            </div>
-
-            <div class="faq-item">
-
-                <button class="faq-question">
-
-                    <span>How do I request help with an order?</span>
-
-                    <i class="fas fa-chevron-down"></i>
-
-                </button>
-
-                <div class="faq-answer">
-
-                    Contact customer support and provide your order
-                    information and the issue you are experiencing.
-                    Our support team can then assist you.
-
-                </div>
-
-            </div>
-
-            <div class="faq-item">
-
-                <button class="faq-question">
-
-                    <span>Can products be returned?</span>
-
-                    <i class="fas fa-chevron-down"></i>
-
-                </button>
-
-                <div class="faq-answer">
-
-                    Return eligibility depends on the applicable
-                    product and Meteur's return policy. Contact
-                    customer support for assistance with a return request.
-
-                </div>
+                <p>
+                    Browse products from the homepage, shop page or
+                    categories page. Select a product to view its details,
+                    add it to your cart, and continue to checkout when
+                    you are ready to place your order.
+                </p>
 
             </div>
 
         </div>
 
-        <div class="faq-contact">
 
-            <h2>Still Need Help?</h2>
+        <div class="faq-item">
 
-            <p>
-                Our customer support team is available to help
-                with your shopping questions.
-            </p>
+            <button
+                class="faq-question"
+                onclick="toggleFAQ(this)"
+            >
+                Can I search for a product?
+                <span class="faq-icon">+</span>
+            </button>
 
-            <a href="contact.html">
-                <i class="fas fa-headset"></i>
-                Contact Us
-            </a>
+            <div class="faq-answer">
+
+                <p>
+                    Yes. Use the search box at the top of the website
+                    to search for products and browse the available
+                    results.
+                </p>
+
+            </div>
 
         </div>
+
+
+        <div class="faq-item">
+
+            <button
+                class="faq-question"
+                onclick="toggleFAQ(this)"
+            >
+                How do I add a product to my cart?
+                <span class="faq-icon">+</span>
+            </button>
+
+            <div class="faq-answer">
+
+                <p>
+                    Open a product page and select
+                    <strong>Add to Cart</strong>. You can then open
+                    your cart to review the products before checkout.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ACCOUNT -->
+
+    <section class="faq-section">
+
+        <h2>
+            👤 Account
+        </h2>
+
+
+        <div class="faq-item">
+
+            <button
+                class="faq-question"
+                onclick="toggleFAQ(this)"
+            >
+                Do I need an account to shop?
+                <span class="faq-icon">+</span>
+            </button>
+
+            <div class="faq-answer">
+
+                <p>
+                    An account allows you to access customer features
+                    such as your dashboard, profile, orders and other
+                    account services.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="faq-item">
+
+            <button
+                class="faq-question"
+                onclick="toggleFAQ(this)"
+            >
+                How do I create an account?
+                <span class="faq-icon">+</span>
+            </button>
+
+            <div class="faq-answer">
+
+                <p>
+                    Visit the
+                    <a href="register.html">Create Account</a>
+                    page and enter the required information. You will
+                    be asked to verify your email address.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="faq-item">
+
+            <button
+                class="faq-question"
+                onclick="toggleFAQ(this)"
+            >
+                I forgot my password. What should I do?
+                <span class="faq-icon">+</span>
+            </button>
+
+            <div class="faq-answer">
+
+                <p>
+                    Go to the
+                    <a href="forgot-password.html">Forgot Password</a>
+                    page and enter your registered email address to
+                    start the password recovery process.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ORDERS -->
+
+    <section class="faq-section">
+
+        <h2>
+            📦 Orders
+        </h2>
+
+
+        <div class="faq-item">
+
+            <button
+                class="faq-question"
+                onclick="toggleFAQ(this)"
+            >
+                How can I view my orders?
+                <span class="faq-icon">+</span>
+            </button>
+
+            <div class="faq-answer">
+
+                <p>
+                    Sign in to your customer account and open the
+                    <a href="orders.html">Orders</a> section to view
+                    your order information.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="faq-item">
+
+            <button
+                class="faq-question"
+                onclick="toggleFAQ(this)"
+            >
+                How can I track my order?
+                <span class="faq-icon">+</span>
+            </button>
+
+            <div class="faq-answer">
+
+                <p>
+                    Visit the
+                    <a href="track-order.html">Track Order</a>
+                    page and follow the available instructions for
+                    checking your order status.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="faq-item">
+
+            <button
+                class="faq-question"
+                onclick="toggleFAQ(this)"
+            >
+                Can I cancel an order?
+                <span class="faq-icon">+</span>
+            </button>
+
+            <div class="faq-answer">
+
+                <p>
+                    Order cancellation depends on the status of the
+                    order. Contact customer support as soon as possible
+                    if you need assistance with an order.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- DELIVERY -->
+
+    <section class="faq-section">
+
+        <h2>
+            🚚 Delivery
+        </h2>
+
+
+        <div class="faq-item">
+
+            <button
+                class="faq-question"
+                onclick="toggleFAQ(this)"
+            >
+                Where does Meteur deliver?
+                <span class="faq-icon">+</span>
+            </button>
+
+            <div class="faq-answer">
+
+                <p>
+                    Meteur is designed for the Kenyan online shopping
+                    market. Delivery availability can depend on the
+                    location and the specific order.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="faq-item">
+
+            <button
+                class="faq-question"
+                onclick="toggleFAQ(this)"
+            >
+                How much is delivery?
+                <span class="faq-icon">+</span>
+            </button>
+
+            <div class="faq-answer">
+
+                <p>
+                    Delivery charges may depend on your order value,
+                    delivery location and the applicable delivery
+                    service. Available charges are shown during checkout.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="faq-item">
+
+            <button
+                class="faq-question"
+                onclick="toggleFAQ(this)"
+            >
+                How long does delivery take?
+                <span class="faq-icon">+</span>
+            </button>
+
+            <div class="faq-answer">
+
+                <p>
+                    Delivery time can vary depending on the destination,
+                    product availability and delivery service.
+                    Check your order information for the applicable
+                    delivery details.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PAYMENTS -->
+
+    <section class="faq-section">
+
+        <h2>
+            💳 Payments
+        </h2>
+
+
+        <div class="faq-item">
+
+            <button
+                class="faq-question"
+                onclick="toggleFAQ(this)"
+            >
+                Which payment methods are available?
+                <span class="faq-icon">+</span>
+            </button>
+
+            <div class="faq-answer">
+
+                <p>
+                    Available payment methods are displayed during
+                    checkout. The platform is being developed to support
+                    convenient payment options for Kenyan customers.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="faq-item">
+
+            <button
+                class="faq-question"
+                onclick="toggleFAQ(this)"
+            >
+                Is my payment information secure?
+                <span class="faq-icon">+</span>
+            </button>
+
+            <div class="faq-answer">
+
+                <p>
+                    Payment processing should only be completed through
+                    the payment options officially provided by Meteur.
+                    Never share your password, PIN or other sensitive
+                    information with another person.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- RETURNS -->
+
+    <section class="faq-section">
+
+        <h2>
+            🔄 Returns & Refunds
+        </h2>
+
+
+        <div class="faq-item">
+
+            <button
+                class="faq-question"
+                onclick="toggleFAQ(this)"
+            >
+                Can I return a product?
+                <span class="faq-icon">+</span>
+            </button>
+
+            <div class="faq-answer">
+
+                <p>
+                    Return eligibility depends on the product and the
+                    applicable return conditions. Visit the
+                    <a href="returns.html">Returns</a> page for more
+                    information.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="faq-item">
+
+            <button
+                class="faq-question"
+                onclick="toggleFAQ(this)"
+            >
+                How do refunds work?
+                <span class="faq-icon">+</span>
+            </button>
+
+            <div class="faq-answer">
+
+                <p>
+                    Refund processing depends on the order, payment
+                    method and applicable return conditions. Contact
+                    customer support if you need help with a refund.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="faq-cta">
+
+        <h2>
+            Still Need Help?
+        </h2>
+
+        <p>
+            If you cannot find the answer you are looking for,
+            contact the Meteur customer support team.
+        </p>
+
+        <a href="contact.html">
+            Contact Us
+        </a>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <div class="container">
+
+        <div class="footer-grid">
+
+            <div>
+
+                <h3>
+                    Meteur
+                </h3>
+
+                <p>
+                    Your trusted Kenyan online shopping marketplace.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Shopping
+                </h4>
+
+                <a href="shop.html">Shop</a><br>
+                <a href="categories.html">Categories</a><br>
+                <a href="deals.html">Deals</a><br>
+                <a href="new-arrivals.html">New Arrivals</a>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Customer Service
+                </h4>
+
+                <a href="help.html">Help Center</a><br>
+                <a href="contact.html">Contact Us</a><br>
+                <a href="track-order.html">Track Order</a><br>
+                <a href="returns.html">Returns</a>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Company
+                </h4>
+
+                <a href="about.html">About Us</a><br>
+                <a href="sell.html">Sell on Meteur</a><br>
+                <a href="privacy.html">Privacy Policy</a><br>
+                <a href="terms.html">Terms & Conditions</a>
+
+            </div>
+
+        </div>
+
+
+        <p class="copyright">
+            © 2026 Meteur Online Shopping. All rights reserved.
+        </p>
 
     </div>
 
-</div>
+</footer>
+
+
+<script src="script.js"></script>
 
 <script>
 
-    const questions =
-        document.querySelectorAll(".faq-question");
+    function updateCartCount() {
 
-    questions.forEach(function(question) {
+        const cart =
+            JSON.parse(localStorage.getItem("meteurCart")) || [];
 
-        question.addEventListener("click", function() {
+        const totalItems =
+            cart.reduce(
+                (total, product) =>
+                    total + (product.quantity || 1),
+                0
+            );
 
-            const currentItem =
-                question.parentElement;
+        const cartCount =
+            document.getElementById("cartCount");
 
+        if (cartCount) {
+            cartCount.textContent = totalItems;
+        }
+    }
+
+
+    function searchProducts() {
+
+        const input =
+            document.getElementById("searchInput");
+
+        const searchTerm =
+            input.value.trim();
+
+        if (searchTerm) {
+
+            window.location.href =
+                "shop.html?search=" +
+                encodeURIComponent(searchTerm);
+
+        }
+    }
+
+
+    function toggleFAQ(button) {
+
+        const answer =
+            button.nextElementSibling;
+
+        const icon =
+            button.querySelector(".faq-icon");
+
+        const isOpen =
+            answer.classList.contains("open");
+
+        document
+            .querySelectorAll(".faq-answer")
+            .forEach(function(item) {
+                item.classList.remove("open");
+            });
+
+        document
+            .querySelectorAll(".faq-icon")
+            .forEach(function(item) {
+                item.textContent = "+";
+            });
+
+        if (!isOpen) {
+
+            answer.classList.add("open");
+
+            icon.textContent = "−";
+
+        }
+    }
+
+
+    function searchFAQ() {
+
+        const searchTerm =
             document
-                .querySelectorAll(".faq-item")
-                .forEach(function(item) {
+                .getElementById("faqSearch")
+                .value
+                .trim()
+                .toLowerCase();
 
-                    if (item !== currentItem) {
-                        item.classList.remove("active");
-                    }
+        const items =
+            document.querySelectorAll(".faq-item");
 
-                });
+        const sections =
+            document.querySelectorAll(".faq-section");
 
-            currentItem.classList.toggle("active");
+        let found = 0;
+
+        items.forEach(function(item) {
+
+            const text =
+                item.textContent.toLowerCase();
+
+            if (
+                searchTerm === "" ||
+                text.includes(searchTerm)
+            ) {
+
+                item.style.display = "block";
+
+                found++;
+
+            } else {
+
+                item.style.display = "none";
+
+            }
 
         });
 
-    });
+
+        sections.forEach(function(section) {
+
+            const visibleItems =
+                section.querySelectorAll(
+                    ".faq-item[style*='display: block']"
+                );
+
+            const allItems =
+                section.querySelectorAll(".faq-item");
+
+            if (
+                searchTerm !== "" &&
+                visibleItems.length === 0 &&
+                allItems.length > 0
+            ) {
+
+                section.style.display = "none";
+
+            } else {
+
+                section.style.display = "block";
+
+            }
+
+        });
+
+
+        const noResults =
+            document.getElementById("noResults");
+
+        if (searchTerm !== "" && found === 0) {
+
+            noResults.style.display = "block";
+
+        } else {
+
+            noResults.style.display = "none";
+
+        }
+    }
+
+
+    document
+        .getElementById("faqSearch")
+        .addEventListener("keydown", function(event) {
+
+            if (event.key === "Enter") {
+                searchFAQ();
+            }
+
+        });
+
+
+    document
+        .getElementById("searchInput")
+        .addEventListener("keydown", function(event) {
+
+            if (event.key === "Enter") {
+                searchProducts();
+            }
+
+        });
+
+
+    updateCartCount();
 
 </script>
 

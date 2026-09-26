@@ -4,85 +4,175 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Deals | Meteur Online Shopping</title>
-
-    <link rel="stylesheet" href="style.css">
+    <title>Deals - Meteur Online Shopping</title>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabase-config.js"></script>
 
     <style>
-        .deals-hero {
-            min-height: 300px;
-            padding: 55px 5%;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f5f5;
+            color: #222;
+        }
+
+        header {
+            background: #ff6b00;
+            color: white;
+            padding: 15px 5%;
+        }
+
+        .header-top {
             display: flex;
             align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .logo {
             color: white;
-            background:
-                linear-gradient(rgba(255,107,0,.82),rgba(255,107,0,.82)),
-                url("https://images.unsplash.com/photo-1607083206869-4c7672e72a8a?auto=format&fit=crop&w=1600&q=85")
-                center/cover;
+            text-decoration: none;
+            font-size: 28px;
+            font-weight: bold;
         }
 
-        .deals-hero-content {
-            max-width: 700px;
+        .search-box {
+            flex: 1;
+            max-width: 650px;
+            display: flex;
         }
 
-        .deals-hero h1 {
-            font-size: 44px;
-            margin-bottom: 12px;
+        .search-box input {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            outline: none;
+            font-size: 15px;
+            border-radius: 5px 0 0 5px;
         }
 
-        .deals-hero p {
-            font-size: 18px;
-            line-height: 1.6;
+        .search-box button {
+            border: none;
+            background: #222;
+            color: white;
+            padding: 0 20px;
+            cursor: pointer;
+            border-radius: 0 5px 5px 0;
         }
 
-        .deals-section {
+        nav {
+            margin-top: 15px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #ff6b00, #ff9d45);
+            color: white;
             padding: 45px 5%;
         }
 
-        .deals-heading {
-            max-width: 1200px;
-            margin: 0 auto 25px;
-        }
-
-        .deals-heading h2 {
-            font-size: 30px;
-            margin-bottom: 8px;
-        }
-
-        .deals-heading p {
-            color: #777;
-        }
-
-        .deals-grid {
-            max-width: 1200px;
+        .hero-content {
+            max-width: 1400px;
             margin: auto;
+        }
+
+        .hero h1 {
+            font-size: 40px;
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            font-size: 17px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 30px auto;
+        }
+
+        .toolbar {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .toolbar select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: white;
+        }
+
+        #productCount {
+            font-weight: bold;
+        }
+
+        .products {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 20px;
         }
 
-        .deal-card {
+        .product-card {
             background: white;
-            border-radius: 10px;
+            border-radius: 8px;
             overflow: hidden;
             position: relative;
-            box-shadow: 0 2px 9px rgba(0,0,0,.08);
-            transition: .2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            transition: 0.2s;
         }
 
-        .deal-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 7px 18px rgba(0,0,0,.12);
+        .product-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.12);
         }
 
-        .deal-image {
+        .product-image {
             width: 100%;
             height: 230px;
             object-fit: cover;
             display: block;
+        }
+
+        .wishlist-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 50%;
+            background: white;
+            color: #777;
+            font-size: 22px;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            z-index: 2;
+        }
+
+        .wishlist-btn.active {
+            color: #ff6b00;
         }
 
         .deal-badge {
@@ -92,144 +182,177 @@
             background: #ff6b00;
             color: white;
             padding: 6px 10px;
-            border-radius: 5px;
             font-size: 12px;
-            font-weight: 700;
+            font-weight: bold;
+            border-radius: 4px;
         }
 
-        .deal-wishlist {
+        .discount-badge {
             position: absolute;
-            top: 12px;
-            right: 12px;
-            width: 36px;
-            height: 36px;
-            border: none;
-            border-radius: 50%;
-            background: white;
-            font-size: 19px;
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(0,0,0,.15);
-        }
-
-        .deal-info {
-            padding: 16px;
-        }
-
-        .deal-category {
-            color: #777;
+            top: 48px;
+            left: 12px;
+            background: #222;
+            color: white;
+            padding: 6px 10px;
             font-size: 12px;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        .product-info {
+            padding: 15px;
+        }
+
+        .category {
+            color: #777;
+            font-size: 13px;
             margin-bottom: 7px;
         }
 
-        .deal-name {
-            font-size: 16px;
+        .product-name {
+            color: #222;
+            text-decoration: none;
+            font-weight: bold;
+            display: block;
             min-height: 42px;
-            margin: 0 0 8px;
-        }
-
-        .deal-rating {
-            color: #f5a623;
-            font-size: 13px;
-            margin-bottom: 9px;
-        }
-
-        .deal-price {
-            font-size: 20px;
-            font-weight: 800;
-            margin-bottom: 4px;
-        }
-
-        .deal-old-price {
-            color: #999;
-            font-size: 13px;
-            text-decoration: line-through;
-        }
-
-        .deal-saving {
-            color: #16853d;
-            font-size: 13px;
-            font-weight: 700;
-            margin: 7px 0 13px;
-        }
-
-        .deal-button {
-            width: 100%;
-            padding: 11px;
-            border: none;
-            border-radius: 6px;
-            background: #ff6b00;
-            color: white;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        .deal-button:hover {
-            background: #e85f00;
-        }
-
-        .loading,
-        .empty {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 50px;
-            background: white;
-            border-radius: 10px;
-            color: #777;
-        }
-
-        .deal-benefits {
-            max-width: 1200px;
-            margin: 10px auto 45px;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 18px;
-        }
-
-        .benefit {
-            background: white;
-            border: 1px solid #eee;
-            border-radius: 10px;
-            padding: 22px;
-            text-align: center;
-        }
-
-        .benefit-icon {
-            font-size: 30px;
             margin-bottom: 8px;
         }
 
-        .benefit h3 {
-            margin-bottom: 7px;
+        .rating {
+            color: #f5a623;
+            font-size: 14px;
+            margin-bottom: 8px;
         }
 
-        .benefit p {
-            color: #777;
-            font-size: 14px;
+        .price {
+            color: #ff6b00;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .old-price {
+            color: #888;
+            text-decoration: line-through;
+            font-size: 13px;
+            margin-left: 6px;
+        }
+
+        .stock {
+            color: #555;
+            font-size: 13px;
+            margin: 8px 0;
+        }
+
+        .add-cart {
+            width: 100%;
+            padding: 11px;
+            background: #ff6b00;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 8px;
+        }
+
+        .add-cart:hover {
+            background: #e85f00;
+        }
+
+        .add-cart:disabled {
+            background: #aaa;
+            cursor: not-allowed;
+        }
+
+        .loading,
+        .error,
+        .empty {
+            background: white;
+            padding: 40px;
+            text-align: center;
+            border-radius: 8px;
+            grid-column: 1 / -1;
+        }
+
+        .error {
+            color: #c62828;
+        }
+
+        footer {
+            background: #222;
+            color: white;
+            padding: 40px 5%;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        footer h3 {
+            margin-bottom: 15px;
+        }
+
+        footer a {
+            color: #ddd;
+            text-decoration: none;
+            display: block;
+            margin: 8px 0;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            color: #aaa;
         }
 
         @media (max-width: 1000px) {
-            .deals-grid {
+            .products {
                 grid-template-columns: repeat(3, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
         @media (max-width: 700px) {
-            .deals-grid {
+            .header-top {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-box {
+                max-width: none;
+            }
+
+            .products {
                 grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
             }
 
-            .deal-benefits {
-                grid-template-columns: 1fr;
-            }
-
-            .deals-hero h1 {
-                font-size: 36px;
+            .product-image {
+                height: 190px;
             }
         }
 
-        @media (max-width: 480px) {
-            .deals-grid {
+        @media (max-width: 500px) {
+            .products {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .footer-content {
                 grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 30px;
             }
         }
     </style>
@@ -237,20 +360,20 @@
 
 <body>
 
-<header class="site-header">
+<header>
 
-    <div class="header-main">
+    <div class="header-top">
 
         <a href="index.html" class="logo">
             Meteur
         </a>
 
-        <div class="header-search">
+        <div class="search-box">
 
             <input
-                id="searchInput"
                 type="text"
-                placeholder="Search products..."
+                id="searchInput"
+                placeholder="Search deals..."
             >
 
             <button onclick="searchProducts()">
@@ -259,484 +382,843 @@
 
         </div>
 
-        <div class="header-actions">
-
-            <a href="login.html">Account</a>
-
-            <a href="wishlist.html">Wishlist</a>
-
-            <a href="cart.html">
-                Cart (<span id="cartCount">0</span>)
-            </a>
-
-        </div>
-
     </div>
 
-    <nav class="main-nav">
-
+    <nav>
         <a href="index.html">Home</a>
         <a href="shop.html">Shop</a>
-        <a href="categories.html">Categories</a>
         <a href="deals.html">Deals</a>
         <a href="new-arrivals.html">New Arrivals</a>
-
+        <a href="categories.html">Categories</a>
+        <a href="wishlist.html">Wishlist</a>
+        <a href="cart.html">Cart</a>
+        <a href="dashboard.html">My Account</a>
     </nav>
 
 </header>
 
-<section class="deals-hero">
 
-    <div class="deals-hero-content">
+<section class="hero">
 
-        <h1>Hot Deals</h1>
+    <div class="hero-content">
+
+        <h1>🔥 Hot Deals</h1>
 
         <p>
-            Save more when you shop selected deals from
-            Meteur Online Shopping.
+            Save more on selected products at Meteur Online Shopping.
         </p>
 
     </div>
 
 </section>
 
-<section class="deals-section">
 
-    <div class="deal-benefits">
+<main class="container">
 
-        <div class="benefit">
+    <div class="toolbar">
 
-            <div class="benefit-icon">🔥</div>
+        <span id="productCount">
+            Loading deals...
+        </span>
 
-            <h3>Special Deals</h3>
+        <select id="sortSelect" onchange="sortProducts()">
 
-            <p>
-                Discover products marked as active deals.
-            </p>
+            <option value="default">
+                Sort by
+            </option>
 
-        </div>
+            <option value="price-low">
+                Price: Low to High
+            </option>
 
-        <div class="benefit">
+            <option value="price-high">
+                Price: High to Low
+            </option>
 
-            <div class="benefit-icon">💰</div>
+            <option value="discount">
+                Biggest Discount
+            </option>
 
-            <h3>Great Prices</h3>
+            <option value="rating">
+                Highest Rated
+            </option>
 
-            <p>
-                Compare current prices with previous prices.
-            </p>
-
-        </div>
-
-        <div class="benefit">
-
-            <div class="benefit-icon">🚚</div>
-
-            <h3>Shop Online</h3>
-
-            <p>
-                Add your favourite products to the cart.
-            </p>
-
-        </div>
+        </select>
 
     </div>
 
-    <div class="deals-heading">
 
-        <h2>Today's Deals</h2>
-
-        <p>
-            Explore available products currently marked as deals.
-        </p>
-
-    </div>
-
-    <div
-        id="dealsGrid"
-        class="deals-grid"
+    <section
+        class="products"
+        id="products"
     >
 
         <div class="loading">
             Loading deals...
         </div>
 
-    </div>
+    </section>
 
-</section>
+</main>
 
-<footer class="site-footer">
+
+<footer>
 
     <div class="footer-content">
 
         <div>
 
-            <h3>Meteur Online Shopping</h3>
+            <h3>Meteur</h3>
 
             <p>
-                Your modern Kenyan online marketplace.
+                Your trusted online shopping marketplace.
             </p>
 
         </div>
 
+
         <div>
 
-            <h4>Shopping</h4>
+            <h3>Shopping</h3>
 
-            <a href="shop.html">Shop</a>
-            <a href="categories.html">Categories</a>
-            <a href="deals.html">Deals</a>
-            <a href="new-arrivals.html">New Arrivals</a>
+            <a href="shop.html">
+                Shop All
+            </a>
+
+            <a href="deals.html">
+                Deals
+            </a>
+
+            <a href="new-arrivals.html">
+                New Arrivals
+            </a>
+
+            <a href="categories.html">
+                Categories
+            </a>
 
         </div>
 
+
         <div>
 
-            <h4>Customer Service</h4>
+            <h3>Customer Service</h3>
 
-            <a href="help.html">Help Center</a>
-            <a href="faq.html">FAQ</a>
-            <a href="contact.html">Contact</a>
-            <a href="track-order.html">Track Order</a>
+            <a href="help.html">
+                Help Center
+            </a>
+
+            <a href="contact.html">
+                Contact Us
+            </a>
+
+            <a href="shipping.html">
+                Shipping
+            </a>
+
+            <a href="returns.html">
+                Returns & Refunds
+            </a>
+
+            <a href="track-order.html">
+                Track Order
+            </a>
+
+        </div>
+
+
+        <div>
+
+            <h3>About</h3>
+
+            <a href="about.html">
+                About Meteur
+            </a>
+
+            <a href="privacy.html">
+                Privacy Policy
+            </a>
+
+            <a href="terms.html">
+                Terms & Conditions
+            </a>
+
+            <a href="sell.html">
+                Sell on Meteur
+            </a>
 
         </div>
 
     </div>
 
-    <div class="footer-bottom">
+
+    <div class="copyright">
         © 2026 Meteur Online Shopping. All rights reserved.
     </div>
 
 </footer>
 
-<script src="script.js"></script>
 
 <script>
 
-async function loadDeals() {
+    let allProducts = [];
 
-    const grid =
-        document.getElementById("dealsGrid");
+    let wishlistIds = new Set();
 
-    try {
 
-        const { data, error } =
-            await supabaseClient
-                .from("products")
-                .select("*")
-                .eq("is_deal", true)
-                .order("created_at", {
-                    ascending: false
-                });
+    const productsContainer =
+        document.getElementById("products");
 
-        if (error) {
-            throw error;
+    const productCount =
+        document.getElementById("productCount");
+
+    const searchInput =
+        document.getElementById("searchInput");
+
+
+    async function getCurrentUser() {
+
+        const {
+            data: { user }
+        } = await supabaseClient.auth.getUser();
+
+        return user;
+    }
+
+
+    async function loadWishlist() {
+
+        wishlistIds = new Set();
+
+        const user =
+            await getCurrentUser();
+
+        if (!user) {
+            return;
         }
 
-        if (!data || data.length === 0) {
+        const {
+            data,
+            error
+        } = await supabaseClient
+            .from("wishlist")
+            .select("product_id")
+            .eq("user_id", user.id);
 
-            grid.innerHTML = `
-                <div class="empty">
-                    No deals are available right now.
-                </div>
-            `;
+        if (error) {
+
+            console.error(
+                "Wishlist loading error:",
+                error
+            );
 
             return;
         }
 
-        grid.innerHTML =
-            data.map(createDealCard).join("");
+        (data || []).forEach(item => {
 
-    } catch (error) {
+            wishlistIds.add(
+                item.product_id
+            );
 
-        console.error(
-            "Deals loading error:",
-            error
+        });
+    }
+
+
+    async function toggleWishlist(
+        productId,
+        button
+    ) {
+
+        const user =
+            await getCurrentUser();
+
+        if (!user) {
+
+            window.location.href =
+                "login.html?redirect=" +
+                encodeURIComponent(
+                    "deals.html"
+                );
+
+            return;
+        }
+
+        button.disabled = true;
+
+
+        if (wishlistIds.has(productId)) {
+
+            const {
+                error
+            } = await supabaseClient
+                .from("wishlist")
+                .delete()
+                .eq("user_id", user.id)
+                .eq("product_id", productId);
+
+            if (error) {
+
+                console.error(error);
+
+                alert(
+                    "Unable to remove this product from your wishlist."
+                );
+
+                button.disabled = false;
+
+                return;
+            }
+
+            wishlistIds.delete(productId);
+
+            button.classList.remove(
+                "active"
+            );
+
+            button.innerHTML = "♡";
+
+
+        } else {
+
+            const {
+                error
+            } = await supabaseClient
+                .from("wishlist")
+                .insert({
+                    user_id: user.id,
+                    product_id: productId
+                });
+
+            if (error) {
+
+                console.error(error);
+
+                alert(
+                    "Unable to add this product to your wishlist."
+                );
+
+                button.disabled = false;
+
+                return;
+            }
+
+            wishlistIds.add(productId);
+
+            button.classList.add(
+                "active"
+            );
+
+            button.innerHTML = "♥";
+        }
+
+        button.disabled = false;
+    }
+
+
+    function addToCart(product) {
+
+        let cart =
+            JSON.parse(
+                localStorage.getItem(
+                    "meteurCart"
+                ) || "[]"
+            );
+
+
+        const existing =
+            cart.find(
+                item =>
+                    item.id === product.id
+            );
+
+
+        if (existing) {
+
+            existing.quantity += 1;
+
+        } else {
+
+            cart.push({
+
+                id: product.id,
+
+                name: product.name,
+
+                price: Number(
+                    product.price
+                ),
+
+                image_url:
+                    product.image_url,
+
+                quantity: 1,
+
+                stock:
+                    product.stock
+
+            });
+        }
+
+
+        localStorage.setItem(
+            "meteurCart",
+            JSON.stringify(cart)
         );
 
-        grid.innerHTML = `
-            <div class="empty">
-                Unable to load deals.
-                Please refresh the page.
+
+        alert(
+            product.name +
+            " added to cart."
+        );
+    }
+
+
+    function getStars(rating) {
+
+        const value =
+            Math.round(
+                Number(rating) || 0
+            );
+
+        return (
+            "★".repeat(value) +
+            "☆".repeat(5 - value)
+        );
+    }
+
+
+    function getDiscount(product) {
+
+        const price =
+            Number(product.price || 0);
+
+        const oldPrice =
+            Number(product.old_price || 0);
+
+        if (
+            oldPrice <= price ||
+            oldPrice === 0
+        ) {
+            return 0;
+        }
+
+        return Math.round(
+            ((oldPrice - price) /
+            oldPrice) * 100
+        );
+    }
+
+
+    function renderProducts(products) {
+
+        if (!products.length) {
+
+            productsContainer.innerHTML = `
+                <div class="empty">
+
+                    <h2>
+                        No deals found
+                    </h2>
+
+                    <p>
+                        There are currently no products matching your search.
+                    </p>
+
+                </div>
+            `;
+
+            productCount.textContent =
+                "0 deals";
+
+            return;
+        }
+
+
+        productCount.textContent =
+            products.length +
+            (
+                products.length === 1
+                    ? " deal"
+                    : " deals"
+            );
+
+
+        productsContainer.innerHTML =
+            products.map(product => {
+
+                const price =
+                    Number(
+                        product.price || 0
+                    );
+
+                const oldPrice =
+                    Number(
+                        product.old_price || 0
+                    );
+
+                const discount =
+                    getDiscount(product);
+
+                const image =
+                    product.image_url ||
+                    "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80";
+
+                const stock =
+                    Number(
+                        product.stock || 0
+                    );
+
+                const isWishlisted =
+                    wishlistIds.has(
+                        product.id
+                    );
+
+
+                return `
+
+                    <article class="product-card">
+
+                        <span class="deal-badge">
+                            ${
+                                product.badge ||
+                                "Hot Deal"
+                            }
+                        </span>
+
+
+                        ${
+                            discount > 0
+                                ? `
+                                    <span class="discount-badge">
+                                        -${discount}%
+                                    </span>
+                                `
+                                : ""
+                        }
+
+
+                        <button
+                            class="wishlist-btn ${
+                                isWishlisted
+                                    ? "active"
+                                    : ""
+                            }"
+                            onclick="toggleWishlist(
+                                '${product.id}',
+                                this
+                            )"
+                            title="Add to wishlist"
+                        >
+                            ${
+                                isWishlisted
+                                    ? "♥"
+                                    : "♡"
+                            }
+                        </button>
+
+
+                        <a
+                            href="product.html?id=${encodeURIComponent(
+                                product.id
+                            )}"
+                        >
+
+                            <img
+                                class="product-image"
+                                src="${image}"
+                                alt="${product.name}"
+                                loading="lazy"
+                            >
+
+                        </a>
+
+
+                        <div class="product-info">
+
+                            <div class="category">
+                                ${product.category}
+                            </div>
+
+
+                            <a
+                                class="product-name"
+                                href="product.html?id=${encodeURIComponent(
+                                    product.id
+                                )}"
+                            >
+                                ${product.name}
+                            </a>
+
+
+                            <div class="rating">
+
+                                ${getStars(
+                                    product.rating
+                                )}
+
+                                <span style="color:#777;">
+                                    (${product.review_count || 0})
+                                </span>
+
+                            </div>
+
+
+                            <div>
+
+                                <span class="price">
+                                    KSh ${price.toLocaleString()}
+                                </span>
+
+
+                                ${
+                                    oldPrice > price
+                                        ? `
+                                            <span class="old-price">
+                                                KSh ${oldPrice.toLocaleString()}
+                                            </span>
+                                        `
+                                        : ""
+                                }
+
+                            </div>
+
+
+                            <div class="stock">
+
+                                ${
+                                    stock > 0
+                                        ? `${stock} available`
+                                        : "Out of stock"
+                                }
+
+                            </div>
+
+
+                            <button
+                                class="add-cart"
+                                onclick='addToCart(${JSON.stringify(product).replace(/'/g, "&#39;")})'
+                                ${stock <= 0 ? "disabled" : ""}
+                            >
+                                ${
+                                    stock > 0
+                                        ? "Add to Cart"
+                                        : "Out of Stock"
+                                }
+                            </button>
+
+                        </div>
+
+                    </article>
+
+                `;
+
+            }).join("");
+    }
+
+
+    async function loadProducts() {
+
+        productsContainer.innerHTML = `
+            <div class="loading">
+                Loading deals...
             </div>
         `;
 
-    }
 
-}
+        try {
 
-function createDealCard(product) {
+            await loadWishlist();
 
-    const image =
-        product.image_url ||
-        "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80";
 
-    const rating =
-        Number(product.rating || 0);
+            const {
+                data,
+                error
+            } = await supabaseClient
+                .from("products")
+                .select("*")
+                .eq("is_deal", true)
+                .order(
+                    "created_at",
+                    {
+                        ascending: false
+                    }
+                );
 
-    const reviews =
-        Number(product.review_count || 0);
 
-    const oldPrice =
-        Number(product.old_price || 0);
+            if (error) {
+                throw error;
+            }
 
-    const currentPrice =
-        Number(product.price || 0);
 
-    let saving = 0;
+            allProducts =
+                data || [];
 
-    if (oldPrice > currentPrice) {
 
-        saving =
-            Math.round(
-                ((oldPrice - currentPrice) / oldPrice) * 100
+            renderProducts(
+                allProducts
             );
 
-    }
 
-    return `
+        } catch (error) {
 
-        <article class="deal-card">
+            console.error(
+                "Supabase deals error:",
+                error
+            );
 
-            <span class="deal-badge">
-                ${escapeHtml(product.badge || "Deal")}
-            </span>
 
-            <button
-                class="deal-wishlist"
-                onclick='addToWishlist(${JSON.stringify(product)})'
-                aria-label="Add to wishlist"
-            >
-                ♡
-            </button>
+            productsContainer.innerHTML = `
+                <div class="error">
 
-            <a href="product.html?id=${product.id}">
+                    <h2>
+                        Unable to load deals
+                    </h2>
 
-                <img
-                    class="deal-image"
-                    src="${escapeHtml(image)}"
-                    alt="${escapeHtml(product.name)}"
-                    loading="lazy"
-                >
-
-            </a>
-
-            <div class="deal-info">
-
-                <div class="deal-category">
-                    ${escapeHtml(product.category)}
-                </div>
-
-                <h3 class="deal-name">
-                    ${escapeHtml(product.name)}
-                </h3>
-
-                <div class="deal-rating">
-
-                    ${"★".repeat(Math.round(rating))}
-                    ${"☆".repeat(5 - Math.round(rating))}
-
-                    <span>
-                        (${reviews})
-                    </span>
+                    <p>
+                        Please refresh the page and try again.
+                    </p>
 
                 </div>
+            `;
 
-                <div class="deal-price">
 
-                    KSh ${currentPrice.toLocaleString()}
-
-                </div>
-
-                ${
-                    oldPrice > currentPrice
-                    ? `
-                        <div class="deal-old-price">
-                            KSh ${oldPrice.toLocaleString()}
-                        </div>
-
-                        <div class="deal-saving">
-                            Save ${saving}%
-                        </div>
-                    `
-                    : ""
-                }
-
-                <button
-                    class="deal-button"
-                    onclick='addProductToCart(${JSON.stringify(product)})'
-                >
-                    Add to Cart
-                </button>
-
-            </div>
-
-        </article>
-
-    `;
-
-}
-
-function addProductToCart(product) {
-
-    let cart =
-        JSON.parse(
-            localStorage.getItem("meteurCart")
-        ) || [];
-
-    const existing =
-        cart.find(
-            item => item.id === product.id
-        );
-
-    if (existing) {
-
-        existing.quantity =
-            Number(existing.quantity || 1) + 1;
-
-    } else {
-
-        cart.push({
-
-            id: product.id,
-
-            name: product.name,
-
-            price: Number(product.price),
-
-            image: product.image_url,
-
-            quantity: 1
-
-        });
-
+            productCount.textContent =
+                "Deals unavailable";
+        }
     }
 
-    localStorage.setItem(
-        "meteurCart",
-        JSON.stringify(cart)
+
+    function searchProducts() {
+
+        const query =
+            searchInput.value
+                .trim()
+                .toLowerCase();
+
+
+        if (!query) {
+
+            renderProducts(
+                allProducts
+            );
+
+            return;
+        }
+
+
+        const filtered =
+            allProducts.filter(
+                product =>
+
+                    product.name
+                        .toLowerCase()
+                        .includes(query)
+
+                    ||
+
+                    product.category
+                        .toLowerCase()
+                        .includes(query)
+
+                    ||
+
+                    (
+                        product.description ||
+                        ""
+                    )
+                        .toLowerCase()
+                        .includes(query)
+            );
+
+
+        renderProducts(
+            filtered
+        );
+    }
+
+
+    searchInput.addEventListener(
+        "input",
+        searchProducts
     );
 
-    updateCartCount();
 
-    alert(
-        `${product.name} added to your cart.`
+    searchInput.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.key === "Enter"
+            ) {
+                searchProducts();
+            }
+
+        }
     );
 
-}
 
-function addToWishlist(product) {
+    function sortProducts() {
 
-    let wishlist =
-        JSON.parse(
-            localStorage.getItem("meteurWishlist")
-        ) || [];
+        const value =
+            document.getElementById(
+                "sortSelect"
+            ).value;
 
-    const exists =
-        wishlist.some(
-            item => item.id === product.id
+
+        const sorted =
+            [...allProducts];
+
+
+        if (
+            value === "price-low"
+        ) {
+
+            sorted.sort(
+                (a, b) =>
+                    Number(a.price) -
+                    Number(b.price)
+            );
+
+        } else if (
+            value === "price-high"
+        ) {
+
+            sorted.sort(
+                (a, b) =>
+                    Number(b.price) -
+                    Number(a.price)
+            );
+
+        } else if (
+            value === "discount"
+        ) {
+
+            sorted.sort(
+                (a, b) =>
+                    getDiscount(b) -
+                    getDiscount(a)
+            );
+
+        } else if (
+            value === "rating"
+        ) {
+
+            sorted.sort(
+                (a, b) =>
+                    Number(b.rating || 0) -
+                    Number(a.rating || 0)
+            );
+        }
+
+
+        renderProducts(
+            sorted
         );
-
-    if (exists) {
-
-        alert(
-            "This product is already in your wishlist."
-        );
-
-        return;
-
     }
 
-    wishlist.push({
 
-        id: product.id,
-
-        name: product.name,
-
-        price: Number(product.price),
-
-        image: product.image_url
-
-    });
-
-    localStorage.setItem(
-        "meteurWishlist",
-        JSON.stringify(wishlist)
-    );
-
-    alert(
-        `${product.name} added to your wishlist.`
-    );
-
-}
-
-function updateCartCount() {
-
-    const cart =
-        JSON.parse(
-            localStorage.getItem("meteurCart")
-        ) || [];
-
-    const count =
-        cart.reduce(
-            (total, item) =>
-                total +
-                Number(item.quantity || 1),
-            0
-        );
-
-    const element =
-        document.getElementById("cartCount");
-
-    if (element) {
-        element.textContent = count;
-    }
-
-}
-
-function searchProducts() {
-
-    const value =
-        document
-            .getElementById("searchInput")
-            .value
-            .trim();
-
-    if (!value) {
-
-        window.location.href =
-            "shop.html";
-
-        return;
-
-    }
-
-    window.location.href =
-        "shop.html?search=" +
-        encodeURIComponent(value);
-
-}
-
-function escapeHtml(value) {
-
-    return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-
-}
-
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
-
-        updateCartCount();
-        loadDeals();
-
-    }
-);
+    loadProducts();
 
 </script>
 

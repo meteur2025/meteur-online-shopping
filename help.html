@@ -6,114 +6,262 @@
 
     <title>Help Center - Meteur Online Shopping</title>
 
-    <meta name="description" content="Meteur Online Shopping Help Center.">
-
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
     <link rel="stylesheet" href="style.css">
 
     <style>
+        .help-page {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 30px 20px 60px;
+        }
+
         .help-hero {
-            background: linear-gradient(135deg, #ff9900, #ff6a00);
+            min-height: 320px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 40px;
+            background-image:
+                url("https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1500&q=85");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+        }
+
+        .help-hero-content {
+            width: 100%;
+            padding: 55px;
+            background: rgba(0, 0, 0, 0.58);
             color: white;
-            text-align: center;
-            padding: 60px 20px;
         }
 
         .help-hero h1 {
-            font-size: 40px;
-            margin-bottom: 12px;
+            font-size: 42px;
+            margin: 0 0 12px;
         }
 
         .help-hero p {
-            font-size: 18px;
+            max-width: 700px;
+            font-size: 17px;
+            line-height: 1.7;
             margin: 0;
         }
 
+        .help-search {
+            background: white;
+            padding: 24px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .help-search h2 {
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        .search-wrapper {
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-wrapper input {
+            flex: 1;
+            padding: 14px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .search-wrapper input:focus {
+            border-color: #f4511e;
+        }
+
+        .search-wrapper button {
+            border: none;
+            background: #f4511e;
+            color: white;
+            padding: 14px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .search-wrapper button:hover {
+            background: #d84315;
+        }
+
         .help-section {
-            padding: 45px 20px;
+            margin-bottom: 45px;
+        }
+
+        .help-section h2 {
+            font-size: 27px;
+            margin-bottom: 20px;
         }
 
         .help-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 22px;
+            gap: 20px;
         }
 
         .help-card {
             background: white;
-            padding: 28px;
             border-radius: 10px;
-            box-shadow: 0 3px 15px rgba(0,0,0,0.06);
-            text-decoration: none;
-            color: #222;
-            transition: 0.2s;
+            padding: 25px;
+            box-shadow: 0 2px 9px rgba(0,0,0,0.07);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         .help-card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
-        .help-card i {
-            font-size: 32px;
-            color: #ff7900;
-            margin-bottom: 15px;
+        .help-icon {
+            font-size: 35px;
+            margin-bottom: 12px;
         }
 
         .help-card h3 {
-            margin-bottom: 10px;
+            margin: 0 0 10px;
         }
 
         .help-card p {
-            margin: 0;
             color: #666;
             line-height: 1.6;
+            margin-bottom: 18px;
         }
 
-        .help-box {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 3px 15px rgba(0,0,0,0.06);
-            line-height: 1.8;
-        }
-
-        .help-box ul {
-            padding-left: 22px;
-        }
-
-        .help-cta {
-            text-align: center;
-            background: #fff7e6;
-            padding: 35px 20px;
-            border-radius: 10px;
-        }
-
-        .help-button {
-            display: inline-block;
-            margin-top: 18px;
-            padding: 13px 25px;
-            background: #ff7900;
-            color: white;
+        .help-card a {
+            color: #f4511e;
             text-decoration: none;
-            border-radius: 5px;
-            font-weight: 700;
+            font-weight: bold;
         }
 
-        @media (max-width: 850px) {
+        .help-card a:hover {
+            text-decoration: underline;
+        }
+
+        .help-list {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 9px rgba(0,0,0,0.07);
+            overflow: hidden;
+        }
+
+        .help-list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .help-list-item:last-child {
+            border-bottom: none;
+        }
+
+        .help-list-item h3 {
+            margin: 0 0 6px;
+        }
+
+        .help-list-item p {
+            margin: 0;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .help-list-item a {
+            flex-shrink: 0;
+            background: #f4511e;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .help-list-item a:hover {
+            background: #d84315;
+        }
+
+        .contact-help {
+            background: #f4511e;
+            color: white;
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .contact-help h2 {
+            margin-top: 0;
+        }
+
+        .contact-help p {
+            max-width: 650px;
+            margin: 0 auto 22px;
+            line-height: 1.7;
+        }
+
+        .contact-help a {
+            display: inline-block;
+            background: white;
+            color: #f4511e;
+            padding: 12px 25px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .no-results {
+            display: none;
+            padding: 20px;
+            background: #fff3ed;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #666;
+        }
+
+        @media (max-width: 800px) {
             .help-grid {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .help-hero-content {
+                padding: 40px 25px;
             }
         }
 
-        @media (max-width: 560px) {
+        @media (max-width: 600px) {
+            .help-grid {
+                grid-template-columns: 1fr;
+            }
+
             .help-hero h1 {
                 font-size: 32px;
             }
 
-            .help-grid {
-                grid-template-columns: 1fr;
+            .search-wrapper {
+                flex-direction: column;
+            }
+
+            .search-wrapper button {
+                width: 100%;
+            }
+
+            .help-list-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .help-list-item a {
+                width: 100%;
+                text-align: center;
             }
         }
     </style>
@@ -121,113 +269,74 @@
 
 <body>
 
-    <!-- Top Bar -->
-    <div class="top-bar">
-        <div class="container">
+<header>
+    <div class="container">
 
-            <span>Welcome to Meteur Online Shopping</span>
+        <div class="top-bar">
 
-            <div class="top-links">
-                <a href="faq.html">Help Center</a>
-                <a href="track-order.html">Track Order</a>
-                <a href="sell.html">Sell on Meteur</a>
+            <div class="logo">
+                <a href="index.html">🛒 Meteur</a>
             </div>
 
-        </div>
-    </div>
-
-
-    <!-- Header -->
-    <header class="main-header">
-
-        <div class="container header-content">
-
-            <a href="index.html" class="logo">
-
-                <i class="fas fa-shopping-bag"></i>
-
-                <div>
-                    <strong>Meteur</strong>
-                    <small>ONLINE SHOPPING</small>
-                </div>
-
-            </a>
-
-
-            <form class="search-box" id="searchForm">
+            <div class="search-box">
 
                 <input
                     type="text"
                     id="searchInput"
-                    placeholder="Search for products, brands and more..."
-                    required
+                    placeholder="Search products..."
                 >
 
-                <button type="submit">
-                    <i class="fas fa-search"></i>
+                <button onclick="searchProducts()">
+                    Search
                 </button>
 
-            </form>
-
+            </div>
 
             <div class="header-actions">
 
                 <a href="login.html">
-                    <i class="fas fa-user"></i>
-                    <span>Account</span>
+                    Account
                 </a>
 
                 <a href="wishlist.html">
-                    <i class="fas fa-heart"></i>
-                    <span>Wishlist</span>
+                    ♡ Wishlist
                 </a>
 
                 <a href="cart.html">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span>Cart</span>
-                    <b id="cartCount">0</b>
+                    🛒 Cart (<span id="cartCount">0</span>)
                 </a>
 
             </div>
 
         </div>
 
-    </header>
-
-
-    <!-- Navigation -->
-    <nav class="main-nav">
-
-        <div class="container nav-content">
-
-            <a href="shop.html" class="category-button">
-                <i class="fas fa-bars"></i>
-                Categories
-            </a>
-
+        <nav>
             <a href="index.html">Home</a>
             <a href="shop.html">Shop</a>
-            <a href="shop.html">Flash Deals</a>
-            <a href="shop.html">Categories</a>
-            <a href="shop.html">New Arrivals</a>
-            <a href="shop.html">Popular</a>
+            <a href="categories.html">Categories</a>
+            <a href="deals.html">Deals</a>
+            <a href="new-arrivals.html">New Arrivals</a>
+            <a href="sell.html">Sell on Meteur</a>
+        </nav>
 
-        </div>
+    </div>
+</header>
 
-    </nav>
 
+<main class="help-page">
 
-    <!-- Hero -->
     <section class="help-hero">
 
-        <div class="container">
+        <div class="help-hero-content">
 
             <h1>
-                Help Center
+                How Can We Help?
             </h1>
 
             <p>
-                Find answers and get help with your Meteur shopping experience.
+                Welcome to the Meteur Help Center. Find useful information
+                about shopping, orders, accounts, delivery, payments,
+                returns and other customer services.
             </p>
 
         </div>
@@ -235,170 +344,175 @@
     </section>
 
 
-    <!-- Help Categories -->
+    <section class="help-search">
+
+        <h2>
+            Search the Help Center
+        </h2>
+
+        <div class="search-wrapper">
+
+            <input
+                type="text"
+                id="helpSearch"
+                placeholder="Search for help..."
+            >
+
+            <button onclick="searchHelp()">
+                Search
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <div
+        class="no-results"
+        id="noResults"
+    >
+        No help topics matched your search. Try another keyword or
+        contact our support team.
+    </div>
+
+
     <section class="help-section">
 
-        <div class="container">
+        <h2>
+            Popular Help Topics
+        </h2>
 
-            <div style="
-                text-align:center;
-                margin-bottom:30px;
-            ">
+        <div class="help-grid">
 
-                <h2>
-                    How Can We Help?
-                </h2>
+
+            <div class="help-card">
+
+                <div class="help-icon">
+                    📦
+                </div>
+
+                <h3>
+                    Orders
+                </h3>
 
                 <p>
-                    Choose a section below to find the information you need.
+                    Learn how to view your orders, check order details
+                    and get help with an order.
                 </p>
+
+                <a href="orders.html">
+                    View Orders →
+                </a>
 
             </div>
 
 
-            <div class="help-grid">
+            <div class="help-card">
 
-                <a href="faq.html" class="help-card">
+                <div class="help-icon">
+                    🚚
+                </div>
 
-                    <i class="fas fa-circle-question"></i>
+                <h3>
+                    Track Order
+                </h3>
 
-                    <h3>Frequently Asked Questions</h3>
+                <p>
+                    Find information about tracking your order and
+                    checking its delivery status.
+                </p>
 
-                    <p>
-                        Find answers to common questions about shopping,
-                        accounts, delivery, orders and returns.
-                    </p>
-
-                </a>
-
-
-                <a href="track-order.html" class="help-card">
-
-                    <i class="fas fa-truck-fast"></i>
-
-                    <h3>Track Your Order</h3>
-
-                    <p>
-                        Use the Meteur order tracking page to check your
-                        order status.
-                    </p>
-
-                </a>
-
-
-                <a href="returns.html" class="help-card">
-
-                    <i class="fas fa-rotate-left"></i>
-
-                    <h3>Returns & Refunds</h3>
-
-                    <p>
-                        Learn about the planned return, replacement and
-                        refund process.
-                    </p>
-
-                </a>
-
-
-                <a href="shipping.html" class="help-card">
-
-                    <i class="fas fa-box"></i>
-
-                    <h3>Shipping Information</h3>
-
-                    <p>
-                        Learn about delivery locations, addresses,
-                        delivery charges and tracking.
-                    </p>
-
-                </a>
-
-
-                <a href="login.html" class="help-card">
-
-                    <i class="fas fa-user-lock"></i>
-
-                    <h3>Account Help</h3>
-
-                    <p>
-                        Access customer login, registration and account
-                        related pages.
-                    </p>
-
-                </a>
-
-
-                <a href="contact.html" class="help-card">
-
-                    <i class="fas fa-headset"></i>
-
-                    <h3>Contact Support</h3>
-
-                    <p>
-                        Contact the Meteur customer support team for
-                        assistance.
-                    </p>
-
+                <a href="track-order.html">
+                    Track Order →
                 </a>
 
             </div>
 
-        </div>
 
-    </section>
+            <div class="help-card">
 
+                <div class="help-icon">
+                    🔄
+                </div>
 
-    <!-- Shopping Help -->
-    <section class="help-section" style="background:#f5f5f5;">
-
-        <div class="container">
-
-            <div class="help-box">
-
-                <h2>
-                    Shopping on Meteur
-                </h2>
+                <h3>
+                    Returns
+                </h3>
 
                 <p>
-                    The basic shopping process is designed to be simple:
+                    Find information about returns, refunds and
+                    applicable return conditions.
                 </p>
 
-                <ul>
+                <a href="returns.html">
+                    Returns Help →
+                </a>
 
-                    <li>
-                        Browse products through the Shop page.
-                    </li>
+            </div>
 
-                    <li>
-                        Select a product to view its details.
-                    </li>
 
-                    <li>
-                        Add products to your shopping cart.
-                    </li>
+            <div class="help-card">
 
-                    <li>
-                        Review your cart before checkout.
-                    </li>
+                <div class="help-icon">
+                    👤
+                </div>
 
-                    <li>
-                        Enter delivery information.
-                    </li>
-
-                    <li>
-                        Select an available payment method.
-                    </li>
-
-                    <li>
-                        Confirm your order.
-                    </li>
-
-                </ul>
+                <h3>
+                    Account
+                </h3>
 
                 <p>
-                    Real production ordering and payment services will be
-                    connected when the backend system is implemented.
+                    Manage your customer account, profile and
+                    account-related information.
                 </p>
+
+                <a href="dashboard.html">
+                    My Account →
+                </a>
+
+            </div>
+
+
+            <div class="help-card">
+
+                <div class="help-icon">
+                    💳
+                </div>
+
+                <h3>
+                    Payments
+                </h3>
+
+                <p>
+                    Learn more about checkout, available payment
+                    options and payment safety.
+                </p>
+
+                <a href="checkout.html">
+                    Checkout →
+                </a>
+
+            </div>
+
+
+            <div class="help-card">
+
+                <div class="help-icon">
+                    ❓
+                </div>
+
+                <h3>
+                    FAQ
+                </h3>
+
+                <p>
+                    Browse answers to common questions about shopping
+                    on Meteur.
+                </p>
+
+                <a href="faq.html">
+                    View FAQ →
+                </a>
 
             </div>
 
@@ -407,134 +521,98 @@
     </section>
 
 
-    <!-- Account Help -->
     <section class="help-section">
 
-        <div class="container">
+        <h2>
+            Customer Support
+        </h2>
 
-            <div class="help-box">
+        <div class="help-list">
 
-                <h2>
-                    Customer Account Help
-                </h2>
 
-                <p>
-                    Meteur includes several customer account pages prepared
-                    for future secure authentication.
-                </p>
+            <div class="help-list-item">
 
-                <ul>
+                <div>
 
-                    <li>
-                        Create an account using the registration page.
-                    </li>
+                    <h3>
+                        Shopping Help
+                    </h3>
 
-                    <li>
-                        Verify your email address when email verification
-                        is connected.
-                    </li>
+                    <p>
+                        Need help finding a product or understanding
+                        how shopping works?
+                    </p>
 
-                    <li>
-                        Log in to access your customer account.
-                    </li>
+                </div>
 
-                    <li>
-                        Manage your profile and delivery addresses.
-                    </li>
-
-                    <li>
-                        View orders and saved wishlist products.
-                    </li>
-
-                    <li>
-                        Use password recovery if you forget your password.
-                    </li>
-
-                </ul>
-
-                <p>
-                    The current demonstration uses front-end interfaces and
-                    browser storage. Secure production authentication will be
-                    added later.
-                </p>
+                <a href="shop.html">
+                    Start Shopping
+                </a>
 
             </div>
 
-        </div>
 
-    </section>
+            <div class="help-list-item">
 
+                <div>
 
-    <!-- Security -->
-    <section class="help-section" style="background:#f5f5f5;">
+                    <h3>
+                        Delivery Information
+                    </h3>
 
-        <div class="container">
+                    <p>
+                        Find general information about delivery,
+                        shipping and order fulfilment.
+                    </p>
 
-            <div class="help-box">
+                </div>
 
-                <h2>
-                    Security Reminder
-                </h2>
-
-                <p>
-                    Protect your personal and payment information when using
-                    online services.
-                </p>
-
-                <ul>
-
-                    <li>
-                        Never share your M-Pesa PIN.
-                    </li>
-
-                    <li>
-                        Never share your account password with another person.
-                    </li>
-
-                    <li>
-                        Avoid entering real payment information into the
-                        current demonstration website.
-                    </li>
-
-                    <li>
-                        Contact support if you notice suspicious activity
-                        associated with an account or order.
-                    </li>
-
-                </ul>
+                <a href="shipping.html">
+                    Shipping Info
+                </a>
 
             </div>
 
-        </div>
 
-    </section>
+            <div class="help-list-item">
+
+                <div>
+
+                    <h3>
+                        Returns & Refunds
+                    </h3>
+
+                    <p>
+                        Learn about the return process and refund
+                        information.
+                    </p>
+
+                </div>
+
+                <a href="returns.html">
+                    Learn More
+                </a>
+
+            </div>
 
 
-    <!-- Contact CTA -->
-    <section class="help-section">
+            <div class="help-list-item">
 
-        <div class="container">
+                <div>
 
-            <div class="help-cta">
+                    <h3>
+                        Contact Support
+                    </h3>
 
-                <i class="fas fa-headset"
-                   style="
-                       font-size:42px;
-                       color:#ff7900;
-                   ">
-                </i>
+                    <p>
+                        Contact Meteur if you need assistance with
+                        a customer service issue.
+                    </p>
 
-                <h2>
-                    Still Need Help?
-                </h2>
+                </div>
 
-                <p>
-                    Our customer support page is available for additional
-                    questions and assistance.
-                </p>
-
-                <a href="contact.html" class="help-button">
-                    Contact Customer Support
+                <a href="contact.html">
+                    Contact Us
                 </a>
 
             </div>
@@ -544,76 +622,336 @@
     </section>
 
 
-    <!-- Footer -->
-    <footer class="footer">
+    <section class="help-section">
 
-        <div class="container">
+        <h2>
+            Quick Information
+        </h2>
 
-            <div class="footer-grid">
+        <div class="help-grid">
 
-                <div>
 
-                    <h3>Meteur Online Shopping</h3>
+            <div class="help-card">
 
-                    <p>
-                        A modern Kenyan online marketplace designed to make
-                        shopping simple, convenient and accessible.
-                    </p>
-
+                <div class="help-icon">
+                    🔐
                 </div>
 
+                <h3>
+                    Account Security
+                </h3>
 
-                <div>
+                <p>
+                    Keep your account credentials private and never
+                    share your password with another person.
+                </p>
 
-                    <h3>Customer Service</h3>
-
-                    <a href="faq.html">FAQ</a>
-                    <a href="contact.html">Contact Us</a>
-                    <a href="track-order.html">Track Order</a>
-                    <a href="returns.html">Returns</a>
-
-                </div>
-
-
-                <div>
-
-                    <h3>About</h3>
-
-                    <a href="about.html">About Us</a>
-                    <a href="privacy.html">Privacy Policy</a>
-                    <a href="terms.html">Terms & Conditions</a>
-                    <a href="shipping.html">Shipping Information</a>
-
-                </div>
-
-
-                <div>
-
-                    <h3>Contact</h3>
-
-                    <p>0711842260</p>
-                    <p>daghlusmeteur@gmail.com</p>
-                    <p>Kenya</p>
-
-                </div>
+                <a href="privacy.html">
+                    Privacy Information →
+                </a>
 
             </div>
 
 
-            <div class="footer-bottom">
+            <div class="help-card">
+
+                <div class="help-icon">
+                    📋
+                </div>
+
+                <h3>
+                    Terms & Conditions
+                </h3>
 
                 <p>
-                    © 2026 Meteur Online Shopping. All rights reserved.
+                    Read the terms that apply when using the
+                    Meteur Online Shopping website.
                 </p>
+
+                <a href="terms.html">
+                    Read Terms →
+                </a>
+
+            </div>
+
+
+            <div class="help-card">
+
+                <div class="help-icon">
+                    🛒
+                </div>
+
+                <h3>
+                    Shopping Cart
+                </h3>
+
+                <p>
+                    Review your selected products, change quantities
+                    and continue to checkout.
+                </p>
+
+                <a href="cart.html">
+                    Open Cart →
+                </a>
 
             </div>
 
         </div>
 
-    </footer>
+    </section>
 
 
-    <script src="script.js"></script>
+    <section class="contact-help">
+
+        <h2>
+            Can't Find What You Need?
+        </h2>
+
+        <p>
+            Our customer support page provides another way to get help
+            with questions about products, orders, accounts and other
+            Meteur services.
+        </p>
+
+        <a href="contact.html">
+            Contact Meteur Support
+        </a>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <div class="container">
+
+        <div class="footer-grid">
+
+            <div>
+
+                <h3>
+                    Meteur
+                </h3>
+
+                <p>
+                    Your trusted Kenyan online shopping marketplace.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Shopping
+                </h4>
+
+                <a href="shop.html">Shop</a><br>
+                <a href="categories.html">Categories</a><br>
+                <a href="deals.html">Deals</a><br>
+                <a href="new-arrivals.html">New Arrivals</a>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Customer Service
+                </h4>
+
+                <a href="help.html">Help Center</a><br>
+                <a href="faq.html">FAQ</a><br>
+                <a href="track-order.html">Track Order</a><br>
+                <a href="returns.html">Returns</a>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Company
+                </h4>
+
+                <a href="about.html">About Us</a><br>
+                <a href="sell.html">Sell on Meteur</a><br>
+                <a href="privacy.html">Privacy Policy</a><br>
+                <a href="terms.html">Terms & Conditions</a>
+
+            </div>
+
+        </div>
+
+
+        <p class="copyright">
+            © 2026 Meteur Online Shopping. All rights reserved.
+        </p>
+
+    </div>
+
+</footer>
+
+
+<script src="script.js"></script>
+
+<script>
+
+    function updateCartCount() {
+
+        const cart =
+            JSON.parse(localStorage.getItem("meteurCart")) || [];
+
+        const totalItems =
+            cart.reduce(
+                function(total, product) {
+                    return total + (product.quantity || 1);
+                },
+                0
+            );
+
+        const cartCount =
+            document.getElementById("cartCount");
+
+        if (cartCount) {
+            cartCount.textContent = totalItems;
+        }
+    }
+
+
+    function searchProducts() {
+
+        const input =
+            document.getElementById("searchInput");
+
+        const searchTerm =
+            input.value.trim();
+
+        if (searchTerm) {
+
+            window.location.href =
+                "shop.html?search=" +
+                encodeURIComponent(searchTerm);
+
+        }
+
+    }
+
+
+    function searchHelp() {
+
+        const searchInput =
+            document.getElementById("helpSearch");
+
+        const searchTerm =
+            searchInput.value.trim().toLowerCase();
+
+        const cards =
+            document.querySelectorAll(".help-card");
+
+        const listItems =
+            document.querySelectorAll(".help-list-item");
+
+        const noResults =
+            document.getElementById("noResults");
+
+        let found = 0;
+
+
+        cards.forEach(function(card) {
+
+            const text =
+                card.textContent.toLowerCase();
+
+            if (
+                searchTerm === "" ||
+                text.includes(searchTerm)
+            ) {
+
+                card.style.display = "block";
+
+                found++;
+
+            } else {
+
+                card.style.display = "none";
+
+            }
+
+        });
+
+
+        listItems.forEach(function(item) {
+
+            const text =
+                item.textContent.toLowerCase();
+
+            if (
+                searchTerm === "" ||
+                text.includes(searchTerm)
+            ) {
+
+                item.style.display = "flex";
+
+                found++;
+
+            } else {
+
+                item.style.display = "none";
+
+            }
+
+        });
+
+
+        if (
+            searchTerm !== "" &&
+            found === 0
+        ) {
+
+            noResults.style.display = "block";
+
+        } else {
+
+            noResults.style.display = "none";
+
+        }
+
+    }
+
+
+    document
+        .getElementById("helpSearch")
+        .addEventListener(
+            "keydown",
+            function(event) {
+
+                if (event.key === "Enter") {
+                    searchHelp();
+                }
+
+            }
+        );
+
+
+    document
+        .getElementById("searchInput")
+        .addEventListener(
+            "keydown",
+            function(event) {
+
+                if (event.key === "Enter") {
+                    searchProducts();
+                }
+
+            }
+        );
+
+
+    updateCartCount();
+
+</script>
 
 </body>
 </html>

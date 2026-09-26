@@ -4,292 +4,479 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Meteur Online Shopping - Kenya</title>
+    <title>Meteur Online Shopping | Kenya</title>
 
     <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+
+    <style>
+        .hero {
+            min-height: 430px;
+            padding: 60px 5%;
+            display: flex;
+            align-items: center;
+            background:
+                linear-gradient(
+                    rgba(0,0,0,.48),
+                    rgba(0,0,0,.48)
+                ),
+                url("https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1600&q=85")
+                center/cover;
+            color: white;
+        }
+
+        .hero-content {
+            max-width: 650px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .hero-buttons a {
+            display: inline-block;
+            padding: 13px 23px;
+            border-radius: 7px;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .hero-shop {
+            background: #ff6b00;
+            color: white;
+        }
+
+        .hero-deals {
+            background: white;
+            color: #222;
+        }
+
+        .section {
+            padding: 45px 5%;
+        }
+
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 22px;
+            gap: 15px;
+        }
+
+        .section-title h2 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .section-title a {
+            color: #ff6b00;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .services {
+            background: white;
+        }
+
+        .service-grid {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        .service-card {
+            padding: 25px;
+            text-align: center;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            background: white;
+        }
+
+        .service-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .service-card h3 {
+            margin-bottom: 8px;
+        }
+
+        .service-card p {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .category-grid {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 15px;
+        }
+
+        .category-card {
+            position: relative;
+            height: 150px;
+            overflow: hidden;
+            border-radius: 10px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .category-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .category-card div {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: flex-end;
+            padding: 15px;
+            font-weight: 800;
+            background:
+                linear-gradient(
+                    transparent,
+                    rgba(0,0,0,.7)
+                );
+        }
+
+        .product-grid {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0,0,0,.07);
+            transition: .2s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 7px 18px rgba(0,0,0,.12);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 210px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .product-info {
+            padding: 15px;
+        }
+
+        .product-category {
+            font-size: 12px;
+            color: #777;
+            margin-bottom: 7px;
+        }
+
+        .product-name {
+            min-height: 42px;
+            margin: 0 0 8px;
+            font-size: 16px;
+        }
+
+        .product-rating {
+            color: #f5a623;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .product-price {
+            font-size: 19px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .product-old-price {
+            font-size: 13px;
+            color: #999;
+            text-decoration: line-through;
+            margin-left: 7px;
+        }
+
+        .product-button {
+            width: 100%;
+            border: none;
+            padding: 10px;
+            background: #ff6b00;
+            color: white;
+            font-weight: 700;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .product-button:hover {
+            background: #e85f00;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #ff6b00;
+            color: white;
+            padding: 5px 9px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .wishlist-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 34px;
+            height: 34px;
+            border: none;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+            font-size: 18px;
+            box-shadow: 0 2px 7px rgba(0,0,0,.15);
+        }
+
+        .product-loading,
+        .product-empty {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 45px;
+            background: white;
+            border-radius: 10px;
+            color: #777;
+        }
+
+        .promo {
+            margin: 0 5%;
+            padding: 45px;
+            border-radius: 12px;
+            color: white;
+            background:
+                linear-gradient(
+                    rgba(255,107,0,.9),
+                    rgba(255,107,0,.9)
+                ),
+                url("https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=1500&q=80")
+                center/cover;
+        }
+
+        .promo h2 {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .promo p {
+            margin-bottom: 20px;
+        }
+
+        .promo a {
+            display: inline-block;
+            padding: 11px 20px;
+            background: white;
+            color: #ff6b00;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 700;
+        }
+
+        .newsletter {
+            background: #222;
+            color: white;
+            padding: 50px 5%;
+            text-align: center;
+        }
+
+        .newsletter h2 {
+            margin-bottom: 10px;
+        }
+
+        .newsletter p {
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+
+        .newsletter-form {
+            max-width: 550px;
+            margin: auto;
+            display: flex;
+            gap: 8px;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 13px;
+            border: none;
+            border-radius: 6px;
+        }
+
+        .newsletter-form button {
+            padding: 13px 20px;
+            border: none;
+            background: #ff6b00;
+            color: white;
+            font-weight: 700;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 1000px) {
+            .product-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .category-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .service-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .category-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .category-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .service-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 45px 5%;
+            }
+
+            .promo {
+                margin: 0 4%;
+                padding: 30px 20px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
 <header class="site-header">
 
-    <div class="header-container">
+    <div class="header-main">
 
-        <div class="logo">
-            <a href="index.html">Meteur</a>
-        </div>
+        <a href="index.html" class="logo">
+            Meteur
+        </a>
 
-        <div class="search-box">
+        <div class="header-search">
+
             <input
-                type="text"
                 id="searchInput"
+                type="text"
                 placeholder="Search products..."
             >
-            <button onclick="searchProducts()">Search</button>
+
+            <button onclick="searchProducts()">
+                Search
+            </button>
+
         </div>
 
-        <div class="header-links">
+        <div class="header-actions">
+
             <a href="login.html">Account</a>
-            <a href="wishlist.html">♡ Wishlist</a>
-            <a href="cart.html">🛒 Cart <span id="cartCount">0</span></a>
+
+            <a href="wishlist.html">
+                Wishlist
+            </a>
+
+            <a href="cart.html">
+                Cart (<span id="cartCount">0</span>)
+            </a>
+
         </div>
 
     </div>
 
     <nav class="main-nav">
+
         <a href="index.html">Home</a>
         <a href="shop.html">Shop</a>
         <a href="categories.html">Categories</a>
         <a href="deals.html">Deals</a>
         <a href="new-arrivals.html">New Arrivals</a>
+
     </nav>
 
 </header>
 
-
-<!-- HERO -->
-<section class="hero-section">
+<section class="hero">
 
     <div class="hero-content">
 
-        <div class="hero-text">
+        <h1>Shop Smart. Shop Meteur.</h1>
 
-            <span class="hero-small-text">
-                METEUR ONLINE SHOPPING
-            </span>
+        <p>
+            Discover phones, electronics, fashion, home appliances,
+            computing products and more from Meteur Online Shopping.
+        </p>
 
-            <h1>
-                Everything You Need,
-                <span>All in One Place</span>
-            </h1>
+        <div class="hero-buttons">
 
-            <p>
-                Shop electronics, fashion, beauty, home appliances,
-                phones and more from the comfort of your home.
-            </p>
-
-            <a href="shop.html" class="hero-button">
+            <a href="shop.html" class="hero-shop">
                 Shop Now
             </a>
 
-        </div>
-
-        <div class="hero-image">
-            <img
-                src="https://images.unsplash.com/photo-1607082349566-187342175e2f?auto=format&fit=crop&w=900&q=85"
-                alt="Online shopping"
-            >
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- SERVICES -->
-<section class="services-section">
-
-    <div class="service-card">
-        <div class="service-icon">🚚</div>
-        <h3>Fast Delivery</h3>
-        <p>Reliable delivery across Kenya.</p>
-    </div>
-
-    <div class="service-card">
-        <div class="service-icon">🔒</div>
-        <h3>Secure Shopping</h3>
-        <p>Shop with confidence and security.</p>
-    </div>
-
-    <div class="service-card">
-        <div class="service-icon">💳</div>
-        <h3>Easy Payments</h3>
-        <p>Convenient payment options.</p>
-    </div>
-
-    <div class="service-card">
-        <div class="service-icon">📞</div>
-        <h3>Customer Support</h3>
-        <p>We're here when you need us.</p>
-    </div>
-
-</section>
-
-
-<!-- FLASH DEALS -->
-<section class="products-section">
-
-    <div class="section-heading">
-
-        <div>
-            <span class="section-label">LIMITED TIME</span>
-            <h2>Flash Deals</h2>
-        </div>
-
-        <a href="deals.html">View All →</a>
-
-    </div>
-
-
-    <div class="product-grid">
-
-        <!-- PRODUCT 1 -->
-        <div class="product-card">
-
-            <div class="product-image">
-
-                <span class="discount">-25%</span>
-
-                <img
-                    src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=600&q=85"
-                    alt="Smartphone"
-                >
-
-            </div>
-
-            <div class="product-info">
-
-                <h3>Modern Smartphone</h3>
-
-                <div class="rating">
-                    ★★★★★
-                    <span>(24)</span>
-                </div>
-
-                <div class="price">
-                    KSh 22,499
-                    <del>KSh 29,999</del>
-                </div>
-
-                <button
-                    class="add-to-cart"
-                    onclick="addProductToCart('Modern Smartphone', 22499)"
-                >
-                    Add to Cart
-                </button>
-
-            </div>
-
-        </div>
-
-
-        <!-- PRODUCT 2 -->
-        <div class="product-card">
-
-            <div class="product-image">
-
-                <span class="discount">-18%</span>
-
-                <img
-                    src="https://images.unsplash.com/photo-1546435770-a3e426bf472b?auto=format&fit=crop&w=600&q=85"
-                    alt="Wireless headphones"
-                >
-
-            </div>
-
-            <div class="product-info">
-
-                <h3>Wireless Headphones</h3>
-
-                <div class="rating">
-                    ★★★★★
-                    <span>(31)</span>
-                </div>
-
-                <div class="price">
-                    KSh 4,099
-                    <del>KSh 4,999</del>
-                </div>
-
-                <button
-                    class="add-to-cart"
-                    onclick="addProductToCart('Wireless Headphones', 4099)"
-                >
-                    Add to Cart
-                </button>
-
-            </div>
-
-        </div>
-
-
-        <!-- PRODUCT 3 -->
-        <div class="product-card">
-
-            <div class="product-image">
-
-                <span class="discount">-20%</span>
-
-                <img
-                    src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=600&q=85"
-                    alt="Smart watch"
-                >
-
-            </div>
-
-            <div class="product-info">
-
-                <h3>Smart Watch</h3>
-
-                <div class="rating">
-                    ★★★★☆
-                    <span>(18)</span>
-                </div>
-
-                <div class="price">
-                    KSh 3,999
-                    <del>KSh 4,999</del>
-                </div>
-
-                <button
-                    class="add-to-cart"
-                    onclick="addProductToCart('Smart Watch', 3999)"
-                >
-                    Add to Cart
-                </button>
-
-            </div>
-
-        </div>
-
-
-        <!-- PRODUCT 4 -->
-        <div class="product-card">
-
-            <div class="product-image">
-
-                <span class="discount">-15%</span>
-
-                <img
-                    src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=85"
-                    alt="Sports shoes"
-                >
-
-            </div>
-
-            <div class="product-info">
-
-                <h3>Sports Running Shoes</h3>
-
-                <div class="rating">
-                    ★★★★★
-                    <span>(42)</span>
-                </div>
-
-                <div class="price">
-                    KSh 3,399
-                    <del>KSh 3,999</del>
-                </div>
-
-                <button
-                    class="add-to-cart"
-                    onclick="addProductToCart('Sports Running Shoes', 3399)"
-                >
-                    Add to Cart
-                </button>
-
-            </div>
+            <a href="deals.html" class="hero-deals">
+                View Deals
+            </a>
 
         </div>
 
@@ -297,334 +484,275 @@
 
 </section>
 
+<section class="section services">
 
-<!-- CATEGORIES -->
-<section class="categories-section">
+    <div class="service-grid">
 
-    <div class="section-heading">
+        <div class="service-card">
 
-        <div>
-            <span class="section-label">SHOP BY</span>
-            <h2>Popular Categories</h2>
+            <div class="service-icon">🚚</div>
+
+            <h3>Reliable Delivery</h3>
+
+            <p>
+                Convenient delivery information and order tracking.
+            </p>
+
         </div>
 
-        <a href="categories.html">View All →</a>
+        <div class="service-card">
+
+            <div class="service-icon">🔒</div>
+
+            <h3>Secure Shopping</h3>
+
+            <p>
+                Customer accounts and secure authentication.
+            </p>
+
+        </div>
+
+        <div class="service-card">
+
+            <div class="service-icon">💳</div>
+
+            <h3>Easy Checkout</h3>
+
+            <p>
+                Simple checkout designed for Kenyan shoppers.
+            </p>
+
+        </div>
+
+        <div class="service-card">
+
+            <div class="service-icon">💬</div>
+
+            <h3>Customer Support</h3>
+
+            <p>
+                Get help through our Help Center and support pages.
+            </p>
+
+        </div>
 
     </div>
 
+</section>
+
+<section class="section">
+
+    <div class="section-title">
+
+        <h2>Shop by Category</h2>
+
+        <a href="categories.html">
+            View All
+        </a>
+
+    </div>
 
     <div class="category-grid">
 
-        <a href="shop.html" class="category-card">
+        <a
+            href="shop.html?search=Phones%20and%20Tablets"
+            class="category-card"
+        >
 
             <img
-                src="https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=500&q=85"
-                alt="Electronics"
+                src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=700&q=80"
+                alt="Phones and Tablets"
             >
 
-            <div>
-                <h3>Electronics</h3>
-                <p>Latest technology</p>
-            </div>
+            <div>Phones & Tablets</div>
 
         </a>
 
-
-        <a href="shop.html" class="category-card">
-
-            <img
-                src="https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=500&q=85"
-                alt="Fashion"
-            >
-
-            <div>
-                <h3>Fashion</h3>
-                <p>Style for everyone</p>
-            </div>
-
-        </a>
-
-
-        <a href="shop.html" class="category-card">
+        <a
+            href="shop.html?search=Computing"
+            class="category-card"
+        >
 
             <img
-                src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=500&q=85"
-                alt="Beauty"
-            >
-
-            <div>
-                <h3>Beauty</h3>
-                <p>Beauty essentials</p>
-            </div>
-
-        </a>
-
-
-        <a href="shop.html" class="category-card">
-
-            <img
-                src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=500&q=85"
-                alt="Home"
-            >
-
-            <div>
-                <h3>Home & Appliances</h3>
-                <p>Make your home better</p>
-            </div>
-
-        </a>
-
-
-        <a href="shop.html" class="category-card">
-
-            <img
-                src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=500&q=85"
+                src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=700&q=80"
                 alt="Computing"
             >
 
-            <div>
-                <h3>Computing</h3>
-                <p>Laptops and accessories</p>
-            </div>
+            <div>Computing</div>
 
         </a>
 
-
-        <a href="shop.html" class="category-card">
-
-            <img
-                src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=500&q=85"
-                alt="Groceries"
-            >
-
-            <div>
-                <h3>Groceries</h3>
-                <p>Everyday essentials</p>
-            </div>
-
-        </a>
-
-    </div>
-
-</section>
-
-
-<!-- PROMO BANNER -->
-<section class="promo-section">
-
-    <div class="promo-content">
-
-        <div>
-            <span>METEUR SPECIAL OFFER</span>
-
-            <h2>
-                Great Products.
-                Great Prices.
-            </h2>
-
-            <p>
-                Discover amazing deals and new products every day.
-            </p>
-
-            <a href="shop.html" class="promo-button">
-                Start Shopping
-            </a>
-        </div>
-
-        <img
-            src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=700&q=85"
-            alt="Online shopping"
+        <a
+            href="shop.html?search=Electronics"
+            class="category-card"
         >
 
+            <img
+                src="https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&fit=crop&w=700&q=80"
+                alt="Electronics"
+            >
+
+            <div>Electronics</div>
+
+        </a>
+
+        <a
+            href="shop.html?search=Fashion"
+            class="category-card"
+        >
+
+            <img
+                src="https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=700&q=80"
+                alt="Fashion"
+            >
+
+            <div>Fashion</div>
+
+        </a>
+
+        <a
+            href="shop.html?search=Shoes"
+            class="category-card"
+        >
+
+            <img
+                src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=700&q=80"
+                alt="Shoes"
+            >
+
+            <div>Shoes</div>
+
+        </a>
+
+        <a
+            href="shop.html?search=Kitchen"
+            class="category-card"
+        >
+
+            <img
+                src="https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=700&q=80"
+                alt="Kitchen"
+            >
+
+            <div>Kitchen</div>
+
+        </a>
+
     </div>
 
 </section>
 
+<section class="section">
 
-<!-- NEW ARRIVALS -->
-<section class="products-section">
+    <div class="section-title">
 
-    <div class="section-heading">
+        <h2>Flash Deals</h2>
 
-        <div>
-            <span class="section-label">JUST ARRIVED</span>
-            <h2>New Arrivals</h2>
-        </div>
-
-        <a href="new-arrivals.html">View All →</a>
+        <a href="deals.html">
+            View All Deals
+        </a>
 
     </div>
 
+    <div
+        id="dealProducts"
+        class="product-grid"
+    >
 
-    <div class="product-grid">
-
-        <div class="product-card">
-
-            <div class="product-image">
-
-                <img
-                    src="https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=600&q=85"
-                    alt="Laptop"
-                >
-
-            </div>
-
-            <div class="product-info">
-
-                <h3>Premium Laptop</h3>
-
-                <div class="rating">
-                    ★★★★★
-                    <span>(12)</span>
-                </div>
-
-                <div class="price">
-                    KSh 74,999
-                </div>
-
-                <button
-                    class="add-to-cart"
-                    onclick="addProductToCart('Premium Laptop', 74999)"
-                >
-                    Add to Cart
-                </button>
-
-            </div>
-
-        </div>
-
-
-        <div class="product-card">
-
-            <div class="product-image">
-
-                <img
-                    src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=600&q=85"
-                    alt="T-shirt"
-                >
-
-            </div>
-
-            <div class="product-info">
-
-                <h3>Premium Cotton T-Shirt</h3>
-
-                <div class="rating">
-                    ★★★★☆
-                    <span>(15)</span>
-                </div>
-
-                <div class="price">
-                    KSh 1,499
-                </div>
-
-                <button
-                    class="add-to-cart"
-                    onclick="addProductToCart('Premium Cotton T-Shirt', 1499)"
-                >
-                    Add to Cart
-                </button>
-
-            </div>
-
-        </div>
-
-
-        <div class="product-card">
-
-            <div class="product-image">
-
-                <img
-                    src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&fit=crop&w=600&q=85"
-                    alt="Sunglasses"
-                >
-
-            </div>
-
-            <div class="product-info">
-
-                <h3>Classic Sunglasses</h3>
-
-                <div class="rating">
-                    ★★★★★
-                    <span>(20)</span>
-                </div>
-
-                <div class="price">
-                    KSh 1,999
-                </div>
-
-                <button
-                    class="add-to-cart"
-                    onclick="addProductToCart('Classic Sunglasses', 1999)"
-                >
-                    Add to Cart
-                </button>
-
-            </div>
-
-        </div>
-
-
-        <div class="product-card">
-
-            <div class="product-image">
-
-                <img
-                    src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=600&q=85"
-                    alt="Women's shoes"
-                >
-
-            </div>
-
-            <div class="product-info">
-
-                <h3>Women's Fashion Shoes</h3>
-
-                <div class="rating">
-                    ★★★★★
-                    <span>(27)</span>
-                </div>
-
-                <div class="price">
-                    KSh 2,799
-                </div>
-
-                <button
-                    class="add-to-cart"
-                    onclick="addProductToCart('Womens Fashion Shoes', 2799)"
-                >
-                    Add to Cart
-                </button>
-
-            </div>
-
+        <div class="product-loading">
+            Loading deals...
         </div>
 
     </div>
 
 </section>
 
+<section class="section">
 
-<!-- NEWSLETTER -->
-<section class="newsletter-section">
+    <div class="promo">
 
-    <div>
-
-        <h2>Stay Updated</h2>
+        <h2>Great Products. Great Prices.</h2>
 
         <p>
-            Get the latest deals, new arrivals and special offers.
+            Find exciting offers across phones, electronics,
+            fashion, home products and more.
         </p>
+
+        <a href="deals.html">
+            Explore Deals
+        </a>
 
     </div>
 
-    <form onsubmit="subscribeNewsletter(event)">
+</section>
+
+<section class="section">
+
+    <div class="section-title">
+
+        <h2>New Arrivals</h2>
+
+        <a href="new-arrivals.html">
+            View All
+        </a>
+
+    </div>
+
+    <div
+        id="newProducts"
+        class="product-grid"
+    >
+
+        <div class="product-loading">
+            Loading new arrivals...
+        </div>
+
+    </div>
+
+</section>
+
+<section class="section">
+
+    <div class="section-title">
+
+        <h2>Popular Products</h2>
+
+        <a href="shop.html">
+            Shop All
+        </a>
+
+    </div>
+
+    <div
+        id="popularProducts"
+        class="product-grid"
+    >
+
+        <div class="product-loading">
+            Loading popular products...
+        </div>
+
+    </div>
+
+</section>
+
+<section class="newsletter">
+
+    <h2>Stay Updated</h2>
+
+    <p>
+        Subscribe for new products, deals and shopping updates.
+    </p>
+
+    <form
+        class="newsletter-form"
+        onsubmit="subscribeNewsletter(event)"
+    >
 
         <input
             type="email"
             id="newsletterEmail"
-            placeholder="Enter your email address"
+            placeholder="Enter your email"
             required
         >
 
@@ -636,26 +764,23 @@
 
 </section>
 
-
-<!-- FOOTER -->
 <footer class="site-footer">
 
-    <div class="footer-grid">
+    <div class="footer-content">
 
         <div>
 
-            <h2>Meteur</h2>
+            <h3>Meteur Online Shopping</h3>
 
             <p>
-                Your trusted online shopping destination in Kenya.
+                Your modern Kenyan online marketplace.
             </p>
 
         </div>
 
-
         <div>
 
-            <h3>Shopping</h3>
+            <h4>Shopping</h4>
 
             <a href="shop.html">Shop</a>
             <a href="categories.html">Categories</a>
@@ -664,173 +789,477 @@
 
         </div>
 
-
         <div>
 
-            <h3>Customer Service</h3>
+            <h4>Customer Service</h4>
 
             <a href="help.html">Help Center</a>
-            <a href="contact.html">Contact Us</a>
-            <a href="shipping.html">Shipping</a>
-            <a href="returns.html">Returns</a>
-
-        </div>
-
-
-        <div>
-
-            <h3>About Meteur</h3>
-
-            <a href="about.html">About Us</a>
             <a href="faq.html">FAQ</a>
-            <a href="privacy.html">Privacy Policy</a>
-            <a href="terms.html">Terms & Conditions</a>
+            <a href="contact.html">Contact</a>
+            <a href="track-order.html">Track Order</a>
 
         </div>
 
     </div>
 
-
     <div class="footer-bottom">
-
-        <p>
-            © 2026 Meteur Online Shopping. All rights reserved.
-        </p>
-
+        © 2026 Meteur Online Shopping. All rights reserved.
     </div>
 
 </footer>
 
+<script src="script.js"></script>
 
-<!-- CART SCRIPT -->
 <script>
 
-    function getCart() {
+let products = [];
 
-        return JSON.parse(
+/* Load products */
+
+async function loadHomepageProducts() {
+
+    try {
+
+        const { data, error } = await supabaseClient
+            .from("products")
+            .select("*")
+            .order("created_at", {
+                ascending: false
+            });
+
+        if (error) {
+            throw error;
+        }
+
+        products = data || [];
+
+        renderDeals();
+        renderNewArrivals();
+        renderPopularProducts();
+
+    } catch (error) {
+
+        console.error(
+            "Homepage product loading error:",
+            error
+        );
+
+        showProductError("dealProducts");
+        showProductError("newProducts");
+        showProductError("popularProducts");
+
+    }
+
+}
+
+/* Product card */
+
+function productCard(product) {
+
+    const image =
+        product.image_url ||
+        "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80";
+
+    const rating =
+        Number(product.rating || 0);
+
+    const reviews =
+        Number(product.review_count || 0);
+
+    const oldPrice =
+        product.old_price
+            ? `
+                <span class="product-old-price">
+                    KSh ${Number(product.old_price).toLocaleString()}
+                </span>
+            `
+            : "";
+
+    const badge =
+        product.badge
+            ? `
+                <span class="product-badge">
+                    ${escapeHtml(product.badge)}
+                </span>
+            `
+            : "";
+
+    return `
+
+        <article class="product-card">
+
+            ${badge}
+
+            <button
+                class="wishlist-button"
+                onclick='addToWishlist(${JSON.stringify(product)})'
+                aria-label="Add to wishlist"
+            >
+                ♡
+            </button>
+
+            <a href="product.html?id=${product.id}">
+
+                <img
+                    class="product-image"
+                    src="${escapeHtml(image)}"
+                    alt="${escapeHtml(product.name)}"
+                    loading="lazy"
+                >
+
+            </a>
+
+            <div class="product-info">
+
+                <div class="product-category">
+                    ${escapeHtml(product.category)}
+                </div>
+
+                <h3 class="product-name">
+                    ${escapeHtml(product.name)}
+                </h3>
+
+                <div class="product-rating">
+
+                    ${"★".repeat(Math.round(rating))}
+                    ${"☆".repeat(5 - Math.round(rating))}
+
+                    <span>
+                        (${reviews})
+                    </span>
+
+                </div>
+
+                <div class="product-price">
+
+                    KSh ${Number(product.price).toLocaleString()}
+
+                    ${oldPrice}
+
+                </div>
+
+                <button
+                    class="product-button"
+                    onclick='addProductToCart(${JSON.stringify(product)})'
+                >
+                    Add to Cart
+                </button>
+
+            </div>
+
+        </article>
+
+    `;
+
+}
+
+/* Deals */
+
+function renderDeals() {
+
+    const container =
+        document.getElementById("dealProducts");
+
+    const deals =
+        products
+            .filter(product => product.is_deal)
+            .slice(0, 4);
+
+    if (!deals.length) {
+
+        container.innerHTML = `
+            <div class="product-empty">
+                No deals available right now.
+            </div>
+        `;
+
+        return;
+
+    }
+
+    container.innerHTML =
+        deals.map(productCard).join("");
+
+}
+
+/* New arrivals */
+
+function renderNewArrivals() {
+
+    const container =
+        document.getElementById("newProducts");
+
+    const arrivals =
+        products
+            .filter(product => product.is_new)
+            .slice(0, 4);
+
+    if (!arrivals.length) {
+
+        container.innerHTML = `
+            <div class="product-empty">
+                No new arrivals available right now.
+            </div>
+        `;
+
+        return;
+
+    }
+
+    container.innerHTML =
+        arrivals.map(productCard).join("");
+
+}
+
+/* Popular products */
+
+function renderPopularProducts() {
+
+    const container =
+        document.getElementById("popularProducts");
+
+    const popular =
+        [...products]
+            .sort(
+                (a, b) =>
+                    Number(b.rating || 0) -
+                    Number(a.rating || 0)
+            )
+            .slice(0, 4);
+
+    if (!popular.length) {
+
+        container.innerHTML = `
+            <div class="product-empty">
+                No products available.
+            </div>
+        `;
+
+        return;
+
+    }
+
+    container.innerHTML =
+        popular.map(productCard).join("");
+
+}
+
+/* Add cart */
+
+function addProductToCart(product) {
+
+    let cart =
+        JSON.parse(
             localStorage.getItem("meteurCart")
         ) || [];
 
-    }
+    const existing =
+        cart.find(
+            item => item.id === product.id
+        );
 
+    if (existing) {
 
-    function updateCartCount() {
+        existing.quantity =
+            Number(existing.quantity || 1) + 1;
 
-        const cart = getCart();
+    } else {
 
-        let count = 0;
+        cart.push({
 
-        cart.forEach(function(item) {
+            id: product.id,
 
-            count += Number(item.quantity) || 1;
+            name: product.name,
+
+            price: Number(product.price),
+
+            image: product.image_url,
+
+            quantity: 1
 
         });
 
-        const cartCount =
-            document.getElementById("cartCount");
-
-        if (cartCount) {
-
-            cartCount.textContent = count;
-
-        }
-
     }
 
-
-    function addProductToCart(name, price) {
-
-        let cart = getCart();
-
-        const existingProduct =
-            cart.find(function(item) {
-
-                return item.name === name;
-
-            });
-
-
-        if (existingProduct) {
-
-            existingProduct.quantity =
-                (existingProduct.quantity || 1) + 1;
-
-        } else {
-
-            cart.push({
-
-                name: name,
-                price: price,
-                quantity: 1
-
-            });
-
-        }
-
-
-        localStorage.setItem(
-            "meteurCart",
-            JSON.stringify(cart)
-        );
-
-
-        updateCartCount();
-
-        alert(
-            name + " has been added to your cart."
-        );
-
-    }
-
-
-    function searchProducts() {
-
-        const searchInput =
-            document.getElementById("searchInput");
-
-        const searchTerm =
-            searchInput.value.trim();
-
-        if (searchTerm === "") {
-
-            window.location.href = "shop.html";
-
-            return;
-
-        }
-
-        window.location.href =
-            "shop.html?search=" +
-            encodeURIComponent(searchTerm);
-
-    }
-
-
-    function subscribeNewsletter(event) {
-
-        event.preventDefault();
-
-        const email =
-            document.getElementById(
-                "newsletterEmail"
-            ).value;
-
-        if (email) {
-
-            alert(
-                "Thank you for subscribing to Meteur!"
-            );
-
-            document.getElementById(
-                "newsletterEmail"
-            ).value = "";
-
-        }
-
-    }
-
+    localStorage.setItem(
+        "meteurCart",
+        JSON.stringify(cart)
+    );
 
     updateCartCount();
+
+    alert(
+        `${product.name} added to your cart.`
+    );
+
+}
+
+/* Wishlist */
+
+function addToWishlist(product) {
+
+    let wishlist =
+        JSON.parse(
+            localStorage.getItem("meteurWishlist")
+        ) || [];
+
+    const exists =
+        wishlist.some(
+            item => item.id === product.id
+        );
+
+    if (exists) {
+
+        alert(
+            "This product is already in your wishlist."
+        );
+
+        return;
+
+    }
+
+    wishlist.push({
+
+        id: product.id,
+
+        name: product.name,
+
+        price: Number(product.price),
+
+        image: product.image_url
+
+    });
+
+    localStorage.setItem(
+        "meteurWishlist",
+        JSON.stringify(wishlist)
+    );
+
+    alert(
+        `${product.name} added to your wishlist.`
+    );
+
+}
+
+/* Cart count */
+
+function updateCartCount() {
+
+    const cart =
+        JSON.parse(
+            localStorage.getItem("meteurCart")
+        ) || [];
+
+    const count =
+        cart.reduce(
+            (total, item) =>
+                total +
+                Number(item.quantity || 1),
+            0
+        );
+
+    const element =
+        document.getElementById("cartCount");
+
+    if (element) {
+        element.textContent = count;
+    }
+
+}
+
+/* Search */
+
+function searchProducts() {
+
+    const value =
+        document
+            .getElementById("searchInput")
+            .value
+            .trim();
+
+    if (!value) {
+
+        window.location.href =
+            "shop.html";
+
+        return;
+
+    }
+
+    window.location.href =
+        "shop.html?search=" +
+        encodeURIComponent(value);
+
+}
+
+/* Newsletter */
+
+function subscribeNewsletter(event) {
+
+    event.preventDefault();
+
+    const email =
+        document
+            .getElementById("newsletterEmail")
+            .value
+            .trim();
+
+    if (!email) {
+        return;
+    }
+
+    alert(
+        "Thank you for subscribing to Meteur!"
+    );
+
+    event.target.reset();
+
+}
+
+/* Error */
+
+function showProductError(id) {
+
+    const element =
+        document.getElementById(id);
+
+    if (!element) {
+        return;
+    }
+
+    element.innerHTML = `
+        <div class="product-empty">
+            Unable to load products.
+            Please refresh the page.
+        </div>
+    `;
+
+}
+
+/* Escape HTML */
+
+function escapeHtml(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+/* Start */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        updateCartCount();
+        loadHomepageProducts();
+
+    }
+);
 
 </script>
 

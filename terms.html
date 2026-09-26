@@ -6,403 +6,641 @@
 
     <title>Terms & Conditions - Meteur Online Shopping</title>
 
-    <meta name="description" content="Terms and Conditions for Meteur Online Shopping.">
-
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        .terms-page {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 45px 20px 70px;
+        }
+
+        .terms-hero {
+            background:
+                linear-gradient(rgba(0,0,0,.58), rgba(0,0,0,.58)),
+                url("https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1600&q=85");
+            background-size: cover;
+            background-position: center;
+            min-height: 280px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 35px;
+        }
+
+        .terms-hero-content {
+            color: white;
+            padding: 50px;
+        }
+
+        .terms-hero h1 {
+            font-size: 42px;
+            margin: 0 0 12px;
+        }
+
+        .terms-hero p {
+            max-width: 650px;
+            font-size: 17px;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        .terms-card {
+            background: white;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,.08);
+        }
+
+        .terms-card h2 {
+            color: #222;
+            margin-top: 35px;
+            margin-bottom: 12px;
+        }
+
+        .terms-card h2:first-child {
+            margin-top: 0;
+        }
+
+        .terms-card p {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .terms-card ul {
+            color: #555;
+            line-height: 1.8;
+            padding-left: 25px;
+        }
+
+        .terms-card li {
+            margin-bottom: 8px;
+        }
+
+        .terms-date {
+            background: #fff5ef;
+            border-left: 4px solid #f4511e;
+            padding: 15px 18px;
+            margin-bottom: 25px;
+            color: #555;
+        }
+
+        .terms-highlight {
+            background: #f8f8f8;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .terms-highlight strong {
+            color: #f4511e;
+        }
+
+        .terms-contact {
+            background: #f4511e;
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 35px;
+        }
+
+        .terms-contact h2 {
+            color: white;
+            margin-top: 0;
+        }
+
+        .terms-contact p {
+            color: white;
+        }
+
+        .terms-contact a {
+            color: white;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            .terms-page {
+                padding: 25px 15px 50px;
+            }
+
+            .terms-hero {
+                min-height: 250px;
+            }
+
+            .terms-hero-content {
+                padding: 30px 22px;
+            }
+
+            .terms-hero h1 {
+                font-size: 32px;
+            }
+
+            .terms-card {
+                padding: 25px 20px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-    <!-- Top Bar -->
-    <div class="top-bar">
-        <div class="container">
-            <span>Welcome to Meteur Online Shopping</span>
+<header>
+    <div class="container">
 
-            <div class="top-links">
-                <a href="faq.html">Help Center</a>
-                <a href="track-order.html">Track Order</a>
-                <a href="sell.html">Sell on Meteur</a>
+        <div class="top-bar">
+
+            <div class="logo">
+                <a href="index.html">🛒 Meteur</a>
             </div>
-        </div>
-    </div>
 
-    <!-- Header -->
-    <header class="main-header">
-        <div class="container header-content">
+            <div class="search-box">
 
-            <a href="index.html" class="logo">
-                <i class="fas fa-shopping-bag"></i>
-                <div>
-                    <strong>Meteur</strong>
-                    <small>ONLINE SHOPPING</small>
-                </div>
-            </a>
-
-            <form class="search-box" id="searchForm">
                 <input
                     type="text"
                     id="searchInput"
-                    placeholder="Search for products, brands and more..."
-                    required
+                    placeholder="Search products..."
                 >
 
-                <button type="submit">
-                    <i class="fas fa-search"></i>
+                <button onclick="searchProducts()">
+                    Search
                 </button>
-            </form>
+
+            </div>
 
             <div class="header-actions">
 
                 <a href="login.html">
-                    <i class="fas fa-user"></i>
-                    <span>Account</span>
+                    Account
                 </a>
 
                 <a href="wishlist.html">
-                    <i class="fas fa-heart"></i>
-                    <span>Wishlist</span>
+                    ♡ Wishlist
                 </a>
 
                 <a href="cart.html">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span>Cart</span>
-                    <b id="cartCount">0</b>
+                    🛒 Cart (<span id="cartCount">0</span>)
                 </a>
 
             </div>
 
         </div>
-    </header>
 
-    <!-- Navigation -->
-    <nav class="main-nav">
-
-        <div class="container nav-content">
-
-            <a href="shop.html" class="category-button">
-                <i class="fas fa-bars"></i>
-                Categories
-            </a>
-
+        <nav>
             <a href="index.html">Home</a>
             <a href="shop.html">Shop</a>
-            <a href="shop.html">Flash Deals</a>
-            <a href="shop.html">Categories</a>
-            <a href="shop.html">New Arrivals</a>
-            <a href="shop.html">Popular</a>
+            <a href="categories.html">Categories</a>
+            <a href="deals.html">Deals</a>
+            <a href="new-arrivals.html">New Arrivals</a>
+            <a href="sell.html">Sell on Meteur</a>
+        </nav>
 
-        </div>
+    </div>
+</header>
 
-    </nav>
 
-    <!-- Hero -->
-    <section style="
-        background: linear-gradient(135deg, #ff9900, #ff6a00);
-        color: white;
-        padding: 55px 20px;
-        text-align: center;
-    ">
+<main class="terms-page">
 
-        <div class="container">
+    <section class="terms-hero">
 
-            <h1 style="font-size: 38px; margin-bottom: 10px;">
+        <div class="terms-hero-content">
+
+            <h1>
                 Terms & Conditions
             </h1>
 
-            <p style="font-size: 17px; margin: 0;">
-                Terms for using Meteur Online Shopping.
+            <p>
+                Please read these terms carefully before using
+                Meteur Online Shopping.
             </p>
 
         </div>
 
     </section>
 
-    <!-- Terms Content -->
-    <main class="container" style="padding: 50px 20px;">
 
-        <div style="
-            background: white;
-            padding: 35px;
-            border-radius: 10px;
-            box-shadow: 0 3px 15px rgba(0,0,0,0.06);
-            max-width: 950px;
-            margin: auto;
-            line-height: 1.8;
-        ">
+    <section class="terms-card">
 
-            <p>
-                <strong>Last updated:</strong> September 2026
-            </p>
+        <div class="terms-date">
+            <strong>Last Updated:</strong> September 2026
+        </div>
 
-            <h2>1. Introduction</h2>
 
-            <p>
-                These Terms & Conditions describe the general rules for using
-                the Meteur Online Shopping website and its marketplace
-                services.
-            </p>
+        <h2>
+            1. Acceptance of Terms
+        </h2>
 
-            <p>
-                By using the website, you agree to use the platform
-                responsibly and in accordance with applicable laws.
-            </p>
+        <p>
+            By accessing or using Meteur Online Shopping,
+            you agree to follow these Terms & Conditions.
+        </p>
 
-            <h2>2. About Meteur Online Shopping</h2>
+        <p>
+            If you do not agree with these terms, please do
+            not use the website or its services.
+        </p>
 
-            <p>
-                Meteur Online Shopping is an independent Kenyan e-commerce
-                marketplace project designed to provide customers with an
-                online shopping experience.
-            </p>
 
-            <p>
-                The current version of the website is a front-end
-                demonstration. Some features are not yet connected to
-                production systems.
-            </p>
+        <h2>
+            2. About Meteur
+        </h2>
 
-            <h2>3. Customer Accounts</h2>
+        <p>
+            Meteur Online Shopping is an independent online
+            shopping marketplace designed to connect customers
+            with products and sellers.
+        </p>
 
-            <p>
-                Future versions of the platform may allow customers to create
-                accounts, manage personal information, save addresses,
-                maintain wishlists, and view order history.
-            </p>
+        <p>
+            Product availability, prices, delivery options and
+            other information may change from time to time.
+        </p>
 
-            <p>
-                Customers will be responsible for keeping their account
-                credentials secure and for providing accurate information.
-            </p>
 
-            <h2>4. Products and Prices</h2>
+        <h2>
+            3. Customer Accounts
+        </h2>
 
-            <p>
-                Product names, descriptions, images, prices, discounts, and
-                availability displayed on the demonstration website are
-                examples used to represent a marketplace experience.
-            </p>
+        <p>
+            Some features may require you to create an account.
+            You agree to provide accurate information when
+            creating or maintaining your account.
+        </p>
 
-            <p>
-                Before real transactions are enabled, actual product
-                information, pricing, stock availability, and seller
-                information must be connected to the production system.
-            </p>
+        <p>
+            You are responsible for keeping your login
+            information secure and for activity performed
+            through your account.
+        </p>
 
-            <h2>5. Orders</h2>
 
-            <p>
-                A future production version may allow customers to add
-                products to a shopping cart, provide delivery information,
-                select a payment method, and submit an order.
-            </p>
+        <h2>
+            4. Shopping and Orders
+        </h2>
 
-            <p>
-                An order may be subject to availability, pricing
-                confirmation, payment confirmation, and other applicable
-                conditions.
-            </p>
+        <p>
+            Adding an item to your shopping cart does not
+            necessarily guarantee that the item will remain
+            available.
+        </p>
 
-            <h2>6. Payments</h2>
+        <p>
+            An order may be subject to confirmation before it
+            is accepted and processed.
+        </p>
 
-            <p>
-                The current website does not process real payments.
-            </p>
+        <ul>
+            <li>Product availability may change.</li>
+            <li>Prices may change before an order is confirmed.</li>
+            <li>Product descriptions should be reviewed before purchase.</li>
+            <li>Orders may be cancelled where appropriate.</li>
+        </ul>
 
-            <p>
-                Future payment services may include M-Pesa or other supported
-                payment methods. Customers should never share an M-Pesa PIN,
-                password, or other confidential security credentials with
-                another person.
-            </p>
 
-            <h2>7. Delivery</h2>
+        <h2>
+            5. Product Information
+        </h2>
 
-            <p>
-                Future orders may include delivery services to locations
-                supported by Meteur Online Shopping.
-            </p>
+        <p>
+            Meteur aims to provide accurate product descriptions,
+            images, prices and specifications.
+        </p>
 
-            <p>
-                Delivery charges, delivery times, supported locations, and
-                other delivery conditions may depend on the order and
-                applicable service arrangements.
-            </p>
+        <p>
+            However, minor differences may occur between product
+            images and the physical product, including differences
+            in lighting, display settings, packaging or appearance.
+        </p>
 
-            <h2>8. Returns and Refunds</h2>
 
-            <p>
-                Future production services may include product returns,
-                replacements, or refunds subject to the applicable return
-                policy and product conditions.
-            </p>
+        <h2>
+            6. Prices and Payments
+        </h2>
+
+        <p>
+            Product prices are displayed on the website and may
+            change from time to time.
+        </p>
+
+        <p>
+            Applicable delivery charges, transaction charges or
+            other costs may be displayed during checkout.
+        </p>
+
+        <div class="terms-highlight">
+
+            <strong>
+                Payment security:
+            </strong>
 
             <p>
-                Customers should review the applicable return information
-                before completing a purchase.
+                Customers should only enter payment information
+                through the official Meteur checkout process or
+                authorized payment providers.
             </p>
-
-            <h2>9. Prohibited Activities</h2>
-
-            <p>
-                Users should not use the website to:
-            </p>
-
-            <ul>
-                <li>Break applicable laws or regulations</li>
-                <li>Attempt unauthorized access to the website</li>
-                <li>Interfere with website security or operation</li>
-                <li>Submit fraudulent information</li>
-                <li>Abuse customer support or marketplace services</li>
-                <li>Upload malicious software or harmful content</li>
-            </ul>
-
-            <h2>10. Intellectual Property</h2>
-
-            <p>
-                Website design elements, original branding, written content,
-                code, and other materials created for Meteur Online Shopping
-                may be protected by applicable intellectual property laws.
-            </p>
-
-            <p>
-                Users should not copy, reproduce, or redistribute protected
-                materials without appropriate permission.
-            </p>
-
-            <h2>11. Website Availability</h2>
-
-            <p>
-                We may update, change, suspend, or improve parts of the
-                website as the platform develops.
-            </p>
-
-            <p>
-                Demonstration features may not always operate in the same way
-                as production services.
-            </p>
-
-            <h2>12. Privacy</h2>
-
-            <p>
-                Information about privacy and the handling of customer
-                information is provided in our
-                <a href="privacy.html">Privacy Policy</a>.
-            </p>
-
-            <h2>13. Changes to These Terms</h2>
-
-            <p>
-                These Terms & Conditions may be updated as Meteur Online
-                Shopping adds new services, features, payment systems, seller
-                services, and customer functionality.
-            </p>
-
-            <p>
-                Updated terms will be published on this page.
-            </p>
-
-            <h2>14. Contact Information</h2>
-
-            <p>
-                For questions about these Terms & Conditions, contact:
-            </p>
-
-            <p>
-                <strong>Phone:</strong>
-                <a href="tel:0711842260">0711842260</a>
-                <br>
-
-                <strong>Email:</strong>
-                <a href="mailto:daghlusmeteur@gmail.com">
-                    daghlusmeteur@gmail.com
-                </a>
-                <br>
-
-                <strong>Location:</strong> Kenya
-            </p>
-
-            <div style="
-                margin-top: 30px;
-                padding: 20px;
-                background: #fff7e6;
-                border-left: 4px solid #ff9900;
-                border-radius: 6px;
-            ">
-
-                <strong>Important:</strong>
-
-                The current Meteur Online Shopping website is a
-                front-end demonstration. Real customer accounts,
-                production databases, payment processing, seller systems,
-                and live order management will be connected before
-                production transactions are enabled.
-
-            </div>
 
         </div>
 
-    </main>
 
-    <!-- Footer -->
-    <footer class="footer">
+        <h2>
+            7. Delivery
+        </h2>
 
-        <div class="container">
+        <p>
+            Delivery times may vary depending on the customer's
+            location, product availability, seller processing
+            time and delivery provider.
+        </p>
 
-            <div class="footer-grid">
+        <p>
+            Estimated delivery dates are provided as guidance
+            and may change because of circumstances outside
+            Meteur's control.
+        </p>
 
-                <div>
-                    <h3>Meteur Online Shopping</h3>
 
-                    <p>
-                        A modern Kenyan online marketplace designed to make
-                        shopping simple, convenient and accessible.
-                    </p>
-                </div>
+        <h2>
+            8. Returns and Refunds
+        </h2>
 
-                <div>
-                    <h3>Customer Service</h3>
+        <p>
+            Returns and refunds are subject to the applicable
+            Meteur return policy and the conditions provided
+            for the relevant product.
+        </p>
 
-                    <a href="faq.html">FAQ</a>
-                    <a href="contact.html">Contact Us</a>
-                    <a href="track-order.html">Track Order</a>
-                    <a href="returns.html">Returns</a>
-                </div>
+        <p>
+            Customers should review the returns information
+            before submitting a return request.
+        </p>
 
-                <div>
-                    <h3>About</h3>
+        <a href="returns.html">
+            View Returns Policy →
+        </a>
 
-                    <a href="about.html">About Us</a>
-                    <a href="privacy.html">Privacy Policy</a>
-                    <a href="terms.html">Terms & Conditions</a>
-                    <a href="shipping.html">Shipping Information</a>
-                </div>
 
-                <div>
-                    <h3>Contact</h3>
+        <h2>
+            9. Prohibited Activities
+        </h2>
 
-                    <p>0711842260</p>
-                    <p>daghlusmeteur@gmail.com</p>
-                    <p>Kenya</p>
-                </div>
+        <p>
+            Users must not use Meteur for unlawful, fraudulent
+            or abusive activities.
+        </p>
 
-            </div>
+        <ul>
+            <li>Attempting unauthorized access to the website</li>
+            <li>Using another person's account without permission</li>
+            <li>Submitting false or misleading information</li>
+            <li>Interfering with website security</li>
+            <li>Using the website for fraudulent transactions</li>
+            <li>Uploading harmful or malicious content</li>
+        </ul>
 
-            <div class="footer-bottom">
+
+        <h2>
+            10. Seller Responsibilities
+        </h2>
+
+        <p>
+            Sellers using Meteur are responsible for providing
+            accurate product information and complying with
+            applicable laws and marketplace requirements.
+        </p>
+
+        <p>
+            Sellers are also responsible for fulfilling
+            accepted orders according to the applicable
+            marketplace requirements.
+        </p>
+
+
+        <h2>
+            11. Intellectual Property
+        </h2>
+
+        <p>
+            Website content, branding, designs, text, graphics
+            and other materials provided by Meteur may be
+            protected by applicable intellectual property laws.
+        </p>
+
+        <p>
+            You may not reproduce, modify, distribute or use
+            protected Meteur materials without appropriate
+            permission.
+        </p>
+
+
+        <h2>
+            12. Website Availability
+        </h2>
+
+        <p>
+            Meteur aims to keep the website available and
+            functional, but temporary interruptions may occur
+            because of maintenance, technical problems,
+            hosting issues or other circumstances.
+        </p>
+
+
+        <h2>
+            13. Limitation of Responsibility
+        </h2>
+
+        <p>
+            To the extent permitted by applicable law, Meteur
+            is not responsible for losses caused by events
+            outside its reasonable control.
+        </p>
+
+        <p>
+            Nothing in these terms is intended to remove or
+            limit rights that cannot legally be excluded.
+        </p>
+
+
+        <h2>
+            14. Changes to These Terms
+        </h2>
+
+        <p>
+            Meteur may update these Terms & Conditions when
+            necessary to reflect changes to its services,
+            website functionality or legal requirements.
+        </p>
+
+        <p>
+            Updated terms will be published on this page with
+            a revised update date.
+        </p>
+
+
+        <h2>
+            15. Contact
+        </h2>
+
+        <p>
+            If you have questions about these Terms & Conditions,
+            please contact Meteur customer support.
+        </p>
+
+
+        <div class="terms-contact">
+
+            <h2>
+                Need Help?
+            </h2>
+
+            <p>
+                Our support team can help with questions about
+                orders, accounts, delivery, returns and other
+                Meteur services.
+            </p>
+
+            <a href="contact.html">
+                Contact Meteur Support →
+            </a>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <div class="container">
+
+        <div class="footer-grid">
+
+            <div>
+
+                <h3>
+                    Meteur
+                </h3>
 
                 <p>
-                    © 2026 Meteur Online Shopping. All rights reserved.
+                    Your trusted Kenyan online shopping marketplace.
                 </p>
 
             </div>
 
+
+            <div>
+
+                <h4>
+                    Shopping
+                </h4>
+
+                <a href="shop.html">Shop</a><br>
+                <a href="categories.html">Categories</a><br>
+                <a href="deals.html">Deals</a><br>
+                <a href="new-arrivals.html">New Arrivals</a>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Customer Service
+                </h4>
+
+                <a href="help.html">Help Center</a><br>
+                <a href="faq.html">FAQ</a><br>
+                <a href="track-order.html">Track Order</a><br>
+                <a href="returns.html">Returns</a>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Company
+                </h4>
+
+                <a href="about.html">About Us</a><br>
+                <a href="sell.html">Sell on Meteur</a><br>
+                <a href="privacy.html">Privacy Policy</a><br>
+                <a href="terms.html">Terms & Conditions</a>
+
+            </div>
+
         </div>
 
-    </footer>
 
-    <script src="script.js"></script>
+        <p class="copyright">
+            © 2026 Meteur Online Shopping. All rights reserved.
+        </p>
+
+    </div>
+
+</footer>
+
+
+<script src="script.js"></script>
+
+<script>
+
+function updateCartCount() {
+
+    const cart =
+        JSON.parse(
+            localStorage.getItem("meteurCart")
+        ) || [];
+
+    const total =
+        cart.reduce(
+            function(sum, product) {
+                return sum + (product.quantity || 1);
+            },
+            0
+        );
+
+    document.getElementById(
+        "cartCount"
+    ).textContent = total;
+}
+
+
+function searchProducts() {
+
+    const search =
+        document
+            .getElementById("searchInput")
+            .value
+            .trim();
+
+    if (search) {
+
+        window.location.href =
+            "shop.html?search=" +
+            encodeURIComponent(search);
+
+    }
+}
+
+
+document
+    .getElementById("searchInput")
+    .addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Enter") {
+                searchProducts();
+            }
+
+        }
+    );
+
+
+updateCartCount();
+
+</script>
 
 </body>
 </html>

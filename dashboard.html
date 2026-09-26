@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Account | Meteur Online Shopping</title>
+
+    <meta name="description" content="Manage your Meteur Online Shopping customer account.">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .account-page {
+            padding: 30px 20px 60px;
+            background: #f5f5f5;
+            min-height: 650px;
+        }
+
+        .account-layout {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .account-sidebar {
+            background: #fff;
+            border-radius: 7px;
+            overflow: hidden;
+            height: fit-content;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        }
+
+        .account-user {
+            background: #ff9900;
+            color: #fff;
+            padding: 25px 20px;
+            text-align: center;
+        }
+
+        .user-avatar {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: #fff;
+            color: #ff9900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            font-size: 28px;
+        }
+
+        .account-user h3 {
+            margin-bottom: 4px;
+            font-size: 17px;
+        }
+
+        .account-user p {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .account-menu {
+            padding: 10px 0;
+        }
+
+        .account-menu a {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            padding: 13px 20px;
+            color: #555;
+            text-decoration: none;
+            font-size: 14px;
+            border-left: 3px solid transparent;
+        }
+
+        .account-menu a:hover,
+        .account-menu a.active {
+            background: #fff8e8;
+            color: #f57c00;
+            border-left-color: #ff9900;
+        }
+
+        .account-menu i {
+            width: 18px;
+            text-align: center;
+        }
+
+        .dashboard-content {
+            min-width: 0;
+        }
+
+        .welcome-box {
+            background: #fff;
+            border-radius: 7px;
+            padding: 25px;
+            margin-bottom: 22px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        }
+
+        .welcome-box h1 {
+            color: #222;
+            font-size: 24px;
+            margin-bottom: 7px;
+        }
+
+        .welcome-box p {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-bottom: 22px;
+        }
+
+        .dashboard-card {
+            background: #fff;
+            border-radius: 7px;
+            padding: 22px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.10);
+        }
+
+        .dashboard-card .card-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: #fff3df;
+            color: #ff9900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 14px;
+            font-size: 19px;
+        }
+
+        .dashboard-card h3 {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .dashboard-card p {
+            font-size: 12px;
+            color: #888;
+        }
+
+        .recent-section {
+            background: #fff;
+            border-radius: 7px;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .section-heading h2 {
+            font-size: 19px;
+            color: #333;
+        }
+
+        .section-heading a {
+            color: #f57c00;
+            font-size: 13px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .empty-orders {
+            text-align: center;
+            padding: 35px 15px;
+            color: #777;
+        }
+
+        .empty-orders i {
+            font-size: 38px;
+            color: #ddd;
+            margin-bottom: 12px;
+        }
+
+        .empty-orders h3 {
+            color: #555;
+            margin-bottom: 7px;
+        }
+
+        .empty-orders p {
+            font-size: 13px;
+            margin-bottom: 18px;
+        }
+
+        .shop-button {
+            display: inline-block;
+            background: #ff9900;
+            color: #fff;
+            text-decoration: none;
+            padding: 11px 22px;
+            border-radius: 5px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .logout-button {
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .account-breadcrumb {
+            max-width: 1200px;
+            margin: 0 auto 22px;
+            font-size: 13px;
+            color: #777;
+        }
+
+        .account-breadcrumb a {
+            color: #f57c00;
+            text-decoration: none;
+        }
+
+        @media (max-width: 900px) {
+            .account-layout {
+                grid-template-columns: 210px 1fr;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .account-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .account-sidebar {
+                width: 100%;
+            }
+
+            .account-menu {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .account-menu a {
+                padding: 12px 15px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .account-page {
+                padding: 20px 12px 40px;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .account-menu {
+                grid-template-columns: 1fr;
+            }
+
+            .welcome-box,
+            .recent-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+
+            <span>Welcome to Meteur Online Shopping</span>
+
+            <div class="top-links">
+                <a href="#">Help Center</a>
+                <a href="#">Track Order</a>
+                <a href="#">Sell on Meteur</a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="main-header">
+
+        <div class="container header-content">
+
+            <a href="index.html" class="logo">
+
+                <i class="fas fa-shopping-bag"></i>
+
+                <div>
+                    <strong>Meteur</strong>
+                    <span>ONLINE SHOPPING</span>
+                </div>
+
+            </a>
+
+            <form class="search-box" id="searchForm">
+
+                <input
+                    type="search"
+                    id="searchInput"
+                    placeholder="Search products, brands and categories..."
+                    aria-label="Search products"
+                >
+
+                <button type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+
+            </form>
+
+            <div class="header-actions">
+
+                <a href="dashboard.html" class="header-action active">
+                    <i class="far fa-user"></i>
+                    <span>Account</span>
+                </a>
+
+                <a href="wishlist.html" class="header-action">
+                    <i class="far fa-heart"></i>
+                    <span>Wishlist</span>
+                </a>
+
+                <a href="cart.html" class="header-action cart-action">
+
+                    <i class="fas fa-shopping-cart"></i>
+
+                    <span>Cart</span>
+
+                    <b id="cartCount">0</b>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+    <!-- NAVIGATION -->
+    <nav class="main-nav">
+
+        <div class="container nav-content">
+
+            <a href="shop.html" class="category-button">
+
+                <i class="fas fa-bars"></i>
+
+                All Categories
+
+            </a>
+
+            <div class="nav-links">
+
+                <a href="index.html">Home</a>
+                <a href="shop.html">Shop</a>
+                <a href="index.html#flash-deals">Flash Deals</a>
+                <a href="index.html#categories">Categories</a>
+                <a href="index.html#new-arrivals">New Arrivals</a>
+                <a href="index.html#popular">Popular</a>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+    <!-- ACCOUNT PAGE -->
+    <main class="account-page">
+
+        <div class="account-breadcrumb">
+
+            <a href="index.html">Home</a>
+            <span> / </span>
+            <span>My Account</span>
+
+        </div>
+
+        <div class="account-layout">
+
+            <!-- SIDEBAR -->
+            <aside class="account-sidebar">
+
+                <div class="account-user">
+
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+
+                    <h3>My Account</h3>
+
+                    <p>Welcome to Meteur</p>
+
+                </div>
+
+                <nav class="account-menu">
+
+                    <a href="dashboard.html" class="active">
+
+                        <i class="fas fa-th-large"></i>
+                        Dashboard
+
+                    </a>
+
+                    <a href="orders.html">
+
+                        <i class="fas fa-box"></i>
+                        My Orders
+
+                    </a>
+
+                    <a href="wishlist.html">
+
+                        <i class="far fa-heart"></i>
+                        Wishlist
+
+                    </a>
+
+                    <a href="profile.html">
+
+                        <i class="far fa-user"></i>
+                        My Profile
+
+                    </a>
+
+                    <a href="#">
+
+                        <i class="fas fa-location-dot"></i>
+                        My Addresses
+
+                    </a>
+
+                    <button
+                        class="account-menu logout-button"
+                        id="logoutButton"
+                        type="button"
+                    >
+
+                        <a href="login.html">
+
+                            <i class="fas fa-sign-out-alt"></i>
+                            Logout
+
+                        </a>
+
+                    </button>
+
+                </nav>
+
+            </aside>
+
+            <!-- DASHBOARD CONTENT -->
+            <section class="dashboard-content">
+
+                <div class="welcome-box">
+
+                    <h1>Welcome to Your Account</h1>
+
+                    <p>
+                        Manage your Meteur Shopping account,
+                        orders, wishlist, profile and delivery information.
+                    </p>
+
+                </div>
+
+                <div class="dashboard-grid">
+
+                    <a href="orders.html" class="dashboard-card">
+
+                        <div class="card-icon">
+                            <i class="fas fa-box-open"></i>
+                        </div>
+
+                        <h3>My Orders</h3>
+
+                        <p>
+                            View and track your orders
+                        </p>
+
+                    </a>
+
+                    <a href="wishlist.html" class="dashboard-card">
+
+                        <div class="card-icon">
+                            <i class="far fa-heart"></i>
+                        </div>
+
+                        <h3>Wishlist</h3>
+
+                        <p>
+                            View products you saved
+                        </p>
+
+                    </a>
+
+                    <a href="profile.html" class="dashboard-card">
+
+                        <div class="card-icon">
+                            <i class="far fa-user"></i>
+                        </div>
+
+                        <h3>My Profile</h3>
+
+                        <p>
+                            Manage your personal details
+                        </p>
+
+                    </a>
+
+                    <a href="cart.html" class="dashboard-card">
+
+                        <div class="card-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+
+                        <h3>Shopping Cart</h3>
+
+                        <p>
+                            View items ready for checkout
+                        </p>
+
+                    </a>
+
+                    <a href="#" class="dashboard-card">
+
+                        <div class="card-icon">
+                            <i class="fas fa-location-dot"></i>
+                        </div>
+
+                        <h3>Delivery Addresses</h3>
+
+                        <p>
+                            Manage your delivery locations
+                        </p>
+
+                    </a>
+
+                    <a href="shop.html" class="dashboard-card">
+
+                        <div class="card-icon">
+                            <i class="fas fa-store"></i>
+                        </div>
+
+                        <h3>Continue Shopping</h3>
+
+                        <p>
+                            Browse our latest products
+                        </p>
+
+                    </a>
+
+                </div>
+
+                <div class="recent-section">
+
+                    <div class="section-heading">
+
+                        <h2>Recent Orders</h2>
+
+                        <a href="orders.html">
+                            View All Orders
+                        </a>
+
+                    </div>
+
+                    <div class="empty-orders">
+
+                        <i class="fas fa-box-open"></i>
+
+                        <h3>No Orders Yet</h3>
+
+                        <p>
+                            You haven't placed an order yet.
+                            Start shopping to see your orders here.
+                        </p>
+
+                        <a href="shop.html" class="shop-button">
+                            Start Shopping
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+
+        <div class="container footer-grid">
+
+            <div>
+
+                <h3>Meteur Online Shopping</h3>
+
+                <p>
+                    Your trusted Kenyan online shopping marketplace.
+                    Shop conveniently from anywhere in Kenya.
+                </p>
+
+            </div>
+
+            <div>
+
+                <h3>Customer Service</h3>
+
+                <a href="#">Help Center</a>
+                <a href="#">Delivery Information</a>
+                <a href="#">Returns & Refunds</a>
+                <a href="#">Contact Us</a>
+
+            </div>
+
+            <div>
+
+                <h3>My Account</h3>
+
+                <a href="login.html">Login</a>
+                <a href="register.html">Create Account</a>
+                <a href="orders.html">My Orders</a>
+                <a href="wishlist.html">Wishlist</a>
+
+            </div>
+
+            <div>
+
+                <h3>Contact Us</h3>
+
+                <p>
+                    <i class="fas fa-phone"></i>
+                    0711842260
+                </p>
+
+                <p>
+                    <i class="fas fa-envelope"></i>
+                    daghlusmeteur@gmail.com
+                </p>
+
+                <p>
+                    <i class="fas fa-map-marker-alt"></i>
+                    Kenya
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+
+            <p>
+                © 2026 Meteur Online Shopping. All Rights Reserved.
+            </p>
+
+        </div>
+
+    </footer>
+
+    <script src="script.js"></script>
+
+    <script>
+        const logoutButton =
+            document.getElementById("logoutButton");
+
+        logoutButton.addEventListener("click", function() {
+
+            localStorage.removeItem("meteurUser");
+
+            window.location.href = "login.html";
+
+        });
+    </script>
+
+</body>
+</html>

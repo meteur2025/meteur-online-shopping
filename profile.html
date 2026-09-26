@@ -6,145 +6,89 @@
 
     <title>My Profile - Meteur Online Shopping</title>
 
-    <meta
-        name="description"
-        content="Manage your Meteur Online Shopping customer profile."
-    >
-
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    >
-
     <link rel="stylesheet" href="style.css">
 
     <style>
         .profile-page {
-            padding: 30px 5%;
-            min-height: 600px;
+            padding: 45px 20px 70px;
+            background: #f7f7f7;
+            min-height: 70vh;
         }
 
-        .breadcrumb {
+        .profile-container {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .profile-header {
+            background: linear-gradient(135deg, #f4511e, #ff7a45);
+            color: white;
+            border-radius: 14px;
+            padding: 35px;
             margin-bottom: 25px;
-            color: #777;
-            font-size: 14px;
         }
 
-        .breadcrumb a {
-            color: #ff7900;
-            text-decoration: none;
-        }
-
-        .account-layout {
-            display: grid;
-            grid-template-columns: 250px 1fr;
-            gap: 25px;
-        }
-
-        .account-sidebar {
-            background: #fff;
-            border: 1px solid #eee;
-            border-radius: 6px;
-            overflow: hidden;
-            height: fit-content;
-        }
-
-        .account-user {
-            padding: 25px 18px;
-            text-align: center;
-            border-bottom: 1px solid #eee;
-        }
-
-        .account-avatar {
-            width: 75px;
-            height: 75px;
-            margin: 0 auto 12px;
-            border-radius: 50%;
-            background: #fff1e6;
-            color: #ff7900;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .profile-header h1 {
+            margin: 0 0 8px;
             font-size: 32px;
         }
 
-        .account-user h3 {
-            margin: 0 0 5px;
-            font-size: 17px;
-        }
-
-        .account-user p {
+        .profile-header p {
             margin: 0;
-            color: #777;
-            font-size: 13px;
-            word-break: break-word;
+            opacity: .95;
         }
 
-        .account-menu a {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 15px 18px;
-            color: #444;
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 25px;
+        }
+
+        .profile-menu,
+        .profile-card {
+            background: white;
+            border-radius: 14px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, .07);
+        }
+
+        .profile-menu {
+            padding: 15px;
+            height: fit-content;
+        }
+
+        .profile-menu a {
+            display: block;
+            padding: 14px 15px;
+            color: #333;
             text-decoration: none;
-            border-bottom: 1px solid #f1f1f1;
-            font-size: 14px;
+            border-radius: 8px;
+            margin-bottom: 5px;
         }
 
-        .account-menu a i {
-            width: 20px;
-            text-align: center;
+        .profile-menu a:hover,
+        .profile-menu a.active {
+            background: #fff1eb;
+            color: #f4511e;
         }
 
-        .account-menu a:hover,
-        .account-menu a.active {
-            color: #ff7900;
-            background: #fff8f2;
-        }
-
-        .profile-content {
-            background: #fff;
-            border: 1px solid #eee;
-            border-radius: 6px;
+        .profile-card {
             padding: 30px;
         }
 
-        .profile-title {
-            border-bottom: 1px solid #eee;
-            padding-bottom: 20px;
+        .profile-card h2 {
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+
+        .profile-description {
+            color: #777;
             margin-bottom: 25px;
         }
 
-        .profile-title h1 {
-            margin: 0 0 7px;
-            font-size: 25px;
-        }
-
-        .profile-title p {
-            margin: 0;
-            color: #777;
-        }
-
         .profile-form {
-            max-width: 850px;
-        }
-
-        .form-section {
-            margin-bottom: 30px;
-        }
-
-        .form-section h2 {
-            font-size: 18px;
-            margin-bottom: 18px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 18px;
-            margin-bottom: 18px;
+            gap: 20px;
         }
 
         .form-group {
@@ -157,110 +101,90 @@
         }
 
         .form-group label {
-            margin-bottom: 7px;
-            font-size: 14px;
             font-weight: 600;
+            margin-bottom: 8px;
         }
 
-        .form-group input,
-        .form-group select {
-            width: 100%;
+        .form-group input {
             padding: 13px 14px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            border: 1px solid #ddd;
+            border-radius: 7px;
+            font-size: 15px;
             outline: none;
-            font-size: 14px;
-            box-sizing: border-box;
         }
 
-        .form-group input:focus,
-        .form-group select:focus {
-            border-color: #ff7900;
+        .form-group input:focus {
+            border-color: #f4511e;
         }
 
-        .readonly-field {
-            background: #f7f7f7;
+        .form-group input:disabled {
+            background: #f5f5f5;
             color: #777;
         }
 
-        .field-note {
-            margin-top: 6px;
-            color: #888;
-            font-size: 12px;
-        }
-
         .save-button {
-            background: #ff7900;
-            color: #fff;
             border: none;
-            padding: 13px 28px;
-            border-radius: 4px;
-            font-size: 14px;
-            font-weight: 600;
+            background: #f4511e;
+            color: white;
+            padding: 13px 25px;
+            border-radius: 7px;
+            font-size: 15px;
+            font-weight: bold;
             cursor: pointer;
         }
 
         .save-button:hover {
-            background: #e86d00;
+            background: #d84315;
         }
 
-        .security-box {
-            background: #fff8f2;
-            border: 1px solid #ffe0c2;
-            padding: 18px;
-            border-radius: 5px;
-            margin-top: 25px;
+        .logout-button {
+            width: 100%;
+            border: 1px solid #e53935;
+            background: white;
+            color: #e53935;
+            padding: 12px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
         }
 
-        .security-box h3 {
-            margin: 0 0 8px;
-            font-size: 16px;
+        .logout-button:hover {
+            background: #fff4f4;
         }
 
-        .security-box p {
-            margin: 0 0 12px;
-            color: #666;
-            font-size: 13px;
-            line-height: 1.6;
-        }
-
-        .security-link {
-            color: #ff7900;
-            text-decoration: none;
-            font-weight: 600;
+        .status-message {
+            display: none;
+            margin-bottom: 20px;
+            padding: 13px 15px;
+            border-radius: 7px;
             font-size: 14px;
         }
 
-        .verification-status {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            margin-top: 8px;
-            color: #198754;
-            font-size: 13px;
-            font-weight: 600;
+        .status-message.success {
+            display: block;
+            background: #e9f8ef;
+            color: #207a43;
         }
 
-        @media (max-width: 800px) {
-            .account-layout {
+        .status-message.error {
+            display: block;
+            background: #fff0f0;
+            color: #b42318;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #777;
+        }
+
+        @media (max-width: 750px) {
+            .profile-grid {
                 grid-template-columns: 1fr;
             }
 
-            .account-sidebar {
-                width: 100%;
-            }
-
-            .profile-content {
-                padding: 22px;
-            }
-        }
-
-        @media (max-width: 560px) {
-            .profile-page {
-                padding: 20px 3%;
-            }
-
-            .form-row {
+            .profile-form {
                 grid-template-columns: 1fr;
             }
 
@@ -268,8 +192,12 @@
                 grid-column: auto;
             }
 
-            .profile-title h1 {
-                font-size: 21px;
+            .profile-header {
+                padding: 28px 22px;
+            }
+
+            .profile-card {
+                padding: 22px;
             }
         }
     </style>
@@ -277,601 +205,573 @@
 
 <body>
 
-    <!-- TOP BAR -->
-    <div class="top-bar">
-        <div class="container">
-            <span>Welcome to Meteur Online Shopping</span>
+<header>
+    <div class="container">
 
-            <div class="top-links">
-                <a href="#">Help Center</a>
-                <a href="#">Track Order</a>
-                <a href="#">Sell on Meteur</a>
+        <div class="top-bar">
+
+            <div class="logo">
+                <a href="index.html">🛒 Meteur</a>
             </div>
-        </div>
-    </div>
 
-    <!-- HEADER -->
-    <header class="main-header">
-        <div class="container header-content">
-
-            <a href="index.html" class="logo">
-                <i class="fa-solid fa-bag-shopping"></i>
-
-                <div>
-                    <strong>Meteur</strong>
-                    <small>ONLINE SHOPPING</small>
-                </div>
-            </a>
-
-            <form class="search-box" id="searchForm">
+            <div class="search-box">
                 <input
                     type="text"
                     id="searchInput"
-                    placeholder="Search products, brands and categories..."
-                    required
+                    placeholder="Search products..."
                 >
 
-                <button type="submit">
-                    <i class="fa-solid fa-search"></i>
+                <button onclick="searchProducts()">
+                    Search
                 </button>
-            </form>
+            </div>
 
             <div class="header-actions">
 
-                <a href="dashboard.html" class="active">
-                    <i class="fa-regular fa-user"></i>
-                    <span>Account</span>
+                <a href="dashboard.html">
+                    Account
                 </a>
 
                 <a href="wishlist.html">
-                    <i class="fa-regular fa-heart"></i>
-                    <span>Wishlist</span>
+                    ♡ Wishlist
                 </a>
 
                 <a href="cart.html">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    <span>Cart</span>
-                    <b id="cartCount">0</b>
+                    🛒 Cart (<span id="cartCount">0</span>)
                 </a>
 
             </div>
+
         </div>
-    </header>
 
-    <!-- NAVIGATION -->
-    <nav class="main-nav">
-        <div class="container nav-content">
-
-            <button class="categories-btn">
-                <i class="fa-solid fa-bars"></i>
-                Categories
-            </button>
-
+        <nav>
             <a href="index.html">Home</a>
             <a href="shop.html">Shop</a>
-            <a href="index.html#flash-deals">Flash Deals</a>
-            <a href="shop.html">Categories</a>
-            <a href="shop.html">New Arrivals</a>
-            <a href="shop.html">Popular</a>
+            <a href="categories.html">Categories</a>
+            <a href="deals.html">Deals</a>
+            <a href="new-arrivals.html">New Arrivals</a>
+            <a href="sell.html">Sell on Meteur</a>
+        </nav>
 
-        </div>
-    </nav>
+    </div>
+</header>
 
-    <!-- PROFILE PAGE -->
-    <main class="profile-page">
 
-        <div class="breadcrumb">
-            <a href="index.html">Home</a>
-            <span> / </span>
-            <a href="dashboard.html">My Account</a>
-            <span> / </span>
-            My Profile
-        </div>
+<main class="profile-page">
 
-        <div class="account-layout">
+    <div class="profile-container">
 
-            <!-- SIDEBAR -->
-            <aside class="account-sidebar">
+        <div class="profile-header">
 
-                <div class="account-user">
-
-                    <div class="account-avatar">
-                        <i class="fa-solid fa-user"></i>
-                    </div>
-
-                    <h3>My Account</h3>
-
-                    <p id="sidebarEmail">
-                        Customer account
-                    </p>
-
-                </div>
-
-                <nav class="account-menu">
-
-                    <a href="dashboard.html">
-                        <i class="fa-solid fa-gauge"></i>
-                        Dashboard
-                    </a>
-
-                    <a href="orders.html">
-                        <i class="fa-solid fa-box"></i>
-                        My Orders
-                    </a>
-
-                    <a href="wishlist.html">
-                        <i class="fa-regular fa-heart"></i>
-                        Wishlist
-                    </a>
-
-                    <a href="profile.html" class="active">
-                        <i class="fa-regular fa-user"></i>
-                        My Profile
-                    </a>
-
-                    <a href="addresses.html">
-                        <i class="fa-solid fa-location-dot"></i>
-                        My Addresses
-                    </a>
-
-                    <a href="#" id="logoutLink">
-                        <i class="fa-solid fa-right-from-bracket"></i>
-                        Logout
-                    </a>
-
-                </nav>
-
-            </aside>
-
-            <!-- CONTENT -->
-            <section class="profile-content">
-
-                <div class="profile-title">
-                    <h1>My Profile</h1>
-                    <p>
-                        Manage your personal information and account details.
-                    </p>
-                </div>
-
-                <form id="profileForm" class="profile-form">
-
-                    <!-- PERSONAL INFORMATION -->
-                    <div class="form-section">
-
-                        <h2>Personal Information</h2>
-
-                        <div class="form-row">
-
-                            <div class="form-group">
-
-                                <label for="firstName">
-                                    First Name
-                                </label>
-
-                                <input
-                                    type="text"
-                                    id="firstName"
-                                    placeholder="Enter your first name"
-                                    required
-                                >
-
-                            </div>
-
-                            <div class="form-group">
-
-                                <label for="lastName">
-                                    Last Name
-                                </label>
-
-                                <input
-                                    type="text"
-                                    id="lastName"
-                                    placeholder="Enter your last name"
-                                    required
-                                >
-
-                            </div>
-
-                        </div>
-
-                        <div class="form-row">
-
-                            <div class="form-group">
-
-                                <label for="email">
-                                    Email Address
-                                </label>
-
-                                <input
-                                    type="email"
-                                    id="email"
-                                    class="readonly-field"
-                                    placeholder="Your email address"
-                                    readonly
-                                >
-
-                                <div class="field-note">
-                                    Your verified email address cannot be changed here.
-                                </div>
-
-                            </div>
-
-                            <div class="form-group">
-
-                                <label for="phone">
-                                    Phone Number
-                                </label>
-
-                                <input
-                                    type="tel"
-                                    id="phone"
-                                    placeholder="e.g. 0712345678"
-                                    required
-                                >
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <!-- DELIVERY INFORMATION -->
-                    <div class="form-section">
-
-                        <h2>Default Delivery Information</h2>
-
-                        <div class="form-row">
-
-                            <div class="form-group">
-
-                                <label for="county">
-                                    County
-                                </label>
-
-                                <select id="county">
-
-                                    <option value="">
-                                        Select County
-                                    </option>
-
-                                    <option>Nairobi</option>
-                                    <option>Kiambu</option>
-                                    <option>Kirinyaga</option>
-                                    <option>Murang'a</option>
-                                    <option>Nyeri</option>
-                                    <option>Nyandarua</option>
-                                    <option>Machakos</option>
-                                    <option>Mombasa</option>
-                                    <option>Kisumu</option>
-                                    <option>Nakuru</option>
-                                    <option>Uasin Gishu</option>
-                                    <option>Bungoma</option>
-                                    <option>Kakamega</option>
-                                    <option>Kisii</option>
-                                    <option>Meru</option>
-                                    <option>Embu</option>
-                                    <option>Laikipia</option>
-                                    <option>Kericho</option>
-                                    <option>Other</option>
-
-                                </select>
-
-                            </div>
-
-                            <div class="form-group">
-
-                                <label for="town">
-                                    Town / City
-                                </label>
-
-                                <input
-                                    type="text"
-                                    id="town"
-                                    placeholder="Enter town or city"
-                                >
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <button
-                        type="submit"
-                        class="save-button"
-                    >
-                        <i class="fa-solid fa-floppy-disk"></i>
-                        Save Changes
-                    </button>
-
-                </form>
-
-                <!-- SECURITY -->
-                <div class="security-box">
-
-                    <h3>
-                        <i class="fa-solid fa-shield-halved"></i>
-                        Account Security
-                    </h3>
-
-                    <p>
-                        Your account security will be handled through
-                        Meteur's secure authentication system. Email
-                        verification and password recovery will be
-                        connected during the secure account integration.
-                    </p>
-
-                    <a
-                        href="forgot-password.html"
-                        class="security-link"
-                    >
-                        Change or reset password
-                    </a>
-
-                </div>
-
-            </section>
-
-        </div>
-
-    </main>
-
-    <!-- NEWSLETTER -->
-    <section class="newsletter">
-
-        <div class="container">
-
-            <div>
-                <h2>Subscribe to our newsletter</h2>
-
-                <p>
-                    Get updates about new products, deals and special offers.
-                </p>
-            </div>
-
-            <form id="newsletterForm">
-
-                <input
-                    type="email"
-                    placeholder="Enter your email address"
-                    required
-                >
-
-                <button type="submit">
-                    Subscribe
-                </button>
-
-            </form>
-
-        </div>
-
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-
-        <div class="container footer-grid">
-
-            <div>
-
-                <h3>Meteur Online Shopping</h3>
-
-                <p>
-                    Your trusted online shopping marketplace in Kenya.
-                    Shop products from different categories and enjoy
-                    convenient delivery.
-                </p>
-
-            </div>
-
-            <div>
-
-                <h3>Customer Service</h3>
-
-                <a href="#">Help Center</a>
-                <a href="#">Track Order</a>
-                <a href="#">Returns & Refunds</a>
-                <a href="#">Contact Us</a>
-
-            </div>
-
-            <div>
-
-                <h3>Shopping</h3>
-
-                <a href="shop.html">All Products</a>
-                <a href="shop.html">Electronics</a>
-                <a href="shop.html">Fashion</a>
-                <a href="shop.html">Beauty</a>
-
-            </div>
-
-            <div>
-
-                <h3>Contact</h3>
-
-                <p>
-                    <i class="fa-solid fa-phone"></i>
-                    0711842260
-                </p>
-
-                <p>
-                    <i class="fa-solid fa-envelope"></i>
-                    daghlusmeteur@gmail.com
-                </p>
-
-                <p>
-                    <i class="fa-solid fa-location-dot"></i>
-                    Kenya
-                </p>
-
-            </div>
-
-        </div>
-
-        <div class="footer-bottom">
+            <h1>My Profile</h1>
 
             <p>
-                © 2026 Meteur Online Shopping. All rights reserved.
+                Manage your Meteur account information.
             </p>
 
         </div>
 
-    </footer>
 
-    <script src="script.js"></script>
-
-    <script>
-
-        const profileForm =
-            document.getElementById("profileForm");
-
-        const firstName =
-            document.getElementById("firstName");
-
-        const lastName =
-            document.getElementById("lastName");
-
-        const email =
-            document.getElementById("email");
-
-        const phone =
-            document.getElementById("phone");
-
-        const county =
-            document.getElementById("county");
-
-        const town =
-            document.getElementById("town");
-
-        const sidebarEmail =
-            document.getElementById("sidebarEmail");
+        <div id="loadingMessage" class="loading">
+            Loading your profile...
+        </div>
 
 
-        /*
-         * Load saved profile information.
-         */
+        <div id="profileContent" style="display:none;">
 
-        const savedProfile =
-            JSON.parse(
-                localStorage.getItem("meteurProfile")
-            ) || {};
+            <div class="profile-grid">
 
+                <aside class="profile-menu">
 
-        if (savedProfile.firstName) {
-            firstName.value = savedProfile.firstName;
-        }
+                    <a href="dashboard.html">
+                        🏠 Dashboard
+                    </a>
 
-        if (savedProfile.lastName) {
-            lastName.value = savedProfile.lastName;
-        }
+                    <a href="profile.html" class="active">
+                        👤 My Profile
+                    </a>
 
-        if (savedProfile.email) {
-            email.value = savedProfile.email;
-            sidebarEmail.textContent =
-                savedProfile.email;
-        }
+                    <a href="orders.html">
+                        📦 My Orders
+                    </a>
 
-        if (savedProfile.phone) {
-            phone.value = savedProfile.phone;
-        }
+                    <a href="wishlist.html">
+                        ♡ Wishlist
+                    </a>
 
-        if (savedProfile.county) {
-            county.value = savedProfile.county;
-        }
+                    <a href="addresses.html">
+                        📍 My Addresses
+                    </a>
 
-        if (savedProfile.town) {
-            town.value = savedProfile.town;
-        }
+                    <button
+                        class="logout-button"
+                        onclick="logoutUser()"
+                    >
+                        Log Out
+                    </button>
 
-
-        /*
-         * Save profile.
-         */
-
-        profileForm.addEventListener(
-            "submit",
-            function(event) {
-
-                event.preventDefault();
-
-                const profile = {
-
-                    firstName:
-                        firstName.value.trim(),
-
-                    lastName:
-                        lastName.value.trim(),
-
-                    email:
-                        email.value.trim(),
-
-                    phone:
-                        phone.value.trim(),
-
-                    county:
-                        county.value,
-
-                    town:
-                        town.value.trim()
-
-                };
+                </aside>
 
 
-                localStorage.setItem(
-                    "meteurProfile",
-                    JSON.stringify(profile)
-                );
+                <section class="profile-card">
+
+                    <h2>Personal Information</h2>
+
+                    <p class="profile-description">
+                        Update the information connected to your Meteur account.
+                    </p>
 
 
-                if (profile.email) {
-
-                    sidebarEmail.textContent =
-                        profile.email;
-
-                }
+                    <div
+                        id="statusMessage"
+                        class="status-message"
+                    ></div>
 
 
-                alert(
-                    "Your profile information has been saved."
-                );
+                    <form
+                        id="profileForm"
+                        class="profile-form"
+                    >
 
-            }
+                        <div class="form-group">
+
+                            <label for="firstName">
+                                First Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="firstName"
+                                name="firstName"
+                                placeholder="First name"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="lastName">
+                                Last Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="lastName"
+                                name="lastName"
+                                placeholder="Last name"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group full">
+
+                            <label for="email">
+                                Email Address
+                            </label>
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                disabled
+                            >
+
+                        </div>
+
+
+                        <div class="form-group full">
+
+                            <label for="phone">
+                                Phone Number
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="phone"
+                                name="phone"
+                                placeholder="e.g. 0712345678"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group full">
+
+                            <button
+                                type="submit"
+                                class="save-button"
+                                id="saveButton"
+                            >
+                                Save Changes
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </section>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<footer>
+
+    <div class="container">
+
+        <div class="footer-grid">
+
+            <div>
+
+                <h3>Meteur</h3>
+
+                <p>
+                    Your trusted Kenyan online shopping marketplace.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h4>Shopping</h4>
+
+                <a href="shop.html">Shop</a><br>
+                <a href="categories.html">Categories</a><br>
+                <a href="deals.html">Deals</a><br>
+                <a href="new-arrivals.html">New Arrivals</a>
+
+            </div>
+
+
+            <div>
+
+                <h4>Customer Service</h4>
+
+                <a href="help.html">Help Center</a><br>
+                <a href="faq.html">FAQ</a><br>
+                <a href="track-order.html">Track Order</a><br>
+                <a href="returns.html">Returns</a><br>
+                <a href="shipping.html">Shipping</a>
+
+            </div>
+
+
+            <div>
+
+                <h4>Company</h4>
+
+                <a href="about.html">About Us</a><br>
+                <a href="sell.html">Sell on Meteur</a><br>
+                <a href="privacy.html">Privacy Policy</a><br>
+                <a href="terms.html">Terms & Conditions</a>
+
+            </div>
+
+        </div>
+
+
+        <p class="copyright">
+            © 2026 Meteur Online Shopping. All rights reserved.
+        </p>
+
+    </div>
+
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="supabase-config.js"></script>
+
+<script src="script.js"></script>
+
+
+<script>
+
+let currentUser = null;
+
+
+function updateCartCount() {
+
+    const cart =
+        JSON.parse(
+            localStorage.getItem("meteurCart")
+        ) || [];
+
+    const total =
+        cart.reduce(
+            function(sum, product) {
+                return sum + (product.quantity || 1);
+            },
+            0
         );
 
+    const cartCount =
+        document.getElementById("cartCount");
 
-        /*
-         * Logout.
-         */
+    if (cartCount) {
+        cartCount.textContent = total;
+    }
+}
 
-        document
-            .getElementById("logoutLink")
-            .addEventListener(
-                "click",
-                function(event) {
 
-                    event.preventDefault();
+function searchProducts() {
 
-                    const confirmed =
-                        confirm(
-                            "Are you sure you want to log out?"
-                        );
+    const input =
+        document.getElementById("searchInput");
 
-                    if (!confirmed) {
-                        return;
+    if (!input) {
+        return;
+    }
+
+    const search =
+        input.value.trim();
+
+    if (search) {
+
+        window.location.href =
+            "shop.html?search=" +
+            encodeURIComponent(search);
+
+    }
+}
+
+
+function showMessage(message, type) {
+
+    const box =
+        document.getElementById("statusMessage");
+
+    box.textContent = message;
+
+    box.className =
+        "status-message " + type;
+
+}
+
+
+async function loadProfile() {
+
+    try {
+
+        const {
+            data,
+            error
+        } = await supabaseClient.auth.getUser();
+
+
+        if (error || !data.user) {
+
+            window.location.href =
+                "login.html?redirect=profile.html";
+
+            return;
+        }
+
+
+        currentUser =
+            data.user;
+
+
+        const metadata =
+            currentUser.user_metadata || {};
+
+
+        document.getElementById("email").value =
+            currentUser.email || "";
+
+
+        document.getElementById("firstName").value =
+            metadata.first_name || "";
+
+
+        document.getElementById("lastName").value =
+            metadata.last_name || "";
+
+
+        document.getElementById("phone").value =
+            metadata.phone || "";
+
+
+        document.getElementById("loadingMessage").style.display =
+            "none";
+
+
+        document.getElementById("profileContent").style.display =
+            "block";
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        document.getElementById("loadingMessage").textContent =
+            "Unable to load your profile. Please try again.";
+
+    }
+
+}
+
+
+document
+    .getElementById("profileForm")
+    .addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+
+            const firstName =
+                document.getElementById("firstName").value.trim();
+
+
+            const lastName =
+                document.getElementById("lastName").value.trim();
+
+
+            const phone =
+                document.getElementById("phone").value.trim();
+
+
+            const saveButton =
+                document.getElementById("saveButton");
+
+
+            if (!firstName || !lastName) {
+
+                showMessage(
+                    "Please enter your first and last name.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            saveButton.disabled = true;
+
+            saveButton.textContent =
+                "Saving...";
+
+
+            try {
+
+                const {
+                    error
+                } = await supabaseClient.auth.updateUser({
+
+                    data: {
+
+                        first_name: firstName,
+
+                        last_name: lastName,
+
+                        phone: phone
+
                     }
 
-                    localStorage.removeItem(
-                        "meteurLoggedIn"
-                    );
+                });
 
-                    window.location.href =
-                        "login.html";
+
+                if (error) {
+
+                    throw error;
 
                 }
-            );
 
-    </script>
+
+                showMessage(
+                    "Your profile has been updated successfully.",
+                    "success"
+                );
+
+
+            } catch (error) {
+
+                console.error(error);
+
+                showMessage(
+                    error.message ||
+                    "Unable to update your profile.",
+                    "error"
+                );
+
+
+            } finally {
+
+                saveButton.disabled = false;
+
+                saveButton.textContent =
+                    "Save Changes";
+
+            }
+
+        }
+    );
+
+
+async function logoutUser() {
+
+    const {
+        error
+    } = await supabaseClient.auth.signOut();
+
+
+    if (error) {
+
+        showMessage(
+            "Unable to log out. Please try again.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+const searchInput =
+    document.getElementById("searchInput");
+
+
+if (searchInput) {
+
+    searchInput.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Enter") {
+
+                searchProducts();
+
+            }
+
+        }
+    );
+
+}
+
+
+updateCartCount();
+
+loadProfile();
+
+</script>
 
 </body>
 </html>

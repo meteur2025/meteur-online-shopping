@@ -6,164 +6,247 @@
 
     <title>Contact Us - Meteur Online Shopping</title>
 
-    <meta name="description"
-          content="Contact Meteur Online Shopping for customer support and shopping assistance.">
-
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
     <link rel="stylesheet" href="style.css">
 
     <style>
         .contact-page {
-            padding: 40px 20px;
-            background: #f5f5f5;
-            min-height: 70vh;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px;
         }
 
-        .contact-container {
-            max-width: 1100px;
-            margin: auto;
-        }
-
-        .contact-header {
-            background: linear-gradient(135deg, #ff7900, #ff9900);
-            color: white;
-            text-align: center;
-            padding: 50px 20px;
+        .contact-hero {
+            min-height: 300px;
             border-radius: 12px;
-            margin-bottom: 30px;
+            overflow: hidden;
+            margin-bottom: 40px;
+            background-image:
+                url("https://images.unsplash.com/photo-1521791055366-0d553872125f?auto=format&fit=crop&w=1500&q=85");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
         }
 
-        .contact-header i {
-            font-size: 50px;
-            margin-bottom: 15px;
+        .contact-hero-content {
+            width: 100%;
+            padding: 50px;
+            color: white;
+            background: rgba(0, 0, 0, 0.58);
         }
 
-        .contact-header h1 {
-            font-size: 36px;
-            margin-bottom: 10px;
+        .contact-hero h1 {
+            margin: 0 0 12px;
+            font-size: 40px;
         }
 
-        .contact-header p {
-            font-size: 16px;
-            max-width: 650px;
-            margin: auto;
+        .contact-hero p {
+            max-width: 680px;
+            margin: 0;
+            font-size: 17px;
             line-height: 1.7;
         }
 
         .contact-grid {
             display: grid;
             grid-template-columns: 1fr 1.5fr;
-            gap: 25px;
+            gap: 30px;
+            align-items: start;
         }
 
-        .contact-info,
-        .contact-form-box {
+        .contact-card,
+        .contact-form-card {
             background: white;
+            border-radius: 12px;
             padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
         }
 
-        .contact-info h2,
-        .contact-form-box h2 {
-            margin-bottom: 20px;
+        .contact-card h2,
+        .contact-form-card h2 {
+            margin-top: 0;
+            margin-bottom: 12px;
         }
 
-        .info-item {
+        .contact-card > p {
+            color: #666;
+            line-height: 1.7;
+        }
+
+        .contact-item {
             display: flex;
             gap: 15px;
-            margin-bottom: 22px;
+            margin-top: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
         }
 
-        .info-item i {
-            width: 42px;
-            height: 42px;
-            background: #fff1e5;
-            color: #ff7900;
+        .contact-item:last-child {
+            border-bottom: none;
+        }
+
+        .contact-icon {
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
+            background: #fff3ed;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
         }
 
-        .info-item h3 {
+        .contact-item h3 {
+            margin: 0 0 5px;
             font-size: 16px;
-            margin-bottom: 5px;
         }
 
-        .info-item p {
-            color: #666;
+        .contact-item p {
             margin: 0;
+            color: #666;
             line-height: 1.5;
         }
 
-        .contact-form .form-group {
-            margin-bottom: 18px;
-        }
-
-        .contact-form label {
-            display: block;
-            margin-bottom: 7px;
+        .contact-item a {
+            color: #f4511e;
+            text-decoration: none;
             font-weight: 600;
         }
 
-        .contact-form input,
-        .contact-form textarea,
-        .contact-form select {
-            width: 100%;
-            padding: 13px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 15px;
-            box-sizing: border-box;
+        .contact-form {
+            display: grid;
+            gap: 18px;
         }
 
-        .contact-form textarea {
-            min-height: 140px;
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 12px;
+            font-family: inherit;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #f4511e;
+        }
+
+        .form-group textarea {
+            min-height: 150px;
             resize: vertical;
         }
 
-        .contact-form input:focus,
-        .contact-form textarea:focus,
-        .contact-form select:focus {
-            outline: none;
-            border-color: #ff7900;
-        }
-
-        .contact-submit {
-            width: 100%;
-            padding: 14px;
+        .submit-button {
             border: none;
-            border-radius: 6px;
-            background: #ff7900;
+            background: #f4511e;
             color: white;
-            font-size: 16px;
+            padding: 13px 20px;
+            border-radius: 6px;
             font-weight: bold;
             cursor: pointer;
+            font-size: 15px;
         }
 
-        .contact-submit:hover {
-            background: #e66d00;
+        .submit-button:hover {
+            background: #d84315;
         }
 
-        .contact-message {
+        .form-message {
             display: none;
             padding: 12px;
-            margin-bottom: 18px;
             border-radius: 6px;
-            background: #e8f7ec;
-            color: #18752b;
+            background: #e8f5e9;
+            color: #2e7d32;
+            font-size: 14px;
         }
 
-        @media (max-width: 800px) {
+        .help-section {
+            margin-top: 45px;
+        }
+
+        .help-section h2 {
+            margin-bottom: 20px;
+        }
+
+        .help-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .help-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+        }
+
+        .help-card h3 {
+            margin: 0 0 10px;
+        }
+
+        .help-card p {
+            color: #666;
+            line-height: 1.6;
+            margin: 0 0 15px;
+        }
+
+        .help-card a {
+            color: #f4511e;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        @media (max-width: 900px) {
             .contact-grid {
                 grid-template-columns: 1fr;
             }
 
-            .contact-header h1 {
+            .help-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .contact-hero-content {
+                padding: 30px 20px;
+            }
+
+            .contact-hero h1 {
                 font-size: 30px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-card,
+            .contact-form-card {
+                padding: 22px;
             }
         }
     </style>
@@ -171,196 +254,575 @@
 
 <body>
 
-<div class="contact-page">
+<header>
+    <div class="container">
 
-    <div class="contact-container">
+        <div class="top-bar">
 
-        <div class="contact-header">
+            <div class="logo">
+                <a href="index.html">🛒 Meteur</a>
+            </div>
 
-            <i class="fas fa-headset"></i>
+            <div class="search-box">
 
-            <h1>Contact Us</h1>
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search products..."
+                >
+
+                <button onclick="searchProducts()">
+                    Search
+                </button>
+
+            </div>
+
+            <div class="header-actions">
+
+                <a href="login.html">
+                    Account
+                </a>
+
+                <a href="wishlist.html">
+                    ♡ Wishlist
+                </a>
+
+                <a href="cart.html">
+                    🛒 Cart (<span id="cartCount">0</span>)
+                </a>
+
+            </div>
+
+        </div>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="shop.html">Shop</a>
+            <a href="categories.html">Categories</a>
+            <a href="deals.html">Deals</a>
+            <a href="new-arrivals.html">New Arrivals</a>
+            <a href="sell.html">Sell on Meteur</a>
+        </nav>
+
+    </div>
+</header>
+
+
+<main class="contact-page">
+
+    <section class="contact-hero">
+
+        <div class="contact-hero-content">
+
+            <h1>
+                Contact Meteur
+            </h1>
 
             <p>
-                Need help with your shopping experience?
-                Contact the Meteur Online Shopping support team.
+                Have a question about an order, product, account or
+                shopping experience? Get in touch with the Meteur team.
             </p>
 
         </div>
 
-        <div class="contact-grid">
+    </section>
 
-            <div class="contact-info">
 
-                <h2>Get In Touch</h2>
+    <section class="contact-grid">
 
-                <div class="info-item">
+        <div class="contact-card">
 
-                    <i class="fas fa-phone"></i>
+            <h2>
+                Get in Touch
+            </h2>
 
-                    <div>
-                        <h3>Phone</h3>
-                        <p>0711842260</p>
-                    </div>
+            <p>
+                Send us your question and our support team will review
+                your message.
+            </p>
 
+
+            <div class="contact-item">
+
+                <div class="contact-icon">
+                    📧
                 </div>
 
-                <div class="info-item">
+                <div>
 
-                    <i class="fas fa-envelope"></i>
+                    <h3>
+                        Email Support
+                    </h3>
 
-                    <div>
-                        <h3>Email</h3>
-                        <p>daghlusmeteur@gmail.com</p>
-                    </div>
-
-                </div>
-
-                <div class="info-item">
-
-                    <i class="fas fa-location-dot"></i>
-
-                    <div>
-                        <h3>Location</h3>
-                        <p>Kenya</p>
-                    </div>
-
-                </div>
-
-                <div class="info-item">
-
-                    <i class="fas fa-clock"></i>
-
-                    <div>
-                        <h3>Customer Support</h3>
-                        <p>We're here to assist you with your shopping questions.</p>
-                    </div>
+                    <p>
+                        <a href="mailto:support@meteur.com">
+                            support@meteur.com
+                        </a>
+                    </p>
 
                 </div>
 
             </div>
 
-            <div class="contact-form-box">
 
-                <h2>Send Us a Message</h2>
+            <div class="contact-item">
 
-                <div id="contactMessage" class="contact-message">
-                    Your message has been received.
+                <div class="contact-icon">
+                    📞
                 </div>
 
-                <form id="contactForm" class="contact-form">
+                <div>
+
+                    <h3>
+                        Customer Support
+                    </h3>
+
+                    <p>
+                        Contact our customer service team for help
+                        with shopping and orders.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="contact-item">
+
+                <div class="contact-icon">
+                    🛍️
+                </div>
+
+                <div>
+
+                    <h3>
+                        Shopping Help
+                    </h3>
+
+                    <p>
+                        Need help finding a product? Visit our
+                        <a href="shop.html">Shop</a> or
+                        <a href="categories.html">Categories</a> page.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="contact-item">
+
+                <div class="contact-icon">
+                    🚚
+                </div>
+
+                <div>
+
+                    <h3>
+                        Order Support
+                    </h3>
+
+                    <p>
+                        For delivery and order questions, visit
+                        <a href="track-order.html">Track Order</a>.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="contact-form-card">
+
+            <h2>
+                Send Us a Message
+            </h2>
+
+            <p>
+                Fill in the form below and tell us how we can help.
+            </p>
+
+
+            <form
+                class="contact-form"
+                id="contactForm"
+            >
+
+                <div class="form-row">
 
                     <div class="form-group">
 
-                        <label for="name">Full Name</label>
+                        <label for="firstName">
+                            First Name
+                        </label>
 
                         <input
                             type="text"
-                            id="name"
-                            placeholder="Enter your full name"
+                            id="firstName"
+                            name="firstName"
+                            placeholder="Enter your first name"
                             required
                         >
 
                     </div>
 
+
                     <div class="form-group">
 
-                        <label for="email">Email Address</label>
+                        <label for="lastName">
+                            Last Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="lastName"
+                            name="lastName"
+                            placeholder="Enter your last name"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email Address
+                        </label>
 
                         <input
                             type="email"
                             id="email"
+                            name="email"
                             placeholder="Enter your email"
                             required
                         >
 
                     </div>
 
-                    <div class="form-group">
-
-                        <label for="subject">Subject</label>
-
-                        <select id="subject" required>
-
-                            <option value="">
-                                Select a subject
-                            </option>
-
-                            <option value="order">
-                                Order Support
-                            </option>
-
-                            <option value="delivery">
-                                Delivery
-                            </option>
-
-                            <option value="product">
-                                Product Question
-                            </option>
-
-                            <option value="return">
-                                Returns
-                            </option>
-
-                            <option value="other">
-                                Other
-                            </option>
-
-                        </select>
-
-                    </div>
 
                     <div class="form-group">
 
-                        <label for="message">Message</label>
+                        <label for="phone">
+                            Phone Number
+                        </label>
 
-                        <textarea
-                            id="message"
-                            placeholder="Write your message here..."
-                            required
-                        ></textarea>
+                        <input
+                            type="tel"
+                            id="phone"
+                            name="phone"
+                            placeholder="e.g. 0712345678"
+                        >
 
                     </div>
 
-                    <button
-                        type="submit"
-                        class="contact-submit"
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="subject">
+                        Subject
+                    </label>
+
+                    <select
+                        id="subject"
+                        name="subject"
+                        required
                     >
-                        <i class="fas fa-paper-plane"></i>
-                        Send Message
-                    </button>
 
-                </form>
+                        <option value="">
+                            Select a subject
+                        </option>
+
+                        <option value="order">
+                            Order Question
+                        </option>
+
+                        <option value="delivery">
+                            Delivery Question
+                        </option>
+
+                        <option value="product">
+                            Product Question
+                        </option>
+
+                        <option value="account">
+                            Account Support
+                        </option>
+
+                        <option value="payment">
+                            Payment Question
+                        </option>
+
+                        <option value="seller">
+                            Seller Support
+                        </option>
+
+                        <option value="other">
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="message">
+                        Message
+                    </label>
+
+                    <textarea
+                        id="message"
+                        name="message"
+                        placeholder="Write your message here..."
+                        required
+                    ></textarea>
+
+                </div>
+
+
+                <div
+                    class="form-message"
+                    id="formMessage"
+                >
+                    Your message has been submitted successfully.
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="submit-button"
+                >
+                    Send Message
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <section class="help-section">
+
+        <h2>
+            Need Quick Help?
+        </h2>
+
+        <div class="help-grid">
+
+            <div class="help-card">
+
+                <h3>
+                    ❓ Help Center
+                </h3>
+
+                <p>
+                    Find answers to common questions about your
+                    Meteur shopping experience.
+                </p>
+
+                <a href="help.html">
+                    Visit Help Center →
+                </a>
+
+            </div>
+
+
+            <div class="help-card">
+
+                <h3>
+                    📦 Track Your Order
+                </h3>
+
+                <p>
+                    Check the status of your order and delivery
+                    information.
+                </p>
+
+                <a href="track-order.html">
+                    Track Order →
+                </a>
+
+            </div>
+
+
+            <div class="help-card">
+
+                <h3>
+                    🔄 Returns
+                </h3>
+
+                <p>
+                    Learn more about returns, refunds and our
+                    customer service process.
+                </p>
+
+                <a href="returns.html">
+                    View Returns →
+                </a>
 
             </div>
 
         </div>
 
+    </section>
+
+</main>
+
+
+<footer>
+
+    <div class="container">
+
+        <div class="footer-grid">
+
+            <div>
+
+                <h3>
+                    Meteur
+                </h3>
+
+                <p>
+                    Your trusted Kenyan online shopping marketplace.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Shopping
+                </h4>
+
+                <a href="shop.html">Shop</a><br>
+                <a href="categories.html">Categories</a><br>
+                <a href="deals.html">Deals</a><br>
+                <a href="new-arrivals.html">New Arrivals</a>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Customer Service
+                </h4>
+
+                <a href="help.html">Help Center</a><br>
+                <a href="contact.html">Contact Us</a><br>
+                <a href="track-order.html">Track Order</a><br>
+                <a href="returns.html">Returns</a>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Company
+                </h4>
+
+                <a href="about.html">About Us</a><br>
+                <a href="sell.html">Sell on Meteur</a><br>
+                <a href="privacy.html">Privacy Policy</a><br>
+                <a href="terms.html">Terms & Conditions</a>
+
+            </div>
+
+        </div>
+
+
+        <p class="copyright">
+            © 2026 Meteur Online Shopping. All rights reserved.
+        </p>
+
     </div>
 
-</div>
+</footer>
+
+
+<script src="script.js"></script>
 
 <script>
 
-    const contactForm =
-        document.getElementById("contactForm");
+    function updateCartCount() {
 
-    const contactMessage =
-        document.getElementById("contactMessage");
+        const cart =
+            JSON.parse(localStorage.getItem("meteurCart")) || [];
 
-    contactForm.addEventListener("submit", function(event) {
+        const totalItems =
+            cart.reduce(
+                (total, product) =>
+                    total + (product.quantity || 1),
+                0
+            );
 
-        event.preventDefault();
+        const cartCount =
+            document.getElementById("cartCount");
 
-        contactMessage.style.display = "block";
+        if (cartCount) {
+            cartCount.textContent = totalItems;
+        }
+    }
 
-        contactForm.reset();
 
-        setTimeout(function() {
-            contactMessage.style.display = "none";
-        }, 4000);
+    function searchProducts() {
 
-    });
+        const input =
+            document.getElementById("searchInput");
+
+        const searchTerm =
+            input.value.trim();
+
+        if (searchTerm) {
+
+            window.location.href =
+                "shop.html?search=" +
+                encodeURIComponent(searchTerm);
+
+        }
+    }
+
+
+    document
+        .getElementById("searchInput")
+        .addEventListener("keydown", function(event) {
+
+            if (event.key === "Enter") {
+                searchProducts();
+            }
+
+        });
+
+
+    document
+        .getElementById("contactForm")
+        .addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            const message =
+                document.getElementById("formMessage");
+
+            message.style.display = "block";
+
+            this.reset();
+
+        });
+
+
+    updateCartCount();
 
 </script>
 

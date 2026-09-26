@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Addresses - Meteur Online Shopping</title>
+
+    <meta
+        name="description"
+        content="Manage your delivery addresses on Meteur Online Shopping."
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .addresses-page {
+            padding: 30px 5%;
+            min-height: 600px;
+        }
+
+        .breadcrumb {
+            margin-bottom: 25px;
+            color: #777;
+            font-size: 14px;
+        }
+
+        .breadcrumb a {
+            color: #ff7900;
+            text-decoration: none;
+        }
+
+        .account-layout {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 25px;
+        }
+
+        .account-sidebar {
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            overflow: hidden;
+            height: fit-content;
+        }
+
+        .account-user {
+            padding: 25px 18px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        .account-avatar {
+            width: 75px;
+            height: 75px;
+            margin: 0 auto 12px;
+            border-radius: 50%;
+            background: #fff1e6;
+            color: #ff7900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+        }
+
+        .account-user h3 {
+            margin: 0 0 5px;
+            font-size: 17px;
+        }
+
+        .account-user p {
+            margin: 0;
+            color: #777;
+            font-size: 13px;
+            word-break: break-word;
+        }
+
+        .account-menu a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 18px;
+            color: #444;
+            text-decoration: none;
+            border-bottom: 1px solid #f1f1f1;
+            font-size: 14px;
+        }
+
+        .account-menu a i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .account-menu a:hover,
+        .account-menu a.active {
+            color: #ff7900;
+            background: #fff8f2;
+        }
+
+        .addresses-content {
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            padding: 30px;
+        }
+
+        .addresses-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+
+        .addresses-title h1 {
+            margin: 0 0 7px;
+            font-size: 25px;
+        }
+
+        .addresses-title p {
+            margin: 0;
+            color: #777;
+        }
+
+        .add-address-btn {
+            border: none;
+            background: #ff7900;
+            color: #fff;
+            padding: 12px 18px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .add-address-btn:hover {
+            background: #e86d00;
+        }
+
+        .address-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .address-card {
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 20px;
+            position: relative;
+        }
+
+        .address-card.default {
+            border-color: #ff7900;
+        }
+
+        .default-label {
+            display: inline-block;
+            background: #fff1e6;
+            color: #ff7900;
+            padding: 5px 9px;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+
+        .address-card h3 {
+            margin: 0 0 10px;
+            font-size: 17px;
+        }
+
+        .address-card p {
+            margin: 5px 0;
+            color: #666;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .address-card p strong {
+            color: #333;
+        }
+
+        .address-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 18px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .address-actions button {
+            padding: 8px 13px;
+            border: 1px solid #ddd;
+            background: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .address-actions button:hover {
+            border-color: #ff7900;
+            color: #ff7900;
+        }
+
+        .empty-address {
+            text-align: center;
+            padding: 70px 20px;
+            border: 1px dashed #ddd;
+            border-radius: 6px;
+        }
+
+        .empty-address i {
+            font-size: 65px;
+            color: #ddd;
+            margin-bottom: 18px;
+        }
+
+        .empty-address h2 {
+            margin-bottom: 10px;
+        }
+
+        .empty-address p {
+            color: #777;
+            margin-bottom: 20px;
+        }
+
+        .address-form-box {
+            display: none;
+            background: #fafafa;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .address-form-box.show {
+            display: block;
+        }
+
+        .address-form-box h2 {
+            margin: 0 0 20px;
+            font-size: 19px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            margin-bottom: 7px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            outline: none;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #ff7900;
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .save-address-btn {
+            background: #ff7900;
+            color: #fff;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .cancel-address-btn {
+            background: #fff;
+            color: #444;
+            border: 1px solid #ccc;
+            padding: 12px 22px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .delivery-note {
+            margin-top: 25px;
+            padding: 18px;
+            background: #fff8f2;
+            border: 1px solid #ffe0c2;
+            border-radius: 5px;
+            color: #666;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 800px) {
+            .account-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .addresses-content {
+                padding: 22px;
+            }
+
+            .address-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .addresses-page {
+                padding: 20px 3%;
+            }
+
+            .addresses-title {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: auto;
+            }
+
+            .addresses-title h1 {
+                font-size: 21px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="container">
+            <span>Welcome to Meteur Online Shopping</span>
+
+            <div class="top-links">
+                <a href="#">Help Center</a>
+                <a href="#">Track Order</a>
+                <a href="#">Sell on Meteur</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="main-header">
+        <div class="container header-content">
+
+            <a href="index.html" class="logo">
+                <i class="fa-solid fa-bag-shopping"></i>
+
+                <div>
+                    <strong>Meteur</strong>
+                    <small>ONLINE SHOPPING</small>
+                </div>
+            </a>
+
+            <form class="search-box" id="searchForm">
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search products, brands and categories..."
+                    required
+                >
+
+                <button type="submit">
+                    <i class="fa-solid fa-search"></i>
+                </button>
+            </form>
+
+            <div class="header-actions">
+
+                <a href="dashboard.html" class="active">
+                    <i class="fa-regular fa-user"></i>
+                    <span>Account</span>
+                </a>
+
+                <a href="wishlist.html">
+                    <i class="fa-regular fa-heart"></i>
+                    <span>Wishlist</span>
+                </a>
+
+                <a href="cart.html">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span>Cart</span>
+                    <b id="cartCount">0</b>
+                </a>
+
+            </div>
+
+        </div>
+    </header>
+
+    <!-- NAVIGATION -->
+    <nav class="main-nav">
+        <div class="container nav-content">
+
+            <button class="categories-btn">
+                <i class="fa-solid fa-bars"></i>
+                Categories
+            </button>
+
+            <a href="index.html">Home</a>
+            <a href="shop.html">Shop</a>
+            <a href="index.html#flash-deals">Flash Deals</a>
+            <a href="shop.html">Categories</a>
+            <a href="shop.html">New Arrivals</a>
+            <a href="shop.html">Popular</a>
+
+        </div>
+    </nav>
+
+    <!-- ADDRESSES PAGE -->
+    <main class="addresses-page">
+
+        <div class="breadcrumb">
+            <a href="index.html">Home</a>
+            <span> / </span>
+            <a href="dashboard.html">My Account</a>
+            <span> / </span>
+            My Addresses
+        </div>
+
+        <div class="account-layout">
+
+            <!-- SIDEBAR -->
+            <aside class="account-sidebar">
+
+                <div class="account-user">
+
+                    <div class="account-avatar">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+
+                    <h3>My Account</h3>
+
+                    <p id="sidebarEmail">
+                        Customer account
+                    </p>
+
+                </div>
+
+                <nav class="account-menu">
+
+                    <a href="dashboard.html">
+                        <i class="fa-solid fa-gauge"></i>
+                        Dashboard
+                    </a>
+
+                    <a href="orders.html">
+                        <i class="fa-solid fa-box"></i>
+                        My Orders
+                    </a>
+
+                    <a href="wishlist.html">
+                        <i class="fa-regular fa-heart"></i>
+                        Wishlist
+                    </a>
+
+                    <a href="profile.html">
+                        <i class="fa-regular fa-user"></i>
+                        My Profile
+                    </a>
+
+                    <a href="addresses.html" class="active">
+                        <i class="fa-solid fa-location-dot"></i>
+                        My Addresses
+                    </a>
+
+                    <a href="#" id="logoutLink">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        Logout
+                    </a>
+
+                </nav>
+
+            </aside>
+
+            <!-- CONTENT -->
+            <section class="addresses-content">
+
+                <div class="addresses-title">
+
+                    <div>
+                        <h1>My Addresses</h1>
+
+                        <p>
+                            Manage the addresses you use for deliveries.
+                        </p>
+                    </div>
+
+                    <button
+                        class="add-address-btn"
+                        id="addAddressButton"
+                    >
+                        <i class="fa-solid fa-plus"></i>
+                        Add New Address
+                    </button>
+
+                </div>
+
+                <!-- ADDRESS FORM -->
+                <div
+                    class="address-form-box"
+                    id="addressFormBox"
+                >
+
+                    <h2 id="formTitle">
+                        Add New Address
+                    </h2>
+
+                    <form id="addressForm">
+
+                        <div class="form-row">
+
+                            <div class="form-group">
+
+                                <label for="addressName">
+                                    Address Name
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="addressName"
+                                    placeholder="e.g. Home"
+                                    required
+                                >
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label for="recipientName">
+                                    Recipient Name
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="recipientName"
+                                    placeholder="Full name"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-row">
+
+                            <div class="form-group">
+
+                                <label for="addressPhone">
+                                    Phone Number
+                                </label>
+
+                                <input
+                                    type="tel"
+                                    id="addressPhone"
+                                    placeholder="e.g. 0712345678"
+                                    required
+                                >
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label for="addressCounty">
+                                    County
+                                </label>
+
+                                <select
+                                    id="addressCounty"
+                                    required
+                                >
+
+                                    <option value="">
+                                        Select County
+                                    </option>
+
+                                    <option>Nairobi</option>
+                                    <option>Kiambu</option>
+                                    <option>Kirinyaga</option>
+                                    <option>Murang'a</option>
+                                    <option>Nyeri</option>
+                                    <option>Nyandarua</option>
+                                    <option>Machakos</option>
+                                    <option>Mombasa</option>
+                                    <option>Kisumu</option>
+                                    <option>Nakuru</option>
+                                    <option>Uasin Gishu</option>
+                                    <option>Bungoma</option>
+                                    <option>Kakamega</option>
+                                    <option>Kisii</option>
+                                    <option>Meru</option>
+                                    <option>Embu</option>
+                                    <option>Laikipia</option>
+                                    <option>Kericho</option>
+                                    <option>Other</option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-row">
+
+                            <div class="form-group">
+
+                                <label for="addressTown">
+                                    Town / City
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="addressTown"
+                                    placeholder="Enter town or city"
+                                    required
+                                >
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label for="postalCode">
+                                    Postal Code
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="postalCode"
+                                    placeholder="Optional"
+                                >
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-row">
+
+                            <div class="form-group full">
+
+                                <label for="deliveryAddress">
+                                    Delivery Address
+                                </label>
+
+                                <textarea
+                                    id="deliveryAddress"
+                                    placeholder="Enter estate, building, street or other delivery details"
+                                    required
+                                ></textarea>
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-buttons">
+
+                            <button
+                                type="submit"
+                                class="save-address-btn"
+                            >
+                                <i class="fa-solid fa-floppy-disk"></i>
+                                Save Address
+                            </button>
+
+                            <button
+                                type="button"
+                                class="cancel-address-btn"
+                                id="cancelAddressButton"
+                            >
+                                Cancel
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+                <!-- ADDRESS LIST -->
+                <div id="addressList"></div>
+
+                <div class="delivery-note">
+
+                    <strong>
+                        <i class="fa-solid fa-truck"></i>
+                        Delivery information
+                    </strong>
+
+                    <br>
+
+                    Your saved address will make checkout faster.
+                    You can select the appropriate delivery address
+                    when placing an order.
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+    <!-- NEWSLETTER -->
+    <section class="newsletter">
+
+        <div class="container">
+
+            <div>
+
+                <h2>Subscribe to our newsletter</h2>
+
+                <p>
+                    Get updates about new products, deals and special offers.
+                </p>
+
+            </div>
+
+            <form id="newsletterForm">
+
+                <input
+                    type="email"
+                    placeholder="Enter your email address"
+                    required
+                >
+
+                <button type="submit">
+                    Subscribe
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+
+        <div class="container footer-grid">
+
+            <div>
+
+                <h3>Meteur Online Shopping</h3>
+
+                <p>
+                    Your trusted online shopping marketplace in Kenya.
+                    Shop products from different categories and enjoy
+                    convenient delivery.
+                </p>
+
+            </div>
+
+            <div>
+
+                <h3>Customer Service</h3>
+
+                <a href="#">Help Center</a>
+                <a href="#">Track Order</a>
+                <a href="#">Returns & Refunds</a>
+                <a href="#">Contact Us</a>
+
+            </div>
+
+            <div>
+
+                <h3>Shopping</h3>
+
+                <a href="shop.html">All Products</a>
+                <a href="shop.html">Electronics</a>
+                <a href="shop.html">Fashion</a>
+                <a href="shop.html">Beauty</a>
+
+            </div>
+
+            <div>
+
+                <h3>Contact</h3>
+
+                <p>
+                    <i class="fa-solid fa-phone"></i>
+                    0711842260
+                </p>
+
+                <p>
+                    <i class="fa-solid fa-envelope"></i>
+                    daghlusmeteur@gmail.com
+                </p>
+
+                <p>
+                    <i class="fa-solid fa-location-dot"></i>
+                    Kenya
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+
+            <p>
+                © 2026 Meteur Online Shopping. All rights reserved.
+            </p>
+
+        </div>
+
+    </footer>
+
+    <script src="script.js"></script>
+
+    <script>
+
+        const addressFormBox =
+            document.getElementById("addressFormBox");
+
+        const addAddressButton =
+            document.getElementById("addAddressButton");
+
+        const cancelAddressButton =
+            document.getElementById("cancelAddressButton");
+
+        const addressForm =
+            document.getElementById("addressForm");
+
+        const addressList =
+            document.getElementById("addressList");
+
+        const formTitle =
+            document.getElementById("formTitle");
+
+        let addresses =
+            JSON.parse(
+                localStorage.getItem("meteurAddresses")
+            ) || [];
+
+        let editingIndex = -1;
+
+
+        function saveAddresses() {
+
+            localStorage.setItem(
+                "meteurAddresses",
+                JSON.stringify(addresses)
+            );
+
+        }
+
+
+        function renderAddresses() {
+
+            if (addresses.length === 0) {
+
+                addressList.innerHTML = `
+                    <div class="empty-address">
+
+                        <i class="fa-solid fa-location-dot"></i>
+
+                        <h2>No saved addresses</h2>
+
+                        <p>
+                            Add a delivery address to make your
+                            checkout process faster.
+                        </p>
+
+                        <button
+                            class="add-address-btn"
+                            onclick="openAddressForm()"
+                        >
+                            <i class="fa-solid fa-plus"></i>
+                            Add Your First Address
+                        </button>
+
+                    </div>
+                `;
+
+                return;
+            }
+
+
+            addressList.innerHTML = `
+                <div class="address-list">
+
+                    ${addresses.map((address, index) => `
+
+                        <div class="address-card ${address.default ? "default" : ""}">
+
+                            ${
+                                address.default
+                                ? `
+                                    <div class="default-label">
+                                        DEFAULT ADDRESS
+                                    </div>
+                                `
+                                : ""
+                            }
+
+                            <h3>
+                                ${address.name}
+                            </h3>
+
+                            <p>
+                                <strong>
+                                    ${address.recipient}
+                                </strong>
+                            </p>
+
+                            <p>
+                                ${address.phone}
+                            </p>
+
+                            <p>
+                                ${address.delivery}
+                            </p>
+
+                            <p>
+                                ${address.town},
+                                ${address.county}
+                            </p>
+
+                            ${
+                                address.postal
+                                ? `<p>Postal Code: ${address.postal}</p>`
+                                : ""
+                            }
+
+                            <div class="address-actions">
+
+                                <button
+                                    onclick="editAddress(${index})"
+                                >
+                                    <i class="fa-solid fa-pen"></i>
+                                    Edit
+                                </button>
+
+                                ${
+                                    !address.default
+                                    ? `
+                                        <button
+                                            onclick="setDefaultAddress(${index})"
+                                        >
+                                            <i class="fa-solid fa-check"></i>
+                                            Set Default
+                                        </button>
+                                    `
+                                    : ""
+                                }
+
+                                <button
+                                    onclick="deleteAddress(${index})"
+                                >
+                                    <i class="fa-solid fa-trash"></i>
+                                    Delete
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    `).join("")}
+
+                </div>
+            `;
+
+        }
+
+
+        function openAddressForm() {
+
+            addressFormBox.classList.add("show");
+
+            formTitle.textContent =
+                editingIndex === -1
+                ? "Add New Address"
+                : "Edit Address";
+
+            window.scrollTo({
+                top: addressFormBox.offsetTop - 100,
+                behavior: "smooth"
+            });
+
+        }
+
+
+        function closeAddressForm() {
+
+            addressFormBox.classList.remove("show");
+
+            addressForm.reset();
+
+            editingIndex = -1;
+
+            formTitle.textContent =
+                "Add New Address";
+
+        }
+
+
+        addAddressButton.addEventListener(
+            "click",
+            function() {
+
+                editingIndex = -1;
+
+                openAddressForm();
+
+            }
+        );
+
+
+        cancelAddressButton.addEventListener(
+            "click",
+            function() {
+
+                closeAddressForm();
+
+            }
+        );
+
+
+        addressForm.addEventListener(
+            "submit",
+            function(event) {
+
+                event.preventDefault();
+
+
+                const address = {
+
+                    name:
+                        document
+                        .getElementById("addressName")
+                        .value
+                        .trim(),
+
+                    recipient:
+                        document
+                        .getElementById("recipientName")
+                        .value
+                        .trim(),
+
+                    phone:
+                        document
+                        .getElementById("addressPhone")
+                        .value
+                        .trim(),
+
+                    county:
+                        document
+                        .getElementById("addressCounty")
+                        .value,
+
+                    town:
+                        document
+                        .getElementById("addressTown")
+                        .value
+                        .trim(),
+
+                    postal:
+                        document
+                        .getElementById("postalCode")
+                        .value
+                        .trim(),
+
+                    delivery:
+                        document
+                        .getElementById("deliveryAddress")
+                        .value
+                        .trim(),
+
+                    default:
+                        addresses.length === 0
+
+                };
+
+
+                if (editingIndex === -1) {
+
+                    addresses.push(address);
+
+                    alert(
+                        "Your delivery address has been saved."
+                    );
+
+                } else {
+
+                    address.default =
+                        addresses[editingIndex].default;
+
+                    addresses[editingIndex] =
+                        address;
+
+                    alert(
+                        "Your delivery address has been updated."
+                    );
+
+                }
+
+
+                saveAddresses();
+
+                renderAddresses();
+
+                closeAddressForm();
+
+            }
+        );
+
+
+        function editAddress(index) {
+
+            const address =
+                addresses[index];
+
+            editingIndex = index;
+
+
+            document
+                .getElementById("addressName")
+                .value = address.name;
+
+            document
+                .getElementById("recipientName")
+                .value = address.recipient;
+
+            document
+                .getElementById("addressPhone")
+                .value = address.phone;
+
+            document
+                .getElementById("addressCounty")
+                .value = address.county;
+
+            document
+                .getElementById("addressTown")
+                .value = address.town;
+
+            document
+                .getElementById("postalCode")
+                .value = address.postal || "";
+
+            document
+                .getElementById("deliveryAddress")
+                .value = address.delivery;
+
+
+            openAddressForm();
+
+        }
+
+
+        function setDefaultAddress(index) {
+
+            addresses =
+                addresses.map(
+                    function(address, i) {
+
+                        return {
+                            ...address,
+                            default: i === index
+                        };
+
+                    }
+                );
+
+
+            saveAddresses();
+
+            renderAddresses();
+
+            alert(
+                "Your default delivery address has been updated."
+            );
+
+        }
+
+
+        function deleteAddress(index) {
+
+            const confirmed =
+                confirm(
+                    "Are you sure you want to delete this address?"
+                );
+
+            if (!confirmed) {
+                return;
+            }
+
+
+            const wasDefault =
+                addresses[index].default;
+
+
+            addresses.splice(index, 1);
+
+
+            if (
+                wasDefault &&
+                addresses.length > 0
+            ) {
+
+                addresses[0].default = true;
+
+            }
+
+
+            saveAddresses();
+
+            renderAddresses();
+
+        }
+
+
+        /*
+         * Load saved email for the account sidebar.
+         */
+
+        const savedProfile =
+            JSON.parse(
+                localStorage.getItem("meteurProfile")
+            ) || {};
+
+        const sidebarEmail =
+            document.getElementById("sidebarEmail");
+
+
+        if (savedProfile.email) {
+
+            sidebarEmail.textContent =
+                savedProfile.email;
+
+        }
+
+
+        /*
+         * Logout.
+         */
+
+        document
+            .getElementById("logoutLink")
+            .addEventListener(
+                "click",
+                function(event) {
+
+                    event.preventDefault();
+
+                    const confirmed =
+                        confirm(
+                            "Are you sure you want to log out?"
+                        );
+
+                    if (!confirmed) {
+                        return;
+                    }
+
+                    localStorage.removeItem(
+                        "meteurLoggedIn"
+                    );
+
+                    window.location.href =
+                        "login.html";
+
+                }
+            );
+
+
+        renderAddresses();
+
+    </script>
+
+</body>
+</html>

@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>New Arrivals - Meteur Online Shopping</title>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -29,6 +28,8 @@
         }
 
         .header-top {
+            max-width: 1400px;
+            margin: auto;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -53,8 +54,8 @@
             padding: 13px;
             border: none;
             outline: none;
-            font-size: 15px;
             border-radius: 5px 0 0 5px;
+            font-size: 15px;
         }
 
         .search-box button {
@@ -62,12 +63,13 @@
             background: #222;
             color: white;
             padding: 0 20px;
-            cursor: pointer;
             border-radius: 0 5px 5px 0;
+            cursor: pointer;
         }
 
         nav {
-            margin-top: 15px;
+            max-width: 1400px;
+            margin: 15px auto 0;
             display: flex;
             gap: 20px;
             flex-wrap: wrap;
@@ -82,7 +84,7 @@
         .hero {
             background: linear-gradient(135deg, #ff6b00, #ff9d45);
             color: white;
-            padding: 45px 5%;
+            padding: 40px 5%;
         }
 
         .hero-content {
@@ -91,8 +93,8 @@
         }
 
         .hero h1 {
-            font-size: 40px;
-            margin-bottom: 12px;
+            font-size: 38px;
+            margin-bottom: 10px;
         }
 
         .hero p {
@@ -155,6 +157,19 @@
             display: block;
         }
 
+        .new-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: #ff6b00;
+            color: white;
+            padding: 6px 10px;
+            font-size: 12px;
+            font-weight: bold;
+            border-radius: 4px;
+            z-index: 1;
+        }
+
         .wishlist-btn {
             position: absolute;
             top: 12px;
@@ -173,18 +188,6 @@
 
         .wishlist-btn.active {
             color: #ff6b00;
-        }
-
-        .new-badge {
-            position: absolute;
-            top: 12px;
-            left: 12px;
-            background: #ff6b00;
-            color: white;
-            padding: 6px 10px;
-            font-size: 12px;
-            font-weight: bold;
-            border-radius: 4px;
         }
 
         .product-info {
@@ -225,6 +228,17 @@
             margin-left: 6px;
         }
 
+        .discount {
+            display: inline-block;
+            margin-left: 7px;
+            background: #fff0e6;
+            color: #ff6b00;
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
         .stock {
             color: #555;
             font-size: 13px;
@@ -248,15 +262,15 @@
         }
 
         .add-cart:disabled {
-            background: #aaa;
+            background: #999;
             cursor: not-allowed;
         }
 
         .loading,
-        .error,
-        .empty {
+        .empty,
+        .error {
             background: white;
-            padding: 40px;
+            padding: 45px;
             text-align: center;
             border-radius: 8px;
             grid-column: 1 / -1;
@@ -293,10 +307,11 @@
         }
 
         .copyright {
-            text-align: center;
-            margin-top: 30px;
+            max-width: 1400px;
+            margin: 30px auto 0;
             padding-top: 20px;
             border-top: 1px solid #444;
+            text-align: center;
             color: #aaa;
         }
 
@@ -331,10 +346,6 @@
         }
 
         @media (max-width: 500px) {
-            .products {
-                grid-template-columns: 1fr 1fr;
-            }
-
             .footer-content {
                 grid-template-columns: 1fr;
             }
@@ -409,7 +420,10 @@
             Loading new arrivals...
         </span>
 
-        <select id="sortSelect" onchange="sortProducts()">
+        <select
+            id="sortSelect"
+            onchange="sortProducts()"
+        >
 
             <option value="default">
                 Sort by
@@ -427,8 +441,8 @@
                 Highest Rated
             </option>
 
-            <option value="newest">
-                Newest
+            <option value="discount">
+                Biggest Discount
             </option>
 
         </select>
@@ -469,21 +483,10 @@
 
             <h3>Shopping</h3>
 
-            <a href="shop.html">
-                Shop All
-            </a>
-
-            <a href="deals.html">
-                Deals
-            </a>
-
-            <a href="new-arrivals.html">
-                New Arrivals
-            </a>
-
-            <a href="categories.html">
-                Categories
-            </a>
+            <a href="shop.html">Shop All</a>
+            <a href="deals.html">Deals</a>
+            <a href="new-arrivals.html">New Arrivals</a>
+            <a href="categories.html">Categories</a>
 
         </div>
 
@@ -492,25 +495,11 @@
 
             <h3>Customer Service</h3>
 
-            <a href="help.html">
-                Help Center
-            </a>
-
-            <a href="contact.html">
-                Contact Us
-            </a>
-
-            <a href="shipping.html">
-                Shipping
-            </a>
-
-            <a href="returns.html">
-                Returns & Refunds
-            </a>
-
-            <a href="track-order.html">
-                Track Order
-            </a>
+            <a href="help.html">Help Center</a>
+            <a href="contact.html">Contact Us</a>
+            <a href="shipping.html">Shipping</a>
+            <a href="returns.html">Returns & Refunds</a>
+            <a href="track-order.html">Track Order</a>
 
         </div>
 
@@ -519,21 +508,10 @@
 
             <h3>About</h3>
 
-            <a href="about.html">
-                About Meteur
-            </a>
-
-            <a href="privacy.html">
-                Privacy Policy
-            </a>
-
-            <a href="terms.html">
-                Terms & Conditions
-            </a>
-
-            <a href="sell.html">
-                Sell on Meteur
-            </a>
+            <a href="about.html">About Meteur</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms & Conditions</a>
+            <a href="sell.html">Sell on Meteur</a>
 
         </div>
 
@@ -585,13 +563,18 @@
             return;
         }
 
+
         const {
             data,
             error
         } = await supabaseClient
             .from("wishlist")
             .select("product_id")
-            .eq("user_id", user.id);
+            .eq(
+                "user_id",
+                user.id
+            );
+
 
         if (error) {
 
@@ -603,13 +586,16 @@
             return;
         }
 
-        (data || []).forEach(item => {
 
-            wishlistIds.add(
-                item.product_id
-            );
+        (data || []).forEach(
+            item => {
 
-        });
+                wishlistIds.add(
+                    item.product_id
+                );
+
+            }
+        );
     }
 
 
@@ -620,6 +606,7 @@
 
         const user =
             await getCurrentUser();
+
 
         if (!user) {
 
@@ -632,18 +619,29 @@
             return;
         }
 
+
         button.disabled = true;
 
 
-        if (wishlistIds.has(productId)) {
+        if (
+            wishlistIds.has(
+                productId
+            )
+        ) {
 
             const {
                 error
             } = await supabaseClient
                 .from("wishlist")
                 .delete()
-                .eq("user_id", user.id)
-                .eq("product_id", productId);
+                .eq(
+                    "user_id",
+                    user.id
+                )
+                .eq(
+                    "product_id",
+                    productId
+                );
 
 
             if (error) {
@@ -660,7 +658,9 @@
             }
 
 
-            wishlistIds.delete(productId);
+            wishlistIds.delete(
+                productId
+            );
 
             button.classList.remove(
                 "active"
@@ -676,8 +676,13 @@
             } = await supabaseClient
                 .from("wishlist")
                 .insert({
-                    user_id: user.id,
-                    product_id: productId
+
+                    user_id:
+                        user.id,
+
+                    product_id:
+                        productId
+
                 });
 
 
@@ -695,7 +700,9 @@
             }
 
 
-            wishlistIds.add(productId);
+            wishlistIds.add(
+                productId
+            );
 
             button.classList.add(
                 "active"
@@ -709,65 +716,192 @@
     }
 
 
-    function addToCart(product) {
+    async function addToCart(
+        productId,
+        button
+    ) {
 
-        let cart =
-            JSON.parse(
-                localStorage.getItem(
-                    "meteurCart"
-                ) || "[]"
-            );
-
-
-        const existing =
-            cart.find(
-                item =>
-                    item.id === product.id
-            );
+        const user =
+            await getCurrentUser();
 
 
-        if (existing) {
+        if (!user) {
 
-            existing.quantity += 1;
+            window.location.href =
+                "login.html?redirect=" +
+                encodeURIComponent(
+                    "new-arrivals.html"
+                );
 
-        } else {
-
-            cart.push({
-
-                id: product.id,
-
-                name: product.name,
-
-                price: Number(
-                    product.price
-                ),
-
-                image_url:
-                    product.image_url,
-
-                quantity: 1,
-
-                stock:
-                    product.stock
-
-            });
+            return;
         }
 
 
-        localStorage.setItem(
-            "meteurCart",
-            JSON.stringify(cart)
-        );
+        button.disabled = true;
+
+        button.textContent =
+            "Adding...";
 
 
-        alert(
-            product.name +
-            " added to cart."
-        );
+        try {
+
+            const product =
+                allProducts.find(
+                    item =>
+                        item.id ===
+                        productId
+                );
+
+
+            if (!product) {
+                throw new Error(
+                    "Product not found."
+                );
+            }
+
+
+            const stock =
+                Number(
+                    product.stock || 0
+                );
+
+
+            const {
+                data: existing,
+                error: existingError
+            } = await supabaseClient
+
+                .from("cart_items")
+
+                .select(
+                    "id, quantity"
+                )
+
+                .eq(
+                    "user_id",
+                    user.id
+                )
+
+                .eq(
+                    "product_id",
+                    productId
+                )
+
+                .maybeSingle();
+
+
+            if (existingError) {
+                throw existingError;
+            }
+
+
+            const currentQuantity =
+                existing
+                    ? Number(
+                        existing.quantity
+                    )
+                    : 0;
+
+
+            if (
+                currentQuantity + 1 >
+                stock
+            ) {
+
+                alert(
+                    "You cannot add more than the available stock."
+                );
+
+                return;
+            }
+
+
+            if (existing) {
+
+                const {
+                    error
+                } = await supabaseClient
+
+                    .from("cart_items")
+
+                    .update({
+
+                        quantity:
+                            currentQuantity + 1,
+
+                        updated_at:
+                            new Date().toISOString()
+
+                    })
+
+                    .eq(
+                        "id",
+                        existing.id
+                    );
+
+
+                if (error) {
+                    throw error;
+                }
+
+
+            } else {
+
+                const {
+                    error
+                } = await supabaseClient
+
+                    .from("cart_items")
+
+                    .insert({
+
+                        user_id:
+                            user.id,
+
+                        product_id:
+                            productId,
+
+                        quantity: 1
+
+                    });
+
+
+                if (error) {
+                    throw error;
+                }
+            }
+
+
+            alert(
+                product.name +
+                " added to your cart."
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Cart error:",
+                error
+            );
+
+            alert(
+                "Unable to add this product to your cart."
+            );
+
+        } finally {
+
+            button.disabled = false;
+
+            button.textContent =
+                "Add to Cart";
+        }
     }
 
 
-    function getStars(rating) {
+    function getStars(
+        rating
+    ) {
 
         const value =
             Math.round(
@@ -781,6 +915,39 @@
     }
 
 
+    function getDiscount(
+        product
+    ) {
+
+        const price =
+            Number(
+                product.price || 0
+            );
+
+        const oldPrice =
+            Number(
+                product.old_price || 0
+            );
+
+
+        if (
+            oldPrice <= price ||
+            oldPrice === 0
+        ) {
+
+            return 0;
+        }
+
+
+        return Math.round(
+            (
+                (oldPrice - price) /
+                oldPrice
+            ) * 100
+        );
+    }
+
+
     function renderProducts(
         products
     ) {
@@ -788,6 +955,7 @@
         if (!products.length) {
 
             productsContainer.innerHTML = `
+
                 <div class="empty">
 
                     <h2>
@@ -795,14 +963,15 @@
                     </h2>
 
                     <p>
-                        There are currently no new products matching your search.
+                        There are no products matching your search.
                     </p>
 
                 </div>
+
             `;
 
             productCount.textContent =
-                "0 new arrivals";
+                "0 products";
 
             return;
         }
@@ -812,182 +981,208 @@
             products.length +
             (
                 products.length === 1
-                    ? " new arrival"
-                    : " new arrivals"
+                    ? " product"
+                    : " products"
             );
 
 
         productsContainer.innerHTML =
-            products.map(product => {
+            products.map(
+                product => {
 
-                const price =
-                    Number(
-                        product.price || 0
-                    );
+                    const price =
+                        Number(
+                            product.price || 0
+                        );
 
-                const oldPrice =
-                    Number(
-                        product.old_price || 0
-                    );
+                    const oldPrice =
+                        Number(
+                            product.old_price || 0
+                        );
 
-                const image =
-                    product.image_url ||
-                    "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80";
+                    const stock =
+                        Number(
+                            product.stock || 0
+                        );
 
-                const stock =
-                    Number(
-                        product.stock || 0
-                    );
+                    const discount =
+                        getDiscount(
+                            product
+                        );
 
-                const isWishlisted =
-                    wishlistIds.has(
-                        product.id
-                    );
+                    const image =
+                        product.image_url ||
+                        "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80";
 
-
-                return `
-
-                    <article class="product-card">
-
-                        <span class="new-badge">
-
-                            ${
-                                product.badge ||
-                                "New"
-                            }
-
-                        </span>
+                    const wishlisted =
+                        wishlistIds.has(
+                            product.id
+                        );
 
 
-                        <button
-                            class="wishlist-btn ${
-                                isWishlisted
-                                    ? "active"
-                                    : ""
-                            }"
-                            onclick="toggleWishlist(
-                                '${product.id}',
-                                this
-                            )"
-                            title="Add to wishlist"
-                        >
+                    return `
 
-                            ${
-                                isWishlisted
-                                    ? "♥"
-                                    : "♡"
-                            }
+                        <article class="product-card">
 
-                        </button>
-
-
-                        <a
-                            href="product.html?id=${encodeURIComponent(
-                                product.id
-                            )}"
-                        >
-
-                            <img
-                                class="product-image"
-                                src="${image}"
-                                alt="${product.name}"
-                                loading="lazy"
-                            >
-
-                        </a>
-
-
-                        <div class="product-info">
-
-                            <div class="category">
-                                ${product.category}
-                            </div>
-
-
-                            <a
-                                class="product-name"
-                                href="product.html?id=${encodeURIComponent(
-                                    product.id
-                                )}"
-                            >
-                                ${product.name}
-                            </a>
-
-
-                            <div class="rating">
-
-                                ${getStars(
-                                    product.rating
-                                )}
-
-                                <span style="color:#777;">
-                                    (${product.review_count || 0})
-                                </span>
-
-                            </div>
-
-
-                            <div>
-
-                                <span class="price">
-                                    KSh ${price.toLocaleString()}
-                                </span>
-
+                            <span class="new-badge">
 
                                 ${
-                                    oldPrice > price
-                                        ? `
-                                            <span class="old-price">
-                                                KSh ${oldPrice.toLocaleString()}
-                                            </span>
-                                        `
-                                        : ""
+                                    product.badge ||
+                                    "New"
                                 }
 
-                            </div>
-
-
-                            <div class="stock">
-
-                                ${
-                                    stock > 0
-                                        ? `${stock} available`
-                                        : "Out of stock"
-                                }
-
-                            </div>
+                            </span>
 
 
                             <button
-                                class="add-cart"
-                                onclick='addToCart(${JSON.stringify(product).replace(/'/g, "&#39;")})'
-                                ${stock <= 0 ? "disabled" : ""}
+                                class="wishlist-btn ${
+                                    wishlisted
+                                        ? "active"
+                                        : ""
+                                }"
+                                onclick="toggleWishlist(
+                                    '${product.id}',
+                                    this
+                                )"
+                                title="Add to wishlist"
                             >
 
                                 ${
-                                    stock > 0
-                                        ? "Add to Cart"
-                                        : "Out of Stock"
+                                    wishlisted
+                                        ? "♥"
+                                        : "♡"
                                 }
 
                             </button>
 
-                        </div>
 
-                    </article>
+                            <a
+                                href="product.html?id=${encodeURIComponent(
+                                    product.id
+                                )}"
+                            >
 
-                `;
+                                <img
+                                    class="product-image"
+                                    src="${image}"
+                                    alt="${product.name}"
+                                    loading="lazy"
+                                >
 
-            }).join("");
+                            </a>
+
+
+                            <div class="product-info">
+
+                                <div class="category">
+                                    ${product.category}
+                                </div>
+
+
+                                <a
+                                    class="product-name"
+                                    href="product.html?id=${encodeURIComponent(
+                                        product.id
+                                    )}"
+                                >
+                                    ${product.name}
+                                </a>
+
+
+                                <div class="rating">
+
+                                    ${getStars(
+                                        product.rating
+                                    )}
+
+                                    <span style="color:#777;">
+                                        (${product.review_count || 0})
+                                    </span>
+
+                                </div>
+
+
+                                <div>
+
+                                    <span class="price">
+                                        KSh ${price.toLocaleString()}
+                                    </span>
+
+
+                                    ${
+                                        oldPrice > price
+                                            ? `
+                                                <span class="old-price">
+                                                    KSh ${oldPrice.toLocaleString()}
+                                                </span>
+
+                                                ${
+                                                    discount > 0
+                                                        ? `
+                                                            <span class="discount">
+                                                                -${discount}%
+                                                            </span>
+                                                        `
+                                                        : ""
+                                                }
+                                            `
+                                            : ""
+                                    }
+
+                                </div>
+
+
+                                <div class="stock">
+
+                                    ${
+                                        stock > 0
+                                            ? `${stock} available`
+                                            : "Out of stock"
+                                    }
+
+                                </div>
+
+
+                                <button
+                                    class="add-cart"
+                                    onclick="addToCart(
+                                        '${product.id}',
+                                        this
+                                    )"
+                                    ${
+                                        stock <= 0
+                                            ? "disabled"
+                                            : ""
+                                    }
+                                >
+
+                                    ${
+                                        stock > 0
+                                            ? "Add to Cart"
+                                            : "Out of Stock"
+                                    }
+
+                                </button>
+
+                            </div>
+
+                        </article>
+
+                    `;
+
+                }
+            ).join("");
     }
 
 
     async function loadProducts() {
 
         productsContainer.innerHTML = `
+
             <div class="loading">
                 Loading new arrivals...
             </div>
+
         `;
 
 
@@ -1000,9 +1195,16 @@
                 data,
                 error
             } = await supabaseClient
+
                 .from("products")
+
                 .select("*")
-                .eq("is_new", true)
+
+                .eq(
+                    "is_new",
+                    true
+                )
+
                 .order(
                     "created_at",
                     {
@@ -1028,12 +1230,13 @@
         } catch (error) {
 
             console.error(
-                "Supabase new arrivals error:",
+                "New arrivals loading error:",
                 error
             );
 
 
             productsContainer.innerHTML = `
+
                 <div class="error">
 
                     <h2>
@@ -1045,11 +1248,11 @@
                     </p>
 
                 </div>
+
             `;
 
-
             productCount.textContent =
-                "New arrivals unavailable";
+                "Products unavailable";
         }
     }
 
@@ -1128,9 +1331,11 @@
     function sortProducts() {
 
         const value =
-            document.getElementById(
-                "sortSelect"
-            ).value;
+            document
+                .getElementById(
+                    "sortSelect"
+                )
+                .value;
 
 
         const sorted =
@@ -1171,13 +1376,13 @@
 
 
         } else if (
-            value === "newest"
+            value === "discount"
         ) {
 
             sorted.sort(
                 (a, b) =>
-                    new Date(b.created_at) -
-                    new Date(a.created_at)
+                    getDiscount(b) -
+                    getDiscount(a)
             );
         }
 

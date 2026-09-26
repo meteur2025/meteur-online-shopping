@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flash Deals - Meteur Online Shopping</title>
+    <meta name="description" content="Shop the latest flash deals and discounted products at Meteur Online Shopping.">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .deals-hero {
+            background: linear-gradient(135deg, #ff7900, #ff9900);
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .deals-hero h1 {
+            font-size: 42px;
+            margin-bottom: 10px;
+        }
+
+        .deals-hero p {
+            font-size: 18px;
+            margin-bottom: 25px;
+        }
+
+        .deal-timer {
+            display: inline-flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .timer-box {
+            background: rgba(255,255,255,0.18);
+            border: 1px solid rgba(255,255,255,0.35);
+            border-radius: 8px;
+            padding: 12px 18px;
+            min-width: 70px;
+        }
+
+        .timer-box strong {
+            display: block;
+            font-size: 24px;
+        }
+
+        .timer-box span {
+            font-size: 12px;
+        }
+
+        .deals-section {
+            max-width: 1200px;
+            margin: 35px auto;
+            padding: 0 20px;
+        }
+
+        .deals-section h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .deal-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .deal-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            transition: transform 0.2s ease;
+            position: relative;
+        }
+
+        .deal-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .deal-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: #e53935;
+            color: white;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        .deal-image {
+            height: 210px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f7f7f7;
+            font-size: 75px;
+        }
+
+        .deal-content {
+            padding: 18px;
+        }
+
+        .deal-content h3 {
+            font-size: 17px;
+            margin-bottom: 10px;
+        }
+
+        .deal-rating {
+            color: #f5a623;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .deal-price {
+            font-size: 22px;
+            font-weight: bold;
+            color: #f57224;
+        }
+
+        .old-price {
+            color: #888;
+            text-decoration: line-through;
+            margin-left: 8px;
+            font-size: 14px;
+        }
+
+        .deal-save {
+            color: #2e7d32;
+            font-size: 13px;
+            margin: 8px 0 15px;
+        }
+
+        .deal-button {
+            width: 100%;
+            border: none;
+            background: #ff7900;
+            color: white;
+            padding: 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .deal-button:hover {
+            background: #e86f00;
+        }
+
+        .deal-info {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            margin-top: 35px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+        }
+
+        .deal-info h2 {
+            margin-bottom: 12px;
+        }
+
+        .deal-info p {
+            line-height: 1.7;
+            color: #555;
+        }
+
+        @media (max-width: 1000px) {
+            .deal-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 750px) {
+            .deal-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .deals-hero h1 {
+                font-size: 32px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .deal-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .deals-hero {
+                padding: 35px 15px;
+            }
+
+            .timer-box {
+                min-width: 60px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <span>Welcome to Meteur Online Shopping</span>
+            <div>
+                <a href="help.html">Help Center</a>
+                <a href="track-order.html">Track Order</a>
+                <a href="sell.html">Sell on Meteur</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container header-content">
+
+            <a href="index.html" class="logo">
+                <i class="fas fa-shopping-bag"></i>
+                <span>Meteur</span>
+                <small>ONLINE SHOPPING</small>
+            </a>
+
+            <form class="search-box" id="searchForm">
+                <input type="search" id="searchInput" placeholder="Search products, brands and categories">
+                <button type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+
+            <div class="header-actions">
+                <a href="login.html">
+                    <i class="fas fa-user"></i>
+                    <span>Account</span>
+                </a>
+
+                <a href="wishlist.html">
+                    <i class="fas fa-heart"></i>
+                    <span>Wishlist</span>
+                </a>
+
+                <a href="cart.html">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Cart <b id="cartCount">0</b></span>
+                </a>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="container nav-content">
+            <a href="categories.html">
+                <i class="fas fa-bars"></i> Categories
+            </a>
+            <a href="index.html">Home</a>
+            <a href="shop.html">Shop</a>
+            <a href="deals.html" class="active">Flash Deals</a>
+            <a href="categories.html">Categories</a>
+            <a href="new-arrivals.html">New Arrivals</a>
+            <a href="shop.html">Popular</a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="deals-hero">
+        <h1>🔥 Flash Deals</h1>
+        <p>Limited-time offers. Big savings. Shop before the deals end!</p>
+
+        <div class="deal-timer">
+            <div class="timer-box">
+                <strong id="hours">08</strong>
+                <span>Hours</span>
+            </div>
+
+            <div class="timer-box">
+                <strong id="minutes">45</strong>
+                <span>Minutes</span>
+            </div>
+
+            <div class="timer-box">
+                <strong id="seconds">00</strong>
+                <span>Seconds</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Deals -->
+    <main class="deals-section">
+
+        <h2>Today's Best Deals</h2>
+
+        <div class="deal-grid">
+
+            <div class="deal-card">
+                <span class="deal-badge">20% OFF</span>
+                <div class="deal-image">📱</div>
+                <div class="deal-content">
+                    <h3>Premium Android Smartphone</h3>
+                    <div class="deal-rating">★★★★★ 4.8</div>
+                    <div>
+                        <span class="deal-price">KSh 24,999</span>
+                        <span class="old-price">KSh 31,250</span>
+                    </div>
+                    <div class="deal-save">Save KSh 6,251</div>
+                    <button class="deal-button add-to-cart"
+                            data-product="Premium Android Smartphone"
+                            data-price="24999">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <div class="deal-card">
+                <span class="deal-badge">35% OFF</span>
+                <div class="deal-image">🎧</div>
+                <div class="deal-content">
+                    <h3>Wireless Bluetooth Headphones</h3>
+                    <div class="deal-rating">★★★★★ 4.7</div>
+                    <div>
+                        <span class="deal-price">KSh 3,899</span>
+                        <span class="old-price">KSh 5,999</span>
+                    </div>
+                    <div class="deal-save">Save KSh 2,100</div>
+                    <button class="deal-button add-to-cart"
+                            data-product="Wireless Bluetooth Headphones"
+                            data-price="3899">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <div class="deal-card">
+                <span class="deal-badge">28% OFF</span>
+                <div class="deal-image">👟</div>
+                <div class="deal-content">
+                    <h3>Men's Casual Sneakers</h3>
+                    <div class="deal-rating">★★★★☆ 4.5</div>
+                    <div>
+                        <span class="deal-price">KSh 2,499</span>
+                        <span class="old-price">KSh 3,499</span>
+                    </div>
+                    <div class="deal-save">Save KSh 1,000</div>
+                    <button class="deal-button add-to-cart"
+                            data-product="Men's Casual Sneakers"
+                            data-price="2499">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <div class="deal-card">
+                <span class="deal-badge">15% OFF</span>
+                <div class="deal-image">💻</div>
+                <div class="deal-content">
+                    <h3>Modern Laptop Computer</h3>
+                    <div class="deal-rating">★★★★★ 4.9</div>
+                    <div>
+                        <span class="deal-price">KSh 59,999</span>
+                        <span class="old-price">KSh 70,000</span>
+                    </div>
+                    <div class="deal-save">Save KSh 10,001</div>
+                    <button class="deal-button add-to-cart"
+                            data-product="Modern Laptop Computer"
+                            data-price="59999">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <div class="deal-card">
+                <span class="deal-badge">22% OFF</span>
+                <div class="deal-image">⌚</div>
+                <div class="deal-content">
+                    <h3>Smart Watch Series</h3>
+                    <div class="deal-rating">★★★★★ 4.6</div>
+                    <div>
+                        <span class="deal-price">KSh 4,999</span>
+                        <span class="old-price">KSh 6,399</span>
+                    </div>
+                    <div class="deal-save">Save KSh 1,400</div>
+                    <button class="deal-button add-to-cart"
+                            data-product="Smart Watch Series"
+                            data-price="4999">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <div class="deal-card">
+                <span class="deal-badge">18% OFF</span>
+                <div class="deal-image">📷</div>
+                <div class="deal-content">
+                    <h3>Digital Camera</h3>
+                    <div class="deal-rating">★★★★★ 4.7</div>
+                    <div>
+                        <span class="deal-price">KSh 28,500</span>
+                        <span class="old-price">KSh 34,500</span>
+                    </div>
+                    <div class="deal-save">Save KSh 6,000</div>
+                    <button class="deal-button add-to-cart"
+                            data-product="Digital Camera"
+                            data-price="28500">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <div class="deal-card">
+                <span class="deal-badge">25% OFF</span>
+                <div class="deal-image">🌸</div>
+                <div class="deal-content">
+                    <h3>Premium Fragrance</h3>
+                    <div class="deal-rating">★★★★☆ 4.4</div>
+                    <div>
+                        <span class="deal-price">KSh 3,250</span>
+                        <span class="old-price">KSh 4,350</span>
+                    </div>
+                    <div class="deal-save">Save KSh 1,100</div>
+                    <button class="deal-button add-to-cart"
+                            data-product="Premium Fragrance"
+                            data-price="3250">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <div class="deal-card">
+                <span class="deal-badge">20% OFF</span>
+                <div class="deal-image">🥤</div>
+                <div class="deal-content">
+                    <h3>Electric Kitchen Blender</h3>
+                    <div class="deal-rating">★★★★★ 4.6</div>
+                    <div>
+                        <span class="deal-price">KSh 5,499</span>
+                        <span class="old-price">KSh 6,899</span>
+                    </div>
+                    <div class="deal-save">Save KSh 1,400</div>
+                    <button class="deal-button add-to-cart"
+                            data-product="Electric Kitchen Blender"
+                            data-price="5499">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="deal-info">
+            <h2>About Meteur Flash Deals</h2>
+            <p>
+                Meteur Flash Deals brings selected products together at
+                promotional prices for a limited period. Browse electronics,
+                fashion, beauty, home products and other popular categories.
+                Add your preferred products to the cart and continue to checkout
+                when you are ready to place your order.
+            </p>
+        </div>
+
+    </main>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="container">
+            <h2>Get the Latest Deals</h2>
+            <p>Subscribe to receive updates about new products and promotions.</p>
+
+            <form id="newsletterForm">
+                <input type="email" placeholder="Enter your email address" required>
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-grid">
+
+            <div>
+                <h3>Meteur Online Shopping</h3>
+                <p>
+                    A Kenyan online shopping marketplace offering products
+                    across multiple categories.
+                </p>
+            </div>
+
+            <div>
+                <h3>Customer Service</h3>
+                <a href="help.html">Help Center</a>
+                <a href="contact.html">Contact Us</a>
+                <a href="track-order.html">Track Order</a>
+                <a href="returns.html">Returns & Refunds</a>
+            </div>
+
+            <div>
+                <h3>Shopping</h3>
+                <a href="shop.html">Shop Products</a>
+                <a href="categories.html">Categories</a>
+                <a href="deals.html">Flash Deals</a>
+                <a href="wishlist.html">Wishlist</a>
+            </div>
+
+            <div>
+                <h3>Contact</h3>
+                <p>📞 0711842260</p>
+                <p>✉️ daghlusmeteur@gmail.com</p>
+                <p>🇰🇪 Kenya</p>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 Meteur Online Shopping. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+
+    <script>
+        let totalSeconds = (8 * 60 * 60) + (45 * 60);
+
+        function updateTimer() {
+            if (totalSeconds <= 0) {
+                totalSeconds = (8 * 60 * 60) + (45 * 60);
+            }
+
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+
+            document.getElementById("hours").textContent =
+                String(hours).padStart(2, "0");
+
+            document.getElementById("minutes").textContent =
+                String(minutes).padStart(2, "0");
+
+            document.getElementById("seconds").textContent =
+                String(seconds).padStart(2, "0");
+
+            totalSeconds--;
+        }
+
+        updateTimer();
+        setInterval(updateTimer, 1000);
+    </script>
+
+</body>
+</html>

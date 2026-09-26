@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Verify Email | Meteur Online Shopping</title>
+
+    <meta name="description" content="Verify your email address for your Meteur Online Shopping account.">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .verification-page {
+            min-height: 650px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 50px 20px;
+            background: #f5f5f5;
+        }
+
+        .verification-container {
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .verification-card {
+            background: #fff;
+            border-radius: 8px;
+            padding: 40px 35px;
+            text-align: center;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.10);
+        }
+
+        .verification-icon {
+            width: 85px;
+            height: 85px;
+            margin: 0 auto 25px;
+            border-radius: 50%;
+            background: #fff3df;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .verification-icon i {
+            font-size: 38px;
+            color: #ff9900;
+        }
+
+        .verification-card h1 {
+            font-size: 27px;
+            color: #222;
+            margin-bottom: 12px;
+        }
+
+        .verification-card > p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 22px;
+        }
+
+        .email-box {
+            background: #f8f8f8;
+            border: 1px solid #e5e5e5;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 22px;
+            color: #333;
+            font-weight: 600;
+            word-break: break-word;
+        }
+
+        .steps {
+            text-align: left;
+            margin: 25px 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .steps li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 15px;
+            color: #555;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .steps li i {
+            color: #ff9900;
+            margin-top: 3px;
+        }
+
+        .resend-btn {
+            width: 100%;
+            height: 48px;
+            border: none;
+            border-radius: 5px;
+            background: #ff9900;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .resend-btn:hover {
+            background: #e88900;
+        }
+
+        .resend-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .change-email {
+            display: inline-block;
+            margin-top: 18px;
+            color: #f57c00;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .change-email:hover {
+            text-decoration: underline;
+        }
+
+        .login-link {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .login-link a {
+            color: #f57c00;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .security-note {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #888;
+            line-height: 1.5;
+        }
+
+        .message {
+            display: none;
+            padding: 12px;
+            margin-top: 18px;
+            border-radius: 5px;
+            font-size: 13px;
+        }
+
+        @media (max-width: 560px) {
+            .verification-page {
+                padding: 30px 15px;
+            }
+
+            .verification-card {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+
+            <span>Welcome to Meteur Online Shopping</span>
+
+            <div class="top-links">
+                <a href="#">Help Center</a>
+                <a href="#">Track Order</a>
+                <a href="#">Sell on Meteur</a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="main-header">
+
+        <div class="container header-content">
+
+            <a href="index.html" class="logo">
+
+                <i class="fas fa-shopping-bag"></i>
+
+                <div>
+                    <strong>Meteur</strong>
+                    <span>ONLINE SHOPPING</span>
+                </div>
+
+            </a>
+
+            <form class="search-box" id="searchForm">
+
+                <input
+                    type="search"
+                    id="searchInput"
+                    placeholder="Search products, brands and categories..."
+                    aria-label="Search products"
+                >
+
+                <button type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+
+            </form>
+
+            <div class="header-actions">
+
+                <a href="login.html" class="header-action">
+                    <i class="far fa-user"></i>
+                    <span>Account</span>
+                </a>
+
+                <a href="wishlist.html" class="header-action">
+                    <i class="far fa-heart"></i>
+                    <span>Wishlist</span>
+                </a>
+
+                <a href="cart.html" class="header-action cart-action">
+
+                    <i class="fas fa-shopping-cart"></i>
+
+                    <span>Cart</span>
+
+                    <b id="cartCount">0</b>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+    <!-- NAVIGATION -->
+    <nav class="main-nav">
+
+        <div class="container nav-content">
+
+            <a href="shop.html" class="category-button">
+
+                <i class="fas fa-bars"></i>
+
+                All Categories
+
+            </a>
+
+            <div class="nav-links">
+
+                <a href="index.html">Home</a>
+                <a href="shop.html">Shop</a>
+                <a href="index.html#flash-deals">Flash Deals</a>
+                <a href="index.html#categories">Categories</a>
+                <a href="index.html#new-arrivals">New Arrivals</a>
+                <a href="index.html#popular">Popular</a>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+    <!-- EMAIL VERIFICATION -->
+    <main class="verification-page">
+
+        <div class="verification-container">
+
+            <div class="verification-card">
+
+                <div class="verification-icon">
+
+                    <i class="fas fa-envelope-circle-check"></i>
+
+                </div>
+
+                <h1>Verify Your Email</h1>
+
+                <p>
+                    We've sent a verification link to the email address
+                    you used when creating your Meteur account.
+                </p>
+
+                <div class="email-box" id="emailDisplay">
+                    Check your email inbox
+                </div>
+
+                <ul class="steps">
+
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+
+                        <span>
+                            Open the verification email from
+                            Meteur Online Shopping.
+                        </span>
+                    </li>
+
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+
+                        <span>
+                            Click the verification link inside the email.
+                        </span>
+                    </li>
+
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+
+                        <span>
+                            Return to Meteur and log in to your verified account.
+                        </span>
+                    </li>
+
+                </ul>
+
+                <button
+                    type="button"
+                    class="resend-btn"
+                    id="resendButton"
+                >
+                    <i class="fas fa-paper-plane"></i>
+                    Resend Verification Email
+                </button>
+
+                <div class="message" id="verificationMessage"></div>
+
+                <a href="register.html" class="change-email">
+                    <i class="fas fa-arrow-left"></i>
+                    Create an account with another email
+                </a>
+
+                <div class="login-link">
+
+                    Already verified?
+
+                    <a href="login.html">
+                        Login to your account
+                    </a>
+
+                </div>
+
+                <div class="security-note">
+
+                    <i class="fas fa-shield-alt"></i>
+
+                    Email verification helps protect your account
+                    and will be required before placing orders.
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+
+        <div class="container footer-grid">
+
+            <div>
+
+                <h3>Meteur Online Shopping</h3>
+
+                <p>
+                    Your trusted Kenyan online shopping marketplace.
+                    Shop conveniently from anywhere in Kenya.
+                </p>
+
+            </div>
+
+            <div>
+
+                <h3>Customer Service</h3>
+
+                <a href="#">Help Center</a>
+                <a href="#">Delivery Information</a>
+                <a href="#">Returns & Refunds</a>
+                <a href="#">Contact Us</a>
+
+            </div>
+
+            <div>
+
+                <h3>My Account</h3>
+
+                <a href="login.html">Login</a>
+                <a href="register.html">Create Account</a>
+                <a href="orders.html">My Orders</a>
+                <a href="wishlist.html">Wishlist</a>
+
+            </div>
+
+            <div>
+
+                <h3>Contact Us</h3>
+
+                <p>
+                    <i class="fas fa-phone"></i>
+                    0711842260
+                </p>
+
+                <p>
+                    <i class="fas fa-envelope"></i>
+                    daghlusmeteur@gmail.com
+                </p>
+
+                <p>
+                    <i class="fas fa-map-marker-alt"></i>
+                    Kenya
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+
+            <p>
+                © 2026 Meteur Online Shopping. All Rights Reserved.
+            </p>
+
+        </div>
+
+    </footer>
+
+    <script src="script.js"></script>
+
+    <script>
+        const resendButton =
+            document.getElementById("resendButton");
+
+        const verificationMessage =
+            document.getElementById("verificationMessage");
+
+        const emailDisplay =
+            document.getElementById("emailDisplay");
+
+        const savedEmail =
+            localStorage.getItem("meteurVerificationEmail");
+
+        if (savedEmail) {
+            emailDisplay.textContent = savedEmail;
+        }
+
+        resendButton.addEventListener("click", function () {
+
+            resendButton.disabled = true;
+
+            resendButton.innerHTML =
+                '<i class="fas fa-spinner fa-spin"></i> Sending...';
+
+            setTimeout(function () {
+
+                verificationMessage.style.display = "block";
+                verificationMessage.style.background = "#fff3cd";
+                verificationMessage.style.color = "#856404";
+
+                verificationMessage.textContent =
+                    "Verification email functionality will be connected during the secure authentication setup.";
+
+                resendButton.disabled = false;
+
+                resendButton.innerHTML =
+                    '<i class="fas fa-paper-plane"></i> Resend Verification Email';
+
+            }, 800);
+
+        });
+    </script>
+
+</body>
+</html>

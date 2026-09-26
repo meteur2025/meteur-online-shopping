@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Product - Meteur Online Shopping</title>
+    <title>Product | Meteur Online Shopping</title>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabase-config.js"></script>
@@ -23,32 +22,54 @@
         }
 
         header {
-            background: #f97316;
+            background: #f68b1e;
             color: white;
-            padding: 18px 5%;
-        }
-
-        .header-inner {
-            max-width: 1200px;
-            margin: auto;
+            padding: 15px 5%;
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 20px;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        .nav {
-            display: flex;
-            gap: 18px;
             flex-wrap: wrap;
         }
 
-        .nav a {
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+        }
+
+        .search {
+            flex: 1;
+            max-width: 550px;
+            display: flex;
+        }
+
+        .search input {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            outline: none;
+            font-size: 15px;
+            border-radius: 5px 0 0 5px;
+        }
+
+        .search button {
+            padding: 13px 20px;
+            border: none;
+            background: #222;
+            color: white;
+            cursor: pointer;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .nav-links a {
             color: white;
             text-decoration: none;
             font-weight: bold;
@@ -56,218 +77,195 @@
 
         .container {
             max-width: 1200px;
-            margin: 35px auto;
+            margin: 30px auto;
             padding: 0 20px;
         }
 
         .breadcrumb {
             margin-bottom: 20px;
             color: #666;
+            font-size: 14px;
         }
 
-        .breadcrumb a {
-            color: #f97316;
-            text-decoration: none;
-        }
-
-        .product {
+        .product-box {
             background: white;
-            border-radius: 14px;
-            padding: 30px;
+            padding: 25px;
+            border-radius: 8px;
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 40px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
 
-        .product-image {
+        .image-section {
+            text-align: center;
+        }
+
+        .image-section img {
             width: 100%;
-            height: 500px;
-            object-fit: cover;
-            border-radius: 12px;
+            max-width: 500px;
+            height: 450px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .details h1 {
+            font-size: 30px;
+            margin-bottom: 15px;
         }
 
         .category {
-            color: #f97316;
-            font-size: 14px;
-            font-weight: bold;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-        }
-
-        h1 {
-            font-size: 32px;
-            margin-bottom: 12px;
+            color: #777;
+            margin-bottom: 15px;
         }
 
         .rating {
-            color: #666;
-            margin-bottom: 20px;
-        }
-
-        .stars {
-            color: #f59e0b;
-            font-size: 18px;
+            color: #f68b1e;
+            font-weight: bold;
+            margin-bottom: 15px;
         }
 
         .price {
-            font-size: 30px;
+            font-size: 32px;
             font-weight: bold;
-            color: #111;
+            color: #f68b1e;
             margin-bottom: 5px;
         }
 
         .old-price {
-            color: #999;
             text-decoration: line-through;
-            font-size: 17px;
-            margin-left: 10px;
-            font-weight: normal;
-        }
-
-        .saving {
-            color: #16a34a;
-            font-weight: bold;
-            margin: 10px 0 20px;
+            color: #888;
+            margin-bottom: 20px;
         }
 
         .stock {
+            margin: 15px 0;
             font-weight: bold;
-            color: #16a34a;
-            margin-bottom: 20px;
-        }
-
-        .out-stock {
-            color: #dc2626;
         }
 
         .description {
-            color: #555;
             line-height: 1.7;
-            margin-bottom: 25px;
+            color: #555;
+            margin: 20px 0;
         }
 
-        .quantity-area {
+        .quantity-box {
             display: flex;
             align-items: center;
             gap: 12px;
-            margin-bottom: 20px;
+            margin: 20px 0;
         }
 
-        .quantity-area button {
-            width: 38px;
-            height: 38px;
+        .quantity-box button {
+            width: 40px;
+            height: 40px;
             border: 1px solid #ccc;
-            background: white;
+            background: #eee;
             cursor: pointer;
-            border-radius: 6px;
             font-size: 20px;
         }
 
-        .quantity {
+        .quantity-box span {
             min-width: 35px;
             text-align: center;
+            font-size: 18px;
             font-weight: bold;
         }
 
-        .actions {
+        .buttons {
             display: flex;
             gap: 12px;
             flex-wrap: wrap;
         }
 
-        .button {
+        .btn {
             border: none;
-            border-radius: 8px;
-            padding: 14px 20px;
-            font-weight: bold;
-            font-size: 15px;
+            padding: 14px 22px;
+            border-radius: 5px;
             cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
         }
 
-        .cart-button {
-            background: #f97316;
+        .cart-btn {
+            background: #f68b1e;
             color: white;
         }
 
-        .buy-button {
-            background: #111;
+        .buy-btn {
+            background: #222;
             color: white;
         }
 
-        .wishlist-button {
+        .wishlist-btn {
             background: white;
-            color: #f97316;
-            border: 2px solid #f97316;
+            color: #f68b1e;
+            border: 2px solid #f68b1e;
         }
 
-        .wishlist-button.active {
-            background: #fff7ed;
-        }
-
-        .button:disabled {
-            background: #aaa;
-            border-color: #aaa;
+        .btn:disabled {
+            opacity: 0.6;
             cursor: not-allowed;
         }
 
         .message {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 5px;
             display: none;
-            padding: 14px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-
-        .success {
-            background: #dcfce7;
-            color: #166534;
-        }
-
-        .error {
-            background: #fee2e2;
-            color: #991b1b;
-        }
-
-        .loading {
-            background: white;
-            padding: 60px;
-            text-align: center;
-            border-radius: 12px;
         }
 
         footer {
+            margin-top: 50px;
             background: #222;
             color: white;
+            padding: 35px 5%;
             text-align: center;
-            padding: 30px;
-            margin-top: 40px;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px;
+            font-size: 20px;
+        }
+
+        .error {
+            text-align: center;
+            background: white;
+            padding: 50px;
+            border-radius: 8px;
         }
 
         @media (max-width: 800px) {
-            .product {
+            .product-box {
                 grid-template-columns: 1fr;
             }
 
-            .product-image {
+            .image-section img {
                 height: 350px;
             }
 
-            h1 {
-                font-size: 25px;
-            }
-        }
-
-        @media (max-width: 500px) {
-            .product {
-                padding: 20px;
+            .details h1 {
+                font-size: 24px;
             }
 
-            .actions {
+            header {
                 flex-direction: column;
+                align-items: stretch;
             }
 
-            .button {
-                width: 100%;
+            .search {
+                max-width: none;
+            }
+
+            .nav-links {
+                justify-content: center;
             }
         }
     </style>
@@ -276,273 +274,121 @@
 <body>
 
 <header>
-    <div class="header-inner">
+    <a href="index.html" class="logo">Meteur</a>
 
-        <div class="logo">
-            Meteur Online Shopping
-        </div>
+    <form class="search" id="searchForm">
+        <input type="text" id="searchInput" placeholder="Search products...">
+        <button type="submit">Search</button>
+    </form>
 
-        <div class="nav">
-            <a href="index.html">Home</a>
-            <a href="shop.html">Shop</a>
-            <a href="wishlist.html">Wishlist</a>
-            <a href="cart.html">Cart</a>
-            <a href="dashboard.html">Account</a>
-        </div>
-
+    <div class="nav-links">
+        <a href="shop.html">Shop</a>
+        <a href="wishlist.html">Wishlist</a>
+        <a href="cart.html">Cart</a>
+        <a href="dashboard.html">Account</a>
     </div>
 </header>
 
-<div class="container">
+<main class="container">
 
     <div class="breadcrumb">
-        <a href="shop.html">Shop</a>
-        <span> / Product</span>
+        <a href="index.html">Home</a> /
+        <a href="shop.html">Shop</a> /
+        Product
     </div>
-
-    <div id="message" class="message"></div>
 
     <div id="productContainer">
-        <div class="loading">
-            Loading product...
-        </div>
+        <div class="loading">Loading product...</div>
     </div>
 
-</div>
+</main>
 
 <footer>
     <p>© 2026 Meteur Online Shopping. All rights reserved.</p>
+    <br>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="shipping.html">Shipping</a>
+    <a href="returns.html">Returns</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html">Terms</a>
 </footer>
 
 <script>
+    const params = new URLSearchParams(window.location.search);
+    const productId = params.get("id");
 
     let product = null;
-    let currentUser = null;
     let quantity = 1;
+    let currentUser = null;
     let isInWishlist = false;
 
-    const productContainer =
-        document.getElementById("productContainer");
+    const container = document.getElementById("productContainer");
 
-    const messageBox =
-        document.getElementById("message");
+    async function getCurrentUser() {
+        const {
+            data: { user },
+            error
+        } = await supabaseClient.auth.getUser();
 
-    function formatMoney(amount) {
-
-        return "KSh " +
-            Number(amount || 0).toLocaleString("en-KE", {
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 2
-            });
-
-    }
-
-    function escapeHTML(value) {
-
-        const div =
-            document.createElement("div");
-
-        div.textContent =
-            value == null ? "" : String(value);
-
-        return div.innerHTML;
-
-    }
-
-    function renderStars(rating) {
-
-        const rounded =
-            Math.round(Number(rating) || 0);
-
-        return "★".repeat(rounded) +
-            "☆".repeat(5 - rounded);
-
-    }
-
-    function showMessage(message, type) {
-
-        messageBox.textContent =
-            message;
-
-        messageBox.className =
-            "message " + type;
-
-        messageBox.style.display =
-            "block";
-
-        setTimeout(() => {
-
-            messageBox.style.display =
-                "none";
-
-        }, 3000);
-
-    }
-
-    function getCart() {
-
-        try {
-
-            const cart =
-                JSON.parse(
-                    localStorage.getItem("meteurCart") || "[]"
-                );
-
-            return Array.isArray(cart)
-                ? cart
-                : [];
-
-        } catch (error) {
-
-            return [];
-
+        if (error) {
+            console.error("Auth error:", error);
+            return null;
         }
 
+        return user;
     }
 
-    function saveCart(cart) {
-
-        localStorage.setItem(
-            "meteurCart",
-            JSON.stringify(cart)
-        );
-
-    }
-
-    function addToCart() {
-
-        if (!product) {
+    async function loadProduct() {
+        if (!productId) {
+            container.innerHTML = `
+                <div class="error">
+                    <h2>Product not found</h2>
+                    <p>No product was selected.</p>
+                    <br>
+                    <a href="shop.html">Return to Shop</a>
+                </div>
+            `;
             return;
         }
 
-        const stock =
-            Number(product.stock) || 0;
+        const { data, error } = await supabaseClient
+            .from("products")
+            .select("*")
+            .eq("id", productId)
+            .single();
 
-        if (stock <= 0) {
+        if (error || !data) {
+            console.error("Product error:", error);
 
-            showMessage(
-                "This product is out of stock.",
-                "error"
-            );
-
+            container.innerHTML = `
+                <div class="error">
+                    <h2>Product not found</h2>
+                    <p>We could not load this product.</p>
+                    <br>
+                    <a href="shop.html">Return to Shop</a>
+                </div>
+            `;
             return;
         }
 
-        const cart =
-            getCart();
+        product = data;
 
-        const existing =
-            cart.find(
-                item => item.id === product.id
-            );
-
-        if (existing) {
-
-            const newQuantity =
-                (Number(existing.quantity) || 1) +
-                quantity;
-
-            existing.quantity =
-                Math.min(newQuantity, stock);
-
-        } else {
-
-            cart.push({
-
-                id: product.id,
-
-                name: product.name,
-
-                price: Number(product.price),
-
-                image: product.image_url,
-
-                quantity: Math.min(quantity, stock)
-
-            });
-
+        if (product.stock <= 0) {
+            quantity = 0;
         }
 
-        saveCart(cart);
+        renderProduct();
 
-        showMessage(
-            "Product added to your cart.",
-            "success"
-        );
-
-    }
-
-    function buyNow() {
-
-        if (!product) {
-            return;
-        }
-
-        const stock =
-            Number(product.stock) || 0;
-
-        if (stock <= 0) {
-
-            showMessage(
-                "This product is out of stock.",
-                "error"
-            );
-
-            return;
-        }
-
-        const cart =
-            getCart();
-
-        const existing =
-            cart.find(
-                item => item.id === product.id
-            );
-
-        if (existing) {
-
-            existing.quantity =
-                Math.min(
-                    (Number(existing.quantity) || 1) + quantity,
-                    stock
-                );
-
-        } else {
-
-            cart.push({
-
-                id: product.id,
-
-                name: product.name,
-
-                price: Number(product.price),
-
-                image: product.image_url,
-
-                quantity:
-                    Math.min(quantity, stock)
-
-            });
-
-        }
-
-        saveCart(cart);
-
-        window.location.href =
-            "checkout.html";
-
+        await checkWishlist();
     }
 
     async function checkWishlist() {
-
         if (!currentUser || !product) {
             return;
         }
 
-        const {
-            data,
-            error
-        } = await supabaseClient
+        const { data, error } = await supabaseClient
             .from("wishlist")
             .select("id")
             .eq("user_id", currentUser.id)
@@ -550,494 +396,530 @@
             .maybeSingle();
 
         if (error) {
-
-            console.error(
-                "Wishlist check error:",
-                error
-            );
-
+            console.error("Wishlist check error:", error);
             return;
         }
 
-        isInWishlist =
-            Boolean(data);
+        isInWishlist = !!data;
 
-        updateWishlistButton();
+        const wishlistButton = document.getElementById("wishlistButton");
 
-    }
-
-    function updateWishlistButton() {
-
-        const button =
-            document.getElementById("wishlistButton");
-
-        if (!button) {
-            return;
+        if (wishlistButton) {
+            wishlistButton.textContent =
+                isInWishlist ? "♥ Remove Wishlist" : "♡ Add to Wishlist";
         }
-
-        if (isInWishlist) {
-
-            button.textContent =
-                "♥ Saved to Wishlist";
-
-            button.classList.add("active");
-
-        } else {
-
-            button.textContent =
-                "♡ Add to Wishlist";
-
-            button.classList.remove("active");
-
-        }
-
-    }
-
-    async function toggleWishlist() {
-
-        if (!currentUser) {
-
-            window.location.href =
-                "login.html?redirect=" +
-                encodeURIComponent(
-                    "product.html?id=" + product.id
-                );
-
-            return;
-        }
-
-        if (!product) {
-            return;
-        }
-
-        const button =
-            document.getElementById("wishlistButton");
-
-        button.disabled = true;
-
-        if (isInWishlist) {
-
-            const {
-                error
-            } = await supabaseClient
-                .from("wishlist")
-                .delete()
-                .eq("user_id", currentUser.id)
-                .eq("product_id", product.id);
-
-            if (error) {
-
-                console.error(
-                    "Wishlist removal error:",
-                    error
-                );
-
-                showMessage(
-                    "Could not remove the product from your wishlist.",
-                    "error"
-                );
-
-                button.disabled = false;
-
-                return;
-            }
-
-            isInWishlist = false;
-
-            showMessage(
-                "Product removed from your wishlist.",
-                "success"
-            );
-
-        } else {
-
-            const {
-                error
-            } = await supabaseClient
-                .from("wishlist")
-                .insert([{
-                    user_id: currentUser.id,
-                    product_id: product.id
-                }]);
-
-            if (error) {
-
-                if (error.code === "23505") {
-
-                    isInWishlist = true;
-
-                } else {
-
-                    console.error(
-                        "Wishlist insert error:",
-                        error
-                    );
-
-                    showMessage(
-                        "Could not add the product to your wishlist.",
-                        "error"
-                    );
-
-                    button.disabled = false;
-
-                    return;
-                }
-
-            } else {
-
-                isInWishlist = true;
-
-            }
-
-            showMessage(
-                "Product saved to your wishlist.",
-                "success"
-            );
-
-        }
-
-        updateWishlistButton();
-
-        button.disabled = false;
-
-    }
-
-    function changeQuantity(amount) {
-
-        if (!product) {
-            return;
-        }
-
-        const stock =
-            Number(product.stock) || 0;
-
-        quantity += amount;
-
-        if (quantity < 1) {
-            quantity = 1;
-        }
-
-        if (stock > 0 && quantity > stock) {
-            quantity = stock;
-        }
-
-        const quantityDisplay =
-            document.getElementById("quantity");
-
-        if (quantityDisplay) {
-
-            quantityDisplay.textContent =
-                quantity;
-
-        }
-
     }
 
     function renderProduct() {
+        const rating = Number(product.rating || 0).toFixed(1);
+        const reviewCount = Number(product.review_count || 0);
 
-        const stock =
-            Number(product.stock) || 0;
+        const price = Number(product.price || 0).toLocaleString();
+        const oldPrice = product.old_price
+            ? Number(product.old_price).toLocaleString()
+            : "";
 
-        const savings =
-            product.old_price &&
-            Number(product.old_price) > Number(product.price)
-                ? Number(product.old_price) -
-                  Number(product.price)
-                : 0;
+        const stockText = product.stock > 0
+            ? `${product.stock} items available`
+            : "Out of stock";
 
-        productContainer.innerHTML = `
+        const badge = product.badge
+            ? `<span style="
+                display:inline-block;
+                background:#f68b1e;
+                color:white;
+                padding:6px 10px;
+                border-radius:4px;
+                margin-bottom:15px;
+                font-size:13px;
+              ">${escapeHtml(product.badge)}</span>`
+            : "";
 
-            <div class="product">
+        container.innerHTML = `
+            <div class="product-box">
 
-                <div>
-
+                <div class="image-section">
                     <img
-                        class="product-image"
-                        src="${escapeHTML(
-                            product.image_url ||
-                            "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800"
-                        )}"
-                        alt="${escapeHTML(product.name)}"
+                        src="${escapeAttribute(product.image_url || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=900&q=80')}"
+                        alt="${escapeAttribute(product.name)}"
                     >
-
                 </div>
 
-                <div>
+                <div class="details">
+
+                    ${badge}
+
+                    <h1>${escapeHtml(product.name)}</h1>
 
                     <div class="category">
-                        ${escapeHTML(product.category)}
+                        Category: ${escapeHtml(product.category)}
                     </div>
 
-                    <h1>
-                        ${escapeHTML(product.name)}
-                    </h1>
-
                     <div class="rating">
-
-                        <span class="stars">
-                            ${renderStars(product.rating)}
+                        ★ ${rating}
+                        <span style="color:#777;">
+                            (${reviewCount} reviews)
                         </span>
-
-                        ${Number(product.rating || 0).toFixed(1)}
-
-                        ·
-
-                        ${Number(product.review_count || 0)}
-                        reviews
-
                     </div>
 
                     <div class="price">
-
-                        ${formatMoney(product.price)}
-
-                        ${
-                            product.old_price
-                            ? `
-                                <span class="old-price">
-                                    ${formatMoney(product.old_price)}
-                                </span>
-                            `
-                            : ""
-                        }
-
+                        KSh ${price}
                     </div>
 
                     ${
-                        savings > 0
+                        oldPrice
+                        ? `<div class="old-price">KSh ${oldPrice}</div>`
+                        : ""
+                    }
+
+                    <div class="stock">
+                        ${stockText}
+                    </div>
+
+                    <div class="description">
+                        ${
+                            product.description
+                            ? escapeHtml(product.description)
+                            : "Quality product available from Meteur Online Shopping."
+                        }
+                    </div>
+
+                    ${
+                        product.stock > 0
                         ? `
-                            <div class="saving">
-                                Save ${formatMoney(savings)}
+                            <div class="quantity-box">
+                                <button onclick="decreaseQuantity()">−</button>
+                                <span id="quantity">1</span>
+                                <button onclick="increaseQuantity()">+</button>
                             </div>
                         `
                         : ""
                     }
 
-                    <div class="${
-                        stock > 0
-                            ? "stock"
-                            : "stock out-stock"
-                    }">
-
-                        ${
-                            stock > 0
-                                ? `${stock} items available`
-                                : "Out of stock"
-                        }
-
-                    </div>
-
-                    <p class="description">
-
-                        ${
-                            escapeHTML(
-                                product.description ||
-                                "No description is currently available for this product."
-                            )
-                        }
-
-                    </p>
-
-                    ${
-                        stock > 0
-                        ? `
-                            <div class="quantity-area">
-
-                                <button
-                                    type="button"
-                                    id="minusButton"
-                                >
-                                    −
-                                </button>
-
-                                <span
-                                    class="quantity"
-                                    id="quantity"
-                                >
-                                    1
-                                </span>
-
-                                <button
-                                    type="button"
-                                    id="plusButton"
-                                >
-                                    +
-                                </button>
-
-                            </div>
-                        `
-                        : ""
-                    }
-
-                    <div class="actions">
+                    <div class="buttons">
 
                         <button
-                            type="button"
-                            class="button wishlist-button"
-                            id="wishlistButton"
-                        >
-                            ♡ Add to Wishlist
-                        </button>
-
-                        <button
-                            type="button"
-                            class="button cart-button"
-                            id="cartButton"
-                            ${stock <= 0 ? "disabled" : ""}
+                            class="btn cart-btn"
+                            id="addCartButton"
+                            onclick="addToCart()"
+                            ${product.stock <= 0 ? "disabled" : ""}
                         >
                             Add to Cart
                         </button>
 
                         <button
-                            type="button"
-                            class="button buy-button"
+                            class="btn buy-btn"
                             id="buyButton"
-                            ${stock <= 0 ? "disabled" : ""}
+                            onclick="buyNow()"
+                            ${product.stock <= 0 ? "disabled" : ""}
                         >
                             Buy Now
                         </button>
 
+                        <button
+                            class="btn wishlist-btn"
+                            id="wishlistButton"
+                            onclick="toggleWishlist()"
+                        >
+                            ♡ Add to Wishlist
+                        </button>
+
                     </div>
 
-                </div>
+                    <div id="message" class="message"></div>
 
+                </div>
             </div>
-
         `;
-
-        document
-            .getElementById("wishlistButton")
-            .addEventListener(
-                "click",
-                toggleWishlist
-            );
-
-        if (stock > 0) {
-
-            document
-                .getElementById("minusButton")
-                .addEventListener(
-                    "click",
-                    () => changeQuantity(-1)
-                );
-
-            document
-                .getElementById("plusButton")
-                .addEventListener(
-                    "click",
-                    () => changeQuantity(1)
-                );
-
-            document
-                .getElementById("cartButton")
-                .addEventListener(
-                    "click",
-                    addToCart
-                );
-
-            document
-                .getElementById("buyButton")
-                .addEventListener(
-                    "click",
-                    buyNow
-                );
-
-        }
-
-        updateWishlistButton();
-
     }
 
-    async function loadProduct() {
+    function increaseQuantity() {
+        if (!product || product.stock <= 0) {
+            return;
+        }
 
-        const params =
-            new URLSearchParams(
-                window.location.search
-            );
+        if (quantity < product.stock) {
+            quantity++;
+            updateQuantityDisplay();
+        }
+    }
 
-        const productId =
-            params.get("id");
+    function decreaseQuantity() {
+        if (quantity > 1) {
+            quantity--;
+            updateQuantityDisplay();
+        }
+    }
 
-        if (!productId) {
+    function updateQuantityDisplay() {
+        const quantityElement = document.getElementById("quantity");
 
-            productContainer.innerHTML = `
-                <div class="loading">
-                    Product not found.
-                    <br><br>
-                    <a href="shop.html">
-                        Return to Shop
-                    </a>
-                </div>
-            `;
+        if (quantityElement) {
+            quantityElement.textContent = quantity;
+        }
+    }
+
+    async function addToCart() {
+        if (!product || product.stock <= 0) {
+            showMessage("This product is out of stock.", true);
+            return;
+        }
+
+        currentUser = await getCurrentUser();
+
+        if (!currentUser) {
+            const redirectUrl =
+                `product.html?id=${encodeURIComponent(product.id)}`;
+
+            window.location.href =
+                `login.html?redirect=${encodeURIComponent(redirectUrl)}`;
 
             return;
-
         }
 
-        const {
-            data,
-            error
-        } = await supabaseClient
-            .from("products")
-            .select("*")
-            .eq("id", productId)
-            .single();
+        const button = document.getElementById("addCartButton");
 
-        if (error || !data) {
+        if (button) {
+            button.disabled = true;
+            button.textContent = "Adding...";
+        }
 
-            console.error(
-                "Product loading error:",
-                error
+        try {
+            const {
+                data: existing,
+                error: existingError
+            } = await supabaseClient
+                .from("cart_items")
+                .select("id, quantity")
+                .eq("user_id", currentUser.id)
+                .eq("product_id", product.id)
+                .maybeSingle();
+
+            if (existingError) {
+                throw existingError;
+            }
+
+            const existingQuantity = existing
+                ? Number(existing.quantity)
+                : 0;
+
+            const newQuantity = existingQuantity + quantity;
+
+            if (newQuantity > product.stock) {
+                showMessage(
+                    `Only ${product.stock} item(s) are available.`,
+                    true
+                );
+
+                if (button) {
+                    button.disabled = false;
+                    button.textContent = "Add to Cart";
+                }
+
+                return;
+            }
+
+            if (existing) {
+
+                const { error: updateError } = await supabaseClient
+                    .from("cart_items")
+                    .update({
+                        quantity: newQuantity,
+                        updated_at: new Date().toISOString()
+                    })
+                    .eq("id", existing.id)
+                    .eq("user_id", currentUser.id);
+
+                if (updateError) {
+                    throw updateError;
+                }
+
+            } else {
+
+                const { error: insertError } = await supabaseClient
+                    .from("cart_items")
+                    .insert({
+                        user_id: currentUser.id,
+                        product_id: product.id,
+                        quantity: quantity
+                    });
+
+                if (insertError) {
+                    throw insertError;
+                }
+            }
+
+            showMessage(
+                `${quantity} item(s) added to your cart.`,
+                false
             );
 
-            productContainer.innerHTML = `
-                <div class="loading">
-                    We could not load this product.
-                    <br><br>
-                    <a href="shop.html">
-                        Return to Shop
-                    </a>
-                </div>
-            `;
+        } catch (error) {
+
+            console.error("Add to cart error:", error);
+
+            showMessage(
+                "Could not add this product to your cart. Please try again.",
+                true
+            );
+
+        } finally {
+
+            if (button) {
+                button.disabled = false;
+                button.textContent = "Add to Cart";
+            }
+        }
+    }
+
+    async function buyNow() {
+        if (!product || product.stock <= 0) {
+            showMessage("This product is out of stock.", true);
+            return;
+        }
+
+        currentUser = await getCurrentUser();
+
+        if (!currentUser) {
+            const redirectUrl =
+                `product.html?id=${encodeURIComponent(product.id)}`;
+
+            window.location.href =
+                `login.html?redirect=${encodeURIComponent(redirectUrl)}`;
 
             return;
-
         }
 
-        product =
-            data;
+        const button = document.getElementById("buyButton");
 
-        renderProduct();
-
-        await checkWishlist();
-
-    }
-
-    async function loadUser() {
-
-        const {
-            data
-        } = await supabaseClient.auth.getUser();
-
-        if (data && data.user) {
-
-            currentUser =
-                data.user;
-
+        if (button) {
+            button.disabled = true;
+            button.textContent = "Preparing...";
         }
 
+        try {
+
+            const {
+                data: existing,
+                error: existingError
+            } = await supabaseClient
+                .from("cart_items")
+                .select("id, quantity")
+                .eq("user_id", currentUser.id)
+                .eq("product_id", product.id)
+                .maybeSingle();
+
+            if (existingError) {
+                throw existingError;
+            }
+
+            const existingQuantity = existing
+                ? Number(existing.quantity)
+                : 0;
+
+            const newQuantity = existingQuantity + quantity;
+
+            if (newQuantity > product.stock) {
+                showMessage(
+                    `Only ${product.stock} item(s) are available.`,
+                    true
+                );
+
+                if (button) {
+                    button.disabled = false;
+                    button.textContent = "Buy Now";
+                }
+
+                return;
+            }
+
+            if (existing) {
+
+                const { error: updateError } = await supabaseClient
+                    .from("cart_items")
+                    .update({
+                        quantity: newQuantity,
+                        updated_at: new Date().toISOString()
+                    })
+                    .eq("id", existing.id)
+                    .eq("user_id", currentUser.id);
+
+                if (updateError) {
+                    throw updateError;
+                }
+
+            } else {
+
+                const { error: insertError } = await supabaseClient
+                    .from("cart_items")
+                    .insert({
+                        user_id: currentUser.id,
+                        product_id: product.id,
+                        quantity: quantity
+                    });
+
+                if (insertError) {
+                    throw insertError;
+                }
+            }
+
+            window.location.href = "checkout.html";
+
+        } catch (error) {
+
+            console.error("Buy now error:", error);
+
+            showMessage(
+                "Could not prepare checkout. Please try again.",
+                true
+            );
+
+            if (button) {
+                button.disabled = false;
+                button.textContent = "Buy Now";
+            }
+        }
     }
+
+    async function toggleWishlist() {
+        if (!product) {
+            return;
+        }
+
+        currentUser = await getCurrentUser();
+
+        if (!currentUser) {
+            const redirectUrl =
+                `product.html?id=${encodeURIComponent(product.id)}`;
+
+            window.location.href =
+                `login.html?redirect=${encodeURIComponent(redirectUrl)}`;
+
+            return;
+        }
+
+        const button = document.getElementById("wishlistButton");
+
+        if (button) {
+            button.disabled = true;
+        }
+
+        try {
+
+            if (isInWishlist) {
+
+                const { error } = await supabaseClient
+                    .from("wishlist")
+                    .delete()
+                    .eq("user_id", currentUser.id)
+                    .eq("product_id", product.id);
+
+                if (error) {
+                    throw error;
+                }
+
+                isInWishlist = false;
+
+                if (button) {
+                    button.textContent = "♡ Add to Wishlist";
+                }
+
+                showMessage("Removed from wishlist.", false);
+
+            } else {
+
+                const { error } = await supabaseClient
+                    .from("wishlist")
+                    .insert({
+                        user_id: currentUser.id,
+                        product_id: product.id
+                    });
+
+                if (error) {
+                    throw error;
+                }
+
+                isInWishlist = true;
+
+                if (button) {
+                    button.textContent = "♥ Remove Wishlist";
+                }
+
+                showMessage("Added to wishlist.", false);
+            }
+
+        } catch (error) {
+
+            console.error("Wishlist error:", error);
+
+            showMessage(
+                "Could not update your wishlist. Please try again.",
+                true
+            );
+
+        } finally {
+
+            if (button) {
+                button.disabled = false;
+            }
+        }
+    }
+
+    function showMessage(message, isError) {
+        const element = document.getElementById("message");
+
+        if (!element) {
+            return;
+        }
+
+        element.textContent = message;
+        element.style.display = "block";
+
+        if (isError) {
+            element.style.background = "#ffe5e5";
+            element.style.color = "#b00020";
+        } else {
+            element.style.background = "#e5f7e5";
+            element.style.color = "#146b14";
+        }
+
+        setTimeout(() => {
+            element.style.display = "none";
+        }, 3000);
+    }
+
+    function escapeHtml(value) {
+        return String(value ?? "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+    function escapeAttribute(value) {
+        return escapeHtml(value);
+    }
+
+    document.getElementById("searchForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const search = document.getElementById("searchInput").value.trim();
+
+        if (search) {
+            window.location.href =
+                `shop.html?search=${encodeURIComponent(search)}`;
+        } else {
+            window.location.href = "shop.html";
+        }
+    });
 
     async function initialize() {
-
-        await loadUser();
-
+        currentUser = await getCurrentUser();
         await loadProduct();
-
     }
 
     initialize();
-
 </script>
 
 </body>

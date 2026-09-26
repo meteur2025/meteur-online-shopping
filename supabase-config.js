@@ -1,15 +1,15 @@
 // Meteur Online Shopping
-// Supabase configuration
+// Supabase Authentication Configuration
 
-const SUPABASE_URL = "PASTE_YOUR_SUPABASE_URL_HERE";
+const SUPABASE_URL = "https://nytsdeupaootukcullgi.supabase.co";
 
-const SUPABASE_ANON_KEY = "PASTE_YOUR_SUPABASE_ANON_KEY_HERE";
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_cIqzHoafy_AEdB48KS_Wpg_LDqE1sFC";
 
-if (
-    SUPABASE_URL === "PASTE_YOUR_SUPABASE_URL_HERE" ||
-    SUPABASE_ANON_KEY === "PASTE_YOUR_SUPABASE_ANON_KEY_HERE"
-) {
-    console.warn(
-        "Meteur Online Shopping: Supabase has not been configured yet."
-    );
-}
+// Create the Supabase client
+const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+);
+
+console.log("Meteur Online Shopping: Supabase connected successfully.");

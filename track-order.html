@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Track Order - Meteur Online Shopping</title>
+
+    <meta name="description"
+          content="Track your Meteur Online Shopping order.">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .track-page {
+            min-height: 75vh;
+            padding: 50px 20px;
+            background: #f5f5f5;
+        }
+
+        .track-container {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        .track-header {
+            background: linear-gradient(135deg, #ff7900, #ff9900);
+            color: white;
+            text-align: center;
+            padding: 55px 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+
+        .track-header i {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+
+        .track-header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .track-header p {
+            max-width: 600px;
+            margin: auto;
+            line-height: 1.7;
+        }
+
+        .track-card {
+            background: white;
+            padding: 35px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+        }
+
+        .track-card h2 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .track-description {
+            text-align: center;
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        .track-form {
+            display: flex;
+            gap: 12px;
+            max-width: 650px;
+            margin: auto;
+        }
+
+        .track-form input {
+            flex: 1;
+            padding: 14px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        .track-form input:focus {
+            outline: none;
+            border-color: #ff7900;
+        }
+
+        .track-button {
+            padding: 14px 25px;
+            border: none;
+            border-radius: 6px;
+            background: #ff7900;
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .track-button:hover {
+            background: #e66d00;
+        }
+
+        .track-result {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+        }
+
+        .track-result h3 {
+            margin-bottom: 8px;
+        }
+
+        .demo-note {
+            margin-top: 20px;
+            padding: 14px;
+            background: #fff7ed;
+            border-left: 4px solid #ff7900;
+            color: #666;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .tracking-help {
+            margin-top: 25px;
+            text-align: center;
+            color: #666;
+        }
+
+        .tracking-help a {
+            color: #ff7900;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        @media (max-width: 600px) {
+            .track-page {
+                padding: 25px 12px;
+            }
+
+            .track-header h1 {
+                font-size: 30px;
+            }
+
+            .track-card {
+                padding: 25px 18px;
+            }
+
+            .track-form {
+                flex-direction: column;
+            }
+
+            .track-button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="track-page">
+
+    <div class="track-container">
+
+        <div class="track-header">
+
+            <i class="fas fa-truck-fast"></i>
+
+            <h1>Track Your Order</h1>
+
+            <p>
+                Enter your order number below to check your
+                order information and delivery status.
+            </p>
+
+        </div>
+
+        <div class="track-card">
+
+            <h2>Where Is My Order?</h2>
+
+            <p class="track-description">
+                Enter the order number you received after placing
+                your order.
+            </p>
+
+            <form id="trackForm" class="track-form">
+
+                <input
+                    type="text"
+                    id="orderNumber"
+                    placeholder="Example: MET-10001"
+                    required
+                >
+
+                <button
+                    type="submit"
+                    class="track-button"
+                >
+                    <i class="fas fa-magnifying-glass"></i>
+                    Track Order
+                </button>
+
+            </form>
+
+            <div id="trackResult" class="track-result">
+
+                <h3>
+                    <i class="fas fa-circle-info"></i>
+                    Order Tracking
+                </h3>
+
+                <p id="resultText"></p>
+
+            </div>
+
+            <div class="demo-note">
+
+                <strong>Important:</strong>
+
+                Order tracking is currently being prepared for
+                connection to the Meteur order system. This page
+                provides the customer tracking interface for now.
+
+            </div>
+
+            <div class="tracking-help">
+
+                Need help with your order?
+
+                <a href="contact.html">
+                    Contact Customer Support
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+    const trackForm =
+        document.getElementById("trackForm");
+
+    const orderNumber =
+        document.getElementById("orderNumber");
+
+    const trackResult =
+        document.getElementById("trackResult");
+
+    const resultText =
+        document.getElementById("resultText");
+
+
+    trackForm.addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        const order =
+            orderNumber.value.trim();
+
+        if (!order) {
+            return;
+        }
+
+        trackResult.style.display = "block";
+
+        resultText.textContent =
+            "Order " + order +
+            " has been received for tracking. " +
+            "Real-time order status will be available when the order management system is connected.";
+
+    });
+
+</script>
+
+</body>
+</html>

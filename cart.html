@@ -6,1042 +6,826 @@
 
     <title>Shopping Cart | Meteur Online Shopping</title>
 
-    <meta
-        name="description"
-        content="Review your shopping cart and continue to checkout at Meteur Online Shopping."
-    >
-
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    >
-
     <link rel="stylesheet" href="style.css">
-
-    <style>
-        .cart-page {
-            padding: 35px 0 60px;
-        }
-
-        .cart-title {
-            margin-bottom: 25px;
-        }
-
-        .cart-title h1 {
-            margin-bottom: 8px;
-        }
-
-        .cart-layout {
-            display: grid;
-            grid-template-columns: 1fr 350px;
-            gap: 25px;
-            align-items: start;
-        }
-
-        .cart-items-box,
-        .cart-summary,
-        .empty-cart {
-            background: #fff;
-            border-radius: 8px;
-            padding: 25px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-        }
-
-        .cart-items-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 18px;
-            margin-bottom: 10px;
-        }
-
-        .cart-items-header h2 {
-            margin: 0;
-            font-size: 20px;
-        }
-
-        .clear-cart {
-            border: 0;
-            background: transparent;
-            color: #d9534f;
-            cursor: pointer;
-            font-weight: 600;
-        }
-
-        .cart-item {
-            display: grid;
-            grid-template-columns: 90px 1fr auto auto auto;
-            gap: 18px;
-            align-items: center;
-            padding: 20px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .cart-item-image {
-            width: 90px;
-            height: 90px;
-            background: #f4f4f4;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
-            color: #ff7900;
-        }
-
-        .cart-item-info h3 {
-            margin: 0 0 7px;
-            font-size: 16px;
-        }
-
-        .cart-item-info p {
-            margin: 0;
-            color: #777;
-            font-size: 13px;
-        }
-
-        .cart-item-price {
-            font-weight: 700;
-            white-space: nowrap;
-        }
-
-        .cart-quantity {
-            display: flex;
-            align-items: center;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            overflow: hidden;
-        }
-
-        .cart-quantity button {
-            width: 32px;
-            height: 32px;
-            border: 0;
-            background: #f5f5f5;
-            cursor: pointer;
-            font-size: 18px;
-        }
-
-        .cart-quantity span {
-            width: 35px;
-            text-align: center;
-            font-weight: 600;
-        }
-
-        .remove-item {
-            border: 0;
-            background: transparent;
-            color: #999;
-            cursor: pointer;
-            font-size: 18px;
-        }
-
-        .remove-item:hover {
-            color: #d9534f;
-        }
-
-        .cart-summary h2 {
-            margin-top: 0;
-            margin-bottom: 20px;
-        }
-
-        .summary-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 15px;
-            color: #555;
-        }
-
-        .summary-row.total {
-            border-top: 1px solid #eee;
-            padding-top: 18px;
-            margin-top: 18px;
-            font-size: 20px;
-            font-weight: 700;
-            color: #222;
-        }
-
-        .checkout-button {
-            width: 100%;
-            border: 0;
-            background: #ff7900;
-            color: #fff;
-            padding: 14px;
-            border-radius: 5px;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-
-        .checkout-button:hover {
-            background: #e86d00;
-        }
-
-        .continue-shopping {
-            display: block;
-            text-align: center;
-            margin-top: 15px;
-            color: #ff7900;
-            font-weight: 600;
-        }
-
-        .empty-cart {
-            text-align: center;
-            padding: 70px 25px;
-        }
-
-        .empty-cart i {
-            font-size: 65px;
-            color: #ddd;
-            margin-bottom: 20px;
-        }
-
-        .empty-cart h2 {
-            margin-bottom: 10px;
-        }
-
-        .empty-cart p {
-            color: #777;
-            margin-bottom: 25px;
-        }
-
-        .shop-now-button {
-            display: inline-block;
-            background: #ff7900;
-            color: #fff;
-            padding: 12px 25px;
-            border-radius: 5px;
-            font-weight: 700;
-        }
-
-        .secure-cart {
-            margin-top: 20px;
-            padding: 15px;
-            background: #f8f8f8;
-            border-radius: 6px;
-            font-size: 13px;
-            color: #666;
-        }
-
-        @media (max-width: 850px) {
-            .cart-layout {
-                grid-template-columns: 1fr;
-            }
-
-            .cart-item {
-                grid-template-columns: 75px 1fr auto;
-            }
-
-            .cart-item-price {
-                grid-column: 2;
-            }
-
-            .cart-quantity {
-                grid-column: 3;
-                grid-row: 1;
-            }
-
-            .remove-item {
-                grid-column: 3;
-                grid-row: 2;
-            }
-
-            .cart-item-image {
-                width: 75px;
-                height: 75px;
-            }
-        }
-
-        @media (max-width: 560px) {
-            .cart-items-box,
-            .cart-summary,
-            .empty-cart {
-                padding: 18px;
-            }
-
-            .cart-item {
-                grid-template-columns: 65px 1fr;
-                gap: 12px;
-            }
-
-            .cart-item-price,
-            .cart-quantity,
-            .remove-item {
-                grid-column: 2;
-                grid-row: auto;
-                justify-self: start;
-            }
-
-            .cart-item-image {
-                width: 65px;
-                height: 65px;
-                font-size: 25px;
-            }
-        }
-    </style>
 </head>
 
 <body>
 
-    <!-- TOP BAR -->
-    <div class="top-bar">
-        <div class="container top-bar-content">
+<header class="site-header">
 
-            <span>Welcome to Meteur Online Shopping</span>
+    <div class="header-main">
 
-            <div class="top-links">
-                <a href="#">Help Center</a>
-                <a href="#">Track Order</a>
-                <a href="#">Sell on Meteur</a>
-            </div>
+        <a href="index.html" class="logo">
+            Meteur
+        </a>
 
-        </div>
-    </div>
+        <div class="header-search">
 
+            <input
+                id="searchInput"
+                type="text"
+                placeholder="Search products..."
+            >
 
-    <!-- HEADER -->
-    <header class="main-header">
-
-        <div class="container header-content">
-
-            <a href="index.html" class="logo">
-
-                <span class="logo-icon">
-                    <i class="fa-solid fa-bag-shopping"></i>
-                </span>
-
-                <span>
-                    <strong>Meteur</strong>
-                    <small>ONLINE SHOPPING</small>
-                </span>
-
-            </a>
-
-
-            <form class="search-box" id="searchForm">
-
-                <input
-                    type="search"
-                    id="searchInput"
-                    placeholder="Search for products, brands and categories..."
-                >
-
-                <button type="submit">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    Search
-                </button>
-
-            </form>
-
-
-            <div class="header-actions">
-
-                <a href="login.html">
-                    <i class="fa-regular fa-user"></i>
-                    <span>Account</span>
-                </a>
-
-                <a href="wishlist.html">
-                    <i class="fa-regular fa-heart"></i>
-                    <span>Wishlist</span>
-                </a>
-
-                <a href="cart.html" class="cart-link">
-
-                    <i class="fa-solid fa-cart-shopping"></i>
-
-                    <span>
-                        Cart
-                        <b id="cartCount">0</b>
-                    </span>
-
-                </a>
-
-            </div>
-
-        </div>
-
-    </header>
-
-
-    <!-- NAVIGATION -->
-    <nav class="main-nav">
-
-        <div class="container nav-content">
-
-            <button class="categories-button">
-                <i class="fa-solid fa-bars"></i>
-                Categories
+            <button onclick="searchProducts()">
+                Search
             </button>
 
-            <a href="index.html">Home</a>
-            <a href="shop.html">Shop</a>
-            <a href="shop.html?category=deals">Flash Deals</a>
-            <a href="shop.html?category=categories">Categories</a>
-            <a href="shop.html?category=new">New Arrivals</a>
-            <a href="shop.html?category=popular">Popular</a>
+        </div>
+
+        <div class="header-actions">
+
+            <a href="login.html">Account</a>
+
+            <a href="wishlist.html">
+                Wishlist
+            </a>
+
+            <a href="cart.html">
+                Cart (<span id="cartCount">0</span>)
+            </a>
 
         </div>
+
+    </div>
+
+    <nav class="main-nav">
+
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="categories.html">Categories</a>
+        <a href="deals.html">Deals</a>
+        <a href="new-arrivals.html">New Arrivals</a>
 
     </nav>
 
+</header>
 
-    <!-- CART PAGE -->
-    <main class="container cart-page">
+<main>
 
-        <div class="cart-title">
+<section class="cart-page">
 
-            <div class="breadcrumb">
+    <div class="cart-container">
 
-                <a href="index.html">Home</a>
-
-                <span>/</span>
-
-                <span>Shopping Cart</span>
-
-            </div>
+        <div class="cart-header">
 
             <h1>Shopping Cart</h1>
 
+            <a href="shop.html">
+                Continue Shopping
+            </a>
+
+        </div>
+
+        <div
+            id="cartMessage"
+            class="cart-message"
+        ></div>
+
+        <div
+            id="cartItems"
+            class="cart-items"
+        ></div>
+
+        <div
+            id="cartSummary"
+            class="cart-summary"
+        ></div>
+
+    </div>
+
+</section>
+
+</main>
+
+<footer class="site-footer">
+
+    <div class="footer-content">
+
+        <div>
+
+            <h3>Meteur Online Shopping</h3>
+
             <p>
-                Review your products before proceeding to checkout.
+                Your modern Kenyan online marketplace.
             </p>
 
         </div>
 
+        <div>
 
-        <!-- CART CONTENT -->
-        <div id="cartContent"></div>
+            <h4>Shopping</h4>
 
-    </main>
-
-
-    <!-- NEWSLETTER -->
-    <section class="newsletter">
-
-        <div class="container newsletter-content">
-
-            <div>
-
-                <h2>Stay Updated</h2>
-
-                <p>
-                    Subscribe for new products, special offers and shopping updates.
-                </p>
-
-            </div>
-
-            <form id="newsletterForm">
-
-                <input
-                    type="email"
-                    placeholder="Enter your email address"
-                    required
-                >
-
-                <button type="submit">
-                    Subscribe
-                </button>
-
-            </form>
+            <a href="shop.html">Shop</a>
+            <a href="categories.html">Categories</a>
+            <a href="deals.html">Deals</a>
+            <a href="new-arrivals.html">New Arrivals</a>
 
         </div>
 
-    </section>
+        <div>
 
+            <h4>Customer Service</h4>
 
-    <!-- FOOTER -->
-    <footer class="footer">
+            <a href="help.html">Help Center</a>
+            <a href="faq.html">FAQ</a>
+            <a href="contact.html">Contact</a>
+            <a href="track-order.html">Track Order</a>
 
-        <div class="container footer-grid">
+        </div>
 
-            <div>
+    </div>
 
-                <a href="index.html" class="footer-logo">
-                    <i class="fa-solid fa-bag-shopping"></i>
-                    Meteur
+    <div class="footer-bottom">
+        © 2026 Meteur Online Shopping. All rights reserved.
+    </div>
+
+</footer>
+
+<script src="script.js"></script>
+
+<script>
+
+function getCart() {
+
+    return JSON.parse(
+        localStorage.getItem("meteurCart")
+    ) || [];
+
+}
+
+function saveCart(cart) {
+
+    localStorage.setItem(
+        "meteurCart",
+        JSON.stringify(cart)
+    );
+
+}
+
+function renderCart() {
+
+    const cart =
+        getCart();
+
+    const itemsContainer =
+        document.getElementById("cartItems");
+
+    const summaryContainer =
+        document.getElementById("cartSummary");
+
+    const message =
+        document.getElementById("cartMessage");
+
+    updateCartCount();
+
+    if (!cart.length) {
+
+        itemsContainer.innerHTML = `
+            <div class="empty-cart">
+
+                <div class="empty-cart-icon">
+                    🛒
+                </div>
+
+                <h2>Your cart is empty</h2>
+
+                <p>
+                    You haven't added any products yet.
+                </p>
+
+                <a href="shop.html" class="shop-button">
+                    Start Shopping
                 </a>
 
-                <p>
-                    Your trusted online shopping destination in Kenya.
-                    Shop quality products at competitive prices.
-                </p>
+            </div>
+        `;
+
+        summaryContainer.innerHTML = "";
+
+        message.innerHTML = "";
+
+        return;
+    }
+
+    message.innerHTML = "";
+
+    itemsContainer.innerHTML =
+        cart.map(
+            (item, index) =>
+                createCartItem(item, index)
+        ).join("");
+
+    calculateSummary();
+
+}
+
+function createCartItem(item, index) {
+
+    const quantity =
+        Number(item.quantity || 1);
+
+    const price =
+        Number(item.price || 0);
+
+    const total =
+        price * quantity;
+
+    const image =
+        item.image ||
+        "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=600&q=80";
+
+    return `
+
+        <div class="cart-item">
+
+            <a
+                href="product.html?id=${encodeURIComponent(item.id)}"
+                class="cart-image-link"
+            >
+
+                <img
+                    src="${escapeHtml(image)}"
+                    alt="${escapeHtml(item.name)}"
+                    class="cart-image"
+                >
+
+            </a>
+
+            <div class="cart-item-details">
+
+                <div class="cart-item-category">
+                    Product
+                </div>
+
+                <h3>
+                    ${escapeHtml(item.name)}
+                </h3>
+
+                <div class="cart-item-price">
+                    KSh ${price.toLocaleString()}
+                </div>
+
+                <div class="quantity-control">
+
+                    <button
+                        onclick="changeQuantity(${index}, -1)"
+                    >
+                        −
+                    </button>
+
+                    <span>
+                        ${quantity}
+                    </span>
+
+                    <button
+                        onclick="changeQuantity(${index}, 1)"
+                    >
+                        +
+                    </button>
+
+                </div>
+
+                <button
+                    class="remove-button"
+                    onclick="removeItem(${index})"
+                >
+                    Remove
+                </button>
 
             </div>
 
+            <div class="cart-item-total">
 
-            <div>
-
-                <h3>Customer Service</h3>
-
-                <a href="#">Help Center</a>
-                <a href="#">Delivery Information</a>
-                <a href="#">Returns & Refunds</a>
-                <a href="#">Track Order</a>
-
-            </div>
-
-
-            <div>
-
-                <h3>About Meteur</h3>
-
-                <a href="#">About Us</a>
-                <a href="#">Contact Us</a>
-                <a href="#">Terms & Conditions</a>
-                <a href="#">Privacy Policy</a>
-
-            </div>
-
-
-            <div>
-
-                <h3>Contact Us</h3>
-
-                <p>
-                    <i class="fa-solid fa-phone"></i>
-                    0711842260
-                </p>
-
-                <p>
-                    <i class="fa-solid fa-envelope"></i>
-                    daghlusmeteur@gmail.com
-                </p>
-
-                <p>
-                    <i class="fa-solid fa-location-dot"></i>
-                    Kenya
-                </p>
+                KSh ${total.toLocaleString()}
 
             </div>
 
         </div>
 
+    `;
 
-        <div class="footer-bottom">
+}
 
-            <div class="container">
+function changeQuantity(index, change) {
 
-                <p>
-                    © 2026 Meteur Online Shopping. All rights reserved.
-                </p>
+    const cart =
+        getCart();
+
+    if (!cart[index]) {
+        return;
+    }
+
+    let quantity =
+        Number(cart[index].quantity || 1);
+
+    quantity += change;
+
+    if (quantity <= 0) {
+
+        cart.splice(index, 1);
+
+    } else {
+
+        cart[index].quantity =
+            quantity;
+
+    }
+
+    saveCart(cart);
+
+    renderCart();
+
+}
+
+function removeItem(index) {
+
+    const cart =
+        getCart();
+
+    if (!cart[index]) {
+        return;
+    }
+
+    const productName =
+        cart[index].name;
+
+    cart.splice(index, 1);
+
+    saveCart(cart);
+
+    showMessage(
+        `${productName} was removed from your cart.`
+    );
+
+    renderCart();
+
+}
+
+function calculateSummary() {
+
+    const cart =
+        getCart();
+
+    let subtotal = 0;
+
+    let itemCount = 0;
+
+    cart.forEach(item => {
+
+        const quantity =
+            Number(item.quantity || 1);
+
+        const price =
+            Number(item.price || 0);
+
+        subtotal +=
+            price * quantity;
+
+        itemCount +=
+            quantity;
+
+    });
+
+    const delivery =
+        subtotal >= 5000
+            ? 0
+            : 250;
+
+    const total =
+        subtotal + delivery;
+
+    document.getElementById(
+        "cartSummary"
+    ).innerHTML = `
+
+        <div class="summary-box">
+
+            <h2>Order Summary</h2>
+
+            <div class="summary-row">
+
+                <span>
+                    Items (${itemCount})
+                </span>
+
+                <strong>
+                    KSh ${subtotal.toLocaleString()}
+                </strong>
 
             </div>
 
+            <div class="summary-row">
+
+                <span>
+                    Delivery
+                </span>
+
+                <strong>
+
+                    ${
+                        delivery === 0
+                            ? "FREE"
+                            : "KSh " +
+                              delivery.toLocaleString()
+                    }
+
+                </strong>
+
+            </div>
+
+            <div class="summary-divider"></div>
+
+            <div class="summary-row total-row">
+
+                <span>
+                    Total
+                </span>
+
+                <strong>
+                    KSh ${total.toLocaleString()}
+                </strong>
+
+            </div>
+
+            <button
+                class="checkout-button"
+                onclick="goToCheckout()"
+            >
+                Proceed to Checkout
+            </button>
+
+            <p class="delivery-note">
+
+                Free delivery on orders of KSh 5,000 or more.
+
+            </p>
+
         </div>
 
-    </footer>
+    `;
 
+}
 
-    <script src="script.js"></script>
+function goToCheckout() {
 
+    const cart =
+        getCart();
 
-    <!-- CART FUNCTIONALITY -->
-    <script>
+    if (!cart.length) {
 
-        document.addEventListener("DOMContentLoaded", function () {
+        alert(
+            "Your cart is empty."
+        );
 
-            const cartContent =
-                document.getElementById("cartContent");
+        return;
 
-            let cart =
-                JSON.parse(localStorage.getItem("meteurCart")) || [];
+    }
 
+    window.location.href =
+        "checkout.html";
 
-            function saveCart() {
+}
 
-                localStorage.setItem(
-                    "meteurCart",
-                    JSON.stringify(cart)
-                );
+function showMessage(message) {
 
-            }
+    const element =
+        document.getElementById("cartMessage");
 
+    element.innerHTML = `
+        <div class="success-message">
+            ${escapeHtml(message)}
+        </div>
+    `;
 
-            function updateHeaderCount() {
+    setTimeout(() => {
 
-                const cartCount =
-                    document.getElementById("cartCount");
+        element.innerHTML = "";
 
-                if (!cartCount) return;
+    }, 2500);
 
-                const totalItems = cart.reduce(
-                    function (total, item) {
-                        return total + item.quantity;
-                    },
-                    0
-                );
+}
 
-                cartCount.textContent = totalItems;
+function updateCartCount() {
 
-            }
+    const cart =
+        getCart();
 
+    const count =
+        cart.reduce(
+            (total, item) =>
+                total +
+                Number(item.quantity || 1),
+            0
+        );
 
-            function formatPrice(price) {
+    const element =
+        document.getElementById("cartCount");
 
-                return "KSh " +
-                    Number(price).toLocaleString("en-KE");
+    if (element) {
 
-            }
+        element.textContent =
+            count;
 
+    }
 
-            function renderCart() {
+}
 
-                updateHeaderCount();
+function searchProducts() {
 
+    const value =
+        document
+            .getElementById("searchInput")
+            .value
+            .trim();
 
-                if (cart.length === 0) {
+    if (!value) {
 
-                    cartContent.innerHTML = `
+        window.location.href =
+            "shop.html";
 
-                        <div class="empty-cart">
+        return;
 
-                            <i class="fa-solid fa-cart-shopping"></i>
+    }
 
-                            <h2>Your Cart Is Empty</h2>
+    window.location.href =
+        "shop.html?search=" +
+        encodeURIComponent(value);
 
-                            <p>
-                                You haven't added any products to your cart yet.
-                            </p>
+}
 
-                            <a
-                                href="shop.html"
-                                class="shop-now-button"
-                            >
-                                Start Shopping
-                            </a>
+function escapeHtml(value) {
 
-                        </div>
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 
-                    `;
-
-                    return;
-
-                }
-
-
-                let subtotal = 0;
-
-
-                cart.forEach(function (item) {
-
-                    subtotal +=
-                        Number(item.price) *
-                        Number(item.quantity);
-
-                });
-
-
-                const delivery = subtotal >= 5000 ? 0 : 250;
-
-                const total = subtotal + delivery;
-
-
-                let itemsHTML = "";
-
-
-                cart.forEach(function (item, index) {
-
-                    let icon =
-                        "fa-box-open";
-
-
-                    if (
-                        item.name.toLowerCase().includes("phone") ||
-                        item.name.toLowerCase().includes("tablet")
-                    ) {
-                        icon = "fa-mobile-screen-button";
-                    }
-
-                    else if (
-                        item.name.toLowerCase().includes("headphone")
-                    ) {
-                        icon = "fa-headphones";
-                    }
-
-                    else if (
-                        item.name.toLowerCase().includes("shoe")
-                    ) {
-                        icon = "fa-shoe-prints";
-                    }
-
-                    else if (
-                        item.name.toLowerCase().includes("laptop")
-                    ) {
-                        icon = "fa-laptop";
-                    }
-
-                    else if (
-                        item.name.toLowerCase().includes("watch")
-                    ) {
-                        icon = "fa-clock";
-                    }
-
-                    else if (
-                        item.name.toLowerCase().includes("camera")
-                    ) {
-                        icon = "fa-camera";
-                    }
-
-                    else if (
-                        item.name.toLowerCase().includes("fragrance")
-                    ) {
-                        icon = "fa-spray-can-sparkles";
-                    }
-
-                    else if (
-                        item.name.toLowerCase().includes("blender")
-                    ) {
-                        icon = "fa-blender";
-                    }
-
-
-                    itemsHTML += `
-
-                        <div class="cart-item">
-
-                            <div class="cart-item-image">
-
-                                <i class="fa-solid ${icon}"></i>
-
-                            </div>
-
-
-                            <div class="cart-item-info">
-
-                                <h3>
-                                    ${item.name}
-                                </h3>
-
-                                <p>
-                                    Meteur Online Shopping
-                                </p>
-
-                            </div>
-
-
-                            <div class="cart-item-price">
-
-                                ${formatPrice(item.price)}
-
-                            </div>
-
-
-                            <div class="cart-quantity">
-
-                                <button
-                                    class="quantity-minus"
-                                    data-index="${index}"
-                                >
-                                    −
-                                </button>
-
-                                <span>
-                                    ${item.quantity}
-                                </span>
-
-                                <button
-                                    class="quantity-plus"
-                                    data-index="${index}"
-                                >
-                                    +
-                                </button>
-
-                            </div>
-
-
-                            <button
-                                class="remove-item"
-                                data-index="${index}"
-                                title="Remove product"
-                            >
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-
-                        </div>
-
-                    `;
-
-                });
-
-
-                cartContent.innerHTML = `
-
-                    <div class="cart-layout">
-
-
-                        <section class="cart-items-box">
-
-                            <div class="cart-items-header">
-
-                                <h2>
-                                    Your Items
-                                    (${cart.length})
-                                </h2>
-
-                                <button
-                                    class="clear-cart"
-                                    id="clearCart"
-                                >
-                                    Clear Cart
-                                </button>
-
-                            </div>
-
-
-                            <div id="cartItems">
-
-                                ${itemsHTML}
-
-                            </div>
-
-
-                            <a
-                                href="shop.html"
-                                class="continue-shopping"
-                            >
-                                <i class="fa-solid fa-arrow-left"></i>
-                                Continue Shopping
-                            </a>
-
-                        </section>
-
-
-                        <aside class="cart-summary">
-
-                            <h2>
-                                Order Summary
-                            </h2>
-
-
-                            <div class="summary-row">
-
-                                <span>
-                                    Subtotal
-                                </span>
-
-                                <strong>
-                                    ${formatPrice(subtotal)}
-                                </strong>
-
-                            </div>
-
-
-                            <div class="summary-row">
-
-                                <span>
-                                    Delivery
-                                </span>
-
-                                <strong>
-                                    ${
-                                        delivery === 0
-                                        ? "FREE"
-                                        : formatPrice(delivery)
-                                    }
-                                </strong>
-
-                            </div>
-
-
-                            <div class="summary-row total">
-
-                                <span>
-                                    Total
-                                </span>
-
-                                <strong>
-                                    ${formatPrice(total)}
-                                </strong>
-
-                            </div>
-
-
-                            <button
-                                class="checkout-button"
-                                id="checkoutButton"
-                            >
-                                Proceed to Checkout
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </button>
-
-
-                            <a
-                                href="shop.html"
-                                class="continue-shopping"
-                            >
-                                Continue Shopping
-                            </a>
-
-
-                            <div class="secure-cart">
-
-                                <i class="fa-solid fa-shield-halved"></i>
-
-                                Your cart information is stored
-                                securely in your current browser.
-
-                            </div>
-
-                        </aside>
-
-                    </div>
-
-                `;
-
-
-                // PLUS BUTTONS
-
-                document
-                    .querySelectorAll(".quantity-plus")
-                    .forEach(function (button) {
-
-                        button.addEventListener(
-                            "click",
-                            function () {
-
-                                const index =
-                                    Number(
-                                        button.dataset.index
-                                    );
-
-                                cart[index].quantity += 1;
-
-                                saveCart();
-
-                                renderCart();
-
-                            }
-                        );
-
-                    });
-
-
-                // MINUS BUTTONS
-
-                document
-                    .querySelectorAll(".quantity-minus")
-                    .forEach(function (button) {
-
-                        button.addEventListener(
-                            "click",
-                            function () {
-
-                                const index =
-                                    Number(
-                                        button.dataset.index
-                                    );
-
-                                if (
-                                    cart[index].quantity > 1
-                                ) {
-
-                                    cart[index].quantity -= 1;
-
-                                } else {
-
-                                    cart.splice(index, 1);
-
-                                }
-
-                                saveCart();
-
-                                renderCart();
-
-                            }
-                        );
-
-                    });
-
-
-                // REMOVE BUTTONS
-
-                document
-                    .querySelectorAll(".remove-item")
-                    .forEach(function (button) {
-
-                        button.addEventListener(
-                            "click",
-                            function () {
-
-                                const index =
-                                    Number(
-                                        button.dataset.index
-                                    );
-
-                                cart.splice(index, 1);
-
-                                saveCart();
-
-                                renderCart();
-
-                            }
-                        );
-
-                    });
-
-
-                // CLEAR CART
-
-                const clearCart =
-                    document.getElementById("clearCart");
-
-                if (clearCart) {
-
-                    clearCart.addEventListener(
-                        "click",
-                        function () {
-
-                            const confirmation =
-                                confirm(
-                                    "Are you sure you want to clear your cart?"
-                                );
-
-                            if (confirmation) {
-
-                                cart = [];
-
-                                saveCart();
-
-                                renderCart();
-
-                            }
-
-                        }
-                    );
-
-                }
-
-
-                // CHECKOUT
-
-                const checkoutButton =
-                    document.getElementById("checkoutButton");
-
-                if (checkoutButton) {
-
-                    checkoutButton.addEventListener(
-                        "click",
-                        function () {
-
-                            window.location.href =
-                                "checkout.html";
-
-                        }
-                    );
-
-                }
-
-            }
-
-
-            renderCart();
-
-        });
-
-    </script>
+}
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        renderCart();
+
+    }
+);
+
+</script>
+
+<style>
+
+.cart-page {
+    padding: 45px 5%;
+    background: #f7f7f7;
+    min-height: 65vh;
+}
+
+.cart-container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.cart-header h1 {
+    margin: 0;
+    font-size: 32px;
+}
+
+.cart-header a {
+    color: #ff6b00;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.cart-items {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.cart-item {
+    background: white;
+    border-radius: 10px;
+    padding: 18px;
+    display: grid;
+    grid-template-columns: 150px 1fr auto;
+    gap: 20px;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+}
+
+.cart-image {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.cart-item-category {
+    color: #888;
+    font-size: 12px;
+    margin-bottom: 6px;
+}
+
+.cart-item-details h3 {
+    margin: 0 0 10px;
+}
+
+.cart-item-price {
+    font-weight: 700;
+    margin-bottom: 14px;
+}
+
+.quantity-control {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.quantity-control button {
+    width: 35px;
+    height: 35px;
+    border: none;
+    background: #f5f5f5;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.quantity-control span {
+    width: 40px;
+    text-align: center;
+    font-weight: 700;
+}
+
+.remove-button {
+    display: block;
+    margin-top: 12px;
+    border: none;
+    background: none;
+    color: #d33;
+    cursor: pointer;
+    padding: 0;
+    font-weight: 600;
+}
+
+.cart-item-total {
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.cart-summary {
+    margin-top: 25px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.summary-box {
+    width: 380px;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+}
+
+.summary-box h2 {
+    margin-top: 0;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin: 14px 0;
+}
+
+.summary-divider {
+    height: 1px;
+    background: #eee;
+    margin: 18px 0;
+}
+
+.total-row {
+    font-size: 21px;
+}
+
+.checkout-button,
+.shop-button {
+    display: block;
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 7px;
+    background: #ff6b00;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.checkout-button:hover,
+.shop-button:hover {
+    background: #e85f00;
+}
+
+.delivery-note {
+    color: #777;
+    font-size: 13px;
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.empty-cart {
+    background: white;
+    padding: 60px 20px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.empty-cart-icon {
+    font-size: 55px;
+    margin-bottom: 15px;
+}
+
+.empty-cart h2 {
+    margin-bottom: 8px;
+}
+
+.empty-cart p {
+    color: #777;
+    margin-bottom: 25px;
+}
+
+.empty-cart .shop-button {
+    max-width: 220px;
+    margin: auto;
+}
+
+.success-message {
+    background: #e8f7ed;
+    color: #18743b;
+    padding: 12px 15px;
+    border-radius: 7px;
+    margin-bottom: 15px;
+}
+
+@media (max-width: 700px) {
+
+    .cart-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .cart-item {
+        grid-template-columns: 100px 1fr;
+    }
+
+    .cart-image {
+        width: 100px;
+        height: 100px;
+    }
+
+    .cart-item-total {
+        grid-column: 2;
+    }
+
+    .summary-box {
+        width: 100%;
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    .cart-item {
+        grid-template-columns: 1fr;
+    }
+
+    .cart-image {
+        width: 100%;
+        height: 200px;
+    }
+
+    .cart-item-total {
+        grid-column: auto;
+    }
+
+}
+
+</style>
 
 </body>
 </html>

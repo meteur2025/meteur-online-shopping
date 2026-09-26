@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Wishlist - Meteur Online Shopping</title>
+    <meta name="description" content="View and manage your favorite products on Meteur Online Shopping.">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .wishlist-page {
+            padding: 30px 5%;
+            min-height: 550px;
+        }
+
+        .breadcrumb {
+            margin-bottom: 25px;
+            color: #777;
+            font-size: 14px;
+        }
+
+        .breadcrumb a {
+            color: #ff7900;
+            text-decoration: none;
+        }
+
+        .wishlist-header {
+            background: #fff;
+            padding: 25px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            border: 1px solid #eee;
+        }
+
+        .wishlist-header h1 {
+            margin: 0 0 8px;
+            font-size: 26px;
+        }
+
+        .wishlist-header p {
+            color: #777;
+            margin: 0;
+        }
+
+        .wishlist-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        .wishlist-card {
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+            transition: 0.2s ease;
+        }
+
+        .wishlist-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+        }
+
+        .wishlist-image {
+            height: 190px;
+            background: #f7f7f7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 65px;
+            color: #ff7900;
+            position: relative;
+        }
+
+        .remove-wishlist {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 36px;
+            height: 36px;
+            border: none;
+            border-radius: 50%;
+            background: #fff;
+            color: #e53935;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+        }
+
+        .remove-wishlist:hover {
+            background: #e53935;
+            color: #fff;
+        }
+
+        .wishlist-info {
+            padding: 16px;
+        }
+
+        .wishlist-info h3 {
+            font-size: 16px;
+            margin: 0 0 10px;
+            line-height: 1.4;
+        }
+
+        .wishlist-info h3 a {
+            color: #222;
+            text-decoration: none;
+        }
+
+        .wishlist-rating {
+            color: #ff9900;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .wishlist-rating span {
+            color: #777;
+            margin-left: 5px;
+        }
+
+        .wishlist-price {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+
+        .wishlist-old-price {
+            color: #999;
+            font-size: 13px;
+            text-decoration: line-through;
+            margin-left: 6px;
+            font-weight: 400;
+        }
+
+        .wishlist-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .wishlist-actions button,
+        .wishlist-actions a {
+            flex: 1;
+            padding: 11px 8px;
+            border-radius: 4px;
+            border: none;
+            text-align: center;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .add-cart-btn {
+            background: #ff7900;
+            color: #fff;
+        }
+
+        .add-cart-btn:hover {
+            background: #e86d00;
+        }
+
+        .view-btn {
+            background: #f2f2f2;
+            color: #333;
+        }
+
+        .view-btn:hover {
+            background: #e8e8e8;
+        }
+
+        .empty-wishlist {
+            background: #fff;
+            text-align: center;
+            padding: 80px 20px;
+            border-radius: 6px;
+            border: 1px solid #eee;
+        }
+
+        .empty-wishlist i {
+            font-size: 75px;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+
+        .empty-wishlist h2 {
+            margin-bottom: 10px;
+        }
+
+        .empty-wishlist p {
+            color: #777;
+            margin-bottom: 25px;
+        }
+
+        .shop-now-btn {
+            display: inline-block;
+            background: #ff7900;
+            color: #fff;
+            padding: 13px 30px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .shop-now-btn:hover {
+            background: #e86d00;
+        }
+
+        .wishlist-count {
+            color: #777;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 1050px) {
+            .wishlist-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 800px) {
+            .wishlist-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .wishlist-page {
+                padding: 25px 3%;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .wishlist-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .wishlist-header h1 {
+                font-size: 22px;
+            }
+
+            .wishlist-image {
+                height: 220px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="container">
+            <span>Welcome to Meteur Online Shopping</span>
+
+            <div class="top-links">
+                <a href="#">Help Center</a>
+                <a href="#">Track Order</a>
+                <a href="#">Sell on Meteur</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="main-header">
+        <div class="container header-content">
+
+            <a href="index.html" class="logo">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <div>
+                    <strong>Meteur</strong>
+                    <small>ONLINE SHOPPING</small>
+                </div>
+            </a>
+
+            <form class="search-box" id="searchForm">
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search products, brands and categories..."
+                    required
+                >
+                <button type="submit">
+                    <i class="fa-solid fa-search"></i>
+                </button>
+            </form>
+
+            <div class="header-actions">
+                <a href="login.html">
+                    <i class="fa-regular fa-user"></i>
+                    <span>Account</span>
+                </a>
+
+                <a href="wishlist.html" class="active">
+                    <i class="fa-regular fa-heart"></i>
+                    <span>Wishlist</span>
+                </a>
+
+                <a href="cart.html">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span>Cart</span>
+                    <b id="cartCount">0</b>
+                </a>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- NAVIGATION -->
+    <nav class="main-nav">
+        <div class="container nav-content">
+
+            <button class="categories-btn">
+                <i class="fa-solid fa-bars"></i>
+                Categories
+            </button>
+
+            <a href="index.html">Home</a>
+            <a href="shop.html">Shop</a>
+            <a href="index.html#flash-deals">Flash Deals</a>
+            <a href="shop.html">Categories</a>
+            <a href="shop.html">New Arrivals</a>
+            <a href="shop.html">Popular</a>
+
+        </div>
+    </nav>
+
+    <!-- WISHLIST -->
+    <main class="wishlist-page">
+
+        <div class="breadcrumb">
+            <a href="index.html">Home</a>
+            <span> / </span>
+            My Wishlist
+        </div>
+
+        <div class="wishlist-header">
+            <h1>My Wishlist</h1>
+            <p>Save your favorite products and come back to them anytime.</p>
+            <div class="wishlist-count" id="wishlistCount">
+                0 items saved
+            </div>
+        </div>
+
+        <div id="wishlistContainer"></div>
+
+    </main>
+
+    <!-- NEWSLETTER -->
+    <section class="newsletter">
+        <div class="container">
+            <div>
+                <h2>Subscribe to our newsletter</h2>
+                <p>Get updates about new products, deals and special offers.</p>
+            </div>
+
+            <form id="newsletterForm">
+                <input
+                    type="email"
+                    placeholder="Enter your email address"
+                    required
+                >
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container footer-grid">
+
+            <div>
+                <h3>Meteur Online Shopping</h3>
+                <p>
+                    Your trusted online shopping marketplace in Kenya.
+                    Shop products from different categories and enjoy
+                    convenient delivery.
+                </p>
+            </div>
+
+            <div>
+                <h3>Customer Service</h3>
+                <a href="#">Help Center</a>
+                <a href="#">Track Order</a>
+                <a href="#">Returns & Refunds</a>
+                <a href="#">Contact Us</a>
+            </div>
+
+            <div>
+                <h3>Shopping</h3>
+                <a href="shop.html">All Products</a>
+                <a href="shop.html">Electronics</a>
+                <a href="shop.html">Fashion</a>
+                <a href="shop.html">Beauty</a>
+            </div>
+
+            <div>
+                <h3>Contact</h3>
+                <p>
+                    <i class="fa-solid fa-phone"></i>
+                    0711842260
+                </p>
+
+                <p>
+                    <i class="fa-solid fa-envelope"></i>
+                    daghlusmeteur@gmail.com
+                </p>
+
+                <p>
+                    <i class="fa-solid fa-location-dot"></i>
+                    Kenya
+                </p>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 Meteur Online Shopping. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+
+    <script>
+        const wishlistContainer =
+            document.getElementById("wishlistContainer");
+
+        const wishlistCount =
+            document.getElementById("wishlistCount");
+
+        let wishlist =
+            JSON.parse(localStorage.getItem("meteurWishlist")) || [];
+
+        function saveWishlist() {
+            localStorage.setItem(
+                "meteurWishlist",
+                JSON.stringify(wishlist)
+            );
+        }
+
+        function renderWishlist() {
+
+            if (!wishlist || wishlist.length === 0) {
+
+                wishlistCount.textContent = "0 items saved";
+
+                wishlistContainer.innerHTML = `
+                    <div class="empty-wishlist">
+                        <i class="fa-regular fa-heart"></i>
+
+                        <h2>Your wishlist is empty</h2>
+
+                        <p>
+                            You haven't saved any products yet.
+                            Browse our marketplace and add products
+                            you love to your wishlist.
+                        </p>
+
+                        <a href="shop.html" class="shop-now-btn">
+                            <i class="fa-solid fa-bag-shopping"></i>
+                            Start Shopping
+                        </a>
+                    </div>
+                `;
+
+                return;
+            }
+
+            wishlistCount.textContent =
+                wishlist.length +
+                (wishlist.length === 1
+                    ? " item saved"
+                    : " items saved");
+
+            wishlistContainer.innerHTML = `
+                <div class="wishlist-grid">
+                    ${wishlist.map((product, index) => `
+
+                        <div class="wishlist-card">
+
+                            <div class="wishlist-image">
+
+                                <i class="${product.icon || "fa-solid fa-box"}"></i>
+
+                                <button
+                                    class="remove-wishlist"
+                                    onclick="removeFromWishlist(${index})"
+                                    title="Remove from wishlist"
+                                >
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+
+                            </div>
+
+                            <div class="wishlist-info">
+
+                                <h3>
+                                    <a href="product.html">
+                                        ${product.name || "Product"}
+                                    </a>
+                                </h3>
+
+                                <div class="wishlist-rating">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-regular fa-star"></i>
+                                    <span>Customer rating</span>
+                                </div>
+
+                                <div class="wishlist-price">
+                                    KSh ${Number(product.price || 0).toLocaleString()}
+                                </div>
+
+                                <div class="wishlist-actions">
+
+                                    <button
+                                        class="add-cart-btn"
+                                        onclick="addWishlistToCart(${index})"
+                                    >
+                                        <i class="fa-solid fa-cart-plus"></i>
+                                        Add to Cart
+                                    </button>
+
+                                    <a
+                                        href="product.html"
+                                        class="view-btn"
+                                    >
+                                        View
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    `).join("")}
+                </div>
+            `;
+        }
+
+        function removeFromWishlist(index) {
+
+            wishlist.splice(index, 1);
+
+            saveWishlist();
+
+            renderWishlist();
+        }
+
+        function addWishlistToCart(index) {
+
+            const product = wishlist[index];
+
+            let cart =
+                JSON.parse(localStorage.getItem("meteurCart")) || [];
+
+            const existingProduct =
+                cart.find(item => item.name === product.name);
+
+            if (existingProduct) {
+                existingProduct.quantity =
+                    (existingProduct.quantity || 1) + 1;
+            } else {
+                cart.push({
+                    name: product.name,
+                    price: Number(product.price || 0),
+                    quantity: 1
+                });
+            }
+
+            localStorage.setItem(
+                "meteurCart",
+                JSON.stringify(cart)
+            );
+
+            if (typeof updateCartCount === "function") {
+                updateCartCount();
+            }
+
+            alert(product.name + " has been added to your cart.");
+        }
+
+        renderWishlist();
+    </script>
+
+</body>
+</html>

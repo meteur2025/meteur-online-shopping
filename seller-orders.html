@@ -176,16 +176,6 @@
             margin: 5px 0;
         }
 
-        .total {
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .empty {
-            padding: 35px 20px;
-            text-align: center;
-        }
-
         .error {
             background: #ffebee;
             color: #b71c1c;
@@ -237,11 +227,9 @@
         "https://nytsdeupaootukcullgi.supabase.co";
 
     const SUPABASE_ANON_KEY =
-        "sb_publishable_cIqzHoafy_AEdB48KS_Wpg_LDQE1sFC";
+        "sb_publishable_cIqzHoafy_AEdB48KS_Wpg_LDqE1sFC";
 
-    const { createClient } = supabase;
-
-    const db = createClient(
+    const db = supabase.createClient(
         SUPABASE_URL,
         SUPABASE_ANON_KEY
     );
@@ -262,9 +250,7 @@
     }
 
     function formatMoney(value) {
-        return `KSh ${Number(value || 0).toLocaleString(
-            "en-KE"
-        )}`;
+        return `KSh ${Number(value || 0).toLocaleString("en-KE")}`;
     }
 
     function formatDate(value) {
@@ -348,9 +334,7 @@
                         <p>
                             Orders containing products from
                             <strong>
-                                ${escapeHtml(
-                                    seller.store_name
-                                )}
+                                ${escapeHtml(seller.store_name)}
                             </strong>
                             will appear here.
                         </p>
@@ -376,9 +360,7 @@
                         items.map(item => {
 
                             const quantity =
-                                Number(
-                                    item.quantity || 1
-                                );
+                                Number(item.quantity || 1);
 
                             const price =
                                 Number(
@@ -390,8 +372,7 @@
                             const lineTotal =
                                 quantity * price;
 
-                            sellerSubtotal +=
-                                lineTotal;
+                            sellerSubtotal += lineTotal;
 
                             return `
                                 <div class="item">
@@ -408,16 +389,12 @@
                                             Quantity:
                                             ${quantity}
                                             ×
-                                            ${formatMoney(
-                                                price
-                                            )}
+                                            ${formatMoney(price)}
                                         </div>
                                     </div>
 
                                     <div class="item-price">
-                                        ${formatMoney(
-                                            lineTotal
-                                        )}
+                                        ${formatMoney(lineTotal)}
                                     </div>
                                 </div>
                             `;
@@ -451,6 +428,7 @@
                             </div>
 
                             <div class="section">
+
                                 <h3>
                                     Customer Information
                                 </h3>
@@ -500,6 +478,7 @@
                                     </div>
 
                                 </div>
+
                             </div>
 
                             <div class="section">
@@ -513,7 +492,6 @@
                                 </div>
 
                                 <div class="totals">
-
                                     <div>
                                         Your item subtotal:
                                         <strong>
@@ -522,7 +500,6 @@
                                             )}
                                         </strong>
                                     </div>
-
                                 </div>
 
                             </div>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Meteur Online Shopping — Admin Dashboard</title>
+  <title>Create Account — Meteur Online Shopping</title>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -18,176 +18,117 @@
       font-family: Arial, sans-serif;
       background: #f5f5f5;
       color: #222;
+      min-height: 100vh;
     }
 
     header {
       background: #f4511e;
       color: white;
       padding: 18px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-      flex-wrap: wrap;
     }
 
     header h1 {
       font-size: 24px;
     }
 
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .header-right span {
-      font-size: 14px;
-    }
-
-    button,
-    .nav-card {
-      border: none;
-      cursor: pointer;
-      text-decoration: none;
-    }
-
-    .logout {
-      background: white;
-      color: #f4511e;
-      padding: 9px 16px;
-      border-radius: 6px;
-      font-weight: bold;
-    }
-
-    main {
-      max-width: 1200px;
-      margin: 30px auto;
+    .container {
+      width: 100%;
+      max-width: 500px;
+      margin: 45px auto;
       padding: 0 20px;
     }
 
-    .welcome {
+    .card {
       background: white;
-      padding: 25px;
-      border-radius: 12px;
-      margin-bottom: 25px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      padding: 30px;
+      border-radius: 14px;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
     }
 
-    .welcome h2 {
+    h2 {
       margin-bottom: 8px;
-    }
-
-    .welcome p {
-      color: #666;
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
-      margin-bottom: 30px;
-    }
-
-    .stat {
-      background: white;
-      padding: 22px;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    }
-
-    .stat h3 {
-      font-size: 14px;
-      color: #777;
-      margin-bottom: 10px;
-    }
-
-    .stat strong {
-      font-size: 28px;
-      color: #f4511e;
-    }
-
-    .section-title {
-      margin-bottom: 15px;
-      font-size: 20px;
-    }
-
-    .admin-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 18px;
-    }
-
-    .nav-card {
-      background: white;
-      padding: 25px;
-      border-radius: 12px;
       color: #222;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-      transition: transform 0.2s, box-shadow 0.2s;
     }
 
-    .nav-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-
-    .nav-card .icon {
-      font-size: 30px;
-      margin-bottom: 12px;
-    }
-
-    .nav-card h3 {
-      margin-bottom: 7px;
-      color: #f4511e;
-    }
-
-    .nav-card p {
+    .subtitle {
       color: #666;
-      font-size: 14px;
+      margin-bottom: 25px;
       line-height: 1.5;
     }
 
-    .store-card {
-      margin-top: 25px;
-      background: white;
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    label {
+      display: block;
+      margin-bottom: 7px;
+      font-weight: bold;
+      font-size: 14px;
     }
 
-    .store-link {
-      display: inline-block;
-      margin-top: 15px;
+    input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 7px;
+      margin-bottom: 18px;
+      font-size: 15px;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #f4511e;
+    }
+
+    button {
+      width: 100%;
+      border: none;
       background: #f4511e;
       color: white;
-      text-decoration: none;
-      padding: 11px 18px;
+      padding: 13px;
       border-radius: 7px;
+      font-size: 16px;
       font-weight: bold;
+      cursor: pointer;
     }
 
-    .loading,
-    .error {
-      padding: 20px;
-      background: white;
-      border-radius: 10px;
-      margin-top: 20px;
+    button:hover {
+      background: #d84315;
+    }
+
+    button:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    .message {
+      margin-top: 18px;
+      padding: 12px;
+      border-radius: 7px;
+      display: none;
+      line-height: 1.5;
+      font-size: 14px;
+    }
+
+    .success {
+      display: block;
+      background: #e8f5e9;
+      color: #1b5e20;
     }
 
     .error {
+      display: block;
+      background: #ffebee;
       color: #b00020;
     }
 
-    @media (max-width: 800px) {
-      .stats {
-        grid-template-columns: repeat(2, 1fr);
-      }
+    .login-link {
+      text-align: center;
+      margin-top: 20px;
+      color: #666;
+    }
 
-      .admin-grid {
-        grid-template-columns: 1fr;
-      }
+    .login-link a {
+      color: #f4511e;
+      font-weight: bold;
+      text-decoration: none;
     }
 
     @media (max-width: 500px) {
@@ -199,17 +140,13 @@
         font-size: 20px;
       }
 
-      main {
-        margin-top: 20px;
+      .container {
+        margin: 25px auto;
         padding: 0 14px;
       }
 
-      .stats {
-        grid-template-columns: 1fr;
-      }
-
-      .stat strong {
-        font-size: 24px;
+      .card {
+        padding: 22px;
       }
     }
   </style>
@@ -218,97 +155,71 @@
 <body>
 
 <header>
-  <h1>Meteur Online Shopping — Admin</h1>
-
-  <div class="header-right">
-    <span id="adminName">Checking admin...</span>
-    <button class="logout" id="logoutBtn">Logout</button>
-  </div>
+  <h1>Meteur Online Shopping</h1>
 </header>
 
-<main>
+<div class="container">
 
-  <section class="welcome">
-    <h2>Admin Control Center</h2>
-    <p>
-      Manage customers, sellers, products, orders, and the marketplace from one place.
-    </p>
-  </section>
+  <div class="card">
 
-  <section class="stats">
-    <div class="stat">
-      <h3>Customers</h3>
-      <strong id="customerCount">—</strong>
-    </div>
+    <h2>Create Your Account</h2>
 
-    <div class="stat">
-      <h3>Sellers</h3>
-      <strong id="sellerCount">—</strong>
-    </div>
-
-    <div class="stat">
-      <h3>Products</h3>
-      <strong id="productCount">—</strong>
-    </div>
-
-    <div class="stat">
-      <h3>Orders</h3>
-      <strong id="orderCount">—</strong>
-    </div>
-  </section>
-
-  <h2 class="section-title">Admin Management</h2>
-
-  <section class="admin-grid">
-
-    <a class="nav-card" href="admin-customers.html">
-      <div class="icon">👥</div>
-      <h3>Customers</h3>
-      <p>
-        View registered customer information and recent customer activity.
-      </p>
-    </a>
-
-    <a class="nav-card" href="admin-sellers.html">
-      <div class="icon">🏪</div>
-      <h3>Sellers</h3>
-      <p>
-        Review seller applications and manage seller account status.
-      </p>
-    </a>
-
-    <a class="nav-card" href="admin-products.html">
-      <div class="icon">📦</div>
-      <h3>Products</h3>
-      <p>
-        Manage marketplace products, prices, stock, images, and product details.
-      </p>
-    </a>
-
-    <a class="nav-card" href="admin-orders.html">
-      <div class="icon">🛒</div>
-      <h3>Orders</h3>
-      <p>
-        View customer orders and manage order delivery statuses.
-      </p>
-    </a>
-
-  </section>
-
-  <section class="store-card">
-    <h2>Marketplace Store</h2>
-    <p>
-      Open the customer-facing Meteur Online Shopping website.
+    <p class="subtitle">
+      Register as a customer to shop, place orders, save products, and manage your account.
     </p>
 
-    <a class="store-link" href="index.html">
-      View Store
-    </a>
-  </section>
+    <form id="registerForm">
 
-  <div id="message"></div>
+      <label for="fullName">Full Name</label>
+      <input
+        type="text"
+        id="fullName"
+        placeholder="Enter your full name"
+        required
+      >
 
-</main>
+      <label for="email">Email Address</label>
+      <input
+        type="email"
+        id="email"
+        placeholder="Enter your email address"
+        required
+      >
+
+      <label for="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        placeholder="Create a password"
+        minlength="6"
+        required
+      >
+
+      <label for="confirmPassword">Confirm Password</label>
+      <input
+        type="password"
+        id="confirmPassword"
+        placeholder="Confirm your password"
+        minlength="6"
+        required
+      >
+
+      <button type="submit" id="registerBtn">
+        Create Account
+      </button>
+
+    </form>
+
+    <div id="message" class="message"></div>
+
+    <div class="login-link">
+      Already have an account?
+      <a href="login.html">Login</a>
+    </div>
+
+  </div>
+
+</div>
 
 <script>
   const SUPABASE_URL = "https://nytsdeupaootukcullgi.supabase.co";
@@ -319,84 +230,85 @@
     SUPABASE_KEY
   );
 
-  async function checkAdmin() {
-    const { data: { session }, error: sessionError } =
-      await supabaseClient.auth.getSession();
+  const registerForm = document.getElementById("registerForm");
+  const registerBtn = document.getElementById("registerBtn");
+  const message = document.getElementById("message");
 
-    if (sessionError || !session) {
-      window.location.href = "login.html";
-      return;
-    }
-
-    const { data: admin, error: adminError } =
-      await supabaseClient
-        .from("admins")
-        .select("user_id, name, email, role, status")
-        .eq("user_id", session.user.id)
-        .eq("status", "Active")
-        .maybeSingle();
-
-    if (adminError || !admin) {
-      await supabaseClient.auth.signOut();
-      window.location.href = "login.html";
-      return;
-    }
-
-    document.getElementById("adminName").textContent =
-      admin.name || admin.email || "Administrator";
-
-    await loadCounts();
+  function showMessage(text, type) {
+    message.textContent = text;
+    message.className = "message " + type;
   }
 
-  async function loadCounts() {
+  registerForm.addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const fullName = document.getElementById("fullName").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+
+    if (!fullName) {
+      showMessage("Please enter your full name.", "error");
+      return;
+    }
+
+    if (!email) {
+      showMessage("Please enter your email address.", "error");
+      return;
+    }
+
+    if (password.length < 6) {
+      showMessage("Password must be at least 6 characters.", "error");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      showMessage("Passwords do not match.", "error");
+      return;
+    }
+
+    registerBtn.disabled = true;
+    registerBtn.textContent = "Creating Account...";
+
+    showMessage("", "success");
+
     try {
-      const [
-        customersResult,
-        sellersResult,
-        productsResult,
-        ordersResult
-      ] = await Promise.all([
-        supabaseClient
-          .from("profiles")
-          .select("id", { count: "exact", head: true }),
+      const { data, error } = await supabaseClient.auth.signUp({
+        email: email,
+        password: password,
+        options: {
+          data: {
+            full_name: fullName,
+            name: fullName
+          }
+        }
+      });
 
-        supabaseClient
-          .from("sellers")
-          .select("id", { count: "exact", head: true }),
+      if (error) {
+        throw error;
+      }
 
-        supabaseClient
-          .from("products")
-          .select("id", { count: "exact", head: true }),
+      if (!data || !data.user) {
+        throw new Error("Account creation failed. Please try again.");
+      }
 
-        supabaseClient
-          .from("orders")
-          .select("id", { count: "exact", head: true })
-      ]);
+      sessionStorage.setItem("meteurVerificationEmail", email);
 
-      document.getElementById("customerCount").textContent =
-        customersResult.error ? "—" : customersResult.count ?? 0;
-
-      document.getElementById("sellerCount").textContent =
-        sellersResult.error ? "—" : sellersResult.count ?? 0;
-
-      document.getElementById("productCount").textContent =
-        productsResult.error ? "—" : productsResult.count ?? 0;
-
-      document.getElementById("orderCount").textContent =
-        ordersResult.error ? "—" : ordersResult.count ?? 0;
+      window.location.href =
+        "verify-email.html?email=" + encodeURIComponent(email);
 
     } catch (error) {
-      document.getElementById("message").innerHTML =
-        '<div class="error">Unable to load dashboard statistics.</div>';
+      console.error("Registration error:", error);
+
+      showMessage(
+        error.message || "Unable to create your account. Please try again.",
+        "error"
+      );
+
+      registerBtn.disabled = false;
+      registerBtn.textContent = "Create Account";
     }
-  }
-
-  document.getElementById("logoutBtn").addEventListener("click", async () => {
-    await supabaseClient.auth.signOut();
-    window.location.href = "login.html";
   });
-
-  checkAdmin();
 </script>
 
 </body>

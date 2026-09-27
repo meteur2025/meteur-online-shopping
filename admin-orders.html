@@ -3,230 +3,282 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Admin Orders - Meteur Online Shopping</title>
+    <title>Order Management - Meteur Online Shopping</title>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="supabase-config.js"></script>
 
     <style>
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            margin: 0;
             font-family: Arial, sans-serif;
             background: #f5f5f5;
             color: #222;
         }
 
         header {
-            background: #f68b1e;
+            background: #ff7900;
             color: white;
-            padding: 18px 25px;
+            padding: 18px 6%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 15px;
+            gap: 20px;
         }
 
-        header h1 {
-            margin: 0;
-            font-size: 22px;
+        .logo {
+            color: white;
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: bold;
         }
 
-        .header-actions {
+        nav {
             display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
+            align-items: center;
+            gap: 18px;
         }
 
-        .header-actions a,
-        .header-actions button {
-            background: white;
-            color: #f68b1e;
-            border: none;
-            border-radius: 6px;
-            padding: 10px 14px;
+        nav a {
+            color: white;
             text-decoration: none;
             font-weight: bold;
-            cursor: pointer;
         }
 
         main {
-            max-width: 1250px;
-            margin: 30px auto;
-            padding: 0 18px;
+            width: 92%;
+            max-width: 1200px;
+            margin: 35px auto;
         }
 
-        .page-title {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        .page-header {
+            margin-bottom: 25px;
         }
 
-        .page-title h2 {
-            margin: 0 0 8px;
+        .page-header h1 {
+            margin-bottom: 8px;
         }
 
-        .page-title p {
-            margin: 0;
+        .page-header p {
             color: #666;
         }
 
         .notice {
-            background: #fff3cd;
-            color: #664d03;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            line-height: 1.5;
-        }
-
-        .message {
-            display: none;
+            background: #fff4e8;
+            border-left: 4px solid #ff7900;
             padding: 14px;
-            border-radius: 7px;
-            margin-bottom: 20px;
-            background: #f8d7da;
-            color: #842029;
+            margin: 20px 0;
+            border-radius: 6px;
+            color: #555;
         }
 
         .toolbar {
             background: white;
             padding: 18px;
             border-radius: 10px;
-            margin-bottom: 20px;
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
         }
 
-        .toolbar input,
+        .toolbar label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
         .toolbar select {
-            flex: 1;
-            min-width: 200px;
-            padding: 12px;
-            border: 1px solid #ddd;
+            padding: 10px 14px;
+            border: 1px solid #ccc;
             border-radius: 6px;
-            font-size: 15px;
+            font-size: 14px;
         }
 
-        .order-grid {
+        #message {
+            display: none;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border-radius: 7px;
+            font-weight: bold;
+        }
+
+        .success {
+            background: #e8f7ed;
+            color: #176b36;
+        }
+
+        .error {
+            background: #ffe8e8;
+            color: #b00020;
+        }
+
+        .orders {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
-            gap: 20px;
+            gap: 22px;
         }
 
         .order-card {
             background: white;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.07);
         }
 
-        .order-card h3 {
-            margin: 0 0 10px;
-            color: #f68b1e;
-        }
-
-        .order-card p {
-            margin: 8px 0;
-            line-height: 1.5;
-            word-break: break-word;
-        }
-
-        .label {
-            font-weight: bold;
-            color: #555;
-        }
-
-        .status {
-            display: inline-block;
-            padding: 6px 10px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: bold;
-        }
-
-        .processing {
-            background: #fff3cd;
-            color: #856404;
-        }
-
-        .pending {
-            background: #cfe2ff;
-            color: #084298;
-        }
-
-        .paid {
-            background: #d1e7dd;
-            color: #0f5132;
-        }
-
-        .shipped {
-            background: #cff4fc;
-            color: #055160;
-        }
-
-        .delivered {
-            background: #d1e7dd;
-            color: #0f5132;
-        }
-
-        .cancelled {
-            background: #f8d7da;
-            color: #842029;
-        }
-
-        .items {
-            margin-top: 15px;
-            border-top: 1px solid #eee;
-            padding-top: 15px;
-        }
-
-        .item {
-            padding: 10px 0;
+        .order-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
             border-bottom: 1px solid #eee;
+            padding-bottom: 18px;
+            margin-bottom: 18px;
         }
 
-        .item:last-child {
-            border-bottom: none;
-        }
-
-        .total {
+        .order-number {
             font-size: 20px;
             font-weight: bold;
-            color: #f68b1e;
-            margin-top: 15px;
+            color: #222;
         }
 
-        .loading,
+        .current-status {
+            margin-top: 8px;
+            font-weight: bold;
+            color: #ff7900;
+        }
+
+        .status-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .status-control select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            background: white;
+            font-size: 14px;
+        }
+
+        .status-control button {
+            padding: 10px 14px;
+            border: none;
+            border-radius: 6px;
+            background: #ff7900;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .status-control button:hover {
+            background: #e56d00;
+        }
+
+        .status-control button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .order-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px 25px;
+            margin-bottom: 20px;
+        }
+
+        .info-item {
+            line-height: 1.5;
+        }
+
+        .info-item strong {
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        .products {
+            border-top: 1px solid #eee;
+            padding-top: 18px;
+        }
+
+        .products h3 {
+            margin-bottom: 12px;
+        }
+
+        .product-item {
+            background: #f8f8f8;
+            padding: 12px;
+            border-radius: 7px;
+            margin-bottom: 8px;
+        }
+
+        .totals {
+            border-top: 1px solid #eee;
+            margin-top: 18px;
+            padding-top: 18px;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .grand-total {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
         .empty {
             background: white;
-            padding: 40px;
+            padding: 35px;
             text-align: center;
             border-radius: 10px;
             color: #666;
         }
 
-        @media (max-width: 600px) {
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        footer {
+            text-align: center;
+            background: #222;
+            color: white;
+            padding: 25px;
+            margin-top: 50px;
+        }
+
+        @media (max-width: 700px) {
             header {
                 flex-direction: column;
                 align-items: flex-start;
             }
 
-            .header-actions {
+            nav {
+                flex-wrap: wrap;
+            }
+
+            .order-top {
+                flex-direction: column;
+            }
+
+            .order-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .status-control {
                 width: 100%;
             }
 
-            .header-actions a,
-            .header-actions button {
-                flex: 1;
-                text-align: center;
+            .status-control select,
+            .status-control button {
+                width: 100%;
             }
         }
     </style>
@@ -235,104 +287,93 @@
 <body>
 
 <header>
+    <a href="admin-dashboard.html" class="logo">Meteur Online Shopping</a>
 
-    <h1>Meteur Online Shopping — Admin</h1>
-
-    <div class="header-actions">
+    <nav>
         <a href="admin-dashboard.html">Dashboard</a>
         <a href="index.html">View Store</a>
-        <button id="logoutBtn">Logout</button>
-    </div>
-
+        <a href="#" id="logoutBtn">Logout</a>
+    </nav>
 </header>
 
 <main>
 
-    <section class="page-title">
-        <h2>Order Management</h2>
-        <p>Review marketplace orders and customer delivery information.</p>
-    </section>
+    <div class="page-header">
+        <h1>Order Management</h1>
+        <p>Review marketplace orders and manage customer delivery status.</p>
+    </div>
 
     <div class="notice">
-        Order information is protected by Supabase Row Level Security.
-        Administrator access to all marketplace orders will be connected
-        through a secure administrator backend before public release.
+        Administrator access is protected by Supabase Row Level Security.
+        Order status changes are available only to active administrators.
     </div>
 
-    <div id="message" class="message"></div>
+    <div id="message"></div>
 
     <div class="toolbar">
-
-        <input
-            type="search"
-            id="searchInput"
-            placeholder="Search order number, email or customer..."
-        >
+        <label for="statusFilter">Filter orders:</label>
 
         <select id="statusFilter">
-
-            <option value="">
-                All statuses
-            </option>
-
-            <option value="Processing">
-                Processing
-            </option>
-
-            <option value="Payment Pending">
-                Payment Pending
-            </option>
-
-            <option value="Paid">
-                Paid
-            </option>
-
-            <option value="Shipped">
-                Shipped
-            </option>
-
-            <option value="Delivered">
-                Delivered
-            </option>
-
-            <option value="Cancelled">
-                Cancelled
-            </option>
-
+            <option value="All">All statuses</option>
+            <option value="Processing">Processing</option>
+            <option value="Payment Pending">Payment Pending</option>
+            <option value="Paid">Paid</option>
+            <option value="Shipped">Shipped</option>
+            <option value="Out for Delivery">Out for Delivery</option>
+            <option value="Delivered">Delivered</option>
+            <option value="Cancelled">Cancelled</option>
+            <option value="Payment Failed">Payment Failed</option>
         </select>
-
     </div>
 
-    <div id="loading" class="loading">
-        Loading orders...
+    <div id="ordersContainer" class="orders">
+        <div class="loading">Loading orders...</div>
     </div>
-
-    <div id="orderGrid" class="order-grid"></div>
 
 </main>
 
+<footer>
+    © 2026 Meteur Online Shopping. All rights reserved.
+</footer>
+
 <script>
+    const SUPABASE_URL = "https://nytsdeupaootukcullgi.supabase.co";
 
-    const message =
-        document.getElementById("message");
+    const SUPABASE_PUBLISHABLE_KEY =
+        "sb_publishable_cIqzHoafy_AEdB48KS_Wpg_LDqE1sFC";
 
-    const loading =
-        document.getElementById("loading");
+    const { createClient } = supabase;
 
-    const orderGrid =
-        document.getElementById("orderGrid");
+    const supabaseClient = createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
 
-    const searchInput =
-        document.getElementById("searchInput");
+    const ordersContainer =
+        document.getElementById("ordersContainer");
 
     const statusFilter =
         document.getElementById("statusFilter");
 
-    let orders = [];
+    const message =
+        document.getElementById("message");
+
+    let allOrders = [];
+
+    const deliveryStatuses = [
+        "Processing",
+        "Shipped",
+        "Out for Delivery",
+        "Delivered",
+        "Cancelled"
+    ];
 
     function escapeHtml(value) {
+        if (value === null || value === undefined) {
+            return "";
+        }
 
-        return String(value ?? "")
+        return String(value)
             .replace(/&/g, "&amp;")
             .replace(/</g, "&lt;")
             .replace(/>/g, "&gt;")
@@ -340,81 +381,264 @@
             .replace(/'/g, "&#039;");
     }
 
-    function showMessage(text) {
+    function formatCurrency(value) {
+        return Number(value || 0).toLocaleString("en-KE", {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 2
+        });
+    }
 
+    function formatDate(value) {
+        if (!value) {
+            return "";
+        }
+
+        return new Date(value).toLocaleString("en-KE");
+    }
+
+    function showMessage(text, type) {
         message.textContent = text;
+        message.className = type;
         message.style.display = "block";
+
+        setTimeout(() => {
+            message.style.display = "none";
+        }, 4000);
     }
 
-    function hideMessage() {
+    function statusOptions(currentStatus) {
+        return deliveryStatuses.map(status => {
+            const selected =
+                status === currentStatus ? "selected" : "";
 
-        message.style.display = "none";
+            return `
+                <option value="${escapeHtml(status)}" ${selected}>
+                    ${escapeHtml(status)}
+                </option>
+            `;
+        }).join("");
     }
 
-    function getStatusClass(status) {
+    function renderOrders() {
+        const filter = statusFilter.value;
 
-        const value =
-            String(status || "")
-                .toLowerCase();
+        const filteredOrders =
+            filter === "All"
+                ? allOrders
+                : allOrders.filter(order =>
+                    order.status === filter
+                );
 
-        if (value.includes("paid")) {
-            return "paid";
+        if (filteredOrders.length === 0) {
+            ordersContainer.innerHTML = `
+                <div class="empty">
+                    No orders found for this status.
+                </div>
+            `;
+            return;
         }
 
-        if (value.includes("pending")) {
-            return "pending";
-        }
+        ordersContainer.innerHTML =
+            filteredOrders.map(order => {
 
-        if (value.includes("shipped")) {
-            return "shipped";
-        }
+                let items = [];
 
-        if (value.includes("delivered")) {
-            return "delivered";
-        }
+                try {
+                    items = Array.isArray(order.items)
+                        ? order.items
+                        : JSON.parse(order.items || "[]");
+                } catch (error) {
+                    items = [];
+                }
 
-        if (value.includes("cancelled")) {
-            return "cancelled";
-        }
+                const productHtml =
+                    items.length > 0
+                        ? items.map(item => `
+                            <div class="product-item">
+                                <strong>
+                                    ${escapeHtml(
+                                        item.name ||
+                                        item.product_name ||
+                                        "Product"
+                                    )}
+                                </strong>
 
-        return "processing";
+                                <div>
+                                    Quantity:
+                                    ${escapeHtml(item.quantity || 1)}
+                                </div>
+
+                                <div>
+                                    Price:
+                                    KSh ${formatCurrency(item.price)}
+                                </div>
+                            </div>
+                        `).join("")
+                        : `
+                            <div class="product-item">
+                                No product details available.
+                            </div>
+                        `;
+
+                return `
+                    <div class="order-card">
+
+                        <div class="order-top">
+
+                            <div>
+                                <div class="order-number">
+                                    Order ${escapeHtml(order.order_number)}
+                                </div>
+
+                                <div class="current-status">
+                                    Current Status:
+                                    ${escapeHtml(order.status)}
+                                </div>
+                            </div>
+
+                            <div class="status-control">
+
+                                <select
+                                    id="status-${escapeHtml(order.id)}"
+                                >
+                                    ${statusOptions(order.status)}
+                                </select>
+
+                                <button
+                                    type="button"
+                                    onclick="updateOrderStatus(
+                                        '${escapeHtml(order.id)}'
+                                    )"
+                                >
+                                    Update Status
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                        <div class="order-grid">
+
+                            <div class="info-item">
+                                <strong>Customer</strong>
+                                ${escapeHtml(order.recipient_name)}
+                            </div>
+
+                            <div class="info-item">
+                                <strong>Email</strong>
+                                ${escapeHtml(order.customer_email)}
+                            </div>
+
+                            <div class="info-item">
+                                <strong>Phone</strong>
+                                ${escapeHtml(order.phone)}
+                            </div>
+
+                            <div class="info-item">
+                                <strong>County</strong>
+                                ${escapeHtml(order.county)}
+                            </div>
+
+                            <div class="info-item">
+                                <strong>Town</strong>
+                                ${escapeHtml(order.town)}
+                            </div>
+
+                            <div class="info-item">
+                                <strong>Address</strong>
+                                ${escapeHtml(order.address)}
+                            </div>
+
+                            <div class="info-item">
+                                <strong>Payment</strong>
+                                ${escapeHtml(order.payment_method)}
+                            </div>
+
+                            <div class="info-item">
+                                <strong>Order Date</strong>
+                                ${formatDate(order.created_at)}
+                            </div>
+
+                            ${
+                                order.delivery_note
+                                    ? `
+                                    <div class="info-item">
+                                        <strong>Delivery Note</strong>
+                                        ${escapeHtml(
+                                            order.delivery_note
+                                        )}
+                                    </div>
+                                    `
+                                    : ""
+                            }
+
+                        </div>
+
+                        <div class="products">
+
+                            <h3>Ordered Products</h3>
+
+                            ${productHtml}
+
+                        </div>
+
+                        <div class="totals">
+
+                            <div class="total-row">
+                                <span>Subtotal</span>
+                                <strong>
+                                    KSh ${formatCurrency(order.subtotal)}
+                                </strong>
+                            </div>
+
+                            <div class="total-row">
+                                <span>Delivery</span>
+                                <strong>
+                                    KSh ${formatCurrency(order.delivery_fee)}
+                                </strong>
+                            </div>
+
+                            <div class="total-row grand-total">
+                                <span>Total</span>
+                                <strong>
+                                    KSh ${formatCurrency(order.total)}
+                                </strong>
+                            </div>
+
+                        </div>
+
+                    </div>
+                `;
+
+            }).join("");
     }
 
     async function checkAdmin() {
 
         const {
-            data: { user },
-            error: authError
-        } = await supabaseClient.auth.getUser();
+            data: {
+                session
+            }
+        } = await supabaseClient.auth.getSession();
 
-        if (authError || !user) {
-
-            window.location.href =
-                "login.html?redirect=admin-orders.html";
-
+        if (!session) {
+            window.location.href = "login.html";
             return false;
         }
 
         const {
             data: admin,
-            error: adminError
+            error
         } = await supabaseClient
             .from("admins")
-            .select("*")
-            .eq("user_id", user.id)
+            .select("id,user_id,status")
+            .eq("user_id", session.user.id)
             .eq("status", "Active")
             .maybeSingle();
 
-        if (adminError || !admin) {
-
-            document.body.innerHTML = `
-                <main style="max-width:700px;margin:80px auto;padding:20px;text-align:center;">
-                    <h2>Administrator Access Required</h2>
-                    <p>Your account does not have active administrator access.</p>
-                    <a href="index.html">Back to Store</a>
-                </main>
-            `;
-
+        if (error || !admin) {
+            alert("Administrator access required.");
+            window.location.href = "dashboard.html";
             return false;
         }
 
@@ -423,9 +647,8 @@
 
     async function loadOrders() {
 
-        loading.style.display = "block";
-        orderGrid.innerHTML = "";
-        hideMessage();
+        ordersContainer.innerHTML =
+            `<div class="loading">Loading orders...</div>`;
 
         const {
             data,
@@ -437,334 +660,107 @@
                 ascending: false
             });
 
-        loading.style.display = "none";
+        if (error) {
+
+            console.error(error);
+
+            ordersContainer.innerHTML = `
+                <div class="empty">
+                    Unable to load orders.
+                    <br><br>
+                    ${escapeHtml(error.message)}
+                </div>
+            `;
+
+            return;
+        }
+
+        allOrders = data || [];
+
+        renderOrders();
+    }
+
+    async function updateOrderStatus(orderId) {
+
+        const select =
+            document.getElementById(`status-${orderId}`);
+
+        if (!select) {
+            return;
+        }
+
+        const newStatus = select.value;
+
+        const order =
+            allOrders.find(item => item.id === orderId);
+
+        if (!order) {
+            showMessage(
+                "Order could not be found.",
+                "error"
+            );
+            return;
+        }
+
+        if (order.status === newStatus) {
+            showMessage(
+                "The order already has this status.",
+                "error"
+            );
+            return;
+        }
+
+        const buttons =
+            document.querySelectorAll(
+                `button[onclick*="${orderId}"]`
+            );
+
+        buttons.forEach(button => {
+            button.disabled = true;
+            button.textContent = "Updating...";
+        });
+
+        const {
+            error
+        } = await supabaseClient
+            .from("orders")
+            .update({
+                status: newStatus,
+                updated_at: new Date().toISOString()
+            })
+            .eq("id", orderId);
 
         if (error) {
 
             console.error(error);
 
+            buttons.forEach(button => {
+                button.disabled = false;
+                button.textContent = "Update Status";
+            });
+
             showMessage(
-                "Marketplace orders cannot be loaded yet because administrator order permissions have not been configured."
+                "Unable to update order status: " +
+                error.message,
+                "error"
             );
-
-            orderGrid.innerHTML = `
-                <div class="empty">
-
-                    <h3>
-                        Administrator order access needs configuration
-                    </h3>
-
-                    <p>
-                        Customer orders are protected by Supabase
-                        Row Level Security. A secure administrator
-                        backend will be connected before public release.
-                    </p>
-
-                </div>
-            `;
 
             return;
         }
 
-        orders = data || [];
+        order.status = newStatus;
+        order.updated_at =
+            new Date().toISOString();
+
+        showMessage(
+            `Order ${order.order_number} updated to ${newStatus}.`,
+            "success"
+        );
 
         renderOrders();
     }
 
-    function renderOrders() {
-
-        const search =
-            searchInput.value
-                .trim()
-                .toLowerCase();
-
-        const selectedStatus =
-            statusFilter.value;
-
-        const filtered =
-            orders.filter(order => {
-
-                const matchesSearch =
-                    !search ||
-                    String(order.order_number || "")
-                        .toLowerCase()
-                        .includes(search) ||
-
-                    String(order.customer_email || "")
-                        .toLowerCase()
-                        .includes(search) ||
-
-                    String(order.recipient_name || "")
-                        .toLowerCase()
-                        .includes(search);
-
-                const matchesStatus =
-                    !selectedStatus ||
-                    order.status === selectedStatus;
-
-                return (
-                    matchesSearch &&
-                    matchesStatus
-                );
-            });
-
-        if (filtered.length === 0) {
-
-            orderGrid.innerHTML = `
-                <div class="empty">
-
-                    <h3>
-                        No orders found
-                    </h3>
-
-                    <p>
-                        Marketplace orders will appear here
-                        after administrator database access
-                        is configured.
-                    </p>
-
-                </div>
-            `;
-
-            return;
-        }
-
-        orderGrid.innerHTML =
-            filtered.map(order => {
-
-                const items =
-                    Array.isArray(order.items)
-                        ? order.items
-                        : [];
-
-                const createdDate =
-                    order.created_at
-                        ? new Date(
-                            order.created_at
-                        ).toLocaleString()
-                        : "Not available";
-
-                const status =
-                    order.status ||
-                    "Processing";
-
-                const itemHtml =
-                    items.length > 0
-                        ? items.map(item => {
-
-                            const quantity =
-                                Number(
-                                    item.quantity || 1
-                                );
-
-                            const price =
-                                Number(
-                                    item.price || 0
-                                );
-
-                            return `
-                                <div class="item">
-
-                                    <strong>
-                                        ${escapeHtml(
-                                            item.name ||
-                                            "Product"
-                                        )}
-                                    </strong>
-
-                                    <br>
-
-                                    Quantity:
-                                    ${quantity}
-
-                                    <br>
-
-                                    Price:
-                                    KSh
-                                    ${price.toLocaleString()}
-
-                                </div>
-                            `;
-
-                        }).join("")
-                        : `
-                            <div class="item">
-                                No item details available.
-                            </div>
-                        `;
-
-                return `
-                    <article class="order-card">
-
-                        <h3>
-                            Order
-                            ${escapeHtml(
-                                order.order_number
-                            )}
-                        </h3>
-
-                        <p>
-                            <span class="label">
-                                Status:
-                            </span>
-
-                            <span class="status ${getStatusClass(status)}">
-                                ${escapeHtml(status)}
-                            </span>
-                        </p>
-
-                        <p>
-                            <span class="label">
-                                Customer:
-                            </span>
-
-                            ${escapeHtml(
-                                order.recipient_name
-                            )}
-                        </p>
-
-                        <p>
-                            <span class="label">
-                                Email:
-                            </span>
-
-                            ${escapeHtml(
-                                order.customer_email
-                            )}
-                        </p>
-
-                        <p>
-                            <span class="label">
-                                Phone:
-                            </span>
-
-                            ${escapeHtml(
-                                order.phone
-                            )}
-                        </p>
-
-                        <p>
-                            <span class="label">
-                                County:
-                            </span>
-
-                            ${escapeHtml(
-                                order.county
-                            )}
-                        </p>
-
-                        <p>
-                            <span class="label">
-                                Town:
-                            </span>
-
-                            ${escapeHtml(
-                                order.town
-                            )}
-                        </p>
-
-                        <p>
-                            <span class="label">
-                                Address:
-                            </span>
-
-                            ${escapeHtml(
-                                order.address
-                            )}
-                        </p>
-
-                        <p>
-                            <span class="label">
-                                Payment:
-                            </span>
-
-                            ${escapeHtml(
-                                order.payment_method
-                            )}
-                        </p>
-
-                        <p>
-                            <span class="label">
-                                Order date:
-                            </span>
-
-                            ${escapeHtml(
-                                createdDate
-                            )}
-                        </p>
-
-                        ${
-                            order.delivery_note
-                            ? `
-                                <p>
-                                    <span class="label">
-                                        Delivery note:
-                                    </span>
-
-                                    ${escapeHtml(
-                                        order.delivery_note
-                                    )}
-                                </p>
-                            `
-                            : ""
-                        }
-
-                        <div class="items">
-
-                            <strong>
-                                Ordered products
-                            </strong>
-
-                            ${itemHtml}
-
-                        </div>
-
-                        <div class="info">
-
-                            <p>
-                                <span class="label">
-                                    Subtotal:
-                                </span>
-
-                                KSh
-                                ${Number(
-                                    order.subtotal || 0
-                                ).toLocaleString()}
-                            </p>
-
-                            <p>
-                                <span class="label">
-                                    Delivery:
-                                </span>
-
-                                KSh
-                                ${Number(
-                                    order.delivery_fee || 0
-                                ).toLocaleString()}
-                            </p>
-
-                            <div class="total">
-
-                                Total:
-                                KSh
-                                ${Number(
-                                    order.total || 0
-                                ).toLocaleString()}
-
-                            </div>
-
-                        </div>
-
-                    </article>
-                `;
-
-            }).join("");
-    }
-
-    searchInput.addEventListener(
-        "input",
-        renderOrders
-    );
+    window.updateOrderStatus = updateOrderStatus;
 
     statusFilter.addEventListener(
         "change",
@@ -772,21 +768,18 @@
     );
 
     document.getElementById("logoutBtn")
-        .addEventListener(
-            "click",
-            async () => {
+        .addEventListener("click", async function(event) {
 
-                await supabaseClient.auth.signOut();
+            event.preventDefault();
 
-                window.location.href =
-                    "login.html";
-            }
-        );
+            await supabaseClient.auth.signOut();
 
-    async function init() {
+            window.location.href = "login.html";
+        });
 
-        const isAdmin =
-            await checkAdmin();
+    async function startPage() {
+
+        const isAdmin = await checkAdmin();
 
         if (!isAdmin) {
             return;
@@ -795,8 +788,7 @@
         await loadOrders();
     }
 
-    init();
-
+    startPage();
 </script>
 
 </body>

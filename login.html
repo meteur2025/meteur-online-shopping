@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="style.css">
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
     <script src="supabase-config.js"></script>
 </head>
 
@@ -45,6 +44,7 @@
 
                         <div class="form-group">
                             <label for="email">Email Address</label>
+
                             <input
                                 type="email"
                                 id="email"
@@ -57,6 +57,7 @@
 
                         <div class="form-group">
                             <label for="password">Password</label>
+
                             <input
                                 type="password"
                                 id="password"
@@ -73,7 +74,11 @@
                             </a>
                         </div>
 
-                        <button type="submit" id="loginButton" class="auth-button">
+                        <button
+                            type="submit"
+                            id="loginButton"
+                            class="auth-button"
+                        >
                             Login
                         </button>
 
@@ -86,12 +91,16 @@
                     <div class="register-link">
                         <p>
                             Don't have an account?
-                            <a href="register.html">Create an account</a>
+                            <a href="register.html">
+                                Create an account
+                            </a>
                         </p>
                     </div>
 
                     <div class="back-home">
-                        <a href="index.html">← Back to shopping</a>
+                        <a href="index.html">
+                            ← Back to shopping
+                        </a>
                     </div>
 
                 </div>
@@ -102,185 +111,289 @@
 
     <footer class="site-footer">
         <div class="container">
-            <p>&copy; 2026 Meteur Online Shopping. All rights reserved.</p>
+            <p>
+                &copy; 2026 Meteur Online Shopping. All rights reserved.
+            </p>
         </div>
     </footer>
 
+
     <script>
-        const loginForm = document.getElementById("loginForm");
-        const loginButton = document.getElementById("loginButton");
-        const message = document.getElementById("message");
+
+        const loginForm =
+            document.getElementById("loginForm");
+
+        const loginButton =
+            document.getElementById("loginButton");
+
+        const message =
+            document.getElementById("message");
+
 
         function showMessage(text, type) {
+
             message.textContent = text;
-            message.className = "auth-message " + type;
+
+            message.className =
+                "auth-message " + type;
         }
 
-        async function redirectUser(user) {
+
+        async function redirectAfterLogin(user) {
 
             /*
-             * First check whether the signed-in account
-             * is an active administrator.
+             * Check the authenticated user's ID
+             * against the admins table.
+             *
+             * We only use columns we know exist:
+             * user_id and status.
              */
-            const { data: admin, error: adminError } =
-                await supabaseClient
-                    .from("admins")
-                    .select("user_id, name, email, role, status")
-                    .eq("user_id", user.id)
-                    .eq("status", "Active")
-                    .maybeSingle();
 
-            if (adminError) {
-                console.error("Admin check error:", adminError);
-            }
+            const {
+                data: admin,
+                error: adminError
+            } = await supabaseClient
+                .from("admins")
+                .select("user_id,status")
+                .eq("user_id", user.id)
+                .eq("status", "Active")
+                .maybeSingle();
+
 
             /*
-             * Active administrator
-             * → Admin Dashboard
+             * If an active admin record exists,
+             * send the user to the Admin Dashboard.
              */
+
             if (admin) {
+
                 showMessage(
                     "Administrator login successful. Redirecting to Admin Dashboard...",
                     "success"
                 );
 
                 setTimeout(function() {
-                    window.location.href = "admin-dashboard.html";
+
+                    window.location.href =
+                        "admin-dashboard.html";
+
                 }, 1000);
 
                 return;
             }
 
+
             /*
-             * Normal customer
-             * → Customer Dashboard
+             * If the admin lookup produced an error,
+             * log it for troubleshooting.
              */
+
+            if (adminError) {
+
+                console.error(
+                    "Administrator check:",
+                    adminError
+                );
+            }
+
+
+            /*
+             * Anyone who is not an active administrator
+             * goes to the normal customer dashboard.
+             */
+
             showMessage(
                 "Login successful. Redirecting...",
                 "success"
             );
 
             setTimeout(function() {
-                window.location.href = "dashboard.html";
+
+                window.location.href =
+                    "dashboard.html";
+
             }, 1000);
         }
 
-        loginForm.addEventListener("submit", async function(event) {
 
-            event.preventDefault();
+        loginForm.addEventListener(
+            "submit",
+            async function(event) {
 
-            const email =
-                document.getElementById("email").value.trim();
+                event.preventDefault();
 
-            const password =
-                document.getElementById("password").value;
 
-            if (!email || !password) {
-                showMessage(
-                    "Please enter your email and password.",
-                    "error"
-                );
-                return;
-            }
+                const email =
+                    document
+                        .getElementById("email")
+                        .value
+                        .trim();
 
-            loginButton.disabled = true;
-            loginButton.textContent = "Logging in...";
 
-            showMessage(
-                "Checking your account...",
-                "info"
-            );
+                const password =
+                    document
+                        .getElementById("password")
+                        .value;
 
-            try {
 
-                const { data, error } =
-                    await supabaseClient.auth.signInWithPassword({
-                        email: email,
-                        password: password
-                    });
-
-                if (error) {
-                    throw error;
-                }
-
-                if (!data.user) {
-                    throw new Error(
-                        "Unable to sign in. Please try again."
-                    );
-                }
-
-                /*
-                 * Make sure the email has been verified.
-                 */
-                if (!data.user.email_confirmed_at) {
-
-                    await supabaseClient.auth.signOut();
-
-                    localStorage.setItem(
-                        "meteurVerificationEmail",
-                        email
-                    );
+                if (!email || !password) {
 
                     showMessage(
-                        "Please confirm your email address before signing in.",
+                        "Please enter your email and password.",
                         "error"
                     );
-
-                    setTimeout(function() {
-                        window.location.href = "verify-email.html";
-                    }, 2000);
 
                     return;
                 }
 
-                /*
-                 * Decide whether this is an Admin
-                 * or a normal customer.
-                 */
-                await redirectUser(data.user);
 
-            } catch (error) {
+                loginButton.disabled = true;
 
-                console.error("Login error:", error);
+                loginButton.textContent =
+                    "Logging in...";
 
-                let errorMessage =
-                    "Unable to log in. Please check your details and try again.";
-
-                if (error.message) {
-
-                    if (
-                        error.message
-                            .toLowerCase()
-                            .includes("invalid login")
-                    ) {
-                        errorMessage =
-                            "Incorrect email or password.";
-
-                    } else if (
-                        error.message
-                            .toLowerCase()
-                            .includes("email not confirmed")
-                    ) {
-                        errorMessage =
-                            "Please confirm your email before logging in.";
-
-                    } else {
-                        errorMessage = error.message;
-                    }
-                }
 
                 showMessage(
-                    errorMessage,
-                    "error"
+                    "Checking your account...",
+                    "info"
                 );
 
-                loginButton.disabled = false;
-                loginButton.textContent = "Login";
+
+                try {
+
+                    const {
+                        data,
+                        error
+                    } =
+                        await supabaseClient
+                            .auth
+                            .signInWithPassword({
+                                email: email,
+                                password: password
+                            });
+
+
+                    if (error) {
+                        throw error;
+                    }
+
+
+                    if (!data.user) {
+
+                        throw new Error(
+                            "Unable to sign in. Please try again."
+                        );
+                    }
+
+
+                    /*
+                     * Require verified email.
+                     */
+
+                    if (!data.user.email_confirmed_at) {
+
+                        await supabaseClient
+                            .auth
+                            .signOut();
+
+
+                        localStorage.setItem(
+                            "meteurVerificationEmail",
+                            email
+                        );
+
+
+                        showMessage(
+                            "Please confirm your email address before signing in.",
+                            "error"
+                        );
+
+
+                        setTimeout(function() {
+
+                            window.location.href =
+                                "verify-email.html";
+
+                        }, 2000);
+
+
+                        return;
+                    }
+
+
+                    /*
+                     * Check whether this account
+                     * is an active administrator.
+                     */
+
+                    await redirectAfterLogin(
+                        data.user
+                    );
+
+                } catch (error) {
+
+                    console.error(
+                        "Login error:",
+                        error
+                    );
+
+
+                    let errorMessage =
+                        "Unable to log in. Please check your details and try again.";
+
+
+                    if (error.message) {
+
+                        const lowerMessage =
+                            error.message.toLowerCase();
+
+
+                        if (
+                            lowerMessage.includes(
+                                "invalid login"
+                            )
+                        ) {
+
+                            errorMessage =
+                                "Incorrect email or password.";
+
+                        } else if (
+                            lowerMessage.includes(
+                                "email not confirmed"
+                            )
+                        ) {
+
+                            errorMessage =
+                                "Please confirm your email before logging in.";
+
+                        } else {
+
+                            errorMessage =
+                                error.message;
+                        }
+                    }
+
+
+                    showMessage(
+                        errorMessage,
+                        "error"
+                    );
+
+
+                    loginButton.disabled =
+                        false;
+
+                    loginButton.textContent =
+                        "Login";
+                }
             }
-        });
+        );
+
     </script>
 
+
     <style>
+
         .auth-section {
             min-height: 75vh;
             display: flex;
@@ -290,40 +403,49 @@
             background: #f7f7f7;
         }
 
+
         .auth-container {
             width: 100%;
             max-width: 500px;
         }
 
+
         .auth-card {
             background: #ffffff;
             padding: 40px;
             border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            box-shadow:
+                0 4px 20px rgba(0, 0, 0, 0.08);
         }
+
 
         .auth-header {
             text-align: center;
             margin-bottom: 30px;
         }
 
+
         .auth-header h1 {
             margin-bottom: 10px;
         }
+
 
         .auth-header p {
             color: #666;
         }
 
+
         .form-group {
             margin-bottom: 20px;
         }
+
 
         .form-group label {
             display: block;
             margin-bottom: 8px;
             font-weight: 600;
         }
+
 
         .form-group input {
             width: 100%;
@@ -334,15 +456,18 @@
             box-sizing: border-box;
         }
 
+
         .form-group input:focus {
             outline: none;
             border-color: #f68b1e;
         }
 
+
         .form-options {
             text-align: right;
             margin-bottom: 20px;
         }
+
 
         .form-options a,
         .register-link a,
@@ -351,6 +476,7 @@
             text-decoration: none;
             font-weight: 600;
         }
+
 
         .auth-button {
             width: 100%;
@@ -364,14 +490,17 @@
             cursor: pointer;
         }
 
+
         .auth-button:hover {
             opacity: 0.9;
         }
+
 
         .auth-button:disabled {
             opacity: 0.6;
             cursor: not-allowed;
         }
+
 
         .auth-message {
             display: none;
@@ -381,26 +510,31 @@
             text-align: center;
         }
 
+
         .auth-message.error,
         .auth-message.success,
         .auth-message.info {
             display: block;
         }
 
+
         .auth-message.error {
             background: #ffe5e5;
             color: #b00020;
         }
+
 
         .auth-message.success {
             background: #e5f7e9;
             color: #187a32;
         }
 
+
         .auth-message.info {
             background: #e8f1ff;
             color: #245ea8;
         }
+
 
         .auth-divider {
             display: flex;
@@ -410,6 +544,7 @@
             color: #999;
         }
 
+
         .auth-divider::before,
         .auth-divider::after {
             content: "";
@@ -418,20 +553,26 @@
             background: #ddd;
         }
 
+
         .register-link,
         .back-home {
             text-align: center;
         }
 
+
         .back-home {
             margin-top: 20px;
         }
 
+
         @media (max-width: 600px) {
+
             .auth-card {
                 padding: 25px;
             }
+
         }
+
     </style>
 
 </body>

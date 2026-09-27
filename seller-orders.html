@@ -47,12 +47,17 @@
             padding: 0 18px;
         }
 
-        .top-card {
+        .top-card,
+        .order-card,
+        .empty {
             background: white;
             border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .top-card {
             padding: 20px;
             margin-bottom: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
 
         .top-card h2 {
@@ -72,10 +77,7 @@
         }
 
         .order-card {
-            background: white;
-            border-radius: 12px;
             padding: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
 
         .order-header {
@@ -180,11 +182,8 @@
         }
 
         .empty {
-            background: white;
             padding: 35px 20px;
-            border-radius: 12px;
             text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
 
         .error {
@@ -234,8 +233,11 @@
 </main>
 
 <script>
-    const SUPABASE_URL = "https://nytsdeupaootukcullgi.supabase.co";
-    const SUPABASE_ANON_KEY = "sb_publishable_cIqzHoafy_AEdB48KS_Wpg_LDQE1sFC";
+    const SUPABASE_URL =
+        "https://nytsdeupaootukcullgi.supabase.co";
+
+    const SUPABASE_ANON_KEY =
+        "sb_publishable_cIqzHoafy_AEdB48KS_Wpg_LDQE1sFC";
 
     const { createClient } = supabase;
 
@@ -244,8 +246,11 @@
         SUPABASE_ANON_KEY
     );
 
-    const message = document.getElementById("message");
-    const ordersContainer = document.getElementById("orders");
+    const message =
+        document.getElementById("message");
+
+    const ordersContainer =
+        document.getElementById("orders");
 
     function escapeHtml(value) {
         return String(value ?? "")
@@ -257,11 +262,15 @@
     }
 
     function formatMoney(value) {
-        return `KSh ${Number(value || 0).toLocaleString()}`;
+        return `KSh ${Number(value || 0).toLocaleString(
+            "en-KE"
+        )}`;
     }
 
     function formatDate(value) {
-        if (!value) return "—";
+        if (!value) {
+            return "—";
+        }
 
         const date = new Date(value);
 
@@ -338,7 +347,11 @@
                         <h3>No seller orders yet</h3>
                         <p>
                             Orders containing products from
-                            <strong>${escapeHtml(seller.store_name)}</strong>
+                            <strong>
+                                ${escapeHtml(
+                                    seller.store_name
+                                )}
+                            </strong>
                             will appear here.
                         </p>
                     </div>
@@ -349,210 +362,233 @@
 
             message.style.display = "none";
 
-            ordersContainer.innerHTML = orders.map(order => {
+            ordersContainer.innerHTML =
+                orders.map(order => {
 
-                const items = Array.isArray(order.items)
-                    ? order.items
-                    : [];
+                    const items =
+                        Array.isArray(order.items)
+                            ? order.items
+                            : [];
 
-                const sellerItems = items.filter(item =>
-                    item &&
-                    item.product_id
-                );
+                    let sellerSubtotal = 0;
 
-                let sellerSubtotal = 0;
+                    const itemHtml =
+                        items.map(item => {
 
-                const itemHtml = sellerItems.map(item => {
+                            const quantity =
+                                Number(
+                                    item.quantity || 1
+                                );
 
-                    const quantity =
-                        Number(item.quantity || 1);
+                            const price =
+                                Number(
+                                    item.price ??
+                                    item.unit_price ??
+                                    0
+                                );
 
-                    const price =
-                        Number(
-                            item.price ??
-                            item.unit_price ??
-                            0
-                        );
+                            const lineTotal =
+                                quantity * price;
 
-                    const lineTotal =
-                        quantity * price;
+                            sellerSubtotal +=
+                                lineTotal;
 
-                    sellerSubtotal += lineTotal;
+                            return `
+                                <div class="item">
+                                    <div>
+                                        <div class="item-name">
+                                            ${escapeHtml(
+                                                item.name ||
+                                                item.product_name ||
+                                                "Product"
+                                            )}
+                                        </div>
+
+                                        <div class="item-details">
+                                            Quantity:
+                                            ${quantity}
+                                            ×
+                                            ${formatMoney(
+                                                price
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    <div class="item-price">
+                                        ${formatMoney(
+                                            lineTotal
+                                        )}
+                                    </div>
+                                </div>
+                            `;
+                        }).join("");
 
                     return `
-                        <div class="item">
-                            <div>
-                                <div class="item-name">
+                        <article class="order-card">
+
+                            <div class="order-header">
+                                <div>
+                                    <div class="order-number">
+                                        Order #
+                                        ${escapeHtml(
+                                            order.order_number
+                                        )}
+                                    </div>
+
+                                    <div>
+                                        ${formatDate(
+                                            order.created_at
+                                        )}
+                                    </div>
+                                </div>
+
+                                <div class="status">
                                     ${escapeHtml(
-                                        item.name ||
-                                        item.product_name ||
-                                        "Product"
+                                        order.status ||
+                                        "Processing"
                                     )}
                                 </div>
+                            </div>
 
-                                <div class="item-details">
-                                    Quantity:
-                                    ${quantity}
-                                    ×
-                                    ${formatMoney(price)}
+                            <div class="section">
+                                <h3>
+                                    Customer Information
+                                </h3>
+
+                                <div class="customer-info">
+
+                                    <div class="info-item">
+                                        <strong>Name</strong>
+                                        ${escapeHtml(
+                                            order.recipient_name
+                                        )}
+                                    </div>
+
+                                    <div class="info-item">
+                                        <strong>Email</strong>
+                                        ${escapeHtml(
+                                            order.customer_email
+                                        )}
+                                    </div>
+
+                                    <div class="info-item">
+                                        <strong>Phone</strong>
+                                        ${escapeHtml(
+                                            order.phone
+                                        )}
+                                    </div>
+
+                                    <div class="info-item">
+                                        <strong>County</strong>
+                                        ${escapeHtml(
+                                            order.county
+                                        )}
+                                    </div>
+
+                                    <div class="info-item">
+                                        <strong>Town / Area</strong>
+                                        ${escapeHtml(
+                                            order.town
+                                        )}
+                                    </div>
+
+                                    <div class="info-item">
+                                        <strong>Address</strong>
+                                        ${escapeHtml(
+                                            order.address
+                                        )}
+                                    </div>
+
                                 </div>
                             </div>
 
-                            <div class="item-price">
-                                ${formatMoney(lineTotal)}
+                            <div class="section">
+
+                                <h3>
+                                    Your Products in This Order
+                                </h3>
+
+                                <div class="seller-items">
+                                    ${itemHtml}
+                                </div>
+
+                                <div class="totals">
+
+                                    <div>
+                                        Your item subtotal:
+                                        <strong>
+                                            ${formatMoney(
+                                                sellerSubtotal
+                                            )}
+                                        </strong>
+                                    </div>
+
+                                </div>
+
                             </div>
-                        </div>
+
+                            <div class="section">
+
+                                <h3>
+                                    Payment & Delivery
+                                </h3>
+
+                                <div class="payment-info">
+
+                                    <div class="info-item">
+                                        <strong>
+                                            Payment Method
+                                        </strong>
+                                        ${escapeHtml(
+                                            order.payment_method
+                                        )}
+                                    </div>
+
+                                    <div class="info-item">
+                                        <strong>
+                                            Order Status
+                                        </strong>
+                                        ${escapeHtml(
+                                            order.status
+                                        )}
+                                    </div>
+
+                                    <div class="info-item">
+                                        <strong>
+                                            Delivery Fee
+                                        </strong>
+                                        ${formatMoney(
+                                            order.delivery_fee
+                                        )}
+                                    </div>
+
+                                    <div class="info-item">
+                                        <strong>
+                                            Delivery Note
+                                        </strong>
+                                        ${escapeHtml(
+                                            order.delivery_note ||
+                                            "None"
+                                        )}
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </article>
                     `;
                 }).join("");
 
-                return `
-                    <article class="order-card">
-
-                        <div class="order-header">
-                            <div>
-                                <div class="order-number">
-                                    Order #${escapeHtml(
-                                        order.order_number
-                                    )}
-                                </div>
-
-                                <div>
-                                    ${formatDate(
-                                        order.created_at
-                                    )}
-                                </div>
-                            </div>
-
-                            <div class="status">
-                                ${escapeHtml(
-                                    order.status || "Processing"
-                                )}
-                            </div>
-                        </div>
-
-                        <div class="section">
-                            <h3>Customer Information</h3>
-
-                            <div class="customer-info">
-
-                                <div class="info-item">
-                                    <strong>Name</strong>
-                                    ${escapeHtml(
-                                        order.recipient_name
-                                    )}
-                                </div>
-
-                                <div class="info-item">
-                                    <strong>Email</strong>
-                                    ${escapeHtml(
-                                        order.customer_email
-                                    )}
-                                </div>
-
-                                <div class="info-item">
-                                    <strong>Phone</strong>
-                                    ${escapeHtml(
-                                        order.phone
-                                    )}
-                                </div>
-
-                                <div class="info-item">
-                                    <strong>County</strong>
-                                    ${escapeHtml(
-                                        order.county
-                                    )}
-                                </div>
-
-                                <div class="info-item">
-                                    <strong>Town / Area</strong>
-                                    ${escapeHtml(
-                                        order.town
-                                    )}
-                                </div>
-
-                                <div class="info-item">
-                                    <strong>Address</strong>
-                                    ${escapeHtml(
-                                        order.address
-                                    )}
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="section">
-                            <h3>Your Products in This Order</h3>
-
-                            <div class="seller-items">
-                                ${itemHtml}
-                            </div>
-
-                            <div class="totals">
-                                <div>
-                                    Your item subtotal:
-                                    <strong>
-                                        ${formatMoney(
-                                            sellerSubtotal
-                                        )}
-                                    </strong>
-                                </div>
-
-                                <div>
-                                    Customer order total:
-                                    <strong>
-                                        ${formatMoney(
-                                            order.total
-                                        )}
-                                    </strong>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="section">
-                            <h3>Payment & Delivery</h3>
-
-                            <div class="payment-info">
-
-                                <div class="info-item">
-                                    <strong>Payment Method</strong>
-                                    ${escapeHtml(
-                                        order.payment_method
-                                    )}
-                                </div>
-
-                                <div class="info-item">
-                                    <strong>Order Status</strong>
-                                    ${escapeHtml(
-                                        order.status
-                                    )}
-                                </div>
-
-                                <div class="info-item">
-                                    <strong>Delivery Fee</strong>
-                                    ${formatMoney(
-                                        order.delivery_fee
-                                    )}
-                                </div>
-
-                                <div class="info-item">
-                                    <strong>Delivery Note</strong>
-                                    ${escapeHtml(
-                                        order.delivery_note ||
-                                        "None"
-                                    )}
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </article>
-                `;
-            }).join("");
-
         } catch (error) {
-            console.error(error);
+
+            console.error(
+                "Seller orders error:",
+                error
+            );
 
             message.className = "error";
+
             message.textContent =
                 error.message ||
                 "Unable to load seller orders.";

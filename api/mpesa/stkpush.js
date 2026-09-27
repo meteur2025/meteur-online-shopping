@@ -20,11 +20,26 @@ export default async function handler(req, res) {
             });
         }
 
-        const consumerKey = process.env.MPESA_CONSUMER_KEY;
-        const consumerSecret = process.env.MPESA_CONSUMER_SECRET;
-        const passkey = process.env.MPESA_PASSKEY;
-        const shortcode = process.env.MPESA_SHORTCODE;
-        const callbackUrl = process.env.MPESA_CALLBACK_URL;
+        const consumerKey =
+            process.env.MPESA_CONSUMER_KEY;
+
+        const consumerSecret =
+            process.env.MPESA_CONSUMER_SECRET;
+
+        const passkey =
+            process.env.MPESA_PASSKEY;
+
+        const shortcode =
+            process.env.MPESA_SHORTCODE;
+
+        const callbackUrl =
+            process.env.MPESA_CALLBACK_URL;
+
+        const supabaseUrl =
+            process.env.SUPABASE_URL;
+
+        const serviceRoleKey =
+            process.env.SUPABASE_SERVICE_ROLE_KEY;
 
         if (
             !consumerKey ||
@@ -35,125 +50,344 @@ export default async function handler(req, res) {
         ) {
             return res.status(500).json({
                 success: false,
-                message: "M-Pesa environment variables are not fully configured."
+                message:
+                    "M-Pesa environment variables are not fully configured."
             });
         }
 
-        const cleanPhone = String(phone).replace(/\D/g, "");
+        if (!supabaseUrl || !serviceRoleKey) {
+            return res.status(500).json({
+                success: false,
+                message:
+                    "Supabase server environment variables are not configured."
+            });
+        }
 
-        let normalizedPhone = cleanPhone;
+        const cleanPhone =
+            String(phone).replace(/\D/g, "");
+
+        let normalizedPhone =
+            cleanPhone;
 
         if (normalizedPhone.startsWith("0")) {
-            normalizedPhone = "254" + normalizedPhone.substring(1);
+            normalizedPhone =
+                "254" +
+                normalizedPhone.substring(1);
         }
 
         if (normalizedPhone.startsWith("+")) {
-            normalizedPhone = normalizedPhone.substring(1);
+            normalizedPhone =
+                normalizedPhone.substring(1);
         }
 
         if (!/^254\d{9}$/.test(normalizedPhone)) {
             return res.status(400).json({
                 success: false,
-                message: "Enter a valid Kenyan phone number."
+                message:
+                    "Enter a valid Kenyan phone number."
             });
         }
 
-        const numericAmount = Math.max(1, Math.round(Number(amount)));
+        const numericAmount =
+            Math.max(
+                1,
+                Math.round(Number(amount))
+            );
 
         if (!Number.isFinite(numericAmount)) {
             return res.status(400).json({
                 success: false,
-                message: "Invalid payment amount."
+                message:
+                    "Invalid payment amount."
             });
         }
 
-        const authString = Buffer
-            .from(`${consumerKey}:${consumerSecret}`)
-            .toString("base64");
+        /*
+         * Authenticate with Safaricom Daraja Sandbox.
+         */
+        const authString =
+            Buffer
+                .from(
+                    `${consumerKey}:${consumerSecret}`
+                )
+                .toString("base64");
 
-        const tokenResponse = await fetch(
-            "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials",
-            {
-                method: "GET",
-                headers: {
-                    Authorization: `Basic ${authString}`
+        const tokenResponse =
+            await fetch(
+                "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials",
+                {
+                    method: "GET",
+                    headers: {
+                        Authorization:
+                            `Basic ${authString}`
+                    }
                 }
-            }
-        );
+            );
 
-        const tokenData = await tokenResponse.json();
+        const tokenData =
+            await tokenResponse.json();
 
-        if (!tokenResponse.ok || !tokenData.access_token) {
-            console.error("M-Pesa OAuth error:", tokenData);
+        if (
+            !tokenResponse.ok ||
+            !tokenData.access_token
+        ) {
+            console.error(
+                "M-Pesa OAuth error:",
+                tokenData
+            );
 
             return res.status(500).json({
                 success: false,
-                message: "Unable to authenticate with M-Pesa Sandbox."
+                message:
+                    "Unable to authenticate with M-Pesa Sandbox."
             });
         }
 
-        const timestamp = new Date()
-            .toISOString()
-            .replace(/\D/g, "")
-            .slice(0, 14);
+        /*
+         * Generate the Daraja timestamp.
+         */
+        const timestamp =
+            new Date()
+                .toISOString()
+                .replace(/\D/g, "")
+                .slice(0, 14);
 
-        const password = Buffer
-            .from(`${shortcode}${passkey}${timestamp}`)
-            .toString("base64");
+        /*
+         * Generate the Daraja password.
+         */
+        const password =
+            Buffer
+                .from(
+                    `${shortcode}${passkey}${timestamp}`
+                )
+                .toString("base64");
 
-        const stkResponse = await fetch(
-            "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest",
-            {
-                method: "POST",
-                headers: {
-                    Authorization: `Bearer ${tokenData.access_token}`,
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    BusinessShortCode: Number(shortcode),
-                    Password: password,
-                    Timestamp: timestamp,
-                    TransactionType: "CustomerPayBillOnline",
-                    Amount: numericAmount,
-                    PartyA: normalizedPhone,
-                    PartyB: Number(shortcode),
-                    PhoneNumber: normalizedPhone,
-                    CallBackURL: callbackUrl,
-                    AccountReference: String(orderNumber).substring(0, 12),
-                    TransactionDesc: "Meteur Online Shopping"
-                })
-            }
+        /*
+         * Send STK Push.
+         */
+        const stkResponse =
+            await fetch(
+                "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest",
+                {
+                    method: "POST",
+
+                    headers: {
+                        Authorization:
+                            `Bearer ${tokenData.access_token}`,
+
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        BusinessShortCode:
+                            Number(shortcode),
+
+                        Password:
+                            password,
+
+                        Timestamp:
+                            timestamp,
+
+                        TransactionType:
+                            "CustomerPayBillOnline",
+
+                        Amount:
+                            numericAmount,
+
+                        PartyA:
+                            normalizedPhone,
+
+                        PartyB:
+                            Number(shortcode),
+
+                        PhoneNumber:
+                            normalizedPhone,
+
+                        CallBackURL:
+                            callbackUrl,
+
+                        AccountReference:
+                            String(orderNumber)
+                                .substring(0, 12),
+
+                        TransactionDesc:
+                            "Meteur Online Shopping"
+                    })
+                }
+            );
+
+        const stkData =
+            await stkResponse.json();
+
+        console.log(
+            "M-Pesa STK response:",
+            stkData
         );
 
-        const stkData = await stkResponse.json();
-
-        console.log("M-Pesa STK response:", stkData);
-
-        if (!stkResponse.ok || stkData.ResponseCode !== "0") {
+        if (
+            !stkResponse.ok ||
+            stkData.ResponseCode !== "0"
+        ) {
             return res.status(500).json({
                 success: false,
-                message: stkData.errorMessage ||
+
+                message:
+                    stkData.errorMessage ||
                     stkData.ResponseDescription ||
                     "M-Pesa STK Push request failed.",
-                details: stkData
+
+                details:
+                    stkData
             });
         }
 
+        const checkoutRequestId =
+            stkData.CheckoutRequestID;
+
+        const merchantRequestId =
+            stkData.MerchantRequestID;
+
+        /*
+         * IMPORTANT:
+         * Save the M-Pesa request IDs on the order
+         * from the server using the Supabase service
+         * role key.
+         *
+         * This avoids the customer's browser being
+         * blocked by Row Level Security.
+         */
+        if (!checkoutRequestId) {
+            console.error(
+                "M-Pesa response did not contain CheckoutRequestID."
+            );
+
+            return res.status(500).json({
+                success: false,
+                message:
+                    "M-Pesa did not return a payment request ID."
+            });
+        }
+
+        const updateUrl =
+            `${supabaseUrl}/rest/v1/orders` +
+            `?order_number=eq.${encodeURIComponent(
+                orderNumber
+            )}`;
+
+        const updateResponse =
+            await fetch(
+                updateUrl,
+                {
+                    method: "PATCH",
+
+                    headers: {
+                        apikey:
+                            serviceRoleKey,
+
+                        Authorization:
+                            `Bearer ${serviceRoleKey}`,
+
+                        "Content-Type":
+                            "application/json",
+
+                        Prefer:
+                            "return=representation"
+                    },
+
+                    body: JSON.stringify({
+
+                        checkout_request_id:
+                            checkoutRequestId,
+
+                        merchant_request_id:
+                            merchantRequestId || null,
+
+                        mpesa_phone_number:
+                            normalizedPhone,
+
+                        updated_at:
+                            new Date().toISOString()
+
+                    })
+                }
+            );
+
+        const updatedOrders =
+            await updateResponse.json();
+
+        if (!updateResponse.ok) {
+            console.error(
+                "Supabase order payment reference update failed:",
+                updatedOrders
+            );
+
+            return res.status(500).json({
+                success: false,
+                message:
+                    "M-Pesa started, but the payment reference could not be saved to the order."
+            });
+        }
+
+        if (
+            !Array.isArray(updatedOrders) ||
+            updatedOrders.length === 0
+        ) {
+            console.error(
+                "No order found for order number:",
+                orderNumber
+            );
+
+            return res.status(500).json({
+                success: false,
+                message:
+                    "The payment request was accepted, but the matching order could not be found."
+            });
+        }
+
+        console.log(
+            "M-Pesa payment reference saved:",
+            JSON.stringify({
+                orderNumber,
+                checkoutRequestId,
+                merchantRequestId
+            })
+        );
+
         return res.status(200).json({
-            success: true,
-            message: "M-Pesa STK Push sent successfully.",
-            orderNumber,
-            checkoutRequestId: stkData.CheckoutRequestID,
-            merchantRequestId: stkData.MerchantRequestID,
-            customerMessage: stkData.CustomerMessage || "Check your phone for the M-Pesa prompt."
+
+            success:
+                true,
+
+            message:
+                "M-Pesa STK Push sent successfully.",
+
+            orderNumber:
+                orderNumber,
+
+            checkoutRequestId:
+                checkoutRequestId,
+
+            merchantRequestId:
+                merchantRequestId,
+
+            customerMessage:
+                stkData.CustomerMessage ||
+                "Check your phone for the M-Pesa prompt."
+
         });
 
     } catch (error) {
-        console.error("M-Pesa STK Push error:", error);
+
+        console.error(
+            "M-Pesa STK Push error:",
+            error
+        );
 
         return res.status(500).json({
             success: false,
-            message: "M-Pesa server error."
+            message:
+                "M-Pesa server error."
         });
     }
 }

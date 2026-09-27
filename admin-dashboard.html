@@ -1,740 +1,449 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meteur Online Shopping — Admin Dashboard</title>
 
-    <title>Admin Dashboard - Meteur Online Shopping</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="supabase-config.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      color: #222;
+    }
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #f5f5f5;
-            color: #222;
-        }
+    header {
+      background: #f4511e;
+      color: white;
+      padding: 18px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
 
-        header {
-            background: #f57224;
-            color: white;
-            padding: 16px 20px;
-        }
+    header h1 {
+      font-size: 24px;
+    }
 
-        .header-content {
-            max-width: 1200px;
-            margin: auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-        }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
 
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-        }
+    .header-right span {
+      font-size: 14px;
+    }
 
-        .header-actions {
-            display: flex;
-            gap: 10px;
-        }
+    button,
+    .nav-card {
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+    }
 
-        button {
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
-        }
+    .logout {
+      background: white;
+      color: #f4511e;
+      padding: 9px 16px;
+      border-radius: 6px;
+      font-weight: bold;
+    }
 
-        .shop-btn {
-            background: white;
-            color: #f57224;
-            padding: 10px 15px;
-            border-radius: 6px;
-        }
+    main {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
 
-        .logout-btn {
-            background: #222;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 6px;
-        }
+    .welcome {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      margin-bottom: 25px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
 
-        main {
-            max-width: 1200px;
-            margin: 25px auto;
-            padding: 0 20px;
-        }
+    .welcome h2 {
+      margin-bottom: 8px;
+    }
 
-        .welcome {
-            margin-bottom: 20px;
-        }
+    .welcome p {
+      color: #666;
+    }
 
-        .welcome h1 {
-            margin-bottom: 6px;
-        }
+    .verified {
+      margin-top: 12px;
+      color: #188038;
+      font-weight: bold;
+    }
 
-        .welcome p {
-            color: #666;
-        }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-bottom: 30px;
+    }
 
-        .status-box {
-            display: none;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            font-weight: bold;
-        }
+    .stat {
+      background: white;
+      padding: 22px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
 
-        .status-success {
-            display: block;
-            background: #d4edda;
-            color: #155724;
-        }
+    .stat h3 {
+      font-size: 14px;
+      color: #777;
+      margin-bottom: 10px;
+    }
 
-        .status-error {
-            display: block;
-            background: #f8d7da;
-            color: #721c24;
-        }
+    .stat strong {
+      font-size: 28px;
+      color: #f4511e;
+    }
 
-        .loading {
-            background: white;
-            padding: 40px;
-            text-align: center;
-            border-radius: 10px;
-            color: #666;
-        }
+    .section-title {
+      margin-bottom: 15px;
+      font-size: 20px;
+    }
 
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 18px;
-            margin-bottom: 25px;
-        }
+    .admin-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
 
-        .stat-card {
-            background: white;
-            padding: 22px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
-        }
+    .nav-card {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      color: #222;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
 
-        .stat-card .icon {
-            font-size: 28px;
-            margin-bottom: 12px;
-        }
+    .nav-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
 
-        .stat-card h3 {
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 8px;
-        }
+    .nav-card .icon {
+      font-size: 30px;
+      margin-bottom: 12px;
+    }
 
-        .stat-number {
-            font-size: 28px;
-            font-weight: bold;
-            color: #f57224;
-        }
+    .nav-card h3 {
+      margin-bottom: 7px;
+      color: #f4511e;
+    }
 
-        .admin-card {
-            background: white;
-            border-radius: 10px;
-            padding: 22px;
-            margin-bottom: 25px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
-        }
+    .nav-card p {
+      color: #666;
+      font-size: 14px;
+      line-height: 1.5;
+    }
 
-        .admin-card h2 {
-            margin-bottom: 8px;
-        }
+    .store-card {
+      margin-top: 25px;
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
 
-        .admin-card p {
-            color: #666;
-            line-height: 1.6;
-        }
+    .store-link {
+      display: inline-block;
+      margin-top: 15px;
+      background: #f4511e;
+      color: white;
+      text-decoration: none;
+      padding: 11px 18px;
+      border-radius: 7px;
+      font-weight: bold;
+    }
 
-        .admin-info {
-            margin-top: 15px;
-            padding: 15px;
-            background: #fafafa;
-            border-radius: 7px;
-        }
+    .profile-card {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
 
-        .admin-info div {
-            margin-bottom: 7px;
-        }
+    .profile-card p {
+      margin-top: 8px;
+      color: #555;
+    }
 
-        .admin-info div:last-child {
-            margin-bottom: 0;
-        }
+    .profile-card strong {
+      color: #222;
+    }
 
-        .admin-info strong {
-            color: #444;
-        }
+    .message {
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
 
-        .quick-actions {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-        }
+    .error {
+      color: #b00020;
+    }
 
-        .action-card {
-            border: 1px solid #ddd;
-            padding: 20px;
-            border-radius: 8px;
-            text-decoration: none;
-            color: #222;
-            transition: 0.2s;
-        }
+    @media (max-width: 800px) {
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
 
-        .action-card:hover {
-            border-color: #f57224;
-            transform: translateY(-2px);
-        }
+      .admin-grid {
+        grid-template-columns: 1fr;
+      }
+    }
 
-        .action-card .action-icon {
-            font-size: 26px;
-            margin-bottom: 10px;
-        }
+    @media (max-width: 500px) {
+      header {
+        padding: 16px 18px;
+      }
 
-        .action-card h3 {
-            margin-bottom: 6px;
-        }
+      header h1 {
+        font-size: 20px;
+      }
 
-        .action-card p {
-            color: #777;
-            font-size: 14px;
-            line-height: 1.5;
-        }
+      main {
+        margin-top: 20px;
+        padding: 0 14px;
+      }
 
-        .notice {
-            background: #fff3cd;
-            color: #856404;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 25px;
-            line-height: 1.6;
-        }
+      .stats {
+        grid-template-columns: 1fr;
+      }
 
-        @media (max-width: 950px) {
-            .dashboard-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .quick-actions {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 650px) {
-            .header-content {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .header-actions {
-                flex-direction: column;
-            }
-
-            .shop-btn,
-            .logout-btn {
-                width: 100%;
-            }
-
-            .dashboard-grid,
-            .quick-actions {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+      .stat strong {
+        font-size: 24px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
 <header>
+  <h1>Meteur Online Shopping</h1>
 
-    <div class="header-content">
-
-        <div class="logo">
-            Meteur Online Shopping
-        </div>
-
-        <div class="header-actions">
-
-            <button
-                class="shop-btn"
-                onclick="goShopping()"
-            >
-                View Store
-            </button>
-
-            <button
-                class="logout-btn"
-                onclick="logout()"
-            >
-                Logout
-            </button>
-
-        </div>
-
-    </div>
-
+  <div class="header-right">
+    <span id="adminName">Checking admin...</span>
+    <button class="logout" id="logoutBtn">Logout</button>
+  </div>
 </header>
 
 <main>
 
-    <div class="welcome">
+  <section class="welcome">
+    <h2>Admin Dashboard</h2>
+    <p>Manage the Meteur Online Shopping marketplace.</p>
 
-        <h1>Admin Dashboard</h1>
+    <div class="verified">
+      Administrator access verified successfully.
+    </div>
+  </section>
 
-        <p>
-            Manage the Meteur Online Shopping marketplace.
-        </p>
+  <section class="profile-card">
+    <h2>Administrator Profile</h2>
 
+    <p>You are signed in with administrator access.</p>
+
+    <p><strong>Name:</strong> <span id="profileName">Loading...</span></p>
+    <p><strong>Email:</strong> <span id="profileEmail">Loading...</span></p>
+    <p><strong>Role:</strong> <span id="profileRole">Loading...</span></p>
+    <p><strong>Status:</strong> <span id="profileStatus">Loading...</span></p>
+  </section>
+
+  <section class="stats">
+
+    <div class="stat">
+      <h3>Customers</h3>
+      <strong id="customerCount">—</strong>
     </div>
 
-    <div
-        id="statusBox"
-        class="status-box"
-    ></div>
-
-    <div class="notice">
-        <strong>Admin access:</strong>
-        This dashboard is protected by Supabase authentication.
-        Only users whose account exists in the admins table can access
-        the administrator area.
+    <div class="stat">
+      <h3>Sellers</h3>
+      <strong id="sellerCount">—</strong>
     </div>
 
-    <div
-        id="loading"
-        class="loading"
-    >
-        Checking administrator access...
+    <div class="stat">
+      <h3>Products</h3>
+      <strong id="productCount">—</strong>
     </div>
 
-    <div id="dashboardContent" style="display:none;">
-
-        <section class="admin-card">
-
-            <h2>Administrator Profile</h2>
-
-            <p>
-                You are signed in with administrator access.
-            </p>
-
-            <div class="admin-info">
-
-                <div>
-                    <strong>Name:</strong>
-                    <span id="adminName">-</span>
-                </div>
-
-                <div>
-                    <strong>Email:</strong>
-                    <span id="adminEmail">-</span>
-                </div>
-
-                <div>
-                    <strong>Role:</strong>
-                    <span id="adminRole">-</span>
-                </div>
-
-                <div>
-                    <strong>Status:</strong>
-                    <span id="adminStatus">-</span>
-                </div>
-
-            </div>
-
-        </section>
-
-        <section class="dashboard-grid">
-
-            <div class="stat-card">
-
-                <div class="icon">👥</div>
-
-                <h3>Customers</h3>
-
-                <div
-                    class="stat-number"
-                    id="customerCount"
-                >
-                    0
-                </div>
-
-            </div>
-
-            <div class="stat-card">
-
-                <div class="icon">🏪</div>
-
-                <h3>Sellers</h3>
-
-                <div
-                    class="stat-number"
-                    id="sellerCount"
-                >
-                    0
-                </div>
-
-            </div>
-
-            <div class="stat-card">
-
-                <div class="icon">📦</div>
-
-                <h3>Products</h3>
-
-                <div
-                    class="stat-number"
-                    id="productCount"
-                >
-                    0
-                </div>
-
-            </div>
-
-            <div class="stat-card">
-
-                <div class="icon">🛒</div>
-
-                <h3>Orders</h3>
-
-                <div
-                    class="stat-number"
-                    id="orderCount"
-                >
-                    0
-                </div>
-
-            </div>
-
-        </section>
-
-        <section class="admin-card">
-
-            <h2>Quick Management</h2>
-
-            <p>
-                These management areas will be connected to the
-                administrator system as the marketplace is completed.
-            </p>
-
-            <div
-                class="quick-actions"
-                style="margin-top:20px;"
-            >
-
-                <a
-                    class="action-card"
-                    href="admin-sellers.html"
-                >
-                    <div class="action-icon">🏪</div>
-
-                    <h3>Sellers</h3>
-
-                    <p>
-                        Review seller applications and seller status.
-                    </p>
-                </a>
-
-                <a
-                    class="action-card"
-                    href="admin-products.html"
-                >
-                    <div class="action-icon">📦</div>
-
-                    <h3>Products</h3>
-
-                    <p>
-                        Review marketplace products.
-                    </p>
-                </a>
-
-                <a
-                    class="action-card"
-                    href="admin-customers.html"
-                >
-                    <div class="action-icon">👥</div>
-
-                    <h3>Customers</h3>
-
-                    <p>
-                        Review registered customer accounts.
-                    </p>
-                </a>
-
-                <a
-                    class="action-card"
-                    href="admin-orders.html"
-                >
-                    <div class="action-icon">🛒</div>
-
-                    <h3>Orders</h3>
-
-                    <p>
-                        Review marketplace orders and statuses.
-                    </p>
-                </a>
-
-            </div>
-
-        </section>
-
+    <div class="stat">
+      <h3>Orders</h3>
+      <strong id="orderCount">—</strong>
     </div>
+
+  </section>
+
+  <h2 class="section-title">Quick Management</h2>
+
+  <section class="admin-grid">
+
+    <a class="nav-card" href="admin-sellers.html">
+      <div class="icon">🏪</div>
+      <h3>Sellers</h3>
+      <p>Review seller applications and seller status.</p>
+    </a>
+
+    <a class="nav-card" href="admin-products.html">
+      <div class="icon">📦</div>
+      <h3>Products</h3>
+      <p>Review and manage marketplace products.</p>
+    </a>
+
+    <a class="nav-card" href="admin-customers.html">
+      <div class="icon">👥</div>
+      <h3>Customers</h3>
+      <p>Review registered customer accounts.</p>
+    </a>
+
+    <a class="nav-card" href="admin-orders.html">
+      <div class="icon">🛒</div>
+      <h3>Orders</h3>
+      <p>Review marketplace orders and statuses.</p>
+    </a>
+
+  </section>
+
+  <section class="store-card">
+    <h2>Marketplace Store</h2>
+    <p>Open the customer-facing Meteur Online Shopping website.</p>
+
+    <a class="store-link" href="index.html">
+      View Store
+    </a>
+  </section>
+
+  <div id="message"></div>
 
 </main>
 
 <script>
+  const SUPABASE_URL = "https://nytsdeupaootukcullgi.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_cIqzHoafy_AEdB48KS_Wpg_LDqE1sFC";
 
-    let currentUser = null;
-    let currentAdmin = null;
+  const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
 
-    const loading =
-        document.getElementById("loading");
+  async function checkAdmin() {
+    const {
+      data: { session },
+      error: sessionError
+    } = await supabaseClient.auth.getSession();
 
-    const dashboardContent =
-        document.getElementById("dashboardContent");
-
-    const statusBox =
-        document.getElementById("statusBox");
-
-    function escapeHtml(value) {
-
-        return String(value ?? "")
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
+    if (sessionError || !session) {
+      window.location.href = "login.html";
+      return;
     }
 
-    function showError(message) {
+    const { data: admin, error: adminError } =
+      await supabaseClient
+        .from("admins")
+        .select("user_id, name, email, role, status")
+        .eq("user_id", session.user.id)
+        .eq("status", "Active")
+        .maybeSingle();
 
-        statusBox.textContent = message;
-
-        statusBox.className =
-            "status-box status-error";
-
-        loading.style.display = "none";
+    if (adminError || !admin) {
+      await supabaseClient.auth.signOut();
+      window.location.href = "login.html";
+      return;
     }
 
-    function showSuccess(message) {
+    document.getElementById("adminName").textContent =
+      admin.name || admin.email || "Administrator";
 
-        statusBox.textContent = message;
+    document.getElementById("profileName").textContent =
+      admin.name || "Administrator";
 
-        statusBox.className =
-            "status-box status-success";
+    document.getElementById("profileEmail").textContent =
+      admin.email || session.user.email || "—";
+
+    document.getElementById("profileRole").textContent =
+      admin.role || "Admin";
+
+    document.getElementById("profileStatus").textContent =
+      admin.status || "Active";
+
+    await loadCounts();
+  }
+
+  async function loadCounts() {
+    try {
+      const [
+        customerResult,
+        sellerResult,
+        productResult,
+        orderResult
+      ] = await Promise.all([
+        supabaseClient.rpc("get_admin_customer_count"),
+
+        supabaseClient
+          .from("sellers")
+          .select("id", { count: "exact", head: true }),
+
+        supabaseClient
+          .from("products")
+          .select("id", { count: "exact", head: true }),
+
+        supabaseClient
+          .from("orders")
+          .select("id", { count: "exact", head: true })
+      ]);
+
+      document.getElementById("customerCount").textContent =
+        customerResult.error
+          ? "—"
+          : customerResult.data ?? 0;
+
+      document.getElementById("sellerCount").textContent =
+        sellerResult.error
+          ? "—"
+          : sellerResult.count ?? 0;
+
+      document.getElementById("productCount").textContent =
+        productResult.error
+          ? "—"
+          : productResult.count ?? 0;
+
+      document.getElementById("orderCount").textContent =
+        orderResult.error
+          ? "—"
+          : orderResult.count ?? 0;
+
+    } catch (error) {
+      document.getElementById("message").innerHTML =
+        '<div class="message error">Unable to load dashboard statistics.</div>';
     }
+  }
 
-    async function checkAuthentication() {
+  document.getElementById("logoutBtn").addEventListener("click", async () => {
+    await supabaseClient.auth.signOut();
+    window.location.href = "login.html";
+  });
 
-        const {
-            data,
-            error
-        } = await supabaseClient.auth.getUser();
-
-        if (error || !data.user) {
-
-            window.location.href =
-                "login.html?redirect=admin-dashboard.html";
-
-            return false;
-        }
-
-        currentUser = data.user;
-
-        return true;
-    }
-
-    async function checkAdminAccess() {
-
-        const {
-            data,
-            error
-        } = await supabaseClient
-            .from("admins")
-            .select("*")
-            .eq("user_id", currentUser.id)
-            .eq("status", "Active")
-            .maybeSingle();
-
-        if (error) {
-
-            console.error(
-                "Admin access error:",
-                error
-            );
-
-            showError(
-                "Unable to verify administrator access."
-            );
-
-            return false;
-        }
-
-        if (!data) {
-
-            showError(
-                "Administrator access denied. This account is not registered as an active administrator."
-            );
-
-            return false;
-        }
-
-        currentAdmin = data;
-
-        return true;
-    }
-
-    function displayAdminProfile() {
-
-        document.getElementById("adminName").textContent =
-            currentAdmin.full_name || "-";
-
-        document.getElementById("adminEmail").textContent =
-            currentAdmin.email || currentUser.email || "-";
-
-        document.getElementById("adminRole").textContent =
-            currentAdmin.role || "Admin";
-
-        document.getElementById("adminStatus").textContent =
-            currentAdmin.status || "Active";
-    }
-
-    async function loadStatistics() {
-
-        const results = await Promise.all([
-
-            supabaseClient
-                .from("products")
-                .select("id", {
-                    count: "exact",
-                    head: true
-                }),
-
-            supabaseClient
-                .from("sellers")
-                .select("id", {
-                    count: "exact",
-                    head: true
-                }),
-
-            supabaseClient
-                .from("orders")
-                .select("id", {
-                    count: "exact",
-                    head: true
-                }),
-
-            supabaseClient
-                .from("admins")
-                .select("id", {
-                    count: "exact",
-                    head: true
-                })
-
-        ]);
-
-        const productResult = results[0];
-        const sellerResult = results[1];
-        const orderResult = results[2];
-
-        if (productResult.error) {
-            console.error(
-                "Product count error:",
-                productResult.error
-            );
-        }
-
-        if (sellerResult.error) {
-            console.error(
-                "Seller count error:",
-                sellerResult.error
-            );
-        }
-
-        if (orderResult.error) {
-            console.error(
-                "Order count error:",
-                orderResult.error
-            );
-        }
-
-        document.getElementById("productCount").textContent =
-            productResult.count ?? 0;
-
-        document.getElementById("sellerCount").textContent =
-            sellerResult.count ?? 0;
-
-        document.getElementById("orderCount").textContent =
-            orderResult.count ?? 0;
-
-        /*
-         * Supabase Auth users cannot be counted from the browser
-         * through auth.users. Customer count will be connected to
-         * a dedicated customer/profile table later.
-         */
-
-        document.getElementById("customerCount").textContent =
-            "—";
-    }
-
-    function goShopping() {
-
-        window.location.href =
-            "index.html";
-    }
-
-    async function logout() {
-
-        await supabaseClient.auth.signOut();
-
-        window.location.href =
-            "login.html";
-    }
-
-    async function initializeDashboard() {
-
-        const authenticated =
-            await checkAuthentication();
-
-        if (!authenticated) {
-            return;
-        }
-
-        const isAdmin =
-            await checkAdminAccess();
-
-        if (!isAdmin) {
-            return;
-        }
-
-        displayAdminProfile();
-
-        await loadStatistics();
-
-        loading.style.display = "none";
-
-        dashboardContent.style.display =
-            "block";
-
-        showSuccess(
-            "Administrator access verified successfully."
-        );
-    }
-
-    initializeDashboard();
-
+  checkAdmin();
 </script>
 
 </body>

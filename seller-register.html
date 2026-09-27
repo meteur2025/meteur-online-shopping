@@ -318,26 +318,44 @@
         submitButton.disabled = true;
         submitButton.textContent = "Submitting...";
 
-        const storeName = document.getElementById("storeName").value.trim();
-        const ownerName = document.getElementById("ownerName").value.trim();
-        const email = document.getElementById("email").value.trim();
-        const phone = normalizePhone(
-            document.getElementById("phone").value
-        );
-        const password = document.getElementById("password").value;
-        const county = document.getElementById("county").value.trim();
-        const town = document.getElementById("town").value.trim();
-        const address = document.getElementById("address").value.trim();
-        const description = document.getElementById("description").value.trim();
+        const storeName =
+            document.getElementById("storeName").value.trim();
+
+        const ownerName =
+            document.getElementById("ownerName").value.trim();
+
+        const email =
+            document.getElementById("email").value.trim();
+
+        const phone =
+            normalizePhone(document.getElementById("phone").value);
+
+        const password =
+            document.getElementById("password").value;
+
+        const county =
+            document.getElementById("county").value.trim();
+
+        const town =
+            document.getElementById("town").value.trim();
+
+        const address =
+            document.getElementById("address").value.trim();
+
+        const description =
+            document.getElementById("description").value.trim();
 
         if (password.length < 6) {
+
             showMessage(
                 "Password must be at least 6 characters.",
                 "error"
             );
 
             submitButton.disabled = false;
-            submitButton.textContent = "Submit Seller Application";
+            submitButton.textContent =
+                "Submit Seller Application";
+
             return;
         }
 
@@ -366,20 +384,20 @@
                 );
             }
 
-            const { error: sellerError } = await db
-                .from("sellers")
-                .insert({
-                    user_id: signUpData.user.id,
-                    store_name: storeName,
-                    owner_name: ownerName,
-                    phone: phone,
-                    email: email,
-                    county: county,
-                    town: town,
-                    address: address,
-                    description: description,
-                    status: "Pending"
-                });
+            const { error: sellerError } =
+                await db.rpc(
+                    "submit_seller_application",
+                    {
+                        p_store_name: storeName,
+                        p_owner_name: ownerName,
+                        p_email: email,
+                        p_phone: phone,
+                        p_county: county,
+                        p_town: town,
+                        p_address: address,
+                        p_description: description
+                    }
+                );
 
             if (sellerError) {
                 throw sellerError;
@@ -394,17 +412,22 @@
 
         } catch (error) {
 
-            console.error("Seller registration error:", error);
+            console.error(
+                "Seller registration error:",
+                error
+            );
 
             showMessage(
-                error.message || "Unable to submit seller application.",
+                error.message ||
+                "Unable to submit seller application.",
                 "error"
             );
 
         } finally {
 
             submitButton.disabled = false;
-            submitButton.textContent = "Submit Seller Application";
+            submitButton.textContent =
+                "Submit Seller Application";
         }
     });
 </script>

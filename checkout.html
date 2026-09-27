@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout - Meteur Online Shopping</title>
+    <title>Checkout | Meteur Online Shopping</title>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="supabase-config.js"></script>
 
     <style>
         * {
@@ -24,46 +23,29 @@
         header {
             background: #f57c00;
             color: white;
-            padding: 16px 6%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
+            padding: 18px 6%;
         }
 
-        .logo {
+        header a {
             color: white;
             text-decoration: none;
-            font-size: 25px;
+            font-size: 24px;
             font-weight: bold;
         }
 
-        nav {
-            display: flex;
-            gap: 18px;
-            flex-wrap: wrap;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
         .container {
-            width: 92%;
-            max-width: 1200px;
-            margin: 35px auto;
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
         }
 
         h1 {
             margin-bottom: 25px;
-            font-size: 32px;
         }
 
         .checkout-grid {
             display: grid;
-            grid-template-columns: 1.5fr 1fr;
+            grid-template-columns: 1fr 380px;
             gap: 25px;
         }
 
@@ -71,57 +53,29 @@
             background: white;
             border-radius: 12px;
             padding: 25px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
             margin-bottom: 20px;
         }
 
         .card h2 {
             margin-bottom: 20px;
-            font-size: 22px;
-        }
-
-        .description {
-            color: #666;
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 7px;
-        }
-
-        .full {
-            grid-column: 1 / -1;
+            font-size: 20px;
         }
 
         label {
-            font-weight: 600;
-            font-size: 14px;
+            display: block;
+            font-weight: bold;
+            margin: 15px 0 7px;
         }
 
         input,
         select,
         textarea {
             width: 100%;
+            padding: 13px;
             border: 1px solid #ccc;
             border-radius: 7px;
-            padding: 12px;
             font-size: 15px;
-            outline: none;
-        }
-
-        input:focus,
-        select:focus,
-        textarea:focus {
-            border-color: #f57c00;
         }
 
         textarea {
@@ -130,82 +84,33 @@
         }
 
         .payment-option {
-            border: 2px solid #ddd;
-            border-radius: 10px;
-            padding: 16px;
-            margin-bottom: 12px;
-            cursor: pointer;
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
         }
 
-        .payment-option.active {
-            border-color: #f57c00;
-            background: #fff7ed;
+        .payment-option label {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
         }
 
         .payment-option input {
             width: auto;
-            margin-top: 4px;
-        }
-
-        .payment-title {
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .payment-description {
-            color: #666;
-            font-size: 14px;
-        }
-
-        .order-item {
-            display: flex;
-            gap: 14px;
-            padding: 14px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .order-item:last-child {
-            border-bottom: none;
-        }
-
-        .order-item img {
-            width: 75px;
-            height: 75px;
-            object-fit: cover;
-            border-radius: 8px;
-        }
-
-        .item-info {
-            flex: 1;
-        }
-
-        .item-info h3 {
-            font-size: 16px;
-            margin-bottom: 8px;
-        }
-
-        .item-info p {
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 5px;
         }
 
         .summary-row {
             display: flex;
             justify-content: space-between;
             margin: 14px 0;
-            color: #444;
         }
 
-        .total-row {
+        .total {
             border-top: 1px solid #ddd;
             padding-top: 18px;
-            margin-top: 18px;
-            display: flex;
-            justify-content: space-between;
             font-size: 21px;
             font-weight: bold;
         }
@@ -220,11 +125,10 @@
             font-size: 17px;
             font-weight: bold;
             cursor: pointer;
-            margin-top: 20px;
         }
 
         .place-order:hover {
-            background: #df6f00;
+            background: #e56f00;
         }
 
         .place-order:disabled {
@@ -232,54 +136,47 @@
             cursor: not-allowed;
         }
 
-        .empty {
-            text-align: center;
-            padding: 50px 20px;
+        .cart-item {
+            display: flex;
+            gap: 15px;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
         }
 
-        .empty a {
-            display: inline-block;
-            margin-top: 20px;
-            background: #f57c00;
-            color: white;
-            text-decoration: none;
-            padding: 12px 20px;
+        .cart-item img {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
             border-radius: 7px;
         }
 
-        footer {
-            background: #222;
-            color: white;
-            padding: 25px 6%;
-            margin-top: 50px;
-            text-align: center;
+        .cart-item-info {
+            flex: 1;
         }
 
-        footer a {
-            color: white;
-            margin: 0 8px;
+        .cart-item-name {
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        .notice {
+            background: #fff3e0;
+            border: 1px solid #ffcc80;
+            padding: 12px;
+            border-radius: 7px;
+            margin-top: 12px;
+            font-size: 14px;
         }
 
         .loading {
             text-align: center;
             padding: 50px;
+            font-size: 18px;
         }
 
         @media (max-width: 800px) {
             .checkout-grid {
                 grid-template-columns: 1fr;
-            }
-
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .full {
-                grid-column: auto;
-            }
-
-            header {
-                flex-direction: column;
             }
         }
     </style>
@@ -288,17 +185,10 @@
 <body>
 
 <header>
-    <a href="index.html" class="logo">Meteur Online Shopping</a>
-
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="shop.html">Shop</a>
-        <a href="cart.html">Cart</a>
-        <a href="orders.html">Orders</a>
-    </nav>
+    <a href="index.html">Meteur Online Shopping</a>
 </header>
 
-<main class="container">
+<div class="container">
 
     <h1>Checkout</h1>
 
@@ -310,178 +200,71 @@
 
         <div class="checkout-grid">
 
-            <section>
+            <div>
 
                 <div class="card">
                     <h2>Delivery Information</h2>
 
-                    <p class="description">
-                        Please provide the correct delivery details so your order can be delivered successfully.
-                    </p>
+                    <label for="recipientName">Recipient Name</label>
+                    <input id="recipientName" type="text" required>
 
-                    <form id="checkoutForm">
+                    <label for="phone">Phone Number</label>
+                    <input id="phone" type="tel" placeholder="0712345678" required>
 
-                        <div class="form-grid">
+                    <label for="county">County</label>
+                    <input id="county" type="text" required>
 
-                            <div class="form-group">
-                                <label for="firstName">First Name</label>
-                                <input type="text" id="firstName" required>
-                            </div>
+                    <label for="town">Town / Area</label>
+                    <input id="town" type="text" required>
 
-                            <div class="form-group">
-                                <label for="lastName">Last Name</label>
-                                <input type="text" id="lastName" required>
-                            </div>
+                    <label for="address">Address</label>
+                    <textarea id="address" required></textarea>
 
-                            <div class="form-group">
-                                <label for="phone">Phone Number</label>
-                                <input
-                                    type="tel"
-                                    id="phone"
-                                    placeholder="0712345678"
-                                    required
-                                >
-                            </div>
-
-                            <div class="form-group">
-                                <label for="county">County</label>
-                                <select id="county" required>
-                                    <option value="">Select county</option>
-                                    <option>Baringo</option>
-                                    <option>Bomet</option>
-                                    <option>Bungoma</option>
-                                    <option>Busia</option>
-                                    <option>Elgeyo-Marakwet</option>
-                                    <option>Embu</option>
-                                    <option>Garissa</option>
-                                    <option>Homa Bay</option>
-                                    <option>Isiolo</option>
-                                    <option>Kajiado</option>
-                                    <option>Kakamega</option>
-                                    <option>Kericho</option>
-                                    <option>Kiambu</option>
-                                    <option>Kirinyaga</option>
-                                    <option>Kisii</option>
-                                    <option>Kisumu</option>
-                                    <option>Kitui</option>
-                                    <option>Kwale</option>
-                                    <option>Laikipia</option>
-                                    <option>Lamu</option>
-                                    <option>Machakos</option>
-                                    <option>Makueni</option>
-                                    <option>Mandera</option>
-                                    <option>Marsabit</option>
-                                    <option>Meru</option>
-                                    <option>Migori</option>
-                                    <option>Mombasa</option>
-                                    <option>Murang'a</option>
-                                    <option>Nairobi</option>
-                                    <option>Nakuru</option>
-                                    <option>Nandi</option>
-                                    <option>Narok</option>
-                                    <option>Nyamira</option>
-                                    <option>Nyandarua</option>
-                                    <option>Nyeri</option>
-                                    <option>Samburu</option>
-                                    <option>Siaya</option>
-                                    <option>Taita-Taveta</option>
-                                    <option>Tana River</option>
-                                    <option>Tharaka-Nithi</option>
-                                    <option>Trans Nzoia</option>
-                                    <option>Turkana</option>
-                                    <option>Uasin Gishu</option>
-                                    <option>Vihiga</option>
-                                    <option>Wajir</option>
-                                    <option>West Pokot</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="town">Town / Area</label>
-                                <input type="text" id="town" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="postalCode">Postal Code</label>
-                                <input type="text" id="postalCode">
-                            </div>
-
-                            <div class="form-group full">
-                                <label for="address">Delivery Address</label>
-                                <textarea
-                                    id="address"
-                                    placeholder="Enter your full delivery address"
-                                    required
-                                ></textarea>
-                            </div>
-
-                            <div class="form-group full">
-                                <label for="deliveryNote">Delivery Note</label>
-                                <textarea
-                                    id="deliveryNote"
-                                    placeholder="Optional delivery instructions"
-                                ></textarea>
-                            </div>
-
-                        </div>
-
-                    </form>
+                    <label for="deliveryNote">Delivery Note</label>
+                    <textarea id="deliveryNote" placeholder="Optional"></textarea>
                 </div>
 
                 <div class="card">
-
                     <h2>Payment Method</h2>
 
-                    <label class="payment-option active" id="mpesaOption">
-                        <input
-                            type="radio"
-                            name="paymentMethod"
-                            value="M-Pesa"
-                            checked
-                        >
+                    <div class="payment-option">
+                        <label>
+                            <input
+                                type="radio"
+                                name="paymentMethod"
+                                value="M-Pesa"
+                                checked
+                            >
+                            M-Pesa
+                        </label>
+                    </div>
 
-                        <div>
-                            <div class="payment-title">M-Pesa</div>
-                            <div class="payment-description">
-                                Pay using M-Pesa. An STK Push will be sent to your phone.
-                            </div>
-                        </div>
-                    </label>
+                    <div class="payment-option">
+                        <label>
+                            <input
+                                type="radio"
+                                name="paymentMethod"
+                                value="Cash on Delivery"
+                            >
+                            Cash on Delivery
+                        </label>
+                    </div>
 
-                    <label class="payment-option" id="codOption">
-                        <input
-                            type="radio"
-                            name="paymentMethod"
-                            value="Cash on Delivery"
-                        >
-
-                        <div>
-                            <div class="payment-title">Cash on Delivery</div>
-                            <div class="payment-description">
-                                Pay when your order is delivered.
-                            </div>
-                        </div>
-                    </label>
-
-                    <button
-                        type="button"
-                        class="place-order"
-                        id="placeOrderButton"
-                    >
-                        Place Order
-                    </button>
-
+                    <div class="notice">
+                        For M-Pesa, make sure the phone number belongs to
+                        the M-Pesa account being used for the payment.
+                    </div>
                 </div>
 
-            </section>
+            </div>
 
-            <aside>
+            <div>
 
                 <div class="card">
 
                     <h2>Order Summary</h2>
 
-                    <div id="orderItems"></div>
+                    <div id="cartItems"></div>
 
                     <div class="summary-row">
                         <span>Subtotal</span>
@@ -493,323 +276,326 @@
                         <strong id="deliveryFee">KSh 0</strong>
                     </div>
 
-                    <div class="total-row">
+                    <div class="summary-row total">
                         <span>Total</span>
-                        <span id="total">KSh 0</span>
+                        <strong id="total">KSh 0</strong>
                     </div>
+
+                    <br>
+
+                    <button
+                        id="placeOrderButton"
+                        class="place-order"
+                        onclick="placeOrder()"
+                    >
+                        Place Order
+                    </button>
 
                 </div>
 
-            </aside>
+            </div>
 
         </div>
 
     </div>
 
-    <div id="emptyCart" class="card empty" style="display:none;">
-        <h2>Your cart is empty</h2>
-        <p>Add products to your cart before checking out.</p>
-        <a href="shop.html">Continue Shopping</a>
-    </div>
-
-</main>
-
-<footer>
-    <p>© 2026 Meteur Online Shopping. All rights reserved.</p>
-
-    <p style="margin-top:12px;">
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-        <a href="shipping.html">Shipping</a>
-        <a href="returns.html">Returns</a>
-        <a href="privacy.html">Privacy</a>
-        <a href="terms.html">Terms</a>
-    </p>
-</footer>
+</div>
 
 <script>
-    let currentUser = null;
-    let cartItems = [];
-    let subtotalAmount = 0;
-    let deliveryFeeAmount = 0;
-    let totalAmount = 0;
 
-    const loading = document.getElementById("loading");
-    const checkoutContent = document.getElementById("checkoutContent");
-    const emptyCart = document.getElementById("emptyCart");
-    const placeOrderButton = document.getElementById("placeOrderButton");
+const SUPABASE_URL =
+    "https://nytsdeupaootukcullgi.supabase.co";
 
-    const mpesaOption = document.getElementById("mpesaOption");
-    const codOption = document.getElementById("codOption");
+const SUPABASE_ANON_KEY =
+    "sb_publishable_cIqzHoafy_AEdB48KS_Wpg_LDqE1sFC";
 
-    document.querySelectorAll('input[name="paymentMethod"]').forEach(input => {
-        input.addEventListener("change", updatePaymentStyle);
-    });
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
 
-    function updatePaymentStyle() {
-        const selected = document.querySelector(
-            'input[name="paymentMethod"]:checked'
-        ).value;
+let currentUser = null;
+let cartItems = [];
+let latestSubtotal = 0;
+let latestDeliveryFee = 0;
+let latestTotal = 0;
 
-        mpesaOption.classList.toggle(
-            "active",
-            selected === "M-Pesa"
-        );
-
-        codOption.classList.toggle(
-            "active",
-            selected === "Cash on Delivery"
-        );
-    }
-
-    function formatMoney(amount) {
-        return "KSh " + Number(amount).toLocaleString("en-KE", {
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 2
+function money(value) {
+    return "KSh " +
+        Number(value).toLocaleString("en-KE", {
+            maximumFractionDigits: 0
         });
+}
+
+function escapeHtml(value) {
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+function normalizeKenyanPhone(phone) {
+
+    let value = String(phone || "")
+        .replace(/\D/g, "");
+
+    if (value.startsWith("0")) {
+        value = "254" + value.substring(1);
     }
 
-    function generateOrderNumber() {
-        const now = new Date();
+    return value;
+}
 
-        const datePart =
-            now.getFullYear().toString() +
-            String(now.getMonth() + 1).padStart(2, "0") +
-            String(now.getDate()).padStart(2, "0");
+function generateOrderNumber() {
 
-        const randomPart =
-            Math.floor(100000 + Math.random() * 900000);
+    const date = new Date();
 
-        return "MET" + datePart + randomPart;
-    }
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
 
-    function normalizePhone(phone) {
-        let value = String(phone || "").replace(/\D/g, "");
+    const random =
+        Math.floor(100000 + Math.random() * 900000);
 
-        if (value.startsWith("0")) {
-            value = "254" + value.substring(1);
-        }
+    return `MET${year}${month}${day}${random}`;
+}
 
-        if (value.startsWith("7") || value.startsWith("1")) {
-            value = "254" + value;
-        }
+async function loadCheckout() {
 
-        return value;
-    }
+    try {
 
-    async function loadCheckout() {
-        try {
-            const {
-                data: {
-                    user
-                }
-            } = await supabaseClient.auth.getUser();
-
-            if (!user) {
-                window.location.href =
-                    "login.html?redirect=checkout.html";
-                return;
+        const {
+            data: {
+                session
             }
+        } = await supabaseClient.auth.getSession();
 
-            currentUser = user;
-
-            const {
-                data,
-                error
-            } = await supabaseClient
-                .from("cart_items")
-                .select(`
-                    id,
-                    product_id,
-                    quantity,
-                    products (
-                        id,
-                        name,
-                        price,
-                        image_url,
-                        stock
-                    )
-                `)
-                .eq("user_id", user.id);
-
-            if (error) {
-                throw error;
-            }
-
-            cartItems = data || [];
-
-            if (cartItems.length === 0) {
-                loading.style.display = "none";
-                emptyCart.style.display = "block";
-                return;
-            }
-
-            renderCart();
-
-            await loadProfile();
-
-            loading.style.display = "none";
-            checkoutContent.style.display = "block";
-
-        } catch (error) {
-            console.error("Checkout loading error:", error);
-
-            loading.innerHTML = `
-                <p>Unable to load checkout.</p>
-                <p style="color:#777;margin-top:10px;">
-                    ${error.message || "Please try again."}
-                </p>
-            `;
-        }
-    }
-
-    async function loadProfile() {
-        try {
-            const {
-                data
-            } = await supabaseClient
-                .from("addresses")
-                .select("*")
-                .eq("user_id", currentUser.id)
-                .eq("is_default", true)
-                .maybeSingle();
-
-            if (data) {
-                const nameParts =
-                    (data.recipient_name || "").trim().split(/\s+/);
-
-                document.getElementById("firstName").value =
-                    nameParts[0] || "";
-
-                document.getElementById("lastName").value =
-                    nameParts.slice(1).join(" ") || "";
-
-                document.getElementById("phone").value =
-                    data.phone || "";
-
-                document.getElementById("county").value =
-                    data.county || "";
-
-                document.getElementById("town").value =
-                    data.town || "";
-
-                document.getElementById("address").value =
-                    data.address_line || "";
-
-                document.getElementById("postalCode").value =
-                    data.postal_code || "";
-
-                document.getElementById("deliveryNote").value =
-                    data.delivery_note || "";
-            }
-
-        } catch (error) {
-            console.log("No default address loaded.");
-        }
-    }
-
-    function renderCart() {
-        const container = document.getElementById("orderItems");
-
-        subtotalAmount = 0;
-
-        container.innerHTML = cartItems.map(item => {
-
-            const product = item.products;
-
-            const itemTotal =
-                Number(product.price) * Number(item.quantity);
-
-            subtotalAmount += itemTotal;
-
-            return `
-                <div class="order-item">
-
-                    <img
-                        src="${product.image_url || "https://via.placeholder.com/150"}"
-                        alt="${escapeHtml(product.name)}"
-                    >
-
-                    <div class="item-info">
-
-                        <h3>
-                            ${escapeHtml(product.name)}
-                        </h3>
-
-                        <p>
-                            Quantity: ${item.quantity}
-                        </p>
-
-                        <p>
-                            ${formatMoney(itemTotal)}
-                        </p>
-
-                    </div>
-
-                </div>
-            `;
-
-        }).join("");
-
-        deliveryFeeAmount =
-            subtotalAmount >= 5000 ? 0 : 250;
-
-        totalAmount =
-            subtotalAmount + deliveryFeeAmount;
-
-        document.getElementById("subtotal").textContent =
-            formatMoney(subtotalAmount);
-
-        document.getElementById("deliveryFee").textContent =
-            deliveryFeeAmount === 0
-                ? "FREE"
-                : formatMoney(deliveryFeeAmount);
-
-        document.getElementById("total").textContent =
-            formatMoney(totalAmount);
-    }
-
-    function escapeHtml(value) {
-        return String(value || "")
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
-    }
-
-    async function placeOrder() {
-
-        if (!currentUser) {
-            alert("Please sign in before placing your order.");
+        if (!session) {
             window.location.href =
                 "login.html?redirect=checkout.html";
             return;
         }
 
-        const firstName =
-            document.getElementById("firstName").value.trim();
+        currentUser = session.user;
 
-        const lastName =
-            document.getElementById("lastName").value.trim();
+        const {
+            data: cart,
+            error: cartError
+        } = await supabaseClient
+            .from("cart_items")
+            .select(`
+                id,
+                quantity,
+                product_id,
+                products (
+                    id,
+                    name,
+                    price,
+                    stock,
+                    image_url
+                )
+            `)
+            .eq("user_id", currentUser.id);
+
+        if (cartError) {
+            throw cartError;
+        }
+
+        if (!cart || cart.length === 0) {
+
+            alert("Your cart is empty.");
+
+            window.location.href = "cart.html";
+
+            return;
+        }
+
+        cartItems = cart;
+
+        let invalidStock = false;
+
+        cartItems.forEach(item => {
+
+            const product = item.products;
+
+            if (!product ||
+                Number(item.quantity) > Number(product.stock)) {
+
+                invalidStock = true;
+            }
+
+        });
+
+        if (invalidStock) {
+
+            alert(
+                "One or more products do not have enough stock."
+            );
+
+            window.location.href = "cart.html";
+
+            return;
+        }
+
+        displayCart();
+
+        await loadProfile();
+
+        document.getElementById("loading").style.display = "none";
+
+        document.getElementById("checkoutContent").style.display =
+            "block";
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Unable to load checkout. Please try again."
+        );
+    }
+}
+
+async function loadProfile() {
+
+    const metadata =
+        currentUser.user_metadata || {};
+
+    const firstName =
+        metadata.first_name || "";
+
+    const lastName =
+        metadata.last_name || "";
+
+    const phone =
+        metadata.phone || "";
+
+    document.getElementById("recipientName").value =
+        `${firstName} ${lastName}`.trim();
+
+    document.getElementById("phone").value =
+        phone;
+}
+
+function displayCart() {
+
+    const container =
+        document.getElementById("cartItems");
+
+    container.innerHTML = "";
+
+    latestSubtotal = 0;
+
+    cartItems.forEach(item => {
+
+        const product = item.products;
+
+        const quantity =
+            Number(item.quantity);
+
+        const price =
+            Number(product.price);
+
+        const lineTotal =
+            price * quantity;
+
+        latestSubtotal += lineTotal;
+
+        const div =
+            document.createElement("div");
+
+        div.className = "cart-item";
+
+        div.innerHTML = `
+
+            <img
+                src="${escapeHtml(product.image_url || "")}"
+                alt="${escapeHtml(product.name)}"
+            >
+
+            <div class="cart-item-info">
+
+                <div class="cart-item-name">
+                    ${escapeHtml(product.name)}
+                </div>
+
+                <div>
+                    Quantity: ${quantity}
+                </div>
+
+                <div>
+                    ${money(lineTotal)}
+                </div>
+
+            </div>
+        `;
+
+        container.appendChild(div);
+    });
+
+    latestDeliveryFee =
+        latestSubtotal >= 5000 ? 0 : 250;
+
+    latestTotal =
+        latestSubtotal + latestDeliveryFee;
+
+    document.getElementById("subtotal").textContent =
+        money(latestSubtotal);
+
+    document.getElementById("deliveryFee").textContent =
+        latestDeliveryFee === 0
+            ? "FREE"
+            : money(latestDeliveryFee);
+
+    document.getElementById("total").textContent =
+        money(latestTotal);
+}
+
+async function placeOrder() {
+
+    const button =
+        document.getElementById("placeOrderButton");
+
+    if (button.disabled) {
+        return;
+    }
+
+    button.disabled = true;
+
+    button.textContent =
+        "Processing...";
+
+    try {
+
+        const recipientName =
+            document.getElementById("recipientName")
+                .value.trim();
+
+        const phoneInput =
+            document.getElementById("phone")
+                .value.trim();
 
         const phone =
-            document.getElementById("phone").value.trim();
+            normalizeKenyanPhone(phoneInput);
 
         const county =
-            document.getElementById("county").value;
+            document.getElementById("county")
+                .value.trim();
 
         const town =
-            document.getElementById("town").value.trim();
+            document.getElementById("town")
+                .value.trim();
 
         const address =
-            document.getElementById("address").value.trim();
-
-        const postalCode =
-            document.getElementById("postalCode").value.trim();
+            document.getElementById("address")
+                .value.trim();
 
         const deliveryNote =
-            document.getElementById("deliveryNote").value.trim();
+            document.getElementById("deliveryNote")
+                .value.trim();
 
         const paymentMethod =
             document.querySelector(
@@ -817,274 +603,398 @@
             ).value;
 
         if (
-            !firstName ||
-            !lastName ||
+            !recipientName ||
             !phone ||
             !county ||
             !town ||
             !address
         ) {
-            alert("Please complete all required delivery information.");
-            return;
-        }
 
-        const normalizedPhone = normalizePhone(phone);
-
-        if (!/^254\d{9}$/.test(normalizedPhone)) {
             alert(
-                "Please enter a valid Kenyan phone number, for example 0712345678."
+                "Please complete all required delivery information."
             );
+
+            button.disabled = false;
+            button.textContent = "Place Order";
+
             return;
         }
 
-        placeOrderButton.disabled = true;
+        if (!/^254\d{9}$/.test(phone)) {
 
-        placeOrderButton.textContent =
-            paymentMethod === "M-Pesa"
-                ? "Starting M-Pesa Payment..."
-                : "Creating Order...";
+            alert(
+                "Please enter a valid Kenyan phone number."
+            );
 
-        try {
+            button.disabled = false;
+            button.textContent = "Place Order";
 
-            const {
-                data: latestCart,
-                error: cartError
-            } = await supabaseClient
-                .from("cart_items")
-                .select(`
+            return;
+        }
+
+        const {
+            data: {
+                session
+            }
+        } = await supabaseClient.auth.getSession();
+
+        if (!session) {
+
+            window.location.href =
+                "login.html?redirect=checkout.html";
+
+            return;
+        }
+
+        currentUser = session.user;
+
+        /*
+         * Reload the latest cart before creating the order.
+         */
+        const {
+            data: latestCart,
+            error: latestCartError
+        } = await supabaseClient
+            .from("cart_items")
+            .select(`
+                id,
+                quantity,
+                product_id,
+                products (
                     id,
-                    product_id,
-                    quantity,
-                    products (
-                        id,
-                        name,
-                        price,
-                        image_url,
-                        stock
-                    )
-                `)
-                .eq("user_id", currentUser.id);
+                    name,
+                    price,
+                    stock,
+                    image_url
+                )
+            `)
+            .eq("user_id", currentUser.id);
 
-            if (cartError) {
-                throw cartError;
+        if (latestCartError) {
+            throw latestCartError;
+        }
+
+        if (!latestCart || latestCart.length === 0) {
+
+            alert("Your cart is empty.");
+
+            window.location.href = "cart.html";
+
+            return;
+        }
+
+        let subtotal = 0;
+
+        const orderItems = [];
+
+        for (const item of latestCart) {
+
+            const product = item.products;
+
+            if (!product) {
+                throw new Error(
+                    "A product in your cart is unavailable."
+                );
             }
 
-            if (!latestCart || latestCart.length === 0) {
-                throw new Error("Your cart is empty.");
+            const quantity =
+                Number(item.quantity);
+
+            const stock =
+                Number(product.stock);
+
+            if (quantity > stock) {
+
+                throw new Error(
+                    `${product.name} does not have enough stock.`
+                );
             }
 
-            let latestSubtotal = 0;
+            const price =
+                Number(product.price);
 
-            for (const item of latestCart) {
+            subtotal +=
+                price * quantity;
 
-                if (!item.products) {
-                    throw new Error(
-                        "One of the products in your cart is no longer available."
-                    );
-                }
+            orderItems.push({
 
-                if (
-                    Number(item.quantity) >
-                    Number(item.products.stock)
-                ) {
-                    throw new Error(
-                        `${item.products.name} does not have enough stock.`
-                    );
-                }
+                product_id: product.id,
 
-                latestSubtotal +=
-                    Number(item.products.price) *
-                    Number(item.quantity);
-            }
+                name: product.name,
 
-            const latestDeliveryFee =
-                latestSubtotal >= 5000 ? 0 : 250;
+                price: price,
 
-            const latestTotal =
-                latestSubtotal + latestDeliveryFee;
+                quantity: quantity,
 
-            const orderNumber = generateOrderNumber();
+                image_url: product.image_url || ""
 
-            const orderItems = latestCart.map(item => ({
-                product_id: item.products.id,
-                name: item.products.name,
-                price: Number(item.products.price),
-                quantity: Number(item.quantity),
-                image_url: item.products.image_url || ""
-            }));
+            });
+        }
 
-            const paymentStatus =
-                paymentMethod === "M-Pesa"
-                    ? "Payment Pending"
-                    : "Processing";
+        const deliveryFee =
+            subtotal >= 5000 ? 0 : 250;
 
-            const recipientName =
-                `${firstName} ${lastName}`.trim();
+        const total =
+            subtotal + deliveryFee;
 
-            const {
-                data: order,
-                error: orderError
-            } = await supabaseClient
-                .from("orders")
-                .insert({
-                    user_id: currentUser.id,
-                    order_number: orderNumber,
-                    customer_email: currentUser.email,
-                    recipient_name: recipientName,
-                    phone: normalizedPhone,
-                    county: county,
-                    town: town,
-                    address:
-                        postalCode
-                            ? `${address}, ${postalCode}`
-                            : address,
-                    delivery_note: deliveryNote || null,
-                    payment_method: paymentMethod,
-                    subtotal: latestSubtotal,
-                    delivery_fee: latestDeliveryFee,
-                    total: latestTotal,
-                    status: paymentStatus,
-                    items: orderItems
-                })
-                .select()
-                .single();
+        const orderNumber =
+            generateOrderNumber();
 
-            if (orderError) {
-                throw orderError;
-            }
+        const orderStatus =
+            paymentMethod === "M-Pesa"
+                ? "Payment Pending"
+                : "Processing";
 
-            if (paymentMethod === "M-Pesa") {
+        /*
+         * Create the order first.
+         */
+        const {
+            data: createdOrder,
+            error: orderError
+        } = await supabaseClient
+            .from("orders")
+            .insert({
 
-                placeOrderButton.textContent =
-                    "Sending M-Pesa Prompt...";
+                user_id: currentUser.id,
 
-                const response = await fetch(
+                order_number: orderNumber,
+
+                customer_email:
+                    currentUser.email || "",
+
+                recipient_name:
+                    recipientName,
+
+                phone:
+                    phone,
+
+                county:
+                    county,
+
+                town:
+                    town,
+
+                address:
+                    address,
+
+                delivery_note:
+                    deliveryNote,
+
+                payment_method:
+                    paymentMethod,
+
+                subtotal:
+                    subtotal,
+
+                delivery_fee:
+                    deliveryFee,
+
+                total:
+                    total,
+
+                status:
+                    orderStatus,
+
+                payment_status:
+                    paymentMethod === "M-Pesa"
+                        ? "Pending"
+                        : "Pending",
+
+                items:
+                    orderItems
+
+            })
+            .select("id")
+            .single();
+
+        if (orderError) {
+            throw orderError;
+        }
+
+        /*
+         * M-Pesa payment.
+         */
+        if (paymentMethod === "M-Pesa") {
+
+            const response =
+                await fetch(
                     "/api/mpesa/stkpush",
                     {
                         method: "POST",
+
                         headers: {
-                            "Content-Type": "application/json"
+                            "Content-Type":
+                                "application/json"
                         },
+
                         body: JSON.stringify({
-                            phone: normalizedPhone,
-                            amount: latestTotal,
-                            orderNumber: orderNumber
+
+                            phone:
+                                phone,
+
+                            amount:
+                                total,
+
+                            orderNumber:
+                                orderNumber
+
                         })
                     }
                 );
 
-                const paymentData =
-                    await response.json();
+            const result =
+                await response.json();
 
-                if (!response.ok || !paymentData.success) {
+            if (!response.ok ||
+                !result.success) {
+
+                console.error(
+                    "M-Pesa STK error:",
+                    result
+                );
+
+                alert(
+                    result.message ||
+                    "M-Pesa payment request failed."
+                );
+
+                button.disabled = false;
+                button.textContent =
+                    "Place Order";
+
+                return;
+            }
+
+            /*
+             * IMPORTANT:
+             * Save the CheckoutRequestID immediately
+             * against the order so the M-Pesa callback
+             * can find this order.
+             */
+            if (result.checkoutRequestId) {
+
+                const {
+                    error: updateError
+                } = await supabaseClient
+                    .from("orders")
+                    .update({
+
+                        checkout_request_id:
+                            result.checkoutRequestId,
+
+                        merchant_request_id:
+                            result.merchantRequestId || null,
+
+                        updated_at:
+                            new Date().toISOString()
+
+                    })
+                    .eq("id", createdOrder.id)
+                    .eq("user_id", currentUser.id);
+
+                if (updateError) {
 
                     console.error(
-                        "M-Pesa payment error:",
-                        paymentData
+                        "Could not save M-Pesa request ID:",
+                        updateError
                     );
 
                     alert(
-                        paymentData.message ||
-                        "M-Pesa payment could not be started."
+                        "The M-Pesa request started, but the order payment reference could not be saved. Please contact support before trying again."
                     );
 
-                    placeOrderButton.disabled = false;
-
-                    placeOrderButton.textContent =
+                    button.disabled = false;
+                    button.textContent =
                         "Place Order";
 
                     return;
                 }
 
                 sessionStorage.setItem(
-                    "meteurLatestOrder",
-                    JSON.stringify({
-                        orderNumber: orderNumber,
-                        checkoutRequestId:
-                            paymentData.checkoutRequestId || "",
-                        merchantRequestId:
-                            paymentData.merchantRequestId || "",
-                        paymentMethod: "M-Pesa",
-                        paymentStatus: "Payment Pending"
-                    })
+                    "mpesa_checkout_request_id",
+                    result.checkoutRequestId
                 );
 
-                const {
-                    error: deleteError
-                } = await supabaseClient
-                    .from("cart_items")
-                    .delete()
-                    .eq("user_id", currentUser.id);
-
-                if (deleteError) {
-                    console.error(
-                        "Cart cleanup error:",
-                        deleteError
-                    );
-                }
-
-                alert(
-                    paymentData.customerMessage ||
-                    "M-Pesa payment prompt sent. Check your phone."
+                sessionStorage.setItem(
+                    "mpesa_merchant_request_id",
+                    result.merchantRequestId || ""
                 );
 
-                window.location.href =
-                    `order-confirmation.html?order=${encodeURIComponent(orderNumber)}`;
-
-                return;
+                sessionStorage.setItem(
+                    "mpesa_order_number",
+                    orderNumber
+                );
             }
 
-            sessionStorage.setItem(
-                "meteurLatestOrder",
-                JSON.stringify({
-                    orderNumber: orderNumber,
-                    paymentMethod: "Cash on Delivery",
-                    paymentStatus: "Processing"
-                })
-            );
-
+            /*
+             * Remove cart only after the payment request
+             * has been successfully accepted.
+             */
             const {
-                error: deleteError
+                error: cartDeleteError
             } = await supabaseClient
                 .from("cart_items")
                 .delete()
                 .eq("user_id", currentUser.id);
 
-            if (deleteError) {
+            if (cartDeleteError) {
+
                 console.error(
                     "Cart cleanup error:",
-                    deleteError
+                    cartDeleteError
                 );
             }
 
-            window.location.href =
-                `order-confirmation.html?order=${encodeURIComponent(orderNumber)}`;
-
-        } catch (error) {
-
-            console.error(
-                "Place order error:",
-                error
-            );
-
             alert(
-                error.message ||
-                "Unable to place your order. Please try again."
+                result.customerMessage ||
+                "M-Pesa payment request sent. Check your phone."
             );
 
-            placeOrderButton.disabled = false;
+        } else {
 
-            placeOrderButton.textContent =
-                "Place Order";
+            /*
+             * Cash on Delivery.
+             */
+            const {
+                error: cartDeleteError
+            } = await supabaseClient
+                .from("cart_items")
+                .delete()
+                .eq("user_id", currentUser.id);
+
+            if (cartDeleteError) {
+
+                console.error(
+                    "Cart cleanup error:",
+                    cartDeleteError
+                );
+            }
         }
+
+        window.location.href =
+            `order-confirmation.html?order=${encodeURIComponent(orderNumber)}`;
+
+    } catch (error) {
+
+        console.error(
+            "Checkout error:",
+            error
+        );
+
+        alert(
+            error.message ||
+            "Something went wrong while placing your order."
+        );
+
+        button.disabled = false;
+
+        button.textContent =
+            "Place Order";
     }
+}
 
-    placeOrderButton.addEventListener(
-        "click",
-        placeOrder
-    );
+loadCheckout();
 
-    loadCheckout();
 </script>
 
 </body>

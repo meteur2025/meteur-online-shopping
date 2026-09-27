@@ -180,7 +180,9 @@
 
 <header>
     <div class="nav">
-        <a class="logo" href="index.html">Meteur Online Shopping</a>
+        <a class="logo" href="index.html">
+            Meteur Online Shopping
+        </a>
 
         <div class="nav-links">
             <a href="index.html">Home</a>
@@ -221,12 +223,22 @@
 
             <div class="form-group">
                 <label for="phone">Phone Number</label>
-                <input type="tel" id="phone" placeholder="2547XXXXXXXX" required>
+                <input
+                    type="tel"
+                    id="phone"
+                    placeholder="2547XXXXXXXX"
+                    required
+                >
             </div>
 
             <div class="form-group">
                 <label for="password">Create Password</label>
-                <input type="password" id="password" minlength="6" required>
+                <input
+                    type="password"
+                    id="password"
+                    minlength="6"
+                    required
+                >
             </div>
 
             <div class="form-group">
@@ -271,7 +283,8 @@
 </div>
 
 <script>
-    const SUPABASE_URL = "https://nytsdeupaootukcullgi.supabase.co";
+    const SUPABASE_URL =
+        "https://nytsdeupaootukcullgi.supabase.co";
 
     const SUPABASE_ANON_KEY =
         "sb_publishable_cIqzHoafy_AEdB48KS_Wpg_LDqE1sFC";
@@ -283,7 +296,8 @@
 
     const form = document.getElementById("sellerForm");
     const message = document.getElementById("message");
-    const submitButton = document.getElementById("submitButton");
+    const submitButton =
+        document.getElementById("submitButton");
 
     function showMessage(text, type) {
         message.textContent = text;
@@ -291,7 +305,9 @@
     }
 
     function normalizePhone(phone) {
-        let value = phone.trim().replace(/\s+/g, "");
+        let value = phone
+            .trim()
+            .replace(/\s+/g, "");
 
         if (value.startsWith("+254")) {
             value = value.substring(1);
@@ -328,7 +344,9 @@
             document.getElementById("email").value.trim();
 
         const phone =
-            normalizePhone(document.getElementById("phone").value);
+            normalizePhone(
+                document.getElementById("phone").value
+            );
 
         const password =
             document.getElementById("password").value;
@@ -361,18 +379,23 @@
 
         try {
 
-            const { data: signUpData, error: signUpError } =
-                await db.auth.signUp({
-                    email: email,
-                    password: password,
-                    options: {
-                        data: {
-                            first_name: ownerName,
-                            last_name: "",
-                            phone: phone
-                        }
+            /*
+             * Create the Supabase account first.
+             */
+            const {
+                data: signUpData,
+                error: signUpError
+            } = await db.auth.signUp({
+                email: email,
+                password: password,
+                options: {
+                    data: {
+                        first_name: ownerName,
+                        last_name: "",
+                        phone: phone
                     }
-                });
+                }
+            });
 
             if (signUpError) {
                 throw signUpError;
@@ -384,23 +407,38 @@
                 );
             }
 
-            const { error: sellerError } =
-                await db.rpc(
-                    "submit_seller_application",
-                    {
-                        p_store_name: storeName,
-                        p_owner_name: ownerName,
-                        p_email: email,
-                        p_phone: phone,
-                        p_county: county,
-                        p_town: town,
-                        p_address: address,
-                        p_description: description
-                    }
-                );
+            /*
+             * Submit the seller application to the secure
+             * server endpoint.
+             */
+            const response = await fetch(
+                "/api/seller/register",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        userId: signUpData.user.id,
+                        storeName: storeName,
+                        ownerName: ownerName,
+                        email: email,
+                        phone: phone,
+                        county: county,
+                        town: town,
+                        address: address,
+                        description: description
+                    })
+                }
+            );
 
-            if (sellerError) {
-                throw sellerError;
+            const result = await response.json();
+
+            if (!response.ok) {
+                throw new Error(
+                    result.error ||
+                    "Unable to submit seller application."
+                );
             }
 
             showMessage(

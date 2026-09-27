@@ -15,13 +15,14 @@
 
     <header class="site-header">
         <div class="header-container">
+
             <div class="logo">
                 <a href="index.html">Meteur</a>
             </div>
 
             <div class="search-box">
                 <input type="text" placeholder="Search products...">
-                <button>Search</button>
+                <button type="button">Search</button>
             </div>
 
             <div class="header-links">
@@ -29,6 +30,7 @@
                 <a href="wishlist.html">Wishlist</a>
                 <a href="cart.html">Cart</a>
             </div>
+
         </div>
 
         <nav class="main-nav">
@@ -40,12 +42,17 @@
         </nav>
     </header>
 
+
     <main class="container" style="padding: 40px 20px;">
 
         <section style="margin-bottom: 30px;">
             <h1>My Account</h1>
-            <p id="welcomeMessage">Loading your account...</p>
+
+            <p id="welcomeMessage">
+                Loading your account...
+            </p>
         </section>
+
 
         <section style="
             display: grid;
@@ -66,6 +73,7 @@
                 <p>View and manage your personal information.</p>
             </a>
 
+
             <a href="orders.html" style="
                 display: block;
                 padding: 25px;
@@ -79,6 +87,7 @@
                 <p>View your orders and order history.</p>
             </a>
 
+
             <a href="wishlist.html" style="
                 display: block;
                 padding: 25px;
@@ -91,6 +100,7 @@
                 <h2>Wishlist</h2>
                 <p>View products you have saved.</p>
             </a>
+
 
             <a href="addresses.html" style="
                 display: block;
@@ -107,6 +117,7 @@
 
         </section>
 
+
         <section style="
             margin-top: 30px;
             padding: 25px;
@@ -114,23 +125,25 @@
             border: 1px solid #ddd;
             border-radius: 8px;
         ">
+
             <h2>Account Information</h2>
 
-            <p>
+            <p style="margin-top: 15px;">
                 <strong>Email:</strong>
                 <span id="userEmail">Loading...</span>
             </p>
 
-            <p>
+            <p style="margin-top: 10px;">
                 <strong>Name:</strong>
                 <span id="userName">Loading...</span>
             </p>
+
 
             <button
                 id="logoutButton"
                 type="button"
                 style="
-                    margin-top: 15px;
+                    margin-top: 20px;
                     padding: 12px 25px;
                     border: none;
                     border-radius: 5px;
@@ -143,10 +156,16 @@
                 Logout
             </button>
 
-            <p id="message" style="margin-top: 15px;"></p>
+
+            <p
+                id="message"
+                style="margin-top: 15px;"
+            ></p>
+
         </section>
 
     </main>
+
 
     <footer style="
         margin-top: 50px;
@@ -155,11 +174,16 @@
         background: #222;
         color: white;
     ">
-        <p>&copy; 2026 Meteur Online Shopping. All rights reserved.</p>
+
+        <p>
+            &copy; 2026 Meteur Online Shopping. All rights reserved.
+        </p>
+
     </footer>
 
 
     <script>
+
         async function protectDashboard() {
 
             const {
@@ -167,45 +191,65 @@
                 error
             } = await supabaseClient.auth.getUser();
 
+
             if (error || !user) {
+
                 window.location.href = "login.html";
+
                 return;
             }
 
-            const firstName = user.user_metadata?.first_name || "";
-            const lastName = user.user_metadata?.last_name || "";
 
-            const fullName = `${firstName} ${lastName}`.trim();
+            const fullName =
+                user.user_metadata?.full_name ||
+                user.user_metadata?.name ||
+                `${user.user_metadata?.first_name || ""} ${user.user_metadata?.last_name || ""}`.trim();
+
 
             document.getElementById("userEmail").textContent =
                 user.email || "Not available";
 
+
             document.getElementById("userName").textContent =
                 fullName || "Customer";
 
+
             document.getElementById("welcomeMessage").textContent =
                 `Welcome back, ${fullName || "Customer"}!`;
+
         }
 
 
-        document.getElementById("logoutButton").addEventListener("click", async function () {
+        document.getElementById("logoutButton").addEventListener(
+            "click",
+            async function() {
 
-            const message = document.getElementById("message");
+                const message =
+                    document.getElementById("message");
 
-            message.textContent = "Logging out...";
+                message.textContent = "Logging out...";
 
-            const { error } = await supabaseClient.auth.signOut();
 
-            if (error) {
-                message.textContent = error.message;
-                return;
+                const { error } =
+                    await supabaseClient.auth.signOut();
+
+
+                if (error) {
+
+                    message.textContent = error.message;
+
+                    return;
+                }
+
+
+                window.location.href = "login.html";
+
             }
-
-            window.location.href = "login.html";
-        });
+        );
 
 
         protectDashboard();
+
     </script>
 
 </body>

@@ -7,10 +7,8 @@
 
     <link rel="stylesheet" href="style.css">
 
-    <!-- Supabase JavaScript Library -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    <!-- Meteur Supabase Configuration -->
     <script src="supabase-config.js"></script>
 </head>
 
@@ -118,23 +116,83 @@
             message.className = "auth-message " + type;
         }
 
+        async function redirectUser(user) {
+
+            /*
+             * First check whether the signed-in account
+             * is an active administrator.
+             */
+            const { data: admin, error: adminError } =
+                await supabaseClient
+                    .from("admins")
+                    .select("user_id, name, email, role, status")
+                    .eq("user_id", user.id)
+                    .eq("status", "Active")
+                    .maybeSingle();
+
+            if (adminError) {
+                console.error("Admin check error:", adminError);
+            }
+
+            /*
+             * Active administrator
+             * → Admin Dashboard
+             */
+            if (admin) {
+                showMessage(
+                    "Administrator login successful. Redirecting to Admin Dashboard...",
+                    "success"
+                );
+
+                setTimeout(function() {
+                    window.location.href = "admin-dashboard.html";
+                }, 1000);
+
+                return;
+            }
+
+            /*
+             * Normal customer
+             * → Customer Dashboard
+             */
+            showMessage(
+                "Login successful. Redirecting...",
+                "success"
+            );
+
+            setTimeout(function() {
+                window.location.href = "dashboard.html";
+            }, 1000);
+        }
+
         loginForm.addEventListener("submit", async function(event) {
+
             event.preventDefault();
 
-            const email = document.getElementById("email").value.trim();
-            const password = document.getElementById("password").value;
+            const email =
+                document.getElementById("email").value.trim();
+
+            const password =
+                document.getElementById("password").value;
 
             if (!email || !password) {
-                showMessage("Please enter your email and password.", "error");
+                showMessage(
+                    "Please enter your email and password.",
+                    "error"
+                );
                 return;
             }
 
             loginButton.disabled = true;
             loginButton.textContent = "Logging in...";
 
-            showMessage("Checking your account...", "info");
+            showMessage(
+                "Checking your account...",
+                "info"
+            );
 
             try {
+
                 const { data, error } =
                     await supabaseClient.auth.signInWithPassword({
                         email: email,
@@ -146,13 +204,22 @@
                 }
 
                 if (!data.user) {
-                    throw new Error("Unable to sign in. Please try again.");
+                    throw new Error(
+                        "Unable to sign in. Please try again."
+                    );
                 }
 
+                /*
+                 * Make sure the email has been verified.
+                 */
                 if (!data.user.email_confirmed_at) {
+
                     await supabaseClient.auth.signOut();
 
-                    localStorage.setItem("meteurVerificationEmail", email);
+                    localStorage.setItem(
+                        "meteurVerificationEmail",
+                        email
+                    );
 
                     showMessage(
                         "Please confirm your email address before signing in.",
@@ -166,14 +233,11 @@
                     return;
                 }
 
-                showMessage(
-                    "Login successful. Redirecting...",
-                    "success"
-                );
-
-                setTimeout(function() {
-                    window.location.href = "dashboard.html";
-                }, 1000);
+                /*
+                 * Decide whether this is an Admin
+                 * or a normal customer.
+                 */
+                await redirectUser(data.user);
 
             } catch (error) {
 
@@ -183,22 +247,32 @@
                     "Unable to log in. Please check your details and try again.";
 
                 if (error.message) {
+
                     if (
-                        error.message.toLowerCase().includes("invalid login")
+                        error.message
+                            .toLowerCase()
+                            .includes("invalid login")
                     ) {
                         errorMessage =
                             "Incorrect email or password.";
+
                     } else if (
-                        error.message.toLowerCase().includes("email not confirmed")
+                        error.message
+                            .toLowerCase()
+                            .includes("email not confirmed")
                     ) {
                         errorMessage =
                             "Please confirm your email before logging in.";
+
                     } else {
                         errorMessage = error.message;
                     }
                 }
 
-                showMessage(errorMessage, "error");
+                showMessage(
+                    errorMessage,
+                    "error"
+                );
 
                 loginButton.disabled = false;
                 loginButton.textContent = "Login";

@@ -42,7 +42,6 @@
         </nav>
     </header>
 
-
     <main class="container" style="padding: 40px 20px;">
 
         <section style="margin-bottom: 30px;">
@@ -52,7 +51,6 @@
                 Loading your account...
             </p>
         </section>
-
 
         <section style="
             display: grid;
@@ -73,7 +71,6 @@
                 <p>View and manage your personal information.</p>
             </a>
 
-
             <a href="orders.html" style="
                 display: block;
                 padding: 25px;
@@ -87,7 +84,6 @@
                 <p>View your orders and order history.</p>
             </a>
 
-
             <a href="wishlist.html" style="
                 display: block;
                 padding: 25px;
@@ -100,7 +96,6 @@
                 <h2>Wishlist</h2>
                 <p>View products you have saved.</p>
             </a>
-
 
             <a href="addresses.html" style="
                 display: block;
@@ -116,7 +111,6 @@
             </a>
 
         </section>
-
 
         <section style="
             margin-top: 30px;
@@ -138,7 +132,6 @@
                 <span id="userName">Loading...</span>
             </p>
 
-
             <button
                 id="logoutButton"
                 type="button"
@@ -156,7 +149,6 @@
                 Logout
             </button>
 
-
             <p
                 id="message"
                 style="margin-top: 15px;"
@@ -165,7 +157,6 @@
         </section>
 
     </main>
-
 
     <footer style="
         margin-top: 50px;
@@ -181,7 +172,6 @@
 
     </footer>
 
-
     <script>
 
         async function protectDashboard() {
@@ -191,7 +181,6 @@
                 error
             } = await supabaseClient.auth.getUser();
 
-
             if (error || !user) {
 
                 window.location.href = "login.html";
@@ -199,26 +188,59 @@
                 return;
             }
 
+            /* Check administrator account first */
+
+            const {
+                data: isAdmin,
+                error: adminError
+            } = await supabaseClient.rpc("is_current_user_admin");
+
+            if (!adminError && isAdmin === true) {
+
+                window.location.href = "admin-dashboard.html";
+
+                return;
+            }
+
+            /* Check approved seller account */
+
+            const {
+                data: seller,
+                error: sellerError
+            } = await supabaseClient
+                .from("sellers")
+                .select("id, status")
+                .eq("user_id", user.id)
+                .maybeSingle();
+
+            if (
+                !sellerError &&
+                seller &&
+                String(seller.status).toLowerCase() === "approved"
+            ) {
+
+                window.location.href = "seller-dashboard.html";
+
+                return;
+            }
+
+            /* Normal customer account */
 
             const fullName =
                 user.user_metadata?.full_name ||
                 user.user_metadata?.name ||
                 `${user.user_metadata?.first_name || ""} ${user.user_metadata?.last_name || ""}`.trim();
 
-
             document.getElementById("userEmail").textContent =
                 user.email || "Not available";
 
-
             document.getElementById("userName").textContent =
                 fullName || "Customer";
-
 
             document.getElementById("welcomeMessage").textContent =
                 `Welcome back, ${fullName || "Customer"}!`;
 
         }
-
 
         document.getElementById("logoutButton").addEventListener(
             "click",
@@ -229,10 +251,8 @@
 
                 message.textContent = "Logging out...";
 
-
                 const { error } =
                     await supabaseClient.auth.signOut();
-
 
                 if (error) {
 
@@ -241,12 +261,10 @@
                     return;
                 }
 
-
                 window.location.href = "login.html";
 
             }
         );
-
 
         protectDashboard();
 

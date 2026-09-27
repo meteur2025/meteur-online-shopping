@@ -95,10 +95,24 @@
             background: #d84315;
         }
 
+        .tracking-form button:disabled {
+            opacity: .65;
+            cursor: wait;
+        }
+
         .error {
             display: none;
             background: #fff0ed;
             color: #c62828;
+            padding: 13px;
+            border-radius: 6px;
+            margin-top: 15px;
+        }
+
+        .success-message {
+            display: none;
+            background: #edf8ef;
+            color: #2e7d32;
             padding: 13px;
             border-radius: 6px;
             margin-top: 15px;
@@ -137,6 +151,28 @@
             padding: 9px 18px;
             border-radius: 20px;
             font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .status.cancelled {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .status.delivered {
+            background: #edf8ef;
+            color: #2e7d32;
+        }
+
+        .status.paid,
+        .status.shipped {
+            background: #eef4ff;
+            color: #1565c0;
+        }
+
+        .status.pending {
+            background: #fff8e1;
+            color: #f57f17;
         }
 
         .progress {
@@ -160,9 +196,10 @@
             position: absolute;
             top: 18px;
             left: 10%;
-            width: 55%;
             height: 4px;
             background: #f4511e;
+            width: 0;
+            transition: width .3s ease;
         }
 
         .step {
@@ -450,17 +487,19 @@
             <input
                 type="text"
                 id="orderNumber"
-                placeholder="Example: MET-2026-00125"
+                placeholder="Example: MET20260927110118"
             >
 
-            <button onclick="trackOrder()">
+            <button id="trackButton" onclick="trackOrder()">
                 Track Order
             </button>
 
         </div>
 
-        <div class="error" id="errorMessage">
-            Please enter your order number.
+        <div class="error" id="errorMessage"></div>
+
+        <div class="success-message" id="successMessage">
+            Order found successfully.
         </div>
 
 
@@ -470,9 +509,7 @@
 
                 <div>
 
-                    <h3 id="displayOrder">
-                        MET-2026-00125
-                    </h3>
+                    <h3 id="displayOrder"></h3>
 
                     <p>
                         Order tracking information
@@ -480,22 +517,20 @@
 
                 </div>
 
-                <div class="status">
-                    In Transit
-                </div>
+                <div class="status" id="statusBadge"></div>
 
             </div>
 
 
             <div class="progress">
 
-                <div class="progress-line"></div>
+                <div class="progress-line" id="progressLine"></div>
 
 
-                <div class="step done">
+                <div class="step" id="stepOrdered">
 
                     <div class="circle">
-                        ✓
+                        1
                     </div>
 
                     <strong>
@@ -509,10 +544,10 @@
                 </div>
 
 
-                <div class="step done">
+                <div class="step" id="stepProcessing">
 
                     <div class="circle">
-                        ✓
+                        2
                     </div>
 
                     <strong>
@@ -526,14 +561,14 @@
                 </div>
 
 
-                <div class="step active">
+                <div class="step" id="stepShipped">
 
                     <div class="circle">
                         3
                     </div>
 
                     <strong>
-                        In Transit
+                        Shipped
                     </strong>
 
                     <small>
@@ -543,7 +578,7 @@
                 </div>
 
 
-                <div class="step">
+                <div class="step" id="stepOut">
 
                     <div class="circle">
                         4
@@ -560,7 +595,7 @@
                 </div>
 
 
-                <div class="step">
+                <div class="step" id="stepDelivered">
 
                     <div class="circle">
                         5
@@ -587,9 +622,7 @@
                         Order Number
                     </span>
 
-                    <strong id="detailOrder">
-                        MET-2026-00125
-                    </strong>
+                    <strong id="detailOrder"></strong>
 
                 </div>
 
@@ -600,9 +633,7 @@
                         Current Status
                     </span>
 
-                    <strong>
-                        In Transit
-                    </strong>
+                    <strong id="detailStatus"></strong>
 
                 </div>
 
@@ -613,9 +644,7 @@
                         Destination
                     </span>
 
-                    <strong>
-                        Kenya
-                    </strong>
+                    <strong id="detailDestination"></strong>
 
                 </div>
 
@@ -630,9 +659,7 @@
 
                 <br>
 
-                Your order has been processed and is currently
-                in transit. Delivery timing may depend on the
-                destination and delivery service.
+                <span id="updateText"></span>
 
             </div>
 
@@ -837,9 +864,21 @@
 </footer>
 
 
-<script src="script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
+
+    const SUPABASE_URL =
+        "https://nytsdeupaootukcullgi.supabase.co";
+
+    const SUPABASE_ANON_KEY =
+        "sb_publishable_cIqzHoafy_AEdB48KS_Wpg_LDqE1sFC";
+
+    const db = supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
+
 
     function updateCartCount() {
 
@@ -880,61 +919,460 @@
     }
 
 
-    function trackOrder() {
+    function setError(message) {
+
+        const error =
+            document.getElementById("errorMessage");
+
+        error.textContent = message;
+
+        error.style.display = "block";
+
+        document
+            .getElementById("successMessage")
+            .style.display = "none";
+
+        document
+            .getElementById("trackingResult")
+            .classList.remove("show");
+    }
+
+
+    function clearMessages() {
+
+        document
+            .getElementById("errorMessage")
+            .style.display = "none";
+
+        document
+            .getElementById("successMessage")
+            .style.display = "none";
+    }
+
+
+    function normalizeStatus(status) {
+
+        return String(status || "")
+            .trim()
+            .toLowerCase();
+    }
+
+
+    function getProgressIndex(status) {
+
+        const normalized =
+            normalizeStatus(status);
+
+        if (
+            normalized === "delivered"
+        ) {
+            return 5;
+        }
+
+        if (
+            normalized === "out for delivery"
+        ) {
+            return 4;
+        }
+
+        if (
+            normalized === "shipped"
+        ) {
+            return 3;
+        }
+
+        if (
+            normalized === "paid"
+        ) {
+            return 2;
+        }
+
+        if (
+            normalized === "processing"
+        ) {
+            return 2;
+        }
+
+        if (
+            normalized === "payment pending"
+        ) {
+            return 1;
+        }
+
+        if (
+            normalized === "payment failed" ||
+            normalized === "cancelled"
+        ) {
+            return 1;
+        }
+
+        return 1;
+    }
+
+
+    function getStatusClass(status) {
+
+        const normalized =
+            normalizeStatus(status);
+
+        if (normalized === "delivered") {
+            return "delivered";
+        }
+
+        if (
+            normalized === "paid" ||
+            normalized === "shipped"
+        ) {
+            return normalized;
+        }
+
+        if (
+            normalized === "payment pending"
+        ) {
+            return "pending";
+        }
+
+        if (
+            normalized === "payment failed" ||
+            normalized === "cancelled"
+        ) {
+            return "cancelled";
+        }
+
+        return "";
+    }
+
+
+    function getUpdateMessage(status) {
+
+        const normalized =
+            normalizeStatus(status);
+
+        if (normalized === "processing") {
+            return "Your order has been received and is currently being prepared.";
+        }
+
+        if (normalized === "payment pending") {
+            return "Your order is waiting for payment confirmation.";
+        }
+
+        if (normalized === "paid") {
+            return "Your payment has been confirmed and your order is being prepared for dispatch.";
+        }
+
+        if (normalized === "shipped") {
+            return "Your order has been shipped and is on the way.";
+        }
+
+        if (normalized === "out for delivery") {
+            return "Your order is out for delivery.";
+        }
+
+        if (normalized === "delivered") {
+            return "Your order has been delivered successfully.";
+        }
+
+        if (normalized === "payment failed") {
+            return "Payment for this order was not completed successfully.";
+        }
+
+        if (normalized === "cancelled") {
+            return "This order has been cancelled.";
+        }
+
+        return "Your order status has been updated.";
+    }
+
+
+    function resetSteps() {
+
+        const steps = [
+            "stepOrdered",
+            "stepProcessing",
+            "stepShipped",
+            "stepOut",
+            "stepDelivered"
+        ];
+
+        steps.forEach(function(id) {
+
+            const step =
+                document.getElementById(id);
+
+            step.classList.remove("done");
+            step.classList.remove("active");
+
+        });
+
+        document.getElementById(
+            "progressLine"
+        ).style.width = "0";
+    }
+
+
+    function updateProgress(status) {
+
+        resetSteps();
+
+        const normalized =
+            normalizeStatus(status);
+
+        const progressIndex =
+            getProgressIndex(status);
+
+        const stepIds = [
+            "stepOrdered",
+            "stepProcessing",
+            "stepShipped",
+            "stepOut",
+            "stepDelivered"
+        ];
+
+        let completedSteps =
+            progressIndex;
+
+        if (
+            normalized === "payment pending" ||
+            normalized === "payment failed" ||
+            normalized === "cancelled"
+        ) {
+            completedSteps = 1;
+        }
+
+        for (
+            let i = 0;
+            i < completedSteps;
+            i++
+        ) {
+
+            document
+                .getElementById(stepIds[i])
+                .classList.add("done");
+
+        }
+
+        if (
+            normalized !== "payment failed" &&
+            normalized !== "cancelled"
+        ) {
+
+            const activeIndex =
+                Math.max(
+                    0,
+                    Math.min(
+                        progressIndex - 1,
+                        stepIds.length - 1
+                    )
+                );
+
+            document
+                .getElementById(stepIds[activeIndex])
+                .classList.add("active");
+
+        }
+
+        if (progressIndex > 1) {
+
+            const percentage =
+                ((progressIndex - 1) / 4) * 80;
+
+            document
+                .getElementById("progressLine")
+                .style.width =
+                percentage + "%";
+
+        }
+
+    }
+
+
+    function displayOrder(order) {
+
+        const status =
+            order.status || "Processing";
+
+        const formattedStatus =
+            status;
+
+        document.getElementById(
+            "displayOrder"
+        ).textContent =
+            order.order_number;
+
+        document.getElementById(
+            "detailOrder"
+        ).textContent =
+            order.order_number;
+
+        document.getElementById(
+            "detailStatus"
+        ).textContent =
+            formattedStatus;
+
+        document.getElementById(
+            "detailDestination"
+        ).textContent =
+            order.county || "Kenya";
+
+
+        const statusBadge =
+            document.getElementById(
+                "statusBadge"
+            );
+
+        statusBadge.textContent =
+            formattedStatus;
+
+        statusBadge.className =
+            "status " +
+            getStatusClass(status);
+
+        document.getElementById(
+            "updateText"
+        ).textContent =
+            getUpdateMessage(status);
+
+        updateProgress(status);
+
+        document
+            .getElementById("trackingResult")
+            .classList.add("show");
+
+        document
+            .getElementById("successMessage")
+            .style.display = "block";
+
+    }
+
+
+    async function trackOrder() {
 
         const input =
             document.getElementById(
                 "orderNumber"
             );
 
-        const error =
+        const button =
             document.getElementById(
-                "errorMessage"
-            );
-
-        const result =
-            document.getElementById(
-                "trackingResult"
+                "trackButton"
             );
 
         const orderNumber =
-            input.value.trim();
+            input.value.trim().toUpperCase();
+
+
+        clearMessages();
 
 
         if (!orderNumber) {
 
-            error.style.display = "block";
-
-            result.classList.remove("show");
+            setError(
+                "Please enter your order number."
+            );
 
             return;
         }
 
 
-        error.style.display = "none";
+        button.disabled = true;
+
+        button.textContent = "Checking...";
 
 
-        const formatted =
-            orderNumber.toUpperCase();
+        try {
 
+            const result =
+                await db
+                    .from("orders")
+                    .select(
+                        "order_number,status,county,created_at"
+                    )
+                    .eq(
+                        "order_number",
+                        orderNumber
+                    )
+                    .maybeSingle();
+
+
+            if (result.error) {
+
+                console.error(
+                    "Order tracking error:",
+                    result.error
+                );
+
+                setError(
+                    "We could not check this order right now. Please try again."
+                );
+
+                return;
+            }
+
+
+            if (!result.data) {
+
+                setError(
+                    "Order number not found. Please check the number and try again."
+                );
+
+                return;
+            }
+
+
+            displayOrder(
+                result.data
+            );
+
+
+            document
+                .getElementById(
+                    "trackingResult"
+                )
+                .scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+
+        } catch (error) {
+
+            console.error(
+                "Tracking error:",
+                error
+            );
+
+            setError(
+                "We could not check this order right now. Please try again."
+            );
+
+        } finally {
+
+            button.disabled = false;
+
+            button.textContent =
+                "Track Order";
+
+        }
+
+    }
+
+
+    const urlParams =
+        new URLSearchParams(
+            window.location.search
+        );
+
+    const orderFromUrl =
+        urlParams.get("order");
+
+
+    if (orderFromUrl) {
 
         document.getElementById(
-            "displayOrder"
-        ).textContent = formatted;
+            "orderNumber"
+        ).value =
+            orderFromUrl;
 
-
-        document.getElementById(
-            "detailOrder"
-        ).textContent = formatted;
-
-
-        result.classList.add("show");
-
-
-        result.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-        });
+        trackOrder();
 
     }
 

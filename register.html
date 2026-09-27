@@ -3,524 +3,481 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Create Account - Meteur Online Shopping</title>
 
-    <link rel="stylesheet" href="style.css">
-
-    <!-- Supabase JavaScript Library -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    <!-- Meteur Supabase Configuration -->
-    <script src="supabase-config.js"></script>
-</head>
-
-<body>
-
-    <header class="site-header">
-        <div class="container">
-            <div class="logo">
-                <a href="index.html">Meteur Online Shopping</a>
-            </div>
-
-            <nav>
-                <a href="index.html">Home</a>
-                <a href="shop.html">Shop</a>
-                <a href="cart.html">Cart</a>
-            </nav>
-        </div>
-    </header>
-
-    <main>
-        <section class="auth-section">
-            <div class="auth-container">
-
-                <div class="auth-card">
-
-                    <div class="auth-header">
-                        <h1>Create Your Account</h1>
-                        <p>Join Meteur Online Shopping and start shopping today.</p>
-                    </div>
-
-                    <div id="message" class="auth-message"></div>
-
-                    <form id="registerForm">
-
-                        <div class="form-row">
-
-                            <div class="form-group">
-                                <label for="firstName">First Name</label>
-                                <input
-                                    type="text"
-                                    id="firstName"
-                                    placeholder="First name"
-                                    required
-                                    autocomplete="given-name"
-                                >
-                            </div>
-
-                            <div class="form-group">
-                                <label for="lastName">Last Name</label>
-                                <input
-                                    type="text"
-                                    id="lastName"
-                                    placeholder="Last name"
-                                    required
-                                    autocomplete="family-name"
-                                >
-                            </div>
-
-                        </div>
-
-                        <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input
-                                type="email"
-                                id="email"
-                                placeholder="Enter your email"
-                                required
-                                autocomplete="email"
-                            >
-                        </div>
-
-                        <div class="form-group">
-                            <label for="phone">Phone Number</label>
-                            <input
-                                type="tel"
-                                id="phone"
-                                placeholder="e.g. 0712345678"
-                                required
-                                autocomplete="tel"
-                            >
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input
-                                type="password"
-                                id="password"
-                                placeholder="Create a password"
-                                required
-                                minlength="6"
-                                autocomplete="new-password"
-                            >
-                            <small>Password must be at least 6 characters.</small>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="confirmPassword">Confirm Password</label>
-                            <input
-                                type="password"
-                                id="confirmPassword"
-                                placeholder="Confirm your password"
-                                required
-                                minlength="6"
-                                autocomplete="new-password"
-                            >
-                        </div>
-
-                        <div class="terms-row">
-                            <input
-                                type="checkbox"
-                                id="terms"
-                                required
-                            >
-
-                            <label for="terms">
-                                I agree to the
-                                <a href="terms.html" target="_blank">
-                                    Terms and Conditions
-                                </a>
-                                and
-                                <a href="privacy.html" target="_blank">
-                                    Privacy Policy
-                                </a>.
-                            </label>
-                        </div>
-
-                        <button
-                            type="submit"
-                            id="registerButton"
-                            class="auth-button"
-                        >
-                            Create Account
-                        </button>
-
-                    </form>
-
-                    <div class="auth-divider">
-                        <span>OR</span>
-                    </div>
-
-                    <div class="login-link">
-                        <p>
-                            Already have an account?
-                            <a href="login.html">Login here</a>
-                        </p>
-                    </div>
-
-                    <div class="back-home">
-                        <a href="index.html">← Back to shopping</a>
-                    </div>
-
-                </div>
-
-            </div>
-        </section>
-    </main>
-
-    <footer class="site-footer">
-        <div class="container">
-            <p>&copy; 2026 Meteur Online Shopping. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <script>
-        const registerForm = document.getElementById("registerForm");
-        const registerButton = document.getElementById("registerButton");
-        const message = document.getElementById("message");
-
-        function showMessage(text, type) {
-            message.textContent = text;
-            message.className = "auth-message " + type;
-        }
-
-        registerForm.addEventListener("submit", async function(event) {
-            event.preventDefault();
-
-            const firstName =
-                document.getElementById("firstName").value.trim();
-
-            const lastName =
-                document.getElementById("lastName").value.trim();
-
-            const email =
-                document.getElementById("email").value.trim();
-
-            const phone =
-                document.getElementById("phone").value.trim();
-
-            const password =
-                document.getElementById("password").value;
-
-            const confirmPassword =
-                document.getElementById("confirmPassword").value;
-
-            const terms =
-                document.getElementById("terms").checked;
-
-            if (!firstName || !lastName || !email || !phone) {
-                showMessage(
-                    "Please complete all required fields.",
-                    "error"
-                );
-                return;
-            }
-
-            if (password.length < 6) {
-                showMessage(
-                    "Password must be at least 6 characters.",
-                    "error"
-                );
-                return;
-            }
-
-            if (password !== confirmPassword) {
-                showMessage(
-                    "Passwords do not match.",
-                    "error"
-                );
-                return;
-            }
-
-            if (!terms) {
-                showMessage(
-                    "Please accept the Terms and Conditions and Privacy Policy.",
-                    "error"
-                );
-                return;
-            }
-
-            registerButton.disabled = true;
-            registerButton.textContent = "Creating account...";
-
-            showMessage(
-                "Creating your account...",
-                "info"
-            );
-
-            try {
-
-                const { data, error } =
-                    await supabaseClient.auth.signUp({
-                        email: email,
-                        password: password,
-
-                        options: {
-                            emailRedirectTo:
-                                "https://meteur-online-shopping.vercel.app/verify-email.html",
-
-                            data: {
-                                first_name: firstName,
-                                last_name: lastName,
-                                phone: phone
-                            }
-                        }
-                    });
-
-                if (error) {
-                    throw error;
-                }
-
-                localStorage.setItem(
-                    "meteurVerificationEmail",
-                    email
-                );
-
-                showMessage(
-                    "Account created successfully. Please check your email and confirm your email address.",
-                    "success"
-                );
-
-                registerButton.textContent =
-                    "Account Created";
-
-                setTimeout(function() {
-                    window.location.href =
-                        "verify-email.html";
-                }, 2500);
-
-            } catch (error) {
-
-                console.error(
-                    "Registration error:",
-                    error
-                );
-
-                let errorMessage =
-                    "Unable to create your account. Please try again.";
-
-                if (error.message) {
-
-                    const errorText =
-                        error.message.toLowerCase();
-
-                    if (
-                        errorText.includes("already registered") ||
-                        errorText.includes("already been registered")
-                    ) {
-                        errorMessage =
-                            "An account with this email already exists. Please log in instead.";
-                    } else if (
-                        errorText.includes("password")
-                    ) {
-                        errorMessage =
-                            error.message;
-                    } else if (
-                        errorText.includes("invalid")
-                    ) {
-                        errorMessage =
-                            error.message;
-                    } else {
-                        errorMessage =
-                            error.message;
-                    }
-                }
-
-                showMessage(
-                    errorMessage,
-                    "error"
-                );
-
-                registerButton.disabled = false;
-                registerButton.textContent =
-                    "Create Account";
-            }
-        });
-    </script>
-
     <style>
-
-        .auth-section {
-            min-height: 75vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 50px 20px;
-            background: #f7f7f7;
-        }
-
-        .auth-container {
-            width: 100%;
-            max-width: 600px;
-        }
-
-        .auth-card {
-            background: #ffffff;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-        }
-
-        .auth-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .auth-header h1 {
-            margin-bottom: 10px;
-        }
-
-        .auth-header p {
-            color: #666;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 13px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 16px;
+        * {
             box-sizing: border-box;
         }
 
-        .form-group input:focus {
-            outline: none;
-            border-color: #f68b1e;
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            color: #222;
         }
 
-        .form-group small {
+        header {
+            background: #f4511e;
+            color: white;
+            padding: 18px 24px;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        nav {
+            margin-top: 10px;
+        }
+
+        nav a {
+            font-size: 14px;
+            margin-right: 18px;
+            font-weight: normal;
+        }
+
+        main {
+            max-width: 520px;
+            margin: 40px auto;
+            padding: 0 18px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 14px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            margin-top: 0;
+            color: #f4511e;
+            text-align: center;
+        }
+
+        .intro {
+            text-align: center;
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        label {
             display: block;
-            margin-top: 6px;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-bottom: 17px;
+            font-size: 15px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #f4511e;
+        }
+
+        .password-note {
             color: #777;
             font-size: 13px;
+            margin-top: -10px;
+            margin-bottom: 17px;
         }
 
-        .terms-row {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            margin-bottom: 25px;
-            font-size: 14px;
-            line-height: 1.5;
+        .agreement {
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 20px;
         }
 
-        .terms-row input {
-            margin-top: 4px;
+        .agreement input {
+            width: auto;
+            margin: 0 5px 0 0;
         }
 
-        .terms-row a,
-        .login-link a,
-        .back-home a {
-            color: #f68b1e;
-            text-decoration: none;
-            font-weight: 600;
+        .agreement a {
+            color: #f4511e;
+            font-weight: bold;
         }
 
-        .auth-button {
+        button {
             width: 100%;
-            padding: 14px;
             border: none;
-            border-radius: 6px;
-            background: #f68b1e;
-            color: #ffffff;
+            padding: 14px;
+            background: #f4511e;
+            color: white;
+            border-radius: 8px;
             font-size: 16px;
-            font-weight: 600;
+            font-weight: bold;
             cursor: pointer;
         }
 
-        .auth-button:hover {
-            opacity: 0.9;
+        button:hover {
+            background: #d84315;
         }
 
-        .auth-button:disabled {
+        button:disabled {
             opacity: 0.6;
             cursor: not-allowed;
         }
 
-        .auth-message {
-            display: none;
-            padding: 12px;
-            margin-bottom: 20px;
-            border-radius: 6px;
-            text-align: center;
-        }
-
-        .auth-message.error,
-        .auth-message.success,
-        .auth-message.info {
-            display: block;
-        }
-
-        .auth-message.error {
-            background: #ffe5e5;
-            color: #b00020;
-        }
-
-        .auth-message.success {
-            background: #e5f7e9;
-            color: #187a32;
-        }
-
-        .auth-message.info {
-            background: #e8f1ff;
-            color: #245ea8;
-        }
-
-        .auth-divider {
+        .divider {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
             margin: 25px 0;
             color: #999;
         }
 
-        .auth-divider::before,
-        .auth-divider::after {
+        .divider::before,
+        .divider::after {
             content: "";
             flex: 1;
             height: 1px;
             background: #ddd;
         }
 
-        .login-link,
-        .back-home {
+        .login {
             text-align: center;
         }
 
-        .back-home {
-            margin-top: 20px;
+        .login a {
+            color: #f4511e;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .seller-box {
+            margin-top: 25px;
+            padding: 20px;
+            background: #fff3e0;
+            border: 1px solid #ffccbc;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .seller-box h3 {
+            margin-top: 0;
+            color: #e64a19;
+        }
+
+        .seller-box p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .seller-button {
+            display: inline-block;
+            width: 100%;
+            padding: 12px;
+            background: white;
+            color: #f4511e;
+            border: 2px solid #f4511e;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .seller-button:hover {
+            background: #f4511e;
+            color: white;
+        }
+
+        .message {
+            display: none;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 18px;
+            font-size: 14px;
+        }
+
+        .message.error {
+            display: block;
+            background: #ffebee;
+            color: #b71c1c;
+        }
+
+        .message.success {
+            display: block;
+            background: #e8f5e9;
+            color: #1b5e20;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #777;
+            font-size: 13px;
         }
 
         @media (max-width: 600px) {
-
-            .auth-card {
-                padding: 25px;
+            .card {
+                padding: 22px;
             }
+        }
+    </style>
+</head>
 
-            .form-row {
-                grid-template-columns: 1fr;
-                gap: 0;
-            }
+<body>
 
+<header>
+    <a href="index.html">Meteur Online Shopping</a>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="cart.html">Cart</a>
+    </nav>
+</header>
+
+<main>
+
+    <div class="card">
+
+        <h1>Create Your Account</h1>
+
+        <p class="intro">
+            Join Meteur Online Shopping and start shopping today.
+        </p>
+
+        <div id="message" class="message"></div>
+
+        <form id="registerForm">
+
+            <label for="firstName">First Name</label>
+            <input
+                id="firstName"
+                type="text"
+                autocomplete="given-name"
+                required
+            >
+
+            <label for="lastName">Last Name</label>
+            <input
+                id="lastName"
+                type="text"
+                autocomplete="family-name"
+                required
+            >
+
+            <label for="email">Email Address</label>
+            <input
+                id="email"
+                type="email"
+                autocomplete="email"
+                required
+            >
+
+            <label for="phone">Phone Number</label>
+            <input
+                id="phone"
+                type="tel"
+                autocomplete="tel"
+                placeholder="07XXXXXXXX"
+                required
+            >
+
+            <label for="password">Password</label>
+            <input
+                id="password"
+                type="password"
+                autocomplete="new-password"
+                minlength="6"
+                required
+            >
+
+            <div class="password-note">
+                Password must be at least 6 characters.
+            </div>
+
+            <label for="confirmPassword">Confirm Password</label>
+            <input
+                id="confirmPassword"
+                type="password"
+                autocomplete="new-password"
+                minlength="6"
+                required
+            >
+
+            <div class="agreement">
+                <label>
+                    <input id="terms" type="checkbox" required>
+                    I agree to the
+                    <a href="terms.html">Terms and Conditions</a>
+                    and
+                    <a href="privacy.html">Privacy Policy</a>.
+                </label>
+            </div>
+
+            <button id="registerButton" type="submit">
+                Create Account
+            </button>
+
+        </form>
+
+        <div class="divider">
+            OR
+        </div>
+
+        <div class="login">
+            Already have an account?
+            <a href="login.html">Login here</a>
+        </div>
+
+        <div class="seller-box">
+
+            <h3>Want to sell on Meteur?</h3>
+
+            <p>
+                Register your store and apply to become an approved
+                Meteur marketplace seller.
+            </p>
+
+            <a
+                class="seller-button"
+                href="seller-register.html"
+            >
+                Register as a Seller
+            </a>
+
+        </div>
+
+        <p style="text-align:center; margin-top:25px;">
+            <a
+                href="index.html"
+                style="color:#f4511e; text-decoration:none; font-weight:bold;"
+            >
+                ← Back to shopping
+            </a>
+        </p>
+
+    </div>
+
+</main>
+
+<footer>
+    © 2026 Meteur Online Shopping. All rights reserved.
+</footer>
+
+<script>
+    const SUPABASE_URL =
+        "https://nytsdeupaootukcullgi.supabase.co";
+
+    const SUPABASE_ANON_KEY =
+        "sb_publishable_cIqzHoafy_AEdB48KS_Wpg_LDQE1sFC";
+
+    const { createClient } = supabase;
+
+    const db = createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
+
+    const form =
+        document.getElementById("registerForm");
+
+    const button =
+        document.getElementById("registerButton");
+
+    const message =
+        document.getElementById("message");
+
+    function showMessage(text, type) {
+        message.textContent = text;
+        message.className = "message " + type;
+    }
+
+    form.addEventListener("submit", async function(event) {
+
+        event.preventDefault();
+
+        const firstName =
+            document.getElementById("firstName").value.trim();
+
+        const lastName =
+            document.getElementById("lastName").value.trim();
+
+        const email =
+            document.getElementById("email").value.trim();
+
+        const phone =
+            document.getElementById("phone").value.trim();
+
+        const password =
+            document.getElementById("password").value;
+
+        const confirmPassword =
+            document.getElementById("confirmPassword").value;
+
+        if (password !== confirmPassword) {
+            showMessage(
+                "Passwords do not match.",
+                "error"
+            );
+            return;
         }
 
-    </style>
+        if (password.length < 6) {
+            showMessage(
+                "Password must be at least 6 characters.",
+                "error"
+            );
+            return;
+        }
+
+        button.disabled = true;
+        button.textContent = "Creating Account...";
+
+        const {
+            data,
+            error
+        } = await db.auth.signUp({
+            email: email,
+            password: password,
+            options: {
+                data: {
+                    first_name: firstName,
+                    last_name: lastName,
+                    phone: phone
+                }
+            }
+        });
+
+        button.disabled = false;
+        button.textContent = "Create Account";
+
+        if (error) {
+            showMessage(
+                error.message,
+                "error"
+            );
+            return;
+        }
+
+        showMessage(
+            "Account created successfully. Please check your email to verify your account.",
+            "success"
+        );
+
+        form.reset();
+
+        setTimeout(function() {
+            window.location.href = "verify-email.html";
+        }, 1800);
+    });
+</script>
 
 </body>
 </html>

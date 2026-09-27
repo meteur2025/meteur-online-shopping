@@ -8,6 +8,9 @@
 
     <link rel="stylesheet" href="style.css">
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+
     <style>
         .profile-page {
             padding: 45px 20px 70px;
@@ -137,6 +140,11 @@
             background: #d84315;
         }
 
+        .save-button:disabled {
+            opacity: .7;
+            cursor: not-allowed;
+        }
+
         .logout-button {
             width: 100%;
             border: 1px solid #e53935;
@@ -221,7 +229,7 @@
                     placeholder="Search products..."
                 >
 
-                <button onclick="searchProducts()">
+                <button type="button" onclick="searchProducts()">
                     Search
                 </button>
             </div>
@@ -305,6 +313,7 @@
 
                     <button
                         class="logout-button"
+                        type="button"
                         onclick="logoutUser()"
                     >
                         Log Out
@@ -489,13 +498,6 @@
 </footer>
 
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script src="supabase-config.js"></script>
-
-<script src="script.js"></script>
-
-
 <script>
 
 let currentUser = null;
@@ -508,6 +510,7 @@ function updateCartCount() {
             localStorage.getItem("meteurCart")
         ) || [];
 
+
     const total =
         cart.reduce(
             function(sum, product) {
@@ -516,12 +519,15 @@ function updateCartCount() {
             0
         );
 
+
     const cartCount =
         document.getElementById("cartCount");
+
 
     if (cartCount) {
         cartCount.textContent = total;
     }
+
 }
 
 
@@ -530,12 +536,15 @@ function searchProducts() {
     const input =
         document.getElementById("searchInput");
 
+
     if (!input) {
         return;
     }
 
+
     const search =
         input.value.trim();
+
 
     if (search) {
 
@@ -544,6 +553,7 @@ function searchProducts() {
             encodeURIComponent(search);
 
     }
+
 }
 
 
@@ -552,7 +562,9 @@ function showMessage(message, type) {
     const box =
         document.getElementById("statusMessage");
 
+
     box.textContent = message;
+
 
     box.className =
         "status-message " + type;
@@ -587,16 +599,54 @@ async function loadProfile() {
             currentUser.user_metadata || {};
 
 
-        document.getElementById("email").value =
-            currentUser.email || "";
+        const savedFullName =
+            metadata.full_name ||
+            metadata.name ||
+            "";
 
 
-        document.getElementById("firstName").value =
+        let firstName =
             metadata.first_name || "";
 
 
-        document.getElementById("lastName").value =
+        let lastName =
             metadata.last_name || "";
+
+
+        if (!firstName && !lastName && savedFullName) {
+
+            const nameParts =
+                savedFullName.trim().split(/\s+/);
+
+
+            if (nameParts.length === 1) {
+
+                firstName =
+                    nameParts[0];
+
+            } else {
+
+                firstName =
+                    nameParts.shift();
+
+                lastName =
+                    nameParts.join(" ");
+
+            }
+
+        }
+
+
+        document.getElementById("firstName").value =
+            firstName;
+
+
+        document.getElementById("lastName").value =
+            lastName;
+
+
+        document.getElementById("email").value =
+            currentUser.email || "";
 
 
         document.getElementById("phone").value =
@@ -614,6 +664,7 @@ async function loadProfile() {
     } catch (error) {
 
         console.error(error);
+
 
         document.getElementById("loadingMessage").textContent =
             "Unable to load your profile. Please try again.";
@@ -633,15 +684,24 @@ document
 
 
             const firstName =
-                document.getElementById("firstName").value.trim();
+                document
+                    .getElementById("firstName")
+                    .value
+                    .trim();
 
 
             const lastName =
-                document.getElementById("lastName").value.trim();
+                document
+                    .getElementById("lastName")
+                    .value
+                    .trim();
 
 
             const phone =
-                document.getElementById("phone").value.trim();
+                document
+                    .getElementById("phone")
+                    .value
+                    .trim();
 
 
             const saveButton =
@@ -667,6 +727,10 @@ document
 
             try {
 
+                const fullName =
+                    `${firstName} ${lastName}`.trim();
+
+
                 const {
                     error
                 } = await supabaseClient.auth.updateUser({
@@ -676,6 +740,10 @@ document
                         first_name: firstName,
 
                         last_name: lastName,
+
+                        full_name: fullName,
+
+                        name: fullName,
 
                         phone: phone
 
@@ -691,6 +759,23 @@ document
                 }
 
 
+                currentUser.user_metadata = {
+
+                    ...currentUser.user_metadata,
+
+                    first_name: firstName,
+
+                    last_name: lastName,
+
+                    full_name: fullName,
+
+                    name: fullName,
+
+                    phone: phone
+
+                };
+
+
                 showMessage(
                     "Your profile has been updated successfully.",
                     "success"
@@ -700,6 +785,7 @@ document
             } catch (error) {
 
                 console.error(error);
+
 
                 showMessage(
                     error.message ||

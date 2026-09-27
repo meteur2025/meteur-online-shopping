@@ -3,129 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Seller Orders - Meteur Online Shopping</title>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="supabase-config.js"></script>
 
     <style>
         * {
             box-sizing: border-box;
-            margin: 0;
-            padding: 0;
         }
 
         body {
+            margin: 0;
             font-family: Arial, sans-serif;
             background: #f5f5f5;
             color: #222;
         }
 
         header {
-            background: #f57224;
+            background: #f4511e;
             color: white;
-            padding: 16px 20px;
-        }
-
-        .header-content {
-            max-width: 1200px;
-            margin: auto;
+            padding: 18px 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             gap: 15px;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        .header-actions {
-            display: flex;
-            gap: 10px;
             flex-wrap: wrap;
         }
 
-        button {
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
+        header h1 {
+            margin: 0;
+            font-size: 22px;
         }
 
-        .dashboard-btn {
-            background: white;
-            color: #f57224;
-            padding: 10px 15px;
-            border-radius: 6px;
-        }
-
-        .logout-btn {
-            background: #222;
+        header a {
             color: white;
-            padding: 10px 15px;
-            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
         }
 
         main {
             max-width: 1200px;
-            margin: 25px auto;
-            padding: 0 20px;
+            margin: 30px auto;
+            padding: 0 18px;
         }
 
-        .page-header {
+        .top-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
             margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
 
-        .page-header h1 {
-            margin-bottom: 6px;
+        .top-card h2 {
+            margin-top: 0;
         }
 
-        .page-header p {
-            color: #666;
-        }
-
-        .status-box {
+        .message {
             padding: 15px;
             border-radius: 8px;
+            background: #fff3e0;
             margin-bottom: 20px;
-            font-weight: bold;
         }
 
-        .approved {
-            background: #d4edda;
-            color: #155724;
-        }
-
-        .pending {
-            background: #fff3cd;
-            color: #856404;
-        }
-
-        .error {
-            background: #f8d7da;
-            color: #721c24;
-        }
-
-        .orders-container {
-            display: flex;
-            flex-direction: column;
+        .orders {
+            display: grid;
             gap: 20px;
         }
 
         .order-card {
             background: white;
-            border-radius: 10px;
+            border-radius: 12px;
             padding: 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
 
         .order-header {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
+            align-items: center;
             gap: 15px;
+            flex-wrap: wrap;
             border-bottom: 1px solid #eee;
             padding-bottom: 15px;
             margin-bottom: 15px;
@@ -134,217 +92,120 @@
         .order-number {
             font-size: 18px;
             font-weight: bold;
-            color: #f57224;
-        }
-
-        .order-date {
-            color: #777;
-            font-size: 14px;
-            margin-top: 5px;
         }
 
         .status {
             padding: 7px 12px;
             border-radius: 20px;
-            background: #eee;
+            background: #fff3e0;
+            color: #e65100;
             font-size: 13px;
             font-weight: bold;
-            white-space: nowrap;
         }
 
-        .status-processing {
-            background: #fff3cd;
-            color: #856404;
+        .section {
+            margin-top: 18px;
         }
 
-        .status-confirmed {
-            background: #d4edda;
-            color: #155724;
-        }
-
-        .status-shipped {
-            background: #cfe2ff;
-            color: #084298;
-        }
-
-        .status-delivered {
-            background: #d1e7dd;
-            color: #0f5132;
-        }
-
-        .status-cancelled {
-            background: #f8d7da;
-            color: #842029;
-        }
-
-        .status-pending-payment {
-            background: #fff3cd;
-            color: #856404;
-        }
-
-        .customer-section {
-            background: #fafafa;
-            padding: 15px;
-            border-radius: 7px;
-            margin-bottom: 15px;
-        }
-
-        .customer-section h3 {
-            margin-bottom: 10px;
+        .section h3 {
             font-size: 16px;
-        }
-
-        .customer-info {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px 20px;
-            font-size: 14px;
-        }
-
-        .customer-info div {
-            word-break: break-word;
-        }
-
-        .customer-info strong {
-            color: #555;
-        }
-
-        .items-title {
             margin-bottom: 10px;
         }
 
-        .order-item {
+        .customer-info,
+        .payment-info {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px 20px;
+        }
+
+        .info-item {
+            background: #fafafa;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .info-item strong {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .seller-items {
+            border: 1px solid #eee;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .item {
             display: flex;
+            justify-content: space-between;
             gap: 15px;
-            padding: 12px 0;
+            padding: 12px;
             border-bottom: 1px solid #eee;
         }
 
-        .order-item:last-child {
+        .item:last-child {
             border-bottom: none;
-        }
-
-        .item-image {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 6px;
-            background: #eee;
-            flex-shrink: 0;
-        }
-
-        .item-info {
-            flex: 1;
         }
 
         .item-name {
             font-weight: bold;
-            margin-bottom: 5px;
         }
 
         .item-details {
             color: #666;
             font-size: 14px;
-            line-height: 1.6;
+            margin-top: 4px;
         }
 
-        .item-total {
+        .item-price {
             font-weight: bold;
-            color: #f57224;
             white-space: nowrap;
         }
 
-        .order-footer {
-            border-top: 1px solid #eee;
+        .totals {
             margin-top: 15px;
-            padding-top: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
+            text-align: right;
         }
 
-        .payment-info {
-            font-size: 14px;
-            color: #555;
+        .totals div {
+            margin: 5px 0;
         }
 
         .total {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: bold;
-            color: #f57224;
         }
 
-        .empty-state {
+        .empty {
             background: white;
-            padding: 50px 20px;
+            padding: 35px 20px;
+            border-radius: 12px;
             text-align: center;
-            border-radius: 10px;
-            color: #777;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
 
-        .empty-state h2 {
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        .loading {
-            background: white;
-            padding: 40px;
-            text-align: center;
-            border-radius: 10px;
-            color: #666;
-        }
-
-        .notice {
-            background: #fff;
-            border-left: 4px solid #f57224;
+        .error {
+            background: #ffebee;
+            color: #b71c1c;
             padding: 15px;
-            margin-bottom: 20px;
-            color: #555;
-            line-height: 1.6;
+            border-radius: 8px;
         }
 
         @media (max-width: 700px) {
-
-            .header-content {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .header-actions {
-                flex-direction: column;
-            }
-
-            .dashboard-btn,
-            .logout-btn {
-                width: 100%;
-            }
-
-            .order-header {
-                flex-direction: column;
-            }
-
-            .customer-info {
+            .customer-info,
+            .payment-info {
                 grid-template-columns: 1fr;
             }
 
-            .order-item {
-                align-items: flex-start;
-            }
-
-            .item-image {
-                width: 65px;
-                height: 65px;
-            }
-
-            .item-total {
-                font-size: 14px;
-            }
-
-            .order-footer {
+            .item {
                 flex-direction: column;
-                align-items: flex-start;
+            }
+
+            .item-price {
+                white-space: normal;
             }
         }
     </style>
@@ -353,81 +214,40 @@
 <body>
 
 <header>
-
-    <div class="header-content">
-
-        <div class="logo">
-            Meteur Online Shopping
-        </div>
-
-        <div class="header-actions">
-
-            <button
-                class="dashboard-btn"
-                onclick="goDashboard()"
-            >
-                Seller Dashboard
-            </button>
-
-            <button
-                class="logout-btn"
-                onclick="logout()"
-            >
-                Logout
-            </button>
-
-        </div>
-
-    </div>
-
+    <h1>Meteur Online Shopping — Seller Orders</h1>
+    <a href="seller-dashboard.html">Seller Dashboard</a>
 </header>
 
 <main>
 
-    <div class="page-header">
-
-        <h1>Seller Orders</h1>
-
-        <p>
-            View orders containing products from your store.
-        </p>
-
+    <div class="top-card">
+        <h2>Orders</h2>
+        <p>View orders containing products from your store.</p>
     </div>
 
-    <div
-        id="statusBox"
-        class="status-box"
-        style="display:none;"
-    ></div>
-
-    <div class="notice">
-        Only orders containing products assigned to your seller account
-        are displayed on this page.
+    <div id="message" class="message">
+        Loading your orders...
     </div>
 
-    <div id="ordersContainer" class="orders-container">
-
-        <div class="loading">
-            Loading your orders...
-        </div>
-
-    </div>
+    <div id="orders" class="orders"></div>
 
 </main>
 
 <script>
+    const SUPABASE_URL = "https://nytsdeupaootukcullgi.supabase.co";
+    const SUPABASE_ANON_KEY = "sb_publishable_cIqzHoafy_AEdB48KS_Wpg_LDQE1sFC";
 
-    let currentUser = null;
-    let currentSeller = null;
+    const { createClient } = supabase;
 
-    const ordersContainer =
-        document.getElementById("ordersContainer");
+    const db = createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
 
-    const statusBox =
-        document.getElementById("statusBox");
+    const message = document.getElementById("message");
+    const ordersContainer = document.getElementById("orders");
 
     function escapeHtml(value) {
-
         return String(value ?? "")
             .replace(/&/g, "&amp;")
             .replace(/</g, "&lt;")
@@ -437,671 +257,309 @@
     }
 
     function formatMoney(value) {
-
-        return Number(value || 0).toLocaleString(
-            "en-KE",
-            {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-            }
-        );
+        return `KSh ${Number(value || 0).toLocaleString()}`;
     }
 
     function formatDate(value) {
-
-        if (!value) {
-            return "Date unavailable";
-        }
+        if (!value) return "—";
 
         const date = new Date(value);
 
         if (Number.isNaN(date.getTime())) {
-            return "Date unavailable";
+            return escapeHtml(value);
         }
 
-        return date.toLocaleString(
-            "en-KE",
-            {
-                dateStyle: "medium",
-                timeStyle: "short"
+        return date.toLocaleString("en-KE", {
+            dateStyle: "medium",
+            timeStyle: "short"
+        });
+    }
+
+    async function loadSellerOrders() {
+        try {
+            const {
+                data: {
+                    user
+                },
+                error: userError
+            } = await db.auth.getUser();
+
+            if (userError) {
+                throw userError;
             }
-        );
-    }
 
-    function showStatus(message, type) {
+            if (!user) {
+                window.location.href =
+                    "login.html?redirect=seller-orders.html";
+                return;
+            }
 
-        statusBox.textContent = message;
+            const {
+                data: seller,
+                error: sellerError
+            } = await db
+                .from("sellers")
+                .select("id, store_name, status")
+                .eq("user_id", user.id)
+                .maybeSingle();
 
-        statusBox.className =
-            "status-box " + type;
+            if (sellerError) {
+                throw sellerError;
+            }
 
-        statusBox.style.display = "block";
-    }
+            if (!seller) {
+                message.className = "error";
+                message.textContent =
+                    "Seller profile not found.";
+                return;
+            }
 
-    async function checkAuthentication() {
+            if (seller.status !== "Approved") {
+                message.className = "error";
+                message.textContent =
+                    "Your seller account must be approved before you can view seller orders.";
+                return;
+            }
 
-        const {
-            data,
-            error
-        } = await supabaseClient.auth.getUser();
+            const {
+                data: orders,
+                error: ordersError
+            } = await db.rpc("get_seller_orders");
 
-        if (error || !data.user) {
+            if (ordersError) {
+                throw ordersError;
+            }
 
-            window.location.href =
-                "login.html?redirect=seller-orders.html";
+            if (!orders || orders.length === 0) {
+                message.style.display = "none";
 
-            return false;
-        }
+                ordersContainer.innerHTML = `
+                    <div class="empty">
+                        <h3>No seller orders yet</h3>
+                        <p>
+                            Orders containing products from
+                            <strong>${escapeHtml(seller.store_name)}</strong>
+                            will appear here.
+                        </p>
+                    </div>
+                `;
 
-        currentUser = data.user;
+                return;
+            }
 
-        return true;
-    }
+            message.style.display = "none";
 
-    async function loadSellerProfile() {
+            ordersContainer.innerHTML = orders.map(order => {
 
-        const {
-            data,
-            error
-        } = await supabaseClient
-            .from("sellers")
-            .select("*")
-            .eq("user_id", currentUser.id)
-            .maybeSingle();
-
-        if (error) {
-
-            console.error(
-                "Seller profile error:",
-                error
-            );
-
-            showStatus(
-                "Unable to load your seller profile.",
-                "error"
-            );
-
-            return false;
-        }
-
-        if (!data) {
-
-            showStatus(
-                "You have not registered as a seller yet.",
-                "error"
-            );
-
-            ordersContainer.innerHTML = `
-                <div class="empty-state">
-                    <h2>Seller profile not found</h2>
-                    <p>Please register as a seller first.</p>
-                </div>
-            `;
-
-            return false;
-        }
-
-        currentSeller = data;
-
-        if (data.status !== "Approved") {
-
-            showStatus(
-                "Your seller application is currently " +
-                data.status +
-                ". Orders will be available after approval.",
-                "pending"
-            );
-
-            ordersContainer.innerHTML = `
-                <div class="empty-state">
-                    <h2>Seller approval required</h2>
-                    <p>
-                        Your seller account must be approved
-                        before you can manage orders.
-                    </p>
-                </div>
-            `;
-
-            return false;
-        }
-
-        showStatus(
-            "Your seller account is approved.",
-            "approved"
-        );
-
-        return true;
-    }
-
-    async function loadOrders() {
-
-        ordersContainer.innerHTML = `
-            <div class="loading">
-                Loading your orders...
-            </div>
-        `;
-
-        /*
-         * Orders currently store their items as a JSON snapshot.
-         * We retrieve customer orders belonging to the current
-         * authenticated user only through the orders RLS policy.
-         *
-         * The seller-specific filtering is performed below using
-         * the product IDs contained in each order's items.
-         */
-
-        const {
-            data: orders,
-            error
-        } = await supabaseClient
-            .from("orders")
-            .select("*")
-            .order("created_at", {
-                ascending: false
-            });
-
-        if (error) {
-
-            console.error(
-                "Orders loading error:",
-                error
-            );
-
-            ordersContainer.innerHTML = `
-                <div class="empty-state">
-                    <h2>Unable to load orders</h2>
-                    <p>
-                        Please refresh the page and try again.
-                    </p>
-                </div>
-            `;
-
-            return;
-        }
-
-        if (!orders || orders.length === 0) {
-
-            showEmptyOrders();
-
-            return;
-        }
-
-        const sellerProductsResponse =
-            await supabaseClient
-                .from("products")
-                .select("id")
-                .eq("seller_id", currentSeller.id);
-
-        if (sellerProductsResponse.error) {
-
-            console.error(
-                "Seller products error:",
-                sellerProductsResponse.error
-            );
-
-            ordersContainer.innerHTML = `
-                <div class="empty-state">
-                    <h2>Unable to identify your products</h2>
-                    <p>
-                        Please refresh the page and try again.
-                    </p>
-                </div>
-            `;
-
-            return;
-        }
-
-        const sellerProductIds =
-            new Set(
-                (sellerProductsResponse.data || [])
-                    .map(product => product.id)
-            );
-
-        const sellerOrders =
-            orders
-                .map(order => {
-
-                    const items =
-                        normalizeOrderItems(order.items);
-
-                    const sellerItems =
-                        items.filter(item =>
-                            sellerProductIds.has(
-                                item.product_id ||
-                                item.productId ||
-                                item.id
-                            )
-                        );
-
-                    if (sellerItems.length === 0) {
-                        return null;
-                    }
-
-                    return {
-                        ...order,
-                        sellerItems
-                    };
-
-                })
-                .filter(Boolean);
-
-        if (sellerOrders.length === 0) {
-
-            showEmptyOrders();
-
-            return;
-        }
-
-        ordersContainer.innerHTML =
-            sellerOrders
-                .map(orderCard)
-                .join("");
-    }
-
-    function normalizeOrderItems(items) {
-
-        if (Array.isArray(items)) {
-            return items;
-        }
-
-        if (typeof items === "string") {
-
-            try {
-
-                const parsed =
-                    JSON.parse(items);
-
-                return Array.isArray(parsed)
-                    ? parsed
+                const items = Array.isArray(order.items)
+                    ? order.items
                     : [];
 
-            } catch (error) {
-
-                console.error(
-                    "Order items parsing error:",
-                    error
+                const sellerItems = items.filter(item =>
+                    item &&
+                    item.product_id
                 );
 
-                return [];
-            }
-        }
+                let sellerSubtotal = 0;
 
-        return [];
-    }
-
-    function getOrderItemProductId(item) {
-
-        return (
-            item.product_id ||
-            item.productId ||
-            item.id ||
-            ""
-        );
-    }
-
-    function getOrderItemName(item) {
-
-        return (
-            item.name ||
-            item.product_name ||
-            item.productName ||
-            "Product"
-        );
-    }
-
-    function getOrderItemQuantity(item) {
-
-        const quantity =
-            Number(
-                item.quantity ||
-                item.qty ||
-                1
-            );
-
-        return Number.isFinite(quantity)
-            ? quantity
-            : 1;
-    }
-
-    function getOrderItemPrice(item) {
-
-        const price =
-            Number(
-                item.price ||
-                item.unit_price ||
-                item.unitPrice ||
-                0
-            );
-
-        return Number.isFinite(price)
-            ? price
-            : 0;
-    }
-
-    function getOrderItemImage(item) {
-
-        return (
-            item.image_url ||
-            item.imageUrl ||
-            item.image ||
-            "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80"
-        );
-    }
-
-    function orderCard(order) {
-
-        const status =
-            String(
-                order.status ||
-                "Processing"
-            );
-
-        const statusClass =
-            getStatusClass(status);
-
-        const sellerItems =
-            order.sellerItems || [];
-
-        const sellerSubtotal =
-            sellerItems.reduce(
-                (total, item) => {
-
-                    const price =
-                        getOrderItemPrice(item);
+                const itemHtml = sellerItems.map(item => {
 
                     const quantity =
-                        getOrderItemQuantity(item);
+                        Number(item.quantity || 1);
 
-                    return total +
-                        (price * quantity);
+                    const price =
+                        Number(
+                            item.price ??
+                            item.unit_price ??
+                            0
+                        );
 
-                },
-                0
-            );
+                    const lineTotal =
+                        quantity * price;
 
-        const itemsHtml =
-            sellerItems
-                .map(orderItem)
-                .join("");
+                    sellerSubtotal += lineTotal;
 
-        return `
-            <article class="order-card">
-
-                <div class="order-header">
-
-                    <div>
-
-                        <div class="order-number">
-                            Order #${escapeHtml(
-                                order.order_number
-                            )}
-                        </div>
-
-                        <div class="order-date">
-                            ${escapeHtml(
-                                formatDate(
-                                    order.created_at
-                                )
-                            )}
-                        </div>
-
-                    </div>
-
-                    <div class="status ${statusClass}">
-                        ${escapeHtml(status)}
-                    </div>
-
-                </div>
-
-                <div class="customer-section">
-
-                    <h3>Customer Information</h3>
-
-                    <div class="customer-info">
-
-                        <div>
-                            <strong>Name:</strong>
-                            ${escapeHtml(
-                                order.recipient_name
-                            )}
-                        </div>
-
-                        <div>
-                            <strong>Email:</strong>
-                            ${escapeHtml(
-                                order.customer_email
-                            )}
-                        </div>
-
-                        <div>
-                            <strong>Phone:</strong>
-                            ${escapeHtml(
-                                order.phone
-                            )}
-                        </div>
-
-                        <div>
-                            <strong>County:</strong>
-                            ${escapeHtml(
-                                order.county
-                            )}
-                        </div>
-
-                        <div>
-                            <strong>Town:</strong>
-                            ${escapeHtml(
-                                order.town
-                            )}
-                        </div>
-
-                        <div>
-                            <strong>Address:</strong>
-                            ${escapeHtml(
-                                order.address
-                            )}
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <h3 class="items-title">
-                    Your Products in This Order
-                </h3>
-
-                <div>
-                    ${itemsHtml}
-                </div>
-
-                <div class="order-footer">
-
-                    <div class="payment-info">
-
-                        <div>
-                            <strong>Payment:</strong>
-                            ${escapeHtml(
-                                order.payment_method ||
-                                "Not specified"
-                            )}
-                        </div>
-
-                        ${
-                            order.delivery_note
-                            ? `
-                                <div>
-                                    <strong>Delivery note:</strong>
+                    return `
+                        <div class="item">
+                            <div>
+                                <div class="item-name">
                                     ${escapeHtml(
-                                        order.delivery_note
+                                        item.name ||
+                                        item.product_name ||
+                                        "Product"
                                     )}
                                 </div>
-                            `
-                            : ""
-                        }
 
-                    </div>
+                                <div class="item-details">
+                                    Quantity:
+                                    ${quantity}
+                                    ×
+                                    ${formatMoney(price)}
+                                </div>
+                            </div>
 
-                    <div>
+                            <div class="item-price">
+                                ${formatMoney(lineTotal)}
+                            </div>
+                        </div>
+                    `;
+                }).join("");
 
-                        <div style="font-size:13px;color:#777;">
-                            Your products subtotal
+                return `
+                    <article class="order-card">
+
+                        <div class="order-header">
+                            <div>
+                                <div class="order-number">
+                                    Order #${escapeHtml(
+                                        order.order_number
+                                    )}
+                                </div>
+
+                                <div>
+                                    ${formatDate(
+                                        order.created_at
+                                    )}
+                                </div>
+                            </div>
+
+                            <div class="status">
+                                ${escapeHtml(
+                                    order.status || "Processing"
+                                )}
+                            </div>
                         </div>
 
-                        <div class="total">
-                            KSh ${formatMoney(
-                                sellerSubtotal
-                            )}
+                        <div class="section">
+                            <h3>Customer Information</h3>
+
+                            <div class="customer-info">
+
+                                <div class="info-item">
+                                    <strong>Name</strong>
+                                    ${escapeHtml(
+                                        order.recipient_name
+                                    )}
+                                </div>
+
+                                <div class="info-item">
+                                    <strong>Email</strong>
+                                    ${escapeHtml(
+                                        order.customer_email
+                                    )}
+                                </div>
+
+                                <div class="info-item">
+                                    <strong>Phone</strong>
+                                    ${escapeHtml(
+                                        order.phone
+                                    )}
+                                </div>
+
+                                <div class="info-item">
+                                    <strong>County</strong>
+                                    ${escapeHtml(
+                                        order.county
+                                    )}
+                                </div>
+
+                                <div class="info-item">
+                                    <strong>Town / Area</strong>
+                                    ${escapeHtml(
+                                        order.town
+                                    )}
+                                </div>
+
+                                <div class="info-item">
+                                    <strong>Address</strong>
+                                    ${escapeHtml(
+                                        order.address
+                                    )}
+                                </div>
+
+                            </div>
                         </div>
 
-                    </div>
+                        <div class="section">
+                            <h3>Your Products in This Order</h3>
 
-                </div>
+                            <div class="seller-items">
+                                ${itemHtml}
+                            </div>
 
-            </article>
-        `;
+                            <div class="totals">
+                                <div>
+                                    Your item subtotal:
+                                    <strong>
+                                        ${formatMoney(
+                                            sellerSubtotal
+                                        )}
+                                    </strong>
+                                </div>
+
+                                <div>
+                                    Customer order total:
+                                    <strong>
+                                        ${formatMoney(
+                                            order.total
+                                        )}
+                                    </strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="section">
+                            <h3>Payment & Delivery</h3>
+
+                            <div class="payment-info">
+
+                                <div class="info-item">
+                                    <strong>Payment Method</strong>
+                                    ${escapeHtml(
+                                        order.payment_method
+                                    )}
+                                </div>
+
+                                <div class="info-item">
+                                    <strong>Order Status</strong>
+                                    ${escapeHtml(
+                                        order.status
+                                    )}
+                                </div>
+
+                                <div class="info-item">
+                                    <strong>Delivery Fee</strong>
+                                    ${formatMoney(
+                                        order.delivery_fee
+                                    )}
+                                </div>
+
+                                <div class="info-item">
+                                    <strong>Delivery Note</strong>
+                                    ${escapeHtml(
+                                        order.delivery_note ||
+                                        "None"
+                                    )}
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </article>
+                `;
+            }).join("");
+
+        } catch (error) {
+            console.error(error);
+
+            message.className = "error";
+            message.textContent =
+                error.message ||
+                "Unable to load seller orders.";
+        }
     }
 
-    function orderItem(item) {
-
-        const name =
-            getOrderItemName(item);
-
-        const quantity =
-            getOrderItemQuantity(item);
-
-        const price =
-            getOrderItemPrice(item);
-
-        const image =
-            getOrderItemImage(item);
-
-        const total =
-            price * quantity;
-
-        return `
-            <div class="order-item">
-
-                <img
-                    class="item-image"
-                    src="${escapeHtml(image)}"
-                    alt="${escapeHtml(name)}"
-                    onerror="this.src='https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80'"
-                >
-
-                <div class="item-info">
-
-                    <div class="item-name">
-                        ${escapeHtml(name)}
-                    </div>
-
-                    <div class="item-details">
-
-                        Quantity:
-                        ${quantity}
-
-                        <br>
-
-                        Unit price:
-                        KSh ${formatMoney(price)}
-
-                    </div>
-
-                </div>
-
-                <div class="item-total">
-                    KSh ${formatMoney(total)}
-                </div>
-
-            </div>
-        `;
-    }
-
-    function getStatusClass(status) {
-
-        const value =
-            String(status)
-                .toLowerCase()
-                .replace(/\s+/g, "-");
-
-        if (value.includes("cancel")) {
-            return "status-cancelled";
-        }
-
-        if (value.includes("deliver")) {
-            return "status-delivered";
-        }
-
-        if (value.includes("ship")) {
-            return "status-shipped";
-        }
-
-        if (
-            value.includes("confirm") ||
-            value.includes("paid")
-        ) {
-            return "status-confirmed";
-        }
-
-        if (
-            value.includes("payment") ||
-            value.includes("pending")
-        ) {
-            return "status-pending-payment";
-        }
-
-        return "status-processing";
-    }
-
-    function showEmptyOrders() {
-
-        ordersContainer.innerHTML = `
-            <div class="empty-state">
-
-                <h2>No Seller Orders Yet</h2>
-
-                <p>
-                    Orders containing your products
-                    will appear here.
-                </p>
-
-            </div>
-        `;
-    }
-
-    function goDashboard() {
-
-        window.location.href =
-            "seller-dashboard.html";
-    }
-
-    async function logout() {
-
-        await supabaseClient.auth.signOut();
-
-        window.location.href =
-            "login.html";
-    }
-
-    async function initializePage() {
-
-        const authenticated =
-            await checkAuthentication();
-
-        if (!authenticated) {
-            return;
-        }
-
-        const approved =
-            await loadSellerProfile();
-
-        if (!approved) {
-            return;
-        }
-
-        await loadOrders();
-    }
-
-    initializePage();
-
+    loadSellerOrders();
 </script>
 
 </body>

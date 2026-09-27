@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Create Account - Meteur Online Shopping</title>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -11,120 +10,100 @@
     <style>
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            margin: 0;
             font-family: Arial, sans-serif;
-            background: #f5f5f5;
+            background: #f6f6f6;
             color: #222;
         }
 
         header {
-            background: #f4511e;
+            background: #ff7900;
             color: white;
-            padding: 18px 24px;
+            padding: 18px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        header a {
+        .logo {
             color: white;
             text-decoration: none;
-            font-size: 22px;
+            font-size: 26px;
             font-weight: bold;
         }
 
-        nav {
-            margin-top: 10px;
-        }
-
-        nav a {
-            font-size: 14px;
-            margin-right: 18px;
-            font-weight: normal;
+        .login-link {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
         }
 
         main {
-            max-width: 520px;
-            margin: 40px auto;
-            padding: 0 18px;
+            min-height: calc(100vh - 150px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
         }
 
-        .card {
+        .register-box {
             background: white;
-            padding: 30px;
-            border-radius: 14px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            width: 100%;
+            max-width: 480px;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
         }
 
         h1 {
-            margin-top: 0;
-            color: #f4511e;
             text-align: center;
+            margin-bottom: 10px;
         }
 
-        .intro {
+        .subtitle {
             text-align: center;
             color: #666;
-            margin-bottom: 25px;
+            margin-bottom: 28px;
         }
 
         label {
             display: block;
-            font-weight: bold;
             margin-bottom: 7px;
+            font-weight: bold;
         }
 
         input {
             width: 100%;
             padding: 13px;
+            margin-bottom: 18px;
             border: 1px solid #ccc;
-            border-radius: 8px;
-            margin-bottom: 17px;
+            border-radius: 7px;
             font-size: 15px;
         }
 
         input:focus {
             outline: none;
-            border-color: #f4511e;
-        }
-
-        .password-note {
-            color: #777;
-            font-size: 13px;
-            margin-top: -10px;
-            margin-bottom: 17px;
-        }
-
-        .agreement {
-            font-size: 13px;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        .agreement input {
-            width: auto;
-            margin: 0 5px 0 0;
-        }
-
-        .agreement a {
-            color: #f4511e;
-            font-weight: bold;
+            border-color: #ff7900;
         }
 
         button {
             width: 100%;
-            border: none;
             padding: 14px;
-            background: #f4511e;
+            border: none;
+            border-radius: 7px;
+            background: #ff7900;
             color: white;
-            border-radius: 8px;
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
         }
 
         button:hover {
-            background: #d84315;
+            background: #e86d00;
         }
 
         button:disabled {
@@ -132,100 +111,41 @@
             cursor: not-allowed;
         }
 
-        .divider {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin: 25px 0;
-            color: #999;
-        }
-
-        .divider::before,
-        .divider::after {
-            content: "";
-            flex: 1;
-            height: 1px;
-            background: #ddd;
-        }
-
-        .login {
-            text-align: center;
-        }
-
-        .login a {
-            color: #f4511e;
-            font-weight: bold;
-            text-decoration: none;
-        }
-
-        .seller-box {
-            margin-top: 25px;
-            padding: 20px;
-            background: #fff3e0;
-            border: 1px solid #ffccbc;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        .seller-box h3 {
-            margin-top: 0;
-            color: #e64a19;
-        }
-
-        .seller-box p {
-            color: #666;
-            font-size: 14px;
+        .message {
+            margin-top: 18px;
+            padding: 12px;
+            border-radius: 7px;
+            display: none;
             line-height: 1.5;
         }
 
-        .seller-button {
-            display: inline-block;
-            width: 100%;
-            padding: 12px;
-            background: white;
-            color: #f4511e;
-            border: 2px solid #f4511e;
-            border-radius: 8px;
+        .error {
+            background: #ffe5e5;
+            color: #b00020;
+        }
+
+        .success {
+            background: #e7f7ed;
+            color: #176b36;
+        }
+
+        .bottom-text {
+            text-align: center;
+            margin-top: 22px;
+            color: #666;
+        }
+
+        .bottom-text a {
+            color: #ff7900;
             text-decoration: none;
             font-weight: bold;
-        }
-
-        .seller-button:hover {
-            background: #f4511e;
-            color: white;
-        }
-
-        .message {
-            display: none;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 18px;
-            font-size: 14px;
-        }
-
-        .message.error {
-            display: block;
-            background: #ffebee;
-            color: #b71c1c;
-        }
-
-        .message.success {
-            display: block;
-            background: #e8f5e9;
-            color: #1b5e20;
         }
 
         footer {
             text-align: center;
-            padding: 25px;
-            color: #777;
-            font-size: 13px;
-        }
-
-        @media (max-width: 600px) {
-            .card {
-                padding: 22px;
-            }
+            padding: 20px;
+            background: #222;
+            color: white;
         }
     </style>
 </head>
@@ -233,138 +153,69 @@
 <body>
 
 <header>
-    <a href="index.html">Meteur Online Shopping</a>
-
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="shop.html">Shop</a>
-        <a href="cart.html">Cart</a>
-    </nav>
+    <a href="index.html" class="logo">Meteur</a>
+    <a href="login.html" class="login-link">Login</a>
 </header>
 
 <main>
+    <div class="register-box">
 
-    <div class="card">
+        <h1>Create Account</h1>
 
-        <h1>Create Your Account</h1>
-
-        <p class="intro">
-            Join Meteur Online Shopping and start shopping today.
+        <p class="subtitle">
+            Create your Meteur Online Shopping account.
         </p>
-
-        <div id="message" class="message"></div>
 
         <form id="registerForm">
 
-            <label for="firstName">First Name</label>
+            <label for="name">Full Name</label>
             <input
-                id="firstName"
                 type="text"
-                autocomplete="given-name"
-                required
-            >
-
-            <label for="lastName">Last Name</label>
-            <input
-                id="lastName"
-                type="text"
-                autocomplete="family-name"
+                id="name"
+                placeholder="Enter your full name"
                 required
             >
 
             <label for="email">Email Address</label>
             <input
-                id="email"
                 type="email"
-                autocomplete="email"
-                required
-            >
-
-            <label for="phone">Phone Number</label>
-            <input
-                id="phone"
-                type="tel"
-                autocomplete="tel"
-                placeholder="07XXXXXXXX"
+                id="email"
+                placeholder="Enter your email"
                 required
             >
 
             <label for="password">Password</label>
             <input
-                id="password"
                 type="password"
-                autocomplete="new-password"
+                id="password"
+                placeholder="Create a password"
                 minlength="6"
                 required
             >
-
-            <div class="password-note">
-                Password must be at least 6 characters.
-            </div>
 
             <label for="confirmPassword">Confirm Password</label>
             <input
-                id="confirmPassword"
                 type="password"
-                autocomplete="new-password"
+                id="confirmPassword"
+                placeholder="Confirm your password"
                 minlength="6"
                 required
             >
 
-            <div class="agreement">
-                <label>
-                    <input id="terms" type="checkbox" required>
-                    I agree to the
-                    <a href="terms.html">Terms and Conditions</a>
-                    and
-                    <a href="privacy.html">Privacy Policy</a>.
-                </label>
-            </div>
-
-            <button id="registerButton" type="submit">
+            <button type="submit" id="registerButton">
                 Create Account
             </button>
 
         </form>
 
-        <div class="divider">
-            OR
-        </div>
+        <div id="message" class="message"></div>
 
-        <div class="login">
+        <p class="bottom-text">
             Already have an account?
-            <a href="login.html">Login here</a>
-        </div>
-
-        <div class="seller-box">
-
-            <h3>Want to sell on Meteur?</h3>
-
-            <p>
-                Register your store and apply to become an approved
-                Meteur marketplace seller.
-            </p>
-
-            <a
-                class="seller-button"
-                href="seller-register.html"
-            >
-                Register as a Seller
-            </a>
-
-        </div>
-
-        <p style="text-align:center; margin-top:25px;">
-            <a
-                href="index.html"
-                style="color:#f4511e; text-decoration:none; font-weight:bold;"
-            >
-                ← Back to shopping
-            </a>
+            <a href="login.html">Login</a>
         </p>
 
     </div>
-
 </main>
 
 <footer>
@@ -372,54 +223,49 @@
 </footer>
 
 <script>
-    const SUPABASE_URL =
-        "https://nytsdeupaootukcullgi.supabase.co";
+    const SUPABASE_URL = "https://nytsdeupaootukcullgi.supabase.co";
 
-    const SUPABASE_ANON_KEY =
-        "sb_publishable_cIqzHoafy_AEdB48KS_Wpg_LDQE1sFC";
+    const SUPABASE_PUBLISHABLE_KEY =
+        "sb_publishable_cIqzHoafy_AEdB48KS_Wpg_LDqE1sFC";
 
     const { createClient } = supabase;
 
-    const db = createClient(
+    const supabaseClient = createClient(
         SUPABASE_URL,
-        SUPABASE_ANON_KEY
+        SUPABASE_PUBLISHABLE_KEY
     );
 
-    const form =
-        document.getElementById("registerForm");
-
-    const button =
-        document.getElementById("registerButton");
-
-    const message =
-        document.getElementById("message");
+    const registerForm = document.getElementById("registerForm");
+    const registerButton = document.getElementById("registerButton");
+    const message = document.getElementById("message");
 
     function showMessage(text, type) {
         message.textContent = text;
         message.className = "message " + type;
+        message.style.display = "block";
     }
 
-    form.addEventListener("submit", async function(event) {
-
+    registerForm.addEventListener("submit", async function(event) {
         event.preventDefault();
 
-        const firstName =
-            document.getElementById("firstName").value.trim();
-
-        const lastName =
-            document.getElementById("lastName").value.trim();
-
-        const email =
-            document.getElementById("email").value.trim();
-
-        const phone =
-            document.getElementById("phone").value.trim();
-
-        const password =
-            document.getElementById("password").value;
-
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
         const confirmPassword =
             document.getElementById("confirmPassword").value;
+
+        if (!name) {
+            showMessage("Please enter your full name.", "error");
+            return;
+        }
+
+        if (password.length < 6) {
+            showMessage(
+                "Password must be at least 6 characters long.",
+                "error"
+            );
+            return;
+        }
 
         if (password !== confirmPassword) {
             showMessage(
@@ -429,53 +275,56 @@
             return;
         }
 
-        if (password.length < 6) {
-            showMessage(
-                "Password must be at least 6 characters.",
-                "error"
-            );
-            return;
-        }
+        registerButton.disabled = true;
+        registerButton.textContent = "Creating Account...";
+        message.style.display = "none";
 
-        button.disabled = true;
-        button.textContent = "Creating Account...";
+        try {
+            const { data, error } =
+                await supabaseClient.auth.signUp({
+                    email: email,
+                    password: password,
+                    options: {
+                        data: {
+                            full_name: name,
+                            name: name
+                        },
+                        emailRedirectTo:
+                            window.location.origin + "/verify-email.html"
+                    }
+                });
 
-        const {
-            data,
-            error
-        } = await db.auth.signUp({
-            email: email,
-            password: password,
-            options: {
-                data: {
-                    first_name: firstName,
-                    last_name: lastName,
-                    phone: phone
-                }
+            if (error) {
+                console.error("Supabase registration error:", error);
+                showMessage(error.message, "error");
+
+                registerButton.disabled = false;
+                registerButton.textContent = "Create Account";
+                return;
             }
-        });
 
-        button.disabled = false;
-        button.textContent = "Create Account";
-
-        if (error) {
             showMessage(
-                error.message,
+                "Account created successfully. Please check your email to verify your account.",
+                "success"
+            );
+
+            registerForm.reset();
+
+            setTimeout(function() {
+                window.location.href = "verify-email.html";
+            }, 2000);
+
+        } catch (error) {
+            console.error("Registration error:", error);
+
+            showMessage(
+                "Unable to create your account. Please try again.",
                 "error"
             );
-            return;
+
+            registerButton.disabled = false;
+            registerButton.textContent = "Create Account";
         }
-
-        showMessage(
-            "Account created successfully. Please check your email to verify your account.",
-            "success"
-        );
-
-        form.reset();
-
-        setTimeout(function() {
-            window.location.href = "verify-email.html";
-        }, 1800);
     });
 </script>
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact Meteur</title>
+  <title>Contact Us - Meteur Online Shopping</title>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -18,289 +18,153 @@
       font-family: Arial, sans-serif;
       background: #f7f7f7;
       color: #222;
-      line-height: 1.6;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
     }
 
     header {
-      background: #ff7900;
+      background: #ff6b00;
       color: white;
-      padding: 18px 5%;
-    }
-
-    .header-inner {
-      max-width: 1200px;
-      margin: auto;
+      padding: 16px 5%;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      gap: 20px;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
     }
 
     .logo {
-      font-size: 25px;
+      font-size: 24px;
       font-weight: bold;
     }
 
-    .nav {
+    nav {
       display: flex;
+      gap: 15px;
       flex-wrap: wrap;
-      gap: 18px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
       font-weight: bold;
     }
 
-    .nav a:hover {
+    nav a:hover {
       text-decoration: underline;
     }
 
-    main {
-      max-width: 1100px;
+    .container {
+      max-width: 900px;
       margin: 40px auto;
       padding: 0 20px;
     }
 
-    .hero {
-      text-align: center;
-      margin-bottom: 35px;
-    }
-
-    .hero h1 {
-      font-size: 36px;
-      margin-bottom: 10px;
-    }
-
-    .hero p {
-      color: #666;
-    }
-
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      margin-bottom: 35px;
-    }
-
-    .info-card,
-    .form-card,
-    .help-card {
+    .card {
       background: white;
       border-radius: 12px;
-      padding: 25px;
-      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      padding: 30px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     }
 
-    .info-icon {
-      font-size: 32px;
+    h1 {
+      color: #ff6b00;
       margin-bottom: 10px;
     }
 
-    .info-card h2 {
-      font-size: 20px;
-      margin-bottom: 8px;
-    }
-
-    .info-card p {
-      color: #666;
-    }
-
-    .info-card a {
-      color: #ff7900;
-      font-weight: bold;
-    }
-
-    .form-card {
-      max-width: 850px;
-      margin: auto;
-    }
-
-    .form-card h2 {
-      margin-bottom: 8px;
-    }
-
-    .form-card > p {
+    .intro {
       color: #666;
       margin-bottom: 25px;
+      line-height: 1.6;
     }
 
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-    }
-
-    .field {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .field.full {
-      grid-column: 1 / -1;
+    .form-group {
+      margin-bottom: 18px;
     }
 
     label {
-      font-weight: bold;
+      display: block;
       margin-bottom: 7px;
+      font-weight: bold;
     }
 
     input,
-    select,
     textarea {
       width: 100%;
       padding: 13px;
       border: 1px solid #ddd;
-      border-radius: 8px;
+      border-radius: 7px;
       font-size: 15px;
-      font-family: inherit;
     }
 
     textarea {
-      min-height: 140px;
+      min-height: 150px;
       resize: vertical;
     }
 
     input:focus,
-    select:focus,
     textarea:focus {
       outline: none;
-      border-color: #ff7900;
+      border-color: #ff6b00;
     }
 
     button {
-      background: #ff7900;
+      width: 100%;
+      padding: 14px;
+      background: #ff6b00;
       color: white;
       border: none;
-      padding: 14px 25px;
-      border-radius: 8px;
+      border-radius: 7px;
       font-size: 16px;
       font-weight: bold;
       cursor: pointer;
     }
 
     button:hover {
-      background: #e66d00;
+      background: #e85f00;
     }
 
     button:disabled {
-      opacity: 0.6;
+      background: #aaa;
       cursor: not-allowed;
     }
 
-    .message {
-      margin: 18px 0;
+    #messageBox {
+      margin-top: 18px;
       padding: 14px;
-      border-radius: 8px;
+      border-radius: 7px;
       display: none;
-      font-weight: bold;
+      line-height: 1.5;
     }
 
     .success {
-      background: #e8f7ed;
-      color: #16733a;
+      background: #e8f8ee;
+      color: #18733a;
     }
 
     .error {
       background: #fdeaea;
-      color: #a12626;
-    }
-
-    .help-section {
-      margin-top: 35px;
-    }
-
-    .help-section h2 {
-      margin-bottom: 18px;
-      text-align: center;
-    }
-
-    .help-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-
-    .help-card h3 {
-      margin-bottom: 8px;
-    }
-
-    .help-card p {
-      color: #666;
-      margin-bottom: 12px;
-    }
-
-    .help-card a {
-      color: #ff7900;
-      font-weight: bold;
+      color: #a32121;
     }
 
     footer {
+      margin-top: 50px;
       background: #222;
       color: white;
-      margin-top: 50px;
-      padding: 35px 5%;
-    }
-
-    .footer-inner {
-      max-width: 1100px;
-      margin: auto;
-    }
-
-    .footer-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 25px;
-      margin-bottom: 25px;
-    }
-
-    footer h3 {
-      margin-bottom: 10px;
-    }
-
-    footer a {
-      display: block;
-      color: #ddd;
-      margin: 5px 0;
-    }
-
-    footer a:hover {
-      color: white;
-    }
-
-    .copyright {
-      border-top: 1px solid #444;
-      padding-top: 18px;
-      color: #bbb;
       text-align: center;
+      padding: 25px 15px;
     }
 
-    @media (max-width: 800px) {
-      .info-grid,
-      .help-grid,
-      .footer-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .form-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .field.full {
-        grid-column: auto;
-      }
-
-      .header-inner {
+    @media (max-width: 600px) {
+      header {
         flex-direction: column;
+        align-items: flex-start;
       }
 
-      .nav {
-        justify-content: center;
+      nav {
+        gap: 10px;
       }
 
-      .hero h1 {
-        font-size: 30px;
+      .card {
+        padding: 20px;
       }
     }
   </style>
@@ -308,253 +172,201 @@
 
 <body>
 
-<header>
-  <div class="header-inner">
-    <a href="index.html" class="logo">🛒 Meteur</a>
+  <header>
+    <div class="logo">Meteur Online Shopping</div>
 
-    <nav class="nav">
+    <nav>
       <a href="index.html">Home</a>
       <a href="shop.html">Shop</a>
-      <a href="categories.html">Categories</a>
-      <a href="deals.html">Deals</a>
-      <a href="new-arrivals.html">New Arrivals</a>
-      <a href="sell.html">Sell on Meteur</a>
+      <a href="dashboard.html">My Account</a>
+      <a href="contact.html">Contact Us</a>
     </nav>
-  </div>
-</header>
+  </header>
 
-<main>
+  <main class="container">
+    <div class="card">
 
-  <section class="hero">
-    <h1>Contact Meteur</h1>
-    <p>Have a question about an order, product, account or shopping experience? Get in touch with the Meteur team.</p>
-  </section>
+      <h1>Contact Us</h1>
 
-  <section class="info-grid">
+      <p class="intro">
+        Have a question or need help? Send us a message and our support team
+        will review it shortly.
+      </p>
 
-    <div class="info-card">
-      <div class="info-icon">📧</div>
-      <h2>Email Support</h2>
-      <p>Send us an email for general support.</p>
-      <a href="mailto:support@meteur.com">support@meteur.com</a>
-    </div>
+      <form id="contactForm">
 
-    <div class="info-card">
-      <div class="info-icon">📞</div>
-      <h2>Customer Support</h2>
-      <p>Contact our customer service team for help with shopping and orders.</p>
-    </div>
-
-    <div class="info-card">
-      <div class="info-icon">🛍️</div>
-      <h2>Shopping Help</h2>
-      <p>Need help finding a product?</p>
-      <a href="shop.html">Visit Shop</a>
-    </div>
-
-  </section>
-
-  <section class="form-card">
-
-    <h2>Send Us a Message</h2>
-    <p>Fill in the form below and tell us how we can help.</p>
-
-    <div id="formMessage" class="message"></div>
-
-    <form id="contactForm">
-
-      <div class="form-grid">
-
-        <div class="field">
+        <div class="form-group">
           <label for="firstName">First Name</label>
-          <input id="firstName" type="text" required>
+          <input type="text" id="firstName" required>
         </div>
 
-        <div class="field">
+        <div class="form-group">
           <label for="lastName">Last Name</label>
-          <input id="lastName" type="text" required>
+          <input type="text" id="lastName" required>
         </div>
 
-        <div class="field">
+        <div class="form-group">
           <label for="email">Email Address</label>
-          <input id="email" type="email" required>
+          <input type="email" id="email" required>
         </div>
 
-        <div class="field">
+        <div class="form-group">
           <label for="phone">Phone Number</label>
-          <input id="phone" type="tel">
+          <input type="text" id="phone">
         </div>
 
-        <div class="field full">
+        <div class="form-group">
           <label for="subject">Subject</label>
-          <select id="subject" required>
-            <option value="">Select a subject</option>
-            <option value="Order Question">Order Question</option>
-            <option value="Delivery Question">Delivery Question</option>
-            <option value="Product Question">Product Question</option>
-            <option value="Account Support">Account Support</option>
-            <option value="Payment Question">Payment Question</option>
-            <option value="Seller Support">Seller Support</option>
-            <option value="Other">Other</option>
-          </select>
+          <input type="text" id="subject" required>
         </div>
 
-        <div class="field full">
+        <div class="form-group">
           <label for="message">Message</label>
           <textarea id="message" required></textarea>
         </div>
 
-        <div class="field full">
-          <button type="submit" id="submitButton">Send Message</button>
-        </div>
+        <button type="submit" id="submitButton">
+          Send Message
+        </button>
 
-      </div>
+        <div id="messageBox"></div>
 
-    </form>
-
-  </section>
-
-  <section class="help-section">
-
-    <h2>Need Quick Help?</h2>
-
-    <div class="help-grid">
-
-      <div class="help-card">
-        <h3>❓ Help Center</h3>
-        <p>Find answers to common questions about your Meteur shopping experience.</p>
-        <a href="help.html">Visit Help Center →</a>
-      </div>
-
-      <div class="help-card">
-        <h3>📦 Track Your Order</h3>
-        <p>Check the status of your order and delivery information.</p>
-        <a href="track-order.html">Track Order →</a>
-      </div>
-
-      <div class="help-card">
-        <h3>🔄 Returns</h3>
-        <p>Learn more about returns, refunds and our customer service process.</p>
-        <a href="returns.html">View Returns →</a>
-      </div>
+      </form>
 
     </div>
+  </main>
 
-  </section>
+  <footer>
+    <p>© 2026 Meteur Online Shopping. All rights reserved.</p>
+  </footer>
 
-</main>
+  <script>
+    const SUPABASE_URL = "https://nytsdeupaootukcullgi.supabase.co";
 
-<footer>
-  <div class="footer-inner">
+    const SUPABASE_KEY =
+      "sb_publishable_cIqzHoafy_AEdB48KS_Wpg_LDqE1sFC";
 
-    <div class="footer-grid">
-
-      <div>
-        <h3>Meteur</h3>
-        <p>Your trusted Kenyan online shopping marketplace.</p>
-      </div>
-
-      <div>
-        <h3>Shopping</h3>
-        <a href="shop.html">Shop</a>
-        <a href="categories.html">Categories</a>
-        <a href="deals.html">Deals</a>
-        <a href="new-arrivals.html">New Arrivals</a>
-      </div>
-
-      <div>
-        <h3>Customer Service</h3>
-        <a href="help.html">Help Center</a>
-        <a href="faq.html">FAQ</a>
-        <a href="track-order.html">Track Order</a>
-        <a href="returns.html">Returns</a>
-      </div>
-
-    </div>
-
-    <div class="copyright">
-      © 2026 Meteur Online Shopping. All rights reserved.
-    </div>
-
-  </div>
-</footer>
-
-<script>
-  const SUPABASE_URL = "https://nytsdeupaootukcullgi.supabase.co";
-  const SUPABASE_KEY = "sb_publishable_cIqzHoafy_AEdB48KS_Wpg_LDqE1sFC";
-
-  const supabaseClient = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
-
-  const contactForm = document.getElementById("contactForm");
-  const formMessage = document.getElementById("formMessage");
-  const submitButton = document.getElementById("submitButton");
-
-  function showMessage(text, type) {
-    formMessage.textContent = text;
-    formMessage.className = "message " + type;
-    formMessage.style.display = "block";
-  }
-
-  contactForm.addEventListener("submit", async function(event) {
-    event.preventDefault();
-
-    submitButton.disabled = true;
-    submitButton.textContent = "Sending...";
-
-    formMessage.style.display = "none";
-
-    const firstName = document.getElementById("firstName").value.trim();
-    const lastName = document.getElementById("lastName").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const phone = document.getElementById("phone").value.trim();
-    const subject = document.getElementById("subject").value;
-    const message = document.getElementById("message").value.trim();
-
-    if (!firstName || !lastName || !email || !subject || !message) {
-      showMessage("Please complete all required fields.", "error");
-      submitButton.disabled = false;
-      submitButton.textContent = "Send Message";
-      return;
-    }
-
-    const { error } = await supabaseClient
-      .from("customer_messages")
-      .insert({
-        first_name: firstName,
-        last_name: lastName,
-        email: email,
-        phone: phone,
-        subject: subject,
-        message: message,
-        status: "New"
-      });
-
-    if (error) {
-      console.error(error);
-      showMessage(
-        "Your message could not be submitted. Please try again.",
-        "error"
-      );
-
-      submitButton.disabled = false;
-      submitButton.textContent = "Send Message";
-      return;
-    }
-
-    showMessage(
-      "Your message has been submitted successfully.",
-      "success"
+    const supabaseClient = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
     );
 
-    contactForm.reset();
+    const contactForm = document.getElementById("contactForm");
+    const submitButton = document.getElementById("submitButton");
+    const messageBox = document.getElementById("messageBox");
 
-    submitButton.disabled = false;
-    submitButton.textContent = "Send Message";
-  });
-</script>
+    function showMessage(text, type) {
+      messageBox.textContent = text;
+      messageBox.className = type;
+      messageBox.style.display = "block";
+    }
+
+    contactForm.addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      submitButton.disabled = true;
+      submitButton.textContent = "Sending...";
+
+      messageBox.style.display = "none";
+
+      const firstName =
+        document.getElementById("firstName").value.trim();
+
+      const lastName =
+        document.getElementById("lastName").value.trim();
+
+      const email =
+        document.getElementById("email").value.trim();
+
+      const phone =
+        document.getElementById("phone").value.trim();
+
+      const subject =
+        document.getElementById("subject").value.trim();
+
+      const message =
+        document.getElementById("message").value.trim();
+
+      try {
+
+        /* Step 1: Save the customer's message */
+        const { data, error } = await supabaseClient
+          .from("customer_messages")
+          .insert([
+            {
+              first_name: firstName,
+              last_name: lastName,
+              email: email,
+              phone: phone,
+              subject: subject,
+              message: message,
+              status: "New"
+            }
+          ])
+          .select("id")
+          .single();
+
+        if (error) {
+          console.error("Supabase error:", error);
+
+          throw new Error(
+            "Your message could not be submitted. Please try again."
+          );
+        }
+
+        /* Step 2: Ask the secure server to send the automatic reply */
+        const replyResponse = await fetch("/api/contact-reply.js", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            email: email,
+            firstName: firstName,
+            messageId: data.id
+          })
+        });
+
+        const replyResult = await replyResponse.json();
+
+        if (!replyResponse.ok || !replyResult.success) {
+          console.error("Automatic reply error:", replyResult);
+
+          showMessage(
+            "Your message has been received successfully. The automatic email reply could not be sent.",
+            "success"
+          );
+
+          contactForm.reset();
+          return;
+        }
+
+        /* Step 3: Confirm both actions */
+        showMessage(
+          "Your message has been submitted successfully. A confirmation email has been sent to your email address.",
+          "success"
+        );
+
+        contactForm.reset();
+
+      } catch (error) {
+
+        console.error("Contact form error:", error);
+
+        showMessage(
+          error.message ||
+          "Something went wrong. Please try again.",
+          "error"
+        );
+
+      } finally {
+
+        submitButton.disabled = false;
+        submitButton.textContent = "Send Message";
+
+      }
+    });
+  </script>
 
 </body>
 </html>

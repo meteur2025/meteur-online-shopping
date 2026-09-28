@@ -50,7 +50,8 @@
     }
 
     .top-card,
-    .product-card {
+    .product-card,
+    .edit-card {
       background: white;
       border-radius: 12px;
       padding: 24px;
@@ -154,6 +155,16 @@
       color: white;
     }
 
+    .save-btn {
+      background: #ff7a00;
+      color: white;
+    }
+
+    .cancel-btn {
+      background: #777;
+      color: white;
+    }
+
     .empty {
       background: white;
       border-radius: 12px;
@@ -166,6 +177,72 @@
       text-align: center;
       padding: 60px 20px;
       color: #666;
+    }
+
+    .edit-card {
+      display: none;
+    }
+
+    .edit-card h2 {
+      margin-bottom: 20px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    .form-group label {
+      font-weight: bold;
+      margin-bottom: 7px;
+      font-size: 14px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 11px 12px;
+      border: 1px solid #ccc;
+      border-radius: 7px;
+      font-size: 15px;
+      font-family: Arial, sans-serif;
+    }
+
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .checkbox-row {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      margin-top: 8px;
+    }
+
+    .checkbox-item {
+      display: flex;
+      gap: 7px;
+      align-items: center;
+      font-size: 14px;
+    }
+
+    .edit-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 22px;
+      flex-wrap: wrap;
     }
 
     footer {
@@ -182,6 +259,14 @@
       .product-image {
         width: 100%;
         height: 220px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-group.full {
+        grid-column: auto;
       }
 
       header {
@@ -216,6 +301,170 @@
 
   <div id="message" class="message"></div>
 
+  <section id="editCard" class="edit-card">
+
+    <h2>Edit Product</h2>
+
+    <form id="editForm">
+
+      <div class="form-grid">
+
+        <div class="form-group full">
+          <label for="productName">Product Name</label>
+          <input
+            type="text"
+            id="productName"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="productCategory">Category</label>
+
+          <select id="productCategory" required>
+            <option value="Phones and Tablets">Phones and Tablets</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Smart Devices">Smart Devices</option>
+            <option value="Computers">Computers</option>
+            <option value="Fashion">Fashion</option>
+            <option value="Home and Kitchen">Home and Kitchen</option>
+            <option value="Beauty">Beauty</option>
+            <option value="Sports">Sports</option>
+            <option value="Accessories">Accessories</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="productBadge">Badge</label>
+          <input
+            type="text"
+            id="productBadge"
+            placeholder="Example: NEW"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="productPrice">Price (KSh)</label>
+          <input
+            type="number"
+            id="productPrice"
+            min="0"
+            step="0.01"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="productOldPrice">Old Price (KSh)</label>
+          <input
+            type="number"
+            id="productOldPrice"
+            min="0"
+            step="0.01"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="productStock">Stock</label>
+          <input
+            type="number"
+            id="productStock"
+            min="0"
+            step="1"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="productRating">Rating</label>
+          <input
+            type="number"
+            id="productRating"
+            min="0"
+            max="5"
+            step="0.1"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="productReviews">Review Count</label>
+          <input
+            type="number"
+            id="productReviews"
+            min="0"
+            step="1"
+          >
+        </div>
+
+        <div class="form-group full">
+          <label for="productImage">Image URL</label>
+          <input
+            type="url"
+            id="productImage"
+            placeholder="https://..."
+          >
+        </div>
+
+        <div class="form-group full">
+          <label for="productDescription">Description</label>
+          <textarea
+            id="productDescription"
+            placeholder="Product description"
+          ></textarea>
+        </div>
+
+        <div class="form-group full">
+
+          <label>Product Options</label>
+
+          <div class="checkbox-row">
+
+            <label class="checkbox-item">
+              <input
+                type="checkbox"
+                id="productDeal"
+              >
+              Deal
+            </label>
+
+            <label class="checkbox-item">
+              <input
+                type="checkbox"
+                id="productNew"
+              >
+              New Arrival
+            </label>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="edit-actions">
+
+        <button
+          type="submit"
+          class="btn save-btn"
+        >
+          Update Product
+        </button>
+
+        <button
+          type="button"
+          class="btn cancel-btn"
+          onclick="cancelEdit()"
+        >
+          Cancel
+        </button>
+
+      </div>
+
+    </form>
+
+  </section>
+
   <div id="products"></div>
 
 </main>
@@ -225,8 +474,11 @@
 </footer>
 
 <script>
-  const SUPABASE_URL = "https://nytsdeupaootukcullgi.supabase.co";
-  const SUPABASE_KEY = "sb_publishable_cIqzHoafy_AEdB48KS_Wpg_LDqE1sFC";
+  const SUPABASE_URL =
+    "https://nytsdeupaootukcullgi.supabase.co";
+
+  const SUPABASE_KEY =
+    "sb_publishable_cIqzHoafy_AEdB48KS_Wpg_LDqE1sFC";
 
   const supabaseClient = supabase.createClient(
     SUPABASE_URL,
@@ -234,9 +486,12 @@
   );
 
   let currentSeller = null;
+  let editingProductId = null;
 
   async function checkSellerAccess() {
+
     try {
+
       const {
         data: { user },
         error: userError
@@ -247,12 +502,14 @@
         return;
       }
 
-      const { data: seller, error: sellerError } =
-        await supabaseClient
-          .from("sellers")
-          .select("*")
-          .eq("user_id", user.id)
-          .maybeSingle();
+      const {
+        data: seller,
+        error: sellerError
+      } = await supabaseClient
+        .from("sellers")
+        .select("*")
+        .eq("user_id", user.id)
+        .maybeSingle();
 
       if (sellerError || !seller) {
         window.location.href = "dashboard.html";
@@ -272,22 +529,31 @@
       await loadProducts();
 
     } catch (error) {
+
       console.error(error);
+
       window.location.href = "dashboard.html";
     }
   }
 
   async function loadProducts() {
-    const container = document.getElementById("products");
 
-    const { data: products, error } =
-      await supabaseClient
-        .from("products")
-        .select("*")
-        .eq("seller_id", currentSeller.id)
-        .order("created_at", { ascending: false });
+    const container =
+      document.getElementById("products");
+
+    const {
+      data: products,
+      error
+    } = await supabaseClient
+      .from("products")
+      .select("*")
+      .eq("seller_id", currentSeller.id)
+      .order("created_at", {
+        ascending: false
+      });
 
     if (error) {
+
       console.error(error);
 
       container.innerHTML =
@@ -297,162 +563,425 @@
     }
 
     if (!products || products.length === 0) {
+
       container.innerHTML =
         '<div class="empty">You have no products listed yet.</div>';
 
       return;
     }
 
-    container.innerHTML = products.map(product => {
+    container.innerHTML =
+      products.map(product => {
 
-      const image =
-        product.image_url ||
-        "https://via.placeholder.com/400x400?text=Meteur";
+        const image =
+          product.image_url ||
+          "https://via.placeholder.com/400x400?text=Meteur";
 
-      return `
-        <section class="product-card">
+        return `
+          <section class="product-card">
 
-          <img
-            class="product-image"
-            src="${escapeHtml(image)}"
-            alt="${escapeHtml(product.name || "Product")}"
-            onerror="this.src='https://via.placeholder.com/400x400?text=Meteur';"
-          >
+            <img
+              class="product-image"
+              src="${escapeHtml(image)}"
+              alt="${escapeHtml(product.name || "Product")}"
+              onerror="this.src='https://via.placeholder.com/400x400?text=Meteur';"
+            >
 
-          <div class="product-info">
+            <div class="product-info">
 
-            ${product.badge
-              ? `<span class="badge">${escapeHtml(product.badge)}</span>`
-              : ""
-            }
-
-            <h3>${escapeHtml(product.name)}</h3>
-
-            <div class="category">
-              ${escapeHtml(product.category || "Uncategorized")}
-            </div>
-
-            <div class="price">
-              KSh ${Number(product.price || 0).toLocaleString()}
               ${
-                product.old_price
-                  ? `<span class="old-price">KSh ${Number(product.old_price).toLocaleString()}</span>`
+                product.badge
+                  ? `<span class="badge">${escapeHtml(product.badge)}</span>`
                   : ""
               }
+
+              <h3>
+                ${escapeHtml(product.name)}
+              </h3>
+
+              <div class="category">
+                ${escapeHtml(
+                  product.category || "Uncategorized"
+                )}
+              </div>
+
+              <div class="price">
+                KSh ${Number(
+                  product.price || 0
+                ).toLocaleString()}
+
+                ${
+                  product.old_price
+                    ? `
+                      <span class="old-price">
+                        KSh ${Number(
+                          product.old_price
+                        ).toLocaleString()}
+                      </span>
+                    `
+                    : ""
+                }
+              </div>
+
+              <div class="stock">
+                Stock:
+                <strong>
+                  ${Number(product.stock || 0)}
+                </strong>
+              </div>
+
+              <div>
+                Rating:
+                <strong>
+                  ${Number(
+                    product.rating || 0
+                  ).toFixed(1)}
+                </strong>
+
+                (
+                ${Number(
+                  product.review_count || 0
+                )}
+                reviews)
+              </div>
+
+              <div class="actions">
+
+                <button
+                  class="btn edit-btn"
+                  onclick="editProduct('${product.id}')"
+                >
+                  Edit
+                </button>
+
+                <button
+                  class="btn delete-btn"
+                  onclick="deleteProduct('${product.id}')"
+                >
+                  Delete
+                </button>
+
+              </div>
+
             </div>
 
-            <div class="stock">
-              Stock: <strong>${Number(product.stock || 0)}</strong>
-            </div>
+          </section>
+        `;
 
-            <div>
-              Rating:
-              <strong>${Number(product.rating || 0).toFixed(1)}</strong>
-              (${Number(product.review_count || 0)} reviews)
-            </div>
-
-            <div class="actions">
-
-              <button
-                class="btn edit-btn"
-                onclick="editProduct('${product.id}')"
-              >
-                Edit
-              </button>
-
-              <button
-                class="btn delete-btn"
-                onclick="deleteProduct('${product.id}')"
-              >
-                Delete
-              </button>
-
-            </div>
-
-          </div>
-
-        </section>
-      `;
-    }).join("");
+      }).join("");
   }
 
   async function editProduct(productId) {
-    const { data: product, error } =
-      await supabaseClient
-        .from("products")
-        .select("*")
-        .eq("id", productId)
-        .eq("seller_id", currentSeller.id)
-        .maybeSingle();
+
+    const {
+      data: product,
+      error
+    } = await supabaseClient
+      .from("products")
+      .select("*")
+      .eq("id", productId)
+      .eq("seller_id", currentSeller.id)
+      .maybeSingle();
 
     if (error || !product) {
-      showMessage("Product not found or access denied.");
+
+      showMessage(
+        "Product not found or access denied."
+      );
+
       return;
     }
 
-    const newBadge =
-      prompt("Enter the product badge:", product.badge || "");
+    editingProductId = productId;
 
-    if (newBadge === null) {
-      return;
-    }
+    document.getElementById("productName").value =
+      product.name || "";
 
-    const { error: updateError } =
-      await supabaseClient
+    document.getElementById("productCategory").value =
+      product.category || "Other";
+
+    document.getElementById("productPrice").value =
+      product.price ?? "";
+
+    document.getElementById("productOldPrice").value =
+      product.old_price ?? "";
+
+    document.getElementById("productStock").value =
+      product.stock ?? 0;
+
+    document.getElementById("productRating").value =
+      product.rating ?? 0;
+
+    document.getElementById("productReviews").value =
+      product.review_count ?? 0;
+
+    document.getElementById("productBadge").value =
+      product.badge || "";
+
+    document.getElementById("productImage").value =
+      product.image_url || "";
+
+    document.getElementById("productDescription").value =
+      product.description || "";
+
+    document.getElementById("productDeal").checked =
+      Boolean(product.is_deal);
+
+    document.getElementById("productNew").checked =
+      Boolean(product.is_new);
+
+    const editCard =
+      document.getElementById("editCard");
+
+    editCard.style.display = "block";
+
+    editCard.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }
+
+  document
+    .getElementById("editForm")
+    .addEventListener("submit", async function(event) {
+
+      event.preventDefault();
+
+      if (!editingProductId) {
+        showMessage("No product selected.");
+        return;
+      }
+
+      const name =
+        document.getElementById("productName").value.trim();
+
+      const category =
+        document.getElementById("productCategory").value;
+
+      const price =
+        Number(
+          document.getElementById("productPrice").value
+        );
+
+      const oldPriceValue =
+        document.getElementById("productOldPrice").value;
+
+      const oldPrice =
+        oldPriceValue === ""
+          ? null
+          : Number(oldPriceValue);
+
+      const stock =
+        Number(
+          document.getElementById("productStock").value
+        );
+
+      const ratingValue =
+        document.getElementById("productRating").value;
+
+      const rating =
+        ratingValue === ""
+          ? 0
+          : Number(ratingValue);
+
+      const reviewValue =
+        document.getElementById("productReviews").value;
+
+      const reviewCount =
+        reviewValue === ""
+          ? 0
+          : Number(reviewValue);
+
+      const badge =
+        document.getElementById("productBadge").value.trim();
+
+      const imageUrl =
+        document.getElementById("productImage").value.trim();
+
+      const description =
+        document
+          .getElementById("productDescription")
+          .value.trim();
+
+      const isDeal =
+        document.getElementById("productDeal").checked;
+
+      const isNew =
+        document.getElementById("productNew").checked;
+
+      if (!name) {
+        showMessage("Product name is required.");
+        return;
+      }
+
+      if (!Number.isFinite(price) || price < 0) {
+        showMessage("Please enter a valid price.");
+        return;
+      }
+
+      if (!Number.isInteger(stock) || stock < 0) {
+        showMessage("Please enter a valid stock quantity.");
+        return;
+      }
+
+      if (
+        !Number.isFinite(rating) ||
+        rating < 0 ||
+        rating > 5
+      ) {
+        showMessage(
+          "Rating must be between 0 and 5."
+        );
+        return;
+      }
+
+      if (
+        !Number.isInteger(reviewCount) ||
+        reviewCount < 0
+      ) {
+        showMessage(
+          "Please enter a valid review count."
+        );
+        return;
+      }
+
+      const updateButton =
+        document.querySelector(
+          "#editForm .save-btn"
+        );
+
+      updateButton.disabled = true;
+      updateButton.textContent = "Updating...";
+
+      const {
+        error
+      } = await supabaseClient
         .from("products")
         .update({
-          badge: newBadge.trim() || null
+
+          name: name,
+
+          category: category,
+
+          price: price,
+
+          old_price: oldPrice,
+
+          stock: stock,
+
+          rating: rating,
+
+          review_count: reviewCount,
+
+          badge:
+            badge || null,
+
+          image_url:
+            imageUrl || null,
+
+          description:
+            description || null,
+
+          is_deal: isDeal,
+
+          is_new: isNew,
+
+          updated_at:
+            new Date().toISOString()
+
         })
-        .eq("id", productId)
+        .eq("id", editingProductId)
         .eq("seller_id", currentSeller.id);
 
-    if (updateError) {
-      console.error(updateError);
-      showMessage("Unable to update product.");
-      return;
-    }
+      updateButton.disabled = false;
+      updateButton.textContent = "Update Product";
 
-    showMessage("Product updated successfully.");
-    await loadProducts();
+      if (error) {
+
+        console.error(error);
+
+        showMessage(
+          "Unable to update product: " +
+          error.message
+        );
+
+        return;
+      }
+
+      showMessage(
+        "Product updated successfully."
+      );
+
+      cancelEdit();
+
+      await loadProducts();
+    });
+
+  function cancelEdit() {
+
+    editingProductId = null;
+
+    document.getElementById("editCard").style.display =
+      "none";
+
+    document.getElementById("editForm").reset();
   }
 
   async function deleteProduct(productId) {
+
     const confirmed =
-      confirm("Are you sure you want to delete this product?");
+      confirm(
+        "Are you sure you want to delete this product?"
+      );
 
     if (!confirmed) {
       return;
     }
 
-    const { error } =
-      await supabaseClient
-        .from("products")
-        .delete()
-        .eq("id", productId)
-        .eq("seller_id", currentSeller.id);
+    const {
+      error
+    } = await supabaseClient
+      .from("products")
+      .delete()
+      .eq("id", productId)
+      .eq("seller_id", currentSeller.id);
 
     if (error) {
+
       console.error(error);
-      showMessage("Unable to delete product.");
+
+      showMessage(
+        "Unable to delete product."
+      );
+
       return;
     }
 
-    showMessage("Product deleted successfully.");
+    showMessage(
+      "Product deleted successfully."
+    );
+
     await loadProducts();
   }
 
   function showMessage(message) {
-    const box = document.getElementById("message");
+
+    const box =
+      document.getElementById("message");
 
     box.textContent = message;
+
     box.style.display = "block";
 
     setTimeout(() => {
+
       box.style.display = "none";
+
     }, 4000);
   }
 
   function escapeHtml(value) {
+
     return String(value ?? "")
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
@@ -462,8 +991,11 @@
   }
 
   async function logout() {
+
     await supabaseClient.auth.signOut();
-    window.location.href = "login.html";
+
+    window.location.href =
+      "login.html";
   }
 
   checkSellerAccess();

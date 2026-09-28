@@ -1,274 +1,740 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Account - Meteur Online Shopping</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="style.css">
+  <title>My Account - Meteur Online Shopping</title>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="supabase-config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f6f6f6;
+      color: #222;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* HEADER */
+    header {
+      background: #f68b1e;
+      color: white;
+      padding: 14px 5%;
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .top-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .search {
+      flex: 1;
+      display: flex;
+      background: white;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .search input {
+      flex: 1;
+      border: 0;
+      outline: none;
+      padding: 12px;
+      font-size: 15px;
+    }
+
+    .search button {
+      border: 0;
+      background: #333;
+      color: white;
+      padding: 0 20px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    /* NAVIGATION */
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    nav a {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 11px;
+      border-radius: 5px;
+      font-size: 14px;
+      font-weight: bold;
+      transition: background 0.2s;
+    }
+
+    nav a:hover,
+    nav a.active {
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    .nav-icon {
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    /* MAIN */
+    .container {
+      max-width: 1200px;
+      margin: 35px auto;
+      padding: 0 20px;
+    }
+
+    .welcome {
+      background: white;
+      padding: 28px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      margin-bottom: 25px;
+    }
+
+    .welcome h1 {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    .welcome p {
+      color: #666;
+    }
+
+    /* ACCOUNT GRID */
+    .account-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .account-card {
+      background: white;
+      border-radius: 10px;
+      padding: 25px;
+      min-height: 145px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .account-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    }
+
+    .card-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: #fff1e2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 27px;
+      margin-bottom: 14px;
+    }
+
+    .account-card h2 {
+      font-size: 19px;
+      margin-bottom: 7px;
+    }
+
+    .account-card p {
+      color: #777;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* PROFILE */
+    .profile-box {
+      background: white;
+      margin-top: 25px;
+      padding: 28px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .profile-box h2 {
+      margin-bottom: 20px;
+    }
+
+    .profile-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 13px 0;
+      border-bottom: 1px solid #eee;
+      gap: 20px;
+    }
+
+    .profile-row:last-child {
+      border-bottom: 0;
+    }
+
+    .profile-label {
+      font-weight: bold;
+      color: #555;
+    }
+
+    .profile-value {
+      color: #777;
+      text-align: right;
+    }
+
+    /* BUTTONS */
+    .actions {
+      margin-top: 25px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .button {
+      border: 0;
+      padding: 12px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .primary {
+      background: #f68b1e;
+      color: white;
+    }
+
+    .primary:hover {
+      background: #d96f0b;
+    }
+
+    .logout {
+      background: #333;
+      color: white;
+    }
+
+    .logout:hover {
+      background: #111;
+    }
+
+    /* MESSAGE */
+    #message {
+      display: none;
+      margin-bottom: 20px;
+      padding: 13px 16px;
+      border-radius: 6px;
+      background: #fff1e2;
+      color: #8a4b00;
+      font-weight: bold;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #222;
+      color: white;
+      margin-top: 50px;
+      padding: 40px 5% 20px;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 40px;
+    }
+
+    .footer-section h3 {
+      color: #f68b1e;
+      margin-bottom: 15px;
+    }
+
+    .footer-section p {
+      color: #ccc;
+      line-height: 1.6;
+    }
+
+    .footer-section a {
+      display: block;
+      color: #ddd;
+      margin-bottom: 9px;
+      font-size: 14px;
+    }
+
+    .footer-section a:hover {
+      color: #f68b1e;
+    }
+
+    .copyright {
+      max-width: 1200px;
+      margin: 30px auto 0;
+      padding-top: 20px;
+      border-top: 1px solid #444;
+      text-align: center;
+      color: #aaa;
+      font-size: 13px;
+    }
+
+    /* MOBILE */
+    @media (max-width: 850px) {
+      .account-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-container {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .top-row {
+        flex-direction: column;
+      }
+
+      .logo {
+        text-align: center;
+      }
+
+      .search {
+        width: 100%;
+      }
+
+      nav {
+        gap: 5px;
+      }
+
+      nav a {
+        font-size: 12px;
+        padding: 7px 8px;
+      }
+
+      .nav-icon {
+        font-size: 16px;
+      }
+
+      .container {
+        margin-top: 25px;
+      }
+
+      .welcome {
+        padding: 22px;
+      }
+
+      .welcome h1 {
+        font-size: 24px;
+      }
+
+      .account-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-container {
+        grid-template-columns: 1fr;
+      }
+
+      .profile-row {
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      .profile-value {
+        text-align: left;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-    <header class="site-header">
-        <div class="header-container">
+<header>
+  <div class="header-container">
 
-            <div class="logo">
-                <a href="index.html">Meteur</a>
-            </div>
+    <div class="top-row">
+      <a href="index.html" class="logo">Meteur</a>
 
-            <div class="search-box">
-                <input type="text" placeholder="Search products...">
-                <button type="button">Search</button>
-            </div>
+      <form class="search" id="searchForm">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search products..."
+          autocomplete="off"
+        >
+        <button type="submit">Search</button>
+      </form>
+    </div>
 
-            <div class="header-links">
-                <a href="dashboard.html">Account</a>
-                <a href="wishlist.html">Wishlist</a>
-                <a href="cart.html">Cart</a>
-            </div>
+    <nav>
 
-        </div>
+      <a href="index.html">
+        <span class="nav-icon">🏠</span>
+        Home
+      </a>
 
-        <nav class="main-nav">
-            <a href="index.html">Home</a>
-            <a href="shop.html">Shop</a>
-            <a href="categories.html">Categories</a>
-            <a href="deals.html">Deals</a>
-            <a href="new-arrivals.html">New Arrivals</a>
-        </nav>
-    </header>
+      <a href="shop.html">
+        <span class="nav-icon">🛍️</span>
+        Shop
+      </a>
 
-    <main class="container" style="padding: 40px 20px;">
+      <a href="deals.html">
+        <span class="nav-icon">🔥</span>
+        Deals
+      </a>
 
-        <section style="margin-bottom: 30px;">
-            <h1>My Account</h1>
+      <a href="new-arrivals.html">
+        <span class="nav-icon">✨</span>
+        New Arrivals
+      </a>
 
-            <p id="welcomeMessage">
-                Loading your account...
-            </p>
-        </section>
+      <a href="categories.html">
+        <span class="nav-icon">📂</span>
+        Categories
+      </a>
 
-        <section style="
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-        ">
+      <a href="wishlist.html">
+        <span class="nav-icon">❤️</span>
+        Wishlist
+      </a>
 
-            <a href="profile.html" style="
-                display: block;
-                padding: 25px;
-                background: #fff;
-                border: 1px solid #ddd;
-                border-radius: 8px;
-                text-decoration: none;
-                color: inherit;
-            ">
-                <h2>Profile</h2>
-                <p>View and manage your personal information.</p>
-            </a>
+      <a href="cart.html">
+        <span class="nav-icon">🛒</span>
+        Cart
+      </a>
 
-            <a href="orders.html" style="
-                display: block;
-                padding: 25px;
-                background: #fff;
-                border: 1px solid #ddd;
-                border-radius: 8px;
-                text-decoration: none;
-                color: inherit;
-            ">
-                <h2>My Orders</h2>
-                <p>View your orders and order history.</p>
-            </a>
+      <a href="dashboard.html" class="active">
+        <span class="nav-icon">👤</span>
+        My Account
+      </a>
 
-            <a href="wishlist.html" style="
-                display: block;
-                padding: 25px;
-                background: #fff;
-                border: 1px solid #ddd;
-                border-radius: 8px;
-                text-decoration: none;
-                color: inherit;
-            ">
-                <h2>Wishlist</h2>
-                <p>View products you have saved.</p>
-            </a>
+    </nav>
 
-            <a href="addresses.html" style="
-                display: block;
-                padding: 25px;
-                background: #fff;
-                border: 1px solid #ddd;
-                border-radius: 8px;
-                text-decoration: none;
-                color: inherit;
-            ">
-                <h2>Addresses</h2>
-                <p>Manage your delivery addresses.</p>
-            </a>
+  </div>
+</header>
 
-        </section>
 
-        <section style="
-            margin-top: 30px;
-            padding: 25px;
-            background: #fff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-        ">
+<main class="container">
 
-            <h2>Account Information</h2>
+  <div id="message"></div>
 
-            <p style="margin-top: 15px;">
-                <strong>Email:</strong>
-                <span id="userEmail">Loading...</span>
-            </p>
+  <section class="welcome">
+    <h1>Welcome back, <span id="userName">Customer</span>!</h1>
+    <p>Manage your Meteur Online Shopping account and orders.</p>
+  </section>
 
-            <p style="margin-top: 10px;">
-                <strong>Name:</strong>
-                <span id="userName">Loading...</span>
-            </p>
 
-            <button
-                id="logoutButton"
-                type="button"
-                style="
-                    margin-top: 20px;
-                    padding: 12px 25px;
-                    border: none;
-                    border-radius: 5px;
-                    cursor: pointer;
-                    background: #f57c00;
-                    color: white;
-                    font-size: 16px;
-                "
-            >
-                Logout
-            </button>
+  <section class="account-grid">
 
-            <p
-                id="message"
-                style="margin-top: 15px;"
-            ></p>
+    <a href="shop.html" class="account-card">
+      <div class="card-icon">🛍️</div>
+      <h2>Shop</h2>
+      <p>Browse all available products.</p>
+    </a>
 
-        </section>
+    <a href="deals.html" class="account-card">
+      <div class="card-icon">🔥</div>
+      <h2>Deals</h2>
+      <p>Discover products currently on deal.</p>
+    </a>
 
-    </main>
+    <a href="new-arrivals.html" class="account-card">
+      <div class="card-icon">✨</div>
+      <h2>New Arrivals</h2>
+      <p>See the latest products added to Meteur.</p>
+    </a>
 
-    <footer style="
-        margin-top: 50px;
-        padding: 30px 20px;
-        text-align: center;
-        background: #222;
-        color: white;
-    ">
+    <a href="categories.html" class="account-card">
+      <div class="card-icon">📂</div>
+      <h2>Categories</h2>
+      <p>Shop products by category.</p>
+    </a>
 
-        <p>
-            &copy; 2026 Meteur Online Shopping. All rights reserved.
-        </p>
+    <a href="wishlist.html" class="account-card">
+      <div class="card-icon">❤️</div>
+      <h2>Wishlist</h2>
+      <p>View and manage your saved products.</p>
+    </a>
 
-    </footer>
+    <a href="cart.html" class="account-card">
+      <div class="card-icon">🛒</div>
+      <h2>Cart</h2>
+      <p>View products waiting in your shopping cart.</p>
+    </a>
 
-    <script>
+    <a href="orders.html" class="account-card">
+      <div class="card-icon">📦</div>
+      <h2>My Orders</h2>
+      <p>View your orders and order status.</p>
+    </a>
 
-        async function protectDashboard() {
+    <a href="profile.html" class="account-card">
+      <div class="card-icon">👤</div>
+      <h2>My Profile</h2>
+      <p>View and update your account information.</p>
+    </a>
 
-            const {
-                data: { user },
-                error
-            } = await supabaseClient.auth.getUser();
+    <a href="addresses.html" class="account-card">
+      <div class="card-icon">📍</div>
+      <h2>Addresses</h2>
+      <p>Manage your delivery addresses.</p>
+    </a>
 
-            if (error || !user) {
+  </section>
 
-                window.location.href = "login.html";
 
-                return;
-            }
+  <section class="profile-box">
 
-            /* Check administrator account first */
+    <h2>Account Information</h2>
 
-            const {
-                data: isAdmin,
-                error: adminError
-            } = await supabaseClient.rpc("is_current_user_admin");
+    <div class="profile-row">
+      <span class="profile-label">Name</span>
+      <span class="profile-value" id="profileName">Loading...</span>
+    </div>
 
-            if (!adminError && isAdmin === true) {
+    <div class="profile-row">
+      <span class="profile-label">Email</span>
+      <span class="profile-value" id="profileEmail">Loading...</span>
+    </div>
 
-                window.location.href = "admin-dashboard.html";
+    <div class="profile-row">
+      <span class="profile-label">Account Status</span>
+      <span class="profile-value">Active</span>
+    </div>
 
-                return;
-            }
+    <div class="actions">
+      <a href="profile.html">
+        <button class="button primary">Edit Profile</button>
+      </a>
 
-            /* Check approved seller account */
+      <button class="button logout" id="logoutButton">
+        Logout
+      </button>
+    </div>
 
-            const {
-                data: seller,
-                error: sellerError
-            } = await supabaseClient
-                .from("sellers")
-                .select("id, status")
-                .eq("user_id", user.id)
-                .maybeSingle();
+  </section>
 
-            if (
-                !sellerError &&
-                seller &&
-                String(seller.status).toLowerCase() === "approved"
-            ) {
+</main>
 
-                window.location.href = "seller-dashboard.html";
 
-                return;
-            }
+<footer>
 
-            /* Normal customer account */
+  <div class="footer-container">
 
-            const fullName =
-                user.user_metadata?.full_name ||
-                user.user_metadata?.name ||
-                `${user.user_metadata?.first_name || ""} ${user.user_metadata?.last_name || ""}`.trim();
+    <div class="footer-section">
+      <h3>Meteur</h3>
+      <p>Your trusted online shopping marketplace.</p>
+    </div>
 
-            document.getElementById("userEmail").textContent =
-                user.email || "Not available";
+    <div class="footer-section">
+      <h3>Shopping</h3>
+      <a href="shop.html">🛍️ Shop All</a>
+      <a href="deals.html">🔥 Deals</a>
+      <a href="new-arrivals.html">✨ New Arrivals</a>
+      <a href="categories.html">📂 Categories</a>
+    </div>
 
-            document.getElementById("userName").textContent =
-                fullName || "Customer";
+    <div class="footer-section">
+      <h3>Customer Service</h3>
+      <a href="help.html">❓ Help Center</a>
+      <a href="contact.html">📧 Contact Us</a>
+      <a href="shipping.html">🚚 Shipping</a>
+      <a href="returns.html">↩️ Returns & Refunds</a>
+      <a href="track-order.html">📦 Track Order</a>
+    </div>
 
-            document.getElementById("welcomeMessage").textContent =
-                `Welcome back, ${fullName || "Customer"}!`;
+  </div>
 
-        }
+  <div class="copyright">
+    © 2026 Meteur Online Shopping. All rights reserved.
+  </div>
 
-        document.getElementById("logoutButton").addEventListener(
-            "click",
-            async function() {
+</footer>
 
-                const message =
-                    document.getElementById("message");
 
-                message.textContent = "Logging out...";
+<script>
 
-                const { error } =
-                    await supabaseClient.auth.signOut();
+  const SUPABASE_URL =
+    "https://nytsdeupaootukcullgi.supabase.co";
 
-                if (error) {
+  const SUPABASE_KEY =
+    "sb_publishable_cIqzHoafy_AEdB48KS_Wpg_LDqE1sFC";
 
-                    message.textContent = error.message;
+  const supabaseClient =
+    window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
 
-                    return;
-                }
 
-                window.location.href = "login.html";
+  function showMessage(message) {
+    const box = document.getElementById("message");
 
-            }
+    box.textContent = message;
+    box.style.display = "block";
+  }
+
+
+  async function loadAccount() {
+
+    const {
+      data: { user },
+      error
+    } = await supabaseClient.auth.getUser();
+
+
+    if (error || !user) {
+      window.location.href =
+        "login.html?redirect=dashboard.html";
+      return;
+    }
+
+
+    /*
+      Check administrator access first.
+    */
+
+    try {
+
+      const {
+        data: isAdmin,
+        error: adminError
+      } = await supabaseClient.rpc(
+        "is_current_user_admin"
+      );
+
+      if (!adminError && isAdmin === true) {
+        window.location.href = "admin-dashboard.html";
+        return;
+      }
+
+    } catch (error) {
+      console.log("Admin check unavailable.");
+    }
+
+
+    /*
+      Check whether the user is an approved seller.
+    */
+
+    const {
+      data: seller,
+      error: sellerError
+    } = await supabaseClient
+      .from("sellers")
+      .select("id, status")
+      .eq("user_id", user.id)
+      .maybeSingle();
+
+
+    if (!sellerError && seller && seller.status === "Approved") {
+      window.location.href = "seller-dashboard.html";
+      return;
+    }
+
+
+    /*
+      Normal customer account.
+    */
+
+    const metadata = user.user_metadata || {};
+
+    const fullName =
+      metadata.full_name ||
+      metadata.name ||
+      "Customer";
+
+
+    document.getElementById("userName").textContent =
+      fullName;
+
+    document.getElementById("profileName").textContent =
+      fullName;
+
+    document.getElementById("profileEmail").textContent =
+      user.email || "Not available";
+  }
+
+
+  /*
+    Search
+  */
+
+  document.getElementById("searchForm")
+    .addEventListener("submit", function(event) {
+
+      event.preventDefault();
+
+      const search =
+        document.getElementById("searchInput")
+          .value.trim();
+
+      if (search) {
+
+        window.location.href =
+          "shop.html?search=" +
+          encodeURIComponent(search);
+
+      } else {
+
+        window.location.href =
+          "shop.html";
+
+      }
+
+    });
+
+
+  /*
+    Logout
+  */
+
+  document.getElementById("logoutButton")
+    .addEventListener("click", async function() {
+
+      const {
+        error
+      } = await supabaseClient.auth.signOut();
+
+      if (error) {
+
+        showMessage(
+          "Unable to log out. Please try again."
         );
 
-        protectDashboard();
+        return;
+      }
 
-    </script>
+      window.location.href = "login.html";
+    });
+
+
+  loadAccount();
+
+</script>
 
 </body>
 </html>

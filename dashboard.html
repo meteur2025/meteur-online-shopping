@@ -17,7 +17,7 @@
 
     body {
       font-family: Arial, Helvetica, sans-serif;
-      background: #f6f6f6;
+      background: #f4f8ff;
       color: #222;
     }
 
@@ -28,7 +28,7 @@
 
     /* HEADER */
     header {
-      background: #f68b1e;
+      background: #0757b8;
       color: white;
       padding: 14px 5%;
     }
@@ -68,11 +68,15 @@
 
     .search button {
       border: 0;
-      background: #333;
+      background: #063b7a;
       color: white;
       padding: 0 20px;
       cursor: pointer;
       font-weight: bold;
+    }
+
+    .search button:hover {
+      background: #052f62;
     }
 
     /* NAVIGATION */
@@ -116,13 +120,15 @@
       background: white;
       padding: 28px;
       border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      border-left: 5px solid #0757b8;
+      box-shadow: 0 2px 8px rgba(7, 87, 184, 0.08);
       margin-bottom: 25px;
     }
 
     .welcome h1 {
       font-size: 28px;
       margin-bottom: 8px;
+      color: #063b7a;
     }
 
     .welcome p {
@@ -141,20 +147,23 @@
       border-radius: 10px;
       padding: 25px;
       min-height: 145px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-      transition: transform 0.2s, box-shadow 0.2s;
+      border: 1px solid #e0e9f7;
+      box-shadow: 0 2px 8px rgba(7, 87, 184, 0.06);
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
     }
 
     .account-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+      box-shadow: 0 6px 16px rgba(7, 87, 184, 0.14);
+      border-color: #9fc3ed;
     }
 
     .card-icon {
       width: 52px;
       height: 52px;
       border-radius: 50%;
-      background: #fff1e2;
+      background: #e8f2ff;
+      color: #0757b8;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -165,6 +174,7 @@
     .account-card h2 {
       font-size: 19px;
       margin-bottom: 7px;
+      color: #063b7a;
     }
 
     .account-card p {
@@ -179,18 +189,20 @@
       margin-top: 25px;
       padding: 28px;
       border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      border-top: 4px solid #0757b8;
+      box-shadow: 0 2px 8px rgba(7, 87, 184, 0.08);
     }
 
     .profile-box h2 {
       margin-bottom: 20px;
+      color: #063b7a;
     }
 
     .profile-row {
       display: flex;
       justify-content: space-between;
       padding: 13px 0;
-      border-bottom: 1px solid #eee;
+      border-bottom: 1px solid #e8eef7;
       gap: 20px;
     }
 
@@ -226,16 +238,16 @@
     }
 
     .primary {
-      background: #f68b1e;
+      background: #0757b8;
       color: white;
     }
 
     .primary:hover {
-      background: #d96f0b;
+      background: #063b7a;
     }
 
     .logout {
-      background: #333;
+      background: #222;
       color: white;
     }
 
@@ -249,14 +261,15 @@
       margin-bottom: 20px;
       padding: 13px 16px;
       border-radius: 6px;
-      background: #fff1e2;
-      color: #8a4b00;
+      background: #e8f2ff;
+      color: #063b7a;
+      border: 1px solid #b9d5f5;
       font-weight: bold;
     }
 
     /* FOOTER */
     footer {
-      background: #222;
+      background: #063b7a;
       color: white;
       margin-top: 50px;
       padding: 40px 5% 20px;
@@ -271,33 +284,33 @@
     }
 
     .footer-section h3 {
-      color: #f68b1e;
+      color: white;
       margin-bottom: 15px;
     }
 
     .footer-section p {
-      color: #ccc;
+      color: #d8e7f8;
       line-height: 1.6;
     }
 
     .footer-section a {
       display: block;
-      color: #ddd;
+      color: #e5eef9;
       margin-bottom: 9px;
       font-size: 14px;
     }
 
     .footer-section a:hover {
-      color: #f68b1e;
+      color: white;
     }
 
     .copyright {
       max-width: 1200px;
       margin: 30px auto 0;
       padding-top: 20px;
-      border-top: 1px solid #444;
+      border-top: 1px solid #5276a1;
       text-align: center;
-      color: #aaa;
+      color: #cbd9e8;
       font-size: 13px;
     }
 

@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Checkout - METEUR MOBILE KENYA</title>
-  <meta name="description" content="Secure checkout at METEUR MOBILE KENYA.">
+  <title>Checkout | METEUR MOBILE KENYA</title>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -19,7 +18,7 @@
     body {
       font-family: Arial, Helvetica, sans-serif;
       background: #f4f8ff;
-      color: #1f2937;
+      color: #172033;
     }
 
     a {
@@ -31,168 +30,220 @@
     input,
     select,
     textarea {
-      font-family: inherit;
+      font: inherit;
     }
 
-    header {
+    .top-header {
       background: #0757b8;
       color: white;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 2px 10px rgba(0,0,0,.12);
+      padding: 18px 20px;
     }
 
-    .header-top {
-      max-width: 1250px;
+    .header-inner {
+      max-width: 1200px;
       margin: auto;
-      padding: 15px 20px;
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 20px;
     }
 
-    .logo {
+    .brand {
       display: flex;
       align-items: center;
-      gap: 10px;
-      min-width: 245px;
-      color: white;
-      font-weight: 800;
+      gap: 12px;
     }
 
-    .logo-icon {
-      width: 42px;
-      height: 42px;
+    .phone-logo {
+      width: 34px;
+      height: 52px;
       border: 3px solid white;
-      border-radius: 9px;
-      background: #063b7a;
+      border-radius: 8px;
       position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      flex-shrink: 0;
     }
 
-    .logo-icon::before {
+    .phone-logo::before {
       content: "";
-      width: 24px;
-      height: 29px;
-      border: 2px solid white;
-      border-radius: 5px;
+      position: absolute;
+      width: 12px;
+      height: 3px;
+      background: white;
+      border-radius: 3px;
+      top: 5px;
+      left: 8px;
     }
 
-    .logo-icon::after {
+    .phone-logo::after {
       content: "";
+      position: absolute;
       width: 5px;
       height: 5px;
       background: white;
       border-radius: 50%;
-      position: absolute;
-      bottom: 6px;
+      bottom: 5px;
+      left: 12px;
     }
 
-    .logo-text {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.05;
+    .brand-text h1 {
+      font-size: 23px;
+      font-weight: 800;
+      letter-spacing: .3px;
     }
 
-    .logo-main {
-      font-size: 19px;
-      letter-spacing: .5px;
-    }
-
-    .logo-sub {
-      font-size: 10px;
-      margin-top: 4px;
-      letter-spacing: .8px;
+    .brand-text p {
+      font-size: 11px;
+      margin-top: 3px;
       opacity: .9;
+      letter-spacing: 1px;
     }
 
     .header-actions {
-      margin-left: auto;
       display: flex;
-      gap: 8px;
       align-items: center;
+      gap: 10px;
     }
 
-    .header-link {
-      color: white;
+    .header-actions a {
+      background: white;
+      color: #0757b8;
+      padding: 10px 15px;
+      border-radius: 7px;
+      font-weight: 700;
       font-size: 14px;
-      font-weight: 600;
-      padding: 9px 10px;
-      border-radius: 5px;
     }
 
-    .header-link:hover {
-      background: rgba(255,255,255,.14);
-    }
-
-    .nav-bar {
+    .cart-count {
+      display: inline-flex;
+      min-width: 20px;
+      height: 20px;
+      padding: 0 5px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 20px;
       background: #063b7a;
+      color: white;
+      font-size: 11px;
+      margin-left: 5px;
+    }
+
+    nav {
+      background: #063b7a;
+      color: white;
     }
 
     .nav-inner {
-      max-width: 1250px;
+      max-width: 1200px;
       margin: auto;
-      padding: 10px 20px;
       display: flex;
-      gap: 28px;
+      align-items: stretch;
       overflow-x: auto;
-      white-space: nowrap;
+      scrollbar-width: none;
+    }
+
+    .nav-inner::-webkit-scrollbar {
+      display: none;
     }
 
     .nav-inner a {
-      color: white;
+      position: relative;
+      padding: 16px 18px;
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 700;
+      white-space: nowrap;
     }
 
-    .page {
-      max-width: 1250px;
-      margin: auto;
-      padding: 30px 20px 60px;
+    .nav-inner a:hover {
+      background: rgba(255,255,255,.08);
     }
 
-    .page-heading {
-      margin-bottom: 25px;
+    .nav-inner a.active::after {
+      content: "";
+      position: absolute;
+      left: 15px;
+      right: 15px;
+      bottom: 0;
+      height: 3px;
+      background: white;
+      border-radius: 3px 3px 0 0;
     }
 
-    .page-heading h1 {
+    .search-area {
+      max-width: 1200px;
+      margin: 22px auto 0;
+      padding: 0 20px;
+    }
+
+    .search-box {
+      display: flex;
+      gap: 10px;
+      background: white;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #d7e3f5;
+      box-shadow: 0 3px 12px rgba(0,0,0,.05);
+    }
+
+    .search-box input {
+      flex: 1;
+      min-width: 0;
+      border: 0;
+      outline: 0;
+      padding: 10px;
+    }
+
+    .search-box button {
+      border: 0;
+      background: #0757b8;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 7px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 28px auto 60px;
+      padding: 0 20px;
+    }
+
+    .breadcrumb {
+      color: #61718a;
+      font-size: 14px;
+      margin-bottom: 18px;
+    }
+
+    .breadcrumb a {
       color: #0757b8;
-      font-size: 32px;
-      margin-bottom: 8px;
+      font-weight: 700;
     }
 
-    .page-heading p {
-      color: #6b7280;
-      font-size: 15px;
+    .page-title {
+      font-size: 30px;
+      margin-bottom: 22px;
     }
 
     .checkout-layout {
       display: grid;
-      grid-template-columns: 1fr 380px;
-      gap: 25px;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 22px;
       align-items: start;
     }
 
     .checkout-card,
     .summary-card {
       background: white;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,.08);
+      border: 1px solid #dce7f6;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 4px 15px rgba(0,0,0,.05);
     }
 
-    .checkout-card {
-      padding: 25px;
-    }
-
-    .section-title {
-      color: #0757b8;
-      font-size: 20px;
+    .checkout-card h2,
+    .summary-card h2 {
+      font-size: 21px;
       margin-bottom: 20px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid #e5e7eb;
     }
 
     .form-grid {
@@ -211,34 +262,31 @@
 
     label {
       display: block;
-      margin-bottom: 7px;
-      font-size: 14px;
       font-weight: 700;
-      color: #374151;
+      font-size: 14px;
+      margin-bottom: 7px;
     }
 
     input,
     select,
     textarea {
       width: 100%;
-      padding: 12px 13px;
-      border: 1px solid #cbd5e1;
-      border-radius: 6px;
+      border: 1px solid #ccd8e8;
+      border-radius: 7px;
+      padding: 12px;
       outline: none;
       background: white;
-      color: #111827;
-      font-size: 14px;
     }
 
     input:focus,
     select:focus,
     textarea:focus {
       border-color: #0757b8;
-      box-shadow: 0 0 0 3px rgba(7,87,184,.1);
+      box-shadow: 0 0 0 2px rgba(7,87,184,.08);
     }
 
     textarea {
-      min-height: 95px;
+      min-height: 90px;
       resize: vertical;
     }
 
@@ -248,24 +296,18 @@
     }
 
     .payment-option {
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      padding: 15px;
       display: flex;
       align-items: center;
       gap: 12px;
+      border: 1px solid #ccd8e8;
+      border-radius: 8px;
+      padding: 15px;
       cursor: pointer;
-      transition: .2s;
     }
 
     .payment-option:hover {
       border-color: #0757b8;
-      background: #f4f8ff;
-    }
-
-    .payment-option.selected {
-      border-color: #0757b8;
-      background: #eef6ff;
+      background: #f7faff;
     }
 
     .payment-option input {
@@ -273,214 +315,183 @@
       accent-color: #0757b8;
     }
 
-    .payment-name {
-      font-weight: 700;
-      color: #111827;
+    .payment-option strong {
+      display: block;
+      margin-bottom: 3px;
     }
 
-    .payment-description {
-      font-size: 12px;
-      color: #6b7280;
-      margin-top: 3px;
+    .payment-option small {
+      color: #61718a;
     }
 
-    .summary-card {
-      padding: 22px;
-      position: sticky;
-      top: 130px;
+    .mpesa-fields {
+      display: none;
+      margin-top: 14px;
+      padding: 15px;
+      background: #f4f8ff;
+      border-radius: 8px;
     }
 
-    .summary-card h2 {
-      color: #0757b8;
-      font-size: 21px;
-      margin-bottom: 18px;
+    .mpesa-fields.show {
+      display: block;
     }
 
     .summary-item {
-      display: flex;
+      display: grid;
+      grid-template-columns: 70px 1fr auto;
       gap: 12px;
-      padding: 12px 0;
-      border-bottom: 1px solid #e5e7eb;
+      align-items: center;
+      padding-bottom: 14px;
+      margin-bottom: 14px;
+      border-bottom: 1px solid #e4ebf5;
     }
 
-    .summary-image {
-      width: 65px;
-      height: 65px;
+    .summary-item img {
+      width: 70px;
+      height: 70px;
       object-fit: contain;
-      border: 1px solid #e5e7eb;
-      border-radius: 6px;
+      background: #f4f8ff;
+      border-radius: 7px;
       padding: 5px;
-      flex-shrink: 0;
     }
 
     .summary-item-name {
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 700;
-      line-height: 1.35;
     }
 
-    .summary-item-meta {
-      color: #6b7280;
-      font-size: 12px;
-      margin-top: 5px;
+    .summary-item-qty {
+      color: #61718a;
+      font-size: 13px;
+      margin-top: 4px;
+    }
+
+    .summary-item-price {
+      font-weight: 800;
+      white-space: nowrap;
     }
 
     .summary-row {
       display: flex;
       justify-content: space-between;
       gap: 15px;
-      padding: 10px 0;
-      color: #4b5563;
-      font-size: 14px;
+      margin-bottom: 13px;
+      color: #52627a;
     }
 
-    .summary-total {
-      border-top: 1px solid #e5e7eb;
-      margin-top: 8px;
-      padding-top: 16px;
+    .summary-row.total {
+      border-top: 1px solid #dce5f1;
+      padding-top: 17px;
+      margin-top: 17px;
+      color: #172033;
       font-size: 20px;
-      font-weight: 800;
-      color: #111827;
+      font-weight: 900;
     }
 
-    .total-value {
-      color: #0757b8;
-    }
-
-    .place-order-btn {
+    .place-order {
       width: 100%;
-      border: none;
+      border: 0;
       background: #0757b8;
       color: white;
-      padding: 14px;
-      border-radius: 6px;
+      padding: 15px;
+      border-radius: 8px;
       cursor: pointer;
-      font-size: 15px;
-      font-weight: bold;
-      margin-top: 18px;
+      font-weight: 900;
+      font-size: 16px;
+      margin-top: 20px;
     }
 
-    .place-order-btn:hover {
-      background: #063b7a;
+    .place-order:hover {
+      background: #064b9d;
     }
 
-    .place-order-btn:disabled {
-      background: #94a3b8;
+    .place-order:disabled {
+      opacity: .6;
       cursor: not-allowed;
     }
 
     .secure-note {
-      margin-top: 12px;
       text-align: center;
-      font-size: 12px;
-      color: #6b7280;
-      line-height: 1.5;
+      color: #61718a;
+      font-size: 13px;
+      margin-top: 12px;
     }
 
     .message {
-      display: none;
-      padding: 13px;
-      border-radius: 6px;
+      padding: 12px;
+      border-radius: 7px;
       margin-bottom: 18px;
-      font-size: 14px;
+      display: none;
+      font-weight: 700;
+    }
+
+    .message.show {
+      display: block;
     }
 
     .message.error {
-      display: block;
-      background: #fee2e2;
-      color: #991b1b;
-      border: 1px solid #fecaca;
+      background: #fff0f0;
+      color: #b42323;
     }
 
     .message.success {
-      display: block;
-      background: #dcfce7;
-      color: #166534;
-      border: 1px solid #bbf7d0;
+      background: #eaf8ee;
+      color: #146c32;
     }
 
     .loading {
-      text-align: center;
-      padding: 50px 20px;
-      color: #6b7280;
-    }
-
-    .empty-cart {
       background: white;
-      border-radius: 10px;
-      padding: 55px 20px;
+      border-radius: 12px;
+      padding: 50px;
       text-align: center;
-      box-shadow: 0 2px 10px rgba(0,0,0,.08);
-    }
-
-    .empty-cart h2 {
-      color: #0757b8;
-      margin-bottom: 10px;
-    }
-
-    .empty-cart p {
-      color: #6b7280;
-      margin-bottom: 20px;
-    }
-
-    .shop-btn {
-      display: inline-block;
-      background: #0757b8;
-      color: white;
-      padding: 12px 22px;
-      border-radius: 6px;
-      font-weight: bold;
+      color: #61718a;
+      font-weight: 700;
     }
 
     footer {
       background: #063b7a;
       color: white;
+      padding: 40px 20px 25px;
     }
 
     .footer-inner {
-      max-width: 1250px;
+      max-width: 1200px;
       margin: auto;
-      padding: 40px 20px 25px;
       display: grid;
       grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 35px;
+      gap: 30px;
     }
 
-    .footer-brand h2 {
+    footer h3 {
       margin-bottom: 12px;
+      font-size: 18px;
     }
 
-    .footer-brand p,
-    .footer-column a {
-      color: #dbeafe;
-    }
-
-    .footer-brand p {
+    footer p {
+      color: #dceaff;
       line-height: 1.6;
       font-size: 14px;
     }
 
-    .footer-column h3 {
-      font-size: 15px;
-      margin-bottom: 14px;
-    }
-
-    .footer-column a {
+    footer a {
       display: block;
-      font-size: 13px;
+      color: #dceaff;
       margin-bottom: 9px;
+      font-size: 14px;
     }
 
-    .footer-column a:hover {
+    footer a:hover {
       color: white;
     }
 
-    .footer-bottom {
-      border-top: 1px solid rgba(255,255,255,.15);
+    .copyright {
+      max-width: 1200px;
+      margin: 30px auto 0;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,.2);
       text-align: center;
-      padding: 16px 20px;
-      color: #dbeafe;
-      font-size: 12px;
+      color: #dceaff;
+      font-size: 13px;
     }
 
     @media (max-width: 900px) {
@@ -488,48 +499,53 @@
         grid-template-columns: 1fr;
       }
 
-      .summary-card {
-        position: static;
-      }
-
       .footer-inner {
         grid-template-columns: 1fr 1fr;
       }
     }
 
-    @media (max-width: 700px) {
-      .header-top {
-        flex-wrap: wrap;
+    @media (max-width: 600px) {
+      .top-header {
+        padding: 14px;
       }
 
-      .logo {
-        width: 100%;
+      .header-inner {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .brand {
+        justify-content: center;
       }
 
       .header-actions {
-        position: absolute;
-        right: 15px;
-        top: 17px;
+        justify-content: center;
+        flex-wrap: wrap;
       }
 
-      .header-link {
-        display: none;
+      .header-actions a {
+        padding: 9px 11px;
+        font-size: 13px;
       }
 
-      .header-link:last-child {
-        display: block;
+      .nav-inner a {
+        padding: 14px 13px;
+        font-size: 13px;
       }
 
-      .page {
-        padding: 22px 12px 45px;
+      .search-area,
+      main {
+        padding-left: 12px;
+        padding-right: 12px;
       }
 
-      .page-heading h1 {
-        font-size: 27px;
+      .page-title {
+        font-size: 25px;
       }
 
-      .checkout-card {
-        padding: 18px;
+      .checkout-card,
+      .summary-card {
+        padding: 17px;
       }
 
       .form-grid {
@@ -550,88 +566,117 @@
 
 <body>
 
-  <header>
+  <header class="top-header">
 
-    <div class="header-top">
+    <div class="header-inner">
 
-      <a href="index.html" class="logo">
+      <a href="index.html" class="brand">
 
-        <div class="logo-icon"></div>
+        <div class="phone-logo"></div>
 
-        <div class="logo-text">
-          <span class="logo-main">METEUR MOBILE KENYA</span>
-          <span class="logo-sub">
-            MOBILE • ELECTRONICS • ACCESSORIES
-          </span>
+        <div class="brand-text">
+          <h1>METEUR MOBILE KENYA</h1>
+          <p>MOBILE • ELECTRONICS • ACCESSORIES</p>
         </div>
 
       </a>
 
       <div class="header-actions">
 
-        <a href="shop.html" class="header-link">
-          Shop
-        </a>
+        <a href="login.html">Login</a>
 
-        <a href="cart.html" class="header-link">
-          Cart
+        <a href="register.html">Register</a>
+
+        <a href="cart.html">
+          🛒 Cart
+          <span class="cart-count" id="cartCount">0</span>
         </a>
 
       </div>
 
     </div>
-
-    <nav class="nav-bar">
-
-      <div class="nav-inner">
-
-        <a href="index.html">Home</a>
-
-        <a href="shop.html">Shop</a>
-
-        <a href="shop.html?category=Phones%20and%20Tablets">
-          Phones & Tablets
-        </a>
-
-        <a href="shop.html?category=Electronics">
-          Electronics
-        </a>
-
-        <a href="shop.html?category=Accessories">
-          Accessories
-        </a>
-
-        <a href="orders.html">
-          My Orders
-        </a>
-
-        <a href="contact.html">
-          Contact Us
-        </a>
-
-      </div>
-
-    </nav>
 
   </header>
 
+  <nav>
 
-  <main class="page">
+    <div class="nav-inner">
 
-    <div class="page-heading">
+      <a href="index.html" data-nav="home">
+        Home
+      </a>
 
-      <h1>Checkout</h1>
+      <a href="shop.html" data-nav="shop">
+        Shop
+      </a>
 
-      <p>
-        Enter your delivery details and choose your payment method.
-      </p>
+      <a
+        href="shop.html?category=Phones%20and%20Tablets"
+        data-nav="phones"
+      >
+        Phones & Tablets
+      </a>
+
+      <a
+        href="shop.html?category=Electronics"
+        data-nav="electronics"
+      >
+        Electronics
+      </a>
+
+      <a
+        href="shop.html?category=Accessories"
+        data-nav="accessories"
+      >
+        Accessories
+      </a>
+
+      <a href="orders.html" data-nav="orders">
+        My Orders
+      </a>
+
+      <a href="contact.html" data-nav="contact">
+        Contact Us
+      </a>
 
     </div>
 
+  </nav>
 
-    <div id="message" class="message"></div>
+  <section class="search-area">
 
-    <div id="checkoutContent">
+    <div class="search-box">
+
+      <input
+        type="search"
+        id="searchInput"
+        placeholder="Search smartphones, tablets, accessories..."
+      >
+
+      <button onclick="searchProducts()">
+        Search
+      </button>
+
+    </div>
+
+  </section>
+
+  <main>
+
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <span> / </span>
+      <a href="cart.html">Cart</a>
+      <span> / Checkout</span>
+    </div>
+
+    <h1 class="page-title">
+      Checkout
+    </h1>
+
+    <div id="pageMessage" class="message"></div>
+
+    <div id="checkoutContainer">
 
       <div class="loading">
         Loading checkout...
@@ -641,31 +686,28 @@
 
   </main>
 
-
   <footer>
 
     <div class="footer-inner">
 
-      <div class="footer-brand">
+      <div>
 
-        <h2>METEUR MOBILE KENYA</h2>
+        <h3>METEUR MOBILE KENYA</h3>
 
         <p>
-          Your online destination for mobile phones, electronics,
-          accessories and smart devices in Kenya.
+          Your online destination for mobile phones,
+          electronics, accessories and smart devices in Kenya.
         </p>
 
       </div>
 
-      <div class="footer-column">
+      <div>
 
         <h3>Shop</h3>
 
-        <a href="shop.html">
-          All Products
-        </a>
+        <a href="shop.html">All Products</a>
 
-        <a href="shop.html?deals=true">
+        <a href="shop.html?deal=true">
           Flash Deals
         </a>
 
@@ -673,37 +715,33 @@
           New Arrivals
         </a>
 
+        <a href="shop.html?category=Phones%20and%20Tablets">
+          Phones & Tablets
+        </a>
+
       </div>
 
-      <div class="footer-column">
+      <div>
 
         <h3>Account</h3>
 
-        <a href="profile.html">
-          My Profile
-        </a>
+        <a href="login.html">Login</a>
 
-        <a href="orders.html">
-          My Orders
-        </a>
+        <a href="register.html">Register</a>
 
-        <a href="cart.html">
-          Shopping Cart
-        </a>
+        <a href="profile.html">My Profile</a>
+
+        <a href="orders.html">My Orders</a>
 
       </div>
 
-      <div class="footer-column">
+      <div>
 
         <h3>Help</h3>
 
-        <a href="contact.html">
-          Contact Us
-        </a>
+        <a href="contact.html">Contact Us</a>
 
-        <a href="track-order.html">
-          Track Order
-        </a>
+        <a href="track-order.html">Track Order</a>
 
         <a href="seller-register.html">
           Sell on Meteur
@@ -713,57 +751,126 @@
 
     </div>
 
-    <div class="footer-bottom">
+    <div class="copyright">
       © 2026 METEUR MOBILE KENYA. All rights reserved.
     </div>
 
   </footer>
-
 
   <script>
 
     const SUPABASE_URL =
       "https://nytsdeupaootukcullgi.supabase.co";
 
-    const SUPABASE_ANON_KEY =
+    const SUPABASE_KEY =
       "sb_publishable_cIqzHoafy_AEdB48KS_Wpg_LDqE1sFC";
 
     const supabaseClient =
       window.supabase.createClient(
         SUPABASE_URL,
-        SUPABASE_ANON_KEY
+        SUPABASE_KEY
       );
-
 
     const DELIVERY_FEE = 250;
 
+    let currentUser = null;
 
-    function escapeHtml(value) {
+    let cart = [];
 
-      return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+    let subtotal = 0;
+
+    let total = 0;
+
+    function setActiveNavigation() {
+
+      const path =
+        window.location.pathname.toLowerCase();
+
+      document
+        .querySelectorAll(".nav-inner a")
+        .forEach(link => {
+
+          link.classList.remove("active");
+
+        });
+
+      let target = "shop";
+
+      if (
+        path.endsWith("/") ||
+        path.endsWith("/index.html")
+      ) {
+
+        target = "home";
+
+      } else if (
+        path.includes("orders")
+      ) {
+
+        target = "orders";
+
+      } else if (
+        path.includes("contact")
+      ) {
+
+        target = "contact";
+
+      } else if (
+        path.includes("checkout") ||
+        path.includes("cart")
+      ) {
+
+        target = "shop";
+
+      }
+
+      const activeLink =
+        document.querySelector(
+          `[data-nav="${target}"]`
+        );
+
+      if (activeLink) {
+        activeLink.classList.add("active");
+      }
 
     }
 
+    async function checkUser() {
+
+      const {
+        data,
+        error
+      } =
+        await supabaseClient.auth.getUser();
+
+      if (
+        error ||
+        !data.user
+      ) {
+
+        window.location.href =
+          "login.html?redirect=checkout.html";
+
+        return false;
+
+      }
+
+      currentUser =
+        data.user;
+
+      return true;
+
+    }
 
     function getCart() {
 
       try {
 
-        const cart =
-          JSON.parse(
-            localStorage.getItem("meteur_cart") || "[]"
-          );
+        return JSON.parse(
+          localStorage.getItem("meteur_cart") || "[]"
+        );
 
-        return Array.isArray(cart)
-          ? cart
-          : [];
-
-      } catch {
+      } catch (error) {
 
         return [];
 
@@ -771,8 +878,7 @@
 
     }
 
-
-    function saveCart(cart) {
+    function saveCart() {
 
       localStorage.setItem(
         "meteur_cart",
@@ -781,88 +887,74 @@
 
     }
 
+    function updateCartCount() {
 
-    function showMessage(
-      message,
-      type = "error"
-    ) {
+      const count =
+        cart.reduce(
+          (sum, item) =>
+            sum +
+            Number(item.quantity || 0),
+          0
+        );
 
-      const box =
-        document.getElementById("message");
+      const element =
+        document.getElementById(
+          "cartCount"
+        );
 
-      box.className =
-        `message ${type}`;
-
-      box.textContent =
-        message;
-
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-
-    }
-
-
-    function hideMessage() {
-
-      const box =
-        document.getElementById("message");
-
-      box.className =
-        "message";
-
-      box.textContent =
-        "";
+      if (element) {
+        element.textContent = count;
+      }
 
     }
-
 
     async function loadCheckout() {
 
-      const {
-        data: {
-          user
-        }
-      } =
-        await supabaseClient
-          .auth
-          .getUser();
+      const authenticated =
+        await checkUser();
 
-
-      if (!user) {
-
-        window.location.href =
-          "login.html?redirect=checkout.html";
-
+      if (!authenticated) {
         return;
-
       }
 
-
-      const cart =
+      cart =
         getCart();
 
+      updateCartCount();
 
-      if (!cart.length) {
+      if (
+        !cart ||
+        cart.length === 0
+      ) {
 
         document.getElementById(
-          "checkoutContent"
+          "checkoutContainer"
         ).innerHTML = `
 
-          <div class="empty-cart">
+          <div class="checkout-card"
+               style="text-align:center;">
 
             <h2>
               Your cart is empty
             </h2>
 
-            <p>
+            <p style="
+              color:#61718a;
+              margin-bottom:20px;
+            ">
               Add products to your cart before checkout.
             </p>
 
             <a
               href="shop.html"
-              class="shop-btn"
+              style="
+                display:inline-block;
+                background:#0757b8;
+                color:white;
+                padding:13px 22px;
+                border-radius:8px;
+                font-weight:800;
+              "
             >
               Continue Shopping
             </a>
@@ -872,81 +964,153 @@
         `;
 
         return;
-
       }
 
+      calculateTotals();
 
-      renderCheckout(
-        cart,
-        user
-      );
+      renderCheckout();
+
+      await loadCustomerInformation();
 
     }
 
+    function calculateTotals() {
 
-    function renderCheckout(
-      cart,
-      user
-    ) {
+      subtotal =
+        cart.reduce(
+          (sum, item) =>
+            sum +
+            Number(item.price || 0) *
+            Number(item.quantity || 0),
+          0
+        );
 
-      let subtotal = 0;
-
-
-      cart.forEach(item => {
-
-        const price =
-          Number(item.price || 0);
-
-        const quantity =
-          Math.max(
-            1,
-            Number(item.quantity || 1)
-          );
-
-        subtotal +=
-          price * quantity;
-
-      });
-
-
-      const deliveryFee =
-        subtotal > 0
-          ? DELIVERY_FEE
-          : 0;
-
-
-      const total =
+      total =
         subtotal +
-        deliveryFee;
+        DELIVERY_FEE;
 
+    }
+
+    async function loadCustomerInformation() {
+
+      if (!currentUser) {
+        return;
+      }
+
+      const metadata =
+        currentUser.user_metadata || {};
+
+      const fullName =
+        metadata.full_name ||
+        metadata.name ||
+        "";
+
+      let firstName = "";
+
+      let lastName = "";
+
+      if (fullName) {
+
+        const parts =
+          fullName.trim().split(/\s+/);
+
+        firstName =
+          parts.shift() || "";
+
+        lastName =
+          parts.join(" ");
+
+      }
+
+      const firstNameInput =
+        document.getElementById(
+          "firstName"
+        );
+
+      const lastNameInput =
+        document.getElementById(
+          "lastName"
+        );
+
+      const emailInput =
+        document.getElementById(
+          "email"
+        );
+
+      const phoneInput =
+        document.getElementById(
+          "phone"
+        );
+
+      if (firstNameInput) {
+        firstNameInput.value =
+          firstName;
+      }
+
+      if (lastNameInput) {
+        lastNameInput.value =
+          lastName;
+      }
+
+      if (emailInput) {
+        emailInput.value =
+          currentUser.email || "";
+      }
+
+      if (phoneInput) {
+
+        phoneInput.value =
+          metadata.phone || "";
+
+      }
+
+    }
+
+    function renderCheckout() {
+
+      const container =
+        document.getElementById(
+          "checkoutContainer"
+        );
 
       const itemsHtml =
         cart.map(item => {
 
-          const price =
-            Number(item.price || 0);
-
-          const quantity =
-            Math.max(
-              1,
-              Number(item.quantity || 1)
-            );
-
           const image =
-            item.image_url ||
-            "https://via.placeholder.com/300x250?text=Meteur+Mobile";
+            item.image_url || "";
 
+          const itemTotal =
+            Number(item.price || 0) *
+            Number(item.quantity || 0);
 
           return `
 
             <div class="summary-item">
 
-              <img
-                src="${escapeHtml(image)}"
-                class="summary-image"
-                alt="${escapeHtml(item.name)}"
-                onerror="this.src='https://via.placeholder.com/300x250?text=Meteur+Mobile'"
-              >
+              ${
+                image
+                  ? `
+                    <img
+                      src="${escapeAttribute(image)}"
+                      alt="${escapeAttribute(item.name)}"
+                    >
+                  `
+                  : `
+                    <div
+                      style="
+                        width:70px;
+                        height:70px;
+                        background:#f4f8ff;
+                        border-radius:7px;
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
+                      "
+                    >
+                      📦
+                    </div>
+                  `
+              }
 
               <div>
 
@@ -954,11 +1118,14 @@
                   ${escapeHtml(item.name)}
                 </div>
 
-                <div class="summary-item-meta">
-                  Qty: ${quantity}
-                  × KSh ${price.toLocaleString()}
+                <div class="summary-item-qty">
+                  Qty: ${Number(item.quantity || 0)}
                 </div>
 
+              </div>
+
+              <div class="summary-item-price">
+                KSh ${formatNumber(itemTotal)}
               </div>
 
             </div>
@@ -967,242 +1134,239 @@
 
         }).join("");
 
-
-      document.getElementById(
-        "checkoutContent"
-      ).innerHTML = `
+      container.innerHTML = `
 
         <div class="checkout-layout">
 
           <section class="checkout-card">
 
-            <h2 class="section-title">
+            <h2>
               Delivery Information
             </h2>
 
-            <form id="checkoutForm">
+            <div class="form-grid">
 
-              <div class="form-grid">
+              <div class="form-group">
 
-                <div class="form-group">
-
-                  <label for="recipientName">
-                    Full Name *
-                  </label>
-
-                  <input
-                    id="recipientName"
-                    name="recipientName"
-                    type="text"
-                    autocomplete="name"
-                    required
-                    placeholder="Enter your full name"
-                  >
-
-                </div>
-
-
-                <div class="form-group">
-
-                  <label for="customerEmail">
-                    Email Address *
-                  </label>
-
-                  <input
-                    id="customerEmail"
-                    name="customerEmail"
-                    type="email"
-                    autocomplete="email"
-                    required
-                    value="${escapeHtml(user.email || "")}"
-                    placeholder="you@example.com"
-                  >
-
-                </div>
-
-
-                <div class="form-group">
-
-                  <label for="phone">
-                    Phone Number *
-                  </label>
-
-                  <input
-                    id="phone"
-                    name="phone"
-                    type="tel"
-                    autocomplete="tel"
-                    required
-                    placeholder="2547XXXXXXXX"
-                  >
-
-                </div>
-
-
-                <div class="form-group">
-
-                  <label for="county">
-                    County *
-                  </label>
-
-                  <input
-                    id="county"
-                    name="county"
-                    type="text"
-                    autocomplete="address-level1"
-                    required
-                    placeholder="e.g. Nairobi"
-                  >
-
-                </div>
-
-
-                <div class="form-group">
-
-                  <label for="town">
-                    Town / City *
-                  </label>
-
-                  <input
-                    id="town"
-                    name="town"
-                    type="text"
-                    autocomplete="address-level2"
-                    required
-                    placeholder="e.g. Nairobi"
-                  >
-
-                </div>
-
-
-                <div class="form-group">
-
-                  <label for="address">
-                    Delivery Address *
-                  </label>
-
-                  <input
-                    id="address"
-                    name="address"
-                    type="text"
-                    autocomplete="street-address"
-                    required
-                    placeholder="Building, street, estate"
-                  >
-
-                </div>
-
-
-                <div class="form-group full">
-
-                  <label for="deliveryNote">
-                    Delivery Note
-                  </label>
-
-                  <textarea
-                    id="deliveryNote"
-                    name="deliveryNote"
-                    placeholder="Optional instructions for the delivery..."
-                  ></textarea>
-
-                </div>
-
-              </div>
-
-
-              <h2
-                class="section-title"
-                style="margin-top:25px;"
-              >
-                Payment Method
-              </h2>
-
-
-              <div class="payment-options">
-
-                <label
-                  class="payment-option selected"
-                  id="mpesaOption"
-                >
-
-                  <input
-                    type="radio"
-                    name="paymentMethod"
-                    value="M-Pesa"
-                    checked
-                  >
-
-                  <div>
-
-                    <div class="payment-name">
-                      📱 M-Pesa
-                    </div>
-
-                    <div class="payment-description">
-                      Pay securely using M-Pesa STK Push.
-                    </div>
-
-                  </div>
-
+                <label for="firstName">
+                  First Name *
                 </label>
 
-
-                <label
-                  class="payment-option"
-                  id="cashOption"
+                <input
+                  id="firstName"
+                  type="text"
+                  required
+                  autocomplete="given-name"
                 >
 
-                  <input
-                    type="radio"
-                    name="paymentMethod"
-                    value="Cash on Delivery"
-                  >
+              </div>
 
-                  <div>
+              <div class="form-group">
 
-                    <div class="payment-name">
-                      💵 Cash on Delivery
-                    </div>
-
-                    <div class="payment-description">
-                      Pay when your order is delivered.
-                    </div>
-
-                  </div>
-
+                <label for="lastName">
+                  Last Name *
                 </label>
 
+                <input
+                  id="lastName"
+                  type="text"
+                  required
+                  autocomplete="family-name"
+                >
+
               </div>
 
+              <div class="form-group">
 
-              <button
-                type="submit"
-                class="place-order-btn"
-                id="placeOrderBtn"
+                <label for="email">
+                  Email *
+                </label>
+
+                <input
+                  id="email"
+                  type="email"
+                  required
+                  autocomplete="email"
+                >
+
+              </div>
+
+              <div class="form-group">
+
+                <label for="phone">
+                  Phone *
+                </label>
+
+                <input
+                  id="phone"
+                  type="tel"
+                  required
+                  placeholder="07XXXXXXXX or 254XXXXXXXXX"
+                  autocomplete="tel"
+                >
+
+              </div>
+
+              <div class="form-group">
+
+                <label for="county">
+                  County *
+                </label>
+
+                <input
+                  id="county"
+                  type="text"
+                  required
+                  placeholder="e.g. Nairobi"
+                >
+
+              </div>
+
+              <div class="form-group">
+
+                <label for="town">
+                  Town / City *
+                </label>
+
+                <input
+                  id="town"
+                  type="text"
+                  required
+                  placeholder="e.g. Nairobi"
+                >
+
+              </div>
+
+              <div class="form-group full">
+
+                <label for="address">
+                  Delivery Address *
+                </label>
+
+                <textarea
+                  id="address"
+                  required
+                  placeholder="Enter your full delivery address"
+                ></textarea>
+
+              </div>
+
+              <div class="form-group full">
+
+                <label for="deliveryNote">
+                  Delivery Note
+                </label>
+
+                <textarea
+                  id="deliveryNote"
+                  placeholder="Optional instructions for delivery"
+                ></textarea>
+
+              </div>
+
+            </div>
+
+            <h2 style="margin-top:10px;">
+              Payment Method
+            </h2>
+
+            <div class="payment-options">
+
+              <label class="payment-option">
+
+                <input
+                  type="radio"
+                  name="paymentMethod"
+                  value="M-Pesa"
+                  checked
+                  onchange="toggleMpesa()"
+                >
+
+                <div>
+
+                  <strong>
+                    M-Pesa
+                  </strong>
+
+                  <small>
+                    Pay securely using M-Pesa.
+                  </small>
+
+                </div>
+
+              </label>
+
+              <label class="payment-option">
+
+                <input
+                  type="radio"
+                  name="paymentMethod"
+                  value="Cash on Delivery"
+                  onchange="toggleMpesa()"
+                >
+
+                <div>
+
+                  <strong>
+                    Cash on Delivery
+                  </strong>
+
+                  <small>
+                    Pay when your order is delivered.
+                  </small>
+
+                </div>
+
+              </label>
+
+            </div>
+
+            <div
+              id="mpesaFields"
+              class="mpesa-fields show"
+            >
+
+              <label for="mpesaPhone">
+                M-Pesa Phone Number
+              </label>
+
+              <input
+                id="mpesaPhone"
+                type="tel"
+                placeholder="2547XXXXXXXX"
               >
-                Place Order
-              </button>
 
+              <p style="
+                color:#61718a;
+                font-size:13px;
+                margin-top:8px;
+              ">
+                You will receive an M-Pesa payment prompt after placing the order.
+              </p>
 
-              <div class="secure-note">
-                🔒 Your order information is securely submitted
-                to METEUR MOBILE KENYA.
-              </div>
+            </div>
 
-            </form>
+            <button
+              id="placeOrderButton"
+              class="place-order"
+              onclick="placeOrder()"
+            >
+              Confirm Order — KSh ${formatNumber(total)}
+            </button>
+
+            <div class="secure-note">
+              🔒 Secure checkout • Your information is protected
+            </div>
 
           </section>
-
 
           <aside class="summary-card">
 
             <h2>
-              Order Summary
+              Your Order
             </h2>
 
-
             ${itemsHtml}
-
 
             <div class="summary-row">
 
@@ -1211,11 +1375,10 @@
               </span>
 
               <strong>
-                KSh ${subtotal.toLocaleString()}
+                KSh ${formatNumber(subtotal)}
               </strong>
 
             </div>
-
 
             <div class="summary-row">
 
@@ -1224,21 +1387,20 @@
               </span>
 
               <strong>
-                KSh ${deliveryFee.toLocaleString()}
+                KSh ${formatNumber(DELIVERY_FEE)}
               </strong>
 
             </div>
 
-
-            <div class="summary-row summary-total">
+            <div class="summary-row total">
 
               <span>
                 Total
               </span>
 
-              <span class="total-value">
-                KSh ${total.toLocaleString()}
-              </span>
+              <strong>
+                KSh ${formatNumber(total)}
+              </strong>
 
             </div>
 
@@ -1248,498 +1410,307 @@
 
       `;
 
+    }
 
-      setupPaymentOptions();
+    function toggleMpesa() {
 
-      setupCheckoutForm();
+      const selected =
+        document.querySelector(
+          'input[name="paymentMethod"]:checked'
+        );
 
-      loadUserProfile(user);
+      const fields =
+        document.getElementById(
+          "mpesaFields"
+        );
+
+      if (
+        selected &&
+        selected.value === "M-Pesa"
+      ) {
+
+        fields.classList.add("show");
+
+      } else {
+
+        fields.classList.remove("show");
+
+      }
 
     }
 
+    async function placeOrder() {
 
-    async function loadUserProfile(user) {
+      if (!currentUser) {
 
-      const metadata =
-        user.user_metadata || {};
+        window.location.href =
+          "login.html?redirect=checkout.html";
 
+        return;
 
-      const fullName =
-        metadata.full_name ||
-        metadata.name ||
-        "";
+      }
 
+      const firstName =
+        document.getElementById(
+          "firstName"
+        ).value.trim();
+
+      const lastName =
+        document.getElementById(
+          "lastName"
+        ).value.trim();
+
+      const email =
+        document.getElementById(
+          "email"
+        ).value.trim();
 
       const phone =
-        metadata.phone ||
-        "";
-
-
-      const nameInput =
-        document.getElementById(
-          "recipientName"
-        );
-
-
-      const phoneInput =
         document.getElementById(
           "phone"
-        );
+        ).value.trim();
 
-
-      if (nameInput && fullName) {
-
-        nameInput.value =
-          fullName;
-
-      }
-
-
-      if (phoneInput && phone) {
-
-        phoneInput.value =
-          phone;
-
-      }
-
-    }
-
-
-    function setupPaymentOptions() {
-
-      const options =
-        document.querySelectorAll(
-          ".payment-option"
-        );
-
-
-      options.forEach(option => {
-
-        const radio =
-          option.querySelector(
-            "input"
-          );
-
-
-        radio.addEventListener(
-          "change",
-          function() {
-
-            options.forEach(item => {
-
-              item.classList.remove(
-                "selected"
-              );
-
-            });
-
-
-            if (radio.checked) {
-
-              option.classList.add(
-                "selected"
-              );
-
-            }
-
-          }
-        );
-
-      });
-
-    }
-
-
-    function setupCheckoutForm() {
-
-      const form =
+      const county =
         document.getElementById(
-          "checkoutForm"
+          "county"
+        ).value.trim();
+
+      const town =
+        document.getElementById(
+          "town"
+        ).value.trim();
+
+      const address =
+        document.getElementById(
+          "address"
+        ).value.trim();
+
+      const deliveryNote =
+        document.getElementById(
+          "deliveryNote"
+        ).value.trim();
+
+      const paymentMethod =
+        document.querySelector(
+          'input[name="paymentMethod"]:checked'
+        )?.value;
+
+      const mpesaPhoneElement =
+        document.getElementById(
+          "mpesaPhone"
         );
 
-
-      form.addEventListener(
-        "submit",
-        async function(event) {
-
-          event.preventDefault();
-
-          hideMessage();
-
-
-          const button =
-            document.getElementById(
-              "placeOrderBtn"
-            );
-
-
-          const cart =
-            getCart();
-
-
-          if (!cart.length) {
-
-            showMessage(
-              "Your cart is empty."
-            );
-
-            return;
-
-          }
-
-
-          const {
-            data: {
-              user
-            }
-          } =
-            await supabaseClient
-              .auth
-              .getUser();
-
-
-          if (!user) {
-
-            window.location.href =
-              "login.html?redirect=checkout.html";
-
-            return;
-
-          }
-
-
-          const formData =
-            new FormData(form);
-
-
-          const recipientName =
-            String(
-              formData.get(
-                "recipientName"
-              ) || ""
-            ).trim();
-
-
-          const customerEmail =
-            String(
-              formData.get(
-                "customerEmail"
-              ) || ""
-            ).trim();
-
-
-          const phone =
-            String(
-              formData.get(
-                "phone"
-              ) || ""
-            ).trim();
-
-
-          const county =
-            String(
-              formData.get(
-                "county"
-              ) || ""
-            ).trim();
-
-
-          const town =
-            String(
-              formData.get(
-                "town"
-              ) || ""
-            ).trim();
-
-
-          const address =
-            String(
-              formData.get(
-                "address"
-              ) || ""
-            ).trim();
-
-
-          const deliveryNote =
-            String(
-              formData.get(
-                "deliveryNote"
-              ) || ""
-            ).trim();
-
-
-          const paymentMethod =
-            String(
-              formData.get(
-                "paymentMethod"
-              ) || ""
-            );
-
-
-          if (
-            !recipientName ||
-            !customerEmail ||
-            !phone ||
-            !county ||
-            !town ||
-            !address
-          ) {
-
-            showMessage(
-              "Please complete all required delivery fields."
-            );
-
-            return;
-
-          }
-
-
-          if (
-            paymentMethod !== "M-Pesa" &&
-            paymentMethod !== "Cash on Delivery"
-          ) {
-
-            showMessage(
-              "Please select a valid payment method."
-            );
-
-            return;
-
-          }
-
-
-          const subtotal =
-            cart.reduce(
-              (sum, item) =>
-                sum +
-                Number(item.price || 0) *
-                Math.max(
-                  1,
-                  Number(item.quantity || 1)
-                ),
-              0
-            );
-
-
-          const deliveryFee =
-            subtotal > 0
-              ? DELIVERY_FEE
-              : 0;
-
-
-          const total =
-            subtotal +
-            deliveryFee;
-
-
-          const orderNumber =
-            generateOrderNumber();
-
-
-          const orderItems =
-            cart.map(item => ({
-
-              id:
-                item.id ||
-                null,
-
-              name:
-                item.name ||
-                "",
-
-              category:
-                item.category ||
-                "",
-
-              price:
-                Number(
-                  item.price || 0
-                ),
-
-              quantity:
-                Math.max(
-                  1,
-                  Number(
-                    item.quantity || 1
-                  )
-                ),
-
-              image_url:
-                item.image_url ||
-                null
-
-            }));
-
-
-          button.disabled =
-            true;
-
-          button.textContent =
-            "Placing Order...";
-
-
-          try {
-
-            const {
-              data: insertedOrder,
-              error
-            } =
-              await supabaseClient
-                .from("orders")
-                .insert({
-
-                  user_id:
-                    user.id,
-
-                  order_number:
-                    orderNumber,
-
-                  customer_email:
-                    customerEmail,
-
-                  recipient_name:
-                    recipientName,
-
-                  phone:
-                    phone,
-
-                  county:
-                    county,
-
-                  town:
-                    town,
-
-                  address:
-                    address,
-
-                  delivery_note:
-                    deliveryNote || null,
-
-                  payment_method:
-                    paymentMethod,
-
-                  subtotal:
-                    subtotal,
-
-                  delivery_fee:
-                    deliveryFee,
-
-                  total:
-                    total,
-
-                  status:
-                    "Processing",
-
-                  payment_status:
-                    paymentMethod === "M-Pesa"
-                      ? "Pending"
-                      : "Not Required",
-
-                  items:
-                    orderItems
-
-                })
-                .select()
-                .single();
-
-
-            if (error) {
-
-              throw error;
-
-            }
-
-
-            saveCart([]);
-
-
-            if (
-              paymentMethod === "M-Pesa"
-            ) {
-
-              await startMpesaPayment(
-                insertedOrder,
-                phone
-              );
-
-            } else {
-
-              window.location.href =
-                `order-confirmation.html?order=${encodeURIComponent(orderNumber)}`;
-
-            }
-
-          } catch (error) {
-
-            console.error(
-              "Checkout error:",
-              error
-            );
-
-
-            showMessage(
-              error.message ||
-              "We could not place your order. Please try again."
-            );
-
-
-            button.disabled =
-              false;
-
-            button.textContent =
-              "Place Order";
-
-          }
-
-        }
-      );
-
-    }
-
-
-    function generateOrderNumber() {
-
-      const now =
-        new Date();
-
-
-      const date =
-        now.getFullYear().toString() +
-        String(
-          now.getMonth() + 1
-        ).padStart(2, "0") +
-        String(
-          now.getDate()
-        ).padStart(2, "0");
-
-
-      const random =
-        Math.floor(
-          10000 +
-          Math.random() *
-          90000
+      const mpesaPhone =
+        mpesaPhoneElement
+          ? mpesaPhoneElement.value.trim()
+          : "";
+
+      if (
+        !firstName ||
+        !lastName ||
+        !email ||
+        !phone ||
+        !county ||
+        !town ||
+        !address
+      ) {
+
+        showPageMessage(
+          "Please complete all required delivery information.",
+          "error"
         );
 
+        return;
 
-      return `MET${date}${random}`;
+      }
 
-    }
+      if (!paymentMethod) {
 
+        showPageMessage(
+          "Please select a payment method.",
+          "error"
+        );
 
-    async function startMpesaPayment(
-      order,
-      phone
-    ) {
+        return;
+
+      }
+
+      if (
+        paymentMethod === "M-Pesa" &&
+        !mpesaPhone
+      ) {
+
+        showPageMessage(
+          "Please enter the M-Pesa phone number.",
+          "error"
+        );
+
+        return;
+
+      }
+
+      if (
+        !cart ||
+        cart.length === 0
+      ) {
+
+        showPageMessage(
+          "Your cart is empty.",
+          "error"
+        );
+
+        return;
+
+      }
 
       const button =
         document.getElementById(
-          "placeOrderBtn"
+          "placeOrderButton"
         );
 
+      button.disabled = true;
 
       button.textContent =
-        "Starting M-Pesa payment...";
+        "Creating your order...";
 
+      calculateTotals();
+
+      const recipientName =
+        `${firstName} ${lastName}`.trim();
+
+      const orderNumber =
+        generateOrderNumber();
+
+      const items =
+        cart.map(item => ({
+          id: item.id,
+          name: item.name,
+          price: Number(item.price || 0),
+          quantity: Number(item.quantity || 0),
+          image_url: item.image_url || ""
+        }));
+
+      const {
+        data: order,
+        error: orderError
+      } =
+        await supabaseClient
+          .from("orders")
+          .insert({
+
+            user_id:
+              currentUser.id,
+
+            order_number:
+              orderNumber,
+
+            customer_email:
+              email,
+
+            recipient_name:
+              recipientName,
+
+            phone:
+              normalizeKenyanPhone(phone),
+
+            county:
+              county,
+
+            town:
+              town,
+
+            address:
+              address,
+
+            delivery_note:
+              deliveryNote || null,
+
+            payment_method:
+              paymentMethod,
+
+            subtotal:
+              subtotal,
+
+            delivery_fee:
+              DELIVERY_FEE,
+
+            total:
+              total,
+
+            status:
+              "Processing",
+
+            items:
+              items,
+
+            payment_status:
+              paymentMethod === "M-Pesa"
+                ? "Pending"
+                : "Not Required"
+
+          })
+          .select()
+          .single();
+
+      if (orderError) {
+
+        console.error(
+          "Order creation error:",
+          orderError
+        );
+
+        button.disabled = false;
+
+        button.textContent =
+          `Confirm Order — KSh ${formatNumber(total)}`;
+
+        showPageMessage(
+          "We could not create your order. Please try again.",
+          "error"
+        );
+
+        return;
+
+      }
+
+      if (
+        paymentMethod === "M-Pesa"
+      ) {
+
+        button.textContent =
+          "Sending M-Pesa prompt...";
+
+        const paymentStarted =
+          await startMpesaPayment(
+            order,
+            mpesaPhone
+          );
+
+        if (!paymentStarted) {
+
+          button.disabled = false;
+
+          button.textContent =
+            `Confirm Order — KSh ${formatNumber(total)}`;
+
+          return;
+
+        }
+
+      }
+
+      saveCartAfterOrder();
+
+      window.location.href =
+        "order-confirmation.html?order=" +
+        encodeURIComponent(orderNumber);
+
+    }
+
+    async function startMpesaPayment(
+      order,
+      mpesaPhone
+    ) {
 
       try {
 
@@ -1747,7 +1718,6 @@
           await fetch(
             "/api/mpesa/stk-push",
             {
-
               method: "POST",
 
               headers: {
@@ -1763,12 +1733,12 @@
                 orderNumber:
                   order.order_number,
 
-                phone:
-                  phone,
-
                 amount:
-                  Number(
-                    order.total
+                  Number(order.total),
+
+                phone:
+                  normalizeKenyanPhone(
+                    mpesaPhone
                   )
 
               })
@@ -1776,51 +1746,238 @@
             }
           );
 
-
         const result =
           await response.json();
 
+        if (!response.ok) {
 
-        if (
-          !response.ok ||
-          !result.success
-        ) {
-
-          throw new Error(
-            result.message ||
-            "Unable to start M-Pesa payment."
+          console.error(
+            "M-Pesa error:",
+            result
           );
+
+          showPageMessage(
+            result.message ||
+            "M-Pesa payment could not be started.",
+            "error"
+          );
+
+          return false;
 
         }
 
+        if (
+          result.checkoutRequestId
+        ) {
 
-        window.location.href =
-          `order-confirmation.html?order=${encodeURIComponent(order.order_number)}&payment=mpesa`;
+          await supabaseClient
+            .from("orders")
+            .update({
+
+              checkout_request_id:
+                result.checkoutRequestId,
+
+              merchant_request_id:
+                result.merchantRequestId ||
+                null
+
+            })
+            .eq(
+              "id",
+              order.id
+            );
+
+        }
+
+        showPageMessage(
+          "M-Pesa payment prompt sent. Complete the payment on your phone.",
+          "success"
+        );
+
+        return true;
 
       } catch (error) {
 
         console.error(
-          "M-Pesa error:",
+          "M-Pesa request error:",
           error
         );
 
-
-        showMessage(
-          "Your order was created, but the M-Pesa payment request could not be started. Please contact support with your order number: " +
-          order.order_number
+        showPageMessage(
+          "Could not connect to the M-Pesa payment service.",
+          "error"
         );
 
-
-        button.disabled =
-          false;
-
-        button.textContent =
-          "Place Order";
+        return false;
 
       }
 
     }
 
+    function saveCartAfterOrder() {
+
+      cart = [];
+
+      localStorage.removeItem(
+        "meteur_cart"
+      );
+
+      updateCartCount();
+
+    }
+
+    function generateOrderNumber() {
+
+      const now =
+        new Date();
+
+      const year =
+        now.getFullYear();
+
+      const month =
+        String(
+          now.getMonth() + 1
+        ).padStart(2, "0");
+
+      const day =
+        String(
+          now.getDate()
+        ).padStart(2, "0");
+
+      const random =
+        Math.floor(
+          10000 +
+          Math.random() * 90000
+        );
+
+      return `MET${year}${month}${day}${random}`;
+
+    }
+
+    function normalizeKenyanPhone(
+      phone
+    ) {
+
+      let value =
+        String(phone || "")
+          .replace(/\s+/g, "")
+          .replace(/-/g, "");
+
+      if (
+        value.startsWith("+254")
+      ) {
+
+        value =
+          "254" +
+          value.slice(4);
+
+      } else if (
+        value.startsWith("07")
+      ) {
+
+        value =
+          "254" +
+          value.slice(1);
+
+      } else if (
+        value.startsWith("01")
+      ) {
+
+        value =
+          "254" +
+          value.slice(1);
+
+      }
+
+      return value;
+
+    }
+
+    function showPageMessage(
+      message,
+      type
+    ) {
+
+      const element =
+        document.getElementById(
+          "pageMessage"
+        );
+
+      if (!element) {
+        return;
+      }
+
+      element.textContent =
+        message;
+
+      element.className =
+        `message show ${type}`;
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+    }
+
+    function searchProducts() {
+
+      const input =
+        document.getElementById(
+          "searchInput"
+        );
+
+      const query =
+        input.value.trim();
+
+      if (!query) {
+        return;
+      }
+
+      window.location.href =
+        "shop.html?search=" +
+        encodeURIComponent(query);
+
+    }
+
+    document
+      .getElementById("searchInput")
+      .addEventListener(
+        "keydown",
+        function(event) {
+
+          if (event.key === "Enter") {
+            searchProducts();
+          }
+
+        }
+      );
+
+    function formatNumber(value) {
+
+      return Number(value || 0)
+        .toLocaleString("en-KE");
+
+    }
+
+    function escapeHtml(value) {
+
+      return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+    }
+
+    function escapeAttribute(value) {
+
+      return escapeHtml(value);
+
+    }
+
+    setActiveNavigation();
 
     loadCheckout();
 

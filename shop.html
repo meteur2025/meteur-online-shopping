@@ -3,7 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shop - Meteur Online Shopping</title>
+
+  <title>Shop - METEUR MOBILE KENYA</title>
+  <meta name="description" content="Shop smartphones, tablets, electronics and accessories at METEUR MOBILE KENYA.">
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
     * {
@@ -14,8 +18,8 @@
 
     body {
       font-family: Arial, Helvetica, sans-serif;
-      background: #f7f7f7;
-      color: #222;
+      background: #f4f8ff;
+      color: #1f2937;
     }
 
     a {
@@ -24,203 +28,310 @@
     }
 
     button,
-    select,
-    input {
-      font: inherit;
+    input,
+    select {
+      font-family: inherit;
     }
 
-    .topbar {
-      background: #f97316;
+    /* HEADER */
+    header {
+      background: #0757b8;
       color: white;
-      padding: 14px 5%;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
     }
 
-    .nav {
-      max-width: 1200px;
+    .header-top {
+      max-width: 1250px;
       margin: auto;
+      padding: 15px 20px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
       gap: 20px;
-      flex-wrap: wrap;
     }
 
+    /* METEUR MOBILE KENYA LOGO */
     .logo {
-      font-size: 26px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 245px;
+      color: white;
       font-weight: 800;
     }
 
-    .search-box {
+    .logo-icon {
+      width: 42px;
+      height: 42px;
+      border: 3px solid white;
+      border-radius: 9px;
+      background: #063b7a;
+      position: relative;
       display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .logo-icon::before {
+      content: "";
+      width: 24px;
+      height: 29px;
+      border: 2px solid white;
+      border-radius: 5px;
+    }
+
+    .logo-icon::after {
+      content: "";
+      width: 5px;
+      height: 5px;
+      background: white;
+      border-radius: 50%;
+      position: absolute;
+      bottom: 6px;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.05;
+    }
+
+    .logo-main {
+      font-size: 19px;
+      letter-spacing: 0.5px;
+    }
+
+    .logo-sub {
+      font-size: 10px;
+      margin-top: 4px;
+      letter-spacing: 0.8px;
+      opacity: 0.9;
+    }
+
+    /* SEARCH */
+    .search-box {
       flex: 1;
-      max-width: 500px;
+      display: flex;
+      max-width: 650px;
     }
 
     .search-box input {
-      flex: 1;
-      padding: 11px 14px;
+      width: 100%;
+      padding: 13px 16px;
       border: none;
       outline: none;
-      border-radius: 5px 0 0 5px;
+      border-radius: 6px 0 0 6px;
+      font-size: 15px;
+      background: white;
+      color: #111827;
     }
 
     .search-box button {
       border: none;
-      background: #111827;
+      padding: 0 22px;
+      background: #063b7a;
       color: white;
-      padding: 0 18px;
-      border-radius: 0 5px 5px 0;
+      font-weight: bold;
       cursor: pointer;
+      border-radius: 0 6px 6px 0;
     }
 
-    .nav-links {
-      max-width: 1200px;
-      margin: 0 auto;
+    .search-box button:hover {
+      background: #052e60;
+    }
+
+    /* HEADER ACTIONS */
+    .header-actions {
       display: flex;
-      gap: 18px;
-      flex-wrap: wrap;
-      padding-top: 14px;
-      font-size: 14px;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
     }
 
-    .nav-links a {
+    .header-link {
       color: white;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 9px 10px;
+      border-radius: 5px;
+    }
+
+    .header-link:hover {
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    .cart-link {
+      position: relative;
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -4px;
+      right: -3px;
+      min-width: 18px;
+      height: 18px;
+      padding: 2px 5px;
+      border-radius: 50%;
+      background: white;
+      color: #0757b8;
+      font-size: 11px;
+      font-weight: bold;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* NAVIGATION */
+    .nav-bar {
+      background: #063b7a;
+    }
+
+    .nav-inner {
+      max-width: 1250px;
+      margin: auto;
+      padding: 10px 20px;
+      display: flex;
+      gap: 28px;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .nav-inner a {
+      color: white;
+      font-size: 14px;
       font-weight: 600;
     }
 
-    .nav-links a:hover {
-      text-decoration: underline;
+    .nav-inner a:hover {
+      opacity: 0.8;
     }
 
-    .hero {
-      background: white;
-      padding: 40px 5%;
-      border-bottom: 1px solid #e5e7eb;
+    /* PAGE */
+    .page {
+      max-width: 1250px;
+      margin: 0 auto;
+      padding: 30px 20px 50px;
     }
 
-    .hero-inner {
-      max-width: 1200px;
-      margin: auto;
+    .page-heading {
+      margin-bottom: 25px;
     }
 
-    .hero h1 {
+    .page-heading h1 {
+      color: #0757b8;
       font-size: 32px;
       margin-bottom: 8px;
     }
 
-    .hero p {
+    .page-heading p {
       color: #6b7280;
+      font-size: 15px;
     }
 
-    .shop-container {
-      max-width: 1200px;
-      margin: 30px auto;
-      padding: 0 20px;
-    }
-
-    .toolbar {
+    /* SHOP TOOLBAR */
+    .shop-toolbar {
       background: white;
-      padding: 16px 20px;
       border-radius: 10px;
-      border: 1px solid #e5e7eb;
+      padding: 18px;
       margin-bottom: 25px;
+      box-shadow: 0 2px 9px rgba(0, 0, 0, 0.07);
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
       gap: 15px;
       flex-wrap: wrap;
     }
 
-    .count {
-      color: #555;
-      font-weight: 600;
-    }
-
-    .sort-box {
+    .filter-group {
       display: flex;
-      align-items: center;
       gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
     }
 
-    .sort-box select {
-      padding: 9px 12px;
-      border: 1px solid #d1d5db;
-      border-radius: 6px;
+    .filter-group label {
+      font-weight: bold;
+      color: #0757b8;
+      font-size: 14px;
+    }
+
+    select {
+      border: 1px solid #cbd5e1;
       background: white;
-      cursor: pointer;
+      padding: 10px 12px;
+      border-radius: 6px;
+      outline: none;
+      color: #374151;
     }
 
-    .product-grid {
+    select:focus {
+      border-color: #0757b8;
+    }
+
+    .results-count {
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    /* PRODUCTS */
+    .products-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 18px;
     }
 
     .product-card {
       background: white;
       border-radius: 10px;
       overflow: hidden;
-      border: 1px solid #e5e7eb;
+      box-shadow: 0 2px 9px rgba(0, 0, 0, 0.08);
       position: relative;
-      transition: 0.2s ease;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .product-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      transform: translateY(-4px);
+      box-shadow: 0 5px 18px rgba(0, 0, 0, 0.13);
     }
 
     .product-image {
       width: 100%;
-      height: 210px;
-      object-fit: cover;
-      background: #f3f4f6;
-    }
-
-    .product-content {
-      padding: 15px;
+      height: 200px;
+      object-fit: contain;
+      background: white;
+      padding: 12px;
     }
 
     .badge {
-      display: inline-block;
-      background: #f97316;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 2;
+      background: #0757b8;
       color: white;
-      padding: 4px 8px;
+      padding: 5px 8px;
       border-radius: 4px;
       font-size: 11px;
-      font-weight: 700;
-      margin-bottom: 8px;
+      font-weight: bold;
     }
 
-    .product-category {
-      color: #6b7280;
-      font-size: 12px;
-      margin-bottom: 7px;
+    .product-info {
+      padding: 14px;
     }
 
     .product-name {
-      font-size: 15px;
-      font-weight: 700;
+      font-size: 14px;
       line-height: 1.4;
-      margin-bottom: 8px;
-    }
-
-    .rating {
-      color: #f59e0b;
-      font-size: 13px;
-      margin-bottom: 10px;
-    }
-
-    .price-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 8px;
+      min-height: 40px;
+      color: #111827;
+      margin-bottom: 9px;
     }
 
     .price {
-      color: #f97316;
+      color: #0757b8;
       font-size: 18px;
       font-weight: 800;
     }
@@ -228,122 +339,224 @@
     .old-price {
       color: #9ca3af;
       text-decoration: line-through;
+      font-size: 12px;
+      margin-left: 5px;
+    }
+
+    .rating {
+      margin-top: 7px;
+      color: #f59e0b;
       font-size: 13px;
     }
 
-    .stock {
-      color: #555;
-      font-size: 12px;
-      margin-bottom: 12px;
+    .actions {
+      display: flex;
+      gap: 7px;
+      margin-top: 12px;
     }
 
     .add-cart {
-      width: 100%;
+      flex: 1;
       border: none;
-      background: #f97316;
+      background: #0757b8;
       color: white;
-      padding: 10px;
-      border-radius: 6px;
-      font-weight: 700;
+      padding: 9px;
+      border-radius: 5px;
       cursor: pointer;
+      font-size: 13px;
+      font-weight: bold;
     }
 
     .add-cart:hover {
-      background: #ea580c;
+      background: #063b7a;
     }
 
-    .empty {
+    .view-product {
+      padding: 9px;
+      border: 1px solid #0757b8;
+      color: #0757b8;
+      border-radius: 5px;
+      font-size: 12px;
+      font-weight: bold;
       background: white;
-      padding: 50px 20px;
-      text-align: center;
-      border-radius: 10px;
-      border: 1px solid #e5e7eb;
+    }
+
+    .view-product:hover {
+      background: #eef6ff;
+    }
+
+    /* LOADING / EMPTY */
+    .loading,
+    .empty-message {
       grid-column: 1 / -1;
-    }
-
-    .empty h2 {
-      margin-bottom: 10px;
-    }
-
-    .empty p {
+      background: white;
+      border-radius: 10px;
+      text-align: center;
+      padding: 45px 20px;
       color: #6b7280;
     }
 
+    /* FOOTER */
     footer {
-      background: #111827;
+      background: #063b7a;
       color: white;
-      margin-top: 60px;
-      padding: 40px 5% 20px;
     }
 
-    .footer-grid {
-      max-width: 1200px;
+    .footer-inner {
+      max-width: 1250px;
       margin: auto;
+      padding: 40px 20px 25px;
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 30px;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 35px;
     }
 
-    footer h3 {
-      margin-bottom: 15px;
+    .footer-brand h2 {
+      margin-bottom: 12px;
     }
 
-    footer a {
-      display: block;
-      color: #d1d5db;
-      margin-bottom: 9px;
+    .footer-brand p {
+      color: #dbeafe;
+      line-height: 1.6;
       font-size: 14px;
     }
 
-    footer a:hover {
+    .footer-column h3 {
+      font-size: 15px;
+      margin-bottom: 14px;
+    }
+
+    .footer-column a {
+      display: block;
+      color: #dbeafe;
+      font-size: 13px;
+      margin-bottom: 9px;
+    }
+
+    .footer-column a:hover {
       color: white;
     }
 
-    .copyright {
-      max-width: 1200px;
-      margin: 30px auto 0;
-      padding-top: 20px;
-      border-top: 1px solid #374151;
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
       text-align: center;
-      color: #9ca3af;
-      font-size: 13px;
+      padding: 16px 20px;
+      color: #dbeafe;
+      font-size: 12px;
     }
 
-    @media (max-width: 1000px) {
-      .product-grid {
-        grid-template-columns: repeat(3, 1fr);
+    /* TABLET */
+    @media (max-width: 1100px) {
+      .products-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .logo {
+        min-width: auto;
+      }
+
+      .logo-main {
+        font-size: 16px;
       }
     }
 
-    @media (max-width: 750px) {
-      .product-grid {
-        grid-template-columns: repeat(2, 1fr);
+    /* MOBILE */
+    @media (max-width: 800px) {
+      .header-top {
+        flex-wrap: wrap;
       }
 
-      .footer-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 550px) {
-      .nav {
-        flex-direction: column;
-        align-items: stretch;
+      .logo {
+        width: 100%;
       }
 
       .search-box {
+        width: 100%;
         max-width: none;
+        order: 2;
       }
 
-      .nav-links {
-        justify-content: center;
+      .header-actions {
+        position: absolute;
+        right: 15px;
+        top: 17px;
       }
 
-      .product-grid {
-        grid-template-columns: 1fr;
+      .header-link:not(.cart-link) {
+        display: none;
       }
 
-      .footer-grid {
+      .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+
+      .product-image {
+        height: 165px;
+      }
+
+      .footer-inner {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* SMALL MOBILE */
+    @media (max-width: 480px) {
+      .logo-main {
+        font-size: 15px;
+      }
+
+      .logo-sub {
+        font-size: 8px;
+      }
+
+      .logo-icon {
+        width: 38px;
+        height: 38px;
+      }
+
+      .page {
+        padding: 22px 12px 40px;
+      }
+
+      .page-heading h1 {
+        font-size: 25px;
+      }
+
+      .shop-toolbar {
+        padding: 14px;
+      }
+
+      .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .product-image {
+        height: 135px;
+      }
+
+      .product-info {
+        padding: 10px;
+      }
+
+      .product-name {
+        font-size: 12px;
+      }
+
+      .price {
+        font-size: 15px;
+      }
+
+      .old-price {
+        display: block;
+        margin: 3px 0 0;
+      }
+
+      .view-product {
+        display: none;
+      }
+
+      .footer-inner {
         grid-template-columns: 1fr;
       }
     }
@@ -352,578 +565,811 @@
 
 <body>
 
-<header class="topbar">
+  <!-- HEADER -->
+  <header>
 
-  <div class="nav">
+    <div class="header-top">
 
-    <a href="index.html" class="logo">Meteur</a>
+      <a href="index.html" class="logo">
 
-    <form class="search-box" onsubmit="searchProducts(event)">
-      <input
-        type="text"
-        id="searchInput"
-        placeholder="Search products..."
-      >
-      <button type="submit">Search</button>
-    </form>
+        <div class="logo-icon"></div>
 
-  </div>
-
-  <nav class="nav-links">
-    <a href="index.html">Home</a>
-    <a href="shop.html">Shop</a>
-    <a href="deals.html">Deals</a>
-    <a href="new-arrivals.html">New Arrivals</a>
-    <a href="categories.html">Categories</a>
-    <a href="wishlist.html">Wishlist</a>
-    <a href="cart.html">Cart</a>
-    <a href="dashboard.html">My Account</a>
-  </nav>
-
-</header>
-
-<section class="hero">
-
-  <div class="hero-inner">
-
-    <h1 id="pageTitle">Shop All Products</h1>
-
-    <p id="pageDescription">
-      Discover quality products at great prices on Meteur.
-    </p>
-
-  </div>
-
-</section>
-
-<main class="shop-container">
-
-  <div class="toolbar">
-
-    <div class="count" id="productCount">
-      Loading products...
-    </div>
-
-    <div class="sort-box">
-
-      <label for="sortSelect">Sort by</label>
-
-      <select id="sortSelect" onchange="sortProducts()">
-        <option value="default">Sort by</option>
-        <option value="price-low">Price: Low to High</option>
-        <option value="price-high">Price: High to Low</option>
-        <option value="rating">Highest Rated</option>
-        <option value="newest">Newest</option>
-      </select>
-
-    </div>
-
-  </div>
-
-  <div class="product-grid" id="productGrid"></div>
-
-</main>
-
-<footer>
-
-  <div class="footer-grid">
-
-    <div>
-      <h3>Meteur</h3>
-
-      <p style="color:#d1d5db; line-height:1.6;">
-        Your trusted online shopping marketplace.
-      </p>
-    </div>
-
-    <div>
-
-      <h3>Shopping</h3>
-
-      <a href="shop.html">Shop All</a>
-      <a href="deals.html">Deals</a>
-      <a href="new-arrivals.html">New Arrivals</a>
-      <a href="categories.html">Categories</a>
-
-    </div>
-
-    <div>
-
-      <h3>Customer Service</h3>
-
-      <a href="help.html">Help Center</a>
-      <a href="contact.html">Contact Us</a>
-      <a href="shipping.html">Shipping</a>
-      <a href="returns.html">Returns & Refunds</a>
-      <a href="track-order.html">Track Order</a>
-
-    </div>
-
-  </div>
-
-  <div class="copyright">
-    © 2026 Meteur Online Shopping. All rights reserved.
-  </div>
-
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script>
-
-  const SUPABASE_URL = "https://nytsdeupaootukcullgi.supabase.co";
-
-  const SUPABASE_KEY =
-    "sb_publishable_cIqzHoafy_AEdB48KS_Wpg_LDqE1sFC";
-
-  const supabaseClient =
-    window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_KEY
-    );
-
-  let allProducts = [];
-  let displayedProducts = [];
-
-  function getUrlParameters() {
-
-    const params = new URLSearchParams(window.location.search);
-
-    return {
-      category: params.get("category"),
-      search: params.get("search")
-    };
-
-  }
-
-  function searchProducts(event) {
-
-    event.preventDefault();
-
-    const search =
-      document.getElementById("searchInput").value.trim();
-
-    if (search) {
-
-      window.location.href =
-        "shop.html?search=" +
-        encodeURIComponent(search);
-
-    } else {
-
-      window.location.href = "shop.html";
-
-    }
-
-  }
-
-  function getStars(rating) {
-
-    const rounded =
-      Math.round(Number(rating) || 0);
-
-    let stars = "";
-
-    for (let i = 1; i <= 5; i++) {
-
-      stars +=
-        i <= rounded ? "★" : "☆";
-
-    }
-
-    return stars;
-
-  }
-
-  function escapeHtml(value) {
-
-    if (value === null || value === undefined) {
-      return "";
-    }
-
-    return String(value)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
-
-  }
-
-  function renderProducts(products) {
-
-    const grid =
-      document.getElementById("productGrid");
-
-    const count =
-      document.getElementById("productCount");
-
-    count.textContent =
-      products.length +
-      (products.length === 1 ? " product" : " products");
-
-    if (!products.length) {
-
-      grid.innerHTML = `
-        <div class="empty">
-          <h2>No products found</h2>
-          <p>Try a different category or search.</p>
+        <div class="logo-text">
+          <span class="logo-main">METEUR MOBILE KENYA</span>
+          <span class="logo-sub">
+            MOBILE • ELECTRONICS • ACCESSORIES
+          </span>
         </div>
-      `;
 
-      return;
+      </a>
 
+      <form class="search-box" id="searchForm">
+
+        <input
+          type="search"
+          id="searchInput"
+          placeholder="Search smartphones, tablets, accessories..."
+        >
+
+        <button type="submit">
+          Search
+        </button>
+
+      </form>
+
+      <div class="header-actions">
+
+        <a href="login.html" class="header-link">
+          Login
+        </a>
+
+        <a href="register.html" class="header-link">
+          Register
+        </a>
+
+        <a href="cart.html" class="header-link cart-link">
+          🛒 Cart
+          <span id="cartCount" class="cart-count">0</span>
+        </a>
+
+      </div>
+
+    </div>
+
+    <nav class="nav-bar">
+
+      <div class="nav-inner">
+
+        <a href="index.html">Home</a>
+
+        <a href="shop.html">Shop</a>
+
+        <a href="shop.html?category=Phones%20and%20Tablets">
+          Phones & Tablets
+        </a>
+
+        <a href="shop.html?category=Electronics">
+          Electronics
+        </a>
+
+        <a href="shop.html?category=Accessories">
+          Accessories
+        </a>
+
+        <a href="orders.html">
+          My Orders
+        </a>
+
+        <a href="contact.html">
+          Contact Us
+        </a>
+
+      </div>
+
+    </nav>
+
+  </header>
+
+
+  <!-- MAIN SHOP -->
+  <main class="page">
+
+    <div class="page-heading">
+
+      <h1>Shop METEUR MOBILE KENYA</h1>
+
+      <p>
+        Find smartphones, tablets, electronics, accessories and smart devices.
+      </p>
+
+    </div>
+
+
+    <!-- TOOLBAR -->
+    <div class="shop-toolbar">
+
+      <div class="filter-group">
+
+        <label for="categoryFilter">
+          Category:
+        </label>
+
+        <select id="categoryFilter">
+          <option value="">All Categories</option>
+          <option value="Phones and Tablets">Phones & Tablets</option>
+          <option value="Electronics">Electronics</option>
+          <option value="Accessories">Accessories</option>
+          <option value="Smart Devices">Smart Devices</option>
+          <option value="Computers">Computers</option>
+          <option value="Cameras">Cameras</option>
+        </select>
+
+
+        <label for="sortFilter">
+          Sort:
+        </label>
+
+        <select id="sortFilter">
+          <option value="latest">Latest</option>
+          <option value="price-low">Price: Low to High</option>
+          <option value="price-high">Price: High to Low</option>
+          <option value="rating">Top Rated</option>
+          <option value="name">Name: A-Z</option>
+        </select>
+
+      </div>
+
+      <div class="results-count" id="resultsCount">
+        Loading products...
+      </div>
+
+    </div>
+
+
+    <!-- PRODUCTS -->
+    <div class="products-grid" id="productsGrid">
+
+      <div class="loading">
+        Loading products...
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer>
+
+    <div class="footer-inner">
+
+      <div class="footer-brand">
+
+        <h2>METEUR MOBILE KENYA</h2>
+
+        <p>
+          Your online destination for mobile phones, electronics,
+          accessories and smart devices in Kenya.
+        </p>
+
+      </div>
+
+
+      <div class="footer-column">
+
+        <h3>Shop</h3>
+
+        <a href="shop.html">
+          All Products
+        </a>
+
+        <a href="shop.html?deals=true">
+          Flash Deals
+        </a>
+
+        <a href="shop.html?new=true">
+          New Arrivals
+        </a>
+
+        <a href="shop.html?category=Phones%20and%20Tablets">
+          Phones & Tablets
+        </a>
+
+      </div>
+
+
+      <div class="footer-column">
+
+        <h3>Account</h3>
+
+        <a href="login.html">
+          Login
+        </a>
+
+        <a href="register.html">
+          Register
+        </a>
+
+        <a href="profile.html">
+          My Profile
+        </a>
+
+        <a href="orders.html">
+          My Orders
+        </a>
+
+      </div>
+
+
+      <div class="footer-column">
+
+        <h3>Help</h3>
+
+        <a href="contact.html">
+          Contact Us
+        </a>
+
+        <a href="track-order.html">
+          Track Order
+        </a>
+
+        <a href="seller-register.html">
+          Sell on Meteur
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+      © 2026 METEUR MOBILE KENYA. All rights reserved.
+    </div>
+
+  </footer>
+
+
+  <script>
+
+    /* SUPABASE */
+    const SUPABASE_URL =
+      "https://nytsdeupaootukcullgi.supabase.co";
+
+    const SUPABASE_ANON_KEY =
+      "sb_publishable_cIqzHoafy_AEdB48KS_Wpg_LDqE1sFC";
+
+    const supabaseClient =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+      );
+
+
+    let allProducts = [];
+
+
+    /* CART COUNT */
+    function updateCartCount() {
+
+      const cart =
+        JSON.parse(
+          localStorage.getItem("meteur_cart") || "[]"
+        );
+
+      const total =
+        cart.reduce(
+          (sum, item) =>
+            sum + Number(item.quantity || 1),
+          0
+        );
+
+      const count =
+        document.getElementById("cartCount");
+
+      if (total > 0) {
+
+        count.textContent = total;
+        count.style.display = "flex";
+
+      } else {
+
+        count.style.display = "none";
+
+      }
     }
 
-    grid.innerHTML =
-      products.map(product => {
 
-        const image =
-          product.image_url ||
-          "https://via.placeholder.com/600x450?text=Meteur";
+    /* ESCAPE */
+    function escapeHtml(value) {
 
-        const badge =
-          product.badge
-            ? `<span class="badge">${escapeHtml(product.badge)}</span>`
-            : "";
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
 
-        const oldPrice =
-          product.old_price
-            ? `<span class="old-price">KSh ${Number(product.old_price).toLocaleString()}</span>`
-            : "";
 
-        return `
+    function escapeAttribute(value) {
+      return escapeHtml(value);
+    }
 
-          <article class="product-card">
 
-            <a href="product.html?id=${encodeURIComponent(product.id)}">
+    /* ADD TO CART */
+    function addToCart(product) {
 
-              <img
-                class="product-image"
-                src="${escapeHtml(image)}"
-                alt="${escapeHtml(product.name)}"
-                loading="lazy"
-              >
+      const cart =
+        JSON.parse(
+          localStorage.getItem("meteur_cart") || "[]"
+        );
 
-            </a>
+      const existing =
+        cart.find(
+          item => item.id === product.id
+        );
 
-            <div class="product-content">
+      if (existing) {
 
-              ${badge}
+        existing.quantity =
+          Number(existing.quantity || 1) + 1;
 
-              <div class="product-category">
-                ${escapeHtml(product.category)}
-              </div>
+      } else {
 
-              <a
-                href="product.html?id=${encodeURIComponent(product.id)}"
-                class="product-name"
-              >
-                ${escapeHtml(product.name)}
-              </a>
+        cart.push({
 
-              <div class="rating">
-                ${getStars(product.rating)}
+          id: product.id,
+
+          name: product.name,
+
+          price: Number(product.price),
+
+          image_url: product.image_url,
+
+          quantity: 1
+
+        });
+      }
+
+      localStorage.setItem(
+        "meteur_cart",
+        JSON.stringify(cart)
+      );
+
+      updateCartCount();
+
+      alert("Product added to cart.");
+    }
+
+
+    /* PRODUCT CARD */
+    function createProductCard(product) {
+
+      const rating =
+        Number(product.rating || 0);
+
+      const roundedRating =
+        Math.max(
+          0,
+          Math.min(
+            5,
+            Math.round(rating)
+          )
+        );
+
+      const stars =
+        "★".repeat(roundedRating) +
+        "☆".repeat(5 - roundedRating);
+
+      const oldPrice =
+        product.old_price &&
+        Number(product.old_price) > Number(product.price)
+
+          ? `
+            <span class="old-price">
+              KSh ${Number(product.old_price).toLocaleString()}
+            </span>
+          `
+
+          : "";
+
+      const badge =
+        product.badge
+
+          ? `
+            <span class="badge">
+              ${escapeHtml(product.badge)}
+            </span>
+          `
+
+          : "";
+
+      const image =
+        product.image_url ||
+        "https://via.placeholder.com/500x400?text=Meteur+Mobile";
+
+
+      const safeProduct =
+        JSON.stringify(product)
+          .replace(/'/g, "&#39;");
+
+
+      return `
+
+        <article class="product-card">
+
+          ${badge}
+
+          <a href="product.html?id=${encodeURIComponent(product.id)}">
+
+            <img
+              class="product-image"
+              src="${escapeAttribute(image)}"
+              alt="${escapeAttribute(product.name)}"
+              onerror="this.src='https://via.placeholder.com/500x400?text=Meteur+Mobile'"
+            >
+
+          </a>
+
+          <div class="product-info">
+
+            <div class="product-name">
+              ${escapeHtml(product.name)}
+            </div>
+
+            <div>
+
+              <span class="price">
+                KSh ${Number(product.price).toLocaleString()}
+              </span>
+
+              ${oldPrice}
+
+            </div>
+
+            <div class="rating">
+
+              ${stars}
+
+              <span style="color:#6b7280;">
                 (${Number(product.review_count || 0)})
-              </div>
+              </span>
 
-              <div class="price-row">
+            </div>
 
-                <span class="price">
-                  KSh ${Number(product.price).toLocaleString()}
-                </span>
-
-                ${oldPrice}
-
-              </div>
-
-              <div class="stock">
-                ${Number(product.stock || 0)} available
-              </div>
+            <div class="actions">
 
               <button
                 class="add-cart"
-                onclick="addToCart('${String(product.id).replace(/'/g, "\\'")}')"
+                onclick='addToCart(${safeProduct})'
               >
                 Add to Cart
               </button>
 
+              <a
+                class="view-product"
+                href="product.html?id=${encodeURIComponent(product.id)}"
+              >
+                View
+              </a>
+
             </div>
 
-          </article>
+          </div>
 
-        `;
+        </article>
 
-      }).join("");
-
-  }
-
-  async function loadProducts() {
-
-    const grid =
-      document.getElementById("productGrid");
-
-    const title =
-      document.getElementById("pageTitle");
-
-    const description =
-      document.getElementById("pageDescription");
-
-    grid.innerHTML = `
-      <div class="empty">
-        <h2>Loading products...</h2>
-        <p>Please wait.</p>
-      </div>
-    `;
-
-    const {
-      category,
-      search
-    } = getUrlParameters();
-
-    if (category) {
-
-      title.textContent =
-        category;
-
-      description.textContent =
-        "Browse products in " + category + ".";
-
-    } else if (search) {
-
-      title.textContent =
-        "Search Results";
-
-      description.textContent =
-        "Products matching your search.";
-
-      document.getElementById("searchInput").value =
-        search;
-
-    }
-
-    const {
-      data,
-      error
-    } = await supabaseClient
-      .from("products")
-      .select("*")
-      .order("created_at", {
-        ascending: false
-      });
-
-    if (error) {
-
-      console.error(error);
-
-      grid.innerHTML = `
-        <div class="empty">
-          <h2>Unable to load products</h2>
-          <p>Please refresh the page and try again.</p>
-        </div>
       `;
-
-      return;
-
     }
 
-    allProducts = data || [];
 
-    displayedProducts = [...allProducts];
+    /* LOAD PRODUCTS */
+    async function loadProducts() {
 
-    if (category) {
+      const grid =
+        document.getElementById("productsGrid");
 
-      displayedProducts =
-        displayedProducts.filter(product =>
-          String(product.category || "")
-            .trim()
-            .toLowerCase() ===
-          String(category)
-            .trim()
-            .toLowerCase()
+      try {
+
+        const { data, error } =
+          await supabaseClient
+            .from("products")
+            .select("*")
+            .order("created_at", {
+              ascending: false
+            });
+
+        if (error) {
+          throw error;
+        }
+
+        allProducts = data || [];
+
+        applyFilters();
+
+      } catch (error) {
+
+        console.error(
+          "Shop product loading error:",
+          error
         );
 
-    }
+        grid.innerHTML = `
+          <div class="empty-message">
+            Unable to load products right now.
+            Please try again later.
+          </div>
+        `;
 
-    if (search) {
-
-      const searchTerm =
-        search.trim().toLowerCase();
-
-      displayedProducts =
-        displayedProducts.filter(product => {
-
-          const name =
-            String(product.name || "")
-              .toLowerCase();
-
-          const productCategory =
-            String(product.category || "")
-              .toLowerCase();
-
-          const description =
-            String(product.description || "")
-              .toLowerCase();
-
-          return (
-            name.includes(searchTerm) ||
-            productCategory.includes(searchTerm) ||
-            description.includes(searchTerm)
-          );
-
-        });
-
-    }
-
-    renderProducts(displayedProducts);
-
-  }
-
-  function sortProducts() {
-
-    const sortValue =
-      document.getElementById("sortSelect").value;
-
-    let sorted =
-      [...displayedProducts];
-
-    if (sortValue === "price-low") {
-
-      sorted.sort(
-        (a, b) =>
-          Number(a.price || 0) -
-          Number(b.price || 0)
-      );
-
-    }
-
-    if (sortValue === "price-high") {
-
-      sorted.sort(
-        (a, b) =>
-          Number(b.price || 0) -
-          Number(a.price || 0)
-      );
-
-    }
-
-    if (sortValue === "rating") {
-
-      sorted.sort(
-        (a, b) =>
-          Number(b.rating || 0) -
-          Number(a.rating || 0)
-      );
-
-    }
-
-    if (sortValue === "newest") {
-
-      sorted.sort(
-        (a, b) =>
-          new Date(b.created_at) -
-          new Date(a.created_at)
-      );
-
-    }
-
-    renderProducts(sorted);
-
-  }
-
-  async function addToCart(productId) {
-
-    const {
-      data: {
-        user
+        document.getElementById(
+          "resultsCount"
+        ).textContent =
+          "Unable to load products.";
       }
-    } =
-      await supabaseClient.auth.getUser();
+    }
 
-    if (!user) {
 
-      window.location.href =
-        "login.html?redirect=" +
-        encodeURIComponent(
-          window.location.pathname +
+    /* APPLY FILTERS */
+    function applyFilters() {
+
+      const category =
+        document.getElementById(
+          "categoryFilter"
+        ).value;
+
+      const sort =
+        document.getElementById(
+          "sortFilter"
+        ).value;
+
+      const search =
+        document.getElementById(
+          "searchInput"
+        ).value
+          .trim()
+          .toLowerCase();
+
+
+      let products =
+        [...allProducts];
+
+
+      /* CATEGORY */
+      if (category) {
+
+        products =
+          products.filter(
+            product =>
+              product.category === category
+          );
+      }
+
+
+      /* SEARCH */
+      if (search) {
+
+        products =
+          products.filter(product => {
+
+            const name =
+              String(
+                product.name || ""
+              ).toLowerCase();
+
+            const description =
+              String(
+                product.description || ""
+              ).toLowerCase();
+
+            const productCategory =
+              String(
+                product.category || ""
+              ).toLowerCase();
+
+            return (
+              name.includes(search) ||
+              description.includes(search) ||
+              productCategory.includes(search)
+            );
+          });
+      }
+
+
+      /* SORT */
+      if (sort === "price-low") {
+
+        products.sort(
+          (a, b) =>
+            Number(a.price || 0) -
+            Number(b.price || 0)
+        );
+
+      } else if (sort === "price-high") {
+
+        products.sort(
+          (a, b) =>
+            Number(b.price || 0) -
+            Number(a.price || 0)
+        );
+
+      } else if (sort === "rating") {
+
+        products.sort(
+          (a, b) =>
+            Number(b.rating || 0) -
+            Number(a.rating || 0)
+        );
+
+      } else if (sort === "name") {
+
+        products.sort(
+          (a, b) =>
+            String(a.name || "")
+              .localeCompare(
+                String(b.name || "")
+              )
+        );
+
+      } else {
+
+        products.sort(
+          (a, b) =>
+            new Date(b.created_at || 0) -
+            new Date(a.created_at || 0)
+        );
+      }
+
+
+      renderProducts(products);
+    }
+
+
+    /* RENDER */
+    function renderProducts(products) {
+
+      const grid =
+        document.getElementById(
+          "productsGrid"
+        );
+
+      const count =
+        document.getElementById(
+          "resultsCount"
+        );
+
+
+      count.textContent =
+        `${products.length} product${
+          products.length === 1 ? "" : "s"
+        } found`;
+
+
+      if (!products.length) {
+
+        grid.innerHTML = `
+          <div class="empty-message">
+            No products found.
+            Try another search or category.
+          </div>
+        `;
+
+        return;
+      }
+
+
+      grid.innerHTML =
+        products
+          .map(createProductCard)
+          .join("");
+    }
+
+
+    /* SEARCH FORM */
+    document
+      .getElementById("searchForm")
+      .addEventListener(
+        "submit",
+        function(event) {
+
+          event.preventDefault();
+
+          applyFilters();
+
+        }
+      );
+
+
+    /* SEARCH WHILE TYPING */
+    document
+      .getElementById("searchInput")
+      .addEventListener(
+        "input",
+        function() {
+
+          applyFilters();
+
+        }
+      );
+
+
+    /* CATEGORY */
+    document
+      .getElementById("categoryFilter")
+      .addEventListener(
+        "change",
+        function() {
+
+          applyFilters();
+
+        }
+      );
+
+
+    /* SORT */
+    document
+      .getElementById("sortFilter")
+      .addEventListener(
+        "change",
+        function() {
+
+          applyFilters();
+
+        }
+      );
+
+
+    /* URL PARAMETERS */
+    function readUrlParameters() {
+
+      const params =
+        new URLSearchParams(
           window.location.search
         );
 
-      return;
 
-    }
+      const category =
+        params.get("category");
 
-    const {
-      data: existing,
-      error: existingError
-    } =
-      await supabaseClient
-        .from("cart_items")
-        .select("*")
-        .eq("user_id", user.id)
-        .eq("product_id", productId)
-        .maybeSingle();
+      const search =
+        params.get("search");
 
-    if (existingError) {
+      const deals =
+        params.get("deals");
 
-      alert("Unable to check your cart.");
+      const newProducts =
+        params.get("new");
 
-      return;
 
-    }
+      if (category) {
 
-    if (existing) {
+        const categoryFilter =
+          document.getElementById(
+            "categoryFilter"
+          );
 
-      const {
-        error
-      } =
-        await supabaseClient
-          .from("cart_items")
-          .update({
-            quantity:
-              Number(existing.quantity || 0) + 1
-          })
-          .eq("id", existing.id)
-          .eq("user_id", user.id);
-
-      if (error) {
-
-        alert("Unable to update your cart.");
-
-        return;
-
+        categoryFilter.value =
+          category;
       }
 
-    } else {
 
-      const {
-        error
-      } =
-        await supabaseClient
-          .from("cart_items")
-          .insert({
-            user_id: user.id,
-            product_id: productId,
-            quantity: 1
-          });
+      if (search) {
 
-      if (error) {
-
-        alert("Unable to add this product to your cart.");
-
-        return;
-
+        document.getElementById(
+          "searchInput"
+        ).value = search;
       }
 
+
+      if (deals === "true") {
+
+        allProducts =
+          allProducts.filter(
+            product =>
+              product.is_deal === true
+          );
+      }
+
+
+      if (newProducts === "true") {
+
+        allProducts =
+          allProducts.filter(
+            product =>
+              product.is_new === true
+          );
+      }
     }
 
-    alert("Product added to your cart.");
 
-  }
+    /* START */
+    updateCartCount();
 
-  loadProducts();
+    loadProducts().then(() => {
+      readUrlParameters();
+      applyFilters();
+    });
 
-</script>
+  </script>
 
 </body>
 </html>

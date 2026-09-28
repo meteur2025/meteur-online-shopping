@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Product - METEUR MOBILE KENYA</title>
+  <title>Product | METEUR MOBILE KENYA</title>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -18,7 +18,7 @@
     body {
       font-family: Arial, Helvetica, sans-serif;
       background: #f4f8ff;
-      color: #1f2937;
+      color: #172033;
     }
 
     a {
@@ -28,135 +28,87 @@
 
     button,
     input {
-      font-family: inherit;
+      font: inherit;
     }
 
-    /* HEADER */
-    header {
+    .top-header {
       background: #0757b8;
       color: white;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+      padding: 18px 20px;
     }
 
-    .header-top {
-      max-width: 1250px;
+    .header-inner {
+      max-width: 1200px;
       margin: auto;
-      padding: 15px 20px;
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 20px;
     }
 
-    /* LOGO */
-    .logo {
+    .brand {
       display: flex;
       align-items: center;
-      gap: 10px;
-      min-width: 245px;
-      color: white;
-      font-weight: 800;
+      gap: 12px;
     }
 
-    .logo-icon {
-      width: 42px;
-      height: 42px;
+    .phone-logo {
+      width: 34px;
+      height: 52px;
       border: 3px solid white;
-      border-radius: 9px;
-      background: #063b7a;
+      border-radius: 8px;
       position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      flex-shrink: 0;
     }
 
-    .logo-icon::before {
+    .phone-logo::before {
       content: "";
-      width: 24px;
-      height: 29px;
-      border: 2px solid white;
-      border-radius: 5px;
+      position: absolute;
+      width: 12px;
+      height: 3px;
+      background: white;
+      border-radius: 3px;
+      top: 5px;
+      left: 8px;
     }
 
-    .logo-icon::after {
+    .phone-logo::after {
       content: "";
+      position: absolute;
       width: 5px;
       height: 5px;
       background: white;
       border-radius: 50%;
-      position: absolute;
-      bottom: 6px;
+      bottom: 5px;
+      left: 12px;
     }
 
-    .logo-text {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.05;
+    .brand-text h1 {
+      font-size: 23px;
+      font-weight: 800;
+      letter-spacing: .4px;
     }
 
-    .logo-main {
-      font-size: 19px;
-      letter-spacing: 0.5px;
+    .brand-text p {
+      font-size: 11px;
+      margin-top: 3px;
+      opacity: .9;
+      letter-spacing: 1px;
     }
 
-    .logo-sub {
-      font-size: 10px;
-      margin-top: 4px;
-      letter-spacing: 0.8px;
-      opacity: 0.9;
-    }
-
-    /* SEARCH */
-    .search-box {
-      flex: 1;
-      display: flex;
-      max-width: 650px;
-    }
-
-    .search-box input {
-      width: 100%;
-      padding: 13px 16px;
-      border: none;
-      outline: none;
-      border-radius: 6px 0 0 6px;
-      font-size: 15px;
-    }
-
-    .search-box button {
-      border: none;
-      padding: 0 22px;
-      background: #063b7a;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      border-radius: 0 6px 6px 0;
-    }
-
-    .search-box button:hover {
-      background: #052e60;
-    }
-
-    /* ACTIONS */
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 8px;
-      margin-left: auto;
+      gap: 10px;
     }
 
-    .header-link {
-      color: white;
+    .header-actions a {
+      background: white;
+      color: #0757b8;
+      padding: 10px 15px;
+      border-radius: 7px;
+      font-weight: 700;
       font-size: 14px;
-      font-weight: 600;
-      padding: 9px 10px;
-      border-radius: 5px;
-    }
-
-    .header-link:hover {
-      background: rgba(255, 255, 255, 0.14);
     }
 
     .cart-link {
@@ -164,306 +116,317 @@
     }
 
     .cart-count {
-      position: absolute;
-      top: -4px;
-      right: -3px;
-      min-width: 18px;
-      height: 18px;
-      padding: 2px 5px;
-      border-radius: 50%;
-      background: white;
-      color: #0757b8;
-      font-size: 11px;
-      font-weight: bold;
-      display: none;
+      display: inline-flex;
+      min-width: 20px;
+      height: 20px;
+      padding: 0 5px;
       align-items: center;
       justify-content: center;
+      border-radius: 20px;
+      background: #063b7a;
+      color: white;
+      font-size: 11px;
+      margin-left: 5px;
     }
 
-    /* NAVIGATION */
-    .nav-bar {
+    nav {
       background: #063b7a;
+      color: white;
     }
 
     .nav-inner {
-      max-width: 1250px;
+      max-width: 1200px;
       margin: auto;
-      padding: 10px 20px;
       display: flex;
-      gap: 28px;
+      align-items: stretch;
       overflow-x: auto;
-      white-space: nowrap;
+      scrollbar-width: none;
+    }
+
+    .nav-inner::-webkit-scrollbar {
+      display: none;
     }
 
     .nav-inner a {
-      color: white;
+      position: relative;
+      padding: 16px 18px;
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 700;
+      white-space: nowrap;
     }
 
     .nav-inner a:hover {
-      opacity: 0.8;
+      background: rgba(255,255,255,.08);
     }
 
-    /* MAIN */
-    .page {
-      max-width: 1250px;
-      margin: auto;
-      padding: 30px 20px 60px;
+    .nav-inner a.active::after {
+      content: "";
+      position: absolute;
+      left: 15px;
+      right: 15px;
+      bottom: 0;
+      height: 3px;
+      background: white;
+      border-radius: 3px 3px 0 0;
+    }
+
+    .search-area {
+      max-width: 1200px;
+      margin: 22px auto 0;
+      padding: 0 20px;
+    }
+
+    .search-box {
+      display: flex;
+      gap: 10px;
+      background: white;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #d7e3f5;
+      box-shadow: 0 3px 12px rgba(0,0,0,.05);
+    }
+
+    .search-box input {
+      flex: 1;
+      min-width: 0;
+      border: 0;
+      outline: 0;
+      padding: 10px;
+      font-size: 15px;
+      background: transparent;
+    }
+
+    .search-box button {
+      border: 0;
+      background: #0757b8;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 7px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .search-box button:hover {
+      background: #064b9d;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 25px auto 60px;
+      padding: 0 20px;
     }
 
     .breadcrumb {
-      margin-bottom: 20px;
-      color: #6b7280;
       font-size: 14px;
+      color: #61718a;
+      margin-bottom: 18px;
     }
 
     .breadcrumb a {
       color: #0757b8;
-      font-weight: 600;
+      font-weight: 700;
     }
 
-    /* PRODUCT */
-    .product-container {
+    .product-section {
       background: white;
-      border-radius: 12px;
+      border-radius: 14px;
       padding: 25px;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+      border: 1px solid #dce7f6;
+      box-shadow: 0 5px 18px rgba(0,0,0,.06);
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 40px;
+      gap: 35px;
     }
 
-    .product-image-section {
+    .product-image-box {
+      min-height: 450px;
+      border-radius: 12px;
+      background: #f4f8ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 25px;
       position: relative;
-      min-width: 0;
     }
 
-    .product-image {
+    .product-image-box img {
       width: 100%;
-      height: 480px;
+      height: 430px;
       object-fit: contain;
-      background: white;
       border-radius: 10px;
-      border: 1px solid #e5e7eb;
-      padding: 20px;
     }
 
-    .product-badge {
-      position: absolute;
-      top: 15px;
-      left: 15px;
+    .no-image {
+      color: #72809a;
+      font-weight: 700;
+    }
+
+    .product-info {
+      padding: 8px 0;
+    }
+
+    .badge {
+      display: inline-block;
       background: #0757b8;
       color: white;
-      padding: 7px 11px;
+      padding: 7px 12px;
       border-radius: 5px;
       font-size: 12px;
-      font-weight: bold;
-      z-index: 2;
+      font-weight: 800;
+      margin-bottom: 14px;
     }
 
-    .product-details {
-      padding: 10px 5px;
+    .product-info h2 {
+      color: #172033;
+      font-size: 31px;
+      line-height: 1.25;
+      margin-bottom: 14px;
     }
 
     .category {
-      display: inline-block;
       color: #0757b8;
-      background: #eef6ff;
-      border-radius: 5px;
-      padding: 6px 10px;
-      font-size: 12px;
-      font-weight: bold;
-      margin-bottom: 15px;
-    }
-
-    .product-title {
-      color: #111827;
-      font-size: 30px;
-      line-height: 1.3;
-      margin-bottom: 15px;
+      font-weight: 700;
+      margin-bottom: 12px;
     }
 
     .rating {
-      color: #f59e0b;
-      font-size: 15px;
+      color: #f5a400;
+      font-size: 18px;
       margin-bottom: 18px;
     }
 
-    .rating-count {
-      color: #6b7280;
-      font-size: 13px;
-      margin-left: 5px;
+    .rating span {
+      color: #61718a;
+      font-size: 14px;
+      margin-left: 6px;
     }
 
-    .price-section {
+    .price-box {
+      border-top: 1px solid #e3ebf7;
+      border-bottom: 1px solid #e3ebf7;
       padding: 18px 0;
-      border-top: 1px solid #e5e7eb;
-      border-bottom: 1px solid #e5e7eb;
       margin-bottom: 20px;
     }
 
     .price {
       color: #0757b8;
-      font-size: 32px;
-      font-weight: 800;
+      font-size: 31px;
+      font-weight: 900;
     }
 
     .old-price {
-      color: #9ca3af;
+      color: #8793a6;
       text-decoration: line-through;
       font-size: 17px;
       margin-left: 10px;
     }
 
-    .save-text {
-      color: #15803d;
-      font-size: 13px;
-      font-weight: bold;
-      margin-top: 6px;
+    .stock {
+      margin-top: 8px;
+      color: #16803b;
+      font-weight: 700;
+      font-size: 14px;
     }
 
     .description {
-      color: #4b5563;
+      color: #4f5f77;
       line-height: 1.7;
-      font-size: 15px;
       margin-bottom: 22px;
     }
 
-    .stock {
-      margin-bottom: 20px;
-      font-size: 14px;
-      font-weight: bold;
-    }
-
-    .stock.available {
-      color: #15803d;
-    }
-
-    .stock.low {
-      color: #dc2626;
-    }
-
-    .stock.out {
-      color: #dc2626;
-    }
-
-    .quantity-section {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 18px;
-    }
-
-    .quantity-section label {
-      font-weight: bold;
-      color: #374151;
+    .quantity-title {
+      font-weight: 800;
+      margin-bottom: 8px;
     }
 
     .quantity-control {
-      display: flex;
-      border: 1px solid #cbd5e1;
-      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid #cdd9ea;
+      border-radius: 7px;
       overflow: hidden;
+      margin-bottom: 20px;
     }
 
     .quantity-control button {
-      width: 38px;
-      height: 38px;
-      border: none;
-      background: #eef6ff;
+      width: 42px;
+      height: 42px;
+      border: 0;
+      background: #eef5ff;
       color: #0757b8;
+      cursor: pointer;
       font-size: 20px;
-      font-weight: bold;
-      cursor: pointer;
+      font-weight: 800;
     }
 
-    .quantity-control button:hover {
-      background: #dbeafe;
-    }
-
-    .quantity-control input {
-      width: 55px;
-      height: 38px;
-      border: none;
-      border-left: 1px solid #cbd5e1;
-      border-right: 1px solid #cbd5e1;
+    .quantity-control span {
+      width: 50px;
       text-align: center;
-      outline: none;
-      font-weight: bold;
+      font-weight: 800;
     }
 
-    .action-buttons {
+    .actions {
       display: flex;
-      gap: 10px;
-      margin-bottom: 22px;
+      gap: 12px;
+      flex-wrap: wrap;
     }
 
-    .add-cart-btn {
-      flex: 1;
-      border: none;
-      background: #0757b8;
-      color: white;
-      padding: 14px 18px;
-      border-radius: 6px;
+    .actions button {
+      border: 0;
+      padding: 14px 20px;
+      border-radius: 8px;
       cursor: pointer;
-      font-weight: bold;
+      font-weight: 800;
       font-size: 15px;
     }
 
-    .add-cart-btn:hover {
-      background: #063b7a;
-    }
-
-    .buy-btn {
-      flex: 1;
-      border: 2px solid #0757b8;
+    .add-cart {
       background: white;
       color: #0757b8;
-      padding: 12px 18px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 15px;
+      border: 2px solid #0757b8 !important;
     }
 
-    .buy-btn:hover {
-      background: #eef6ff;
+    .buy-now {
+      background: #0757b8;
+      color: white;
     }
 
-    .disabled-btn {
-      opacity: 0.5;
-      cursor: not-allowed;
+    .add-cart:hover {
+      background: #eef5ff;
     }
 
-    .info-box {
-      background: #f4f8ff;
-      border: 1px solid #dbeafe;
-      border-radius: 8px;
-      padding: 16px;
+    .buy-now:hover {
+      background: #064b9d;
     }
 
-    .info-row {
-      display: flex;
-      gap: 10px;
-      padding: 8px 0;
-      font-size: 13px;
+    .message {
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 7px;
+      display: none;
+      font-weight: 700;
     }
 
-    .info-row strong {
-      color: #0757b8;
-      min-width: 130px;
+    .message.success {
+      display: block;
+      background: #e9f8ee;
+      color: #146c32;
     }
 
-    /* RELATED */
+    .message.error {
+      display: block;
+      background: #fff0f0;
+      color: #b42323;
+    }
+
     .related-section {
       margin-top: 35px;
     }
 
-    .related-section h2 {
-      color: #0757b8;
-      font-size: 24px;
+    .section-title {
+      font-size: 25px;
       margin-bottom: 18px;
+      color: #172033;
     }
 
     .related-grid {
@@ -474,220 +437,184 @@
 
     .related-card {
       background: white;
-      border-radius: 9px;
+      border: 1px solid #dce7f6;
+      border-radius: 10px;
       overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-      transition: transform 0.2s;
+      transition: transform .2s, box-shadow .2s;
     }
 
     .related-card:hover {
       transform: translateY(-3px);
+      box-shadow: 0 6px 18px rgba(0,0,0,.08);
     }
 
     .related-card img {
       width: 100%;
       height: 180px;
       object-fit: contain;
+      background: #f4f8ff;
       padding: 10px;
     }
 
-    .related-info {
-      padding: 12px;
+    .related-content {
+      padding: 14px;
     }
 
-    .related-name {
-      font-size: 13px;
-      line-height: 1.4;
+    .related-content h3 {
+      font-size: 15px;
       min-height: 38px;
       margin-bottom: 8px;
     }
 
     .related-price {
       color: #0757b8;
-      font-size: 16px;
-      font-weight: bold;
+      font-size: 18px;
+      font-weight: 900;
     }
 
-    /* LOADING */
-    .loading,
-    .error-message {
-      background: white;
-      border-radius: 10px;
-      padding: 50px 20px;
-      text-align: center;
-      color: #6b7280;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.07);
-    }
-
-    .error-message h2 {
-      color: #dc2626;
-      margin-bottom: 10px;
-    }
-
-    .back-button {
+    .view-product {
       display: inline-block;
-      margin-top: 15px;
-      background: #0757b8;
-      color: white;
-      padding: 10px 18px;
-      border-radius: 6px;
-      font-weight: bold;
+      margin-top: 10px;
+      color: #0757b8;
+      font-size: 13px;
+      font-weight: 800;
     }
 
-    /* FOOTER */
     footer {
       background: #063b7a;
       color: white;
+      padding: 40px 20px 25px;
     }
 
     .footer-inner {
-      max-width: 1250px;
+      max-width: 1200px;
       margin: auto;
-      padding: 40px 20px 25px;
       display: grid;
       grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 35px;
+      gap: 30px;
     }
 
-    .footer-brand h2 {
+    footer h3 {
       margin-bottom: 12px;
+      font-size: 18px;
     }
 
-    .footer-brand p {
-      color: #dbeafe;
+    footer p {
+      color: #dceaff;
       line-height: 1.6;
       font-size: 14px;
     }
 
-    .footer-column h3 {
-      font-size: 15px;
-      margin-bottom: 14px;
-    }
-
-    .footer-column a {
+    footer a {
       display: block;
-      color: #dbeafe;
-      font-size: 13px;
+      color: #dceaff;
       margin-bottom: 9px;
+      font-size: 14px;
     }
 
-    .footer-column a:hover {
+    footer a:hover {
       color: white;
     }
 
-    .footer-bottom {
-      border-top: 1px solid rgba(255, 255, 255, 0.15);
+    .copyright {
+      max-width: 1200px;
+      margin: 30px auto 0;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,.2);
       text-align: center;
-      padding: 16px 20px;
-      color: #dbeafe;
-      font-size: 12px;
+      color: #dceaff;
+      font-size: 13px;
     }
 
-    /* TABLET */
-    @media (max-width: 1000px) {
-      .product-container {
+    .loading {
+      text-align: center;
+      padding: 60px 20px;
+      color: #61718a;
+      font-weight: 700;
+    }
+
+    .error-box {
+      background: white;
+      border: 1px solid #f0cccc;
+      border-radius: 10px;
+      padding: 35px;
+      text-align: center;
+      color: #a32323;
+    }
+
+    @media (max-width: 900px) {
+      .product-section {
         grid-template-columns: 1fr;
       }
 
-      .product-image {
-        height: 400px;
-      }
-
       .related-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
       }
 
       .footer-inner {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr 1fr;
       }
     }
 
-    /* MOBILE */
-    @media (max-width: 700px) {
-      .header-top {
-        flex-wrap: wrap;
+    @media (max-width: 600px) {
+      .top-header {
+        padding: 14px;
       }
 
-      .logo {
-        width: 100%;
+      .header-inner {
+        flex-direction: column;
+        align-items: stretch;
       }
 
-      .logo-main {
-        font-size: 16px;
-      }
-
-      .search-box {
-        width: 100%;
-        max-width: none;
-        order: 2;
+      .brand {
+        justify-content: center;
       }
 
       .header-actions {
-        position: absolute;
-        right: 15px;
-        top: 17px;
+        justify-content: center;
       }
 
-      .header-link:not(.cart-link) {
-        display: none;
+      .header-actions a {
+        padding: 9px 11px;
+        font-size: 13px;
       }
 
-      .page {
-        padding: 20px 12px 40px;
+      .nav-inner a {
+        padding: 14px 13px;
+        font-size: 13px;
       }
 
-      .product-container {
+      .search-area {
+        padding: 0 12px;
+      }
+
+      main {
+        padding: 0 12px;
+      }
+
+      .product-section {
         padding: 15px;
         gap: 20px;
       }
 
-      .product-image {
-        height: 330px;
+      .product-image-box {
+        min-height: 330px;
       }
 
-      .product-title {
+      .product-image-box img {
+        height: 310px;
+      }
+
+      .product-info h2 {
         font-size: 24px;
       }
 
       .price {
-        font-size: 27px;
-      }
-
-      .old-price {
-        font-size: 14px;
-      }
-
-      .action-buttons {
-        flex-direction: column;
+        font-size: 26px;
       }
 
       .related-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
-      }
-
-      .related-card img {
-        height: 140px;
-      }
-    }
-
-    /* SMALL MOBILE */
-    @media (max-width: 430px) {
-      .product-image {
-        height: 280px;
-      }
-
-      .product-title {
-        font-size: 21px;
-      }
-
-      .price {
-        font-size: 24px;
-      }
-
-      .info-row {
-        flex-direction: column;
-        gap: 3px;
+        grid-template-columns: 1fr;
       }
 
       .footer-inner {
@@ -699,94 +626,78 @@
 
 <body>
 
-  <!-- HEADER -->
-  <header>
+  <header class="top-header">
+    <div class="header-inner">
 
-    <div class="header-top">
+      <a href="index.html" class="brand">
+        <div class="phone-logo"></div>
 
-      <a href="index.html" class="logo">
-
-        <div class="logo-icon"></div>
-
-        <div class="logo-text">
-          <span class="logo-main">METEUR MOBILE KENYA</span>
-          <span class="logo-sub">
-            MOBILE • ELECTRONICS • ACCESSORIES
-          </span>
+        <div class="brand-text">
+          <h1>METEUR MOBILE KENYA</h1>
+          <p>MOBILE • ELECTRONICS • ACCESSORIES</p>
         </div>
-
       </a>
 
-      <form class="search-box" id="searchForm">
-
-        <input
-          type="search"
-          id="searchInput"
-          placeholder="Search smartphones, tablets, accessories..."
-        >
-
-        <button type="submit">
-          Search
-        </button>
-
-      </form>
-
       <div class="header-actions">
-
-        <a href="login.html" class="header-link">
-          Login
-        </a>
-
-        <a href="register.html" class="header-link">
-          Register
-        </a>
-
-        <a href="cart.html" class="header-link cart-link">
+        <a href="login.html">Login</a>
+        <a href="register.html">Register</a>
+        <a href="cart.html" class="cart-link">
           🛒 Cart
-          <span id="cartCount" class="cart-count">0</span>
+          <span class="cart-count" id="cartCount">0</span>
         </a>
-
       </div>
 
     </div>
-
-    <nav class="nav-bar">
-
-      <div class="nav-inner">
-
-        <a href="index.html">Home</a>
-
-        <a href="shop.html">Shop</a>
-
-        <a href="shop.html?category=Phones%20and%20Tablets">
-          Phones & Tablets
-        </a>
-
-        <a href="shop.html?category=Electronics">
-          Electronics
-        </a>
-
-        <a href="shop.html?category=Accessories">
-          Accessories
-        </a>
-
-        <a href="orders.html">
-          My Orders
-        </a>
-
-        <a href="contact.html">
-          Contact Us
-        </a>
-
-      </div>
-
-    </nav>
-
   </header>
 
+  <nav>
+    <div class="nav-inner">
 
-  <!-- MAIN -->
-  <main class="page">
+      <a href="index.html" data-nav="home">Home</a>
+
+      <a href="shop.html" data-nav="shop">Shop</a>
+
+      <a href="shop.html?category=Phones%20and%20Tablets" data-nav="phones">
+        Phones & Tablets
+      </a>
+
+      <a href="shop.html?category=Electronics" data-nav="electronics">
+        Electronics
+      </a>
+
+      <a href="shop.html?category=Accessories" data-nav="accessories">
+        Accessories
+      </a>
+
+      <a href="orders.html" data-nav="orders">My Orders</a>
+
+      <a href="contact.html" data-nav="contact">Contact Us</a>
+
+    </div>
+  </nav>
+
+  <section class="search-area">
+
+    <div class="search-box">
+      <input
+        type="search"
+        id="searchInput"
+        placeholder="Search smartphones, tablets, accessories..."
+      >
+
+      <button onclick="searchProducts()">Search</button>
+    </div>
+
+  </section>
+
+  <main>
+
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <span> / </span>
+      <a href="shop.html">Shop</a>
+      <span> / Product</span>
+    </div>
 
     <div id="productContainer">
 
@@ -796,700 +707,468 @@
 
     </div>
 
-    <div
-      id="relatedSection"
-      class="related-section"
-      style="display:none;"
-    >
+    <section class="related-section">
 
-      <h2>More Products You May Like</h2>
+      <h2 class="section-title">
+        Related Products
+      </h2>
 
-      <div
-        id="relatedGrid"
-        class="related-grid"
-      ></div>
+      <div id="relatedProducts" class="related-grid">
 
-    </div>
+      </div>
+
+    </section>
 
   </main>
 
-
-  <!-- FOOTER -->
   <footer>
 
     <div class="footer-inner">
 
-      <div class="footer-brand">
-
-        <h2>METEUR MOBILE KENYA</h2>
+      <div>
+        <h3>METEUR MOBILE KENYA</h3>
 
         <p>
           Your online destination for mobile phones, electronics,
           accessories and smart devices in Kenya.
         </p>
-
       </div>
 
-      <div class="footer-column">
-
+      <div>
         <h3>Shop</h3>
 
-        <a href="shop.html">
-          All Products
-        </a>
-
-        <a href="shop.html?deals=true">
-          Flash Deals
-        </a>
-
-        <a href="shop.html?new=true">
-          New Arrivals
-        </a>
-
+        <a href="shop.html">All Products</a>
+        <a href="shop.html?deal=true">Flash Deals</a>
+        <a href="shop.html?new=true">New Arrivals</a>
         <a href="shop.html?category=Phones%20and%20Tablets">
           Phones & Tablets
         </a>
-
       </div>
 
-      <div class="footer-column">
-
+      <div>
         <h3>Account</h3>
 
-        <a href="login.html">
-          Login
-        </a>
-
-        <a href="register.html">
-          Register
-        </a>
-
-        <a href="profile.html">
-          My Profile
-        </a>
-
-        <a href="orders.html">
-          My Orders
-        </a>
-
+        <a href="login.html">Login</a>
+        <a href="register.html">Register</a>
+        <a href="profile.html">My Profile</a>
+        <a href="orders.html">My Orders</a>
       </div>
 
-      <div class="footer-column">
-
+      <div>
         <h3>Help</h3>
 
-        <a href="contact.html">
-          Contact Us
-        </a>
-
-        <a href="track-order.html">
-          Track Order
-        </a>
-
-        <a href="seller-register.html">
-          Sell on Meteur
-        </a>
-
+        <a href="contact.html">Contact Us</a>
+        <a href="track-order.html">Track Order</a>
+        <a href="seller-register.html">Sell on Meteur</a>
       </div>
 
     </div>
 
-    <div class="footer-bottom">
+    <div class="copyright">
       © 2026 METEUR MOBILE KENYA. All rights reserved.
     </div>
 
   </footer>
 
-
   <script>
-
-    /* SUPABASE */
     const SUPABASE_URL =
       "https://nytsdeupaootukcullgi.supabase.co";
 
-    const SUPABASE_ANON_KEY =
+    const SUPABASE_KEY =
       "sb_publishable_cIqzHoafy_AEdB48KS_Wpg_LDqE1sFC";
 
     const supabaseClient =
-      window.supabase.createClient(
+      supabase.createClient(
         SUPABASE_URL,
-        SUPABASE_ANON_KEY
+        SUPABASE_KEY
       );
 
-
     let currentProduct = null;
+    let quantity = 1;
 
+    function setActiveNavigation() {
 
-    /* ESCAPE HTML */
-    function escapeHtml(value) {
+      const path =
+        window.location.pathname.toLowerCase();
 
-      return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+      const params =
+        new URLSearchParams(window.location.search);
 
-    }
+      const category =
+        (params.get("category") || "").toLowerCase();
 
+      document
+        .querySelectorAll(".nav-inner a")
+        .forEach(link => {
 
-    /* CART COUNT */
-    function updateCartCount() {
+          link.classList.remove("active");
 
-      const cart =
-        JSON.parse(
-          localStorage.getItem("meteur_cart") || "[]"
-        );
+        });
 
-      const total =
-        cart.reduce(
-          (sum, item) =>
-            sum + Number(item.quantity || 1),
-          0
-        );
+      let target = "shop";
 
-      const count =
-        document.getElementById("cartCount");
+      if (path.endsWith("/") ||
+          path.endsWith("/index.html")) {
 
-      if (total > 0) {
+        target = "home";
 
-        count.textContent = total;
-        count.style.display = "flex";
+      } else if (path.includes("orders")) {
 
-      } else {
+        target = "orders";
 
-        count.style.display = "none";
+      } else if (path.includes("contact")) {
+
+        target = "contact";
+
+      } else if (
+        category.includes("phones") ||
+        category.includes("tablets")
+      ) {
+
+        target = "phones";
+
+      } else if (
+        category.includes("electronics")
+      ) {
+
+        target = "electronics";
+
+      } else if (
+        category.includes("accessories")
+      ) {
+
+        target = "accessories";
 
       }
 
+      const activeLink =
+        document.querySelector(
+          `[data-nav="${target}"]`
+        );
+
+      if (activeLink) {
+        activeLink.classList.add("active");
+      }
     }
 
-
-    /* GET PRODUCT ID */
     function getProductId() {
 
       const params =
-        new URLSearchParams(
-          window.location.search
-        );
+        new URLSearchParams(window.location.search);
 
       return params.get("id");
-
     }
 
-
-    /* LOAD PRODUCT */
     async function loadProduct() {
-
-      const container =
-        document.getElementById(
-          "productContainer"
-        );
 
       const productId =
         getProductId();
 
+      const container =
+        document.getElementById(
+          "productContainer"
+        );
 
       if (!productId) {
 
         container.innerHTML = `
-
-          <div class="error-message">
-
-            <h2>Product Not Found</h2>
-
-            <p>
-              No product was selected.
-            </p>
-
-            <a
-              href="shop.html"
-              class="back-button"
-            >
-              Back to Shop
-            </a>
-
+          <div class="error-box">
+            <h2>Product not found</h2>
+            <p>No product ID was provided.</p>
           </div>
-
         `;
 
         return;
-
       }
 
+      const {
+        data,
+        error
+      } = await supabaseClient
+        .from("products")
+        .select("*")
+        .eq("id", productId)
+        .single();
 
-      try {
+      if (error || !data) {
 
-        const { data, error } =
-          await supabaseClient
-            .from("products")
-            .select("*")
-            .eq("id", productId)
-            .single();
-
-
-        if (error) {
-          throw error;
-        }
-
-
-        if (!data) {
-          throw new Error("Product not found.");
-        }
-
-
-        currentProduct = data;
-
-        renderProduct(data);
-
-        loadRelatedProducts(
-          data.category,
-          data.id
-        );
-
-
-      } catch (error) {
-
-        console.error(
-          "Product loading error:",
-          error
-        );
-
+        console.error(error);
 
         container.innerHTML = `
-
-          <div class="error-message">
-
-            <h2>Product Not Found</h2>
-
-            <p>
-              We could not find this product.
-            </p>
-
+          <div class="error-box">
+            <h2>Product not found</h2>
+            <p>We could not find this product.</p>
+            <br>
             <a
               href="shop.html"
-              class="back-button"
+              style="color:#0757b8;font-weight:800;"
             >
-              Back to Shop
+              Return to Shop
             </a>
-
           </div>
-
         `;
 
+        return;
       }
 
+      currentProduct = data;
+
+      quantity = 1;
+
+      displayProduct(data);
+
+      loadRelatedProducts(data.category, data.id);
     }
 
-
-    /* RENDER PRODUCT */
-    function renderProduct(product) {
+    function displayProduct(product) {
 
       const container =
         document.getElementById(
           "productContainer"
         );
 
-
-      const rating =
-        Number(product.rating || 0);
-
-      const roundedRating =
-        Math.max(
-          0,
-          Math.min(
-            5,
-            Math.round(rating)
-          )
-        );
-
-      const stars =
-        "★".repeat(roundedRating) +
-        "☆".repeat(5 - roundedRating);
-
-
-      const price =
-        Number(product.price || 0);
-
-      const oldPrice =
-        Number(product.old_price || 0);
-
-
-      let savings = "";
-
-      if (oldPrice > price) {
-
-        savings = `
-          <div class="save-text">
-            Save KSh ${(oldPrice - price).toLocaleString()}
-          </div>
-        `;
-
-      }
-
+      const image =
+        product.image_url ||
+        "";
 
       const stock =
         Number(product.stock || 0);
 
+      const rating =
+        Number(product.rating || 0);
 
-      let stockText =
-        `In stock: ${stock} available`;
+      const reviews =
+        Number(product.review_count || 0);
 
-      let stockClass =
-        "available";
-
-
-      if (stock <= 0) {
-
-        stockText =
-          "Out of stock";
-
-        stockClass =
-          "out";
-
-      } else if (stock <= 5) {
-
-        stockText =
-          `Only ${stock} left in stock`;
-
-        stockClass =
-          "low";
-
-      }
-
-
-      const image =
-        product.image_url ||
-        "https://via.placeholder.com/600x500?text=Meteur+Mobile";
-
+      const stars =
+        "★".repeat(
+          Math.round(rating)
+        ) +
+        "☆".repeat(
+          5 - Math.round(rating)
+        );
 
       const badge =
         product.badge
+          ? `<span class="badge">${escapeHtml(product.badge)}</span>`
+          : "";
+
+      const oldPrice =
+        product.old_price
           ? `
-            <span class="product-badge">
-              ${escapeHtml(product.badge)}
+            <span class="old-price">
+              KSh ${formatNumber(product.old_price)}
             </span>
           `
           : "";
 
-
-      document.title =
-        `${product.name} - METEUR MOBILE KENYA`;
-
+      const stockText =
+        stock > 0
+          ? `${stock} available in stock`
+          : "Out of stock";
 
       container.innerHTML = `
 
-        <div class="breadcrumb">
+        <section class="product-section">
 
-          <a href="shop.html">
-            Shop
-          </a>
+          <div class="product-image-box">
 
-          &nbsp; / &nbsp;
+            ${
+              image
+                ? `
+                  <img
+                    src="${escapeAttribute(image)}"
+                    alt="${escapeAttribute(product.name)}"
+                    onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\\'no-image\\'>Image unavailable</div>';"
+                  >
+                `
+                : `
+                  <div class="no-image">
+                    No image available
+                  </div>
+                `
+            }
 
-          <span>
-            ${escapeHtml(product.category)}
-          </span>
+          </div>
 
-        </div>
-
-
-        <div class="product-container">
-
-          <div class="product-image-section">
+          <div class="product-info">
 
             ${badge}
 
-            <img
-              class="product-image"
-              src="${escapeHtml(image)}"
-              alt="${escapeHtml(product.name)}"
-              onerror="this.src='https://via.placeholder.com/600x500?text=Meteur+Mobile'"
-            >
+            <div class="category">
+              ${escapeHtml(product.category || "Product")}
+            </div>
 
-          </div>
-
-
-          <div class="product-details">
-
-            <span class="category">
-              ${escapeHtml(product.category)}
-            </span>
-
-
-            <h1 class="product-title">
+            <h2>
               ${escapeHtml(product.name)}
-            </h1>
-
+            </h2>
 
             <div class="rating">
-
               ${stars}
-
-              <span class="rating-count">
-                ${rating.toFixed(1)}
-                (${Number(product.review_count || 0)} reviews)
+              <span>
+                ${rating.toFixed(1)} (${reviews} reviews)
               </span>
+            </div>
+
+            <div class="price-box">
+
+              <div>
+                <span class="price">
+                  KSh ${formatNumber(product.price)}
+                </span>
+
+                ${oldPrice}
+              </div>
+
+              <div
+                class="stock"
+                style="${stock <= 0 ? "color:#b42323;" : ""}"
+              >
+                ${stockText}
+              </div>
 
             </div>
 
-
-            <div class="price-section">
-
-              <span class="price">
-                KSh ${price.toLocaleString()}
-              </span>
+            <div class="description">
 
               ${
-                oldPrice > price
-                  ? `
-                    <span class="old-price">
-                      KSh ${oldPrice.toLocaleString()}
+                product.description
+                  ? escapeHtml(product.description)
+                  : "No description available for this product."
+              }
+
+            </div>
+
+            ${
+              stock > 0
+                ? `
+                  <div class="quantity-title">
+                    Quantity
+                  </div>
+
+                  <div class="quantity-control">
+
+                    <button onclick="changeQuantity(-1)">
+                      −
+                    </button>
+
+                    <span id="quantity">
+                      1
                     </span>
-                  `
-                  : ""
-              }
 
-              ${savings}
+                    <button onclick="changeQuantity(1)">
+                      +
+                    </button>
 
-            </div>
+                  </div>
 
+                  <div class="actions">
 
-            <p class="description">
+                    <button
+                      class="add-cart"
+                      onclick="addToCart()"
+                    >
+                      🛒 Add to Cart
+                    </button>
 
-              ${
-                escapeHtml(
-                  product.description ||
-                  "Quality product available from METEUR MOBILE KENYA."
-                )
-              }
+                    <button
+                      class="buy-now"
+                      onclick="buyNow()"
+                    >
+                      Buy Now
+                    </button>
 
-            </p>
+                  </div>
 
-
-            <div class="stock ${stockClass}">
-
-              ${stockText}
-
-            </div>
-
-
-            <div class="quantity-section">
-
-              <label>
-                Quantity:
-              </label>
-
-              <div class="quantity-control">
-
-                <button
-                  type="button"
-                  onclick="changeQuantity(-1)"
-                >
-                  −
-                </button>
-
-                <input
-                  type="number"
-                  id="quantity"
-                  value="1"
-                  min="1"
-                  max="${Math.max(stock, 1)}"
-                  ${stock <= 0 ? "disabled" : ""}
-                >
-
-                <button
-                  type="button"
-                  onclick="changeQuantity(1)"
-                >
-                  +
-                </button>
-
-              </div>
-
-            </div>
-
-
-            <div class="action-buttons">
-
-              <button
-                class="add-cart-btn ${stock <= 0 ? "disabled-btn" : ""}"
-                onclick="addProductToCart()"
-                ${stock <= 0 ? "disabled" : ""}
-              >
-                🛒 Add to Cart
-              </button>
-
-
-              <button
-                class="buy-btn ${stock <= 0 ? "disabled-btn" : ""}"
-                onclick="buyNow()"
-                ${stock <= 0 ? "disabled" : ""}
-              >
-                Buy Now
-              </button>
-
-            </div>
-
-
-            <div class="info-box">
-
-              <div class="info-row">
-
-                <strong>
-                  Category
-                </strong>
-
-                <span>
-                  ${escapeHtml(product.category)}
-                </span>
-
-              </div>
-
-
-              <div class="info-row">
-
-                <strong>
-                  Availability
-                </strong>
-
-                <span>
-                  ${stock > 0 ? "Available" : "Out of stock"}
-                </span>
-
-              </div>
-
-
-              <div class="info-row">
-
-                <strong>
-                  Seller
-                </strong>
-
-                <span>
-                  METEUR MOBILE KENYA Marketplace
-                </span>
-
-              </div>
-
-
-              <div class="info-row">
-
-                <strong>
-                  Secure Shopping
-                </strong>
-
-                <span>
-                  Safe checkout and order tracking
-                </span>
-
-              </div>
-
-            </div>
+                  <div id="message" class="message"></div>
+                `
+                : `
+                  <div class="message error" style="display:block;">
+                    This product is currently out of stock.
+                  </div>
+                `
+            }
 
           </div>
 
-        </div>
+        </section>
 
       `;
-
     }
 
-
-    /* QUANTITY */
-    function changeQuantity(amount) {
-
-      const input =
-        document.getElementById(
-          "quantity"
-        );
-
-      if (!input || !currentProduct) {
-        return;
-      }
-
-
-      let quantity =
-        Number(input.value || 1);
-
-      const max =
-        Number(currentProduct.stock || 0);
-
-
-      quantity += amount;
-
-
-      if (quantity < 1) {
-        quantity = 1;
-      }
-
-      if (max > 0 && quantity > max) {
-        quantity = max;
-      }
-
-
-      input.value = quantity;
-
-    }
-
-
-    /* GET QUANTITY */
-    function getQuantity() {
-
-      const input =
-        document.getElementById(
-          "quantity"
-        );
-
-      return Math.max(
-        1,
-        Number(input?.value || 1)
-      );
-
-    }
-
-
-    /* ADD TO CART */
-    function addProductToCart() {
+    function changeQuantity(change) {
 
       if (!currentProduct) {
         return;
       }
 
+      const stock =
+        Number(currentProduct.stock || 0);
+
+      quantity += change;
+
+      if (quantity < 1) {
+        quantity = 1;
+      }
+
+      if (quantity > stock) {
+        quantity = stock;
+      }
+
+      const quantityElement =
+        document.getElementById("quantity");
+
+      if (quantityElement) {
+        quantityElement.textContent =
+          quantity;
+      }
+    }
+
+    function getCart() {
+
+      try {
+
+        return JSON.parse(
+          localStorage.getItem("meteur_cart") || "[]"
+        );
+
+      } catch (error) {
+
+        return [];
+
+      }
+    }
+
+    function saveCart(cart) {
+
+      localStorage.setItem(
+        "meteur_cart",
+        JSON.stringify(cart)
+      );
+
+      updateCartCount();
+    }
+
+    function addToCart() {
+
+      if (!currentProduct) {
+        return;
+      }
 
       const stock =
         Number(currentProduct.stock || 0);
 
-
       if (stock <= 0) {
-
-        alert("This product is currently out of stock.");
-
-        return;
-
-      }
-
-
-      const quantity =
-        getQuantity();
-
-
-      if (quantity > stock) {
-
-        alert(
-          `Only ${stock} item(s) are available.`
+        showMessage(
+          "This product is out of stock.",
+          "error"
         );
 
         return;
-
       }
-
 
       const cart =
-        JSON.parse(
-          localStorage.getItem("meteur_cart") || "[]"
-        );
-
+        getCart();
 
       const existing =
         cart.find(
@@ -1497,261 +1176,295 @@
             item.id === currentProduct.id
         );
 
-
       if (existing) {
 
-        const newQuantity =
-          Number(existing.quantity || 1) +
-          quantity;
-
-
-        if (newQuantity > stock) {
-
-          alert(
-            `Only ${stock} item(s) are available.`
-          );
-
-          return;
-
-        }
-
-
         existing.quantity =
-          newQuantity;
+          Math.min(
+            existing.quantity + quantity,
+            stock
+          );
 
       } else {
 
         cart.push({
-
           id: currentProduct.id,
-
           name: currentProduct.name,
-
           price: Number(currentProduct.price),
-
-          image_url: currentProduct.image_url,
-
-          quantity: quantity
-
+          image_url: currentProduct.image_url || "",
+          quantity: quantity,
+          stock: stock
         });
 
       }
 
+      saveCart(cart);
 
-      localStorage.setItem(
-        "meteur_cart",
-        JSON.stringify(cart)
+      showMessage(
+        "Product added to your cart successfully.",
+        "success"
       );
-
-
-      updateCartCount();
-
-
-      alert(
-        `${currentProduct.name} added to your cart.`
-      );
-
     }
 
-
-    /* BUY NOW */
     function buyNow() {
 
       if (!currentProduct) {
         return;
       }
 
-
       const stock =
         Number(currentProduct.stock || 0);
 
-
       if (stock <= 0) {
-
-        alert("This product is currently out of stock.");
-
-        return;
-
-      }
-
-
-      const quantity =
-        getQuantity();
-
-
-      if (quantity > stock) {
-
-        alert(
-          `Only ${stock} item(s) are available.`
+        showMessage(
+          "This product is out of stock.",
+          "error"
         );
 
         return;
+      }
+
+      const cart =
+        getCart();
+
+      const existing =
+        cart.find(
+          item =>
+            item.id === currentProduct.id
+        );
+
+      if (existing) {
+
+        existing.quantity =
+          Math.min(
+            existing.quantity + quantity,
+            stock
+          );
+
+      } else {
+
+        cart.push({
+          id: currentProduct.id,
+          name: currentProduct.name,
+          price: Number(currentProduct.price),
+          image_url: currentProduct.image_url || "",
+          quantity: quantity,
+          stock: stock
+        });
 
       }
 
-
-      const cart = [
-
-        {
-
-          id: currentProduct.id,
-
-          name: currentProduct.name,
-
-          price: Number(currentProduct.price),
-
-          image_url: currentProduct.image_url,
-
-          quantity: quantity
-
-        }
-
-      ];
-
-
-      localStorage.setItem(
-        "meteur_cart",
-        JSON.stringify(cart)
-      );
-
+      saveCart(cart);
 
       window.location.href =
         "cart.html";
-
     }
 
+    function showMessage(
+      message,
+      type
+    ) {
 
-    /* RELATED PRODUCTS */
+      const element =
+        document.getElementById("message");
+
+      if (!element) {
+        return;
+      }
+
+      element.textContent =
+        message;
+
+      element.className =
+        `message ${type}`;
+
+      setTimeout(() => {
+
+        element.className =
+          "message";
+
+      }, 3500);
+    }
+
     async function loadRelatedProducts(
       category,
       currentId
     ) {
 
-      try {
-
-        const { data, error } =
-          await supabaseClient
-            .from("products")
-            .select("*")
-            .eq("category", category)
-            .neq("id", currentId)
-            .limit(4);
-
-
-        if (error) {
-          throw error;
-        }
-
-
-        if (!data || !data.length) {
-          return;
-        }
-
-
-        const section =
-          document.getElementById(
-            "relatedSection"
-          );
-
-        const grid =
-          document.getElementById(
-            "relatedGrid"
-          );
-
-
-        grid.innerHTML =
-          data.map(product => {
-
-            const image =
-              product.image_url ||
-              "https://via.placeholder.com/400x300?text=Meteur+Mobile";
-
-
-            return `
-
-              <a
-                href="product.html?id=${encodeURIComponent(product.id)}"
-                class="related-card"
-              >
-
-                <img
-                  src="${escapeHtml(image)}"
-                  alt="${escapeHtml(product.name)}"
-                  onerror="this.src='https://via.placeholder.com/400x300?text=Meteur+Mobile'"
-                >
-
-                <div class="related-info">
-
-                  <div class="related-name">
-                    ${escapeHtml(product.name)}
-                  </div>
-
-                  <div class="related-price">
-                    KSh ${Number(product.price || 0).toLocaleString()}
-                  </div>
-
-                </div>
-
-              </a>
-
-            `;
-
-          }).join("");
-
-
-        section.style.display =
-          "block";
-
-
-      } catch (error) {
-
-        console.error(
-          "Related products error:",
-          error
+      const container =
+        document.getElementById(
+          "relatedProducts"
         );
 
+      const {
+        data,
+        error
+      } = await supabaseClient
+        .from("products")
+        .select("*")
+        .eq("category", category)
+        .neq("id", currentId)
+        .limit(4);
+
+      if (error) {
+
+        console.error(error);
+
+        container.innerHTML = "";
+
+        return;
       }
 
+      if (!data || data.length === 0) {
+
+        container.innerHTML = `
+          <p style="color:#61718a;">
+            No related products available.
+          </p>
+        `;
+
+        return;
+      }
+
+      container.innerHTML =
+        data.map(product => {
+
+          const image =
+            product.image_url || "";
+
+          return `
+
+            <a
+              href="product.html?id=${encodeURIComponent(product.id)}"
+              class="related-card"
+            >
+
+              ${
+                image
+                  ? `
+                    <img
+                      src="${escapeAttribute(image)}"
+                      alt="${escapeAttribute(product.name)}"
+                    >
+                  `
+                  : `
+                    <div
+                      style="
+                        height:180px;
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
+                        background:#f4f8ff;
+                        color:#72809a;
+                      "
+                    >
+                      No image
+                    </div>
+                  `
+              }
+
+              <div class="related-content">
+
+                <h3>
+                  ${escapeHtml(product.name)}
+                </h3>
+
+                <div class="related-price">
+                  KSh ${formatNumber(product.price)}
+                </div>
+
+                <span class="view-product">
+                  View Product →
+                </span>
+
+              </div>
+
+            </a>
+
+          `;
+
+        }).join("");
     }
 
+    function updateCartCount() {
 
-    /* SEARCH */
+      const cart =
+        getCart();
+
+      const count =
+        cart.reduce(
+          (total, item) =>
+            total +
+            Number(item.quantity || 0),
+          0
+        );
+
+      const element =
+        document.getElementById("cartCount");
+
+      if (element) {
+        element.textContent =
+          count;
+      }
+    }
+
+    function searchProducts() {
+
+      const input =
+        document.getElementById(
+          "searchInput"
+        );
+
+      const query =
+        input.value.trim();
+
+      if (!query) {
+        return;
+      }
+
+      window.location.href =
+        "shop.html?search=" +
+        encodeURIComponent(query);
+    }
+
     document
-      .getElementById("searchForm")
+      .getElementById("searchInput")
       .addEventListener(
-        "submit",
+        "keydown",
         function(event) {
 
-          event.preventDefault();
-
-          const query =
-            document
-              .getElementById("searchInput")
-              .value
-              .trim();
-
-
-          if (query) {
-
-            window.location.href =
-              `shop.html?search=${encodeURIComponent(query)}`;
-
-          } else {
-
-            window.location.href =
-              "shop.html";
-
+          if (event.key === "Enter") {
+            searchProducts();
           }
 
         }
       );
 
+    function formatNumber(value) {
 
-    /* START */
+      return Number(value || 0)
+        .toLocaleString("en-KE");
+    }
+
+    function escapeHtml(value) {
+
+      return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function escapeAttribute(value) {
+
+      return escapeHtml(value);
+    }
+
+    setActiveNavigation();
+
     updateCartCount();
 
     loadProduct();
-
   </script>
 
 </body>

@@ -18,6 +18,10 @@
             color: #222;
         }
 
+        body.auth-checking {
+            visibility: hidden;
+        }
+
         header {
             background: #f4511e;
             color: white;
@@ -261,13 +265,6 @@
             cursor: wait;
         }
 
-        .delivery-note {
-            background: #fff8f4;
-            border-left: 4px solid #f4511e;
-            padding: 14px;
-            line-height: 1.5;
-        }
-
         footer {
             background: #222;
             color: white;
@@ -295,7 +292,7 @@
     </style>
 </head>
 
-<body>
+<body class="auth-checking">
 
 <header>
     <div class="header-inner">
@@ -313,7 +310,6 @@
 
     </div>
 </header>
-
 
 <main>
 
@@ -346,11 +342,9 @@
 
 </main>
 
-
 <footer>
     © 2026 Meteur Online Shopping. All rights reserved.
 </footer>
-
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -367,6 +361,98 @@
             SUPABASE_URL,
             SUPABASE_ANON_KEY
         );
+
+
+    async function checkSellerAccess() {
+
+        try {
+
+            const userResult =
+                await db.auth.getUser();
+
+            if (
+                userResult.error ||
+                !userResult.data.user
+            ) {
+
+                window.location.replace(
+                    "login.html"
+                );
+
+                return false;
+
+            }
+
+
+            const user =
+                userResult.data.user;
+
+
+            const sellerResult =
+                await db
+                    .from("sellers")
+                    .select("id, status")
+                    .eq("user_id", user.id)
+                    .maybeSingle();
+
+
+            if (sellerResult.error) {
+
+                console.error(
+                    "Seller access error:",
+                    sellerResult.error
+                );
+
+                window.location.replace(
+                    "dashboard.html"
+                );
+
+                return false;
+
+            }
+
+
+            const seller =
+                sellerResult.data;
+
+
+            if (
+                !seller ||
+                seller.status !== "Approved"
+            ) {
+
+                window.location.replace(
+                    "dashboard.html"
+                );
+
+                return false;
+
+            }
+
+
+            document.body.classList.remove(
+                "auth-checking"
+            );
+
+            return true;
+
+
+        } catch (error) {
+
+            console.error(
+                "Seller access check failed:",
+                error
+            );
+
+            window.location.replace(
+                "dashboard.html"
+            );
+
+            return false;
+
+        }
+
+    }
 
 
     function escapeHtml(value) {
@@ -540,6 +626,7 @@
                 );
 
                 return;
+
             }
 
 
@@ -934,6 +1021,7 @@
                             );
 
                             return;
+
                         }
 
 
@@ -973,27 +1061,6 @@
 
 
         try {
-
-            const sessionResult =
-                await db.auth.getSession();
-
-
-            if (
-                sessionResult.error ||
-                !sessionResult.data.session
-            ) {
-
-                showError(
-                    "Please log in to access Seller Orders."
-                );
-
-                loading.style.display =
-                    "none";
-
-                return;
-
-            }
-
 
             const result =
                 await db.rpc(
@@ -1070,7 +1137,23 @@
     }
 
 
-    loadSellerOrders();
+    async function startPage() {
+
+        const accessGranted =
+            await checkSellerAccess();
+
+
+        if (!accessGranted) {
+            return;
+        }
+
+
+        await loadSellerOrders();
+
+    }
+
+
+    startPage();
 
 </script>
 

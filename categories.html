@@ -13,7 +13,7 @@
     }
 
     body {
-      font-family: Arial, Helvetica, sans-serif;
+      font-family: Arial, sans-serif;
       background: #f7f7f7;
       color: #222;
     }
@@ -23,228 +23,254 @@
       color: inherit;
     }
 
-    .topbar {
-      background: #f97316;
+    header {
+      background: #f68b1e;
       color: white;
-      padding: 14px 5%;
+      padding: 15px 5%;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
 
-    .nav {
-      max-width: 1200px;
-      margin: auto;
+    .header-top {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      flex-wrap: wrap;
+      gap: 25px;
+      max-width: 1200px;
+      margin: auto;
     }
 
     .logo {
-      font-size: 26px;
-      font-weight: 800;
+      font-size: 28px;
+      font-weight: bold;
+      white-space: nowrap;
     }
 
     .search-box {
-      display: flex;
       flex: 1;
-      max-width: 500px;
+      display: flex;
+      background: white;
+      border-radius: 5px;
+      overflow: hidden;
     }
 
     .search-box input {
       flex: 1;
-      padding: 11px 14px;
       border: none;
+      padding: 13px;
       outline: none;
-      border-radius: 5px 0 0 5px;
-      font-size: 14px;
+      font-size: 15px;
     }
 
     .search-box button {
       border: none;
-      background: #111827;
+      background: #333;
       color: white;
-      padding: 0 18px;
-      border-radius: 0 5px 5px 0;
+      padding: 0 20px;
       cursor: pointer;
     }
 
-    .nav-links {
+    nav {
       max-width: 1200px;
-      margin: 0 auto;
+      margin: 14px auto 0;
       display: flex;
-      gap: 18px;
+      gap: 20px;
       flex-wrap: wrap;
-      padding-top: 14px;
+    }
+
+    nav a {
+      font-weight: bold;
       font-size: 14px;
     }
 
-    .nav-links a {
-      color: white;
-      font-weight: 600;
-    }
-
-    .nav-links a:hover {
+    nav a:hover {
       text-decoration: underline;
     }
 
-    .hero {
-      background: white;
-      padding: 45px 5%;
-      text-align: center;
-      border-bottom: 1px solid #e5e7eb;
-    }
-
-    .hero h1 {
-      font-size: 34px;
-      margin-bottom: 10px;
-    }
-
-    .hero p {
-      color: #6b7280;
-      max-width: 650px;
-      margin: auto;
-      line-height: 1.6;
-    }
-
-    .categories {
+    .container {
       max-width: 1200px;
-      margin: 40px auto;
+      margin: 35px auto;
       padding: 0 20px;
     }
 
-    .category-grid {
+    .page-heading {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .page-heading h1 {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+
+    .page-heading p {
+      color: #666;
+      font-size: 16px;
+    }
+
+    .categories-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
+      gap: 22px;
     }
 
     .category-card {
       background: white;
-      border-radius: 12px;
-      padding: 25px 20px;
-      text-align: center;
-      border: 1px solid #e5e7eb;
-      transition: 0.2s ease;
-      cursor: pointer;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: 1px solid #eee;
     }
 
     .category-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-      border-color: #f97316;
+      transform: translateY(-5px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.14);
     }
 
-    .category-icon {
-      width: 70px;
-      height: 70px;
-      margin: 0 auto 15px;
-      border-radius: 50%;
-      background: #fff7ed;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 32px;
+    .category-image {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      display: block;
+      background: #eee;
     }
 
-    .category-card h2 {
-      font-size: 18px;
-      margin-bottom: 8px;
+    .category-content {
+      padding: 18px;
+      text-align: center;
     }
 
-    .category-card p {
-      color: #6b7280;
+    .category-content h2 {
+      font-size: 19px;
+      margin-bottom: 7px;
+    }
+
+    .category-content p {
+      color: #777;
       font-size: 13px;
-      margin-bottom: 18px;
+      margin-bottom: 14px;
     }
 
     .shop-button {
       display: inline-block;
-      background: #f97316;
+      background: #f68b1e;
       color: white;
       padding: 9px 18px;
-      border-radius: 6px;
-      font-size: 13px;
-      font-weight: 700;
+      border-radius: 5px;
+      font-size: 14px;
+      font-weight: bold;
     }
 
     .shop-button:hover {
-      background: #ea580c;
+      background: #d96f0b;
     }
 
     footer {
-      background: #111827;
+      background: #222;
       color: white;
-      margin-top: 60px;
+      margin-top: 50px;
       padding: 40px 5% 20px;
     }
 
-    .footer-grid {
+    .footer-content {
       max-width: 1200px;
       margin: auto;
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 30px;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 40px;
     }
 
-    footer h3 {
+    .footer-section h3 {
       margin-bottom: 15px;
+      color: #f68b1e;
     }
 
-    footer a {
+    .footer-section p {
+      color: #ccc;
+      line-height: 1.6;
+    }
+
+    .footer-section a {
       display: block;
-      color: #d1d5db;
       margin-bottom: 9px;
+      color: #ddd;
       font-size: 14px;
     }
 
-    footer a:hover {
-      color: white;
+    .footer-section a:hover {
+      color: #f68b1e;
     }
 
     .copyright {
       max-width: 1200px;
       margin: 30px auto 0;
       padding-top: 20px;
-      border-top: 1px solid #374151;
+      border-top: 1px solid #444;
       text-align: center;
-      color: #9ca3af;
+      color: #aaa;
       font-size: 13px;
     }
 
     @media (max-width: 900px) {
-      .category-grid {
-        grid-template-columns: repeat(2, 1fr);
+      .categories-grid {
+        grid-template-columns: repeat(3, 1fr);
       }
 
-      .footer-grid {
-        grid-template-columns: repeat(2, 1fr);
+      .footer-content {
+        grid-template-columns: 1fr 1fr;
       }
     }
 
-    @media (max-width: 600px) {
-      .nav {
+    @media (max-width: 650px) {
+      .header-top {
         flex-direction: column;
         align-items: stretch;
+        gap: 12px;
       }
 
-      .search-box {
-        max-width: none;
+      .logo {
+        text-align: center;
       }
 
-      .nav-links {
+      nav {
         justify-content: center;
+        gap: 12px;
       }
 
-      .hero h1 {
-        font-size: 28px;
+      .categories-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
       }
 
-      .category-grid {
+      .category-image {
+        height: 150px;
+      }
+
+      .category-content {
+        padding: 13px 8px;
+      }
+
+      .category-content h2 {
+        font-size: 16px;
+      }
+
+      .category-content p {
+        font-size: 12px;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .categories-grid {
         grid-template-columns: 1fr;
       }
 
-      .footer-grid {
-        grid-template-columns: 1fr;
+      .category-image {
+        height: 200px;
       }
     }
   </style>
@@ -252,23 +278,24 @@
 
 <body>
 
-  <header class="topbar">
-    <div class="nav">
+  <header>
+    <div class="header-top">
 
       <a href="index.html" class="logo">Meteur</a>
 
-      <form class="search-box" onsubmit="searchProducts(event)">
+      <form class="search-box" id="searchForm">
         <input
           type="text"
           id="searchInput"
           placeholder="Search products..."
+          autocomplete="off"
         >
         <button type="submit">Search</button>
       </form>
 
     </div>
 
-    <nav class="nav-links">
+    <nav>
       <a href="index.html">Home</a>
       <a href="shop.html">Shop</a>
       <a href="deals.html">Deals</a>
@@ -280,99 +307,181 @@
     </nav>
   </header>
 
-  <section class="hero">
-    <h1>All Categories</h1>
-    <p>
-      Browse Meteur products by category and find exactly what you need.
-    </p>
-  </section>
+  <main class="container">
 
-  <main class="categories">
+    <div class="page-heading">
+      <h1>Shop by Category</h1>
+      <p>Find the products you need from our marketplace categories.</p>
+    </div>
 
-    <div class="category-grid">
+    <div class="categories-grid">
 
-      <a class="category-card" href="shop.html?category=Electronics">
-        <div class="category-icon">🔌</div>
-        <h2>Electronics</h2>
-        <p>Speakers, headphones and electronic accessories.</p>
-        <span class="shop-button">Shop Electronics</span>
+      <!-- Electronics -->
+      <a href="shop.html?category=Electronics" class="category-card">
+        <img
+          class="category-image"
+          src="https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=900&q=80"
+          alt="Electronics"
+        >
+        <div class="category-content">
+          <h2>Electronics</h2>
+          <p>Discover modern electronic products.</p>
+          <span class="shop-button">Shop Electronics</span>
+        </div>
       </a>
 
-      <a class="category-card" href="shop.html?category=Phones%20and%20Tablets">
-        <div class="category-icon">📱</div>
-        <h2>Phones and Tablets</h2>
-        <p>Smartphones, tablets and mobile accessories.</p>
-        <span class="shop-button">Shop Phones</span>
+      <!-- Phones and Tablets -->
+      <a href="shop.html?category=Phones%20and%20Tablets" class="category-card">
+        <img
+          class="category-image"
+          src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=900&q=80"
+          alt="Phones and Tablets"
+        >
+        <div class="category-content">
+          <h2>Phones and Tablets</h2>
+          <p>Smartphones, tablets and accessories.</p>
+          <span class="shop-button">Shop Phones</span>
+        </div>
       </a>
 
-      <a class="category-card" href="shop.html?category=Fashion">
-        <div class="category-icon">👕</div>
-        <h2>Fashion</h2>
-        <p>Clothing and fashionable products.</p>
-        <span class="shop-button">Shop Fashion</span>
+      <!-- Fashion -->
+      <a href="shop.html?category=Fashion" class="category-card">
+        <img
+          class="category-image"
+          src="https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=900&q=80"
+          alt="Fashion"
+        >
+        <div class="category-content">
+          <h2>Fashion</h2>
+          <p>Clothing and everyday fashion.</p>
+          <span class="shop-button">Shop Fashion</span>
+        </div>
       </a>
 
-      <a class="category-card" href="shop.html?category=Shoes">
-        <div class="category-icon">👟</div>
-        <h2>Shoes</h2>
-        <p>Footwear for different styles and occasions.</p>
-        <span class="shop-button">Shop Shoes</span>
+      <!-- Shoes -->
+      <a href="shop.html?category=Shoes" class="category-card">
+        <img
+          class="category-image"
+          src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=80"
+          alt="Shoes"
+        >
+        <div class="category-content">
+          <h2>Shoes</h2>
+          <p>Trendy shoes for every occasion.</p>
+          <span class="shop-button">Shop Shoes</span>
+        </div>
       </a>
 
-      <a class="category-card" href="shop.html?category=Beauty%20Products">
-        <div class="category-icon">💄</div>
-        <h2>Beauty Products</h2>
-        <p>Beauty and personal-care products.</p>
-        <span class="shop-button">Shop Beauty</span>
+      <!-- Beauty Products -->
+      <a href="shop.html?category=Beauty%20Products" class="category-card">
+        <img
+          class="category-image"
+          src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=900&q=80"
+          alt="Beauty Products"
+        >
+        <div class="category-content">
+          <h2>Beauty Products</h2>
+          <p>Beauty and personal care products.</p>
+          <span class="shop-button">Shop Beauty</span>
+        </div>
       </a>
 
-      <a class="category-card" href="shop.html?category=Home%20and%20Appliances">
-        <div class="category-icon">🏠</div>
-        <h2>Home and Appliances</h2>
-        <p>Useful products for your home.</p>
-        <span class="shop-button">Shop Home</span>
+      <!-- Home and Appliances -->
+      <a href="shop.html?category=Home%20and%20Appliances" class="category-card">
+        <img
+          class="category-image"
+          src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=900&q=80"
+          alt="Home and Appliances"
+        >
+        <div class="category-content">
+          <h2>Home and Appliances</h2>
+          <p>Useful products for your home.</p>
+          <span class="shop-button">Shop Home</span>
+        </div>
       </a>
 
-      <a class="category-card" href="shop.html?category=Computing">
-        <div class="category-icon">💻</div>
-        <h2>Computing</h2>
-        <p>Laptops and computer-related products.</p>
-        <span class="shop-button">Shop Computing</span>
+      <!-- Computing -->
+      <a href="shop.html?category=Computing" class="category-card">
+        <img
+          class="category-image"
+          src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=900&q=80"
+          alt="Computing"
+        >
+        <div class="category-content">
+          <h2>Computing</h2>
+          <p>Laptops, computers and accessories.</p>
+          <span class="shop-button">Shop Computing</span>
+        </div>
       </a>
 
-      <a class="category-card" href="shop.html?category=Groceries">
-        <div class="category-icon">🛒</div>
-        <h2>Groceries</h2>
-        <p>Everyday grocery products.</p>
-        <span class="shop-button">Shop Groceries</span>
+      <!-- Groceries -->
+      <a href="shop.html?category=Groceries" class="category-card">
+        <img
+          class="category-image"
+          src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=900&q=80"
+          alt="Groceries"
+        >
+        <div class="category-content">
+          <h2>Groceries</h2>
+          <p>Everyday food and grocery products.</p>
+          <span class="shop-button">Shop Groceries</span>
+        </div>
       </a>
 
-      <a class="category-card" href="shop.html?category=Accessories">
-        <div class="category-icon">👜</div>
-        <h2>Accessories</h2>
-        <p>Useful accessories and lifestyle products.</p>
-        <span class="shop-button">Shop Accessories</span>
+      <!-- Accessories -->
+      <a href="shop.html?category=Accessories" class="category-card">
+        <img
+          class="category-image"
+          src="https://images.unsplash.com/photo-1523779917675-b6ed3a42a561?auto=format&fit=crop&w=900&q=80"
+          alt="Accessories"
+        >
+        <div class="category-content">
+          <h2>Accessories</h2>
+          <p>Useful accessories and everyday items.</p>
+          <span class="shop-button">Shop Accessories</span>
+        </div>
       </a>
 
-      <a class="category-card" href="shop.html?category=Cameras">
-        <div class="category-icon">📷</div>
-        <h2>Cameras</h2>
-        <p>Cameras and photography equipment.</p>
-        <span class="shop-button">Shop Cameras</span>
+      <!-- Cameras -->
+      <a href="shop.html?category=Cameras" class="category-card">
+        <img
+          class="category-image"
+          src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=900&q=80"
+          alt="Cameras"
+        >
+        <div class="category-content">
+          <h2>Cameras</h2>
+          <p>Cameras and photography equipment.</p>
+          <span class="shop-button">Shop Cameras</span>
+        </div>
       </a>
 
-      <a class="category-card" href="shop.html?category=Kitchen">
-        <div class="category-icon">🍳</div>
-        <h2>Kitchen</h2>
-        <p>Blenders, coffee makers and kitchen products.</p>
-        <span class="shop-button">Shop Kitchen</span>
+      <!-- Kitchen -->
+      <a href="shop.html?category=Kitchen" class="category-card">
+        <img
+          class="category-image"
+          src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=900&q=80"
+          alt="Kitchen"
+        >
+        <div class="category-content">
+          <h2>Kitchen</h2>
+          <p>Kitchen appliances and useful products.</p>
+          <span class="shop-button">Shop Kitchen</span>
+        </div>
       </a>
 
-      <a class="category-card" href="shop.html?category=Smart%20Devices">
-        <div class="category-icon">⌚</div>
-        <h2>Smart Devices</h2>
-        <p>Smart watches, TVs and connected devices.</p>
-        <span class="shop-button">Shop Smart Devices</span>
+      <!-- Smart Devices -->
+      <a href="shop.html?category=Smart%20Devices" class="category-card">
+        <img
+          class="category-image"
+          src="https://images.unsplash.com/photo-1558008258-3256797b43f3?auto=format&fit=crop&w=900&q=80"
+          alt="Smart Devices"
+        >
+        <div class="category-content">
+          <h2>Smart Devices</h2>
+          <p>Smart technology for modern living.</p>
+          <span class="shop-button">Shop Smart Devices</span>
+        </div>
       </a>
 
     </div>
@@ -381,16 +490,18 @@
 
   <footer>
 
-    <div class="footer-grid">
+    <div class="footer-content">
 
-      <div>
+      <div class="footer-section">
         <h3>Meteur</h3>
-        <p style="color:#d1d5db; line-height:1.6;">
+        <p>
           Your trusted online shopping marketplace.
+          Shop electronics, fashion, phones, home products
+          and more.
         </p>
       </div>
 
-      <div>
+      <div class="footer-section">
         <h3>Shopping</h3>
         <a href="shop.html">Shop All</a>
         <a href="deals.html">Deals</a>
@@ -398,7 +509,7 @@
         <a href="categories.html">Categories</a>
       </div>
 
-      <div>
+      <div class="footer-section">
         <h3>Customer Service</h3>
         <a href="help.html">Help Center</a>
         <a href="contact.html">Contact Us</a>
@@ -416,19 +527,17 @@
   </footer>
 
   <script>
-    function searchProducts(event) {
+    document.getElementById("searchForm").addEventListener("submit", function(event) {
       event.preventDefault();
 
-      const searchInput = document.getElementById("searchInput");
-      const search = searchInput.value.trim();
+      const search = document.getElementById("searchInput").value.trim();
 
       if (search) {
-        window.location.href =
-          "shop.html?search=" + encodeURIComponent(search);
+        window.location.href = "shop.html?search=" + encodeURIComponent(search);
       } else {
         window.location.href = "shop.html";
       }
-    }
+    });
   </script>
 
 </body>

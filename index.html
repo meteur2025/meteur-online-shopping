@@ -1,1462 +1,1292 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meteur Online Shopping</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="supabase-config.js"></script>
+  <title>Meteur Online Shopping</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f5f5f5;
-            color: #222;
-        }
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        header {
-            background: #ff6b00;
-            color: white;
-            padding: 15px 5%;
-        }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f6f6f6;
+      color: #222;
+    }
 
-        .header-top {
-            max-width: 1400px;
-            margin: auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-        }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
 
-        .logo {
-            color: white;
-            text-decoration: none;
-            font-size: 30px;
-            font-weight: bold;
-        }
+    /* HEADER */
 
-        .search-box {
-            flex: 1;
-            max-width: 650px;
-            display: flex;
-        }
+    header {
+      background: #f68b1e;
+      color: white;
+      padding: 14px 5%;
+    }
 
-        .search-box input {
-            width: 100%;
-            padding: 13px;
-            border: none;
-            outline: none;
-            border-radius: 5px 0 0 5px;
-            font-size: 15px;
-        }
+    .header-container {
+      max-width: 1200px;
+      margin: auto;
+    }
 
-        .search-box button {
-            border: none;
-            background: #222;
-            color: white;
-            padding: 0 20px;
-            border-radius: 0 5px 5px 0;
-            cursor: pointer;
-        }
+    .top-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
 
-        nav {
-            max-width: 1400px;
-            margin: 15px auto 0;
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
+    .logo {
+      font-size: 29px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-        }
+    .search {
+      flex: 1;
+      display: flex;
+      background: white;
+      border-radius: 5px;
+      overflow: hidden;
+    }
 
-        .hero {
-            max-width: 1400px;
-            width: 90%;
-            margin: 25px auto;
-            background: linear-gradient(135deg, #ff6b00, #ff9d45);
-            color: white;
-            border-radius: 10px;
-            padding: 55px;
-        }
+    .search input {
+      flex: 1;
+      border: none;
+      outline: none;
+      padding: 13px;
+      font-size: 15px;
+    }
 
-        .hero h1 {
-            font-size: 42px;
-            margin-bottom: 15px;
-        }
+    .search button {
+      border: none;
+      background: #333;
+      color: white;
+      padding: 0 20px;
+      cursor: pointer;
+      font-weight: bold;
+    }
 
-        .hero p {
-            font-size: 18px;
-            margin-bottom: 25px;
-        }
+    /* NAVIGATION */
 
-        .hero-btn {
-            display: inline-block;
-            background: white;
-            color: #ff6b00;
-            padding: 13px 22px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-        }
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
 
-        .container {
-            width: 90%;
-            max-width: 1400px;
-            margin: 35px auto;
-        }
+    nav a {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 11px;
+      border-radius: 5px;
+      font-size: 14px;
+      font-weight: bold;
+      transition: 0.2s;
+    }
 
-        .section-title {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 18px;
-        }
+    nav a:hover {
+      background: rgba(255, 255, 255, 0.18);
+    }
 
-        .section-title h2 {
-            font-size: 25px;
-        }
+    .nav-icon {
+      font-size: 18px;
+      line-height: 1;
+    }
 
-        .section-title a {
-            color: #ff6b00;
-            text-decoration: none;
-            font-weight: bold;
-        }
+    /* HERO */
 
-        .products {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-        }
+    .hero {
+      max-width: 1200px;
+      margin: 25px auto;
+      padding: 65px 30px;
+      border-radius: 12px;
+      background: linear-gradient(
+        135deg,
+        #f68b1e,
+        #ffb347
+      );
+      color: white;
+      text-align: center;
+    }
 
-        .product-card {
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            position: relative;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-            transition: 0.2s;
-        }
+    .hero h1 {
+      font-size: 42px;
+      margin-bottom: 14px;
+    }
 
-        .product-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.12);
-        }
+    .hero p {
+      font-size: 18px;
+      margin-bottom: 25px;
+    }
 
-        .product-image {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            display: block;
-        }
+    .hero-button {
+      display: inline-block;
+      background: white;
+      color: #f68b1e;
+      padding: 13px 25px;
+      border-radius: 6px;
+      font-weight: bold;
+    }
 
-        .badge {
-            position: absolute;
-            top: 12px;
-            left: 12px;
-            background: #e53935;
-            color: white;
-            padding: 6px 9px;
-            font-size: 11px;
-            font-weight: bold;
-            border-radius: 4px;
-            z-index: 1;
-        }
+    .hero-button:hover {
+      background: #f5f5f5;
+    }
 
-        .wishlist-btn {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            width: 40px;
-            height: 40px;
-            border: none;
-            border-radius: 50%;
-            background: white;
-            color: #777;
-            font-size: 22px;
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-            z-index: 2;
-        }
+    /* SECTIONS */
 
-        .wishlist-btn.active {
-            color: #ff6b00;
-        }
+    .section {
+      max-width: 1200px;
+      margin: 35px auto;
+      padding: 0 20px;
+    }
 
-        .product-info {
-            padding: 15px;
-        }
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
 
-        .category {
-            color: #777;
-            font-size: 13px;
-            margin-bottom: 7px;
-        }
+    .section-heading h2 {
+      font-size: 25px;
+    }
 
-        .product-name {
-            color: #222;
-            text-decoration: none;
-            font-weight: bold;
-            display: block;
-            min-height: 42px;
-            margin-bottom: 8px;
-        }
+    .view-all {
+      color: #f68b1e;
+      font-weight: bold;
+      font-size: 14px;
+    }
 
-        .rating {
-            color: #f5a623;
-            font-size: 14px;
-            margin-bottom: 8px;
-        }
+    /* PRODUCTS */
 
-        .price {
-            color: #ff6b00;
-            font-size: 20px;
-            font-weight: bold;
-        }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
 
-        .old-price {
-            color: #888;
-            text-decoration: line-through;
-            font-size: 13px;
-            margin-left: 6px;
-        }
+    .product-card {
+      background: white;
+      border-radius: 9px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      position: relative;
+      transition: 0.2s;
+    }
 
-        .discount {
-            display: inline-block;
-            margin-left: 6px;
-            background: #fff0e6;
-            color: #ff6b00;
-            padding: 3px 6px;
-            border-radius: 3px;
-            font-size: 11px;
-            font-weight: bold;
-        }
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+    }
 
-        .stock {
-            color: #555;
-            font-size: 13px;
-            margin: 8px 0;
-        }
+    .product-image {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      display: block;
+      background: #eee;
+    }
 
-        .add-cart {
-            width: 100%;
-            padding: 11px;
-            background: #ff6b00;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            margin-top: 8px;
-        }
+    .product-info {
+      padding: 15px;
+    }
 
-        .add-cart:hover {
-            background: #e85f00;
-        }
+    .product-badge {
+      display: inline-block;
+      background: #f68b1e;
+      color: white;
+      padding: 4px 7px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
 
-        .add-cart:disabled {
-            background: #999;
-            cursor: not-allowed;
-        }
+    .product-name {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 7px;
+      line-height: 1.35;
+    }
 
-        .loading,
-        .empty,
-        .error {
-            background: white;
-            padding: 40px;
-            text-align: center;
-            border-radius: 8px;
-            grid-column: 1 / -1;
-        }
+    .category {
+      color: #777;
+      font-size: 13px;
+      margin-bottom: 7px;
+    }
 
-        .error {
-            color: #c62828;
-        }
+    .rating {
+      color: #f68b1e;
+      font-size: 13px;
+      margin-bottom: 9px;
+    }
 
-        .categories {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 15px;
-        }
+    .price-row {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      flex-wrap: wrap;
+      margin-bottom: 7px;
+    }
 
-        .category-card {
-            background: white;
-            padding: 22px 10px;
-            text-align: center;
-            border-radius: 8px;
-            text-decoration: none;
-            color: #222;
-            box-shadow: 0 2px 7px rgba(0,0,0,0.05);
-            font-weight: bold;
-        }
+    .price {
+      font-size: 18px;
+      font-weight: bold;
+    }
 
-        .category-card:hover {
-            color: #ff6b00;
-        }
+    .old-price {
+      color: #999;
+      text-decoration: line-through;
+      font-size: 13px;
+    }
 
-        footer {
-            background: #222;
-            color: white;
-            padding: 40px 5%;
-            margin-top: 50px;
-        }
+    .discount {
+      color: #e53935;
+      font-size: 12px;
+      font-weight: bold;
+    }
 
-        .footer-content {
-            max-width: 1400px;
-            margin: auto;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
-        }
+    .stock {
+      color: #777;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
 
-        footer h3 {
-            margin-bottom: 15px;
-        }
+    .add-cart {
+      width: 100%;
+      border: none;
+      background: #f68b1e;
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
-        footer a {
-            color: #ddd;
-            text-decoration: none;
-            display: block;
-            margin: 8px 0;
-        }
+    .add-cart:hover {
+      background: #d96f0b;
+    }
 
-        .copyright {
-            max-width: 1400px;
-            margin: 30px auto 0;
-            padding-top: 20px;
-            border-top: 1px solid #444;
-            text-align: center;
-            color: #aaa;
-        }
+    /* CATEGORIES */
 
-        @media (max-width: 1100px) {
-            .products {
-                grid-template-columns: repeat(3, 1fr);
-            }
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 15px;
+    }
 
-            .categories {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
+    .category-card {
+      background: white;
+      border-radius: 9px;
+      overflow: hidden;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      transition: 0.2s;
+    }
 
-        @media (max-width: 700px) {
-            .header-top {
-                flex-direction: column;
-                align-items: stretch;
-            }
+    .category-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+    }
 
-            .search-box {
-                max-width: none;
-            }
+    .category-image {
+      width: 100%;
+      height: 135px;
+      object-fit: cover;
+      display: block;
+    }
 
-            .hero {
-                padding: 35px 25px;
-            }
+    .category-title {
+      padding: 13px 5px;
+      font-size: 14px;
+      font-weight: bold;
+    }
 
-            .hero h1 {
-                font-size: 32px;
-            }
+    /* FOOTER */
 
-            .products {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 12px;
-            }
+    footer {
+      background: #222;
+      color: white;
+      margin-top: 50px;
+      padding: 40px 5% 20px;
+    }
 
-            .product-image {
-                height: 180px;
-            }
+    .footer-container {
+      max-width: 1200px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 35px;
+    }
 
-            .categories {
-                grid-template-columns: repeat(2, 1fr);
-            }
+    .footer-section h3 {
+      color: #f68b1e;
+      margin-bottom: 15px;
+    }
 
-            .footer-content {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
+    .footer-section p {
+      color: #ccc;
+      line-height: 1.6;
+    }
 
-        @media (max-width: 500px) {
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    .footer-section a {
+      display: block;
+      color: #ddd;
+      margin-bottom: 9px;
+      font-size: 14px;
+    }
+
+    .footer-section a:hover {
+      color: #f68b1e;
+    }
+
+    .copyright {
+      max-width: 1200px;
+      margin: 30px auto 0;
+      padding-top: 20px;
+      border-top: 1px solid #444;
+      text-align: center;
+      color: #aaa;
+      font-size: 13px;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 950px) {
+
+      .products-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .categories-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .footer-container {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 650px) {
+
+      .top-row {
+        flex-direction: column;
+      }
+
+      .logo {
+        text-align: center;
+      }
+
+      .search {
+        width: 100%;
+      }
+
+      nav {
+        gap: 4px;
+      }
+
+      nav a {
+        font-size: 12px;
+        padding: 7px 8px;
+      }
+
+      .nav-icon {
+        font-size: 16px;
+      }
+
+      .hero {
+        margin: 15px;
+        padding: 45px 20px;
+      }
+
+      .hero h1 {
+        font-size: 30px;
+      }
+
+      .hero p {
+        font-size: 15px;
+      }
+
+      .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+
+      .product-image {
+        height: 170px;
+      }
+
+      .product-info {
+        padding: 11px;
+      }
+
+      .product-name {
+        font-size: 14px;
+      }
+
+      .price {
+        font-size: 16px;
+      }
+
+      .categories-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .category-image {
+        height: 140px;
+      }
+
+      .footer-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 400px) {
+
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .category-image {
+        height: 180px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
 <header>
 
-    <div class="header-top">
+  <div class="header-container">
 
-        <a href="index.html" class="logo">
-            Meteur
-        </a>
+    <div class="top-row">
 
-        <div class="search-box">
+      <a href="index.html" class="logo">
+        Meteur
+      </a>
 
-            <input
-                type="text"
-                id="searchInput"
-                placeholder="Search products..."
-            >
+      <form class="search" id="searchForm">
 
-            <button onclick="searchProducts()">
-                Search
-            </button>
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search products..."
+          autocomplete="off"
+        >
 
-        </div>
+        <button type="submit">
+          Search
+        </button>
+
+      </form>
 
     </div>
 
+
     <nav>
-        <a href="index.html">Home</a>
-        <a href="shop.html">Shop</a>
-        <a href="deals.html">Deals</a>
-        <a href="new-arrivals.html">New Arrivals</a>
-        <a href="categories.html">Categories</a>
-        <a href="wishlist.html">Wishlist</a>
-        <a href="cart.html">Cart</a>
-        <a href="dashboard.html">My Account</a>
+
+      <a href="index.html">
+        <span class="nav-icon">🏠</span>
+        Home
+      </a>
+
+      <a href="shop.html">
+        <span class="nav-icon">🛍️</span>
+        Shop
+      </a>
+
+      <a href="deals.html">
+        <span class="nav-icon">🔥</span>
+        Deals
+      </a>
+
+      <a href="new-arrivals.html">
+        <span class="nav-icon">✨</span>
+        New Arrivals
+      </a>
+
+      <a href="categories.html">
+        <span class="nav-icon">📂</span>
+        Categories
+      </a>
+
+      <a href="wishlist.html">
+        <span class="nav-icon">❤️</span>
+        Wishlist
+      </a>
+
+      <a href="cart.html">
+        <span class="nav-icon">🛒</span>
+        Cart
+      </a>
+
+      <a href="dashboard.html">
+        <span class="nav-icon">👤</span>
+        My Account
+      </a>
+
     </nav>
+
+  </div>
 
 </header>
 
 
+<!-- HERO -->
+
 <section class="hero">
 
-    <h1>Shop Smart with Meteur</h1>
+  <h1>
+    Shop Smart with Meteur
+  </h1>
 
-    <p>
-        Discover quality products, great deals and convenient online shopping.
-    </p>
+  <p>
+    Discover quality products, great deals and convenient online shopping.
+  </p>
 
-    <a href="shop.html" class="hero-btn">
-        Shop Now
-    </a>
+  <a href="shop.html" class="hero-button">
+    Shop Now
+  </a>
 
 </section>
 
 
-<main>
+<!-- FLASH DEALS -->
 
-    <section class="container">
+<section class="section">
 
-        <div class="section-title">
+  <div class="section-heading">
 
-            <h2>🔥 Flash Deals</h2>
+    <h2>🔥 Flash Deals</h2>
 
-            <a href="deals.html">
-                View All
-            </a>
+    <a href="deals.html" class="view-all">
+      View All
+    </a>
 
-        </div>
+  </div>
 
-        <div
-            class="products"
-            id="dealsProducts"
-        >
+  <div class="products-grid" id="dealsProducts"></div>
 
-            <div class="loading">
-                Loading deals...
-            </div>
-
-        </div>
-
-    </section>
+</section>
 
 
-    <section class="container">
+<!-- NEW ARRIVALS -->
 
-        <div class="section-title">
+<section class="section">
 
-            <h2>✨ New Arrivals</h2>
+  <div class="section-heading">
 
-            <a href="new-arrivals.html">
-                View All
-            </a>
+    <h2>✨ New Arrivals</h2>
 
-        </div>
+    <a href="new-arrivals.html" class="view-all">
+      View All
+    </a>
 
-        <div
-            class="products"
-            id="newProducts"
-        >
+  </div>
 
-            <div class="loading">
-                Loading new arrivals...
-            </div>
+  <div class="products-grid" id="newProducts"></div>
 
-        </div>
-
-    </section>
+</section>
 
 
-    <section class="container">
+<!-- POPULAR PRODUCTS -->
 
-        <div class="section-title">
+<section class="section">
 
-            <h2>⭐ Popular Products</h2>
+  <div class="section-heading">
 
-            <a href="shop.html">
-                View All
-            </a>
+    <h2>⭐ Popular Products</h2>
 
-        </div>
+    <a href="shop.html" class="view-all">
+      View All
+    </a>
 
-        <div
-            class="products"
-            id="popularProducts"
-        >
+  </div>
 
-            <div class="loading">
-                Loading popular products...
-            </div>
+  <div class="products-grid" id="popularProducts"></div>
 
-        </div>
-
-    </section>
+</section>
 
 
-    <section class="container">
+<!-- CATEGORIES -->
 
-        <div class="section-title">
+<section class="section">
 
-            <h2>Shop by Category</h2>
+  <div class="section-heading">
 
-            <a href="categories.html">
-                All Categories
-            </a>
+    <h2>Shop by Category</h2>
 
-        </div>
+    <a href="categories.html" class="view-all">
+      All Categories
+    </a>
+
+  </div>
+
+  <div class="categories-grid">
+
+    <a
+      href="shop.html?category=Phones%20and%20Tablets"
+      class="category-card"
+    >
+
+      <img
+        class="category-image"
+        src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80"
+        alt="Phones and Tablets"
+      >
+
+      <div class="category-title">
+        Phones & Tablets
+      </div>
+
+    </a>
 
 
-        <div class="categories">
+    <a
+      href="shop.html?category=Computing"
+      class="category-card"
+    >
 
-            <a
-                href="shop.html?category=Phones%20and%20Tablets"
-                class="category-card"
-            >
-                📱<br>
-                Phones & Tablets
-            </a>
+      <img
+        class="category-image"
+        src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=800&q=80"
+        alt="Computing"
+      >
 
-            <a
-                href="shop.html?category=Computing"
-                class="category-card"
-            >
-                💻<br>
-                Computing
-            </a>
+      <div class="category-title">
+        Computing
+      </div>
 
-            <a
-                href="shop.html?category=Electronics"
-                class="category-card"
-            >
-                🎧<br>
-                Electronics
-            </a>
+    </a>
 
-            <a
-                href="shop.html?category=Fashion"
-                class="category-card"
-            >
-                👕<br>
-                Fashion
-            </a>
 
-            <a
-                href="shop.html?category=Kitchen"
-                class="category-card"
-            >
-                🍳<br>
-                Kitchen
-            </a>
+    <a
+      href="shop.html?category=Electronics"
+      class="category-card"
+    >
 
-            <a
-                href="shop.html?category=Home%20and%20Appliances"
-                class="category-card"
-            >
-                🏠<br>
-                Home & Appliances
-            </a>
+      <img
+        class="category-image"
+        src="https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=800&q=80"
+        alt="Electronics"
+      >
 
-        </div>
+      <div class="category-title">
+        Electronics
+      </div>
 
-    </section>
+    </a>
 
-</main>
 
+    <a
+      href="shop.html?category=Fashion"
+      class="category-card"
+    >
+
+      <img
+        class="category-image"
+        src="https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=800&q=80"
+        alt="Fashion"
+      >
+
+      <div class="category-title">
+        Fashion
+      </div>
+
+    </a>
+
+
+    <a
+      href="shop.html?category=Kitchen"
+      class="category-card"
+    >
+
+      <img
+        class="category-image"
+        src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=800&q=80"
+        alt="Kitchen"
+      >
+
+      <div class="category-title">
+        Kitchen
+      </div>
+
+    </a>
+
+
+    <a
+      href="shop.html?category=Home%20and%20Appliances"
+      class="category-card"
+    >
+
+      <img
+        class="category-image"
+        src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=800&q=80"
+        alt="Home and Appliances"
+      >
+
+      <div class="category-title">
+        Home & Appliances
+      </div>
+
+    </a>
+
+  </div>
+
+</section>
+
+
+<!-- FOOTER -->
 
 <footer>
 
-    <div class="footer-content">
+  <div class="footer-container">
 
-        <div>
+    <div class="footer-section">
 
-            <h3>Meteur</h3>
+      <h3>Meteur</h3>
 
-            <p>
-                Your trusted online shopping marketplace.
-            </p>
-
-        </div>
-
-
-        <div>
-
-            <h3>Shopping</h3>
-
-            <a href="shop.html">Shop All</a>
-            <a href="deals.html">Deals</a>
-            <a href="new-arrivals.html">New Arrivals</a>
-            <a href="categories.html">Categories</a>
-
-        </div>
-
-
-        <div>
-
-            <h3>Customer Service</h3>
-
-            <a href="help.html">Help Center</a>
-            <a href="contact.html">Contact Us</a>
-            <a href="shipping.html">Shipping</a>
-            <a href="returns.html">Returns & Refunds</a>
-            <a href="track-order.html">Track Order</a>
-
-        </div>
-
-
-        <div>
-
-            <h3>About</h3>
-
-            <a href="about.html">About Meteur</a>
-            <a href="privacy.html">Privacy Policy</a>
-            <a href="terms.html">Terms & Conditions</a>
-            <a href="sell.html">Sell on Meteur</a>
-
-        </div>
+      <p>
+        Your trusted online shopping marketplace.
+      </p>
 
     </div>
 
 
-    <div class="copyright">
-        © 2026 Meteur Online Shopping. All rights reserved.
+    <div class="footer-section">
+
+      <h3>Shopping</h3>
+
+      <a href="shop.html">
+        🛍️ Shop All
+      </a>
+
+      <a href="deals.html">
+        🔥 Deals
+      </a>
+
+      <a href="new-arrivals.html">
+        ✨ New Arrivals
+      </a>
+
+      <a href="categories.html">
+        📂 Categories
+      </a>
+
     </div>
+
+
+    <div class="footer-section">
+
+      <h3>Customer Service</h3>
+
+      <a href="help.html">
+        ❓ Help Center
+      </a>
+
+      <a href="contact.html">
+        📧 Contact Us
+      </a>
+
+      <a href="shipping.html">
+        🚚 Shipping
+      </a>
+
+      <a href="returns.html">
+        ↩️ Returns & Refunds
+      </a>
+
+      <a href="track-order.html">
+        📦 Track Order
+      </a>
+
+    </div>
+
+
+    <div class="footer-section">
+
+      <h3>About</h3>
+
+      <a href="about.html">
+        About Meteur
+      </a>
+
+      <a href="privacy.html">
+        Privacy Policy
+      </a>
+
+      <a href="terms.html">
+        Terms & Conditions
+      </a>
+
+      <a href="seller-register.html">
+        Sell on Meteur
+      </a>
+
+    </div>
+
+  </div>
+
+
+  <div class="copyright">
+    © 2026 Meteur Online Shopping. All rights reserved.
+  </div>
 
 </footer>
 
 
 <script>
 
-    let allProducts = [];
+  const SUPABASE_URL =
+    "https://nytsdeupaootukcullgi.supabase.co";
 
-    let wishlistIds = new Set();
+  const SUPABASE_KEY =
+    "sb_publishable_cIqzHoafy_AEdB48KS_Wpg_LDqE1sFC";
 
 
-    async function getCurrentUser() {
+  const supabaseClient =
+    window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
 
-        const {
-            data: { user }
-        } = await supabaseClient.auth.getUser();
 
-        return user;
+  const fallbackImages = {
+
+    phone:
+      "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80",
+
+    laptop:
+      "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=800&q=80",
+
+    electronics:
+      "https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=800&q=80",
+
+    fashion:
+      "https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=800&q=80",
+
+    kitchen:
+      "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=800&q=80",
+
+    home:
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=800&q=80"
+
+  };
+
+
+  function getFallbackImage(category) {
+
+    const value =
+      String(category || "").toLowerCase();
+
+    if (
+      value.includes("phone") ||
+      value.includes("tablet")
+    ) {
+      return fallbackImages.phone;
+    }
+
+    if (
+      value.includes("comput")
+    ) {
+      return fallbackImages.laptop;
+    }
+
+    if (
+      value.includes("fashion") ||
+      value.includes("shoe")
+    ) {
+      return fallbackImages.fashion;
+    }
+
+    if (
+      value.includes("kitchen")
+    ) {
+      return fallbackImages.kitchen;
+    }
+
+    if (
+      value.includes("home")
+    ) {
+      return fallbackImages.home;
+    }
+
+    return fallbackImages.electronics;
+  }
+
+
+  function getImage(product) {
+
+    if (product.image_url) {
+      return product.image_url;
+    }
+
+    return getFallbackImage(product.category);
+  }
+
+
+  function getBadge(product) {
+
+    if (product.badge) {
+      return product.badge;
+    }
+
+    if (product.is_deal) {
+      return "Deal";
+    }
+
+    if (product.is_new) {
+      return "New";
+    }
+
+    return "Featured";
+  }
+
+
+  function getDiscount(product) {
+
+    const price =
+      Number(product.price || 0);
+
+    const oldPrice =
+      Number(product.old_price || 0);
+
+    if (
+      oldPrice > price &&
+      oldPrice > 0
+    ) {
+
+      return Math.round(
+        ((oldPrice - price) / oldPrice) * 100
+      );
+
+    }
+
+    return 0;
+  }
+
+
+  function createProductCard(product) {
+
+    const image =
+      getImage(product);
+
+    const discount =
+      getDiscount(product);
+
+    const rating =
+      Number(product.rating || 0);
+
+    const reviews =
+      Number(product.review_count || 0);
+
+    const stock =
+      Number(product.stock || 0);
+
+
+    return `
+
+      <article class="product-card">
+
+        <a href="product.html?id=${product.id}">
+
+          <img
+            class="product-image"
+            src="${image}"
+            alt="${product.name}"
+            onerror="this.src='${getFallbackImage(product.category)}'"
+          >
+
+        </a>
+
+        <div class="product-info">
+
+          <span class="product-badge">
+            ${getBadge(product)}
+          </span>
+
+          <div class="category">
+            ${product.category || ""}
+          </div>
+
+          <a href="product.html?id=${product.id}">
+
+            <div class="product-name">
+              ${product.name}
+            </div>
+
+          </a>
+
+          <div class="rating">
+            ${"★".repeat(Math.round(rating))}
+            ${"☆".repeat(Math.max(0, 5 - Math.round(rating)))}
+            (${reviews})
+          </div>
+
+          <div class="price-row">
+
+            <span class="price">
+              KSh ${Number(product.price || 0).toLocaleString()}
+            </span>
+
+            ${
+              product.old_price
+              ? `
+                <span class="old-price">
+                  KSh ${Number(product.old_price).toLocaleString()}
+                </span>
+              `
+              : ""
+            }
+
+            ${
+              discount
+              ? `
+                <span class="discount">
+                  -${discount}%
+                </span>
+              `
+              : ""
+            }
+
+          </div>
+
+          <div class="stock">
+            ${stock} available
+          </div>
+
+          <button
+            class="add-cart"
+            onclick="addToCart('${product.id}')"
+          >
+            Add to Cart
+          </button>
+
+        </div>
+
+      </article>
+
+    `;
+
+  }
+
+
+  async function loadProducts() {
+
+    const {
+      data: products,
+      error
+    } = await supabaseClient
+      .from("products")
+      .select("*")
+      .order("created_at", {
+        ascending: false
+      });
+
+
+    if (error) {
+
+      console.error(error);
+
+      return;
+
     }
 
 
-    async function loadWishlist() {
-
-        wishlistIds = new Set();
-
-        const user =
-            await getCurrentUser();
-
-        if (!user) {
-            return;
-        }
+    const deals =
+      products
+        .filter(product => product.is_deal === true)
+        .slice(0, 4);
 
 
-        const {
-            data,
-            error
-        } = await supabaseClient
-            .from("wishlist")
-            .select("product_id")
-            .eq(
-                "user_id",
-                user.id
-            );
+    const newProducts =
+      products
+        .filter(product => product.is_new === true)
+        .slice(0, 4);
 
 
-        if (error) {
+    const popular =
+      [...products]
+        .sort(
+          (a, b) =>
+            Number(b.rating || 0) -
+            Number(a.rating || 0)
+        )
+        .slice(0, 4);
 
-            console.error(
-                "Wishlist loading error:",
-                error
-            );
 
-            return;
-        }
+    document.getElementById(
+      "dealsProducts"
+    ).innerHTML =
+      deals.map(createProductCard).join("");
 
 
-        (data || []).forEach(
-            item => {
+    document.getElementById(
+      "newProducts"
+    ).innerHTML =
+      newProducts.map(createProductCard).join("");
 
-                wishlistIds.add(
-                    item.product_id
-                );
 
-            }
+    document.getElementById(
+      "popularProducts"
+    ).innerHTML =
+      popular.map(createProductCard).join("");
+
+  }
+
+
+  async function addToCart(productId) {
+
+    const {
+      data: {
+        user
+      }
+    } =
+      await supabaseClient.auth.getUser();
+
+
+    if (!user) {
+
+      window.location.href =
+        "login.html?redirect=" +
+        encodeURIComponent("index.html");
+
+      return;
+
+    }
+
+
+    const {
+      data: existing,
+      error: existingError
+    } =
+      await supabaseClient
+        .from("cart_items")
+        .select("*")
+        .eq("user_id", user.id)
+        .eq("product_id", productId)
+        .maybeSingle();
+
+
+    if (existingError) {
+
+      alert(
+        "Unable to check your cart. Please try again."
+      );
+
+      return;
+
+    }
+
+
+    if (existing) {
+
+      const {
+        error
+      } =
+        await supabaseClient
+          .from("cart_items")
+          .update({
+            quantity:
+              Number(existing.quantity || 0) + 1
+          })
+          .eq("id", existing.id)
+          .eq("user_id", user.id);
+
+
+      if (error) {
+
+        alert(
+          "Unable to update your cart."
         );
-    }
 
+        return;
 
-    async function toggleWishlist(
-        productId,
-        button
-    ) {
+      }
 
-        const user =
-            await getCurrentUser();
+    } else {
 
+      const {
+        error
+      } =
+        await supabaseClient
+          .from("cart_items")
+          .insert({
 
-        if (!user) {
+            user_id: user.id,
 
-            window.location.href =
-                "login.html?redirect=" +
-                encodeURIComponent(
-                    "index.html"
-                );
+            product_id: productId,
 
-            return;
-        }
+            quantity: 1
 
+          });
 
-        button.disabled = true;
 
+      if (error) {
 
-        if (
-            wishlistIds.has(
-                productId
-            )
-        ) {
-
-            const {
-                error
-            } = await supabaseClient
-                .from("wishlist")
-                .delete()
-                .eq(
-                    "user_id",
-                    user.id
-                )
-                .eq(
-                    "product_id",
-                    productId
-                );
-
-
-            if (error) {
-
-                console.error(error);
-
-                alert(
-                    "Unable to remove this product from your wishlist."
-                );
-
-                button.disabled = false;
-
-                return;
-            }
-
-
-            wishlistIds.delete(
-                productId
-            );
-
-            button.classList.remove(
-                "active"
-            );
-
-            button.innerHTML = "♡";
-
-
-        } else {
-
-            const {
-                error
-            } = await supabaseClient
-                .from("wishlist")
-                .insert({
-
-                    user_id:
-                        user.id,
-
-                    product_id:
-                        productId
-
-                });
-
-
-            if (error) {
-
-                console.error(error);
-
-                alert(
-                    "Unable to add this product to your wishlist."
-                );
-
-                button.disabled = false;
-
-                return;
-            }
-
-
-            wishlistIds.add(
-                productId
-            );
-
-            button.classList.add(
-                "active"
-            );
-
-            button.innerHTML = "♥";
-        }
-
-
-        button.disabled = false;
-    }
-
-
-    async function addToCart(
-        productId,
-        button
-    ) {
-
-        const user =
-            await getCurrentUser();
-
-
-        if (!user) {
-
-            window.location.href =
-                "login.html?redirect=" +
-                encodeURIComponent(
-                    "index.html"
-                );
-
-            return;
-        }
-
-
-        button.disabled = true;
-
-        button.textContent =
-            "Adding...";
-
-
-        try {
-
-            const product =
-                allProducts.find(
-                    item =>
-                        item.id ===
-                        productId
-                );
-
-
-            if (!product) {
-
-                throw new Error(
-                    "Product not found."
-                );
-
-            }
-
-
-            const stock =
-                Number(
-                    product.stock || 0
-                );
-
-
-            const {
-                data: existing,
-                error: existingError
-            } = await supabaseClient
-
-                .from("cart_items")
-
-                .select(
-                    "id, quantity"
-                )
-
-                .eq(
-                    "user_id",
-                    user.id
-                )
-
-                .eq(
-                    "product_id",
-                    productId
-                )
-
-                .maybeSingle();
-
-
-            if (existingError) {
-                throw existingError;
-            }
-
-
-            const currentQuantity =
-                existing
-                    ? Number(
-                        existing.quantity
-                    )
-                    : 0;
-
-
-            if (
-                currentQuantity + 1 >
-                stock
-            ) {
-
-                alert(
-                    "You cannot add more than the available stock."
-                );
-
-                return;
-            }
-
-
-            if (existing) {
-
-                const {
-                    error
-                } = await supabaseClient
-
-                    .from("cart_items")
-
-                    .update({
-
-                        quantity:
-                            currentQuantity + 1,
-
-                        updated_at:
-                            new Date().toISOString()
-
-                    })
-
-                    .eq(
-                        "id",
-                        existing.id
-                    );
-
-
-                if (error) {
-                    throw error;
-                }
-
-
-            } else {
-
-                const {
-                    error
-                } = await supabaseClient
-
-                    .from("cart_items")
-
-                    .insert({
-
-                        user_id:
-                            user.id,
-
-                        product_id:
-                            productId,
-
-                        quantity: 1
-
-                    });
-
-
-                if (error) {
-                    throw error;
-                }
-
-            }
-
-
-            alert(
-                product.name +
-                " added to your cart."
-            );
-
-
-        } catch (error) {
-
-            console.error(
-                "Cart error:",
-                error
-            );
-
-            alert(
-                "Unable to add this product to your cart."
-            );
-
-        } finally {
-
-            button.disabled = false;
-
-            button.textContent =
-                "Add to Cart";
-        }
-    }
-
-
-    function getStars(
-        rating
-    ) {
-
-        const value =
-            Math.round(
-                Number(rating) || 0
-            );
-
-        return (
-            "★".repeat(value) +
-            "☆".repeat(5 - value)
+        alert(
+          "Unable to add this product to your cart."
         );
+
+        return;
+
+      }
+
     }
 
 
-    function getDiscount(
-        product
-    ) {
+    window.location.href =
+      "cart.html";
 
-        const price =
-            Number(
-                product.price || 0
-            );
+  }
 
-        const oldPrice =
-            Number(
-                product.old_price || 0
-            );
 
+  document.getElementById(
+    "searchForm"
+  ).addEventListener(
+    "submit",
+    function(event) {
 
-        if (
-            oldPrice <= price ||
-            oldPrice === 0
-        ) {
+      event.preventDefault();
 
-            return 0;
-        }
+      const search =
+        document.getElementById(
+          "searchInput"
+        ).value.trim();
 
 
-        return Math.round(
-            (
-                (oldPrice - price) /
-                oldPrice
-            ) * 100
-        );
-    }
-
-
-    function createProductCard(
-        product
-    ) {
-
-        const price =
-            Number(
-                product.price || 0
-            );
-
-        const oldPrice =
-            Number(
-                product.old_price || 0
-            );
-
-        const stock =
-            Number(
-                product.stock || 0
-            );
-
-        const discount =
-            getDiscount(
-                product
-            );
-
-        const image =
-            product.image_url ||
-            "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80";
-
-        const wishlisted =
-            wishlistIds.has(
-                product.id
-            );
-
-
-        return `
-
-            <article class="product-card">
-
-                ${
-                    product.badge
-                        ? `
-                            <span class="badge">
-                                ${product.badge}
-                            </span>
-                        `
-                        : ""
-                }
-
-
-                <button
-                    class="wishlist-btn ${
-                        wishlisted
-                            ? "active"
-                            : ""
-                    }"
-                    onclick="toggleWishlist(
-                        '${product.id}',
-                        this
-                    )"
-                    title="Add to wishlist"
-                >
-
-                    ${
-                        wishlisted
-                            ? "♥"
-                            : "♡"
-                    }
-
-                </button>
-
-
-                <a
-                    href="product.html?id=${encodeURIComponent(
-                        product.id
-                    )}"
-                >
-
-                    <img
-                        class="product-image"
-                        src="${image}"
-                        alt="${product.name}"
-                        loading="lazy"
-                    >
-
-                </a>
-
-
-                <div class="product-info">
-
-                    <div class="category">
-                        ${product.category}
-                    </div>
-
-
-                    <a
-                        class="product-name"
-                        href="product.html?id=${encodeURIComponent(
-                            product.id
-                        )}"
-                    >
-                        ${product.name}
-                    </a>
-
-
-                    <div class="rating">
-
-                        ${getStars(
-                            product.rating
-                        )}
-
-                        <span style="color:#777;">
-                            (${product.review_count || 0})
-                        </span>
-
-                    </div>
-
-
-                    <div>
-
-                        <span class="price">
-                            KSh ${price.toLocaleString()}
-                        </span>
-
-
-                        ${
-                            oldPrice > price
-                                ? `
-                                    <span class="old-price">
-                                        KSh ${oldPrice.toLocaleString()}
-                                    </span>
-
-                                    ${
-                                        discount > 0
-                                            ? `
-                                                <span class="discount">
-                                                    -${discount}%
-                                                </span>
-                                            `
-                                            : ""
-                                    }
-                                `
-                                : ""
-                        }
-
-                    </div>
-
-
-                    <div class="stock">
-
-                        ${
-                            stock > 0
-                                ? `${stock} available`
-                                : "Out of stock"
-                        }
-
-                    </div>
-
-
-                    <button
-                        class="add-cart"
-                        onclick="addToCart(
-                            '${product.id}',
-                            this
-                        )"
-                        ${
-                            stock <= 0
-                                ? "disabled"
-                                : ""
-                        }
-                    >
-
-                        ${
-                            stock > 0
-                                ? "Add to Cart"
-                                : "Out of Stock"
-                        }
-
-                    </button>
-
-                </div>
-
-            </article>
-
-        `;
-    }
-
-
-    function renderProducts(
-        products,
-        containerId
-    ) {
-
-        const container =
-            document.getElementById(
-                containerId
-            );
-
-
-        if (!products.length) {
-
-            container.innerHTML = `
-
-                <div class="empty">
-
-                    <h3>
-                        No products available
-                    </h3>
-
-                </div>
-
-            `;
-
-            return;
-        }
-
-
-        container.innerHTML =
-            products
-                .map(
-                    createProductCard
-                )
-                .join("");
-    }
-
-
-    async function loadProducts() {
-
-        try {
-
-            await loadWishlist();
-
-
-            const {
-                data,
-                error
-            } = await supabaseClient
-
-                .from("products")
-
-                .select("*");
-
-
-            if (error) {
-                throw error;
-            }
-
-
-            allProducts =
-                data || [];
-
-
-            const deals =
-                allProducts
-                    .filter(
-                        product =>
-                            product.is_deal === true
-                    )
-                    .slice(0, 4);
-
-
-            const newArrivals =
-                allProducts
-                    .filter(
-                        product =>
-                            product.is_new === true
-                    )
-                    .slice(0, 4);
-
-
-            const popular =
-                [...allProducts]
-                    .sort(
-                        (a, b) =>
-                            Number(
-                                b.rating || 0
-                            ) -
-                            Number(
-                                a.rating || 0
-                            )
-                    )
-                    .slice(0, 4);
-
-
-            renderProducts(
-                deals,
-                "dealsProducts"
-            );
-
-            renderProducts(
-                newArrivals,
-                "newProducts"
-            );
-
-            renderProducts(
-                popular,
-                "popularProducts"
-            );
-
-
-        } catch (error) {
-
-            console.error(
-                "Product loading error:",
-                error
-            );
-
-
-            document.getElementById(
-                "dealsProducts"
-            ).innerHTML = `
-                <div class="error">
-                    Unable to load products.
-                </div>
-            `;
-
-
-            document.getElementById(
-                "newProducts"
-            ).innerHTML = `
-                <div class="error">
-                    Unable to load products.
-                </div>
-            `;
-
-
-            document.getElementById(
-                "popularProducts"
-            ).innerHTML = `
-                <div class="error">
-                    Unable to load products.
-                </div>
-            `;
-        }
-    }
-
-
-    function searchProducts() {
-
-        const query =
-            document
-                .getElementById(
-                    "searchInput"
-                )
-                .value
-                .trim();
-
-
-        if (!query) {
-            return;
-        }
-
+      if (search) {
 
         window.location.href =
-            "shop.html?search=" +
-            encodeURIComponent(
-                query
-            );
+          "shop.html?search=" +
+          encodeURIComponent(search);
+
+      } else {
+
+        window.location.href =
+          "shop.html";
+
+      }
+
     }
+  );
 
 
-    document
-        .getElementById(
-            "searchInput"
-        )
-        .addEventListener(
-            "keydown",
-            function(event) {
-
-                if (
-                    event.key === "Enter"
-                ) {
-
-                    searchProducts();
-
-                }
-
-            }
-        );
-
-
-    loadProducts();
+  loadProducts();
 
 </script>
 

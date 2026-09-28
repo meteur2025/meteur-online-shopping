@@ -241,19 +241,26 @@
   </footer>
 
   <script>
-    const SUPABASE_URL = "https://nytsdeupaootukcullgi.supabase.co";
+    const SUPABASE_URL =
+      "https://nytsdeupaootukcullgi.supabase.co";
 
     const SUPABASE_KEY =
       "sb_publishable_cIqzHoafy_AEdB48KS_Wpg_LDqE1sFC";
 
-    const supabaseClient = window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_KEY
-    );
+    const supabaseClient =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+      );
 
-    const contactForm = document.getElementById("contactForm");
-    const submitButton = document.getElementById("submitButton");
-    const messageBox = document.getElementById("messageBox");
+    const contactForm =
+      document.getElementById("contactForm");
+
+    const submitButton =
+      document.getElementById("submitButton");
+
+    const messageBox =
+      document.getElementById("messageBox");
 
     function showMessage(text, type) {
       messageBox.textContent = text;
@@ -261,7 +268,8 @@
       messageBox.style.display = "block";
     }
 
-    contactForm.addEventListener("submit", async function (event) {
+    contactForm.addEventListener("submit", async function(event) {
+
       event.preventDefault();
 
       submitButton.disabled = true;
@@ -289,8 +297,17 @@
 
       try {
 
-        /* Step 1: Save the customer's message */
-        const { data, error } = await supabaseClient
+        /*
+         * STEP 1
+         * Save the customer message.
+         *
+         * We intentionally do NOT use .select()
+         * or .single() here because anonymous customers
+         * are allowed to insert messages but are not
+         * allowed to read them back.
+         */
+
+        const { error } = await supabaseClient
           .from("customer_messages")
           .insert([
             {
@@ -302,46 +319,84 @@
               message: message,
               status: "New"
             }
-          ])
-          .select("id")
-          .single();
+          ]);
 
         if (error) {
-          console.error("Supabase error:", error);
+
+          console.error(
+            "Supabase message error:",
+            error
+          );
 
           throw new Error(
             "Your message could not be submitted. Please try again."
           );
         }
 
-        /* Step 2: Ask the secure server to send the automatic reply */
-        const replyResponse = await fetch("/api/contact-reply.js", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            email: email,
-            firstName: firstName,
-            messageId: data.id
-          })
-        });
+        /*
+         * STEP 2
+         * Call the secure Vercel API.
+         *
+         * The Resend API key is NOT placed
+         * anywhere in this browser code.
+         */
 
-        const replyResult = await replyResponse.json();
+        const replyResponse = await fetch(
+          "/api/contact-reply.js",
+          {
+            method: "POST",
 
-        if (!replyResponse.ok || !replyResult.success) {
-          console.error("Automatic reply error:", replyResult);
+            headers: {
+              "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+              email: email,
+              firstName: firstName
+            })
+          }
+        );
+
+        let replyResult = {};
+
+        try {
+          replyResult = await replyResponse.json();
+        } catch (jsonError) {
+          replyResult = {};
+        }
+
+        /*
+         * The customer message was already saved.
+         * Therefore, even if email sending fails,
+         * we do not tell the customer that their
+         * message was lost.
+         */
+
+        if (
+          !replyResponse.ok ||
+          !replyResult.success
+        ) {
+
+          console.error(
+            "Automatic reply error:",
+            replyResult
+          );
 
           showMessage(
-            "Your message has been received successfully. The automatic email reply could not be sent.",
+            "Your message has been received successfully, but the confirmation email could not be sent.",
             "success"
           );
 
           contactForm.reset();
+
           return;
         }
 
-        /* Step 3: Confirm both actions */
+        /*
+         * STEP 3
+         * Both message storage and email succeeded.
+         */
+
         showMessage(
           "Your message has been submitted successfully. A confirmation email has been sent to your email address.",
           "success"
@@ -351,7 +406,10 @@
 
       } catch (error) {
 
-        console.error("Contact form error:", error);
+        console.error(
+          "Contact form error:",
+          error
+        );
 
         showMessage(
           error.message ||
@@ -365,6 +423,7 @@
         submitButton.textContent = "Send Message";
 
       }
+
     });
   </script>
 

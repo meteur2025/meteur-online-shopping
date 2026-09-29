@@ -69,6 +69,7 @@
       height: 55px;
       object-fit: contain;
       display: block;
+      mix-blend-mode: multiply;
     }
 
     /* SEARCH */
@@ -169,11 +170,6 @@
       color: white;
     }
 
-    /*
-      ACTIVE NAVIGATION LINE
-      The white line appears underneath
-      the currently selected navigation tab.
-    */
     .nav-inner a.active::after {
       content: "";
       position: absolute;
@@ -533,12 +529,10 @@
 
 <body>
 
-  <!-- HEADER -->
   <header>
 
     <div class="header-top">
 
-      <!-- REAL METEUR MOBILE KENYA LOGO -->
       <a href="index.html" class="logo">
 
         <img
@@ -549,11 +543,7 @@
 
       </a>
 
-
-      <form
-        class="search-box"
-        id="searchForm"
-      >
+      <form class="search-box" id="searchForm">
 
         <input
           type="search"
@@ -567,33 +557,20 @@
 
       </form>
 
-
       <div class="header-actions">
 
-        <a
-          href="login.html"
-          class="header-link"
-        >
+        <a href="login.html" class="header-link">
           Login
         </a>
 
-        <a
-          href="register.html"
-          class="header-link"
-        >
+        <a href="register.html" class="header-link">
           Register
         </a>
 
-        <a
-          href="cart.html"
-          class="header-link cart-link"
-        >
+        <a href="cart.html" class="header-link cart-link">
           🛒 Cart
 
-          <span
-            id="cartCount"
-            class="cart-count"
-          >
+          <span id="cartCount" class="cart-count">
             0
           </span>
 
@@ -603,58 +580,35 @@
 
     </div>
 
-
-    <!-- NAVIGATION -->
     <nav class="nav-bar">
 
       <div class="nav-inner">
 
-        <a
-          href="index.html"
-          data-nav="home"
-        >
+        <a href="index.html" data-nav="home">
           Home
         </a>
 
-        <a
-          href="shop.html"
-          data-nav="shop"
-        >
+        <a href="shop.html" data-nav="shop">
           Shop
         </a>
 
-        <a
-          href="shop.html?category=Phones%20and%20Tablets"
-          data-nav="phones"
-        >
+        <a href="shop.html?category=Phones%20and%20Tablets" data-nav="phones">
           Phones & Tablets
         </a>
 
-        <a
-          href="shop.html?category=Electronics"
-          data-nav="electronics"
-        >
+        <a href="shop.html?category=Electronics" data-nav="electronics">
           Electronics
         </a>
 
-        <a
-          href="shop.html?category=Accessories"
-          data-nav="accessories"
-        >
+        <a href="shop.html?category=Accessories" data-nav="accessories">
           Accessories
         </a>
 
-        <a
-          href="orders.html"
-          data-nav="orders"
-        >
+        <a href="orders.html" data-nav="orders">
           My Orders
         </a>
 
-        <a
-          href="contact.html"
-          data-nav="contact"
-        >
+        <a href="contact.html" data-nav="contact">
           Contact Us
         </a>
 
@@ -664,8 +618,6 @@
 
   </header>
 
-
-  <!-- HERO -->
   <section class="hero">
 
     <div class="hero-inner">
@@ -679,10 +631,7 @@
         accessories and smart devices at great prices.
       </p>
 
-      <a
-        href="shop.html"
-        class="hero-button"
-      >
+      <a href="shop.html" class="hero-button">
         Shop Now
       </a>
 
@@ -690,21 +639,15 @@
 
   </section>
 
-
-  <!-- MAIN -->
   <main class="container">
 
     <h2 class="section-title">
       Shop by Category
     </h2>
 
-
     <div class="categories">
 
-      <a
-        href="shop.html?category=Phones%20and%20Tablets"
-        class="category-card"
-      >
+      <a href="shop.html?category=Phones%20and%20Tablets" class="category-card">
 
         <div class="category-icon">
           📱
@@ -720,11 +663,7 @@
 
       </a>
 
-
-      <a
-        href="shop.html?category=Electronics"
-        class="category-card"
-      >
+      <a href="shop.html?category=Electronics" class="category-card">
 
         <div class="category-icon">
           📺
@@ -740,11 +679,7 @@
 
       </a>
 
-
-      <a
-        href="shop.html?category=Accessories"
-        class="category-card"
-      >
+      <a href="shop.html?category=Accessories" class="category-card">
 
         <div class="category-icon">
           🎧
@@ -760,11 +695,7 @@
 
       </a>
 
-
-      <a
-        href="shop.html"
-        class="category-card"
-      >
+      <a href="shop.html" class="category-card">
 
         <div class="category-icon">
           🛍️
@@ -782,16 +713,11 @@
 
     </div>
 
-
     <h2 class="section-title">
       Featured Products
     </h2>
 
-
-    <div
-      id="productsGrid"
-      class="products-grid"
-    >
+    <div id="productsGrid" class="products-grid">
 
       <div style="
         grid-column:1/-1;
@@ -806,8 +732,6 @@
 
   </main>
 
-
-  <!-- FOOTER -->
   <footer>
 
     <div class="footer-inner">
@@ -824,7 +748,6 @@
         </p>
 
       </div>
-
 
       <div class="footer-column">
 
@@ -850,7 +773,6 @@
 
       </div>
 
-
       <div class="footer-column">
 
         <h3>
@@ -875,7 +797,6 @@
 
       </div>
 
-
       <div class="footer-column">
 
         <h3>
@@ -898,13 +819,11 @@
 
     </div>
 
-
     <div class="footer-bottom">
       © 2026 METEUR MOBILE KENYA. All rights reserved.
     </div>
 
   </footer>
-
 
   <script>
 
@@ -930,7 +849,6 @@
           "[data-nav]"
         );
 
-
       links.forEach(link => {
 
         link.classList.remove(
@@ -939,19 +857,16 @@
 
       });
 
-
       const path =
         window.location.pathname
           .split("/")
           .pop()
           .toLowerCase();
 
-
       const params =
         new URLSearchParams(
           window.location.search
         );
-
 
       const category =
         (
@@ -959,10 +874,8 @@
           ""
         ).toLowerCase();
 
-
       let activeNav =
         "home";
-
 
       if (
         path === "" ||
@@ -1029,12 +942,10 @@
 
       }
 
-
       const activeLink =
         document.querySelector(
           `[data-nav="${activeNav}"]`
         );
-
 
       if (activeLink) {
 
@@ -1067,13 +978,11 @@
 
       }
 
-
       if (!Array.isArray(cart)) {
 
         cart = [];
 
       }
-
 
       const total =
         cart.reduce(
@@ -1085,12 +994,10 @@
           0
         );
 
-
       const count =
         document.getElementById(
           "cartCount"
         );
-
 
       if (total > 0) {
 
@@ -1148,7 +1055,6 @@
           "productsGrid"
         );
 
-
       const {
         data,
         error
@@ -1166,14 +1072,12 @@
           )
           .limit(8);
 
-
       if (error) {
 
         console.error(
           "Product loading error:",
           error
         );
-
 
         grid.innerHTML = `
 
@@ -1191,7 +1095,6 @@
         return;
 
       }
-
 
       if (!data || !data.length) {
 
@@ -1212,7 +1115,6 @@
 
       }
 
-
       grid.innerHTML =
         data.map(
           product => {
@@ -1222,7 +1124,6 @@
                 product.rating || 0
               );
 
-
             const stars =
               "★".repeat(
                 Math.round(
@@ -1230,11 +1131,9 @@
                 )
               );
 
-
             const image =
               product.image_url ||
               "https://via.placeholder.com/400x300?text=Meteur+Mobile";
-
 
             return `
 
@@ -1270,7 +1169,6 @@
 
                   </div>
 
-
                   <div class="product-info">
 
                     <div class="product-name">
@@ -1278,7 +1176,6 @@
                         product.name
                       )}
                     </div>
-
 
                     <div class="rating">
 
@@ -1294,7 +1191,6 @@
                       </span>
 
                     </div>
-
 
                     <div class="price">
 
@@ -1315,7 +1211,6 @@
                       }
 
                     </div>
-
 
                     <span class="view-product">
                       View Product
@@ -1346,7 +1241,6 @@
 
           event.preventDefault();
 
-
           const query =
             document
               .getElementById(
@@ -1354,7 +1248,6 @@
               )
               .value
               .trim();
-
 
           if (query) {
 

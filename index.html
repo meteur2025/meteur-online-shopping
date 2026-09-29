@@ -64,53 +64,11 @@
       font-weight: 800;
     }
 
-    .logo-icon {
-      width: 42px;
-      height: 42px;
-      border: 3px solid white;
-      border-radius: 9px;
-      background: #063b7a;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
-    }
-
-    .logo-icon::before {
-      content: "";
-      width: 24px;
-      height: 29px;
-      border: 2px solid white;
-      border-radius: 5px;
-    }
-
-    .logo-icon::after {
-      content: "";
-      width: 5px;
-      height: 5px;
-      background: white;
-      border-radius: 50%;
-      position: absolute;
-      bottom: 6px;
-    }
-
-    .logo-text {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.05;
-    }
-
-    .logo-main {
-      font-size: 19px;
-      letter-spacing: .5px;
-    }
-
-    .logo-sub {
-      font-size: 10px;
-      margin-top: 4px;
-      letter-spacing: .8px;
-      opacity: .9;
+    .real-logo {
+      width: 180px;
+      height: 55px;
+      object-fit: contain;
+      display: block;
     }
 
     /* SEARCH */
@@ -489,6 +447,11 @@
         width: 100%;
       }
 
+      .real-logo {
+        width: 170px;
+        height: 50px;
+      }
+
       .search-box {
         width: 100%;
         max-width: none;
@@ -575,19 +538,14 @@
 
     <div class="header-top">
 
+      <!-- REAL METEUR MOBILE KENYA LOGO -->
       <a href="index.html" class="logo">
 
-        <div class="logo-icon"></div>
-
-        <div class="logo-text">
-          <span class="logo-main">
-            METEUR MOBILE KENYA
-          </span>
-
-          <span class="logo-sub">
-            MOBILE • ELECTRONICS • ACCESSORIES
-          </span>
-        </div>
+        <img
+          src="WhatsApp Image 2026-09-29 at 21.47.44.jpeg"
+          alt="METEUR MOBILE KENYA"
+          class="real-logo"
+        >
 
       </a>
 

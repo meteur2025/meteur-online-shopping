@@ -100,19 +100,32 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
     }
 
-    .header-actions a {
+    .header-actions a,
+    .header-actions button {
       background: white;
       color: #d90429;
       padding: 10px 15px;
       border-radius: 7px;
       font-weight: 700;
       font-size: 14px;
+      border: none;
+      cursor: pointer;
     }
 
-    .header-actions a:hover {
+    .header-actions a:hover,
+    .header-actions button:hover {
       background: #fff0f2;
+    }
+
+    .account-email {
+      max-width: 220px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .cart-count {
@@ -356,8 +369,7 @@
       border-bottom: none;
     }
 
-    .autocomplete-item:hover,
-    .autocomplete-item.active {
+    .autocomplete-item:hover {
       background: #fff0f2;
       color: #d90429;
     }
@@ -654,6 +666,27 @@
       color: white;
     }
 
+    .footer-account-email {
+      color: #ffd9df;
+      font-size: 13px;
+      margin-bottom: 10px;
+      word-break: break-word;
+    }
+
+    .footer-logout {
+      background: none;
+      border: none;
+      padding: 0;
+      color: #ffd9df;
+      margin-bottom: 9px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .footer-logout:hover {
+      color: white;
+    }
+
     .copyright {
       max-width: 1200px;
       margin: 30px auto 0;
@@ -720,9 +753,14 @@
         flex-wrap: wrap;
       }
 
-      .header-actions a {
+      .header-actions a,
+      .header-actions button {
         padding: 9px 11px;
         font-size: 13px;
+      }
+
+      .account-email {
+        max-width: 170px;
       }
 
       .nav-inner a {
@@ -802,7 +840,11 @@
 
       </a>
 
-      <div class="header-actions">
+      <!-- DYNAMIC ACCOUNT HEADER -->
+      <div
+        class="header-actions"
+        id="headerActions"
+      >
 
         <a href="login.html?redirect=checkout.html">
           Login
@@ -950,17 +992,22 @@
 
       </div>
 
+      <!-- DYNAMIC FOOTER ACCOUNT -->
       <div>
 
         <h3>Account</h3>
 
-        <a href="login.html?redirect=checkout.html">
-          Login
-        </a>
+        <div id="footerAccountArea">
 
-        <a href="register.html">
-          Register
-        </a>
+          <a href="login.html?redirect=checkout.html">
+            Login
+          </a>
+
+          <a href="register.html">
+            Register
+          </a>
+
+        </div>
 
         <a href="profile.html">
           My Profile
@@ -1021,26 +1068,10 @@
        STORE SETTINGS
     ========================= */
 
-    /*
-      Store currency:
-      USD
-
-      Approximate USD -> KES rate.
-      This is refreshed from a public exchange-rate
-      service when possible, with this value as fallback.
-
-      Current reference is approximately:
-      $1 = KSh 129.7
-    */
-
     const FALLBACK_USD_TO_KES = 129.7;
 
     let usdToKesRate =
       FALLBACK_USD_TO_KES;
-
-    /*
-      Delivery fee is $2.50.
-    */
 
     const DELIVERY_FEE = 2.50;
 
@@ -1058,8 +1089,6 @@
     ========================= */
 
     const kenyaLocations = [
-
-      /* Major cities and towns */
 
       {
         name: "Nairobi",
@@ -1224,12 +1253,6 @@
       },
 
       {
-        name: "Kisumu",
-        county: "Kisumu County",
-        type: "City"
-      },
-
-      {
         name: "Voi",
         county: "Taita-Taveta County",
         type: "Town"
@@ -1308,12 +1331,6 @@
       },
 
       {
-        name: "Bomet",
-        county: "Bomet County",
-        type: "Town"
-      },
-
-      {
         name: "Murang'a",
         county: "Murang'a County",
         type: "Town"
@@ -1378,8 +1395,6 @@
         county: "Kajiado County",
         type: "Town"
       },
-
-      /* Nairobi areas */
 
       {
         name: "Nairobi CBD",
@@ -1513,8 +1528,6 @@
         type: "Town"
       },
 
-      /* Common Kenyan locations */
-
       {
         name: "Bungoma Town",
         county: "Bungoma County",
@@ -1554,12 +1567,6 @@
       {
         name: "Busia Town",
         county: "Busia County",
-        type: "Town"
-      },
-
-      {
-        name: "Mumias",
-        county: "Kakamega County",
         type: "Town"
       },
 
@@ -1759,6 +1766,161 @@
 
 
     /* =========================
+       DYNAMIC ACCOUNT HEADER
+    ========================= */
+
+    async function updateAccountUI() {
+
+      const headerActions =
+        document.getElementById(
+          "headerActions"
+        );
+
+      const footerAccountArea =
+        document.getElementById(
+          "footerAccountArea"
+        );
+
+      if (!headerActions) {
+        return;
+      }
+
+      const {
+        data,
+        error
+      } =
+        await supabaseClient.auth.getUser();
+
+      const user =
+        !error && data?.user
+          ? data.user
+          : null;
+
+      if (user) {
+
+        const email =
+          user.email || "My Account";
+
+        headerActions.innerHTML = `
+
+          <a
+            href="profile.html"
+            class="account-email"
+            title="${escapeAttribute(email)}"
+          >
+            👤 ${escapeHtml(email)}
+          </a>
+
+          <button
+            type="button"
+            onclick="logoutUser()"
+          >
+            Logout
+          </button>
+
+          <a href="cart.html">
+            🛒 Cart
+            <span class="cart-count" id="cartCount">0</span>
+          </a>
+
+        `;
+
+        if (footerAccountArea) {
+
+          footerAccountArea.innerHTML = `
+
+            <div class="footer-account-email">
+              👤 ${escapeHtml(email)}
+            </div>
+
+            <button
+              type="button"
+              class="footer-logout"
+              onclick="logoutUser()"
+            >
+              Logout
+            </button>
+
+          `;
+
+        }
+
+      } else {
+
+        headerActions.innerHTML = `
+
+          <a href="login.html?redirect=checkout.html">
+            Login
+          </a>
+
+          <a href="register.html">
+            Register
+          </a>
+
+          <a href="cart.html">
+            🛒 Cart
+            <span class="cart-count" id="cartCount">0</span>
+          </a>
+
+        `;
+
+        if (footerAccountArea) {
+
+          footerAccountArea.innerHTML = `
+
+            <a href="login.html?redirect=checkout.html">
+              Login
+            </a>
+
+            <a href="register.html">
+              Register
+            </a>
+
+          `;
+
+        }
+
+      }
+
+      updateCartCount();
+
+    }
+
+
+    async function logoutUser() {
+
+      const {
+        error
+      } =
+        await supabaseClient.auth.signOut();
+
+      if (error) {
+
+        console.error(
+          "Logout error:",
+          error
+        );
+
+        showPageMessage(
+          "Could not log out. Please try again.",
+          "error"
+        );
+
+        return;
+
+      }
+
+      currentUser = null;
+
+      await updateAccountUI();
+
+      window.location.href =
+        "login.html";
+
+    }
+
+
+    /* =========================
        NAVIGATION
     ========================= */
 
@@ -1919,6 +2081,19 @@
       return true;
 
     }
+
+
+    /* =========================
+       AUTH STATE LISTENER
+    ========================= */
+
+    supabaseClient.auth.onAuthStateChange(
+      async function() {
+
+        await updateAccountUI();
+
+      }
+    );
 
 
     /* =========================
@@ -2329,8 +2504,6 @@
               </div>
 
 
-              <!-- COUNTY AUTOCOMPLETE -->
-
               <div class="form-group">
 
                 <label for="county">
@@ -2360,8 +2533,6 @@
 
               </div>
 
-
-              <!-- TOWN AUTOCOMPLETE -->
 
               <div class="form-group">
 
@@ -2393,8 +2564,6 @@
               </div>
 
 
-              <!-- ADDRESS AUTOCOMPLETE -->
-
               <div class="form-group full">
 
                 <label for="address">
@@ -2407,7 +2576,6 @@
                     id="address"
                     required
                     placeholder="Start typing your delivery area, street, building or landmark..."
-                    autocomplete="street-address"
                   ></textarea>
 
                   <div
@@ -2553,6 +2721,7 @@
             >
               Confirm Order — ${formatUSD(total)}
               <br>
+
               <span
                 id="placeOrderKes"
                 style="
@@ -2563,6 +2732,7 @@
               >
                 ≈ ${getKesEquivalent(total)}
               </span>
+
             </button>
 
 
@@ -2989,8 +3159,7 @@
                 );
 
               if (
-                countyInput &&
-                !countyInput.value.trim()
+                countyInput
               ) {
 
                 countyInput.value =
@@ -3145,8 +3314,7 @@
                     );
 
                   if (
-                    townInput &&
-                    !townInput.value.trim()
+                    townInput
                   ) {
 
                     townInput.value =
@@ -3155,8 +3323,7 @@
                   }
 
                   if (
-                    countyInput &&
-                    !countyInput.value.trim()
+                    countyInput
                   ) {
 
                     countyInput.value =
@@ -3452,17 +3619,16 @@
 
 
       /*
-        IMPORTANT:
+        Store order amounts in USD.
 
-        Order amounts are stored in USD
-        because USD is the store currency.
-
-        M-Pesa receives the KSh equivalent
-        when the payment request is sent.
+        M-Pesa receives the KSh equivalent.
       */
 
 
-      const { data: order, error: orderError } =
+      const {
+        data: order,
+        error: orderError
+      } =
         await supabaseClient
           .from("orders")
           .insert({
@@ -3623,16 +3789,19 @@
       try {
 
         /*
-          M-Pesa amount must be KSh.
+          M-Pesa uses Kenyan Shillings.
 
           Example:
-          $10 × 129.7 = KSh 1,297
+          $10 × 129.7 = approximately KSh 1,297
         */
 
         const mpesaAmount =
-          Math.round(
-            Number(order.total || 0) *
-            usdToKesRate
+          Math.max(
+            1,
+            Math.round(
+              Number(order.total || 0) *
+              usdToKesRate
+            )
           );
 
 
@@ -3782,10 +3951,8 @@
       const now =
         new Date();
 
-
       const year =
         now.getFullYear();
-
 
       const month =
         String(
@@ -3796,7 +3963,6 @@
           "0"
         );
 
-
       const day =
         String(
           now.getDate()
@@ -3806,14 +3972,12 @@
           "0"
         );
 
-
       const random =
         Math.floor(
           10000 +
           Math.random() *
           90000
         );
-
 
       return `MET${year}${month}${day}${random}`;
 
@@ -4013,6 +4177,8 @@
     async function startCheckoutPage() {
 
       setActiveNavigation();
+
+      await updateAccountUI();
 
       await loadExchangeRate();
 

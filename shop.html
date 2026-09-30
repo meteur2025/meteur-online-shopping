@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Shop - METEUR MOBILE KENYA</title>
+  <title>Shop Phones - METEUR MOBILE KENYA</title>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -74,9 +74,6 @@
       justify-content: center;
       overflow: hidden;
       flex-shrink: 0;
-      padding: 0;
-      border: none;
-      box-shadow: none;
     }
 
     .logo-icon img {
@@ -85,7 +82,6 @@
       object-fit: contain;
       display: block;
       background: white;
-      border: none;
       border-radius: 9px;
     }
 
@@ -371,6 +367,8 @@
       padding: 15px;
       display: block;
       background: white;
+      position: relative;
+      z-index: 1;
     }
 
     .image-loading {
@@ -378,11 +376,6 @@
       color: #9ca3af;
       font-size: 12px;
       z-index: 0;
-    }
-
-    .product-image {
-      position: relative;
-      z-index: 1;
     }
 
     .badge {
@@ -519,7 +512,6 @@
     ========================== */
 
     @media (max-width: 1000px) {
-
       .products-grid {
         grid-template-columns: repeat(3, 1fr);
       }
@@ -527,11 +519,9 @@
       .footer-inner {
         grid-template-columns: repeat(2, 1fr);
       }
-
     }
 
     @media (max-width: 800px) {
-
       .filters {
         grid-template-columns: 1fr;
       }
@@ -539,7 +529,6 @@
       .products-grid {
         grid-template-columns: repeat(2, 1fr);
       }
-
     }
 
     /* =========================
@@ -547,18 +536,13 @@
     ========================== */
 
     @media (max-width: 700px) {
-
       .header-top {
         display: grid;
-
         grid-template-columns: 1fr auto;
-
         grid-template-areas:
           "brand brand"
           "search cart";
-
         gap: 10px;
-
         padding: 10px 12px 12px;
       }
 
@@ -642,7 +626,6 @@
       .footer-inner {
         grid-template-columns: 1fr;
       }
-
     }
 
     /* =========================
@@ -650,7 +633,6 @@
     ========================== */
 
     @media (max-width: 430px) {
-
       .header-top {
         grid-template-columns: 1fr auto;
         grid-template-areas:
@@ -690,7 +672,6 @@
       .product-image-wrap {
         height: 165px;
       }
-
     }
   </style>
 </head>
@@ -701,16 +682,13 @@
 
   <div class="header-top">
 
-    <!-- BRAND -->
     <a href="index.html" class="logo">
 
       <div class="logo-icon">
-
         <img
           src="WhatsApp Image 2026-09-30 at 12.36.30.jpeg"
           alt="METEUR MOBILE KENYA Logo"
         >
-
       </div>
 
       <div class="logo-text">
@@ -720,15 +698,13 @@
         </span>
 
         <span class="logo-sub">
-          MOBILE • ELECTRONICS • ACCESSORIES
+          NEW PHONES • USED PHONES • SMARTPHONES
         </span>
 
       </div>
 
     </a>
 
-
-    <!-- SEARCH -->
     <form class="search-box" id="searchForm">
 
       <input
@@ -743,8 +719,6 @@
 
     </form>
 
-
-    <!-- HEADER ACTIONS -->
     <div class="header-actions">
 
       <a href="login.html" class="header-link">
@@ -759,10 +733,7 @@
 
         🛒 Cart
 
-        <span
-          id="cartCount"
-          class="cart-count"
-        >
+        <span id="cartCount" class="cart-count">
           0
         </span>
 
@@ -772,8 +743,6 @@
 
   </div>
 
-
-  <!-- NAVIGATION -->
   <nav class="nav-bar">
 
     <div class="nav-inner">
@@ -807,21 +776,20 @@
 
 </header>
 
-
 <main class="page">
 
   <div class="page-heading">
 
     <h1 id="pageTitle">
-      Shop All Phones
+      Shop Phones
     </h1>
 
     <p id="pageDescription">
-      Browse smartphones available at METEUR MOBILE KENYA.
+      Discover smartphones at METEUR MOBILE KENYA.
+      Browse new and used phone options as they become available.
     </p>
 
   </div>
-
 
   <section class="filters">
 
@@ -838,7 +806,6 @@
       >
 
     </div>
-
 
     <div class="filter-group">
 
@@ -874,7 +841,6 @@
 
   </section>
 
-
   <div class="category-tabs">
 
     <button
@@ -890,11 +856,10 @@
       class="category-tab"
       data-category="Phones"
     >
-      Phones
+      Smartphones
     </button>
 
   </div>
-
 
   <div
     id="productsGrid"
@@ -909,7 +874,6 @@
 
 </main>
 
-
 <footer>
 
   <div class="footer-inner">
@@ -921,17 +885,18 @@
       </h2>
 
       <p>
-        Your online destination for mobile phones,
-        electronics, accessories and smart devices in Kenya.
+        A dedicated phone shop offering smartphones
+        and mobile devices for customers in Kenya.
+        New and used phone categories will be organized
+        as the product system is expanded.
       </p>
 
     </div>
 
-
     <div class="footer-column">
 
       <h3>
-        Shop
+        Phones
       </h3>
 
       <a href="shop.html">
@@ -939,11 +904,10 @@
       </a>
 
       <a href="shop.html?category=Phones">
-        Phones
+        Smartphones
       </a>
 
     </div>
-
 
     <div class="footer-column">
 
@@ -969,7 +933,6 @@
 
     </div>
 
-
     <div class="footer-column">
 
       <h3>
@@ -992,13 +955,11 @@
 
   </div>
 
-
   <div class="footer-bottom">
     © 2026 METEUR MOBILE KENYA. All rights reserved.
   </div>
 
 </footer>
-
 
 <script>
 
@@ -1008,13 +969,11 @@
   const SUPABASE_ANON_KEY =
     "sb_publishable_cIqzHoafy_AEdB48KS_Wpg_LDqE1sFC";
 
-
   const supabaseClient =
     window.supabase.createClient(
       SUPABASE_URL,
       SUPABASE_ANON_KEY
     );
-
 
   let allProducts = [];
 
@@ -1023,7 +982,6 @@
   let currentSearch = "";
 
   let currentSort = "newest";
-
 
   function escapeHtml(value) {
 
@@ -1035,7 +993,6 @@
       .replace(/'/g, "&#039;");
 
   }
-
 
   function formatUSD(value) {
 
@@ -1053,7 +1010,6 @@
 
   }
 
-
   function getImageProxyUrl(imageUrl) {
 
     if (!imageUrl) {
@@ -1067,54 +1023,40 @@
 
   }
 
-
   function setActiveNavigation() {
 
     document
       .querySelectorAll("[data-nav]")
       .forEach(link => {
-
         link.classList.remove("active");
-
       });
-
 
     const params =
       new URLSearchParams(
         window.location.search
       );
 
-
     const category =
       (
         params.get("category") || ""
       ).toLowerCase();
 
-
     let activeNav = "shop";
 
-
     if (category === "phones") {
-
       activeNav = "phones";
-
     }
-
 
     const activeLink =
       document.querySelector(
         `[data-nav="${activeNav}"]`
       );
 
-
     if (activeLink) {
-
       activeLink.classList.add("active");
-
     }
 
   }
-
 
   function readUrlState() {
 
@@ -1123,26 +1065,21 @@
         window.location.search
       );
 
-
     currentCategory =
       params.get("category") || "";
-
 
     currentSearch =
       params.get("search") || "";
 
-
     document.getElementById(
       "searchFilter"
     ).value = currentSearch;
-
 
     updateCategoryTabs();
 
     updatePageHeading();
 
   }
-
 
   function updateCategoryTabs() {
 
@@ -1153,9 +1090,7 @@
         const tabCategory =
           tab.dataset.category || "";
 
-
         tab.classList.remove("active");
-
 
         if (
           tabCategory.toLowerCase() ===
@@ -1170,7 +1105,6 @@
 
   }
 
-
   function updatePageHeading() {
 
     const title =
@@ -1178,27 +1112,25 @@
         "pageTitle"
       );
 
-
     const description =
       document.getElementById(
         "pageDescription"
       );
 
-
     if (currentCategory) {
 
       title.textContent =
-        currentCategory;
-
+        currentCategory === "Phones"
+          ? "Smartphones"
+          : currentCategory;
 
       description.textContent =
-        `Browse ${currentCategory} at METEUR MOBILE KENYA.`;
+        "Browse smartphones at METEUR MOBILE KENYA.";
 
     } else if (currentSearch) {
 
       title.textContent =
         `Search results for "${currentSearch}"`;
-
 
       description.textContent =
         "Phones matching your search.";
@@ -1206,16 +1138,14 @@
     } else {
 
       title.textContent =
-        "Shop All Phones";
-
+        "Shop Phones";
 
       description.textContent =
-        "Browse smartphones available at METEUR MOBILE KENYA.";
+        "Discover smartphones at METEUR MOBILE KENYA.";
 
     }
 
   }
-
 
   async function loadProducts() {
 
@@ -1224,13 +1154,11 @@
         "productsGrid"
       );
 
-
     grid.innerHTML = `
       <div class="loading">
         Loading phones...
       </div>
     `;
-
 
     try {
 
@@ -1249,7 +1177,6 @@
             }
           );
 
-
       if (error) {
 
         console.error(
@@ -1257,27 +1184,22 @@
           error
         );
 
-
         grid.innerHTML = `
           <div class="error-message">
             Unable to load products.
           </div>
         `;
 
-
         return;
 
       }
-
 
       allProducts =
         Array.isArray(data)
           ? data
           : [];
 
-
       renderProducts();
-
 
     } catch (error) {
 
@@ -1285,7 +1207,6 @@
         "Products loading error:",
         error
       );
-
 
       grid.innerHTML = `
         <div class="error-message">
@@ -1297,12 +1218,10 @@
 
   }
 
-
   function getFilteredProducts() {
 
     let products =
       [...allProducts];
-
 
     if (currentCategory) {
 
@@ -1317,12 +1236,10 @@
 
     }
 
-
     if (currentSearch) {
 
       const search =
         currentSearch.toLowerCase();
-
 
       products =
         products.filter(
@@ -1333,18 +1250,15 @@
                 product.name || ""
               ).toLowerCase();
 
-
             const category =
               String(
                 product.category || ""
               ).toLowerCase();
 
-
             const description =
               String(
                 product.description || ""
               ).toLowerCase();
-
 
             return (
               name.includes(search) ||
@@ -1356,7 +1270,6 @@
         );
 
     }
-
 
     if (
       currentSort === "price-low"
@@ -1370,7 +1283,6 @@
 
     }
 
-
     if (
       currentSort === "price-high"
     ) {
@@ -1383,7 +1295,6 @@
 
     }
 
-
     if (
       currentSort === "rating"
     ) {
@@ -1395,7 +1306,6 @@
       );
 
     }
-
 
     if (
       currentSort === "name"
@@ -1414,11 +1324,9 @@
 
     }
 
-
     return products;
 
   }
-
 
   function createImageHtml(product) {
 
@@ -1426,7 +1334,6 @@
       String(
         product.image_url || ""
       ).trim();
-
 
     if (!originalImage) {
 
@@ -1445,20 +1352,16 @@
 
     }
 
-
     const safeOriginal =
       escapeHtml(originalImage);
-
 
     const proxyImage =
       getImageProxyUrl(
         originalImage
       );
 
-
     const safeProxy =
       escapeHtml(proxyImage);
-
 
     return `
       <img
@@ -1486,7 +1389,6 @@
 
   }
 
-
   function renderProducts() {
 
     const grid =
@@ -1494,10 +1396,8 @@
         "productsGrid"
       );
 
-
     const products =
       getFilteredProducts();
-
 
     if (!products.length) {
 
@@ -1507,11 +1407,9 @@
         </div>
       `;
 
-
       return;
 
     }
-
 
     grid.innerHTML =
       products
@@ -1522,12 +1420,10 @@
               product.rating || 0
             );
 
-
           const reviews =
             Number(
               product.review_count || 0
             );
-
 
           const roundedRating =
             Math.max(
@@ -1538,7 +1434,6 @@
               )
             );
 
-
           const stars =
             "★".repeat(
               roundedRating
@@ -1546,7 +1441,6 @@
             "☆".repeat(
               5 - roundedRating
             );
-
 
           return `
             <article class="product-card">
@@ -1571,13 +1465,11 @@
 
                 </div>
 
-
                 <div class="product-info">
 
                   <div class="product-name">
                     ${escapeHtml(product.name)}
                   </div>
-
 
                   <div class="rating">
 
@@ -1593,7 +1485,6 @@
                     </span>
 
                   </div>
-
 
                   <div class="price">
 
@@ -1611,7 +1502,6 @@
 
                   </div>
 
-
                   <span class="view-product">
                     View Product
                   </span>
@@ -1628,7 +1518,6 @@
 
   }
 
-
   document
     .querySelectorAll(".category-tab")
     .forEach(tab => {
@@ -1639,7 +1528,6 @@
 
           const category =
             this.dataset.category || "";
-
 
           if (category) {
 
@@ -1658,7 +1546,6 @@
 
     });
 
-
   document
     .getElementById("searchForm")
     .addEventListener(
@@ -1667,13 +1554,11 @@
 
         event.preventDefault();
 
-
         const search =
           document
             .getElementById("searchInput")
             .value
             .trim();
-
 
         if (search) {
 
@@ -1690,7 +1575,6 @@
       }
     );
 
-
   document
     .getElementById("searchFilter")
     .addEventListener(
@@ -1700,12 +1584,10 @@
         currentSearch =
           this.value.trim();
 
-
         renderProducts();
 
       }
     );
-
 
   document
     .getElementById("sortFilter")
@@ -1716,17 +1598,14 @@
         currentSort =
           this.value;
 
-
         renderProducts();
 
       }
     );
 
-
   function updateCartCount() {
 
     let cart = [];
-
 
     try {
 
@@ -1743,13 +1622,9 @@
 
     }
 
-
     if (!Array.isArray(cart)) {
-
       cart = [];
-
     }
-
 
     const total =
       cart.reduce(
@@ -1761,12 +1636,10 @@
         0
       );
 
-
     const count =
       document.getElementById(
         "cartCount"
       );
-
 
     if (total > 0) {
 
@@ -1784,7 +1657,6 @@
     }
 
   }
-
 
   setActiveNavigation();
 

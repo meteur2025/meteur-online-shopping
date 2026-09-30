@@ -1,24 +1,22 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Shop Phones - METEUR MOBILE KENYA</title>
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <title>Shop Phones | METEUR MOBILE KENYA</title>
 
   <style>
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
 
     body {
+      margin: 0;
       font-family: Arial, Helvetica, sans-serif;
-      background: #fff5f6;
-      color: #172033;
+      background: #f5f5f5;
+      color: #222;
     }
 
     a {
@@ -26,375 +24,255 @@
       color: inherit;
     }
 
-    button,
-    input,
-    select {
-      font-family: inherit;
-    }
-
     header {
       background: #d90429;
       color: white;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
     }
 
-    .header-top {
-      max-width: 1250px;
+    .top-header {
+      max-width: 1200px;
       margin: auto;
-      padding: 12px 20px;
-      display: grid;
-      grid-template-columns: auto minmax(300px, 1fr) auto;
-      align-items: center;
-      gap: 18px;
-    }
-
-    .logo {
+      padding: 14px 20px;
       display: flex;
       align-items: center;
-      gap: 10px;
-      min-width: 0;
-      color: white;
-      font-weight: 800;
+      gap: 20px;
+      flex-wrap: wrap;
     }
 
-    .logo-icon {
-      width: 48px;
-      height: 48px;
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 260px;
+    }
+
+    .brand img {
+      width: 58px;
+      height: 58px;
+      object-fit: cover;
+      border-radius: 8px;
       background: white;
-      border-radius: 9px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      flex-shrink: 0;
     }
 
-    .logo-icon img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      display: block;
-      background: white;
-      border-radius: 9px;
+    .brand-text {
+      font-weight: bold;
+      line-height: 1.2;
     }
 
-    .logo-text {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.05;
+    .brand-name {
+      font-size: 20px;
     }
 
-    .logo-main {
-      font-size: 19px;
-      letter-spacing: 0.5px;
-    }
-
-    .logo-sub {
-      font-size: 10px;
+    .brand-subtitle {
+      font-size: 11px;
+      opacity: 0.95;
       margin-top: 4px;
-      letter-spacing: 0.8px;
-      color: #ffd9df;
     }
 
     .search-box {
-      width: 100%;
+      flex: 1;
+      min-width: 220px;
       display: flex;
-      min-width: 0;
-      max-width: 650px;
-      margin: auto;
     }
 
     .search-box input {
       width: 100%;
-      padding: 13px 16px;
+      padding: 12px 14px;
       border: none;
-      outline: none;
       border-radius: 6px 0 0 6px;
       font-size: 15px;
-      min-width: 0;
+      outline: none;
     }
 
     .search-box button {
+      padding: 12px 18px;
       border: none;
-      padding: 0 22px;
       background: #9b001f;
       color: white;
       font-weight: bold;
-      cursor: pointer;
       border-radius: 0 6px 6px 0;
-      flex-shrink: 0;
-    }
-
-    .search-box button:hover {
-      background: #7d0019;
+      cursor: pointer;
     }
 
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 8px;
-      flex-shrink: 0;
+      gap: 12px;
+      font-size: 14px;
+      white-space: nowrap;
     }
 
-    .header-link,
-    .header-button {
+    .header-actions a,
+    .header-actions button {
       color: white;
-      font-size: 14px;
-      font-weight: 600;
-      padding: 9px 10px;
-      border-radius: 5px;
-      white-space: nowrap;
-      background: transparent;
+      background: none;
       border: none;
       cursor: pointer;
-    }
-
-    .header-link:hover,
-    .header-button:hover {
-      background: rgba(255, 255, 255, 0.14);
+      font-size: 14px;
+      font-weight: bold;
     }
 
     .account-email {
-      color: white;
-      font-size: 13px;
-      font-weight: 700;
-      max-width: 220px;
+      max-width: 180px;
       overflow: hidden;
       text-overflow: ellipsis;
-      white-space: nowrap;
-      padding: 9px 6px;
     }
 
     .cart-link {
-      position: relative;
+      background: #fff !important;
+      color: #d90429 !important;
+      padding: 9px 12px;
+      border-radius: 6px;
     }
 
-    .cart-count {
-      position: absolute;
-      top: -4px;
-      right: -3px;
-      min-width: 18px;
-      height: 18px;
-      padding: 2px 5px;
-      border-radius: 50%;
-      background: white;
-      color: #d90429;
-      font-size: 11px;
-      font-weight: bold;
-      display: none;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .nav-bar {
+    nav {
       background: #9b001f;
     }
 
-    .nav-inner {
-      max-width: 1250px;
+    .nav-container {
+      max-width: 1200px;
       margin: auto;
       padding: 0 20px;
       display: flex;
-      gap: 28px;
-      overflow-x: auto;
-      white-space: nowrap;
-      scrollbar-width: none;
+      flex-wrap: wrap;
     }
 
-    .nav-inner::-webkit-scrollbar {
-      display: none;
-    }
-
-    .nav-inner a {
+    nav a {
       color: white;
+      padding: 14px 12px;
       font-size: 14px;
-      font-weight: 600;
-      padding: 13px 2px 11px;
-      position: relative;
+      font-weight: bold;
     }
 
-    .nav-inner a:hover {
-      opacity: 0.85;
+    nav a:hover {
+      background: #7c0019;
     }
 
-    .nav-inner a.active::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 3px;
-      background: white;
-      border-radius: 3px 3px 0 0;
-    }
-
-    .page {
-      max-width: 1250px;
+    .container {
+      max-width: 1200px;
       margin: auto;
-      padding: 30px 20px 60px;
+      padding: 30px 20px 50px;
     }
 
     .page-heading {
-      margin-bottom: 22px;
+      margin-bottom: 25px;
     }
 
     .page-heading h1 {
-      color: #d90429;
+      margin: 0 0 8px;
       font-size: 32px;
-      margin-bottom: 8px;
+      color: #222;
     }
 
     .page-heading p {
-      color: #61718a;
-      font-size: 15px;
+      margin: 0;
+      color: #666;
     }
 
     .filters {
       background: white;
-      border: 1px solid #f3c7cd;
-      border-radius: 10px;
       padding: 18px;
+      border-radius: 10px;
       margin-bottom: 25px;
-      box-shadow: 0 2px 10px rgba(155, 0, 31, 0.06);
-      display: grid;
-      grid-template-columns: 1fr 220px;
-      gap: 15px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     }
 
-    .filter-group label {
-      display: block;
-      color: #374151;
-      font-size: 13px;
-      font-weight: bold;
-      margin-bottom: 7px;
-    }
-
-    .filter-group input,
-    .filter-group select {
-      width: 100%;
-      padding: 11px 12px;
-      border: 1px solid #f3c7cd;
-      border-radius: 6px;
-      outline: none;
-      background: white;
-      font-size: 14px;
-    }
-
-    .filter-group input:focus,
-    .filter-group select:focus {
-      border-color: #d90429;
-      box-shadow: 0 0 0 2px rgba(217, 4, 41, 0.08);
-    }
-
-    .category-tabs {
+    .filter-row {
       display: flex;
-      gap: 10px;
-      overflow-x: auto;
-      margin-bottom: 25px;
-      padding-bottom: 4px;
-      scrollbar-width: none;
+      gap: 15px;
+      flex-wrap: wrap;
+      align-items: center;
     }
 
-    .category-tabs::-webkit-scrollbar {
-      display: none;
-    }
-
-    .category-tab {
-      background: white;
-      color: #d90429;
-      border: 1px solid #f3c7cd;
+    .filter-row input,
+    .filter-row select {
+      padding: 11px 12px;
+      border: 1px solid #ddd;
       border-radius: 6px;
-      padding: 10px 16px;
-      white-space: nowrap;
+      font-size: 14px;
+      background: white;
+    }
+
+    .filter-row input {
+      flex: 1;
+      min-width: 220px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
+
+    .tab {
+      border: 1px solid #ddd;
+      background: #fff;
+      color: #333;
+      padding: 9px 15px;
+      border-radius: 20px;
       cursor: pointer;
-      font-size: 13px;
       font-weight: bold;
+      font-size: 13px;
     }
 
-    .category-tab:hover {
-      background: #fff0f2;
-      border-color: #d90429;
-    }
-
-    .category-tab.active {
+    .tab.active {
       background: #d90429;
       color: white;
       border-color: #d90429;
     }
 
+    .status-message {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      color: #666;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .error-message {
+      color: #b00020;
+      background: #fff0f2;
+      border: 1px solid #f1aeb5;
+    }
+
+    .retry-button {
+      margin-top: 15px;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 6px;
+      background: #d90429;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
     .products-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
     }
 
     .product-card {
       background: white;
       border-radius: 10px;
       overflow: hidden;
-      border: 1px solid #f3c7cd;
-      transition: 0.2s;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .product-card:hover {
       transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(217, 4, 41, 0.12);
-    }
-
-    .product-image-wrap {
-      position: relative;
-      height: 250px;
-      background: #ffffff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
+      box-shadow: 0 5px 18px rgba(0,0,0,0.12);
     }
 
     .product-image {
       width: 100%;
-      height: 100%;
+      height: 220px;
       object-fit: contain;
-      padding: 15px;
-      display: block;
-      background: white;
-    }
-
-    .badge {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      background: #d90429;
-      color: white;
-      padding: 5px 8px;
-      border-radius: 4px;
-      font-size: 11px;
-      font-weight: bold;
-      z-index: 3;
-    }
-
-    .condition-badge {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      padding: 5px 8px;
-      border-radius: 4px;
-      font-size: 11px;
-      font-weight: bold;
-      z-index: 3;
-    }
-
-    .condition-new {
-      background: #15803d;
-      color: white;
-    }
-
-    .condition-used {
-      background: #374151;
-      color: white;
+      background: #fafafa;
+      padding: 12px;
     }
 
     .product-info {
@@ -402,328 +280,150 @@
     }
 
     .product-name {
-      color: #172033;
-      font-size: 15px;
+      font-size: 17px;
       font-weight: bold;
-      line-height: 1.4;
-      min-height: 42px;
+      margin-bottom: 8px;
     }
 
-    .rating {
-      margin-top: 8px;
-      color: #f59e0b;
+    .product-description {
+      color: #666;
       font-size: 13px;
+      line-height: 1.4;
+      min-height: 38px;
+      margin-bottom: 10px;
     }
 
-    .price {
-      margin-top: 8px;
+    .product-price {
+      font-size: 20px;
+      font-weight: bold;
       color: #d90429;
-      font-size: 19px;
-      font-weight: 800;
     }
 
-    .old-price {
-      color: #9ca3af;
-      font-size: 12px;
-      text-decoration: line-through;
-      margin-left: 5px;
-      font-weight: 600;
-    }
-
-    .price-kes {
-      display: block;
-      color: #61718a;
-      font-size: 12px;
-      font-weight: 600;
-      margin-top: 4px;
-    }
-
-    .conversion-note {
-      display: block;
-      color: #8a96a8;
-      font-size: 10px;
+    .kes-price {
+      color: #666;
+      font-size: 13px;
       margin-top: 3px;
     }
 
-    .view-product {
+    .condition {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 5px 9px;
+      border-radius: 15px;
+      background: #eee;
+      color: #555;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .view-button {
       display: block;
-      margin-top: 12px;
-      text-align: center;
+      margin-top: 14px;
       background: #d90429;
       color: white;
+      text-align: center;
       padding: 10px;
-      border-radius: 5px;
-      font-size: 13px;
-      font-weight: bold;
-    }
-
-    .view-product:hover {
-      background: #9b001f;
-    }
-
-    .loading,
-    .no-products,
-    .error-message {
-      grid-column: 1 / -1;
-      text-align: center;
-      background: white;
-      padding: 45px 20px;
-      border-radius: 10px;
-      color: #61718a;
-      border: 1px solid #f3c7cd;
-    }
-
-    .error-message {
-      color: #dc2626;
-    }
-
-    .error-title {
-      font-size: 18px;
-      font-weight: bold;
-      margin-bottom: 8px;
-      color: #dc2626;
-    }
-
-    .retry-button {
-      margin-top: 15px;
-      border: none;
-      background: #d90429;
-      color: white;
-      padding: 10px 18px;
       border-radius: 6px;
-      cursor: pointer;
       font-weight: bold;
     }
 
-    .retry-button:hover {
-      background: #9b001f;
+    .view-button:hover {
+      background: #b90323;
     }
 
     footer {
-      background: #9b001f;
+      background: #222;
       color: white;
+      margin-top: 30px;
     }
 
-    .footer-inner {
-      max-width: 1250px;
+    .footer-container {
+      max-width: 1200px;
       margin: auto;
-      padding: 40px 20px 25px;
+      padding: 35px 20px;
       display: grid;
       grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 35px;
+      gap: 30px;
     }
 
-    .footer-brand h2 {
-      margin-bottom: 12px;
+    footer h3,
+    footer h4 {
+      margin-top: 0;
     }
 
-    .footer-brand p {
-      color: #ffd9df;
-      line-height: 1.6;
+    footer p {
+      color: #ccc;
+      line-height: 1.5;
       font-size: 14px;
     }
 
-    .footer-column h3 {
-      font-size: 15px;
-      margin-bottom: 14px;
-    }
-
-    .footer-column a {
+    footer a {
       display: block;
-      color: #ffd9df;
-      font-size: 13px;
-      margin-bottom: 9px;
+      color: #ccc;
+      margin: 8px 0;
+      font-size: 14px;
     }
 
-    .footer-column a:hover {
-      color: white;
-    }
-
-    .footer-logout {
-      display: none;
-      color: #ffd9df;
-      font-size: 13px;
-      margin-bottom: 9px;
-      background: transparent;
-      border: none;
-      padding: 0;
-      cursor: pointer;
-    }
-
-    .footer-logout:hover {
+    footer a:hover {
       color: white;
     }
 
     .footer-bottom {
-      border-top: 1px solid rgba(255, 255, 255, 0.15);
       text-align: center;
-      padding: 16px 20px;
-      color: #ffd9df;
-      font-size: 12px;
-    }
-
-    @media (max-width: 1000px) {
-      .products-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-
-      .footer-inner {
-        grid-template-columns: repeat(2, 1fr);
-      }
+      border-top: 1px solid #444;
+      padding: 18px;
+      color: #aaa;
+      font-size: 13px;
     }
 
     @media (max-width: 800px) {
-      .filters {
-        grid-template-columns: 1fr;
+      .top-header {
+        flex-direction: column;
+        align-items: stretch;
       }
 
-      .products-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 700px) {
-      .header-top {
-        display: grid;
-        grid-template-columns: 1fr auto;
-        grid-template-areas:
-          "brand brand"
-          "search cart";
-        gap: 10px;
-        padding: 10px 12px 12px;
-      }
-
-      .logo {
-        grid-area: brand;
-        width: 100%;
-      }
-
-      .search-box {
-        grid-area: search;
-        width: 100%;
-        max-width: none;
-        margin: 0;
-      }
-
-      .search-box input {
-        padding: 12px 13px;
-        font-size: 14px;
-      }
-
-      .search-box button {
-        padding: 0 17px;
-        font-size: 13px;
+      .brand {
+        justify-content: center;
       }
 
       .header-actions {
-        grid-area: cart;
+        justify-content: center;
+        flex-wrap: wrap;
       }
 
-      .header-actions .header-link:not(.cart-link),
-      .header-actions .account-email,
-      .header-actions .header-button {
-        display: none !important;
+      .nav-container {
+        justify-content: center;
       }
 
-      .cart-link {
-        background: rgba(255, 255, 255, 0.12);
-        padding: 9px 11px;
-        border-radius: 6px;
-        font-size: 13px;
-      }
-
-      .nav-inner {
-        padding: 0 12px;
-        gap: 22px;
-      }
-
-      .nav-inner a {
-        font-size: 13px;
-        padding: 11px 0 10px;
-      }
-
-      .page {
-        padding: 22px 12px 45px;
-      }
-
-      .page-heading h1 {
-        font-size: 27px;
-      }
-
-      .product-image-wrap {
-        height: 190px;
-      }
-
-      .product-info {
-        padding: 11px;
-      }
-
-      .product-name {
-        font-size: 13px;
-      }
-
-      .price {
-        font-size: 16px;
-      }
-
-      .footer-inner {
-        grid-template-columns: 1fr;
+      .footer-container {
+        grid-template-columns: 1fr 1fr;
       }
     }
 
-    @media (max-width: 430px) {
-      .logo-main {
-        font-size: 16px;
+    @media (max-width: 500px) {
+      .footer-container {
+        grid-template-columns: 1fr;
       }
 
-      .logo-sub {
-        font-size: 8px;
-      }
-
-      .cart-link {
-        font-size: 12px;
-        padding: 8px 9px;
-      }
-
-      .search-box input {
-        font-size: 13px;
-      }
-
-      .search-box button {
-        padding: 0 14px;
-        font-size: 12px;
+      .page-heading h1 {
+        font-size: 26px;
       }
 
       .products-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
+        gap: 12px;
       }
 
-      .product-image-wrap {
-        height: 165px;
+      .product-image {
+        height: 170px;
       }
 
-      .condition-badge {
-        font-size: 9px;
-        padding: 4px 6px;
+      .product-name {
+        font-size: 14px;
       }
 
-      .badge {
-        font-size: 9px;
-        padding: 4px 6px;
-      }
-
-      .price {
-        font-size: 15px;
-      }
-
-      .price-kes {
-        font-size: 11px;
-      }
-
-      .view-product {
-        font-size: 12px;
-        padding: 9px 5px;
+      .product-price {
+        font-size: 17px;
       }
     }
   </style>
@@ -733,60 +433,34 @@
 
 <header>
 
-  <div class="header-top">
+  <div class="top-header">
 
-    <a href="index.html" class="logo">
-
-      <div class="logo-icon">
-        <img
-          src="WhatsApp Image 2026-09-30 at 12.36.30.jpeg"
-          alt="METEUR MOBILE KENYA Logo"
-        >
-      </div>
-
-      <div class="logo-text">
-        <span class="logo-main">
-          METEUR MOBILE KENYA
-        </span>
-
-        <span class="logo-sub">
-          MOBILE • ELECTRONICS • ACCESSORIES
-        </span>
-      </div>
-
-    </a>
-
-    <form class="search-box" id="searchForm">
-
-      <input
-        type="search"
-        id="searchInput"
-        placeholder="Search smartphones..."
+    <a href="index.html" class="brand">
+      <img
+        src="WhatsApp Image 2026-09-30 at 12.36.30.jpeg"
+        alt="METEUR MOBILE KENYA Logo"
       >
 
-      <button type="submit">
-        Search
-      </button>
+      <div class="brand-text">
+        <div class="brand-name">METEUR MOBILE KENYA</div>
+        <div class="brand-subtitle">MOBILE • PHONES • TABLETS</div>
+      </div>
+    </a>
 
-    </form>
+    <div class="search-box">
+      <input
+        type="text"
+        id="topSearch"
+        placeholder="Search smartphones..."
+      >
+      <button onclick="performTopSearch()">Search</button>
+    </div>
 
     <div class="header-actions">
 
-      <a
-        href="login.html"
-        class="header-link"
-        id="loginLink"
-      >
-        Login
-      </a>
+      <a href="login.html" id="loginLink">Login</a>
 
-      <a
-        href="register.html"
-        class="header-link"
-        id="registerLink"
-      >
-        Register
-      </a>
+      <a href="register.html" id="registerLink">Register</a>
 
       <span
         id="accountEmail"
@@ -795,192 +469,119 @@
       ></span>
 
       <button
-        type="button"
         id="logoutButton"
-        class="header-button"
         style="display:none;"
         onclick="logoutUser()"
       >
         Logout
       </button>
 
-      <a
-        href="cart.html"
-        class="header-link cart-link"
-      >
-        🛒 Cart
-
-        <span
-          id="cartCount"
-          class="cart-count"
-        >
-          0
-        </span>
+      <a href="cart.html" class="cart-link">
+        🛒 Cart <span id="cartCount">0</span>
       </a>
 
     </div>
 
   </div>
 
-  <nav class="nav-bar">
+  <nav>
+    <div class="nav-container">
 
-    <div class="nav-inner">
+      <a href="index.html">Home</a>
 
-      <a href="index.html" data-nav="home">
-        Home
+      <a href="shop.html">Shop</a>
+
+      <a href="shop.html?category=Phones%20and%20Tablets">
+        Phones &amp; Tablets
       </a>
 
-      <a href="shop.html" data-nav="shop">
-        Shop
-      </a>
-
-      <a
-        href="shop.html?category=Phones%20and%20Tablets"
-        data-nav="phones"
-      >
-        Phones & Tablets
-      </a>
-
-      <a
-        href="shop.html?condition=New"
-        data-nav="new"
-      >
+      <a href="shop.html?condition=New">
         New Phones
       </a>
 
-      <a
-        href="shop.html?condition=Used"
-        data-nav="used"
-      >
+      <a href="shop.html?condition=Used">
         Used Phones
       </a>
 
-      <a
-        href="shop.html?category=Electronics"
-        data-nav="electronics"
-      >
-        Electronics
-      </a>
-
-      <a
-        href="shop.html?category=Accessories"
-        data-nav="accessories"
-      >
-        Accessories
-      </a>
-
-      <a href="orders.html" data-nav="orders">
+      <a href="orders.html">
         My Orders
       </a>
 
-      <a href="contact.html" data-nav="contact">
+      <a href="contact.html">
         Contact Us
       </a>
 
     </div>
-
   </nav>
 
 </header>
 
-<main class="page">
+
+<main class="container">
 
   <div class="page-heading">
-
-    <h1 id="pageTitle">
-      Shop Phones
-    </h1>
-
+    <h1 id="pageTitle">Phones</h1>
     <p id="pageDescription">
-      Discover new and used smartphones at METEUR MOBILE KENYA.
+      Browse new and quality used smartphones and tablets available at METEUR MOBILE KENYA.
     </p>
-
   </div>
+
 
   <section class="filters">
 
-    <div class="filter-group">
-
-      <label for="searchFilter">
-        Search Phones
-      </label>
+    <div class="filter-row">
 
       <input
-        type="search"
+        type="text"
         id="searchFilter"
         placeholder="Search phones..."
       >
 
+      <select id="sortFilter">
+        <option value="newest">Newest</option>
+        <option value="price-low">Price: Low to High</option>
+        <option value="price-high">Price: High to Low</option>
+        <option value="rating">Highest Rated</option>
+        <option value="name">Name: A-Z</option>
+      </select>
+
     </div>
 
-    <div class="filter-group">
 
-      <label for="sortFilter">
-        Sort By
-      </label>
+    <div class="tabs">
 
-      <select id="sortFilter">
+      <button
+        class="tab active"
+        data-condition="all"
+        onclick="changeCondition('all', this)"
+      >
+        All Phones
+      </button>
 
-        <option value="newest">
-          Newest
-        </option>
+      <button
+        class="tab"
+        data-condition="New"
+        onclick="changeCondition('New', this)"
+      >
+        New Phones
+      </button>
 
-        <option value="price-low">
-          Price: Low to High
-        </option>
-
-        <option value="price-high">
-          Price: High to Low
-        </option>
-
-        <option value="rating">
-          Highest Rated
-        </option>
-
-        <option value="name">
-          Name: A-Z
-        </option>
-
-      </select>
+      <button
+        class="tab"
+        data-condition="Used"
+        onclick="changeCondition('Used', this)"
+      >
+        Used Phones
+      </button>
 
     </div>
 
   </section>
 
-  <div class="category-tabs">
 
-    <button
-      type="button"
-      class="category-tab"
-      data-condition=""
-    >
-      All Phones
-    </button>
+  <div id="productsGrid" class="products-grid">
 
-    <button
-      type="button"
-      class="category-tab"
-      data-condition="New"
-    >
-      New Phones
-    </button>
-
-    <button
-      type="button"
-      class="category-tab"
-      data-condition="Used"
-    >
-      Used Phones
-    </button>
-
-  </div>
-
-  <div
-    id="productsGrid"
-    class="products-grid"
-  >
-
-    <div class="loading">
+    <div class="status-message">
       Loading phones...
     </div>
 
@@ -988,28 +589,24 @@
 
 </main>
 
+
 <footer>
 
-  <div class="footer-inner">
+  <div class="footer-container">
 
-    <div class="footer-brand">
-
-      <h2>
-        METEUR MOBILE KENYA
-      </h2>
+    <div>
+      <h3>METEUR MOBILE KENYA</h3>
 
       <p>
         Your online destination for mobile phones,
-        electronics, accessories and smart devices in Kenya.
+        tablets and smart devices in Kenya.
       </p>
-
     </div>
 
-    <div class="footer-column">
 
-      <h3>
-        Shop
-      </h3>
+    <div>
+
+      <h4>Shop</h4>
 
       <a href="shop.html">
         All Phones
@@ -1023,65 +620,35 @@
         Used Phones
       </a>
 
-      <a href="shop.html?category=Electronics">
-        Electronics
-      </a>
-
-      <a href="shop.html?category=Accessories">
-        Accessories
+      <a href="shop.html?category=Phones%20and%20Tablets">
+        Phones &amp; Tablets
       </a>
 
     </div>
 
-    <div class="footer-column">
 
-      <h3>
-        Account
-      </h3>
+    <div>
 
-      <div id="footerLoggedOut">
+      <h4>Account</h4>
 
-        <a href="login.html">
-          Login
-        </a>
+      <a href="profile.html">
+        My Profile
+      </a>
 
-        <a href="register.html">
-          Register
-        </a>
+      <a href="orders.html">
+        My Orders
+      </a>
 
-      </div>
-
-      <div
-        id="footerLoggedIn"
-        style="display:none;"
-      >
-
-        <a href="profile.html">
-          My Profile
-        </a>
-
-        <a href="orders.html">
-          My Orders
-        </a>
-
-        <button
-          type="button"
-          id="footerLogoutButton"
-          class="footer-logout"
-          onclick="logoutUser()"
-        >
-          Logout
-        </button>
-
-      </div>
+      <a href="cart.html">
+        My Cart
+      </a>
 
     </div>
 
-    <div class="footer-column">
 
-      <h3>
-        Help
-      </h3>
+    <div>
+
+      <h4>Help</h4>
 
       <a href="contact.html">
         Contact Us
@@ -1099,17 +666,17 @@
 
   </div>
 
+
   <div class="footer-bottom">
     © 2026 METEUR MOBILE KENYA. All rights reserved.
   </div>
 
 </footer>
 
-<script>
 
-  /* ==========================================
-     SUPABASE CONNECTION
-  ========================================== */
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
 
   const SUPABASE_URL =
     "https://nytsdeupaootukcullgi.supabase.co";
@@ -1117,7 +684,18 @@
   const SUPABASE_ANON_KEY =
     "sb_publishable_cIqzHoafy_AEdB48KS_Wpg_LDqE1sFC";
 
-  let db;
+  let db = null;
+
+  let allProducts = [];
+
+  let currentCondition = "all";
+
+  let exchangeRate = 129.7;
+
+
+  /* -------------------------------
+     CREATE SUPABASE CLIENT
+  -------------------------------- */
 
   try {
 
@@ -1126,45 +704,189 @@
       typeof window.supabase.createClient === "function"
     ) {
 
-      db =
-        window.supabase.createClient(
-          SUPABASE_URL,
-          SUPABASE_ANON_KEY
-        );
+      db = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+      );
 
     } else {
 
-      throw new Error(
-        "Supabase library did not load."
-      );
+      throw new Error("Supabase library did not load.");
 
     }
 
   } catch (error) {
 
-    console.error(
-      "Supabase initialization error:",
-      error
-    );
+    console.error("Supabase error:", error);
 
   }
 
-  let allProducts = [];
 
-  let currentCondition = "";
+  /* -------------------------------
+     CART COUNT
+  -------------------------------- */
 
-  let currentSearch = "";
+  function updateCartCount() {
 
-  let currentCategory = "";
+    try {
 
-  let currentSort = "newest";
+      const cart =
+        JSON.parse(
+          localStorage.getItem("meteur_cart") || "[]"
+        );
 
-  let usdToKesRate = 129.7;
+      let count = 0;
+
+      cart.forEach(item => {
+
+        count += Number(item.quantity || 1);
+
+      });
+
+      const cartCount =
+        document.getElementById("cartCount");
+
+      if (cartCount) {
+
+        cartCount.textContent = count;
+
+      }
+
+    } catch (error) {
+
+      console.error("Cart error:", error);
+
+    }
+
+  }
 
 
-  /* ==========================================
-     CURRENCY
-  ========================================== */
+  /* -------------------------------
+     ACCOUNT UI
+  -------------------------------- */
+
+  async function updateAccountUI() {
+
+    const loginLink =
+      document.getElementById("loginLink");
+
+    const registerLink =
+      document.getElementById("registerLink");
+
+    const accountEmail =
+      document.getElementById("accountEmail");
+
+    const logoutButton =
+      document.getElementById("logoutButton");
+
+
+    if (!db) {
+
+      return;
+
+    }
+
+
+    try {
+
+      const {
+        data: {
+          user
+        }
+      } = await db.auth.getUser();
+
+
+      if (user) {
+
+        if (loginLink) {
+          loginLink.style.display = "none";
+        }
+
+        if (registerLink) {
+          registerLink.style.display = "none";
+        }
+
+        if (accountEmail) {
+
+          accountEmail.textContent =
+            "👤 " + (user.email || "Account");
+
+          accountEmail.style.display =
+            "inline-block";
+
+        }
+
+        if (logoutButton) {
+
+          logoutButton.style.display =
+            "inline-block";
+
+        }
+
+      } else {
+
+        if (loginLink) {
+          loginLink.style.display = "inline-block";
+        }
+
+        if (registerLink) {
+          registerLink.style.display = "inline-block";
+        }
+
+        if (accountEmail) {
+          accountEmail.style.display = "none";
+        }
+
+        if (logoutButton) {
+          logoutButton.style.display = "none";
+        }
+
+      }
+
+    } catch (error) {
+
+      console.error(
+        "Account check failed:",
+        error
+      );
+
+    }
+
+  }
+
+
+  /* -------------------------------
+     LOGOUT
+  -------------------------------- */
+
+  async function logoutUser() {
+
+    if (!db) {
+      return;
+    }
+
+    try {
+
+      await db.auth.signOut();
+
+      window.location.href =
+        "index.html";
+
+    } catch (error) {
+
+      console.error(
+        "Logout failed:",
+        error
+      );
+
+    }
+
+  }
+
+
+  /* -------------------------------
+     EXCHANGE RATE
+  -------------------------------- */
 
   async function loadExchangeRate() {
 
@@ -1175,34 +897,25 @@
           "https://open.er-api.com/v6/latest/USD"
         );
 
-      if (!response.ok) {
-        throw new Error(
-          "Exchange rate request failed."
-        );
-      }
-
       const data =
         await response.json();
 
-      const rate =
-        Number(
-          data?.rates?.KES
-        );
-
       if (
-        Number.isFinite(rate) &&
-        rate > 0
+        data &&
+        data.rates &&
+        data.rates.KES
       ) {
 
-        usdToKesRate = rate;
+        exchangeRate =
+          Number(data.rates.KES);
 
       }
 
     } catch (error) {
 
       console.warn(
-        "Using fallback USD/KES rate:",
-        usdToKesRate
+        "Using fallback exchange rate:",
+        exchangeRate
       );
 
     }
@@ -1210,55 +923,764 @@
   }
 
 
-  function formatUSD(value) {
+  /* -------------------------------
+     URL STATE
+  -------------------------------- */
 
-    const amount =
-      Number(value || 0);
+  function readUrlState() {
 
-    return "$" +
-      amount.toLocaleString(
-        "en-US",
-        {
-          minimumFractionDigits: 0,
-          maximumFractionDigits: 2
+    const params =
+      new URLSearchParams(
+        window.location.search
+      );
+
+    const condition =
+      params.get("condition");
+
+    if (condition === "New") {
+
+      currentCondition = "New";
+
+    }
+
+    if (condition === "Used") {
+
+      currentCondition = "Used";
+
+    }
+
+
+    const category =
+      params.get("category");
+
+    const title =
+      document.getElementById("pageTitle");
+
+    const description =
+      document.getElementById("pageDescription");
+
+
+    if (
+      category &&
+      category.toLowerCase().includes("tablet")
+    ) {
+
+      title.textContent =
+        "Phones & Tablets";
+
+      description.textContent =
+        "Browse smartphones and tablets available at METEUR MOBILE KENYA.";
+
+    } else {
+
+      title.textContent =
+        "Phones";
+
+      description.textContent =
+        "Browse new and quality used smartphones and tablets available at METEUR MOBILE KENYA.";
+
+    }
+
+  }
+
+
+  /* -------------------------------
+     PHONE DETECTION
+  -------------------------------- */
+
+  function isPhoneProduct(product) {
+
+    const category =
+      String(
+        product.category || ""
+      ).toLowerCase();
+
+    const name =
+      String(
+        product.name ||
+        product.title ||
+        ""
+      ).toLowerCase();
+
+
+    const phoneWords = [
+
+      "phone",
+      "phones",
+      "smartphone",
+      "smartphones",
+      "mobile",
+      "mobiles",
+      "tablet",
+      "tablets",
+      "iphone",
+      "ipad",
+      "samsung",
+      "galaxy",
+      "tecno",
+      "infinix",
+      "xiaomi",
+      "redmi",
+      "oppo",
+      "vivo",
+      "pixel",
+      "nokia",
+      "oneplus",
+      "realme"
+
+    ];
+
+
+    return phoneWords.some(word =>
+
+      category.includes(word) ||
+      name.includes(word)
+
+    );
+
+  }
+
+
+  /* -------------------------------
+     LOAD PRODUCTS
+  -------------------------------- */
+
+  async function loadProducts() {
+
+    const grid =
+      document.getElementById(
+        "productsGrid"
+      );
+
+
+    if (!db) {
+
+      grid.innerHTML = `
+        <div class="status-message error-message">
+          Unable to connect to the shop database.
+          <br>
+          Please refresh the page and try again.
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    grid.innerHTML = `
+      <div class="status-message">
+        Loading phones...
+      </div>
+    `;
+
+
+    try {
+
+      const {
+        data,
+        error
+      } = await db
+        .from("products")
+        .select("*")
+        .order(
+          "created_at",
+          {
+            ascending: false
+          }
+        );
+
+
+      if (error) {
+
+        console.error(
+          "Products error:",
+          error
+        );
+
+        grid.innerHTML = `
+          <div class="status-message error-message">
+            <strong>Unable to load products.</strong>
+            <br><br>
+            ${escapeHtml(error.message || "Database error")}
+            <br>
+            <button
+              class="retry-button"
+              onclick="loadProducts()"
+            >
+              Try Again
+            </button>
+          </div>
+        `;
+
+        return;
+
+      }
+
+
+      allProducts =
+        Array.isArray(data)
+          ? data.filter(isPhoneProduct)
+          : [];
+
+
+      renderProducts();
+
+    } catch (error) {
+
+      console.error(
+        "Unexpected product error:",
+        error
+      );
+
+      grid.innerHTML = `
+        <div class="status-message error-message">
+          <strong>Unable to load products.</strong>
+          <br><br>
+          ${escapeHtml(error.message || "Unexpected error")}
+          <br>
+          <button
+            class="retry-button"
+            onclick="loadProducts()"
+          >
+            Try Again
+          </button>
+        </div>
+      `;
+
+    }
+
+  }
+
+
+  /* -------------------------------
+     CATEGORY FILTER
+  -------------------------------- */
+
+  function matchesCategory(product) {
+
+    const params =
+      new URLSearchParams(
+        window.location.search
+      );
+
+    const category =
+      params.get("category");
+
+
+    if (!category) {
+
+      return true;
+
+    }
+
+
+    const requested =
+      category.toLowerCase();
+
+    const productCategory =
+      String(
+        product.category || ""
+      ).toLowerCase();
+
+    const productName =
+      String(
+        product.name ||
+        product.title ||
+        ""
+      ).toLowerCase();
+
+
+    if (
+      requested.includes("phone") ||
+      requested.includes("tablet")
+    ) {
+
+      return isPhoneProduct(product);
+
+    }
+
+
+    return (
+      productCategory.includes(requested) ||
+      productName.includes(requested)
+    );
+
+  }
+
+
+  /* -------------------------------
+     FILTER PRODUCTS
+  -------------------------------- */
+
+  function getFilteredProducts() {
+
+    const searchInput =
+      document.getElementById(
+        "searchFilter"
+      );
+
+    const sortSelect =
+      document.getElementById(
+        "sortFilter"
+      );
+
+
+    const search =
+      String(
+        searchInput.value || ""
+      )
+      .trim()
+      .toLowerCase();
+
+
+    let products =
+      allProducts.filter(
+        matchesCategory
+      );
+
+
+    if (currentCondition !== "all") {
+
+      products =
+        products.filter(product => {
+
+          const condition =
+            String(
+              product.condition || ""
+            ).toLowerCase();
+
+          return (
+            condition ===
+            currentCondition.toLowerCase()
+          );
+
+        });
+
+    }
+
+
+    if (search) {
+
+      products =
+        products.filter(product => {
+
+          const name =
+            String(
+              product.name ||
+              product.title ||
+              ""
+            ).toLowerCase();
+
+          const description =
+            String(
+              product.description ||
+              ""
+            ).toLowerCase();
+
+          const category =
+            String(
+              product.category ||
+              ""
+            ).toLowerCase();
+
+
+          return (
+            name.includes(search) ||
+            description.includes(search) ||
+            category.includes(search)
+          );
+
+        });
+
+    }
+
+
+    const sort =
+      sortSelect.value;
+
+
+    if (sort === "price-low") {
+
+      products.sort(
+        (a, b) =>
+          Number(a.price || 0) -
+          Number(b.price || 0)
+      );
+
+    }
+
+
+    if (sort === "price-high") {
+
+      products.sort(
+        (a, b) =>
+          Number(b.price || 0) -
+          Number(a.price || 0)
+      );
+
+    }
+
+
+    if (sort === "rating") {
+
+      products.sort(
+        (a, b) =>
+          Number(b.rating || 0) -
+          Number(a.rating || 0)
+      );
+
+    }
+
+
+    if (sort === "name") {
+
+      products.sort(
+        (a, b) => {
+
+          const nameA =
+            String(
+              a.name ||
+              a.title ||
+              ""
+            );
+
+          const nameB =
+            String(
+              b.name ||
+              b.title ||
+              ""
+            );
+
+          return nameA.localeCompare(
+            nameB
+          );
+
         }
       );
 
+    }
+
+
+    return products;
+
   }
 
 
-  function formatKES(value) {
+  /* -------------------------------
+     RENDER PRODUCTS
+  -------------------------------- */
 
-    return "KSh " +
-      Math.round(
-        Number(value || 0)
-      ).toLocaleString(
-        "en-KE"
+  function renderProducts() {
+
+    const grid =
+      document.getElementById(
+        "productsGrid"
       );
 
+
+    const products =
+      getFilteredProducts();
+
+
+    if (!products.length) {
+
+      grid.innerHTML = `
+        <div class="status-message">
+          No phones found.
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    grid.innerHTML =
+      products.map(
+        createProductCard
+      ).join("");
+
   }
 
 
-  function formatKESApprox(
-    usdAmount
+  /* -------------------------------
+     PRODUCT CARD
+  -------------------------------- */
+
+  function createProductCard(product) {
+
+    const id =
+      product.id;
+
+    const name =
+      product.name ||
+      product.title ||
+      "Phone";
+
+
+    const description =
+      product.description ||
+      "Quality mobile device available from METEUR MOBILE KENYA.";
+
+
+    const price =
+      Number(
+        product.price || 0
+      );
+
+
+    const kes =
+      Math.round(
+        price * exchangeRate
+      );
+
+
+    const condition =
+      product.condition ||
+      "New";
+
+
+    const rating =
+      Number(
+        product.rating || 0
+      );
+
+
+    const image =
+      product.image_url ||
+      product.image ||
+      product.photo_url ||
+      "";
+
+
+    const safeName =
+      escapeHtml(name);
+
+
+    const safeDescription =
+      escapeHtml(description);
+
+
+    const safeCondition =
+      escapeHtml(condition);
+
+
+    let imageHtml;
+
+
+    if (image) {
+
+      const safeImage =
+        escapeAttribute(image);
+
+      const proxyImage =
+        "https://images.weserv.nl/?url=" +
+        encodeURIComponent(image);
+
+
+      imageHtml = `
+        <img
+          class="product-image"
+          src="${safeImage}"
+          alt="${safeName}"
+          loading="lazy"
+          onerror="this.onerror=null;this.src='${proxyImage}'"
+        >
+      `;
+
+    } else {
+
+      imageHtml = `
+        <div
+          class="product-image"
+          style="
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:50px;
+          "
+        >
+          📱
+        </div>
+      `;
+
+    }
+
+
+    return `
+
+      <article class="product-card">
+
+        ${imageHtml}
+
+        <div class="product-info">
+
+          <div class="product-name">
+            ${safeName}
+          </div>
+
+          <div class="product-description">
+            ${safeDescription}
+          </div>
+
+          <div class="product-price">
+            $${price.toFixed(2)}
+          </div>
+
+          <div class="kes-price">
+            Approx. KSh ${kes.toLocaleString()}
+          </div>
+
+          <span class="condition">
+            ${safeCondition}
+          </span>
+
+          ${
+            rating > 0
+              ? `
+                <div style="margin-top:8px;font-size:13px;">
+                  ⭐ ${rating.toFixed(1)}
+                </div>
+              `
+              : ""
+          }
+
+          <a
+            href="product.html?id=${encodeURIComponent(id)}"
+            class="view-button"
+          >
+            View Product
+          </a>
+
+        </div>
+
+      </article>
+
+    `;
+
+  }
+
+
+  /* -------------------------------
+     CONDITION TAB
+  -------------------------------- */
+
+  function changeCondition(
+    condition,
+    button
   ) {
 
-    return "≈ " +
-      formatKES(
-        Number(usdAmount || 0) *
-        usdToKesRate
-      );
+    currentCondition =
+      condition;
+
+
+    document
+      .querySelectorAll(".tab")
+      .forEach(tab => {
+
+        tab.classList.remove(
+          "active"
+        );
+
+      });
+
+
+    button.classList.add(
+      "active"
+    );
+
+
+    renderProducts();
 
   }
 
 
-  /* ==========================================
-     HTML SAFETY
-  ========================================== */
+  /* -------------------------------
+     TOP SEARCH
+  -------------------------------- */
+
+  function performTopSearch() {
+
+    const value =
+      document
+        .getElementById("topSearch")
+        .value
+        .trim();
+
+
+    document
+      .getElementById("searchFilter")
+      .value = value;
+
+
+    renderProducts();
+
+  }
+
+
+  /* -------------------------------
+     SEARCH EVENTS
+  -------------------------------- */
+
+  document
+    .getElementById("searchFilter")
+    .addEventListener(
+      "input",
+      renderProducts
+    );
+
+
+  document
+    .getElementById("sortFilter")
+    .addEventListener(
+      "change",
+      renderProducts
+    );
+
+
+  document
+    .getElementById("topSearch")
+    .addEventListener(
+      "keypress",
+      function(event) {
+
+        if (
+          event.key === "Enter"
+        ) {
+
+          performTopSearch();
+
+        }
+
+      }
+    );
+
+
+  /* -------------------------------
+     SUPABASE AUTH LISTENER
+  -------------------------------- */
+
+  if (db) {
+
+    db.auth.onAuthStateChange(
+      function() {
+
+        updateAccountUI();
+
+      }
+    );
+
+  }
+
+
+  /* -------------------------------
+     ESCAPE HTML
+  -------------------------------- */
 
   function escapeHtml(value) {
 
-    return String(value ?? "")
+    return String(value)
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
@@ -1268,1467 +1690,39 @@
   }
 
 
-  /* ==========================================
-     ACCOUNT
-  ========================================== */
+  function escapeAttribute(value) {
 
-  async function updateAccountUI() {
-
-    const loginLink =
-      document.getElementById(
-        "loginLink"
-      );
-
-    const registerLink =
-      document.getElementById(
-        "registerLink"
-      );
-
-    const accountEmail =
-      document.getElementById(
-        "accountEmail"
-      );
-
-    const logoutButton =
-      document.getElementById(
-        "logoutButton"
-      );
-
-    const footerLoggedOut =
-      document.getElementById(
-        "footerLoggedOut"
-      );
-
-    const footerLoggedIn =
-      document.getElementById(
-        "footerLoggedIn"
-      );
-
-    if (!db) {
-      return;
-    }
-
-    try {
-
-      const {
-        data,
-        error
-      } =
-        await db.auth.getUser();
-
-      if (
-        error ||
-        !data ||
-        !data.user
-      ) {
-
-        if (loginLink) {
-          loginLink.style.display =
-            "inline-block";
-        }
-
-        if (registerLink) {
-          registerLink.style.display =
-            "inline-block";
-        }
-
-        if (accountEmail) {
-          accountEmail.style.display =
-            "none";
-        }
-
-        if (logoutButton) {
-          logoutButton.style.display =
-            "none";
-        }
-
-        if (footerLoggedOut) {
-          footerLoggedOut.style.display =
-            "block";
-        }
-
-        if (footerLoggedIn) {
-          footerLoggedIn.style.display =
-            "none";
-        }
-
-        return;
-
-      }
-
-      if (loginLink) {
-        loginLink.style.display =
-          "none";
-      }
-
-      if (registerLink) {
-        registerLink.style.display =
-          "none";
-      }
-
-      if (accountEmail) {
-
-        accountEmail.textContent =
-          "👤 " +
-          (
-            data.user.email ||
-            "Account"
-          );
-
-        accountEmail.style.display =
-          "inline-block";
-
-      }
-
-      if (logoutButton) {
-        logoutButton.style.display =
-          "inline-block";
-      }
-
-      if (footerLoggedOut) {
-        footerLoggedOut.style.display =
-          "none";
-      }
-
-      if (footerLoggedIn) {
-        footerLoggedIn.style.display =
-          "block";
-      }
-
-    } catch (error) {
-
-      console.error(
-        "Account UI error:",
-        error
-      );
-
-    }
+    return String(value)
+      .replace(/"/g, "&quot;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
 
   }
 
 
-  /* ==========================================
-     LOGOUT
-  ========================================== */
+  /* -------------------------------
+     START PAGE
+  -------------------------------- */
 
-  async function logoutUser() {
+  async function startPage() {
 
-    if (!db) {
-      return;
-    }
+    readUrlState();
 
-    try {
+    updateCartCount();
 
-      const {
-        error
-      } =
-        await db.auth.signOut();
+    await updateAccountUI();
 
-      if (error) {
-        throw error;
-      }
+    await loadExchangeRate();
 
-      window.location.href =
-        "index.html";
-
-    } catch (error) {
-
-      console.error(
-        "Logout error:",
-        error
-      );
-
-      alert(
-        "We could not log you out. Please try again."
-      );
-
-    }
+    await loadProducts();
 
   }
 
 
-  /* ==========================================
-     CART
-  ========================================== */
-
-  function updateCartCount() {
-
-    const countElement =
-      document.getElementById(
-        "cartCount"
-      );
-
-    if (!countElement) {
-      return;
-    }
-
-    let cart = [];
-
-    try {
-
-      cart =
-        JSON.parse(
-          localStorage.getItem(
-            "meteur_cart"
-          ) || "[]"
-        );
-
-    } catch (error) {
-
-      cart = [];
-
-    }
-
-    if (!Array.isArray(cart)) {
-      cart = [];
-    }
-
-    const total =
-      cart.reduce(
-        (sum, item) => {
-
-          return sum +
-            (
-              Number(
-                item.quantity
-              ) || 1
-            );
-
-        },
-        0
-      );
-
-    if (total > 0) {
-
-      countElement.textContent =
-        total;
-
-      countElement.style.display =
-        "flex";
-
-    } else {
-
-      countElement.style.display =
-        "none";
-
-    }
-
-  }
-
-
-  /* ==========================================
-     URL STATE
-  ========================================== */
-
-  function readUrlState() {
-
-    const params =
-      new URLSearchParams(
-        window.location.search
-      );
-
-    currentCondition =
-      params.get(
-        "condition"
-      ) || "";
-
-    currentSearch =
-      params.get(
-        "search"
-      ) || "";
-
-    currentCategory =
-      params.get(
-        "category"
-      ) || "";
-
-    const searchFilter =
-      document.getElementById(
-        "searchFilter"
-      );
-
-    const searchInput =
-      document.getElementById(
-        "searchInput"
-      );
-
-    if (searchFilter) {
-      searchFilter.value =
-        currentSearch;
-    }
-
-    if (searchInput) {
-      searchInput.value =
-        currentSearch;
-    }
-
-    updateConditionTabs();
-
-    updatePageHeading();
-
-    setActiveNavigation();
-
-  }
-
-
-  /* ==========================================
-     PAGE HEADING
-  ========================================== */
-
-  function updatePageHeading() {
-
-    const title =
-      document.getElementById(
-        "pageTitle"
-      );
-
-    const description =
-      document.getElementById(
-        "pageDescription"
-      );
-
-    const category =
-      currentCategory
-        .toLowerCase()
-        .trim();
-
-    if (
-      currentCondition.toLowerCase() ===
-      "new"
-    ) {
-
-      title.textContent =
-        "New Phones";
-
-      description.textContent =
-        "Browse new smartphones available at METEUR MOBILE KENYA.";
-
-      return;
-
-    }
-
-    if (
-      currentCondition.toLowerCase() ===
-      "used"
-    ) {
-
-      title.textContent =
-        "Used Phones";
-
-      description.textContent =
-        "Browse used smartphones available at METEUR MOBILE KENYA.";
-
-      return;
-
-    }
-
-    if (
-      category.includes("phone") ||
-      category.includes("tablet")
-    ) {
-
-      title.textContent =
-        "Phones & Tablets";
-
-      description.textContent =
-        "Browse phones and tablets available at METEUR MOBILE KENYA.";
-
-      return;
-
-    }
-
-    if (
-      category === "electronics"
-    ) {
-
-      title.textContent =
-        "Electronics";
-
-      description.textContent =
-        "Browse electronics available at METEUR MOBILE KENYA.";
-
-      return;
-
-    }
-
-    if (
-      category === "accessories"
-    ) {
-
-      title.textContent =
-        "Accessories";
-
-      description.textContent =
-        "Browse accessories available at METEUR MOBILE KENYA.";
-
-      return;
-
-    }
-
-    if (currentSearch) {
-
-      title.textContent =
-        `Search results for "${currentSearch}"`;
-
-      description.textContent =
-        "Products matching your search.";
-
-      return;
-
-    }
-
-    title.textContent =
-      "Shop Phones";
-
-    description.textContent =
-      "Discover new and used smartphones at METEUR MOBILE KENYA.";
-
-  }
-
-
-  /* ==========================================
-     ACTIVE NAVIGATION
-  ========================================== */
-
-  function setActiveNavigation() {
-
-    document
-      .querySelectorAll(
-        "[data-nav]"
-      )
-      .forEach(
-        link => {
-
-          link.classList.remove(
-            "active"
-          );
-
-        }
-      );
-
-    const category =
-      currentCategory
-        .toLowerCase()
-        .trim();
-
-    let activeNav =
-      "shop";
-
-    if (
-      currentCondition.toLowerCase() ===
-      "new"
-    ) {
-      activeNav = "new";
-    }
-
-    if (
-      currentCondition.toLowerCase() ===
-      "used"
-    ) {
-      activeNav = "used";
-    }
-
-    if (
-      category.includes("phone") ||
-      category.includes("tablet")
-    ) {
-      activeNav = "phones";
-    }
-
-    if (
-      category === "electronics"
-    ) {
-      activeNav = "electronics";
-    }
-
-    if (
-      category === "accessories"
-    ) {
-      activeNav = "accessories";
-    }
-
-    const activeLink =
-      document.querySelector(
-        `[data-nav="${activeNav}"]`
-      );
-
-    if (activeLink) {
-      activeLink.classList.add(
-        "active"
-      );
-    }
-
-  }
-
-
-  /* ==========================================
-     CONDITION TABS
-  ========================================== */
-
-  function updateConditionTabs() {
-
-    document
-      .querySelectorAll(
-        ".category-tab"
-      )
-      .forEach(
-        tab => {
-
-          const tabCondition =
-            tab.dataset.condition ||
-            "";
-
-          tab.classList.remove(
-            "active"
-          );
-
-          if (
-            tabCondition.toLowerCase() ===
-            currentCondition.toLowerCase()
-          ) {
-
-            tab.classList.add(
-              "active"
-            );
-
-          }
-
-        }
-      );
-
-  }
-
-
-  /* ==========================================
-     LOAD PRODUCTS
-  ========================================== */
-
-  async function loadProducts() {
-
-    const grid =
-      document.getElementById(
-        "productsGrid"
-      );
-
-    if (!grid) {
-      return;
-    }
-
-    grid.innerHTML = `
-      <div class="loading">
-        Loading phones...
-      </div>
-    `;
-
-    if (!db) {
-
-      grid.innerHTML = `
-        <div class="error-message">
-          <div class="error-title">
-            Supabase connection failed
-          </div>
-
-          <div>
-            The shop could not connect to the product database.
-          </div>
-
-          <button
-            class="retry-button"
-            onclick="loadProducts()"
-          >
-            Try Again
-          </button>
-        </div>
-      `;
-
-      return;
-
-    }
-
-    try {
-
-      /*
-        IMPORTANT:
-        We load all products first instead of requiring
-        category = "Phones".
-
-        This prevents the shop from becoming empty
-        when the database uses "Phones and Tablets",
-        "Phones & Tablets", or another category name.
-      */
-
-      const {
-        data,
-        error
-      } =
-        await db
-          .from("products")
-          .select("*")
-          .order(
-            "created_at",
-            {
-              ascending: false
-            }
-          );
-
-      if (error) {
-
-        console.error(
-          "Supabase products error:",
-          error
-        );
-
-        grid.innerHTML = `
-          <div class="error-message">
-
-            <div class="error-title">
-              Unable to load products
-            </div>
-
-            <div>
-              ${escapeHtml(
-                error.message ||
-                "Supabase returned an error."
-              )}
-            </div>
-
-            <button
-              class="retry-button"
-              onclick="loadProducts()"
-            >
-              Try Again
-            </button>
-
-          </div>
-        `;
-
-        return;
-
-      }
-
-      allProducts =
-        Array.isArray(data)
-          ? data
-          : [];
-
-      console.log(
-        "METEUR products loaded:",
-        allProducts
-      );
-
-      renderProducts();
-
-    } catch (error) {
-
-      console.error(
-        "Products loading error:",
-        error
-      );
-
-      grid.innerHTML = `
-        <div class="error-message">
-
-          <div class="error-title">
-            Unable to load products
-          </div>
-
-          <div>
-            ${escapeHtml(
-              error.message ||
-              "An unexpected error occurred."
-            )}
-          </div>
-
-          <button
-            class="retry-button"
-            onclick="loadProducts()"
-          >
-            Try Again
-          </button>
-
-        </div>
-      `;
-
-    }
-
-  }
-
-
-  /* ==========================================
-     PRODUCT FILTERING
-  ========================================== */
-
-  function isPhoneProduct(product) {
-
-    const category =
-      String(
-        product.category ||
-        ""
-      )
-      .toLowerCase()
-      .trim();
-
-    const name =
-      String(
-        product.name ||
-        ""
-      )
-      .toLowerCase();
-
-    const description =
-      String(
-        product.description ||
-        ""
-      )
-      .toLowerCase();
-
-    /*
-      Recognize several possible phone category names.
-    */
-
-    if (
-      category.includes("phone") ||
-      category.includes("tablet") ||
-      category.includes("mobile")
-    ) {
-      return true;
-    }
-
-    /*
-      Also recognize common phone names if the category
-      was entered differently.
-    */
-
-    const phoneWords = [
-      "iphone",
-      "samsung",
-      "galaxy",
-      "tecno",
-      "infinix",
-      "xiaomi",
-      "redmi",
-      "oppo",
-      "vivo",
-      "google pixel",
-      "pixel",
-      "nokia",
-      "oneplus",
-      "realme",
-      "phone",
-      "smartphone",
-      "tablet",
-      "ipad"
-    ];
-
-    return phoneWords.some(
-      word =>
-        name.includes(word) ||
-        description.includes(word)
-    );
-
-  }
-
-
-  function matchesCategory(
-    product
-  ) {
-
-    if (!currentCategory) {
-
-      return isPhoneProduct(
-        product
-      );
-
-    }
-
-    const requested =
-      currentCategory
-        .toLowerCase()
-        .trim();
-
-    const productCategory =
-      String(
-        product.category ||
-        ""
-      )
-      .toLowerCase()
-      .trim();
-
-    if (
-      requested.includes("phone") ||
-      requested.includes("tablet")
-    ) {
-
-      return isPhoneProduct(
-        product
-      );
-
-    }
-
-    if (
-      requested ===
-      "electronics"
-    ) {
-
-      return (
-        productCategory ===
-        "electronics"
-      );
-
-    }
-
-    if (
-      requested ===
-      "accessories"
-    ) {
-
-      return (
-        productCategory ===
-        "accessories"
-      );
-
-    }
-
-    return (
-      productCategory ===
-      requested
-    );
-
-  }
-
-
-  function getFilteredProducts() {
-
-    let products =
-      allProducts.filter(
-        product =>
-          matchesCategory(
-            product
-          )
-      );
-
-    if (currentCondition) {
-
-      products =
-        products.filter(
-          product => {
-
-            const condition =
-              String(
-                product.condition ||
-                "New"
-              )
-              .trim()
-              .toLowerCase();
-
-            return (
-              condition ===
-              currentCondition
-                .trim()
-                .toLowerCase()
-            );
-
-          }
-        );
-
-    }
-
-    if (currentSearch) {
-
-      const search =
-        currentSearch
-          .toLowerCase()
-          .trim();
-
-      products =
-        products.filter(
-          product => {
-
-            const name =
-              String(
-                product.name ||
-                ""
-              ).toLowerCase();
-
-            const category =
-              String(
-                product.category ||
-                ""
-              ).toLowerCase();
-
-            const description =
-              String(
-                product.description ||
-                ""
-              ).toLowerCase();
-
-            return (
-              name.includes(search) ||
-              category.includes(search) ||
-              description.includes(search)
-            );
-
-          }
-        );
-
-    }
-
-    if (
-      currentSort ===
-      "price-low"
-    ) {
-
-      products.sort(
-        (a, b) =>
-          Number(
-            a.price || 0
-          ) -
-          Number(
-            b.price || 0
-          )
-      );
-
-    }
-
-    if (
-      currentSort ===
-      "price-high"
-    ) {
-
-      products.sort(
-        (a, b) =>
-          Number(
-            b.price || 0
-          ) -
-          Number(
-            a.price || 0
-          )
-      );
-
-    }
-
-    if (
-      currentSort ===
-      "rating"
-    ) {
-
-      products.sort(
-        (a, b) =>
-          Number(
-            b.rating || 0
-          ) -
-          Number(
-            a.rating || 0
-          )
-      );
-
-    }
-
-    if (
-      currentSort ===
-      "name"
-    ) {
-
-      products.sort(
-        (a, b) =>
-          String(
-            a.name || ""
-          ).localeCompare(
-            String(
-              b.name || ""
-            )
-          )
-      );
-
-    }
-
-    return products;
-
-  }
-
-
-  /* ==========================================
-     PRODUCT IMAGE
-  ========================================== */
-
-  function getImageProxyUrl(
-    imageUrl
-  ) {
-
-    if (!imageUrl) {
-      return "";
-    }
-
-    return (
-      "https://images.weserv.nl/?url=" +
-      encodeURIComponent(
-        imageUrl
-      )
-    );
-
-  }
-
-
-  function createImageHtml(
-    product
-  ) {
-
-    const originalImage =
-      String(
-        product.image_url ||
-        ""
-      ).trim();
-
-    if (!originalImage) {
-
-      return `
-        <div
-          style="
-            color:#9ca3af;
-            font-size:12px;
-            padding:20px;
-            text-align:center;
-          "
-        >
-          Image unavailable
-        </div>
-      `;
-
-    }
-
-    const proxyImage =
-      getImageProxyUrl(
-        originalImage
-      );
-
-    return `
-      <img
-        src="${escapeHtml(
-          originalImage
-        )}"
-        alt="${escapeHtml(
-          product.name
-        )}"
-        class="product-image"
-        loading="lazy"
-        referrerpolicy="no-referrer"
-        data-proxy-image="${escapeHtml(
-          proxyImage
-        )}"
-        onerror="
-          if (
-            this.dataset.proxyImage &&
-            this.src !== this.dataset.proxyImage
-          ) {
-            this.src =
-              this.dataset.proxyImage;
-          } else {
-            this.onerror = null;
-            this.style.display = 'none';
-          }
-        "
-      >
-    `;
-
-  }
-
-
-  /* ==========================================
-     RENDER PRODUCTS
-  ========================================== */
-
-  function renderProducts() {
-
-    const grid =
-      document.getElementById(
-        "productsGrid"
-      );
-
-    if (!grid) {
-      return;
-    }
-
-    const products =
-      getFilteredProducts();
-
-    if (!products.length) {
-
-      let message =
-        "No phones found.";
-
-      if (
-        currentCondition.toLowerCase() ===
-        "new"
-      ) {
-
-        message =
-          "No new phones are available yet.";
-
-      }
-
-      if (
-        currentCondition.toLowerCase() ===
-        "used"
-      ) {
-
-        message =
-          "No used phones are available yet.";
-
-      }
-
-      grid.innerHTML = `
-        <div class="no-products">
-
-          ${escapeHtml(
-            message
-          )}
-
-        </div>
-      `;
-
-      return;
-
-    }
-
-    grid.innerHTML =
-      products
-        .map(
-          product => {
-
-            const rating =
-              Number(
-                product.rating || 0
-              );
-
-            const reviews =
-              Number(
-                product.review_count || 0
-              );
-
-            const roundedRating =
-              Math.max(
-                0,
-                Math.min(
-                  5,
-                  Math.round(
-                    rating
-                  )
-                )
-              );
-
-            const stars =
-              "★".repeat(
-                roundedRating
-              ) +
-              "☆".repeat(
-                5 -
-                roundedRating
-              );
-
-            const condition =
-              String(
-                product.condition ||
-                "New"
-              ).trim();
-
-            const normalizedCondition =
-              condition.toLowerCase();
-
-            const conditionClass =
-              normalizedCondition ===
-              "used"
-                ? "condition-used"
-                : "condition-new";
-
-            const conditionLabel =
-              normalizedCondition ===
-              "used"
-                ? "Used"
-                : "New";
-
-            const price =
-              Number(
-                product.price || 0
-              );
-
-            const oldPrice =
-              Number(
-                product.old_price || 0
-              );
-
-            return `
-              <article class="product-card">
-
-                <a
-                  href="product.html?id=${encodeURIComponent(
-                    product.id
-                  )}"
-                >
-
-                  <div class="product-image-wrap">
-
-                    ${
-                      product.badge
-                        ? `
-                          <span class="badge">
-                            ${escapeHtml(
-                              product.badge
-                            )}
-                          </span>
-                        `
-                        : ""
-                    }
-
-                    <span
-                      class="condition-badge ${conditionClass}"
-                    >
-                      ${conditionLabel}
-                    </span>
-
-                    ${createImageHtml(
-                      product
-                    )}
-
-                  </div>
-
-                  <div class="product-info">
-
-                    <div class="product-name">
-                      ${escapeHtml(
-                        product.name
-                      )}
-                    </div>
-
-                    <div class="rating">
-
-                      ${stars}
-
-                      <span
-                        style="
-                          color:#6b7280;
-                          margin-left:4px;
-                        "
-                      >
-                        (${reviews})
-                      </span>
-
-                    </div>
-
-                    <div class="price">
-
-                      ${formatUSD(
-                        price
-                      )}
-
-                      ${
-                        oldPrice > 0
-                          ? `
-                            <span class="old-price">
-                              ${formatUSD(
-                                oldPrice
-                              )}
-                            </span>
-                          `
-                          : ""
-                      }
-
-                    </div>
-
-                    <span class="price-kes">
-                      ${formatKESApprox(
-                        price
-                      )}
-                    </span>
-
-                    <span class="conversion-note">
-                      1 USD ≈ KSh
-                      ${Math.round(
-                        usdToKesRate
-                      )}
-                    </span>
-
-                    <span class="view-product">
-                      View Product
-                    </span>
-
-                  </div>
-
-                </a>
-
-              </article>
-            `;
-
-          }
-        )
-        .join("");
-
-  }
-
-
-  /* ==========================================
-     CONDITION BUTTONS
-  ========================================== */
-
-  document
-    .querySelectorAll(
-      ".category-tab"
-    )
-    .forEach(
-      tab => {
-
-        tab.addEventListener(
-          "click",
-          function() {
-
-            const condition =
-              this.dataset.condition ||
-              "";
-
-            if (condition) {
-
-              window.location.href =
-                `shop.html?condition=${encodeURIComponent(
-                  condition
-                )}`;
-
-            } else {
-
-              window.location.href =
-                "shop.html";
-
-            }
-
-          }
-        );
-
-      }
-    );
-
-
-  /* ==========================================
-     SEARCH FORM
-  ========================================== */
-
-  document
-    .getElementById(
-      "searchForm"
-    )
-    .addEventListener(
-      "submit",
-      function(event) {
-
-        event.preventDefault();
-
-        const search =
-          document
-            .getElementById(
-              "searchInput"
-            )
-            .value
-            .trim();
-
-        if (search) {
-
-          window.location.href =
-            `shop.html?search=${encodeURIComponent(
-              search
-            )}`;
-
-        } else {
-
-          window.location.href =
-            "shop.html";
-
-        }
-
-      }
-    );
-
-
-  /* ==========================================
-     SEARCH FILTER
-  ========================================== */
-
-  document
-    .getElementById(
-      "searchFilter"
-    )
-    .addEventListener(
-      "input",
-      function() {
-
-        currentSearch =
-          this.value.trim();
-
-        renderProducts();
-
-      }
-    );
-
-
-  /* ==========================================
-     SORT
-  ========================================== */
-
-  document
-    .getElementById(
-      "sortFilter"
-    )
-    .addEventListener(
-      "change",
-      function() {
-
-        currentSort =
-          this.value;
-
-        renderProducts();
-
-      }
-    );
-
-
-  /* ==========================================
-     AUTH STATE
-  ========================================== */
-
-  if (db) {
-
-    db.auth.onAuthStateChange(
-      () => {
-
-        setTimeout(
-          updateAccountUI,
-          0
-        );
-
-      }
-    );
-
-  }
-
-
-  /* ==========================================
-     START
-  ========================================== */
-
-  readUrlState();
-
-  updateCartCount();
-
-  updateAccountUI();
-
-  loadExchangeRate()
-    .then(
-      () => {
-
-        renderProducts();
-
-      }
-    );
-
-  loadProducts();
+  startPage();
 
 </script>
 
 </body>
 </html>
+```

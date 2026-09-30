@@ -697,9 +697,13 @@
 
       <div class="header-actions">
 
-        <a href="login.html">Login</a>
+        <a href="login.html?redirect=checkout.html">
+          Login
+        </a>
 
-        <a href="register.html">Register</a>
+        <a href="register.html">
+          Register
+        </a>
 
         <a href="cart.html">
           🛒 Cart
@@ -796,7 +800,7 @@
     <div id="checkoutContainer">
 
       <div class="loading">
-        Loading checkout...
+        Checking your account...
       </div>
 
     </div>
@@ -843,13 +847,21 @@
 
         <h3>Account</h3>
 
-        <a href="login.html">Login</a>
+        <a href="login.html?redirect=checkout.html">
+          Login
+        </a>
 
-        <a href="register.html">Register</a>
+        <a href="register.html">
+          Register
+        </a>
 
-        <a href="profile.html">My Profile</a>
+        <a href="profile.html">
+          My Profile
+        </a>
 
-        <a href="orders.html">My Orders</a>
+        <a href="orders.html">
+          My Orders
+        </a>
 
       </div>
 
@@ -857,9 +869,13 @@
 
         <h3>Help</h3>
 
-        <a href="contact.html">Contact Us</a>
+        <a href="contact.html">
+          Contact Us
+        </a>
 
-        <a href="track-order.html">Track Order</a>
+        <a href="track-order.html">
+          Track Order
+        </a>
 
         <a href="seller-register.html">
           Sell on Meteur
@@ -963,6 +979,7 @@
 
       if (
         error ||
+        !data ||
         !data.user
       ) {
 
@@ -975,6 +992,76 @@
 
       currentUser =
         data.user;
+
+      if (
+        !currentUser.email_confirmed_at
+      ) {
+
+        sessionStorage.setItem(
+          "meteurVerificationEmail",
+          currentUser.email || ""
+        );
+
+        await supabaseClient.auth.signOut();
+
+        window.location.href =
+          "verify-email.html?email=" +
+          encodeURIComponent(
+            currentUser.email || ""
+          );
+
+        return false;
+
+      }
+
+      return true;
+
+    }
+
+    async function verifyCurrentUserBeforeOrder() {
+
+      const {
+        data,
+        error
+      } =
+        await supabaseClient.auth.getUser();
+
+      if (
+        error ||
+        !data ||
+        !data.user
+      ) {
+
+        window.location.href =
+          "login.html?redirect=checkout.html";
+
+        return false;
+
+      }
+
+      currentUser =
+        data.user;
+
+      if (
+        !currentUser.email_confirmed_at
+      ) {
+
+        sessionStorage.setItem(
+          "meteurVerificationEmail",
+          currentUser.email || ""
+        );
+
+        await supabaseClient.auth.signOut();
+
+        window.location.href =
+          "verify-email.html?email=" +
+          encodeURIComponent(
+            currentUser.email || ""
+          );
+
+        return false;
+
+      }
 
       return true;
 
@@ -1082,6 +1169,7 @@
         `;
 
         return;
+
       }
 
       calculateTotals();
@@ -1559,13 +1647,11 @@
 
     async function placeOrder() {
 
-      if (!currentUser) {
+      const stillAuthenticated =
+        await verifyCurrentUserBeforeOrder();
 
-        window.location.href =
-          "login.html?redirect=checkout.html";
-
+      if (!stillAuthenticated) {
         return;
-
       }
 
       const firstName =

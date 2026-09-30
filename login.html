@@ -3,144 +3,763 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Meteur Online Shopping</title>
 
-    <link rel="stylesheet" href="style.css">
+    <title>Login | METEUR MOBILE KENYA</title>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabase-config.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #fff5f6;
+            color: #172033;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .top-header {
+            background: #d90429;
+            color: white;
+            padding: 18px 20px;
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            width: 48px;
+            height: 48px;
+            background: white;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
+            padding: 0;
+            border: none;
+            box-shadow: none;
+        }
+
+        .real-logo {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            background: white;
+            border: none;
+            border-radius: 9px;
+        }
+
+        .brand-text h1 {
+            font-size: 23px;
+            font-weight: 800;
+            letter-spacing: .3px;
+        }
+
+        .brand-text p {
+            font-size: 11px;
+            margin-top: 3px;
+            opacity: .95;
+            letter-spacing: 1px;
+        }
+
+        .header-link {
+            background: white;
+            color: #d90429;
+            padding: 10px 16px;
+            border-radius: 7px;
+            font-weight: 800;
+            font-size: 14px;
+        }
+
+        .header-link:hover {
+            background: #fff0f2;
+        }
+
+        /* =========================
+           NAVIGATION
+        ========================= */
+
+        nav {
+            background: #9b001f;
+            color: white;
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .nav-inner::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-inner a {
+            position: relative;
+            color: white;
+            padding: 16px 18px;
+            font-size: 14px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .nav-inner a:hover {
+            background: rgba(255,255,255,.08);
+        }
+
+        .nav-inner a.active::after {
+            content: "";
+            position: absolute;
+            left: 15px;
+            right: 15px;
+            bottom: 0;
+            height: 3px;
+            background: white;
+            border-radius: 3px 3px 0 0;
+        }
+
+        /* =========================
+           LOGIN SECTION
+        ========================= */
+
+        .auth-section {
+            min-height: calc(100vh - 220px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 55px 20px;
+            background: #fff5f6;
+        }
+
+        .auth-container {
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .auth-card {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 14px;
+            border: 1px solid #f3c7cd;
+            box-shadow: 0 5px 20px rgba(217, 4, 41, 0.08);
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 18px;
+            border-radius: 50%;
+            background: #fff0f2;
+            border: 1px solid #f3c7cd;
+            color: #d90429;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .auth-header h1 {
+            margin-bottom: 10px;
+            font-size: 29px;
+            color: #172033;
+        }
+
+        .auth-header p {
+            color: #61718a;
+            line-height: 1.5;
+        }
+
+        /* =========================
+           FORM
+        ========================= */
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 700;
+            color: #172033;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #d9dfe7;
+            border-radius: 7px;
+            font-size: 16px;
+            color: #172033;
+            background: white;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #d90429;
+            box-shadow: 0 0 0 3px rgba(217, 4, 41, .08);
+        }
+
+        .form-options {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+
+        .form-options a,
+        .register-link a,
+        .back-home a {
+            color: #d90429;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .form-options a:hover,
+        .register-link a:hover,
+        .back-home a:hover {
+            text-decoration: underline;
+        }
+
+        .auth-button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 7px;
+            background: #d90429;
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .auth-button:hover {
+            background: #b90323;
+        }
+
+        .auth-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* =========================
+           MESSAGES
+        ========================= */
+
+        .auth-message {
+            display: none;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 7px;
+            text-align: center;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .auth-message.error,
+        .auth-message.success,
+        .auth-message.info {
+            display: block;
+        }
+
+        .auth-message.error {
+            background: #fff0f2;
+            color: #b00020;
+            border: 1px solid #f3c7cd;
+        }
+
+        .auth-message.success {
+            background: #eaf8ef;
+            color: #187a32;
+            border: 1px solid #bce3c7;
+        }
+
+        .auth-message.info {
+            background: #f0f5ff;
+            color: #245ea8;
+            border: 1px solid #c9d9f5;
+        }
+
+        /* =========================
+           DIVIDER
+        ========================= */
+
+        .auth-divider {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 25px 0;
+            color: #8a94a6;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .auth-divider::before,
+        .auth-divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #e3e7ed;
+        }
+
+        .register-link,
+        .back-home {
+            text-align: center;
+        }
+
+        .register-link p {
+            color: #61718a;
+        }
+
+        .back-home {
+            margin-top: 20px;
+            padding-top: 18px;
+            border-top: 1px solid #f0dce0;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            background: #9b001f;
+            color: white;
+            padding: 40px 20px 25px;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 30px;
+        }
+
+        footer h3 {
+            margin-bottom: 12px;
+            font-size: 18px;
+        }
+
+        footer p {
+            color: #ffd9df;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        footer a {
+            display: block;
+            color: #ffd9df;
+            margin-bottom: 9px;
+            font-size: 14px;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+
+        .copyright {
+            max-width: 1200px;
+            margin: 30px auto 0;
+            padding-top: 18px;
+            border-top: 1px solid rgba(255,255,255,.2);
+            text-align: center;
+            color: #ffd9df;
+            font-size: 13px;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            .footer-inner {
+                grid-template-columns: 1fr 1fr;
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .top-header {
+                padding: 14px;
+            }
+
+            .header-inner {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .brand {
+                justify-content: center;
+            }
+
+            .logo {
+                width: 48px;
+                min-width: 48px;
+                height: 48px;
+                border-radius: 9px;
+                padding: 0;
+            }
+
+            .real-logo {
+                width: 48px;
+                height: 48px;
+                background: #ffffff;
+                border-radius: 9px;
+            }
+
+            .brand-text h1 {
+                font-size: 19px;
+            }
+
+            .brand-text p {
+                font-size: 9px;
+            }
+
+            .header-link {
+                text-align: center;
+                font-size: 13px;
+            }
+
+            .nav-inner a {
+                padding: 14px 13px;
+                font-size: 13px;
+            }
+
+            .auth-section {
+                padding: 35px 14px;
+            }
+
+            .auth-card {
+                padding: 28px 20px;
+            }
+
+            .auth-header h1 {
+                font-size: 25px;
+            }
+
+            .footer-inner {
+                grid-template-columns: 1fr;
+            }
+
+        }
+    </style>
 </head>
 
 <body>
 
-<header class="site-header">
-    <div class="container">
+<!-- HEADER -->
+<header class="top-header">
 
-        <div class="logo">
-            <a href="index.html">Meteur Online Shopping</a>
-        </div>
+    <div class="header-inner">
 
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="shop.html">Shop</a>
-            <a href="cart.html">Cart</a>
-        </nav>
+        <a href="index.html" class="brand">
+
+            <div class="logo">
+                <img
+                    src="WhatsApp Image 2026-09-30 at 12.36.30.jpeg"
+                    alt="Meteur Mobile Kenya M Logo"
+                    class="real-logo"
+                >
+            </div>
+
+            <div class="brand-text">
+                <h1>METEUR MOBILE KENYA</h1>
+                <p>MOBILE • ELECTRONICS • ACCESSORIES</p>
+            </div>
+
+        </a>
+
+        <a
+            href="shop.html"
+            class="header-link"
+        >
+            Continue Shopping
+        </a>
 
     </div>
+
 </header>
 
+<!-- NAVIGATION -->
+<nav>
+
+    <div class="nav-inner">
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="shop.html">
+            Shop
+        </a>
+
+        <a href="shop.html?category=Phones%20and%20Tablets">
+            Phones & Tablets
+        </a>
+
+        <a href="shop.html?category=Electronics">
+            Electronics
+        </a>
+
+        <a href="shop.html?category=Accessories">
+            Accessories
+        </a>
+
+        <a href="orders.html">
+            My Orders
+        </a>
+
+        <a href="contact.html">
+            Contact Us
+        </a>
+
+    </div>
+
+</nav>
+
+<!-- LOGIN -->
 <main>
 
-<section class="auth-section">
+    <section class="auth-section">
 
-    <div class="auth-container">
+        <div class="auth-container">
 
-        <div class="auth-card">
+            <div class="auth-card">
 
-            <div class="auth-header">
-                <h1>Welcome Back</h1>
-                <p>Sign in to your Meteur Online Shopping account.</p>
-            </div>
+                <div class="auth-header">
 
-            <div id="message" class="auth-message"></div>
+                    <div class="login-icon">
+                        ✓
+                    </div>
 
-            <form id="loginForm">
+                    <h1>
+                        Welcome Back
+                    </h1>
 
-                <div class="form-group">
-
-                    <label for="email">
-                        Email Address
-                    </label>
-
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        placeholder="Enter your email"
-                        required
-                        autocomplete="email"
-                    >
+                    <p>
+                        Sign in to your METEUR MOBILE KENYA account.
+                    </p>
 
                 </div>
 
-                <div class="form-group">
+                <div
+                    id="message"
+                    class="auth-message"
+                ></div>
 
-                    <label for="password">
-                        Password
-                    </label>
+                <form id="loginForm">
 
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        placeholder="Enter your password"
-                        required
-                        autocomplete="current-password"
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email Address
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Enter your email"
+                            required
+                            autocomplete="email"
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            required
+                            autocomplete="current-password"
+                        >
+
+                    </div>
+
+                    <div class="form-options">
+
+                        <a href="forgot-password.html">
+                            Forgot password?
+                        </a>
+
+                    </div>
+
+                    <button
+                        type="submit"
+                        id="loginButton"
+                        class="auth-button"
                     >
+                        Login
+                    </button>
+
+                </form>
+
+                <div class="auth-divider">
+                    <span>OR</span>
+                </div>
+
+                <div class="register-link">
+
+                    <p>
+                        Don't have an account?
+                        <a href="register.html">
+                            Create an account
+                        </a>
+                    </p>
 
                 </div>
 
-                <div class="form-options">
+                <div class="back-home">
 
-                    <a href="forgot-password.html">
-                        Forgot password?
+                    <a href="index.html">
+                        ← Back to shopping
                     </a>
 
                 </div>
-
-                <button
-                    type="submit"
-                    id="loginButton"
-                    class="auth-button"
-                >
-                    Login
-                </button>
-
-            </form>
-
-            <div class="auth-divider">
-                <span>OR</span>
-            </div>
-
-            <div class="register-link">
-
-                <p>
-                    Don't have an account?
-                    <a href="register.html">
-                        Create an account
-                    </a>
-                </p>
-
-            </div>
-
-            <div class="back-home">
-
-                <a href="index.html">
-                    ← Back to shopping
-                </a>
 
             </div>
 
         </div>
 
-    </div>
-
-</section>
+    </section>
 
 </main>
 
-<footer class="site-footer">
+<!-- FOOTER -->
+<footer>
 
-    <div class="container">
+    <div class="footer-inner">
 
-        <p>
-            &copy; 2026 Meteur Online Shopping. All rights reserved.
-        </p>
+        <div>
+
+            <h3>
+                METEUR MOBILE KENYA
+            </h3>
+
+            <p>
+                Your online destination for mobile phones,
+                electronics, accessories and smart devices in Kenya.
+            </p>
+
+        </div>
+
+        <div>
+
+            <h3>
+                Shop
+            </h3>
+
+            <a href="shop.html">
+                All Products
+            </a>
+
+            <a href="shop.html?deal=true">
+                Flash Deals
+            </a>
+
+            <a href="shop.html?new=true">
+                New Arrivals
+            </a>
+
+            <a href="shop.html?category=Phones%20and%20Tablets">
+                Phones & Tablets
+            </a>
+
+        </div>
+
+        <div>
+
+            <h3>
+                Account
+            </h3>
+
+            <a href="login.html">
+                Login
+            </a>
+
+            <a href="register.html">
+                Register
+            </a>
+
+            <a href="profile.html">
+                My Profile
+            </a>
+
+            <a href="orders.html">
+                My Orders
+            </a>
+
+        </div>
+
+        <div>
+
+            <h3>
+                Help
+            </h3>
+
+            <a href="contact.html">
+                Contact Us
+            </a>
+
+            <a href="track-order.html">
+                Track Order
+            </a>
+
+            <a href="seller-register.html">
+                Sell on Meteur
+            </a>
+
+        </div>
 
     </div>
 
-</footer>
+    <div class="copyright">
+        © 2026 METEUR MOBILE KENYA. All rights reserved.
+    </div>
 
+</footer>
 
 <script>
 
@@ -160,6 +779,7 @@ function showMessage(text, type) {
 
     message.className =
         "auth-message " + type;
+
 }
 
 
@@ -187,10 +807,12 @@ async function checkAdministrator() {
         );
 
         return false;
+
     }
 
 
     return data === true;
+
 }
 
 
@@ -222,6 +844,7 @@ loginForm.addEventListener(
             );
 
             return;
+
         }
 
 
@@ -262,6 +885,7 @@ loginForm.addEventListener(
                 throw new Error(
                     "Unable to sign in. Please try again."
                 );
+
             }
 
 
@@ -297,6 +921,7 @@ loginForm.addEventListener(
 
 
                 return;
+
             }
 
 
@@ -326,6 +951,7 @@ loginForm.addEventListener(
 
 
                 return;
+
             }
 
 
@@ -387,7 +1013,9 @@ loginForm.addEventListener(
 
                     errorMessage =
                         error.message;
+
                 }
+
             }
 
 
@@ -402,172 +1030,13 @@ loginForm.addEventListener(
 
             loginButton.textContent =
                 "Login";
+
         }
 
     }
 );
 
 </script>
-
-
-<style>
-
-.auth-section {
-    min-height: 75vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 50px 20px;
-    background: #f7f7f7;
-}
-
-.auth-container {
-    width: 100%;
-    max-width: 500px;
-}
-
-.auth-card {
-    background: #ffffff;
-    padding: 40px;
-    border-radius: 12px;
-    box-shadow:
-        0 4px 20px rgba(0, 0, 0, 0.08);
-}
-
-.auth-header {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.auth-header h1 {
-    margin-bottom: 10px;
-}
-
-.auth-header p {
-    color: #666;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-}
-
-.form-group input {
-    width: 100%;
-    padding: 13px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 16px;
-    box-sizing: border-box;
-}
-
-.form-group input:focus {
-    outline: none;
-    border-color: #f68b1e;
-}
-
-.form-options {
-    text-align: right;
-    margin-bottom: 20px;
-}
-
-.form-options a,
-.register-link a,
-.back-home a {
-    color: #f68b1e;
-    text-decoration: none;
-    font-weight: 600;
-}
-
-.auth-button {
-    width: 100%;
-    padding: 14px;
-    border: none;
-    border-radius: 6px;
-    background: #f68b1e;
-    color: white;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-.auth-button:hover {
-    opacity: 0.9;
-}
-
-.auth-button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-}
-
-.auth-message {
-    display: none;
-    padding: 12px;
-    margin-bottom: 20px;
-    border-radius: 6px;
-    text-align: center;
-}
-
-.auth-message.error,
-.auth-message.success,
-.auth-message.info {
-    display: block;
-}
-
-.auth-message.error {
-    background: #ffe5e5;
-    color: #b00020;
-}
-
-.auth-message.success {
-    background: #e5f7e9;
-    color: #187a32;
-}
-
-.auth-message.info {
-    background: #e8f1ff;
-    color: #245ea8;
-}
-
-.auth-divider {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin: 25px 0;
-    color: #999;
-}
-
-.auth-divider::before,
-.auth-divider::after {
-    content: "";
-    flex: 1;
-    height: 1px;
-    background: #ddd;
-}
-
-.register-link,
-.back-home {
-    text-align: center;
-}
-
-.back-home {
-    margin-top: 20px;
-}
-
-@media (max-width: 600px) {
-
-    .auth-card {
-        padding: 25px;
-    }
-
-}
-
-</style>
 
 </body>
 </html>

@@ -316,6 +316,19 @@
       font-weight: bold;
     }
 
+    .rating {
+      margin-top: 9px;
+      font-size: 14px;
+      font-weight: bold;
+      color: #555;
+    }
+
+    .rating-stars {
+      letter-spacing: 1px;
+      color: #f5a623;
+      font-size: 15px;
+    }
+
     .view-button {
       display: block;
       margin-top: 14px;
@@ -436,31 +449,51 @@
   <div class="top-header">
 
     <a href="index.html" class="brand">
+
       <img
         src="WhatsApp Image 2026-09-30 at 12.36.30.jpeg"
         alt="METEUR MOBILE KENYA Logo"
       >
 
       <div class="brand-text">
-        <div class="brand-name">METEUR MOBILE KENYA</div>
-        <div class="brand-subtitle">MOBILE • PHONES • TABLETS</div>
+
+        <div class="brand-name">
+          METEUR MOBILE KENYA
+        </div>
+
+        <div class="brand-subtitle">
+          MOBILE • PHONES • TABLETS
+        </div>
+
       </div>
+
     </a>
 
+
     <div class="search-box">
+
       <input
         type="text"
         id="topSearch"
         placeholder="Search smartphones..."
       >
-      <button onclick="performTopSearch()">Search</button>
+
+      <button onclick="performTopSearch()">
+        Search
+      </button>
+
     </div>
+
 
     <div class="header-actions">
 
-      <a href="login.html" id="loginLink">Login</a>
+      <a href="login.html" id="loginLink">
+        Login
+      </a>
 
-      <a href="register.html" id="registerLink">Register</a>
+      <a href="register.html" id="registerLink">
+        Register
+      </a>
 
       <span
         id="accountEmail"
@@ -484,12 +517,18 @@
 
   </div>
 
+
   <nav>
+
     <div class="nav-container">
 
-      <a href="index.html">Home</a>
+      <a href="index.html">
+        Home
+      </a>
 
-      <a href="shop.html">Shop</a>
+      <a href="shop.html">
+        Shop
+      </a>
 
       <a href="shop.html?category=Phones%20and%20Tablets">
         Phones &amp; Tablets
@@ -512,6 +551,7 @@
       </a>
 
     </div>
+
   </nav>
 
 </header>
@@ -520,10 +560,15 @@
 <main class="container">
 
   <div class="page-heading">
-    <h1 id="pageTitle">Phones</h1>
+
+    <h1 id="pageTitle">
+      Phones
+    </h1>
+
     <p id="pageDescription">
       Browse new and quality used smartphones and tablets available at METEUR MOBILE KENYA.
     </p>
+
   </div>
 
 
@@ -538,11 +583,27 @@
       >
 
       <select id="sortFilter">
-        <option value="newest">Newest</option>
-        <option value="price-low">Price: Low to High</option>
-        <option value="price-high">Price: High to Low</option>
-        <option value="rating">Highest Rated</option>
-        <option value="name">Name: A-Z</option>
+
+        <option value="newest">
+          Newest
+        </option>
+
+        <option value="price-low">
+          Price: Low to High
+        </option>
+
+        <option value="price-high">
+          Price: High to Low
+        </option>
+
+        <option value="rating">
+          Highest Rated
+        </option>
+
+        <option value="name">
+          Name: A-Z
+        </option>
+
       </select>
 
     </div>
@@ -579,7 +640,10 @@
   </section>
 
 
-  <div id="productsGrid" class="products-grid">
+  <div
+    id="productsGrid"
+    class="products-grid"
+  >
 
     <div class="status-message">
       Loading phones...
@@ -595,18 +659,24 @@
   <div class="footer-container">
 
     <div>
-      <h3>METEUR MOBILE KENYA</h3>
+
+      <h3>
+        METEUR MOBILE KENYA
+      </h3>
 
       <p>
         Your online destination for mobile phones,
         tablets and smart devices in Kenya.
       </p>
+
     </div>
 
 
     <div>
 
-      <h4>Shop</h4>
+      <h4>
+        Shop
+      </h4>
 
       <a href="shop.html">
         All Phones
@@ -629,7 +699,9 @@
 
     <div>
 
-      <h4>Account</h4>
+      <h4>
+        Account
+      </h4>
 
       <a href="profile.html">
         My Profile
@@ -648,7 +720,9 @@
 
     <div>
 
-      <h4>Help</h4>
+      <h4>
+        Help
+      </h4>
 
       <a href="contact.html">
         Contact Us
@@ -684,6 +758,7 @@
   const SUPABASE_ANON_KEY =
     "sb_publishable_cIqzHoafy_AEdB48KS_Wpg_LDqE1sFC";
 
+
   let db = null;
 
   let allProducts = [];
@@ -704,20 +779,26 @@
       typeof window.supabase.createClient === "function"
     ) {
 
-      db = window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_ANON_KEY
-      );
+      db =
+        window.supabase.createClient(
+          SUPABASE_URL,
+          SUPABASE_ANON_KEY
+        );
 
     } else {
 
-      throw new Error("Supabase library did not load.");
+      throw new Error(
+        "Supabase library did not load."
+      );
 
     }
 
   } catch (error) {
 
-    console.error("Supabase error:", error);
+    console.error(
+      "Supabase error:",
+      error
+    );
 
   }
 
@@ -732,29 +813,44 @@
 
       const cart =
         JSON.parse(
-          localStorage.getItem("meteur_cart") || "[]"
+          localStorage.getItem(
+            "meteur_cart"
+          ) || "[]"
         );
+
 
       let count = 0;
 
+
       cart.forEach(item => {
 
-        count += Number(item.quantity || 1);
+        count +=
+          Number(
+            item.quantity || 1
+          );
 
       });
 
+
       const cartCount =
-        document.getElementById("cartCount");
+        document.getElementById(
+          "cartCount"
+        );
+
 
       if (cartCount) {
 
-        cartCount.textContent = count;
+        cartCount.textContent =
+          count;
 
       }
 
     } catch (error) {
 
-      console.error("Cart error:", error);
+      console.error(
+        "Cart error:",
+        error
+      );
 
     }
 
@@ -768,16 +864,24 @@
   async function updateAccountUI() {
 
     const loginLink =
-      document.getElementById("loginLink");
+      document.getElementById(
+        "loginLink"
+      );
 
     const registerLink =
-      document.getElementById("registerLink");
+      document.getElementById(
+        "registerLink"
+      );
 
     const accountEmail =
-      document.getElementById("accountEmail");
+      document.getElementById(
+        "accountEmail"
+      );
 
     const logoutButton =
-      document.getElementById("logoutButton");
+      document.getElementById(
+        "logoutButton"
+      );
 
 
     if (!db) {
@@ -793,28 +897,42 @@
         data: {
           user
         }
-      } = await db.auth.getUser();
+      } =
+        await db.auth.getUser();
 
 
       if (user) {
 
         if (loginLink) {
-          loginLink.style.display = "none";
+
+          loginLink.style.display =
+            "none";
+
         }
 
+
         if (registerLink) {
-          registerLink.style.display = "none";
+
+          registerLink.style.display =
+            "none";
+
         }
+
 
         if (accountEmail) {
 
           accountEmail.textContent =
-            "👤 " + (user.email || "Account");
+            "👤 " +
+            (
+              user.email ||
+              "Account"
+            );
 
           accountEmail.style.display =
             "inline-block";
 
         }
+
 
         if (logoutButton) {
 
@@ -826,19 +944,34 @@
       } else {
 
         if (loginLink) {
-          loginLink.style.display = "inline-block";
+
+          loginLink.style.display =
+            "inline-block";
+
         }
+
 
         if (registerLink) {
-          registerLink.style.display = "inline-block";
+
+          registerLink.style.display =
+            "inline-block";
+
         }
+
 
         if (accountEmail) {
-          accountEmail.style.display = "none";
+
+          accountEmail.style.display =
+            "none";
+
         }
 
+
         if (logoutButton) {
-          logoutButton.style.display = "none";
+
+          logoutButton.style.display =
+            "none";
+
         }
 
       }
@@ -862,12 +995,16 @@
   async function logoutUser() {
 
     if (!db) {
+
       return;
+
     }
+
 
     try {
 
       await db.auth.signOut();
+
 
       window.location.href =
         "index.html";
@@ -897,8 +1034,10 @@
           "https://open.er-api.com/v6/latest/USD"
         );
 
+
       const data =
         await response.json();
+
 
       if (
         data &&
@@ -907,7 +1046,9 @@
       ) {
 
         exchangeRate =
-          Number(data.rates.KES);
+          Number(
+            data.rates.KES
+          );
 
       }
 
@@ -934,39 +1075,61 @@
         window.location.search
       );
 
+
     const condition =
-      params.get("condition");
+      params.get(
+        "condition"
+      );
 
-    if (condition === "New") {
 
-      currentCondition = "New";
+    if (
+      condition === "New"
+    ) {
+
+      currentCondition =
+        "New";
 
     }
 
-    if (condition === "Used") {
 
-      currentCondition = "Used";
+    if (
+      condition === "Used"
+    ) {
+
+      currentCondition =
+        "Used";
 
     }
 
 
     const category =
-      params.get("category");
+      params.get(
+        "category"
+      );
+
 
     const title =
-      document.getElementById("pageTitle");
+      document.getElementById(
+        "pageTitle"
+      );
+
 
     const description =
-      document.getElementById("pageDescription");
+      document.getElementById(
+        "pageDescription"
+      );
 
 
     if (
       category &&
-      category.toLowerCase().includes("tablet")
+      category
+        .toLowerCase()
+        .includes("tablet")
     ) {
 
       title.textContent =
         "Phones & Tablets";
+
 
       description.textContent =
         "Browse smartphones and tablets available at METEUR MOBILE KENYA.";
@@ -975,6 +1138,7 @@
 
       title.textContent =
         "Phones";
+
 
       description.textContent =
         "Browse new and quality used smartphones and tablets available at METEUR MOBILE KENYA.";
@@ -994,6 +1158,7 @@
       String(
         product.category || ""
       ).toLowerCase();
+
 
     const name =
       String(
@@ -1031,11 +1196,10 @@
     ];
 
 
-    return phoneWords.some(word =>
-
-      category.includes(word) ||
-      name.includes(word)
-
+    return phoneWords.some(
+      word =>
+        category.includes(word) ||
+        name.includes(word)
     );
 
   }
@@ -1080,15 +1244,16 @@
       const {
         data,
         error
-      } = await db
-        .from("products")
-        .select("*")
-        .order(
-          "created_at",
-          {
-            ascending: false
-          }
-        );
+      } =
+        await db
+          .from("products")
+          .select("*")
+          .order(
+            "created_at",
+            {
+              ascending: false
+            }
+          );
 
 
       if (error) {
@@ -1098,20 +1263,32 @@
           error
         );
 
+
         grid.innerHTML = `
           <div class="status-message error-message">
-            <strong>Unable to load products.</strong>
+            <strong>
+              Unable to load products.
+            </strong>
+
             <br><br>
-            ${escapeHtml(error.message || "Database error")}
+
+            ${escapeHtml(
+              error.message ||
+              "Database error"
+            )}
+
             <br>
+
             <button
               class="retry-button"
               onclick="loadProducts()"
             >
               Try Again
             </button>
+
           </div>
         `;
+
 
         return;
 
@@ -1120,7 +1297,9 @@
 
       allProducts =
         Array.isArray(data)
-          ? data.filter(isPhoneProduct)
+          ? data.filter(
+              isPhoneProduct
+            )
           : [];
 
 
@@ -1133,18 +1312,30 @@
         error
       );
 
+
       grid.innerHTML = `
         <div class="status-message error-message">
-          <strong>Unable to load products.</strong>
+
+          <strong>
+            Unable to load products.
+          </strong>
+
           <br><br>
-          ${escapeHtml(error.message || "Unexpected error")}
+
+          ${escapeHtml(
+            error.message ||
+            "Unexpected error"
+          )}
+
           <br>
+
           <button
             class="retry-button"
             onclick="loadProducts()"
           >
             Try Again
           </button>
+
         </div>
       `;
 
@@ -1164,8 +1355,11 @@
         window.location.search
       );
 
+
     const category =
-      params.get("category");
+      params.get(
+        "category"
+      );
 
 
     if (!category) {
@@ -1178,10 +1372,12 @@
     const requested =
       category.toLowerCase();
 
+
     const productCategory =
       String(
         product.category || ""
       ).toLowerCase();
+
 
     const productName =
       String(
@@ -1196,14 +1392,20 @@
       requested.includes("tablet")
     ) {
 
-      return isPhoneProduct(product);
+      return isPhoneProduct(
+        product
+      );
 
     }
 
 
     return (
-      productCategory.includes(requested) ||
-      productName.includes(requested)
+      productCategory.includes(
+        requested
+      ) ||
+      productName.includes(
+        requested
+      )
     );
 
   }
@@ -1219,6 +1421,7 @@
       document.getElementById(
         "searchFilter"
       );
+
 
     const sortSelect =
       document.getElementById(
@@ -1240,22 +1443,29 @@
       );
 
 
-    if (currentCondition !== "all") {
+    if (
+      currentCondition !== "all"
+    ) {
 
       products =
-        products.filter(product => {
+        products.filter(
+          product => {
 
-          const condition =
-            String(
-              product.condition || ""
-            ).toLowerCase();
+            const condition =
+              String(
+                product.condition ||
+                ""
+              ).toLowerCase();
 
-          return (
-            condition ===
-            currentCondition.toLowerCase()
-          );
 
-        });
+            return (
+              condition ===
+              currentCondition
+                .toLowerCase()
+            );
+
+          }
+        );
 
     }
 
@@ -1263,35 +1473,45 @@
     if (search) {
 
       products =
-        products.filter(product => {
+        products.filter(
+          product => {
 
-          const name =
-            String(
-              product.name ||
-              product.title ||
-              ""
-            ).toLowerCase();
-
-          const description =
-            String(
-              product.description ||
-              ""
-            ).toLowerCase();
-
-          const category =
-            String(
-              product.category ||
-              ""
-            ).toLowerCase();
+            const name =
+              String(
+                product.name ||
+                product.title ||
+                ""
+              ).toLowerCase();
 
 
-          return (
-            name.includes(search) ||
-            description.includes(search) ||
-            category.includes(search)
-          );
+            const description =
+              String(
+                product.description ||
+                ""
+              ).toLowerCase();
 
-        });
+
+            const category =
+              String(
+                product.category ||
+                ""
+              ).toLowerCase();
+
+
+            return (
+              name.includes(
+                search
+              ) ||
+              description.includes(
+                search
+              ) ||
+              category.includes(
+                search
+              )
+            );
+
+          }
+        );
 
     }
 
@@ -1300,7 +1520,9 @@
       sortSelect.value;
 
 
-    if (sort === "price-low") {
+    if (
+      sort === "price-low"
+    ) {
 
       products.sort(
         (a, b) =>
@@ -1311,7 +1533,9 @@
     }
 
 
-    if (sort === "price-high") {
+    if (
+      sort === "price-high"
+    ) {
 
       products.sort(
         (a, b) =>
@@ -1322,18 +1546,22 @@
     }
 
 
-    if (sort === "rating") {
+    if (
+      sort === "rating"
+    ) {
 
       products.sort(
         (a, b) =>
-          Number(b.rating || 0) -
-          Number(a.rating || 0)
+          getProductRating(b) -
+          getProductRating(a)
       );
 
     }
 
 
-    if (sort === "name") {
+    if (
+      sort === "name"
+    ) {
 
       products.sort(
         (a, b) => {
@@ -1345,12 +1573,14 @@
               ""
             );
 
+
           const nameB =
             String(
               b.name ||
               b.title ||
               ""
             );
+
 
           return nameA.localeCompare(
             nameB
@@ -1363,6 +1593,125 @@
 
 
     return products;
+
+  }
+
+
+  /* -------------------------------
+     STABLE RANDOM RATING
+     2.0 TO 5.0 STARS
+  -------------------------------- */
+
+  function getProductRating(product) {
+
+    /*
+      If the database already has a rating
+      of 2 or higher, keep it.
+    */
+
+    const databaseRating =
+      Number(
+        product.rating
+      );
+
+
+    if (
+      Number.isFinite(
+        databaseRating
+      ) &&
+      databaseRating >= 2 &&
+      databaseRating <= 5
+    ) {
+
+      return databaseRating;
+
+    }
+
+
+    /*
+      Create a stable number from the
+      product ID/name.
+
+      This means:
+      - Random-looking rating
+      - Minimum 2.0
+      - Maximum 5.0
+      - Does not change on refresh
+    */
+
+    const identifier =
+      String(
+        product.id ||
+        product.name ||
+        product.title ||
+        "product"
+      );
+
+
+    let hash = 0;
+
+
+    for (
+      let i = 0;
+      i < identifier.length;
+      i++
+    ) {
+
+      hash =
+        (
+          (
+            hash << 5
+          ) -
+          hash +
+          identifier.charCodeAt(i)
+        ) |
+        0;
+
+    }
+
+
+    const normalized =
+      Math.abs(hash) % 301;
+
+
+    return (
+      2 +
+      normalized / 100
+    );
+
+  }
+
+
+  /* -------------------------------
+     STAR DISPLAY
+  -------------------------------- */
+
+  function createStars(rating) {
+
+    const rounded =
+      Math.round(
+        rating
+      );
+
+
+    let stars = "";
+
+
+    for (
+      let i = 1;
+      i <= 5;
+      i++
+    ) {
+
+      stars +=
+        i <= rounded
+          ? "★"
+          : "☆";
+
+    }
+
+
+    return stars;
 
   }
 
@@ -1383,7 +1732,9 @@
       getFilteredProducts();
 
 
-    if (!products.length) {
+    if (
+      !products.length
+    ) {
 
       grid.innerHTML = `
         <div class="status-message">
@@ -1391,15 +1742,18 @@
         </div>
       `;
 
+
       return;
 
     }
 
 
     grid.innerHTML =
-      products.map(
-        createProductCard
-      ).join("");
+      products
+        .map(
+          createProductCard
+        )
+        .join("");
 
   }
 
@@ -1412,6 +1766,7 @@
 
     const id =
       product.id;
+
 
     const name =
       product.name ||
@@ -1432,7 +1787,8 @@
 
     const kes =
       Math.round(
-        price * exchangeRate
+        price *
+        exchangeRate
       );
 
 
@@ -1442,8 +1798,8 @@
 
 
     const rating =
-      Number(
-        product.rating || 0
+      getProductRating(
+        product
       );
 
 
@@ -1455,15 +1811,21 @@
 
 
     const safeName =
-      escapeHtml(name);
+      escapeHtml(
+        name
+      );
 
 
     const safeDescription =
-      escapeHtml(description);
+      escapeHtml(
+        description
+      );
 
 
     const safeCondition =
-      escapeHtml(condition);
+      escapeHtml(
+        condition
+      );
 
 
     let imageHtml;
@@ -1472,14 +1834,20 @@
     if (image) {
 
       const safeImage =
-        escapeAttribute(image);
+        escapeAttribute(
+          image
+        );
+
 
       const proxyImage =
         "https://images.weserv.nl/?url=" +
-        encodeURIComponent(image);
+        encodeURIComponent(
+          image
+        );
 
 
       imageHtml = `
+
         <img
           class="product-image"
           src="${safeImage}"
@@ -1487,11 +1855,13 @@
           loading="lazy"
           onerror="this.onerror=null;this.src='${proxyImage}'"
         >
+
       `;
 
     } else {
 
       imageHtml = `
+
         <div
           class="product-image"
           style="
@@ -1503,6 +1873,7 @@
         >
           📱
         </div>
+
       `;
 
     }
@@ -1514,37 +1885,44 @@
 
         ${imageHtml}
 
+
         <div class="product-info">
 
           <div class="product-name">
             ${safeName}
           </div>
 
+
           <div class="product-description">
             ${safeDescription}
           </div>
+
 
           <div class="product-price">
             $${price.toFixed(2)}
           </div>
 
+
           <div class="kes-price">
             Approx. KSh ${kes.toLocaleString()}
           </div>
+
 
           <span class="condition">
             ${safeCondition}
           </span>
 
-          ${
-            rating > 0
-              ? `
-                <div style="margin-top:8px;font-size:13px;">
-                  ⭐ ${rating.toFixed(1)}
-                </div>
-              `
-              : ""
-          }
+
+          <div class="rating">
+
+            <span class="rating-stars">
+              ${createStars(rating)}
+            </span>
+
+            ${rating.toFixed(1)}
+
+          </div>
+
 
           <a
             href="product.html?id=${encodeURIComponent(id)}"
@@ -1576,14 +1954,18 @@
 
 
     document
-      .querySelectorAll(".tab")
-      .forEach(tab => {
+      .querySelectorAll(
+        ".tab"
+      )
+      .forEach(
+        tab => {
 
-        tab.classList.remove(
-          "active"
-        );
+          tab.classList.remove(
+            "active"
+          );
 
-      });
+        }
+      );
 
 
     button.classList.add(
@@ -1604,14 +1986,19 @@
 
     const value =
       document
-        .getElementById("topSearch")
+        .getElementById(
+          "topSearch"
+        )
         .value
         .trim();
 
 
     document
-      .getElementById("searchFilter")
-      .value = value;
+      .getElementById(
+        "searchFilter"
+      )
+      .value =
+        value;
 
 
     renderProducts();
@@ -1624,7 +2011,9 @@
   -------------------------------- */
 
   document
-    .getElementById("searchFilter")
+    .getElementById(
+      "searchFilter"
+    )
     .addEventListener(
       "input",
       renderProducts
@@ -1632,7 +2021,9 @@
 
 
   document
-    .getElementById("sortFilter")
+    .getElementById(
+      "sortFilter"
+    )
     .addEventListener(
       "change",
       renderProducts
@@ -1640,7 +2031,9 @@
 
 
   document
-    .getElementById("topSearch")
+    .getElementById(
+      "topSearch"
+    )
     .addEventListener(
       "keypress",
       function(event) {
@@ -1681,11 +2074,26 @@
   function escapeHtml(value) {
 
     return String(value)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
+      .replace(
+        /&/g,
+        "&amp;"
+      )
+      .replace(
+        /</g,
+        "&lt;"
+      )
+      .replace(
+        />/g,
+        "&gt;"
+      )
+      .replace(
+        /"/g,
+        "&quot;"
+      )
+      .replace(
+        /'/g,
+        "&#039;"
+      );
 
   }
 
@@ -1693,9 +2101,18 @@
   function escapeAttribute(value) {
 
     return String(value)
-      .replace(/"/g, "&quot;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;");
+      .replace(
+        /"/g,
+        "&quot;"
+      )
+      .replace(
+        /</g,
+        "&lt;"
+      )
+      .replace(
+        />/g,
+        "&gt;"
+      );
 
   }
 

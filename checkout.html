@@ -33,10 +33,6 @@
       font: inherit;
     }
 
-    /* =========================
-       HEADER
-    ========================= */
-
     .top-header {
       background: #d90429;
       color: white;
@@ -142,10 +138,6 @@
       margin-left: 5px;
     }
 
-    /* =========================
-       NAVIGATION
-    ========================= */
-
     nav {
       background: #9b001f;
       color: white;
@@ -186,10 +178,6 @@
       background: white;
       border-radius: 3px 3px 0 0;
     }
-
-    /* =========================
-       SEARCH
-    ========================= */
 
     .search-area {
       max-width: 1200px;
@@ -234,10 +222,6 @@
       background: #b90323;
     }
 
-    /* =========================
-       MAIN
-    ========================= */
-
     main {
       max-width: 1200px;
       margin: 28px auto 60px;
@@ -259,10 +243,6 @@
       font-size: 30px;
       margin-bottom: 22px;
     }
-
-    /* =========================
-       CHECKOUT LAYOUT
-    ========================= */
 
     .checkout-layout {
       display: grid;
@@ -331,10 +311,6 @@
       resize: vertical;
     }
 
-    /* =========================
-       ADDRESS AUTOCOMPLETE
-    ========================= */
-
     .autocomplete-wrapper {
       position: relative;
     }
@@ -390,10 +366,6 @@
       margin-top: 6px;
     }
 
-    /* =========================
-       PAYMENT
-    ========================= */
-
     .payment-options {
       display: grid;
       gap: 12px;
@@ -442,10 +414,6 @@
       display: block;
     }
 
-    /* =========================
-       MONEY DISPLAY
-    ========================= */
-
     .kes-equivalent {
       color: #61718a;
       font-size: 12px;
@@ -471,10 +439,6 @@
     .rate-note strong {
       color: #172033;
     }
-
-    /* =========================
-       ORDER SUMMARY
-    ========================= */
 
     .summary-item {
       display: grid;
@@ -554,10 +518,6 @@
       margin-top: 4px;
     }
 
-    /* =========================
-       BUTTON
-    ========================= */
-
     .place-order {
       width: 100%;
       border: 0;
@@ -587,10 +547,6 @@
       font-size: 13px;
       margin-top: 12px;
     }
-
-    /* =========================
-       MESSAGES
-    ========================= */
 
     .message {
       padding: 12px;
@@ -625,10 +581,6 @@
       color: #61718a;
       font-weight: 700;
     }
-
-    /* =========================
-       FOOTER
-    ========================= */
 
     footer {
       background: #9b001f;
@@ -696,10 +648,6 @@
       color: #ffd9df;
       font-size: 13px;
     }
-
-    /* =========================
-       RESPONSIVE
-    ========================= */
 
     @media (max-width: 900px) {
       .checkout-layout {
@@ -818,7 +766,6 @@
 
 <body>
 
-  <!-- HEADER -->
   <header class="top-header">
 
     <div class="header-inner">
@@ -840,7 +787,6 @@
 
       </a>
 
-      <!-- DYNAMIC ACCOUNT HEADER -->
       <div
         class="header-actions"
         id="headerActions"
@@ -865,7 +811,6 @@
 
   </header>
 
-  <!-- NAVIGATION -->
   <nav>
 
     <div class="nav-inner">
@@ -911,7 +856,6 @@
 
   </nav>
 
-  <!-- SEARCH -->
   <section class="search-area">
 
     <div class="search-box">
@@ -930,7 +874,6 @@
 
   </section>
 
-  <!-- MAIN -->
   <main>
 
     <div class="breadcrumb">
@@ -956,7 +899,6 @@
 
   </main>
 
-  <!-- FOOTER -->
   <footer>
 
     <div class="footer-inner">
@@ -992,7 +934,6 @@
 
       </div>
 
-      <!-- DYNAMIC FOOTER ACCOUNT -->
       <div>
 
         <h3>Account</h3>
@@ -1090,528 +1031,95 @@
 
     const kenyaLocations = [
 
-      {
-        name: "Nairobi",
-        county: "Nairobi County",
-        type: "City"
-      },
-
-      {
-        name: "Nakuru",
-        county: "Nakuru County",
-        type: "City"
-      },
-
-      {
-        name: "Mombasa",
-        county: "Mombasa County",
-        type: "City"
-      },
-
-      {
-        name: "Kisumu",
-        county: "Kisumu County",
-        type: "City"
-      },
-
-      {
-        name: "Eldoret",
-        county: "Uasin Gishu County",
-        type: "Town"
-      },
-
-      {
-        name: "Thika",
-        county: "Kiambu County",
-        type: "Town"
-      },
-
-      {
-        name: "Naivasha",
-        county: "Nakuru County",
-        type: "Town"
-      },
-
-      {
-        name: "Nanyuki",
-        county: "Laikipia County",
-        type: "Town"
-      },
-
-      {
-        name: "Narok",
-        county: "Narok County",
-        type: "Town"
-      },
-
-      {
-        name: "Nyeri",
-        county: "Nyeri County",
-        type: "Town"
-      },
-
-      {
-        name: "Nyahururu",
-        county: "Laikipia County",
-        type: "Town"
-      },
-
-      {
-        name: "Machakos",
-        county: "Machakos County",
-        type: "Town"
-      },
-
-      {
-        name: "Kitui",
-        county: "Kitui County",
-        type: "Town"
-      },
-
-      {
-        name: "Meru",
-        county: "Meru County",
-        type: "Town"
-      },
-
-      {
-        name: "Embu",
-        county: "Embu County",
-        type: "Town"
-      },
-
-      {
-        name: "Kerugoya",
-        county: "Kirinyaga County",
-        type: "Town"
-      },
-
-      {
-        name: "Kakamega",
-        county: "Kakamega County",
-        type: "Town"
-      },
-
-      {
-        name: "Kisii",
-        county: "Kisii County",
-        type: "Town"
-      },
-
-      {
-        name: "Bungoma",
-        county: "Bungoma County",
-        type: "Town"
-      },
-
-      {
-        name: "Webuye",
-        county: "Bungoma County",
-        type: "Town"
-      },
-
-      {
-        name: "Kitale",
-        county: "Trans Nzoia County",
-        type: "Town"
-      },
-
-      {
-        name: "Busia",
-        county: "Busia County",
-        type: "Town"
-      },
-
-      {
-        name: "Siaya",
-        county: "Siaya County",
-        type: "Town"
-      },
-
-      {
-        name: "Migori",
-        county: "Migori County",
-        type: "Town"
-      },
-
-      {
-        name: "Homa Bay",
-        county: "Homa Bay County",
-        type: "Town"
-      },
-
-      {
-        name: "Kericho",
-        county: "Kericho County",
-        type: "Town"
-      },
-
-      {
-        name: "Bomet",
-        county: "Bomet County",
-        type: "Town"
-      },
-
-      {
-        name: "Voi",
-        county: "Taita-Taveta County",
-        type: "Town"
-      },
-
-      {
-        name: "Malindi",
-        county: "Kilifi County",
-        type: "Town"
-      },
-
-      {
-        name: "Kilifi",
-        county: "Kilifi County",
-        type: "Town"
-      },
-
-      {
-        name: "Lamu",
-        county: "Lamu County",
-        type: "Town"
-      },
-
-      {
-        name: "Garissa",
-        county: "Garissa County",
-        type: "Town"
-      },
-
-      {
-        name: "Wajir",
-        county: "Wajir County",
-        type: "Town"
-      },
-
-      {
-        name: "Mandera",
-        county: "Mandera County",
-        type: "Town"
-      },
-
-      {
-        name: "Marsabit",
-        county: "Marsabit County",
-        type: "Town"
-      },
-
-      {
-        name: "Isiolo",
-        county: "Isiolo County",
-        type: "Town"
-      },
-
-      {
-        name: "Moyale",
-        county: "Marsabit County",
-        type: "Town"
-      },
-
-      {
-        name: "Lodwar",
-        county: "Turkana County",
-        type: "Town"
-      },
-
-      {
-        name: "Kapenguria",
-        county: "West Pokot County",
-        type: "Town"
-      },
-
-      {
-        name: "Kapsabet",
-        county: "Nandi County",
-        type: "Town"
-      },
-
-      {
-        name: "Murang'a",
-        county: "Murang'a County",
-        type: "Town"
-      },
-
-      {
-        name: "Kiambu",
-        county: "Kiambu County",
-        type: "Town"
-      },
-
-      {
-        name: "Limuru",
-        county: "Kiambu County",
-        type: "Town"
-      },
-
-      {
-        name: "Ruiru",
-        county: "Kiambu County",
-        type: "Town"
-      },
-
-      {
-        name: "Kikuyu",
-        county: "Kiambu County",
-        type: "Town"
-      },
-
-      {
-        name: "Githurai",
-        county: "Kiambu County",
-        type: "Town"
-      },
-
-      {
-        name: "Juja",
-        county: "Kiambu County",
-        type: "Town"
-      },
-
-      {
-        name: "Athi River",
-        county: "Machakos County",
-        type: "Town"
-      },
-
-      {
-        name: "Kitengela",
-        county: "Kajiado County",
-        type: "Town"
-      },
-
-      {
-        name: "Ngong",
-        county: "Kajiado County",
-        type: "Town"
-      },
-
-      {
-        name: "Kajiado",
-        county: "Kajiado County",
-        type: "Town"
-      },
-
-      {
-        name: "Nairobi CBD",
-        county: "Nairobi County",
-        type: "Nairobi Area"
-      },
-
-      {
-        name: "Westlands",
-        county: "Nairobi County",
-        type: "Nairobi Area"
-      },
-
-      {
-        name: "Kilimani",
-        county: "Nairobi County",
-        type: "Nairobi Area"
-      },
-
-      {
-        name: "Lavington",
-        county: "Nairobi County",
-        type: "Nairobi Area"
-      },
-
-      {
-        name: "Kileleshwa",
-        county: "Nairobi County",
-        type: "Nairobi Area"
-      },
-
-      {
-        name: "Karen",
-        county: "Nairobi County",
-        type: "Nairobi Area"
-      },
-
-      {
-        name: "Lang'ata",
-        county: "Nairobi County",
-        type: "Nairobi Area"
-      },
-
-      {
-        name: "South B",
-        county: "Nairobi County",
-        type: "Nairobi Area"
-      },
-
-      {
-        name: "South C",
-        county: "Nairobi County",
-        type: "Nairobi Area"
-      },
-
-      {
-        name: "Eastleigh",
-        county: "Nairobi County",
-        type: "Nairobi Area"
-      },
-
-      {
-        name: "Kasarani",
-        county: "Nairobi County",
-        type: "Nairobi Area"
-      },
-
-      {
-        name: "Embakasi",
-        county: "Nairobi County",
-        type: "Nairobi Area"
-      },
-
-      {
-        name: "Donholm",
-        county: "Nairobi County",
-        type: "Nairobi Area"
-      },
-
-      {
-        name: "Umoja",
-        county: "Nairobi County",
-        type: "Nairobi Area"
-      },
-
-      {
-        name: "Buruburu",
-        county: "Nairobi County",
-        type: "Nairobi Area"
-      },
-
-      {
-        name: "Roysambu",
-        county: "Nairobi County",
-        type: "Nairobi Area"
-      },
-
-      {
-        name: "Ruaka",
-        county: "Kiambu County",
-        type: "Town"
-      },
-
-      {
-        name: "Rongai",
-        county: "Kajiado County",
-        type: "Town"
-      },
-
-      {
-        name: "Dagoretti",
-        county: "Nairobi County",
-        type: "Nairobi Area"
-      },
-
-      {
-        name: "Kangemi",
-        county: "Nairobi County",
-        type: "Nairobi Area"
-      },
-
-      {
-        name: "Kawangware",
-        county: "Nairobi County",
-        type: "Nairobi Area"
-      },
-
-      {
-        name: "Gikambura",
-        county: "Kiambu County",
-        type: "Town"
-      },
-
-      {
-        name: "Bungoma Town",
-        county: "Bungoma County",
-        type: "Town"
-      },
-
-      {
-        name: "Kimilili",
-        county: "Bungoma County",
-        type: "Town"
-      },
-
-      {
-        name: "Chwele",
-        county: "Bungoma County",
-        type: "Town"
-      },
-
-      {
-        name: "Malakisi",
-        county: "Bungoma County",
-        type: "Town"
-      },
-
-      {
-        name: "Sirisia",
-        county: "Bungoma County",
-        type: "Town"
-      },
-
-      {
-        name: "Mumias",
-        county: "Kakamega County",
-        type: "Town"
-      },
-
-      {
-        name: "Busia Town",
-        county: "Busia County",
-        type: "Town"
-      },
-
-      {
-        name: "Kisii Town",
-        county: "Kisii County",
-        type: "Town"
-      },
-
-      {
-        name: "Ongata Rongai",
-        county: "Kajiado County",
-        type: "Town"
-      },
-
-      {
-        name: "Kiserian",
-        county: "Kajiado County",
-        type: "Town"
-      },
-
-      {
-        name: "Mlolongo",
-        county: "Machakos County",
-        type: "Town"
-      },
-
-      {
-        name: "Syokimau",
-        county: "Machakos County",
-        type: "Town"
-      },
-
-      {
-        name: "Ruai",
-        county: "Nairobi County",
-        type: "Nairobi Area"
-      }
+      { name: "Nairobi", county: "Nairobi County", type: "City" },
+      { name: "Nakuru", county: "Nakuru County", type: "City" },
+      { name: "Mombasa", county: "Mombasa County", type: "City" },
+      { name: "Kisumu", county: "Kisumu County", type: "City" },
+      { name: "Eldoret", county: "Uasin Gishu County", type: "Town" },
+      { name: "Thika", county: "Kiambu County", type: "Town" },
+      { name: "Naivasha", county: "Nakuru County", type: "Town" },
+      { name: "Nanyuki", county: "Laikipia County", type: "Town" },
+      { name: "Narok", county: "Narok County", type: "Town" },
+      { name: "Nyeri", county: "Nyeri County", type: "Town" },
+      { name: "Nyahururu", county: "Laikipia County", type: "Town" },
+      { name: "Machakos", county: "Machakos County", type: "Town" },
+      { name: "Kitui", county: "Kitui County", type: "Town" },
+      { name: "Meru", county: "Meru County", type: "Town" },
+      { name: "Embu", county: "Embu County", type: "Town" },
+      { name: "Kerugoya", county: "Kirinyaga County", type: "Town" },
+      { name: "Kakamega", county: "Kakamega County", type: "Town" },
+      { name: "Kisii", county: "Kisii County", type: "Town" },
+      { name: "Bungoma", county: "Bungoma County", type: "Town" },
+      { name: "Webuye", county: "Bungoma County", type: "Town" },
+      { name: "Kitale", county: "Trans Nzoia County", type: "Town" },
+      { name: "Busia", county: "Busia County", type: "Town" },
+      { name: "Siaya", county: "Siaya County", type: "Town" },
+      { name: "Migori", county: "Migori County", type: "Town" },
+      { name: "Homa Bay", county: "Homa Bay County", type: "Town" },
+      { name: "Kericho", county: "Kericho County", type: "Town" },
+      { name: "Bomet", county: "Bomet County", type: "Town" },
+      { name: "Voi", county: "Taita-Taveta County", type: "Town" },
+      { name: "Malindi", county: "Kilifi County", type: "Town" },
+      { name: "Kilifi", county: "Kilifi County", type: "Town" },
+      { name: "Lamu", county: "Lamu County", type: "Town" },
+      { name: "Garissa", county: "Garissa County", type: "Town" },
+      { name: "Wajir", county: "Wajir County", type: "Town" },
+      { name: "Mandera", county: "Mandera County", type: "Town" },
+      { name: "Marsabit", county: "Marsabit County", type: "Town" },
+      { name: "Isiolo", county: "Isiolo County", type: "Town" },
+      { name: "Moyale", county: "Marsabit County", type: "Town" },
+      { name: "Lodwar", county: "Turkana County", type: "Town" },
+      { name: "Kapenguria", county: "West Pokot County", type: "Town" },
+      { name: "Kapsabet", county: "Nandi County", type: "Town" },
+      { name: "Murang'a", county: "Murang'a County", type: "Town" },
+      { name: "Kiambu", county: "Kiambu County", type: "Town" },
+      { name: "Limuru", county: "Kiambu County", type: "Town" },
+      { name: "Ruiru", county: "Kiambu County", type: "Town" },
+      { name: "Kikuyu", county: "Kiambu County", type: "Town" },
+      { name: "Githurai", county: "Kiambu County", type: "Town" },
+      { name: "Juja", county: "Kiambu County", type: "Town" },
+      { name: "Athi River", county: "Machakos County", type: "Town" },
+      { name: "Kitengela", county: "Kajiado County", type: "Town" },
+      { name: "Ngong", county: "Kajiado County", type: "Town" },
+      { name: "Kajiado", county: "Kajiado County", type: "Town" },
+      { name: "Nairobi CBD", county: "Nairobi County", type: "Nairobi Area" },
+      { name: "Westlands", county: "Nairobi County", type: "Nairobi Area" },
+      { name: "Kilimani", county: "Nairobi County", type: "Nairobi Area" },
+      { name: "Lavington", county: "Nairobi County", type: "Nairobi Area" },
+      { name: "Kileleshwa", county: "Nairobi County", type: "Nairobi Area" },
+      { name: "Karen", county: "Nairobi County", type: "Nairobi Area" },
+      { name: "Lang'ata", county: "Nairobi County", type: "Nairobi Area" },
+      { name: "South B", county: "Nairobi County", type: "Nairobi Area" },
+      { name: "South C", county: "Nairobi County", type: "Nairobi Area" },
+      { name: "Eastleigh", county: "Nairobi County", type: "Nairobi Area" },
+      { name: "Kasarani", county: "Nairobi County", type: "Nairobi Area" },
+      { name: "Embakasi", county: "Nairobi County", type: "Nairobi Area" },
+      { name: "Donholm", county: "Nairobi County", type: "Nairobi Area" },
+      { name: "Umoja", county: "Nairobi County", type: "Nairobi Area" },
+      { name: "Buruburu", county: "Nairobi County", type: "Nairobi Area" },
+      { name: "Roysambu", county: "Nairobi County", type: "Nairobi Area" },
+      { name: "Ruaka", county: "Kiambu County", type: "Town" },
+      { name: "Rongai", county: "Kajiado County", type: "Town" },
+      { name: "Dagoretti", county: "Nairobi County", type: "Nairobi Area" },
+      { name: "Kangemi", county: "Nairobi County", type: "Nairobi Area" },
+      { name: "Kawangware", county: "Nairobi County", type: "Nairobi Area" },
+      { name: "Gikambura", county: "Kiambu County", type: "Town" },
+      { name: "Bungoma Town", county: "Bungoma County", type: "Town" },
+      { name: "Kimilili", county: "Bungoma County", type: "Town" },
+      { name: "Chwele", county: "Bungoma County", type: "Town" },
+      { name: "Malakisi", county: "Bungoma County", type: "Town" },
+      { name: "Sirisia", county: "Bungoma County", type: "Town" },
+      { name: "Mumias", county: "Kakamega County", type: "Town" },
+      { name: "Busia Town", county: "Busia County", type: "Town" },
+      { name: "Kisii Town", county: "Kisii County", type: "Town" },
+      { name: "Ongata Rongai", county: "Kajiado County", type: "Town" },
+      { name: "Kiserian", county: "Kajiado County", type: "Town" },
+      { name: "Mlolongo", county: "Machakos County", type: "Town" },
+      { name: "Syokimau", county: "Machakos County", type: "Town" },
+      { name: "Ruai", county: "Nairobi County", type: "Nairobi Area" }
 
     ];
 
-
-    /* =========================
-       COUNTY LIST
-    ========================= */
 
     const kenyaCounties = [
 
@@ -1662,6 +1170,7 @@
       "Vihiga County",
       "Wajir County",
       "West Pokot County"
+
     ];
 
 
@@ -1766,7 +1275,7 @@
 
 
     /* =========================
-       DYNAMIC ACCOUNT HEADER
+       ACCOUNT UI
     ========================= */
 
     async function updateAccountUI() {
@@ -1980,7 +1489,7 @@
 
 
     /* =========================
-       USER AUTHENTICATION
+       AUTHENTICATION
     ========================= */
 
     async function checkUser() {
@@ -2082,10 +1591,6 @@
 
     }
 
-
-    /* =========================
-       AUTH STATE LISTENER
-    ========================= */
 
     supabaseClient.auth.onAuthStateChange(
       async function() {
@@ -2273,7 +1778,6 @@
         "";
 
       let firstName = "";
-
       let lastName = "";
 
       if (fullName) {
@@ -2292,51 +1796,33 @@
       }
 
       const firstNameInput =
-        document.getElementById(
-          "firstName"
-        );
+        document.getElementById("firstName");
 
       const lastNameInput =
-        document.getElementById(
-          "lastName"
-        );
+        document.getElementById("lastName");
 
       const emailInput =
-        document.getElementById(
-          "email"
-        );
+        document.getElementById("email");
 
       const phoneInput =
-        document.getElementById(
-          "phone"
-        );
+        document.getElementById("phone");
 
       if (firstNameInput) {
-
-        firstNameInput.value =
-          firstName;
-
+        firstNameInput.value = firstName;
       }
 
       if (lastNameInput) {
-
-        lastNameInput.value =
-          lastName;
-
+        lastNameInput.value = lastName;
       }
 
       if (emailInput) {
-
         emailInput.value =
           currentUser.email || "";
-
       }
 
       if (phoneInput) {
-
         phoneInput.value =
           metadata.phone || "";
-
       }
 
     }
@@ -2361,12 +1847,8 @@
               item.image_url || "";
 
             const itemTotal =
-              Number(
-                item.price || 0
-              ) *
-              Number(
-                item.quantity || 0
-              );
+              Number(item.price || 0) *
+              Number(item.quantity || 0);
 
             return `
 
@@ -2818,7 +2300,7 @@
 
 
     /* =========================
-       UPDATE CURRENCY DISPLAY
+       CURRENCY DISPLAY
     ========================= */
 
     function updateCurrencyDisplay() {
@@ -2880,7 +2362,7 @@
 
 
     /* =========================
-       ADDRESS AUTOCOMPLETE
+       AUTOCOMPLETE
     ========================= */
 
     function initializeAutocomplete() {
@@ -3158,9 +2640,7 @@
                   "county"
                 );
 
-              if (
-                countyInput
-              ) {
+              if (countyInput) {
 
                 countyInput.value =
                   this.dataset.county;
@@ -3313,22 +2793,12 @@
                       "county"
                     );
 
-                  if (
-                    townInput
-                  ) {
-
-                    townInput.value =
-                      name;
-
+                  if (townInput) {
+                    townInput.value = name;
                   }
 
-                  if (
-                    countyInput
-                  ) {
-
-                    countyInput.value =
-                      county;
-
+                  if (countyInput) {
+                    countyInput.value = county;
                   }
 
                   suggestions.classList.remove(
@@ -3369,7 +2839,7 @@
 
 
     /* =========================
-       PAYMENT
+       PAYMENT METHOD
     ========================= */
 
     function toggleMpesa() {
@@ -3420,72 +2890,56 @@
 
       const firstName =
         document
-          .getElementById(
-            "firstName"
-          )
+          .getElementById("firstName")
           .value
           .trim();
 
 
       const lastName =
         document
-          .getElementById(
-            "lastName"
-          )
+          .getElementById("lastName")
           .value
           .trim();
 
 
       const email =
         document
-          .getElementById(
-            "email"
-          )
+          .getElementById("email")
           .value
           .trim();
 
 
       const phone =
         document
-          .getElementById(
-            "phone"
-          )
+          .getElementById("phone")
           .value
           .trim();
 
 
       const county =
         document
-          .getElementById(
-            "county"
-          )
+          .getElementById("county")
           .value
           .trim();
 
 
       const town =
         document
-          .getElementById(
-            "town"
-          )
+          .getElementById("town")
           .value
           .trim();
 
 
       const address =
         document
-          .getElementById(
-            "address"
-          )
+          .getElementById("address")
           .value
           .trim();
 
 
       const deliveryNote =
         document
-          .getElementById(
-            "deliveryNote"
-          )
+          .getElementById("deliveryNote")
           .value
           .trim();
 
@@ -3596,33 +3050,20 @@
       const items =
         cart.map(item => ({
 
-          id:
-            item.id,
+          id: item.id,
 
-          name:
-            item.name,
+          name: item.name,
 
           price:
-            Number(
-              item.price || 0
-            ),
+            Number(item.price || 0),
 
           quantity:
-            Number(
-              item.quantity || 0
-            ),
+            Number(item.quantity || 0),
 
           image_url:
             item.image_url || ""
 
         }));
-
-
-      /*
-        Store order amounts in USD.
-
-        M-Pesa receives the KSh equivalent.
-      */
 
 
       const {
@@ -3724,6 +3165,10 @@
       }
 
 
+      /* =========================
+         M-PESA PAYMENT
+      ========================= */
+
       if (
         paymentMethod === "M-Pesa"
       ) {
@@ -3778,7 +3223,8 @@
 
 
     /* =========================
-       M-PESA
+       M-PESA STK PUSH
+       CORRECTED ENDPOINT
     ========================= */
 
     async function startMpesaPayment(
@@ -3787,13 +3233,6 @@
     ) {
 
       try {
-
-        /*
-          M-Pesa uses Kenyan Shillings.
-
-          Example:
-          $10 × 129.7 = approximately KSh 1,297
-        */
 
         const mpesaAmount =
           Math.max(
@@ -3805,9 +3244,21 @@
           );
 
 
+        /*
+          IMPORTANT:
+
+          The backend file is:
+
+          api/mpesa/stkpush.js
+
+          Therefore the Vercel endpoint is:
+
+          /api/mpesa/stkpush
+        */
+
         const response =
           await fetch(
-            "/api/mpesa/stk-push",
+            "/api/mpesa/stkpush",
             {
 
               method: "POST",
@@ -3817,33 +3268,27 @@
                   "application/json"
               },
 
+              /*
+                The backend expects exactly:
+
+                phone
+                amount
+                orderNumber
+              */
+
               body:
                 JSON.stringify({
-
-                  orderId:
-                    order.id,
-
-                  orderNumber:
-                    order.order_number,
-
-                  amount:
-                    mpesaAmount,
-
-                  currency:
-                    "KES",
-
-                  usdAmount:
-                    Number(
-                      order.total || 0
-                    ),
-
-                  exchangeRate:
-                    usdToKesRate,
 
                   phone:
                     normalizeKenyanPhone(
                       mpesaPhone
-                    )
+                    ),
+
+                  amount:
+                    mpesaAmount,
+
+                  orderNumber:
+                    order.order_number
 
                 })
 
@@ -3851,8 +3296,28 @@
           );
 
 
-        const result =
-          await response.json();
+        const resultText =
+          await response.text();
+
+
+        let result = {};
+
+        try {
+
+          result =
+            JSON.parse(
+              resultText
+            );
+
+        } catch {
+
+          result = {
+            message:
+              resultText ||
+              "M-Pesa server returned an invalid response."
+          };
+
+        }
 
 
         if (!response.ok) {
@@ -3874,30 +3339,27 @@
 
 
         if (
-          result.checkoutRequestId
+          !result.success
         ) {
 
-          await supabaseClient
-            .from("orders")
-            .update({
+          console.error(
+            "M-Pesa request was not successful:",
+            result
+          );
 
-              checkout_request_id:
-                result.checkoutRequestId,
+          showPageMessage(
+            result.message ||
+            "M-Pesa payment could not be started.",
+            "error"
+          );
 
-              merchant_request_id:
-                result.merchantRequestId ||
-                null
-
-            })
-            .eq(
-              "id",
-              order.id
-            );
+          return false;
 
         }
 
 
         showPageMessage(
+          result.customerMessage ||
           `M-Pesa payment prompt sent for approximately ${formatKES(mpesaAmount)}. Complete the payment on your phone.`,
           "success"
         );
@@ -3926,7 +3388,7 @@
 
 
     /* =========================
-       SAVE CART AFTER ORDER
+       SAVE CART
     ========================= */
 
     function saveCartAfterOrder() {

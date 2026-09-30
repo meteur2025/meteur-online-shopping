@@ -31,8 +31,10 @@ export default async function handler(req, res) {
         const checkoutRequestId = stkCallback.CheckoutRequestID;
         const merchantRequestId = stkCallback.MerchantRequestID;
         const resultCode = Number(stkCallback.ResultCode);
+
         const resultDescription =
-            stkCallback.ResultDesc || "No result description provided.";
+            stkCallback.ResultDesc ||
+            "No result description provided.";
 
         if (!checkoutRequestId) {
             console.error("Missing CheckoutRequestID.");
@@ -63,7 +65,9 @@ export default async function handler(req, res) {
         const mpesaPhoneNumber =
             getMetadata("PhoneNumber");
 
-        const supabaseUrl = process.env.SUPABASE_URL;
+        const supabaseUrl =
+            process.env.SUPABASE_URL;
+
         const serviceRoleKey =
             process.env.SUPABASE_SERVICE_ROLE_KEY;
 
@@ -90,20 +94,36 @@ export default async function handler(req, res) {
         const updateData = {
             payment_status: paymentStatus,
             status: orderStatus,
-            checkout_request_id: checkoutRequestId,
-            merchant_request_id: merchantRequestId || null,
-            mpesa_receipt_number: mpesaReceiptNumber
-                ? String(mpesaReceiptNumber)
-                : null,
-            mpesa_transaction_date: transactionDate
-                ? String(transactionDate)
-                : null,
-            mpesa_phone_number: mpesaPhoneNumber
-                ? String(mpesaPhoneNumber)
-                : null,
-            payment_result_code: resultCode,
-            payment_result_description: resultDescription,
-            updated_at: new Date().toISOString()
+
+            checkout_request_id:
+                checkoutRequestId,
+
+            merchant_request_id:
+                merchantRequestId || null,
+
+            mpesa_receipt_number:
+                mpesaReceiptNumber
+                    ? String(mpesaReceiptNumber)
+                    : null,
+
+            mpesa_transaction_date:
+                transactionDate
+                    ? String(transactionDate)
+                    : null,
+
+            mpesa_phone_number:
+                mpesaPhoneNumber
+                    ? String(mpesaPhoneNumber)
+                    : null,
+
+            payment_result_code:
+                resultCode,
+
+            payment_result_description:
+                resultDescription,
+
+            updated_at:
+                new Date().toISOString()
         };
 
         const updateUrl =
@@ -112,18 +132,31 @@ export default async function handler(req, res) {
                 checkoutRequestId
             )}`;
 
-        const updateResponse = await fetch(updateUrl, {
-            method: "PATCH",
-            headers: {
-                apikey: serviceRoleKey,
-                Authorization: `Bearer ${serviceRoleKey}`,
-                "Content-Type": "application/json",
-                Prefer: "return=representation"
-            },
-            body: JSON.stringify(updateData)
-        });
+        const updateResponse = await fetch(
+            updateUrl,
+            {
+                method: "PATCH",
 
-        const updatedOrders = await updateResponse.json();
+                headers: {
+                    apikey: serviceRoleKey,
+
+                    Authorization:
+                        `Bearer ${serviceRoleKey}`,
+
+                    "Content-Type":
+                        "application/json",
+
+                    Prefer:
+                        "return=representation"
+                },
+
+                body:
+                    JSON.stringify(updateData)
+            }
+        );
+
+        const updatedOrders =
+            await updateResponse.json();
 
         if (!updateResponse.ok) {
             console.error(
@@ -138,7 +171,10 @@ export default async function handler(req, res) {
             });
         }
 
-        if (!Array.isArray(updatedOrders) || updatedOrders.length === 0) {
+        if (
+            !Array.isArray(updatedOrders) ||
+            updatedOrders.length === 0
+        ) {
             console.error(
                 "No order found for CheckoutRequestID:",
                 checkoutRequestId
@@ -163,7 +199,8 @@ export default async function handler(req, res) {
 
         return res.status(200).json({
             ResultCode: 0,
-            ResultDesc: "Callback processed successfully."
+            ResultDesc:
+                "Callback processed successfully."
         });
 
     } catch (error) {
@@ -174,7 +211,8 @@ export default async function handler(req, res) {
 
         return res.status(500).json({
             ResultCode: 1,
-            ResultDesc: "Callback processing failed."
+            ResultDesc:
+                "Callback processing failed."
         });
     }
 }

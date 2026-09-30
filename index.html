@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +8,7 @@
 
   <meta
     name="description"
-    content="Shop mobile phones at METEUR MOBILE KENYA."
+    content="Shop new and used smartphones at METEUR MOBILE KENYA."
   >
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -30,11 +29,6 @@
     a {
       text-decoration: none;
       color: inherit;
-    }
-
-    button,
-    input {
-      font-family: inherit;
     }
 
     /* =========================
@@ -76,9 +70,9 @@
       justify-content: center;
       overflow: hidden;
       flex-shrink: 0;
-      padding: 0;
-      border: none;
-      box-shadow: none;
+      color: #d90429;
+      font-size: 28px;
+      font-weight: 900;
     }
 
     .real-logo {
@@ -87,7 +81,6 @@
       object-fit: contain;
       display: block;
       background: white;
-      border: none;
       border-radius: 9px;
     }
 
@@ -95,7 +88,6 @@
       display: flex;
       flex-direction: column;
       color: white;
-      font-weight: 800;
       line-height: 1.1;
       white-space: nowrap;
     }
@@ -198,41 +190,117 @@
     ========================= */
 
     .hero {
-      background: linear-gradient(135deg, #d90429, #9b001f);
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(
+          circle at 80% 20%,
+          rgba(255,255,255,.16),
+          transparent 30%
+        ),
+        linear-gradient(
+          135deg,
+          #d90429 0%,
+          #b40023 45%,
+          #760018 100%
+        );
       color: white;
+      min-height: 360px;
+      display: flex;
+      align-items: center;
       padding: 65px 20px;
     }
 
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 50%;
+      right: -90px;
+      top: -100px;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 50%;
+      right: 80px;
+      bottom: -130px;
+    }
+
     .hero-inner {
+      position: relative;
+      z-index: 2;
       max-width: 1250px;
+      width: 100%;
       margin: auto;
-      text-align: center;
+      text-align: left;
+    }
+
+    .hero-label {
+      display: inline-block;
+      background: rgba(255,255,255,.14);
+      border: 1px solid rgba(255,255,255,.22);
+      padding: 7px 13px;
+      border-radius: 30px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 18px;
+      text-transform: uppercase;
     }
 
     .hero h1 {
-      font-size: 44px;
-      margin-bottom: 15px;
+      font-size: 48px;
+      line-height: 1.08;
+      max-width: 760px;
+      margin-bottom: 16px;
+      font-weight: 900;
+      letter-spacing: -.8px;
     }
 
     .hero p {
       font-size: 18px;
-      max-width: 700px;
-      margin: 0 auto 25px;
+      max-width: 680px;
+      margin-bottom: 28px;
       line-height: 1.6;
       color: #ffe5e9;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
     }
 
     .hero-button {
       display: inline-block;
       background: white;
       color: #d90429;
-      padding: 13px 25px;
-      border-radius: 6px;
-      font-weight: bold;
+      padding: 13px 23px;
+      border-radius: 7px;
+      font-weight: 800;
+      transition: .2s;
     }
 
     .hero-button:hover {
       background: #fff0f2;
+      transform: translateY(-2px);
+    }
+
+    .hero-button.secondary {
+      background: transparent;
+      color: white;
+      border: 1px solid rgba(255,255,255,.55);
+    }
+
+    .hero-button.secondary:hover {
+      background: rgba(255,255,255,.12);
     }
 
     /* =========================
@@ -511,11 +579,6 @@
 
     @media (max-width: 700px) {
 
-      header {
-        position: sticky;
-        top: 0;
-      }
-
       .header-top {
         display: flex;
         align-items: center;
@@ -532,18 +595,9 @@
         width: 48px;
         min-width: 48px;
         height: 48px;
-        border-radius: 9px;
-      }
-
-      .real-logo {
-        width: 48px;
-        height: 48px;
-        background: #ffffff;
-        border-radius: 9px;
       }
 
       .brand-text {
-        display: flex;
         min-width: 0;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -561,7 +615,6 @@
       .header-actions {
         display: flex;
         margin-left: auto;
-        min-width: 0;
       }
 
       .header-link:not(.cart-link) {
@@ -569,14 +622,10 @@
       }
 
       .cart-link {
-        background: rgba(255, 255, 255, .12);
+        background: rgba(255,255,255,.12);
         padding: 9px 11px;
         border-radius: 6px;
         font-size: 13px;
-      }
-
-      .nav-bar {
-        width: 100%;
       }
 
       .nav-inner {
@@ -592,17 +641,38 @@
       }
 
       .hero {
-        padding: 42px 15px;
+        min-height: 390px;
+        padding: 48px 18px;
+      }
+
+      .hero-inner {
+        text-align: center;
+      }
+
+      .hero-label {
+        font-size: 10px;
+        margin-bottom: 15px;
       }
 
       .hero h1 {
-        font-size: 29px;
-        line-height: 1.2;
+        font-size: 34px;
+        line-height: 1.12;
+        letter-spacing: -.4px;
       }
 
       .hero p {
         font-size: 15px;
         line-height: 1.5;
+        margin-bottom: 24px;
+      }
+
+      .hero-buttons {
+        justify-content: center;
+      }
+
+      .hero-button {
+        padding: 12px 18px;
+        font-size: 13px;
       }
 
       .container {
@@ -704,6 +774,29 @@
         font-size: 12px;
       }
 
+      .hero {
+        min-height: 380px;
+        padding: 42px 14px;
+      }
+
+      .hero h1 {
+        font-size: 30px;
+      }
+
+      .hero p {
+        font-size: 14px;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .hero-button {
+        width: 85%;
+        text-align: center;
+      }
+
       .categories,
       .products-grid {
         grid-template-columns: 1fr 1fr;
@@ -738,13 +831,15 @@
 
           <img
             src="WhatsApp Image 2026-09-30 at 12.36.30.jpeg"
-            alt="Meteur Mobile Kenya M Logo"
+            alt=""
             class="real-logo"
+            onerror="this.style.display='none'; this.parentElement.textContent='M';"
           >
 
         </a>
 
         <span class="brand-text">
+
           <span class="brand-name">
             METEUR MOBILE KENYA
           </span>
@@ -752,11 +847,14 @@
           <span class="brand-tagline">
             SMARTPHONES FOR EVERY BUDGET
           </span>
+
         </span>
 
       </div>
 
+
       <!-- HEADER ACTIONS -->
+
       <div class="header-actions">
 
         <a href="login.html" class="header-link">
@@ -769,14 +867,18 @@
 
         <a href="cart.html" class="header-link cart-link">
           🛒 Cart
-          <span id="cartCount" class="cart-count">0</span>
+          <span id="cartCount" class="cart-count">
+            0
+          </span>
         </a>
 
       </div>
 
     </div>
 
+
     <!-- NAVIGATION -->
+
     <nav class="nav-bar">
 
       <div class="nav-inner">
@@ -818,17 +920,37 @@
 
     <div class="hero-inner">
 
+      <div class="hero-label">
+        METEUR MOBILE KENYA
+      </div>
+
       <h1>
-        Shop Smart with METEUR MOBILE KENYA
+        YOUR NEXT PHONE<br>
+        STARTS HERE
       </h1>
 
       <p>
-        Discover smartphones at affordable prices.
+        Discover new and quality used smartphones
+        at prices made for every budget.
       </p>
 
-      <a href="shop.html" class="hero-button">
-        Shop Now
-      </a>
+      <div class="hero-buttons">
+
+        <a
+          href="shop.html?condition=New"
+          class="hero-button"
+        >
+          Shop New Phones
+        </a>
+
+        <a
+          href="shop.html?condition=Used"
+          class="hero-button secondary"
+        >
+          Shop Used Phones
+        </a>
+
+      </div>
 
     </div>
 
@@ -845,7 +967,10 @@
 
     <div class="categories">
 
-      <a href="shop.html?condition=New" class="category-card">
+      <a
+        href="shop.html?condition=New"
+        class="category-card"
+      >
 
         <div class="category-icon">
           📱
@@ -862,7 +987,10 @@
       </a>
 
 
-      <a href="shop.html?condition=Used" class="category-card">
+      <a
+        href="shop.html?condition=Used"
+        class="category-card"
+      >
 
         <div class="category-icon">
           ♻️
@@ -879,7 +1007,10 @@
       </a>
 
 
-      <a href="shop.html" class="category-card">
+      <a
+        href="shop.html"
+        class="category-card"
+      >
 
         <div class="category-icon">
           ⭐
@@ -896,7 +1027,10 @@
       </a>
 
 
-      <a href="shop.html" class="category-card">
+      <a
+        href="shop.html"
+        class="category-card"
+      >
 
         <div class="category-icon">
           🛍️
@@ -919,7 +1053,10 @@
       Featured Phones
     </h2>
 
-    <div id="productsGrid" class="products-grid">
+    <div
+      id="productsGrid"
+      class="products-grid"
+    >
 
       <div style="
         grid-column:1/-1;
@@ -1178,9 +1315,7 @@
     }
 
 
-    function createImageHtml(
-      product
-    ) {
+    function createImageHtml(product) {
 
       const image =
         product.image_url || "";
@@ -1224,8 +1359,15 @@
         >
 
         <div class="image-unavailable">
-          <strong>Image unavailable</strong>
-          <span>${escapeHtml(product.name)}</span>
+
+          <strong>
+            Image unavailable
+          </strong>
+
+          <span>
+            ${escapeHtml(product.name)}
+          </span>
+
         </div>
 
       `;
@@ -1326,9 +1468,7 @@
 
             return `
 
-              <article
-                class="product-card"
-              >
+              <article class="product-card">
 
                 <a
                   href="product.html?id=${encodeURIComponent(product.id)}"
@@ -1427,4 +1567,3 @@
 
 </body>
 </html>
-```

@@ -59,33 +59,23 @@
     }
 
     .logo-icon {
-      width: 42px;
-      height: 42px;
-      border: 3px solid white;
+      width: 48px;
+      height: 48px;
       border-radius: 9px;
-      background: #9b001f;
+      background: white;
       position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
+      flex-shrink: 0;
     }
 
-    .logo-icon::before {
-      content: "";
-      width: 24px;
-      height: 29px;
-      border: 2px solid white;
-      border-radius: 5px;
-    }
-
-    .logo-icon::after {
-      content: "";
-      width: 5px;
-      height: 5px;
-      background: white;
-      border-radius: 50%;
-      position: absolute;
-      bottom: 6px;
+    .logo-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
     }
 
     .logo-text {
@@ -129,6 +119,10 @@
       font-weight: bold;
       cursor: pointer;
       border-radius: 0 6px 6px 0;
+    }
+
+    .search-box button:hover {
+      background: #7d0019;
     }
 
     .header-actions {
@@ -543,7 +537,12 @@
 
     <a href="index.html" class="logo">
 
-      <div class="logo-icon"></div>
+      <div class="logo-icon">
+        <img
+          src="WhatsApp%20Image%202026-09-30%20at%2012.36.30.jpeg"
+          alt="METEUR MOBILE KENYA Logo"
+        >
+      </div>
 
       <div class="logo-text">
         <span class="logo-main">METEUR MOBILE KENYA</span>
@@ -693,19 +692,35 @@
       All Products
     </button>
 
-    <button type="button" class="category-tab" data-category="Phones and Tablets">
+    <button
+      type="button"
+      class="category-tab"
+      data-category="Phones and Tablets"
+    >
       Phones & Tablets
     </button>
 
-    <button type="button" class="category-tab" data-category="Electronics">
+    <button
+      type="button"
+      class="category-tab"
+      data-category="Electronics"
+    >
       Electronics
     </button>
 
-    <button type="button" class="category-tab" data-category="Accessories">
+    <button
+      type="button"
+      class="category-tab"
+      data-category="Accessories"
+    >
       Accessories
     </button>
 
-    <button type="button" class="category-tab" data-category="Smart Devices">
+    <button
+      type="button"
+      class="category-tab"
+      data-category="Smart Devices"
+    >
       Smart Devices
     </button>
 
@@ -823,13 +838,9 @@
     );
 
   let allProducts = [];
-
   let currentCategory = "";
-
   let currentSearch = "";
-
   let currentSort = "newest";
-
 
   function escapeHtml(value) {
 
@@ -841,7 +852,6 @@
       .replace(/'/g, "&#039;");
 
   }
-
 
   function setActiveNavigation() {
 
@@ -894,7 +904,6 @@
 
   }
 
-
   function readUrlState() {
 
     const params =
@@ -913,11 +922,9 @@
     ).value = currentSearch;
 
     updateCategoryTabs();
-
     updatePageHeading();
 
   }
-
 
   function updateCategoryTabs() {
 
@@ -942,7 +949,6 @@
       });
 
   }
-
 
   function updatePageHeading() {
 
@@ -983,7 +989,6 @@
     }
 
   }
-
 
   async function loadProducts() {
 
@@ -1028,7 +1033,6 @@
         `;
 
         return;
-
       }
 
       allProducts =
@@ -1054,7 +1058,6 @@
     }
 
   }
-
 
   function getFilteredProducts() {
 
@@ -1114,7 +1117,7 @@
     ) {
 
       products.sort(
-        (a,b) =>
+        (a, b) =>
           Number(a.price || 0) -
           Number(b.price || 0)
       );
@@ -1126,7 +1129,7 @@
     ) {
 
       products.sort(
-        (a,b) =>
+        (a, b) =>
           Number(b.price || 0) -
           Number(a.price || 0)
       );
@@ -1138,7 +1141,7 @@
     ) {
 
       products.sort(
-        (a,b) =>
+        (a, b) =>
           Number(b.rating || 0) -
           Number(a.rating || 0)
       );
@@ -1150,7 +1153,7 @@
     ) {
 
       products.sort(
-        (a,b) =>
+        (a, b) =>
           String(
             a.name || ""
           ).localeCompare(
@@ -1165,7 +1168,6 @@
     return products;
 
   }
-
 
   function renderProducts() {
 
@@ -1225,7 +1227,6 @@
             "https://via.placeholder.com/400x300?text=Meteur+Mobile";
 
           return `
-
             <article class="product-card">
 
               <a
@@ -1302,14 +1303,12 @@
               </a>
 
             </article>
-
           `;
 
         })
         .join("");
 
   }
-
 
   document
     .querySelectorAll(".category-tab")
@@ -1338,7 +1337,6 @@
       );
 
     });
-
 
   document
     .getElementById("searchForm")
@@ -1369,7 +1367,6 @@
       }
     );
 
-
   document
     .getElementById("searchFilter")
     .addEventListener(
@@ -1384,7 +1381,6 @@
       }
     );
 
-
   document
     .getElementById("sortFilter")
     .addEventListener(
@@ -1398,7 +1394,6 @@
 
       }
     );
-
 
   function updateCartCount() {
 
@@ -1425,7 +1420,7 @@
 
     const total =
       cart.reduce(
-        (sum,item) =>
+        (sum, item) =>
           sum +
           Number(
             item.quantity || 1
@@ -1455,13 +1450,9 @@
 
   }
 
-
   setActiveNavigation();
-
   readUrlState();
-
   updateCartCount();
-
   loadProducts();
 
 </script>

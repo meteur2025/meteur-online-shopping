@@ -1,753 +1,1087 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>My Account - Meteur Online Shopping</title>
+    <title>My Profile - METEUR MOBILE KENYA</title>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #f4f8ff;
-      color: #222;
-    }
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #fff5f6;
+            color: #172033;
+        }
 
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
 
-    /* HEADER */
-    header {
-      background: #0757b8;
-      color: white;
-      padding: 14px 5%;
-    }
+        header {
+            background: #d90429;
+            color: white;
+            padding: 15px 20px;
+        }
 
-    .header-container {
-      max-width: 1200px;
-      margin: auto;
-    }
+        .header-inner {
+            max-width: 1250px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
 
-    .top-row {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+        }
 
-    .logo {
-      font-size: 28px;
-      font-weight: 800;
-      white-space: nowrap;
-    }
+        .logo {
+            width: 48px;
+            height: 48px;
+            background: white;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
+            padding: 0;
+            border: none;
+            box-shadow: none;
+        }
 
-    .search {
-      flex: 1;
-      display: flex;
-      background: white;
-      border-radius: 5px;
-      overflow: hidden;
-    }
+        .real-logo {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            display: block;
+            background: white;
+            border: none;
+            border-radius: 9px;
+        }
 
-    .search input {
-      flex: 1;
-      border: 0;
-      outline: none;
-      padding: 12px;
-      font-size: 15px;
-    }
+        .brand-text h1 {
+            font-size: 23px;
+            font-weight: 800;
+        }
 
-    .search button {
-      border: 0;
-      background: #063b7a;
-      color: white;
-      padding: 0 20px;
-      cursor: pointer;
-      font-weight: bold;
-    }
+        .brand-text p {
+            font-size: 11px;
+            margin-top: 3px;
+            opacity: 0.9;
+            letter-spacing: 1px;
+        }
 
-    .search button:hover {
-      background: #052f62;
-    }
+        .header-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: auto;
+        }
 
-    /* NAVIGATION */
-    nav {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 14px;
-    }
+        .header-links a {
+            color: white;
+            padding: 9px 10px;
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 14px;
+        }
 
-    nav a {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 8px 11px;
-      border-radius: 5px;
-      font-size: 14px;
-      font-weight: bold;
-      transition: background 0.2s;
-    }
+        .header-links a:hover {
+            background: rgba(255, 255, 255, 0.14);
+        }
 
-    nav a:hover,
-    nav a.active {
-      background: rgba(255, 255, 255, 0.18);
-    }
+        nav {
+            background: #9b001f;
+            color: white;
+        }
 
-    .nav-icon {
-      font-size: 18px;
-      line-height: 1;
-    }
+        .nav-inner {
+            max-width: 1250px;
+            margin: auto;
+            padding: 0 20px;
+            display: flex;
+            gap: 28px;
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: none;
+        }
 
-    /* MAIN */
-    .container {
-      max-width: 1200px;
-      margin: 35px auto;
-      padding: 0 20px;
-    }
+        .nav-inner::-webkit-scrollbar {
+            display: none;
+        }
 
-    .welcome {
-      background: white;
-      padding: 28px;
-      border-radius: 10px;
-      border-left: 5px solid #0757b8;
-      box-shadow: 0 2px 8px rgba(7, 87, 184, 0.08);
-      margin-bottom: 25px;
-    }
+        .nav-inner a {
+            position: relative;
+            padding: 13px 2px 11px;
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+        }
 
-    .welcome h1 {
-      font-size: 28px;
-      margin-bottom: 8px;
-      color: #063b7a;
-    }
+        .nav-inner a.active::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 3px;
+            background: white;
+            border-radius: 3px 3px 0 0;
+        }
 
-    .welcome p {
-      color: #666;
-    }
+        .profile-page {
+            padding: 30px 20px 60px;
+            background: #fff5f6;
+            min-height: 70vh;
+        }
 
-    /* ACCOUNT GRID */
-    .account-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
+        .profile-container {
+            max-width: 1250px;
+            margin: auto;
+        }
 
-    .account-card {
-      background: white;
-      border-radius: 10px;
-      padding: 25px;
-      min-height: 145px;
-      border: 1px solid #e0e9f7;
-      box-shadow: 0 2px 8px rgba(7, 87, 184, 0.06);
-      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
-    }
+        .breadcrumb {
+            color: #61718a;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
 
-    .account-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 6px 16px rgba(7, 87, 184, 0.14);
-      border-color: #9fc3ed;
-    }
+        .breadcrumb a {
+            color: #d90429;
+            font-weight: 700;
+        }
 
-    .card-icon {
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      background: #e8f2ff;
-      color: #0757b8;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 27px;
-      margin-bottom: 14px;
-    }
+        .profile-header {
+            background: linear-gradient(135deg, #d90429, #9b001f);
+            color: white;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
 
-    .account-card h2 {
-      font-size: 19px;
-      margin-bottom: 7px;
-      color: #063b7a;
-    }
+        .profile-header h1 {
+            margin: 0 0 8px;
+            font-size: 30px;
+        }
 
-    .account-card p {
-      color: #777;
-      font-size: 14px;
-      line-height: 1.5;
-    }
+        .profile-header p {
+            margin: 0;
+            color: #ffe1e6;
+        }
 
-    /* PROFILE */
-    .profile-box {
-      background: white;
-      margin-top: 25px;
-      padding: 28px;
-      border-radius: 10px;
-      border-top: 4px solid #0757b8;
-      box-shadow: 0 2px 8px rgba(7, 87, 184, 0.08);
-    }
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 25px;
+        }
 
-    .profile-box h2 {
-      margin-bottom: 20px;
-      color: #063b7a;
-    }
+        .profile-menu,
+        .profile-card {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #f3c7cd;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
 
-    .profile-row {
-      display: flex;
-      justify-content: space-between;
-      padding: 13px 0;
-      border-bottom: 1px solid #e8eef7;
-      gap: 20px;
-    }
+        .profile-menu {
+            padding: 15px;
+            height: fit-content;
+        }
 
-    .profile-row:last-child {
-      border-bottom: 0;
-    }
+        .profile-menu a {
+            display: block;
+            padding: 13px 15px;
+            color: #172033;
+            border-radius: 8px;
+            margin-bottom: 5px;
+            font-size: 14px;
+            font-weight: 600;
+        }
 
-    .profile-label {
-      font-weight: bold;
-      color: #555;
-    }
+        .profile-menu a:hover,
+        .profile-menu a.active {
+            background: #fff0f2;
+            color: #d90429;
+        }
 
-    .profile-value {
-      color: #777;
-      text-align: right;
-    }
+        .profile-card {
+            padding: 30px;
+        }
 
-    /* BUTTONS */
-    .actions {
-      margin-top: 25px;
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
+        .profile-card h2 {
+            margin-top: 0;
+            margin-bottom: 8px;
+            font-size: 23px;
+        }
 
-    .button {
-      border: 0;
-      padding: 12px 20px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 14px;
-    }
+        .profile-description {
+            color: #61718a;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
 
-    .primary {
-      background: #0757b8;
-      color: white;
-    }
+        .profile-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
 
-    .primary:hover {
-      background: #063b7a;
-    }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
 
-    .logout {
-      background: #222;
-      color: white;
-    }
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
 
-    .logout:hover {
-      background: #111;
-    }
+        .form-group label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
 
-    /* MESSAGE */
-    #message {
-      display: none;
-      margin-bottom: 20px;
-      padding: 13px 16px;
-      border-radius: 6px;
-      background: #e8f2ff;
-      color: #063b7a;
-      border: 1px solid #b9d5f5;
-      font-weight: bold;
-    }
+        .form-group input {
+            padding: 13px 14px;
+            border: 1px solid #ddd;
+            border-radius: 7px;
+            font-size: 15px;
+            outline: none;
+            color: #172033;
+            background: white;
+        }
 
-    /* FOOTER */
-    footer {
-      background: #063b7a;
-      color: white;
-      margin-top: 50px;
-      padding: 40px 5% 20px;
-    }
+        .form-group input:focus {
+            border-color: #d90429;
+            box-shadow: 0 0 0 3px rgba(217, 4, 41, 0.08);
+        }
 
-    .footer-container {
-      max-width: 1200px;
-      margin: auto;
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
-      gap: 40px;
-    }
+        .form-group input:disabled {
+            background: #f8f8f8;
+            color: #61718a;
+        }
 
-    .footer-section h3 {
-      color: white;
-      margin-bottom: 15px;
-    }
+        .save-button {
+            border: none;
+            background: #d90429;
+            color: white;
+            padding: 13px 25px;
+            border-radius: 7px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
 
-    .footer-section p {
-      color: #d8e7f8;
-      line-height: 1.6;
-    }
+        .save-button:hover {
+            background: #9b001f;
+        }
 
-    .footer-section a {
-      display: block;
-      color: #e5eef9;
-      margin-bottom: 9px;
-      font-size: 14px;
-    }
+        .save-button:disabled {
+            opacity: .7;
+            cursor: not-allowed;
+        }
 
-    .footer-section a:hover {
-      color: white;
-    }
+        .logout-button {
+            width: 100%;
+            border: 1px solid #d90429;
+            background: white;
+            color: #d90429;
+            padding: 12px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+        }
 
-    .copyright {
-      max-width: 1200px;
-      margin: 30px auto 0;
-      padding-top: 20px;
-      border-top: 1px solid #5276a1;
-      text-align: center;
-      color: #cbd9e8;
-      font-size: 13px;
-    }
+        .logout-button:hover {
+            background: #fff0f2;
+        }
 
-    /* MOBILE */
-    @media (max-width: 850px) {
-      .account-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
+        .status-message {
+            display: none;
+            margin-bottom: 20px;
+            padding: 13px 15px;
+            border-radius: 7px;
+            font-size: 14px;
+        }
 
-      .footer-container {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
+        .status-message.success {
+            display: block;
+            background: #e9f8ef;
+            color: #207a43;
+        }
 
-    @media (max-width: 600px) {
-      .top-row {
-        flex-direction: column;
-      }
+        .status-message.error {
+            display: block;
+            background: #fff0f0;
+            color: #b42318;
+        }
 
-      .logo {
-        text-align: center;
-      }
+        .loading {
+            background: white;
+            text-align: center;
+            padding: 40px;
+            color: #61718a;
+            border-radius: 12px;
+            border: 1px solid #f3c7cd;
+        }
 
-      .search {
-        width: 100%;
-      }
+        footer {
+            background: #9b001f;
+            color: white;
+            padding: 40px 20px 25px;
+        }
 
-      nav {
-        gap: 5px;
-      }
+        .footer-inner {
+            max-width: 1250px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 35px;
+        }
 
-      nav a {
-        font-size: 12px;
-        padding: 7px 8px;
-      }
+        footer h3,
+        footer h4 {
+            margin-bottom: 12px;
+        }
 
-      .nav-icon {
-        font-size: 16px;
-      }
+        footer h3 {
+            font-size: 18px;
+        }
 
-      .container {
-        margin-top: 25px;
-      }
+        footer h4 {
+            font-size: 16px;
+        }
 
-      .welcome {
-        padding: 22px;
-      }
+        footer p {
+            color: #ffd9df;
+            line-height: 1.6;
+            font-size: 14px;
+        }
 
-      .welcome h1 {
-        font-size: 24px;
-      }
+        footer a {
+            display: block;
+            color: #ffd9df;
+            margin-bottom: 9px;
+            font-size: 14px;
+        }
 
-      .account-grid {
-        grid-template-columns: 1fr;
-      }
+        footer a:hover {
+            color: white;
+        }
 
-      .footer-container {
-        grid-template-columns: 1fr;
-      }
+        .copyright {
+            max-width: 1250px;
+            margin: 30px auto 0;
+            padding-top: 18px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            color: #ffd9df;
+            font-size: 13px;
+        }
 
-      .profile-row {
-        flex-direction: column;
-        gap: 5px;
-      }
+        @media (max-width: 900px) {
+            .footer-inner {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
 
-      .profile-value {
-        text-align: left;
-      }
-    }
-  </style>
+        @media (max-width: 750px) {
+
+            header {
+                padding: 14px;
+            }
+
+            .header-inner {
+                flex-wrap: wrap;
+            }
+
+            .logo {
+                width: 48px;
+                min-width: 48px;
+                height: 48px;
+                border-radius: 9px;
+            }
+
+            .real-logo {
+                width: 48px;
+                height: 48px;
+                border-radius: 9px;
+            }
+
+            .brand-text h1 {
+                font-size: 18px;
+            }
+
+            .brand-text p {
+                font-size: 9px;
+            }
+
+            .header-links {
+                width: 100%;
+                margin-left: 0;
+                flex-wrap: wrap;
+            }
+
+            .header-links a {
+                font-size: 13px;
+            }
+
+            .nav-inner {
+                padding: 0 14px;
+                gap: 22px;
+            }
+
+            .profile-page {
+                padding: 25px 12px 50px;
+            }
+
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-form {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: auto;
+            }
+
+            .profile-header {
+                padding: 27px 22px;
+            }
+
+            .profile-header h1 {
+                font-size: 25px;
+            }
+
+            .profile-card {
+                padding: 22px;
+            }
+
+            .footer-inner {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
 <header>
-  <div class="header-container">
 
-    <div class="top-row">
-      <a href="index.html" class="logo">Meteur</a>
+    <div class="header-inner">
 
-      <form class="search" id="searchForm">
-        <input
-          type="text"
-          id="searchInput"
-          placeholder="Search products..."
-          autocomplete="off"
-        >
-        <button type="submit">Search</button>
-      </form>
+        <a href="index.html" class="brand">
+
+            <div class="logo">
+
+                <img
+                    src="WhatsApp Image 2026-09-30 at 12.36.30.jpeg"
+                    alt="Meteur Mobile Kenya M Logo"
+                    class="real-logo"
+                >
+
+            </div>
+
+            <div class="brand-text">
+
+                <h1>METEUR MOBILE KENYA</h1>
+
+                <p>
+                    MOBILE • ELECTRONICS • ACCESSORIES
+                </p>
+
+            </div>
+
+        </a>
+
+        <div class="header-links">
+
+            <a href="index.html">Home</a>
+
+            <a href="shop.html">Shop</a>
+
+            <a href="dashboard.html">Account</a>
+
+        </div>
+
     </div>
 
-    <nav>
-
-      <a href="index.html">
-        <span class="nav-icon">🏠</span>
-        Home
-      </a>
-
-      <a href="shop.html">
-        <span class="nav-icon">🛍️</span>
-        Shop
-      </a>
-
-      <a href="deals.html">
-        <span class="nav-icon">🔥</span>
-        Deals
-      </a>
-
-      <a href="new-arrivals.html">
-        <span class="nav-icon">✨</span>
-        New Arrivals
-      </a>
-
-      <a href="categories.html">
-        <span class="nav-icon">📂</span>
-        Categories
-      </a>
-
-      <a href="wishlist.html">
-        <span class="nav-icon">❤️</span>
-        Wishlist
-      </a>
-
-      <a href="cart.html">
-        <span class="nav-icon">🛒</span>
-        Cart
-      </a>
-
-      <a href="dashboard.html" class="active">
-        <span class="nav-icon">👤</span>
-        My Account
-      </a>
-
-    </nav>
-
-  </div>
 </header>
 
+<nav>
 
-<main class="container">
+    <div class="nav-inner">
 
-  <div id="message"></div>
+        <a href="index.html">Home</a>
 
-  <section class="welcome">
-    <h1>Welcome back, <span id="userName">Customer</span>!</h1>
-    <p>Manage your Meteur Online Shopping account and orders.</p>
-  </section>
+        <a href="shop.html">Shop</a>
 
+        <a href="shop.html?category=Phones%20and%20Tablets">
+            Phones & Tablets
+        </a>
 
-  <section class="account-grid">
+        <a href="shop.html?category=Electronics">
+            Electronics
+        </a>
 
-    <a href="shop.html" class="account-card">
-      <div class="card-icon">🛍️</div>
-      <h2>Shop</h2>
-      <p>Browse all available products.</p>
-    </a>
+        <a href="shop.html?category=Accessories">
+            Accessories
+        </a>
 
-    <a href="deals.html" class="account-card">
-      <div class="card-icon">🔥</div>
-      <h2>Deals</h2>
-      <p>Discover products currently on deal.</p>
-    </a>
+        <a href="orders.html">My Orders</a>
 
-    <a href="new-arrivals.html" class="account-card">
-      <div class="card-icon">✨</div>
-      <h2>New Arrivals</h2>
-      <p>See the latest products added to Meteur.</p>
-    </a>
+        <a href="contact.html">Contact Us</a>
 
-    <a href="categories.html" class="account-card">
-      <div class="card-icon">📂</div>
-      <h2>Categories</h2>
-      <p>Shop products by category.</p>
-    </a>
-
-    <a href="wishlist.html" class="account-card">
-      <div class="card-icon">❤️</div>
-      <h2>Wishlist</h2>
-      <p>View and manage your saved products.</p>
-    </a>
-
-    <a href="cart.html" class="account-card">
-      <div class="card-icon">🛒</div>
-      <h2>Cart</h2>
-      <p>View products waiting in your shopping cart.</p>
-    </a>
-
-    <a href="orders.html" class="account-card">
-      <div class="card-icon">📦</div>
-      <h2>My Orders</h2>
-      <p>View your orders and order status.</p>
-    </a>
-
-    <a href="profile.html" class="account-card">
-      <div class="card-icon">👤</div>
-      <h2>My Profile</h2>
-      <p>View and update your account information.</p>
-    </a>
-
-    <a href="addresses.html" class="account-card">
-      <div class="card-icon">📍</div>
-      <h2>Addresses</h2>
-      <p>Manage your delivery addresses.</p>
-    </a>
-
-  </section>
-
-
-  <section class="profile-box">
-
-    <h2>Account Information</h2>
-
-    <div class="profile-row">
-      <span class="profile-label">Name</span>
-      <span class="profile-value" id="profileName">Loading...</span>
     </div>
 
-    <div class="profile-row">
-      <span class="profile-label">Email</span>
-      <span class="profile-value" id="profileEmail">Loading...</span>
+</nav>
+
+<main class="profile-page">
+
+    <div class="profile-container">
+
+        <div class="breadcrumb">
+
+            <a href="index.html">Home</a>
+
+            <span> / My Profile</span>
+
+        </div>
+
+        <div class="profile-header">
+
+            <h1>My Profile</h1>
+
+            <p>
+                Manage your METEUR MOBILE KENYA account information.
+            </p>
+
+        </div>
+
+        <div id="loadingMessage" class="loading">
+            Loading your profile...
+        </div>
+
+        <div id="profileContent" style="display:none;">
+
+            <div class="profile-grid">
+
+                <aside class="profile-menu">
+
+                    <a href="dashboard.html">
+                        🏠 Dashboard
+                    </a>
+
+                    <a href="profile.html" class="active">
+                        👤 My Profile
+                    </a>
+
+                    <a href="orders.html">
+                        📦 My Orders
+                    </a>
+
+                    <a href="wishlist.html">
+                        ♡ Wishlist
+                    </a>
+
+                    <a href="addresses.html">
+                        📍 My Addresses
+                    </a>
+
+                    <button
+                        class="logout-button"
+                        type="button"
+                        onclick="logoutUser()"
+                    >
+                        Log Out
+                    </button>
+
+                </aside>
+
+                <section class="profile-card">
+
+                    <h2>Personal Information</h2>
+
+                    <p class="profile-description">
+                        Update the information connected to your
+                        METEUR MOBILE KENYA account.
+                    </p>
+
+                    <div
+                        id="statusMessage"
+                        class="status-message"
+                    ></div>
+
+                    <form
+                        id="profileForm"
+                        class="profile-form"
+                    >
+
+                        <div class="form-group">
+
+                            <label for="firstName">
+                                First Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="firstName"
+                                name="firstName"
+                                placeholder="First name"
+                                required
+                            >
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="lastName">
+                                Last Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="lastName"
+                                name="lastName"
+                                placeholder="Last name"
+                                required
+                            >
+
+                        </div>
+
+                        <div class="form-group full">
+
+                            <label for="email">
+                                Email Address
+                            </label>
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                disabled
+                            >
+
+                        </div>
+
+                        <div class="form-group full">
+
+                            <label for="phone">
+                                Phone Number
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="phone"
+                                name="phone"
+                                placeholder="e.g. 0712345678"
+                            >
+
+                        </div>
+
+                        <div class="form-group full">
+
+                            <button
+                                type="submit"
+                                class="save-button"
+                                id="saveButton"
+                            >
+                                Save Changes
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </section>
+
+            </div>
+
+        </div>
+
     </div>
-
-    <div class="profile-row">
-      <span class="profile-label">Account Status</span>
-      <span class="profile-value">Active</span>
-    </div>
-
-    <div class="actions">
-      <a href="profile.html">
-        <button class="button primary">Edit Profile</button>
-      </a>
-
-      <button class="button logout" id="logoutButton">
-        Logout
-      </button>
-    </div>
-
-  </section>
 
 </main>
 
-
 <footer>
 
-  <div class="footer-container">
+    <div class="footer-inner">
 
-    <div class="footer-section">
-      <h3>Meteur</h3>
-      <p>Your trusted online shopping marketplace.</p>
+        <div>
+
+            <h3>METEUR MOBILE KENYA</h3>
+
+            <p>
+                Your online destination for mobile phones,
+                electronics, accessories and smart devices in Kenya.
+            </p>
+
+        </div>
+
+        <div>
+
+            <h4>Shop</h4>
+
+            <a href="shop.html">All Products</a>
+
+            <a href="shop.html?deal=true">Flash Deals</a>
+
+            <a href="shop.html?new=true">New Arrivals</a>
+
+            <a href="shop.html?category=Phones%20and%20Tablets">
+                Phones & Tablets
+            </a>
+
+        </div>
+
+        <div>
+
+            <h4>Account</h4>
+
+            <a href="login.html">Login</a>
+
+            <a href="register.html">Register</a>
+
+            <a href="profile.html">My Profile</a>
+
+            <a href="orders.html">My Orders</a>
+
+        </div>
+
+        <div>
+
+            <h4>Help</h4>
+
+            <a href="contact.html">Contact Us</a>
+
+            <a href="track-order.html">Track Order</a>
+
+            <a href="seller-register.html">Sell on Meteur</a>
+
+        </div>
+
     </div>
 
-    <div class="footer-section">
-      <h3>Shopping</h3>
-      <a href="shop.html">🛍️ Shop All</a>
-      <a href="deals.html">🔥 Deals</a>
-      <a href="new-arrivals.html">✨ New Arrivals</a>
-      <a href="categories.html">📂 Categories</a>
+    <div class="copyright">
+        © 2026 METEUR MOBILE KENYA. All rights reserved.
     </div>
-
-    <div class="footer-section">
-      <h3>Customer Service</h3>
-      <a href="help.html">❓ Help Center</a>
-      <a href="contact.html">📧 Contact Us</a>
-      <a href="shipping.html">🚚 Shipping</a>
-      <a href="returns.html">↩️ Returns & Refunds</a>
-      <a href="track-order.html">📦 Track Order</a>
-    </div>
-
-  </div>
-
-  <div class="copyright">
-    © 2026 Meteur Online Shopping. All rights reserved.
-  </div>
 
 </footer>
 
-
 <script>
 
-  const SUPABASE_URL =
-    "https://nytsdeupaootukcullgi.supabase.co";
+let currentUser = null;
 
-  const SUPABASE_KEY =
-    "sb_publishable_cIqzHoafy_AEdB48KS_Wpg_LDqE1sFC";
+function updateCartCount() {
 
-  const supabaseClient =
-    window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_KEY
-    );
+    const cart =
+        JSON.parse(
+            localStorage.getItem("meteurCart")
+        ) || [];
 
+    const total =
+        cart.reduce(
+            function(sum, product) {
+                return sum + (product.quantity || 1);
+            },
+            0
+        );
 
-  function showMessage(message) {
-    const box = document.getElementById("message");
+    const cartCount =
+        document.getElementById("cartCount");
 
-    box.textContent = message;
-    box.style.display = "block";
-  }
-
-
-  async function loadAccount() {
-
-    const {
-      data: { user },
-      error
-    } = await supabaseClient.auth.getUser();
-
-
-    if (error || !user) {
-      window.location.href =
-        "login.html?redirect=dashboard.html";
-      return;
+    if (cartCount) {
+        cartCount.textContent = total;
     }
 
+}
 
-    /*
-      Check administrator access first.
-    */
+function searchProducts() {
+
+    const input =
+        document.getElementById("searchInput");
+
+    if (!input) {
+        return;
+    }
+
+    const search =
+        input.value.trim();
+
+    if (search) {
+
+        window.location.href =
+            "shop.html?search=" +
+            encodeURIComponent(search);
+
+    }
+
+}
+
+function showMessage(message, type) {
+
+    const box =
+        document.getElementById("statusMessage");
+
+    box.textContent = message;
+
+    box.className =
+        "status-message " + type;
+
+}
+
+async function loadProfile() {
 
     try {
 
-      const {
-        data: isAdmin,
-        error: adminError
-      } = await supabaseClient.rpc(
-        "is_current_user_admin"
-      );
+        const {
+            data,
+            error
+        } = await supabaseClient.auth.getUser();
 
-      if (!adminError && isAdmin === true) {
-        window.location.href = "admin-dashboard.html";
-        return;
-      }
+        if (error || !data.user) {
+
+            window.location.href =
+                "login.html?redirect=profile.html";
+
+            return;
+
+        }
+
+        currentUser =
+            data.user;
+
+        const metadata =
+            currentUser.user_metadata || {};
+
+        const savedFullName =
+            metadata.full_name ||
+            metadata.name ||
+            "";
+
+        let firstName =
+            metadata.first_name || "";
+
+        let lastName =
+            metadata.last_name || "";
+
+        if (!firstName && !lastName && savedFullName) {
+
+            const nameParts =
+                savedFullName.trim().split(/\s+/);
+
+            if (nameParts.length === 1) {
+
+                firstName =
+                    nameParts[0];
+
+            } else {
+
+                firstName =
+                    nameParts.shift();
+
+                lastName =
+                    nameParts.join(" ");
+
+            }
+
+        }
+
+        document.getElementById("firstName").value =
+            firstName;
+
+        document.getElementById("lastName").value =
+            lastName;
+
+        document.getElementById("email").value =
+            currentUser.email || "";
+
+        document.getElementById("phone").value =
+            metadata.phone || "";
+
+        document.getElementById("loadingMessage").style.display =
+            "none";
+
+        document.getElementById("profileContent").style.display =
+            "block";
 
     } catch (error) {
-      console.log("Admin check unavailable.");
+
+        console.error(error);
+
+        document.getElementById("loadingMessage").textContent =
+            "Unable to load your profile. Please try again.";
+
     }
 
+}
 
-    /*
-      Check whether the user is an approved seller.
-    */
+document
+    .getElementById("profileForm")
+    .addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+            const firstName =
+                document
+                    .getElementById("firstName")
+                    .value
+                    .trim();
+
+            const lastName =
+                document
+                    .getElementById("lastName")
+                    .value
+                    .trim();
+
+            const phone =
+                document
+                    .getElementById("phone")
+                    .value
+                    .trim();
+
+            const saveButton =
+                document.getElementById("saveButton");
+
+            if (!firstName || !lastName) {
+
+                showMessage(
+                    "Please enter your first and last name.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+            saveButton.disabled = true;
+
+            saveButton.textContent =
+                "Saving...";
+
+            try {
+
+                const fullName =
+                    `${firstName} ${lastName}`.trim();
+
+                const {
+                    error
+                } = await supabaseClient.auth.updateUser({
+
+                    data: {
+
+                        first_name: firstName,
+
+                        last_name: lastName,
+
+                        full_name: fullName,
+
+                        name: fullName,
+
+                        phone: phone
+
+                    }
+
+                });
+
+                if (error) {
+
+                    throw error;
+
+                }
+
+                currentUser.user_metadata = {
+
+                    ...currentUser.user_metadata,
+
+                    first_name: firstName,
+
+                    last_name: lastName,
+
+                    full_name: fullName,
+
+                    name: fullName,
+
+                    phone: phone
+
+                };
+
+                showMessage(
+                    "Your profile has been updated successfully.",
+                    "success"
+                );
+
+            } catch (error) {
+
+                console.error(error);
+
+                showMessage(
+                    error.message ||
+                    "Unable to update your profile.",
+                    "error"
+                );
+
+            } finally {
+
+                saveButton.disabled = false;
+
+                saveButton.textContent =
+                    "Save Changes";
+
+            }
+
+        }
+    );
+
+async function logoutUser() {
 
     const {
-      data: seller,
-      error: sellerError
-    } = await supabaseClient
-      .from("sellers")
-      .select("id, status")
-      .eq("user_id", user.id)
-      .maybeSingle();
-
-
-    if (!sellerError && seller && seller.status === "Approved") {
-      window.location.href = "seller-dashboard.html";
-      return;
-    }
-
-
-    /*
-      Normal customer account.
-    */
-
-    const metadata = user.user_metadata || {};
-
-    const fullName =
-      metadata.full_name ||
-      metadata.name ||
-      "Customer";
-
-
-    document.getElementById("userName").textContent =
-      fullName;
-
-    document.getElementById("profileName").textContent =
-      fullName;
-
-    document.getElementById("profileEmail").textContent =
-      user.email || "Not available";
-  }
-
-
-  /*
-    Search
-  */
-
-  document.getElementById("searchForm")
-    .addEventListener("submit", function(event) {
-
-      event.preventDefault();
-
-      const search =
-        document.getElementById("searchInput")
-          .value.trim();
-
-      if (search) {
-
-        window.location.href =
-          "shop.html?search=" +
-          encodeURIComponent(search);
-
-      } else {
-
-        window.location.href =
-          "shop.html";
-
-      }
-
-    });
-
-
-  /*
-    Logout
-  */
-
-  document.getElementById("logoutButton")
-    .addEventListener("click", async function() {
-
-      const {
         error
-      } = await supabaseClient.auth.signOut();
+    } = await supabaseClient.auth.signOut();
 
-      if (error) {
+    if (error) {
 
         showMessage(
-          "Unable to log out. Please try again."
+            "Unable to log out. Please try again.",
+            "error"
         );
 
         return;
-      }
 
-      window.location.href = "login.html";
-    });
+    }
 
+    window.location.href =
+        "login.html";
 
-  loadAccount();
+}
+
+updateCartCount();
+
+loadProfile();
 
 </script>
 
 </body>
 </html>
+```

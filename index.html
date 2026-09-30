@@ -114,44 +114,11 @@
       letter-spacing: .3px;
     }
 
-    .search-box {
-      flex: 1;
-      display: flex;
-      max-width: 650px;
-      margin-left: auto;
-      margin-right: auto;
-      min-width: 0;
-    }
-
-    .search-box input {
-      width: 100%;
-      padding: 13px 16px;
-      border: none;
-      outline: none;
-      border-radius: 6px 0 0 6px;
-      font-size: 15px;
-      min-width: 0;
-    }
-
-    .search-box button {
-      border: none;
-      padding: 0 22px;
-      background: #9b001f;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      border-radius: 0 6px 6px 0;
-      flex-shrink: 0;
-    }
-
-    .search-box button:hover {
-      background: #760018;
-    }
-
     .header-actions {
       display: flex;
       align-items: center;
       gap: 4px;
+      margin-left: auto;
       flex-shrink: 0;
     }
 
@@ -550,22 +517,15 @@
       }
 
       .header-top {
-        display: grid;
-
-        grid-template-columns: 1fr auto;
-
-        grid-template-areas:
-          "brand brand"
-          "search cart";
-
+        display: flex;
+        align-items: center;
         gap: 10px;
-
         padding: 10px 12px 12px;
       }
 
       .brand-area {
-        grid-area: brand;
         min-width: 0;
+        flex: 1;
       }
 
       .logo {
@@ -598,30 +558,9 @@
         margin-top: 4px;
       }
 
-      .search-box {
-        grid-area: search;
-        width: 100%;
-        max-width: none;
-        margin: 0;
-        display: flex;
-        min-width: 0;
-      }
-
-      .search-box input {
-        min-width: 0;
-        padding: 12px 13px;
-        font-size: 14px;
-      }
-
-      .search-box button {
-        padding: 0 17px;
-        font-size: 13px;
-      }
-
       .header-actions {
-        grid-area: cart;
         display: flex;
-        margin: 0;
+        margin-left: auto;
         min-width: 0;
       }
 
@@ -740,10 +679,6 @@
     @media (max-width: 430px) {
 
       .header-top {
-        grid-template-columns: 1fr auto;
-        grid-template-areas:
-          "brand brand"
-          "search cart";
         padding-left: 10px;
         padding-right: 10px;
       }
@@ -759,15 +694,6 @@
       .cart-link {
         font-size: 12px;
         padding: 8px 9px;
-      }
-
-      .search-box input {
-        font-size: 13px;
-      }
-
-      .search-box button {
-        padding: 0 14px;
-        font-size: 12px;
       }
 
       .nav-inner {
@@ -829,21 +755,6 @@
         </span>
 
       </div>
-
-      <!-- SEARCH -->
-      <form class="search-box" id="searchForm">
-
-        <input
-          type="search"
-          id="searchInput"
-          placeholder="Search smartphones..."
-        >
-
-        <button type="submit">
-          Search
-        </button>
-
-      </form>
 
       <!-- HEADER ACTIONS -->
       <div class="header-actions">
@@ -1504,44 +1415,6 @@
         ).join("");
 
     }
-
-
-    document
-      .getElementById(
-        "searchForm"
-      )
-      .addEventListener(
-        "submit",
-        function(event) {
-
-          event.preventDefault();
-
-          const query =
-            document
-              .getElementById(
-                "searchInput"
-              )
-              .value
-              .trim();
-
-
-          if (query) {
-
-            window.location.href =
-              "shop.html?search=" +
-              encodeURIComponent(
-                query
-              );
-
-          } else {
-
-            window.location.href =
-              "shop.html";
-
-          }
-
-        }
-      );
 
 
     setActiveNavigation();

@@ -17,7 +17,7 @@
 
     body {
       font-family: Arial, Helvetica, sans-serif;
-      background: #f4f8ff;
+      background: #fff5f6;
       color: #172033;
     }
 
@@ -33,8 +33,12 @@
       font: inherit;
     }
 
+    /* =========================
+       HEADER
+    ========================= */
+
     .top-header {
-      background: #0757b8;
+      background: #d90429;
       color: white;
       padding: 18px 20px;
     }
@@ -54,35 +58,29 @@
       gap: 12px;
     }
 
-    .phone-logo {
-      width: 34px;
-      height: 52px;
-      border: 3px solid white;
-      border-radius: 8px;
-      position: relative;
+    .logo {
+      width: 48px;
+      height: 48px;
+      background: white;
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
       flex-shrink: 0;
+      padding: 0;
+      border: none;
+      box-shadow: none;
     }
 
-    .phone-logo::before {
-      content: "";
-      position: absolute;
-      width: 12px;
-      height: 3px;
+    .real-logo {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
       background: white;
-      border-radius: 3px;
-      top: 5px;
-      left: 8px;
-    }
-
-    .phone-logo::after {
-      content: "";
-      position: absolute;
-      width: 5px;
-      height: 5px;
-      background: white;
-      border-radius: 50%;
-      bottom: 5px;
-      left: 12px;
+      border: none;
+      border-radius: 9px;
     }
 
     .brand-text h1 {
@@ -94,7 +92,7 @@
     .brand-text p {
       font-size: 11px;
       margin-top: 3px;
-      opacity: .9;
+      opacity: .95;
       letter-spacing: 1px;
     }
 
@@ -106,11 +104,15 @@
 
     .header-actions a {
       background: white;
-      color: #0757b8;
+      color: #d90429;
       padding: 10px 15px;
       border-radius: 7px;
       font-weight: 700;
       font-size: 14px;
+    }
+
+    .header-actions a:hover {
+      background: #fff0f2;
     }
 
     .cart-count {
@@ -121,14 +123,18 @@
       align-items: center;
       justify-content: center;
       border-radius: 20px;
-      background: #063b7a;
+      background: #9b001f;
       color: white;
       font-size: 11px;
       margin-left: 5px;
     }
 
+    /* =========================
+       NAVIGATION
+    ========================= */
+
     nav {
-      background: #063b7a;
+      background: #9b001f;
       color: white;
     }
 
@@ -168,6 +174,10 @@
       border-radius: 3px 3px 0 0;
     }
 
+    /* =========================
+       SEARCH
+    ========================= */
+
     .search-area {
       max-width: 1200px;
       margin: 22px auto 0;
@@ -180,8 +190,8 @@
       background: white;
       padding: 12px;
       border-radius: 10px;
-      border: 1px solid #d7e3f5;
-      box-shadow: 0 3px 12px rgba(0,0,0,.05);
+      border: 1px solid #f3c7cd;
+      box-shadow: 0 3px 12px rgba(217,4,41,.06);
     }
 
     .search-box input {
@@ -190,17 +200,30 @@
       border: 0;
       outline: 0;
       padding: 10px;
+      color: #172033;
+    }
+
+    .search-box input::placeholder {
+      color: #8794a8;
     }
 
     .search-box button {
       border: 0;
-      background: #0757b8;
+      background: #d90429;
       color: white;
       padding: 10px 20px;
       border-radius: 7px;
       cursor: pointer;
       font-weight: 700;
     }
+
+    .search-box button:hover {
+      background: #b90323;
+    }
+
+    /* =========================
+       MAIN
+    ========================= */
 
     main {
       max-width: 1200px;
@@ -215,7 +238,7 @@
     }
 
     .breadcrumb a {
-      color: #0757b8;
+      color: #d90429;
       font-weight: 700;
     }
 
@@ -223,6 +246,10 @@
       font-size: 30px;
       margin-bottom: 22px;
     }
+
+    /* =========================
+       CHECKOUT LAYOUT
+    ========================= */
 
     .checkout-layout {
       display: grid;
@@ -234,10 +261,10 @@
     .checkout-card,
     .summary-card {
       background: white;
-      border: 1px solid #dce7f6;
+      border: 1px solid #f3c7cd;
       border-radius: 12px;
       padding: 24px;
-      box-shadow: 0 4px 15px rgba(0,0,0,.05);
+      box-shadow: 0 4px 15px rgba(217,4,41,.05);
     }
 
     .checkout-card h2,
@@ -271,24 +298,29 @@
     select,
     textarea {
       width: 100%;
-      border: 1px solid #ccd8e8;
+      border: 1px solid #e5b8bf;
       border-radius: 7px;
       padding: 12px;
       outline: none;
       background: white;
+      color: #172033;
     }
 
     input:focus,
     select:focus,
     textarea:focus {
-      border-color: #0757b8;
-      box-shadow: 0 0 0 2px rgba(7,87,184,.08);
+      border-color: #d90429;
+      box-shadow: 0 0 0 2px rgba(217,4,41,.08);
     }
 
     textarea {
       min-height: 90px;
       resize: vertical;
     }
+
+    /* =========================
+       PAYMENT
+    ========================= */
 
     .payment-options {
       display: grid;
@@ -299,20 +331,21 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      border: 1px solid #ccd8e8;
+      border: 1px solid #e5b8bf;
       border-radius: 8px;
       padding: 15px;
       cursor: pointer;
+      transition: .2s ease;
     }
 
     .payment-option:hover {
-      border-color: #0757b8;
-      background: #f7faff;
+      border-color: #d90429;
+      background: #fff5f6;
     }
 
     .payment-option input {
       width: auto;
-      accent-color: #0757b8;
+      accent-color: #d90429;
     }
 
     .payment-option strong {
@@ -328,13 +361,18 @@
       display: none;
       margin-top: 14px;
       padding: 15px;
-      background: #f4f8ff;
+      background: #fff5f6;
+      border: 1px solid #f3c7cd;
       border-radius: 8px;
     }
 
     .mpesa-fields.show {
       display: block;
     }
+
+    /* =========================
+       ORDER SUMMARY
+    ========================= */
 
     .summary-item {
       display: grid;
@@ -343,14 +381,14 @@
       align-items: center;
       padding-bottom: 14px;
       margin-bottom: 14px;
-      border-bottom: 1px solid #e4ebf5;
+      border-bottom: 1px solid #f0dce0;
     }
 
     .summary-item img {
       width: 70px;
       height: 70px;
       object-fit: contain;
-      background: #f4f8ff;
+      background: #fff5f6;
       border-radius: 7px;
       padding: 5px;
     }
@@ -367,6 +405,7 @@
     }
 
     .summary-item-price {
+      color: #d90429;
       font-weight: 800;
       white-space: nowrap;
     }
@@ -379,8 +418,12 @@
       color: #52627a;
     }
 
+    .summary-row strong {
+      color: #172033;
+    }
+
     .summary-row.total {
-      border-top: 1px solid #dce5f1;
+      border-top: 1px solid #f0dce0;
       padding-top: 17px;
       margin-top: 17px;
       color: #172033;
@@ -388,10 +431,18 @@
       font-weight: 900;
     }
 
+    .summary-row.total strong {
+      color: #d90429;
+    }
+
+    /* =========================
+       BUTTON
+    ========================= */
+
     .place-order {
       width: 100%;
       border: 0;
-      background: #0757b8;
+      background: #d90429;
       color: white;
       padding: 15px;
       border-radius: 8px;
@@ -399,10 +450,11 @@
       font-weight: 900;
       font-size: 16px;
       margin-top: 20px;
+      transition: .2s ease;
     }
 
     .place-order:hover {
-      background: #064b9d;
+      background: #b90323;
     }
 
     .place-order:disabled {
@@ -417,6 +469,10 @@
       margin-top: 12px;
     }
 
+    /* =========================
+       MESSAGES
+    ========================= */
+
     .message {
       padding: 12px;
       border-radius: 7px;
@@ -430,17 +486,20 @@
     }
 
     .message.error {
-      background: #fff0f0;
+      background: #fff0f2;
       color: #b42323;
+      border: 1px solid #f3c7cd;
     }
 
     .message.success {
-      background: #eaf8ee;
+      background: #edf9f0;
       color: #146c32;
+      border: 1px solid #bfe5c8;
     }
 
     .loading {
       background: white;
+      border: 1px solid #f3c7cd;
       border-radius: 12px;
       padding: 50px;
       text-align: center;
@@ -448,8 +507,12 @@
       font-weight: 700;
     }
 
+    /* =========================
+       FOOTER
+    ========================= */
+
     footer {
-      background: #063b7a;
+      background: #9b001f;
       color: white;
       padding: 40px 20px 25px;
     }
@@ -468,14 +531,14 @@
     }
 
     footer p {
-      color: #dceaff;
+      color: #ffd9df;
       line-height: 1.6;
       font-size: 14px;
     }
 
     footer a {
       display: block;
-      color: #dceaff;
+      color: #ffd9df;
       margin-bottom: 9px;
       font-size: 14px;
     }
@@ -490,9 +553,13 @@
       padding-top: 18px;
       border-top: 1px solid rgba(255,255,255,.2);
       text-align: center;
-      color: #dceaff;
+      color: #ffd9df;
       font-size: 13px;
     }
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
 
     @media (max-width: 900px) {
       .checkout-layout {
@@ -518,6 +585,29 @@
         justify-content: center;
       }
 
+      .logo {
+        width: 48px;
+        min-width: 48px;
+        height: 48px;
+        border-radius: 9px;
+        padding: 0;
+      }
+
+      .real-logo {
+        width: 48px;
+        height: 48px;
+        background: #ffffff;
+        border-radius: 9px;
+      }
+
+      .brand-text h1 {
+        font-size: 19px;
+      }
+
+      .brand-text p {
+        font-size: 9px;
+      }
+
       .header-actions {
         justify-content: center;
         flex-wrap: wrap;
@@ -539,6 +629,10 @@
         padding-right: 12px;
       }
 
+      .search-area {
+        margin-top: 16px;
+      }
+
       .page-title {
         font-size: 25px;
       }
@@ -557,6 +651,19 @@
         grid-column: auto;
       }
 
+      .summary-item {
+        grid-template-columns: 60px 1fr;
+      }
+
+      .summary-item img {
+        width: 60px;
+        height: 60px;
+      }
+
+      .summary-item-price {
+        grid-column: 2;
+      }
+
       .footer-inner {
         grid-template-columns: 1fr;
       }
@@ -566,13 +673,20 @@
 
 <body>
 
+  <!-- HEADER -->
   <header class="top-header">
 
     <div class="header-inner">
 
       <a href="index.html" class="brand">
 
-        <div class="phone-logo"></div>
+        <div class="logo">
+          <img
+            src="WhatsApp Image 2026-09-30 at 12.36.30.jpeg"
+            alt="Meteur Mobile Kenya M Logo"
+            class="real-logo"
+          >
+        </div>
 
         <div class="brand-text">
           <h1>METEUR MOBILE KENYA</h1>
@@ -598,6 +712,7 @@
 
   </header>
 
+  <!-- NAVIGATION -->
   <nav>
 
     <div class="nav-inner">
@@ -643,6 +758,7 @@
 
   </nav>
 
+  <!-- SEARCH -->
   <section class="search-area">
 
     <div class="search-box">
@@ -661,6 +777,7 @@
 
   </section>
 
+  <!-- MAIN -->
   <main>
 
     <div class="breadcrumb">
@@ -686,6 +803,7 @@
 
   </main>
 
+  <!-- FOOTER -->
   <footer>
 
     <div class="footer-inner">
@@ -949,7 +1067,7 @@
               href="shop.html"
               style="
                 display:inline-block;
-                background:#0757b8;
+                background:#d90429;
                 color:white;
                 padding:13px 22px;
                 border-radius:8px;
@@ -1100,7 +1218,7 @@
                       style="
                         width:70px;
                         height:70px;
-                        background:#f4f8ff;
+                        background:#fff5f6;
                         border-radius:7px;
                         display:flex;
                         align-items:center;

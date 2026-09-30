@@ -32,6 +32,10 @@
       color: inherit;
     }
 
+    button {
+      font-family: inherit;
+    }
+
     header {
       position: sticky;
       top: 0;
@@ -147,7 +151,6 @@
     .logout-button {
       border: 0;
       cursor: pointer;
-      font-family: inherit;
       background: rgba(255,255,255,.12);
     }
 
@@ -484,6 +487,12 @@
       font-size: 12px;
     }
 
+    .rating-note {
+      color: #9ca3af;
+      font-size: 10px;
+      margin-left: 4px;
+    }
+
     .price {
       margin-top: 8px;
       color: #d90429;
@@ -562,6 +571,29 @@
       color: white;
     }
 
+    .footer-account-status {
+      display: none;
+      color: #ffd9df;
+      font-size: 13px;
+      margin-bottom: 10px;
+      word-break: break-word;
+    }
+
+    .footer-logout {
+      display: none;
+      color: #ffd9df;
+      background: none;
+      border: 0;
+      padding: 0;
+      font-size: 13px;
+      cursor: pointer;
+      margin-bottom: 9px;
+    }
+
+    .footer-logout:hover {
+      color: white;
+    }
+
     .footer-bottom {
       border-top: 1px solid rgba(255,255,255,.15);
       text-align: center;
@@ -632,8 +664,21 @@
         margin-left: auto;
       }
 
+      /*
+        IMPORTANT:
+        Do not hide account links here.
+        JavaScript decides whether Login/Register
+        or Account/Logout should be visible.
+      */
+
       .header-link:not(.cart-link) {
-        display: none;
+        display: inline-flex;
+      }
+
+      .account-email {
+        max-width: 125px;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       .cart-link {
@@ -783,6 +828,16 @@
         font-size: 9px;
       }
 
+      .account-email {
+        max-width: 90px;
+        font-size: 12px;
+      }
+
+      .logout-button {
+        font-size: 12px;
+        padding: 8px 7px;
+      }
+
       .cart-link {
         font-size: 12px;
         padding: 8px 9px;
@@ -877,6 +932,7 @@
 
     </div>
 
+
     <div class="header-actions">
 
       <a
@@ -901,7 +957,7 @@
         class="header-link account-email"
         style="display:none;"
       >
-        Account
+        My Account
       </a>
 
       <button
@@ -929,6 +985,7 @@
     </div>
 
   </div>
+
 
   <nav class="nav-bar">
 
@@ -1037,6 +1094,7 @@
 
     </a>
 
+
     <a
       href="shop.html?condition=Used"
       class="category-card"
@@ -1056,6 +1114,7 @@
 
     </a>
 
+
     <a
       href="shop.html"
       class="category-card"
@@ -1074,6 +1133,7 @@
       </p>
 
     </a>
+
 
     <a
       href="shop.html"
@@ -1134,7 +1194,7 @@
 
       <p>
         Your online destination for smartphones
-        and mobile devices in Kenya.
+        at prices made for every budget in Kenya.
       </p>
 
     </div>
@@ -1188,6 +1248,19 @@
       <a href="orders.html">
         My Orders
       </a>
+
+      <span
+        id="footerAccountStatus"
+        class="footer-account-status"
+      ></span>
+
+      <button
+        type="button"
+        id="footerLogout"
+        class="footer-logout"
+      >
+        Logout
+      </button>
 
     </div>
 
@@ -1285,9 +1358,11 @@
         );
 
       if (!response.ok) {
+
         throw new Error(
           "Exchange rate request failed"
         );
+
       }
 
       const result =
@@ -1447,28 +1522,82 @@
         "footerRegister"
       );
 
+    const footerAccountStatus =
+      document.getElementById(
+        "footerAccountStatus"
+      );
+
+    const footerLogout =
+      document.getElementById(
+        "footerLogout"
+      );
+
+
+    /*
+      Hide account controls first.
+      This prevents Login/Register from
+      briefly appearing while Supabase
+      checks the current session.
+    */
+
+    if (loginLink) {
+      loginLink.style.display = "none";
+    }
+
+    if (registerLink) {
+      registerLink.style.display = "none";
+    }
+
+    if (accountEmail) {
+      accountEmail.style.display = "none";
+    }
+
+    if (logoutButton) {
+      logoutButton.style.display = "none";
+    }
+
+    if (footerLogin) {
+      footerLogin.style.display = "none";
+    }
+
+    if (footerRegister) {
+      footerRegister.style.display = "none";
+    }
+
+    if (footerAccountStatus) {
+      footerAccountStatus.style.display = "none";
+    }
+
+    if (footerLogout) {
+      footerLogout.style.display = "none";
+    }
+
 
     try {
 
       const {
-        data: {
-          user
-        }
+        data,
+        error
       } =
         await supabaseClient.auth.getUser();
 
 
+      if (error) {
+
+        throw error;
+
+      }
+
+
+      const user =
+        data?.user || null;
+
+
       if (user) {
 
-        if (loginLink) {
-          loginLink.style.display =
-            "none";
-        }
-
-        if (registerLink) {
-          registerLink.style.display =
-            "none";
-        }
+        /*
+          LOGGED IN
+        */
 
         if (accountEmail) {
 
@@ -1476,57 +1605,69 @@
             user.email || "My Account";
 
           accountEmail.style.display =
-            "inline-block";
+            "inline-flex";
+
+          accountEmail.title =
+            user.email || "My Account";
 
         }
 
         if (logoutButton) {
 
           logoutButton.style.display =
-            "inline-block";
+            "inline-flex";
 
         }
 
-        if (footerLogin) {
-          footerLogin.style.display =
-            "none";
+        if (footerAccountStatus) {
+
+          footerAccountStatus.textContent =
+            user.email || "My Account";
+
+          footerAccountStatus.style.display =
+            "block";
+
         }
 
-        if (footerRegister) {
-          footerRegister.style.display =
-            "none";
+        if (footerLogout) {
+
+          footerLogout.style.display =
+            "block";
+
         }
 
       } else {
 
+        /*
+          NOT LOGGED IN
+        */
+
         if (loginLink) {
+
           loginLink.style.display =
-            "inline-block";
+            "inline-flex";
+
         }
 
         if (registerLink) {
+
           registerLink.style.display =
-            "inline-block";
-        }
+            "inline-flex";
 
-        if (accountEmail) {
-          accountEmail.style.display =
-            "none";
-        }
-
-        if (logoutButton) {
-          logoutButton.style.display =
-            "none";
         }
 
         if (footerLogin) {
+
           footerLogin.style.display =
             "block";
+
         }
 
         if (footerRegister) {
+
           footerRegister.style.display =
             "block";
+
         }
 
       }
@@ -1537,6 +1678,31 @@
         "Account UI error:",
         error
       );
+
+      /*
+        If the session check itself fails,
+        show the normal logged-out controls.
+      */
+
+      if (loginLink) {
+        loginLink.style.display =
+          "inline-flex";
+      }
+
+      if (registerLink) {
+        registerLink.style.display =
+          "inline-flex";
+      }
+
+      if (footerLogin) {
+        footerLogin.style.display =
+          "block";
+      }
+
+      if (footerRegister) {
+        footerRegister.style.display =
+          "block";
+      }
 
     }
 
@@ -1549,6 +1715,7 @@
       error
     } =
       await supabaseClient.auth.signOut();
+
 
     if (error) {
 
@@ -1564,6 +1731,9 @@
       return;
 
     }
+
+
+    await updateAccountUI();
 
     window.location.href =
       "index.html";
@@ -1605,6 +1775,7 @@
     const image =
       product.image_url || "";
 
+
     if (!image) {
 
       return `
@@ -1615,6 +1786,7 @@
       `;
 
     }
+
 
     return `
 
@@ -1889,10 +2061,6 @@
                 product.old_price || 0
               );
 
-            const oldPriceKES =
-              oldPrice *
-              usdKesRate;
-
 
             return `
 
@@ -1938,6 +2106,10 @@
                         ${rating.toFixed(1)}
                       </span>
 
+                      <span class="rating-note">
+                        sample
+                      </span>
+
                     </div>
 
 
@@ -1976,6 +2148,7 @@
 
           }
         ).join("");
+
 
     } catch (error) {
 
@@ -2042,13 +2215,37 @@
     );
 
 
+  document
+    .getElementById("footerLogout")
+    ?.addEventListener(
+      "click",
+      logoutUser
+    );
+
+
   supabaseClient.auth.onAuthStateChange(
     () => {
+
       setTimeout(
-        updateAccountUI,
+        () => {
+          updateAccountUI();
+        },
         0
       );
+
     }
+  );
+
+
+  window.addEventListener(
+    "storage",
+    updateCartCount
+  );
+
+
+  window.addEventListener(
+    "focus",
+    updateCartCount
   );
 
 

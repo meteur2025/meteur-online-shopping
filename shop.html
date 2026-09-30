@@ -293,7 +293,7 @@
     }
 
     /* =========================
-       CATEGORY TABS
+       PHONE CONDITION TABS
     ========================== */
 
     .category-tabs {
@@ -389,6 +389,27 @@
       font-size: 11px;
       font-weight: bold;
       z-index: 3;
+    }
+
+    .condition-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 5px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: bold;
+      z-index: 3;
+    }
+
+    .condition-new {
+      background: #15803d;
+      color: white;
+    }
+
+    .condition-used {
+      background: #374151;
+      color: white;
     }
 
     .product-info {
@@ -672,6 +693,16 @@
       .product-image-wrap {
         height: 165px;
       }
+
+      .condition-badge {
+        font-size: 9px;
+        padding: 4px 6px;
+      }
+
+      .badge {
+        font-size: 9px;
+        padding: 4px 6px;
+      }
     }
   </style>
 </head>
@@ -756,10 +787,17 @@
       </a>
 
       <a
-        href="shop.html?category=Phones"
-        data-nav="phones"
+        href="shop.html?condition=New"
+        data-nav="new"
       >
-        Phones
+        New Phones
+      </a>
+
+      <a
+        href="shop.html?condition=Used"
+        data-nav="used"
+      >
+        Used Phones
       </a>
 
       <a href="orders.html" data-nav="orders">
@@ -785,8 +823,7 @@
     </h1>
 
     <p id="pageDescription">
-      Discover smartphones at METEUR MOBILE KENYA.
-      Browse new and used phone options as they become available.
+      Discover new and used smartphones at METEUR MOBILE KENYA.
     </p>
 
   </div>
@@ -846,7 +883,7 @@
     <button
       type="button"
       class="category-tab"
-      data-category=""
+      data-condition=""
     >
       All Phones
     </button>
@@ -854,9 +891,17 @@
     <button
       type="button"
       class="category-tab"
-      data-category="Phones"
+      data-condition="New"
     >
-      Smartphones
+      New Phones
+    </button>
+
+    <button
+      type="button"
+      class="category-tab"
+      data-condition="Used"
+    >
+      Used Phones
     </button>
 
   </div>
@@ -886,9 +931,8 @@
 
       <p>
         A dedicated phone shop offering smartphones
-        and mobile devices for customers in Kenya.
-        New and used phone categories will be organized
-        as the product system is expanded.
+        and mobile devices in Kenya, with separate
+        new and used phone options.
       </p>
 
     </div>
@@ -903,8 +947,12 @@
         All Phones
       </a>
 
-      <a href="shop.html?category=Phones">
-        Smartphones
+      <a href="shop.html?condition=New">
+        New Phones
+      </a>
+
+      <a href="shop.html?condition=Used">
+        Used Phones
       </a>
 
     </div>
@@ -977,7 +1025,7 @@
 
   let allProducts = [];
 
-  let currentCategory = "";
+  let currentCondition = "";
 
   let currentSearch = "";
 
@@ -1036,15 +1084,19 @@
         window.location.search
       );
 
-    const category =
+    const condition =
       (
-        params.get("category") || ""
+        params.get("condition") || ""
       ).toLowerCase();
 
     let activeNav = "shop";
 
-    if (category === "phones") {
-      activeNav = "phones";
+    if (condition === "new") {
+      activeNav = "new";
+    }
+
+    if (condition === "used") {
+      activeNav = "used";
     }
 
     const activeLink =
@@ -1065,8 +1117,8 @@
         window.location.search
       );
 
-    currentCategory =
-      params.get("category") || "";
+    currentCondition =
+      params.get("condition") || "";
 
     currentSearch =
       params.get("search") || "";
@@ -1075,26 +1127,30 @@
       "searchFilter"
     ).value = currentSearch;
 
-    updateCategoryTabs();
+    document.getElementById(
+      "searchInput"
+    ).value = currentSearch;
+
+    updateConditionTabs();
 
     updatePageHeading();
 
   }
 
-  function updateCategoryTabs() {
+  function updateConditionTabs() {
 
     document
       .querySelectorAll(".category-tab")
       .forEach(tab => {
 
-        const tabCategory =
-          tab.dataset.category || "";
+        const tabCondition =
+          tab.dataset.condition || "";
 
         tab.classList.remove("active");
 
         if (
-          tabCategory.toLowerCase() ===
-          currentCategory.toLowerCase()
+          tabCondition.toLowerCase() ===
+          currentCondition.toLowerCase()
         ) {
 
           tab.classList.add("active");
@@ -1117,17 +1173,37 @@
         "pageDescription"
       );
 
-    if (currentCategory) {
+    if (
+      currentCondition.toLowerCase() ===
+      "new"
+    ) {
 
       title.textContent =
-        currentCategory === "Phones"
-          ? "Smartphones"
-          : currentCategory;
+        "New Phones";
 
       description.textContent =
-        "Browse smartphones at METEUR MOBILE KENYA.";
+        "Browse new smartphones available at METEUR MOBILE KENYA.";
 
-    } else if (currentSearch) {
+      return;
+
+    }
+
+    if (
+      currentCondition.toLowerCase() ===
+      "used"
+    ) {
+
+      title.textContent =
+        "Used Phones";
+
+      description.textContent =
+        "Browse used smartphones available at METEUR MOBILE KENYA.";
+
+      return;
+
+    }
+
+    if (currentSearch) {
 
       title.textContent =
         `Search results for "${currentSearch}"`;
@@ -1135,15 +1211,15 @@
       description.textContent =
         "Phones matching your search.";
 
-    } else {
-
-      title.textContent =
-        "Shop Phones";
-
-      description.textContent =
-        "Discover smartphones at METEUR MOBILE KENYA.";
+      return;
 
     }
+
+    title.textContent =
+      "Shop Phones";
+
+    description.textContent =
+      "Discover new and used smartphones at METEUR MOBILE KENYA.";
 
   }
 
@@ -1223,15 +1299,25 @@
     let products =
       [...allProducts];
 
-    if (currentCategory) {
+    if (currentCondition) {
 
       products =
         products.filter(
-          product =>
-            String(
-              product.category || ""
-            ).toLowerCase() ===
-            currentCategory.toLowerCase()
+          product => {
+
+            const condition =
+              String(
+                product.condition || "New"
+              ).trim().toLowerCase();
+
+            return (
+              condition ===
+              currentCondition
+                .trim()
+                .toLowerCase()
+            );
+
+          }
         );
 
     }
@@ -1401,9 +1487,32 @@
 
     if (!products.length) {
 
+      let message =
+        "No phones found.";
+
+      if (
+        currentCondition.toLowerCase() ===
+        "new"
+      ) {
+
+        message =
+          "No new phones are available yet.";
+
+      }
+
+      if (
+        currentCondition.toLowerCase() ===
+        "used"
+      ) {
+
+        message =
+          "No used phones are available yet.";
+
+      }
+
       grid.innerHTML = `
         <div class="no-products">
-          No phones found.
+          ${escapeHtml(message)}
         </div>
       `;
 
@@ -1442,6 +1551,24 @@
               5 - roundedRating
             );
 
+          const condition =
+            String(
+              product.condition || "New"
+            ).trim();
+
+          const normalizedCondition =
+            condition.toLowerCase();
+
+          const conditionClass =
+            normalizedCondition === "used"
+              ? "condition-used"
+              : "condition-new";
+
+          const conditionLabel =
+            normalizedCondition === "used"
+              ? "Used"
+              : "New";
+
           return `
             <article class="product-card">
 
@@ -1460,6 +1587,12 @@
                       `
                       : ""
                   }
+
+                  <span
+                    class="condition-badge ${conditionClass}"
+                  >
+                    ${conditionLabel}
+                  </span>
 
                   ${createImageHtml(product)}
 
@@ -1526,13 +1659,13 @@
         "click",
         function() {
 
-          const category =
-            this.dataset.category || "";
+          const condition =
+            this.dataset.condition || "";
 
-          if (category) {
+          if (condition) {
 
             window.location.href =
-              `shop.html?category=${encodeURIComponent(category)}`;
+              `shop.html?condition=${encodeURIComponent(condition)}`;
 
           } else {
 

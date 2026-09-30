@@ -998,7 +998,7 @@
 
     try {
 
-      /* Get the current admin session */
+      /* Get current admin session */
 
       const {
         data: { session },
@@ -1014,7 +1014,7 @@
       }
 
 
-      /* Get the customer message */
+      /* Get customer message */
 
       const {
         data: message,
@@ -1029,6 +1029,7 @@
 
 
       if (messageError) {
+
         throw new Error(
           "Unable to load the customer message."
         );
@@ -1036,6 +1037,7 @@
 
 
       if (!message) {
+
         throw new Error(
           "Customer message was not found."
         );
@@ -1043,17 +1045,20 @@
 
 
       if (!message.email) {
+
         throw new Error(
           "This customer message does not have an email address."
         );
       }
 
 
-      /* Call Supabase Edge Function */
+      /* ==========================================
+         CALL EXISTING SUPABASE EDGE FUNCTION
+         ========================================== */
 
       const functionUrl =
         SUPABASE_URL +
-        "/functions/v1/send-customer-reply";
+        "/functions/v1/dynamic-task";
 
 
       const response =
@@ -1104,25 +1109,57 @@
 
       let result = null;
 
+      const responseText =
+        await response.text();
+
+
       try {
-        result = await response.json();
-      } catch (jsonError) {
+
+        result =
+          responseText
+            ? JSON.parse(responseText)
+            : null;
+
+      } catch {
+
         result = null;
+
       }
 
 
-      if (!response.ok || !result || result.success !== true) {
+      if (!response.ok) {
 
-        const serverError =
+        throw new Error(
+
           result?.error ||
-          result?.message ||
-          "The email could not be sent.";
 
-        throw new Error(serverError);
+          result?.message ||
+
+          responseText ||
+
+          "The server rejected the request."
+
+        );
+
       }
 
 
-      /* Success */
+      if (!result || result.success !== true) {
+
+        throw new Error(
+
+          result?.error ||
+
+          result?.message ||
+
+          "The email could not be sent."
+
+        );
+
+      }
+
+
+      /* SUCCESS */
 
       if (successBox) {
 
@@ -1137,7 +1174,10 @@
 
 
       if (sendingNote) {
-        sendingNote.style.display = "none";
+
+        sendingNote.style.display =
+          "none";
+
       }
 
 
@@ -1152,8 +1192,8 @@
 
 
       /*
-        Reload the message list so the saved reply
-        and sent time are displayed.
+        Reload the message list so the
+        saved reply and sent time appear.
       */
 
       setTimeout(() => {
@@ -1172,7 +1212,10 @@
 
 
       if (sendingNote) {
-        sendingNote.style.display = "none";
+
+        sendingNote.style.display =
+          "none";
+
       }
 
 

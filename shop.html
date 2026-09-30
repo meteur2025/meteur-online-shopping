@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Shop - METEUR MOBILE KENYA</title>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -17,7 +18,7 @@
     body {
       font-family: Arial, Helvetica, sans-serif;
       background: #fff5f6;
-      color: #1f2937;
+      color: #172033;
     }
 
     a {
@@ -31,13 +32,17 @@
       font-family: inherit;
     }
 
+    /* =========================
+       HEADER
+    ========================== */
+
     header {
       background: #d90429;
       color: white;
       position: sticky;
       top: 0;
       z-index: 1000;
-      box-shadow: 0 2px 10px rgba(0,0,0,.12);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
     }
 
     .header-top {
@@ -61,14 +66,16 @@
     .logo-icon {
       width: 48px;
       height: 48px;
-      border-radius: 9px;
       background: white;
-      position: relative;
+      border-radius: 9px;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
       flex-shrink: 0;
+      padding: 0;
+      border: none;
+      box-shadow: none;
     }
 
     .logo-icon img {
@@ -76,6 +83,9 @@
       height: 100%;
       object-fit: contain;
       display: block;
+      background: white;
+      border: none;
+      border-radius: 9px;
     }
 
     .logo-text {
@@ -86,15 +96,19 @@
 
     .logo-main {
       font-size: 19px;
-      letter-spacing: .5px;
+      letter-spacing: 0.5px;
     }
 
     .logo-sub {
       font-size: 10px;
       margin-top: 4px;
-      letter-spacing: .8px;
-      opacity: .9;
+      letter-spacing: 0.8px;
+      color: #ffd9df;
     }
+
+    /* =========================
+       SEARCH
+    ========================== */
 
     .search-box {
       flex: 1;
@@ -125,6 +139,10 @@
       background: #7d0019;
     }
 
+    /* =========================
+       HEADER ACTIONS
+    ========================== */
+
     .header-actions {
       display: flex;
       align-items: center;
@@ -141,7 +159,7 @@
     }
 
     .header-link:hover {
-      background: rgba(255,255,255,.14);
+      background: rgba(255, 255, 255, 0.14);
     }
 
     .cart-link {
@@ -165,6 +183,10 @@
       justify-content: center;
     }
 
+    /* =========================
+       NAVIGATION
+    ========================== */
+
     .nav-bar {
       background: #9b001f;
     }
@@ -187,6 +209,10 @@
       position: relative;
     }
 
+    .nav-inner a:hover {
+      opacity: 0.85;
+    }
+
     .nav-inner a.active::after {
       content: "";
       position: absolute;
@@ -197,6 +223,10 @@
       background: white;
       border-radius: 3px 3px 0 0;
     }
+
+    /* =========================
+       PAGE
+    ========================== */
 
     .page {
       max-width: 1250px;
@@ -215,16 +245,21 @@
     }
 
     .page-heading p {
-      color: #6b7280;
+      color: #61718a;
       font-size: 15px;
     }
 
+    /* =========================
+       FILTERS
+    ========================== */
+
     .filters {
       background: white;
+      border: 1px solid #f3c7cd;
       border-radius: 10px;
       padding: 18px;
       margin-bottom: 25px;
-      box-shadow: 0 2px 10px rgba(0,0,0,.07);
+      box-shadow: 0 2px 10px rgba(155, 0, 31, 0.06);
       display: grid;
       grid-template-columns: 1fr 220px;
       gap: 15px;
@@ -252,8 +287,12 @@
     .filter-group input:focus,
     .filter-group select:focus {
       border-color: #d90429;
-      box-shadow: 0 0 0 2px rgba(217,4,41,.08);
+      box-shadow: 0 0 0 2px rgba(217, 4, 41, 0.08);
     }
+
+    /* =========================
+       CATEGORY TABS
+    ========================== */
 
     .category-tabs {
       display: flex;
@@ -286,6 +325,10 @@
       border-color: #d90429;
     }
 
+    /* =========================
+       PRODUCTS
+    ========================== */
+
     .products-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -297,12 +340,12 @@
       border-radius: 10px;
       overflow: hidden;
       border: 1px solid #f3c7cd;
-      transition: .2s;
+      transition: 0.2s;
     }
 
     .product-card:hover {
       transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(217,4,41,.12);
+      box-shadow: 0 5px 15px rgba(217, 4, 41, 0.12);
     }
 
     .product-image-wrap {
@@ -336,7 +379,7 @@
     }
 
     .product-name {
-      color: #111827;
+      color: #172033;
       font-size: 15px;
       font-weight: bold;
       line-height: 1.4;
@@ -387,12 +430,17 @@
       background: white;
       padding: 45px 20px;
       border-radius: 10px;
-      color: #6b7280;
+      color: #61718a;
+      border: 1px solid #f3c7cd;
     }
 
     .error-message {
       color: #dc2626;
     }
+
+    /* =========================
+       FOOTER
+    ========================== */
 
     footer {
       background: #9b001f;
@@ -435,14 +483,19 @@
     }
 
     .footer-bottom {
-      border-top: 1px solid rgba(255,255,255,.15);
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
       text-align: center;
       padding: 16px 20px;
       color: #ffd9df;
       font-size: 12px;
     }
 
+    /* =========================
+       TABLET
+    ========================== */
+
     @media (max-width: 1000px) {
+
       .products-grid {
         grid-template-columns: repeat(3, 1fr);
       }
@@ -450,9 +503,11 @@
       .footer-inner {
         grid-template-columns: repeat(2, 1fr);
       }
+
     }
 
     @media (max-width: 800px) {
+
       .filters {
         grid-template-columns: 1fr;
       }
@@ -460,15 +515,22 @@
       .products-grid {
         grid-template-columns: repeat(2, 1fr);
       }
+
     }
 
+    /* =========================
+       MOBILE
+    ========================== */
+
     @media (max-width: 700px) {
+
       .header-top {
         flex-wrap: wrap;
       }
 
       .logo {
         width: 100%;
+        min-width: 0;
       }
 
       .search-box {
@@ -514,9 +576,11 @@
       .footer-inner {
         grid-template-columns: 1fr;
       }
+
     }
 
     @media (max-width: 430px) {
+
       .products-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 10px;
@@ -525,6 +589,7 @@
       .product-image-wrap {
         height: 150px;
       }
+
     }
   </style>
 </head>
@@ -538,18 +603,28 @@
     <a href="index.html" class="logo">
 
       <div class="logo-icon">
+
         <img
-          src="WhatsApp%20Image%202026-09-30%20at%2012.36.30.jpeg"
+          src="WhatsApp Image 2026-09-30 at 12.36.30.jpeg"
           alt="METEUR MOBILE KENYA Logo"
         >
+
       </div>
 
       <div class="logo-text">
-        <span class="logo-main">METEUR MOBILE KENYA</span>
-        <span class="logo-sub">MOBILE • ELECTRONICS • ACCESSORIES</span>
+
+        <span class="logo-main">
+          METEUR MOBILE KENYA
+        </span>
+
+        <span class="logo-sub">
+          MOBILE • ELECTRONICS • ACCESSORIES
+        </span>
+
       </div>
 
     </a>
+
 
     <form class="search-box" id="searchForm">
 
@@ -565,6 +640,7 @@
 
     </form>
 
+
     <div class="header-actions">
 
       <a href="login.html" class="header-link">
@@ -576,13 +652,22 @@
       </a>
 
       <a href="cart.html" class="header-link cart-link">
+
         🛒 Cart
-        <span id="cartCount" class="cart-count">0</span>
+
+        <span
+          id="cartCount"
+          class="cart-count"
+        >
+          0
+        </span>
+
       </a>
 
     </div>
 
   </div>
+
 
   <nav class="nav-bar">
 
@@ -596,15 +681,24 @@
         Shop
       </a>
 
-      <a href="shop.html?category=Phones%20and%20Tablets" data-nav="phones">
-        Phones & Tablets
+      <a
+        href="shop.html?category=Phones%20and%20Tablets"
+        data-nav="phones"
+      >
+        Phones &amp; Tablets
       </a>
 
-      <a href="shop.html?category=Electronics" data-nav="electronics">
+      <a
+        href="shop.html?category=Electronics"
+        data-nav="electronics"
+      >
         Electronics
       </a>
 
-      <a href="shop.html?category=Accessories" data-nav="accessories">
+      <a
+        href="shop.html?category=Accessories"
+        data-nav="accessories"
+      >
         Accessories
       </a>
 
@@ -622,6 +716,7 @@
 
 </header>
 
+
 <main class="page">
 
   <div class="page-heading">
@@ -635,6 +730,7 @@
     </p>
 
   </div>
+
 
   <section class="filters">
 
@@ -651,6 +747,7 @@
       >
 
     </div>
+
 
     <div class="filter-group">
 
@@ -686,9 +783,14 @@
 
   </section>
 
+
   <div class="category-tabs">
 
-    <button type="button" class="category-tab" data-category="">
+    <button
+      type="button"
+      class="category-tab"
+      data-category=""
+    >
       All Products
     </button>
 
@@ -697,7 +799,7 @@
       class="category-tab"
       data-category="Phones and Tablets"
     >
-      Phones & Tablets
+      Phones &amp; Tablets
     </button>
 
     <button
@@ -726,7 +828,11 @@
 
   </div>
 
-  <div id="productsGrid" class="products-grid">
+
+  <div
+    id="productsGrid"
+    class="products-grid"
+  >
 
     <div class="loading">
       Loading products...
@@ -735,6 +841,7 @@
   </div>
 
 </main>
+
 
 <footer>
 
@@ -753,9 +860,12 @@
 
     </div>
 
+
     <div class="footer-column">
 
-      <h3>Shop</h3>
+      <h3>
+        Shop
+      </h3>
 
       <a href="shop.html">
         All Products
@@ -770,14 +880,17 @@
       </a>
 
       <a href="shop.html?category=Phones%20and%20Tablets">
-        Phones & Tablets
+        Phones &amp; Tablets
       </a>
 
     </div>
 
+
     <div class="footer-column">
 
-      <h3>Account</h3>
+      <h3>
+        Account
+      </h3>
 
       <a href="login.html">
         Login
@@ -797,9 +910,12 @@
 
     </div>
 
+
     <div class="footer-column">
 
-      <h3>Help</h3>
+      <h3>
+        Help
+      </h3>
 
       <a href="contact.html">
         Contact Us
@@ -817,11 +933,13 @@
 
   </div>
 
+
   <div class="footer-bottom">
     © 2026 METEUR MOBILE KENYA. All rights reserved.
   </div>
 
 </footer>
+
 
 <script>
 
@@ -831,16 +949,22 @@
   const SUPABASE_ANON_KEY =
     "sb_publishable_cIqzHoafy_AEdB48KS_Wpg_LDqE1sFC";
 
+
   const supabaseClient =
     window.supabase.createClient(
       SUPABASE_URL,
       SUPABASE_ANON_KEY
     );
 
+
   let allProducts = [];
+
   let currentCategory = "";
+
   let currentSearch = "";
+
   let currentSort = "newest";
+
 
   function escapeHtml(value) {
 
@@ -853,25 +977,32 @@
 
   }
 
+
   function setActiveNavigation() {
 
     document
       .querySelectorAll("[data-nav]")
       .forEach(link => {
+
         link.classList.remove("active");
+
       });
+
 
     const params =
       new URLSearchParams(
         window.location.search
       );
 
+
     const category =
       (
         params.get("category") || ""
       ).toLowerCase();
 
+
     let activeNav = "shop";
+
 
     if (
       category === "phones and tablets"
@@ -893,16 +1024,21 @@
 
     }
 
+
     const activeLink =
       document.querySelector(
         `[data-nav="${activeNav}"]`
       );
 
+
     if (activeLink) {
+
       activeLink.classList.add("active");
+
     }
 
   }
+
 
   function readUrlState() {
 
@@ -911,20 +1047,26 @@
         window.location.search
       );
 
+
     currentCategory =
       params.get("category") || "";
 
+
     currentSearch =
       params.get("search") || "";
+
 
     document.getElementById(
       "searchFilter"
     ).value = currentSearch;
 
+
     updateCategoryTabs();
+
     updatePageHeading();
 
   }
+
 
   function updateCategoryTabs() {
 
@@ -935,7 +1077,9 @@
         const tabCategory =
           tab.dataset.category || "";
 
+
         tab.classList.remove("active");
+
 
         if (
           tabCategory.toLowerCase() ===
@@ -950,6 +1094,7 @@
 
   }
 
+
   function updatePageHeading() {
 
     const title =
@@ -957,15 +1102,18 @@
         "pageTitle"
       );
 
+
     const description =
       document.getElementById(
         "pageDescription"
       );
 
+
     if (currentCategory) {
 
       title.textContent =
         currentCategory;
+
 
       description.textContent =
         `Browse ${currentCategory} products at METEUR MOBILE KENYA.`;
@@ -975,6 +1123,7 @@
       title.textContent =
         `Search results for "${currentSearch}"`;
 
+
       description.textContent =
         "Products matching your search.";
 
@@ -983,12 +1132,14 @@
       title.textContent =
         "Shop All Products";
 
+
       description.textContent =
         "Browse products available at METEUR MOBILE KENYA.";
 
     }
 
   }
+
 
   async function loadProducts() {
 
@@ -997,11 +1148,13 @@
         "productsGrid"
       );
 
+
     grid.innerHTML = `
       <div class="loading">
         Loading products...
       </div>
     `;
+
 
     try {
 
@@ -1019,6 +1172,7 @@
             }
           );
 
+
       if (error) {
 
         console.error(
@@ -1026,21 +1180,27 @@
           error
         );
 
+
         grid.innerHTML = `
           <div class="error-message">
             Unable to load products.
           </div>
         `;
 
+
         return;
+
       }
+
 
       allProducts =
         Array.isArray(data)
           ? data
           : [];
 
+
       renderProducts();
+
 
     } catch (error) {
 
@@ -1048,6 +1208,7 @@
         "Products loading error:",
         error
       );
+
 
       grid.innerHTML = `
         <div class="error-message">
@@ -1059,10 +1220,12 @@
 
   }
 
+
   function getFilteredProducts() {
 
     let products =
       [...allProducts];
+
 
     if (currentCategory) {
 
@@ -1077,10 +1240,12 @@
 
     }
 
+
     if (currentSearch) {
 
       const search =
         currentSearch.toLowerCase();
+
 
       products =
         products.filter(
@@ -1091,15 +1256,18 @@
                 product.name || ""
               ).toLowerCase();
 
+
             const category =
               String(
                 product.category || ""
               ).toLowerCase();
 
+
             const description =
               String(
                 product.description || ""
               ).toLowerCase();
+
 
             return (
               name.includes(search) ||
@@ -1111,6 +1279,7 @@
         );
 
     }
+
 
     if (
       currentSort === "price-low"
@@ -1124,6 +1293,7 @@
 
     }
 
+
     if (
       currentSort === "price-high"
     ) {
@@ -1136,6 +1306,7 @@
 
     }
 
+
     if (
       currentSort === "rating"
     ) {
@@ -1147,6 +1318,7 @@
       );
 
     }
+
 
     if (
       currentSort === "name"
@@ -1165,9 +1337,11 @@
 
     }
 
+
     return products;
 
   }
+
 
   function renderProducts() {
 
@@ -1176,8 +1350,10 @@
         "productsGrid"
       );
 
+
     const products =
       getFilteredProducts();
+
 
     if (!products.length) {
 
@@ -1187,9 +1363,11 @@
         </div>
       `;
 
+
       return;
 
     }
+
 
     grid.innerHTML =
       products
@@ -1200,10 +1378,12 @@
               product.rating || 0
             );
 
+
           const reviews =
             Number(
               product.review_count || 0
             );
+
 
           const roundedRating =
             Math.max(
@@ -1214,6 +1394,7 @@
               )
             );
 
+
           const stars =
             "★".repeat(
               roundedRating
@@ -1222,9 +1403,11 @@
               5 - roundedRating
             );
 
+
           const image =
             product.image_url ||
             "https://via.placeholder.com/400x300?text=Meteur+Mobile";
+
 
           return `
             <article class="product-card">
@@ -1245,6 +1428,7 @@
                       : ""
                   }
 
+
                   <img
                     src="${escapeHtml(image)}"
                     alt="${escapeHtml(product.name)}"
@@ -1255,30 +1439,36 @@
 
                 </div>
 
+
                 <div class="product-info">
 
                   <div class="product-name">
                     ${escapeHtml(product.name)}
                   </div>
 
+
                   <div class="rating">
 
                     ${stars}
 
-                    <span style="
-                      color:#6b7280;
-                      margin-left:4px;
-                    ">
+                    <span
+                      style="
+                        color:#6b7280;
+                        margin-left:4px;
+                      "
+                    >
                       (${reviews})
                     </span>
 
                   </div>
+
 
                   <div class="price">
 
                     KSh ${Number(
                       product.price || 0
                     ).toLocaleString()}
+
 
                     ${
                       product.old_price
@@ -1293,6 +1483,7 @@
                     }
 
                   </div>
+
 
                   <span class="view-product">
                     View Product
@@ -1310,6 +1501,7 @@
 
   }
 
+
   document
     .querySelectorAll(".category-tab")
     .forEach(tab => {
@@ -1320,6 +1512,7 @@
 
           const category =
             this.dataset.category || "";
+
 
           if (category) {
 
@@ -1338,6 +1531,7 @@
 
     });
 
+
   document
     .getElementById("searchForm")
     .addEventListener(
@@ -1346,11 +1540,13 @@
 
         event.preventDefault();
 
+
         const search =
           document
             .getElementById("searchInput")
             .value
             .trim();
+
 
         if (search) {
 
@@ -1367,6 +1563,7 @@
       }
     );
 
+
   document
     .getElementById("searchFilter")
     .addEventListener(
@@ -1376,10 +1573,12 @@
         currentSearch =
           this.value.trim();
 
+
         renderProducts();
 
       }
     );
+
 
   document
     .getElementById("sortFilter")
@@ -1390,14 +1589,17 @@
         currentSort =
           this.value;
 
+
         renderProducts();
 
       }
     );
 
+
   function updateCartCount() {
 
     let cart = [];
+
 
     try {
 
@@ -1414,9 +1616,13 @@
 
     }
 
+
     if (!Array.isArray(cart)) {
+
       cart = [];
+
     }
+
 
     const total =
       cart.reduce(
@@ -1428,10 +1634,12 @@
         0
       );
 
+
     const count =
       document.getElementById(
         "cartCount"
       );
+
 
     if (total > 0) {
 
@@ -1450,9 +1658,13 @@
 
   }
 
+
   setActiveNavigation();
+
   readUrlState();
+
   updateCartCount();
+
   loadProducts();
 
 </script>

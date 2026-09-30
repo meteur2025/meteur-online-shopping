@@ -26,10 +26,6 @@
             text-decoration: none;
         }
 
-        /* =========================
-           HEADER
-        ========================= */
-
         .top-header {
             background: #d90429;
             color: white;
@@ -102,10 +98,6 @@
             background: #fff0f2;
         }
 
-        /* =========================
-           NAVIGATION
-        ========================= */
-
         nav {
             background: #9b001f;
             color: white;
@@ -146,10 +138,6 @@
             background: white;
             border-radius: 3px 3px 0 0;
         }
-
-        /* =========================
-           LOGIN SECTION
-        ========================= */
 
         .auth-section {
             min-height: calc(100vh - 220px);
@@ -203,10 +191,6 @@
             color: #61718a;
             line-height: 1.5;
         }
-
-        /* =========================
-           FORM
-        ========================= */
 
         .form-group {
             margin-bottom: 20px;
@@ -275,10 +259,6 @@
             cursor: not-allowed;
         }
 
-        /* =========================
-           MESSAGES
-        ========================= */
-
         .auth-message {
             display: none;
             padding: 12px;
@@ -313,10 +293,6 @@
             border: 1px solid #c9d9f5;
         }
 
-        /* =========================
-           DIVIDER
-        ========================= */
-
         .auth-divider {
             display: flex;
             align-items: center;
@@ -349,10 +325,6 @@
             padding-top: 18px;
             border-top: 1px solid #f0dce0;
         }
-
-        /* =========================
-           FOOTER
-        ========================= */
 
         footer {
             background: #9b001f;
@@ -399,10 +371,6 @@
             color: #ffd9df;
             font-size: 13px;
         }
-
-        /* =========================
-           RESPONSIVE
-        ========================= */
 
         @media (max-width: 900px) {
 
@@ -482,7 +450,6 @@
 
 <body>
 
-<!-- HEADER -->
 <header class="top-header">
 
     <div class="header-inner">
@@ -490,16 +457,23 @@
         <a href="index.html" class="brand">
 
             <div class="logo">
+
                 <img
                     src="WhatsApp Image 2026-09-30 at 12.36.30.jpeg"
                     alt="Meteur Mobile Kenya M Logo"
                     class="real-logo"
                 >
+
             </div>
 
             <div class="brand-text">
+
                 <h1>METEUR MOBILE KENYA</h1>
-                <p>MOBILE • ELECTRONICS • ACCESSORIES</p>
+
+                <p>
+                    MOBILE • ELECTRONICS • ACCESSORIES
+                </p>
+
             </div>
 
         </a>
@@ -515,7 +489,6 @@
 
 </header>
 
-<!-- NAVIGATION -->
 <nav>
 
     <div class="nav-inner">
@@ -552,7 +525,6 @@
 
 </nav>
 
-<!-- LOGIN -->
 <main>
 
     <section class="auth-section">
@@ -643,10 +615,13 @@
                 <div class="register-link">
 
                     <p>
+
                         Don't have an account?
+
                         <a href="register.html">
                             Create an account
                         </a>
+
                     </p>
 
                 </div>
@@ -667,7 +642,6 @@
 
 </main>
 
-<!-- FOOTER -->
 <footer>
 
     <div class="footer-inner">
@@ -756,7 +730,9 @@
     </div>
 
     <div class="copyright">
+
         © 2026 METEUR MOBILE KENYA. All rights reserved.
+
     </div>
 
 </footer>
@@ -771,6 +747,54 @@ const loginButton =
 
 const message =
     document.getElementById("message");
+
+
+/*
+ * Read the page the customer originally
+ * wanted to visit.
+ *
+ * Example:
+ *
+ * checkout.html
+ * cart.html
+ * profile.html
+ * orders.html
+ *
+ * Only approved internal pages are allowed.
+ * This prevents an external website from
+ * being used as a redirect destination.
+ */
+
+const urlParams =
+    new URLSearchParams(
+        window.location.search
+    );
+
+const requestedRedirect =
+    urlParams.get("redirect");
+
+
+const allowedRedirects = [
+
+    "checkout.html",
+
+    "cart.html",
+
+    "dashboard.html",
+
+    "profile.html",
+
+    "orders.html"
+
+];
+
+
+const redirectDestination =
+    allowedRedirects.includes(
+        requestedRedirect
+    )
+        ? requestedRedirect
+        : "dashboard.html";
 
 
 function showMessage(text, type) {
@@ -794,9 +818,10 @@ async function checkAdministrator() {
     const {
         data,
         error
-    } = await supabaseClient.rpc(
-        "is_current_user_admin"
-    );
+    } =
+        await supabaseClient.rpc(
+            "is_current_user_admin"
+        );
 
 
     if (error) {
@@ -956,8 +981,22 @@ loginForm.addEventListener(
 
 
             /*
-             * Normal customers continue to
-             * their normal account dashboard.
+             * Normal customers now return to
+             * the page they originally requested.
+             *
+             * Example:
+             *
+             * checkout.html
+             *
+             * Customer flow:
+             *
+             * Checkout
+             *     ↓
+             * Login
+             *     ↓
+             * Successful login
+             *     ↓
+             * Checkout
              */
 
             showMessage(
@@ -969,7 +1008,7 @@ loginForm.addEventListener(
             setTimeout(function() {
 
                 window.location.href =
-                    "dashboard.html";
+                    redirectDestination;
 
             }, 1000);
 

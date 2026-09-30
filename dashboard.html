@@ -1,11 +1,10 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>My Profile - METEUR MOBILE KENYA</title>
+    <title>Dashboard - METEUR MOBILE KENYA</title>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabase-config.js"></script>
@@ -26,6 +25,10 @@
         a {
             text-decoration: none;
             color: inherit;
+        }
+
+        button {
+            font: inherit;
         }
 
         header {
@@ -144,13 +147,13 @@
             border-radius: 3px 3px 0 0;
         }
 
-        .profile-page {
+        .dashboard-page {
             padding: 30px 20px 60px;
             background: #fff5f6;
             min-height: 70vh;
         }
 
-        .profile-container {
+        .dashboard-container {
             max-width: 1250px;
             margin: auto;
         }
@@ -166,7 +169,7 @@
             font-weight: 700;
         }
 
-        .profile-header {
+        .dashboard-header {
             background: linear-gradient(135deg, #d90429, #9b001f);
             color: white;
             border-radius: 12px;
@@ -175,36 +178,32 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
         }
 
-        .profile-header h1 {
-            margin: 0 0 8px;
+        .dashboard-header h1 {
+            margin-bottom: 8px;
             font-size: 30px;
         }
 
-        .profile-header p {
-            margin: 0;
+        .dashboard-header p {
             color: #ffe1e6;
+            line-height: 1.5;
         }
 
-        .profile-grid {
+        .dashboard-layout {
             display: grid;
             grid-template-columns: 260px 1fr;
             gap: 25px;
         }
 
-        .profile-menu,
-        .profile-card {
+        .dashboard-menu {
             background: white;
             border-radius: 12px;
             border: 1px solid #f3c7cd;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-        }
-
-        .profile-menu {
             padding: 15px;
             height: fit-content;
         }
 
-        .profile-menu a {
+        .dashboard-menu a {
             display: block;
             padding: 13px 15px;
             color: #172033;
@@ -214,87 +213,10 @@
             font-weight: 600;
         }
 
-        .profile-menu a:hover,
-        .profile-menu a.active {
+        .dashboard-menu a:hover,
+        .dashboard-menu a.active {
             background: #fff0f2;
             color: #d90429;
-        }
-
-        .profile-card {
-            padding: 30px;
-        }
-
-        .profile-card h2 {
-            margin-top: 0;
-            margin-bottom: 8px;
-            font-size: 23px;
-        }
-
-        .profile-description {
-            color: #61718a;
-            margin-bottom: 25px;
-            line-height: 1.5;
-        }
-
-        .profile-form {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-group.full {
-            grid-column: 1 / -1;
-        }
-
-        .form-group label {
-            font-weight: 600;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-
-        .form-group input {
-            padding: 13px 14px;
-            border: 1px solid #ddd;
-            border-radius: 7px;
-            font-size: 15px;
-            outline: none;
-            color: #172033;
-            background: white;
-        }
-
-        .form-group input:focus {
-            border-color: #d90429;
-            box-shadow: 0 0 0 3px rgba(217, 4, 41, 0.08);
-        }
-
-        .form-group input:disabled {
-            background: #f8f8f8;
-            color: #61718a;
-        }
-
-        .save-button {
-            border: none;
-            background: #d90429;
-            color: white;
-            padding: 13px 25px;
-            border-radius: 7px;
-            font-size: 15px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .save-button:hover {
-            background: #9b001f;
-        }
-
-        .save-button:disabled {
-            opacity: .7;
-            cursor: not-allowed;
         }
 
         .logout-button {
@@ -313,33 +235,138 @@
             background: #fff0f2;
         }
 
-        .status-message {
-            display: none;
-            margin-bottom: 20px;
-            padding: 13px 15px;
+        .dashboard-content {
+            min-width: 0;
+        }
+
+        .welcome-card {
+            background: white;
+            border: 1px solid #f3c7cd;
+            border-radius: 12px;
+            padding: 28px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .welcome-card h2 {
+            font-size: 23px;
+            margin-bottom: 8px;
+        }
+
+        .welcome-card p {
+            color: #61718a;
+            line-height: 1.5;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .dashboard-card {
+            background: white;
+            border: 1px solid #f3c7cd;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            background: #fff0f2;
+            color: #d90429;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 23px;
+            margin-bottom: 15px;
+        }
+
+        .dashboard-card h3 {
+            font-size: 18px;
+            margin-bottom: 7px;
+        }
+
+        .dashboard-card p {
+            color: #61718a;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .card-link {
+            display: inline-block;
+            color: #d90429;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .card-link:hover {
+            color: #9b001f;
+        }
+
+        .quick-actions {
+            background: white;
+            border: 1px solid #f3c7cd;
+            border-radius: 12px;
+            padding: 28px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .quick-actions h2 {
+            font-size: 22px;
+            margin-bottom: 18px;
+        }
+
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .action-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 14px;
+            background: #d90429;
+            color: white;
             border-radius: 7px;
             font-size: 14px;
+            font-weight: 700;
         }
 
-        .status-message.success {
-            display: block;
-            background: #e9f8ef;
-            color: #207a43;
-        }
-
-        .status-message.error {
-            display: block;
-            background: #fff0f0;
-            color: #b42318;
+        .action-button:hover {
+            background: #9b001f;
         }
 
         .loading {
             background: white;
             text-align: center;
-            padding: 40px;
+            padding: 45px;
             color: #61718a;
             border-radius: 12px;
             border: 1px solid #f3c7cd;
+        }
+
+        .error-message {
+            background: #fff0f0;
+            color: #b42318;
+            border: 1px solid #f3c7cd;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
         }
 
         footer {
@@ -396,14 +423,27 @@
             font-size: 13px;
         }
 
+        @media (max-width: 1000px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .action-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
         @media (max-width: 900px) {
+            .dashboard-layout {
+                grid-template-columns: 1fr;
+            }
+
             .footer-inner {
                 grid-template-columns: 1fr 1fr;
             }
         }
 
         @media (max-width: 750px) {
-
             header {
                 padding: 14px;
             }
@@ -448,31 +488,28 @@
                 gap: 22px;
             }
 
-            .profile-page {
+            .dashboard-page {
                 padding: 25px 12px 50px;
             }
 
-            .profile-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .profile-form {
-                grid-template-columns: 1fr;
-            }
-
-            .form-group.full {
-                grid-column: auto;
-            }
-
-            .profile-header {
+            .dashboard-header {
                 padding: 27px 22px;
             }
 
-            .profile-header h1 {
+            .dashboard-header h1 {
                 font-size: 25px;
             }
 
-            .profile-card {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .action-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .welcome-card,
+            .quick-actions {
                 padding: 22px;
             }
 
@@ -519,7 +556,7 @@
 
             <a href="shop.html">Shop</a>
 
-            <a href="dashboard.html">Account</a>
+            <a href="cart.html">🛒 Cart</a>
 
         </div>
 
@@ -547,51 +584,57 @@
             Accessories
         </a>
 
-        <a href="orders.html">My Orders</a>
+        <a href="orders.html">
+            My Orders
+        </a>
 
-        <a href="contact.html">Contact Us</a>
+        <a href="contact.html">
+            Contact Us
+        </a>
 
     </div>
 
 </nav>
 
-<main class="profile-page">
+<main class="dashboard-page">
 
-    <div class="profile-container">
+    <div class="dashboard-container">
 
         <div class="breadcrumb">
 
             <a href="index.html">Home</a>
 
-            <span> / My Profile</span>
+            <span> / Dashboard</span>
 
         </div>
 
-        <div class="profile-header">
+        <div class="dashboard-header">
 
-            <h1>My Profile</h1>
+            <h1>My Dashboard</h1>
 
             <p>
-                Manage your METEUR MOBILE KENYA account information.
+                Welcome to your METEUR MOBILE KENYA account.
+                Manage your profile, orders and shopping activities
+                from one place.
             </p>
 
         </div>
 
         <div id="loadingMessage" class="loading">
-            Loading your profile...
+            Loading your account...
         </div>
 
-        <div id="profileContent" style="display:none;">
+        <div id="dashboardContent" style="display:none;">
 
-            <div class="profile-grid">
+            <div class="dashboard-layout">
 
-                <aside class="profile-menu">
+                <aside class="dashboard-menu">
 
-                    <a href="dashboard.html">
+                    <a href="dashboard.html" class="active">
                         🏠 Dashboard
                     </a>
 
-                    <a href="profile.html" class="active">
+                    <a href="profile.html">
                         👤 My Profile
                     </a>
 
@@ -617,100 +660,143 @@
 
                 </aside>
 
-                <section class="profile-card">
+                <section class="dashboard-content">
 
-                    <h2>Personal Information</h2>
+                    <div class="welcome-card">
 
-                    <p class="profile-description">
-                        Update the information connected to your
-                        METEUR MOBILE KENYA account.
-                    </p>
+                        <h2 id="welcomeName">
+                            Welcome!
+                        </h2>
 
-                    <div
-                        id="statusMessage"
-                        class="status-message"
-                    ></div>
+                        <p>
+                            Your account is ready. Choose an option
+                            below to continue shopping or manage
+                            your account.
+                        </p>
 
-                    <form
-                        id="profileForm"
-                        class="profile-form"
-                    >
+                    </div>
 
-                        <div class="form-group">
+                    <div class="dashboard-grid">
 
-                            <label for="firstName">
-                                First Name
-                            </label>
+                        <div class="dashboard-card">
 
-                            <input
-                                type="text"
-                                id="firstName"
-                                name="firstName"
-                                placeholder="First name"
-                                required
+                            <div class="card-icon">
+                                📦
+                            </div>
+
+                            <h3>My Orders</h3>
+
+                            <p>
+                                View your previous orders and check
+                                your order status.
+                            </p>
+
+                            <a
+                                href="orders.html"
+                                class="card-link"
                             >
+                                View Orders →
+                            </a>
 
                         </div>
 
-                        <div class="form-group">
+                        <div class="dashboard-card">
 
-                            <label for="lastName">
-                                Last Name
-                            </label>
+                            <div class="card-icon">
+                                👤
+                            </div>
 
-                            <input
-                                type="text"
-                                id="lastName"
-                                name="lastName"
-                                placeholder="Last name"
-                                required
+                            <h3>My Profile</h3>
+
+                            <p>
+                                Update your name, phone number and
+                                account information.
+                            </p>
+
+                            <a
+                                href="profile.html"
+                                class="card-link"
                             >
+                                Manage Profile →
+                            </a>
 
                         </div>
 
-                        <div class="form-group full">
+                        <div class="dashboard-card">
 
-                            <label for="email">
-                                Email Address
-                            </label>
+                            <div class="card-icon">
+                                🛍️
+                            </div>
 
-                            <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                disabled
+                            <h3>Shop Now</h3>
+
+                            <p>
+                                Browse smartphones, electronics,
+                                accessories and smart devices.
+                            </p>
+
+                            <a
+                                href="shop.html"
+                                class="card-link"
                             >
+                                Start Shopping →
+                            </a>
 
                         </div>
 
-                        <div class="form-group full">
+                    </div>
 
-                            <label for="phone">
-                                Phone Number
-                            </label>
+                    <div class="quick-actions">
 
-                            <input
-                                type="tel"
-                                id="phone"
-                                name="phone"
-                                placeholder="e.g. 0712345678"
+                        <h2>Quick Actions</h2>
+
+                        <div class="action-grid">
+
+                            <a
+                                href="shop.html"
+                                class="action-button"
                             >
+                                Browse Products
+                            </a>
+
+                            <a
+                                href="cart.html"
+                                class="action-button"
+                            >
+                                View Cart
+                            </a>
+
+                            <a
+                                href="orders.html"
+                                class="action-button"
+                            >
+                                Track My Orders
+                            </a>
+
+                            <a
+                                href="profile.html"
+                                class="action-button"
+                            >
+                                Edit Profile
+                            </a>
+
+                            <a
+                                href="wishlist.html"
+                                class="action-button"
+                            >
+                                View Wishlist
+                            </a>
+
+                            <a
+                                href="contact.html"
+                                class="action-button"
+                            >
+                                Contact Us
+                            </a>
 
                         </div>
 
-                        <div class="form-group full">
-
-                            <button
-                                type="submit"
-                                class="save-button"
-                                id="saveButton"
-                            >
-                                Save Changes
-                            </button>
-
-                        </div>
-
-                    </form>
+                    </div>
 
                 </section>
 
@@ -741,11 +827,17 @@
 
             <h4>Shop</h4>
 
-            <a href="shop.html">All Products</a>
+            <a href="shop.html">
+                All Products
+            </a>
 
-            <a href="shop.html?deal=true">Flash Deals</a>
+            <a href="shop.html?deal=true">
+                Flash Deals
+            </a>
 
-            <a href="shop.html?new=true">New Arrivals</a>
+            <a href="shop.html?new=true">
+                New Arrivals
+            </a>
 
             <a href="shop.html?category=Phones%20and%20Tablets">
                 Phones & Tablets
@@ -757,13 +849,21 @@
 
             <h4>Account</h4>
 
-            <a href="login.html">Login</a>
+            <a href="login.html">
+                Login
+            </a>
 
-            <a href="register.html">Register</a>
+            <a href="register.html">
+                Register
+            </a>
 
-            <a href="profile.html">My Profile</a>
+            <a href="profile.html">
+                My Profile
+            </a>
 
-            <a href="orders.html">My Orders</a>
+            <a href="orders.html">
+                My Orders
+            </a>
 
         </div>
 
@@ -771,11 +871,17 @@
 
             <h4>Help</h4>
 
-            <a href="contact.html">Contact Us</a>
+            <a href="contact.html">
+                Contact Us
+            </a>
 
-            <a href="track-order.html">Track Order</a>
+            <a href="track-order.html">
+                Track Order
+            </a>
 
-            <a href="seller-register.html">Sell on Meteur</a>
+            <a href="seller-register.html">
+                Sell on Meteur
+            </a>
 
         </div>
 
@@ -791,65 +897,7 @@
 
 let currentUser = null;
 
-function updateCartCount() {
-
-    const cart =
-        JSON.parse(
-            localStorage.getItem("meteurCart")
-        ) || [];
-
-    const total =
-        cart.reduce(
-            function(sum, product) {
-                return sum + (product.quantity || 1);
-            },
-            0
-        );
-
-    const cartCount =
-        document.getElementById("cartCount");
-
-    if (cartCount) {
-        cartCount.textContent = total;
-    }
-
-}
-
-function searchProducts() {
-
-    const input =
-        document.getElementById("searchInput");
-
-    if (!input) {
-        return;
-    }
-
-    const search =
-        input.value.trim();
-
-    if (search) {
-
-        window.location.href =
-            "shop.html?search=" +
-            encodeURIComponent(search);
-
-    }
-
-}
-
-function showMessage(message, type) {
-
-    const box =
-        document.getElementById("statusMessage");
-
-    box.textContent = message;
-
-    box.className =
-        "status-message " + type;
-
-}
-
-async function loadProfile() {
+async function loadDashboard() {
 
     try {
 
@@ -861,7 +909,7 @@ async function loadProfile() {
         if (error || !data.user) {
 
             window.location.href =
-                "login.html?redirect=profile.html";
+                "login.html?redirect=dashboard.html";
 
             return;
 
@@ -873,215 +921,78 @@ async function loadProfile() {
         const metadata =
             currentUser.user_metadata || {};
 
-        const savedFullName =
+        const fullName =
             metadata.full_name ||
             metadata.name ||
             "";
 
-        let firstName =
-            metadata.first_name || "";
+        let displayName =
+            fullName.trim();
 
-        let lastName =
-            metadata.last_name || "";
+        if (!displayName) {
 
-        if (!firstName && !lastName && savedFullName) {
-
-            const nameParts =
-                savedFullName.trim().split(/\s+/);
-
-            if (nameParts.length === 1) {
-
-                firstName =
-                    nameParts[0];
-
-            } else {
-
-                firstName =
-                    nameParts.shift();
-
-                lastName =
-                    nameParts.join(" ");
-
-            }
+            displayName =
+                currentUser.email
+                    ? currentUser.email.split("@")[0]
+                    : "Customer";
 
         }
 
-        document.getElementById("firstName").value =
-            firstName;
-
-        document.getElementById("lastName").value =
-            lastName;
-
-        document.getElementById("email").value =
-            currentUser.email || "";
-
-        document.getElementById("phone").value =
-            metadata.phone || "";
+        document.getElementById("welcomeName").textContent =
+            "Welcome, " + displayName + "!";
 
         document.getElementById("loadingMessage").style.display =
             "none";
 
-        document.getElementById("profileContent").style.display =
+        document.getElementById("dashboardContent").style.display =
             "block";
 
     } catch (error) {
 
         console.error(error);
 
+        document.getElementById("loadingMessage").className =
+            "error-message";
+
         document.getElementById("loadingMessage").textContent =
-            "Unable to load your profile. Please try again.";
+            "Unable to load your account. Please try again.";
 
     }
 
 }
-
-document
-    .getElementById("profileForm")
-    .addEventListener(
-        "submit",
-        async function(event) {
-
-            event.preventDefault();
-
-            const firstName =
-                document
-                    .getElementById("firstName")
-                    .value
-                    .trim();
-
-            const lastName =
-                document
-                    .getElementById("lastName")
-                    .value
-                    .trim();
-
-            const phone =
-                document
-                    .getElementById("phone")
-                    .value
-                    .trim();
-
-            const saveButton =
-                document.getElementById("saveButton");
-
-            if (!firstName || !lastName) {
-
-                showMessage(
-                    "Please enter your first and last name.",
-                    "error"
-                );
-
-                return;
-
-            }
-
-            saveButton.disabled = true;
-
-            saveButton.textContent =
-                "Saving...";
-
-            try {
-
-                const fullName =
-                    `${firstName} ${lastName}`.trim();
-
-                const {
-                    error
-                } = await supabaseClient.auth.updateUser({
-
-                    data: {
-
-                        first_name: firstName,
-
-                        last_name: lastName,
-
-                        full_name: fullName,
-
-                        name: fullName,
-
-                        phone: phone
-
-                    }
-
-                });
-
-                if (error) {
-
-                    throw error;
-
-                }
-
-                currentUser.user_metadata = {
-
-                    ...currentUser.user_metadata,
-
-                    first_name: firstName,
-
-                    last_name: lastName,
-
-                    full_name: fullName,
-
-                    name: fullName,
-
-                    phone: phone
-
-                };
-
-                showMessage(
-                    "Your profile has been updated successfully.",
-                    "success"
-                );
-
-            } catch (error) {
-
-                console.error(error);
-
-                showMessage(
-                    error.message ||
-                    "Unable to update your profile.",
-                    "error"
-                );
-
-            } finally {
-
-                saveButton.disabled = false;
-
-                saveButton.textContent =
-                    "Save Changes";
-
-            }
-
-        }
-    );
 
 async function logoutUser() {
 
-    const {
-        error
-    } = await supabaseClient.auth.signOut();
+    try {
 
-    if (error) {
+        const {
+            error
+        } = await supabaseClient.auth.signOut();
 
-        showMessage(
-            "Unable to log out. Please try again.",
-            "error"
+        if (error) {
+
+            throw error;
+
+        }
+
+        window.location.href =
+            "login.html";
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Unable to log out. Please try again."
         );
-
-        return;
 
     }
 
-    window.location.href =
-        "login.html";
-
 }
 
-updateCartCount();
-
-loadProfile();
+loadDashboard();
 
 </script>
 
 </body>
 </html>
-```

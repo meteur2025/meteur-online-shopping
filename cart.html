@@ -17,7 +17,7 @@
 
     body {
       font-family: Arial, Helvetica, sans-serif;
-      background: #f4f8ff;
+      background: #fff5f6;
       color: #172033;
     }
 
@@ -32,7 +32,7 @@
     }
 
     .top-header {
-      background: #0757b8;
+      background: #d90429;
       color: white;
       padding: 18px 20px;
     }
@@ -53,34 +53,28 @@
     }
 
     .phone-logo {
-      width: 34px;
-      height: 52px;
-      border: 3px solid white;
-      border-radius: 8px;
+      width: 48px;
+      height: 48px;
+      background: white;
+      border-radius: 9px;
       position: relative;
       flex-shrink: 0;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .phone-logo::before {
-      content: "";
-      position: absolute;
-      width: 12px;
-      height: 3px;
-      background: white;
-      border-radius: 3px;
-      top: 5px;
-      left: 8px;
+      content: "M";
+      color: #0757b8;
+      font-size: 30px;
+      font-weight: 900;
+      line-height: 1;
     }
 
     .phone-logo::after {
-      content: "";
-      position: absolute;
-      width: 5px;
-      height: 5px;
-      background: white;
-      border-radius: 50%;
-      bottom: 5px;
-      left: 12px;
+      display: none;
     }
 
     .brand-text h1 {
@@ -103,7 +97,7 @@
 
     .header-actions a {
       background: white;
-      color: #0757b8;
+      color: #d90429;
       padding: 10px 15px;
       border-radius: 7px;
       font-weight: 700;
@@ -122,14 +116,14 @@
       align-items: center;
       justify-content: center;
       border-radius: 20px;
-      background: #063b7a;
+      background: #9b001f;
       color: white;
       font-size: 11px;
       margin-left: 5px;
     }
 
     nav {
-      background: #063b7a;
+      background: #9b001f;
       color: white;
     }
 
@@ -181,7 +175,7 @@
       background: white;
       padding: 12px;
       border-radius: 10px;
-      border: 1px solid #d7e3f5;
+      border: 1px solid #f3c7cd;
       box-shadow: 0 3px 12px rgba(0,0,0,.05);
     }
 
@@ -196,7 +190,7 @@
 
     .search-box button {
       border: 0;
-      background: #0757b8;
+      background: #9b001f;
       color: white;
       padding: 10px 20px;
       border-radius: 7px;
@@ -217,13 +211,14 @@
     }
 
     .breadcrumb a {
-      color: #0757b8;
+      color: #d90429;
       font-weight: 700;
     }
 
     .page-title {
       font-size: 30px;
       margin-bottom: 22px;
+      color: #172033;
     }
 
     .cart-layout {
@@ -235,7 +230,7 @@
 
     .cart-items {
       background: white;
-      border: 1px solid #dce7f6;
+      border: 1px solid #f3c7cd;
       border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 4px 15px rgba(0,0,0,.05);
@@ -246,7 +241,7 @@
       grid-template-columns: 120px 1fr auto;
       gap: 18px;
       padding: 20px;
-      border-bottom: 1px solid #e4ebf5;
+      border-bottom: 1px solid #f1d9dd;
       align-items: center;
     }
 
@@ -257,7 +252,7 @@
     .item-image {
       width: 120px;
       height: 120px;
-      background: #f4f8ff;
+      background: #fff5f6;
       border-radius: 9px;
       display: flex;
       align-items: center;
@@ -278,7 +273,7 @@
     }
 
     .item-price {
-      color: #0757b8;
+      color: #d90429;
       font-size: 18px;
       font-weight: 900;
       margin-bottom: 12px;
@@ -287,7 +282,7 @@
     .quantity-control {
       display: inline-flex;
       align-items: center;
-      border: 1px solid #ccd8e8;
+      border: 1px solid #f0bfc7;
       border-radius: 7px;
       overflow: hidden;
     }
@@ -296,8 +291,8 @@
       width: 36px;
       height: 36px;
       border: 0;
-      background: #eef5ff;
-      color: #0757b8;
+      background: #fff0f2;
+      color: #d90429;
       cursor: pointer;
       font-weight: 900;
       font-size: 18px;
@@ -331,7 +326,7 @@
 
     .summary {
       background: white;
-      border: 1px solid #dce7f6;
+      border: 1px solid #f3c7cd;
       border-radius: 12px;
       padding: 22px;
       box-shadow: 0 4px 15px rgba(0,0,0,.05);
@@ -351,7 +346,7 @@
     }
 
     .summary-row.total {
-      border-top: 1px solid #e0e8f3;
+      border-top: 1px solid #f0d8dc;
       padding-top: 17px;
       margin-top: 17px;
       color: #172033;
@@ -363,7 +358,7 @@
       display: block;
       width: 100%;
       border: 0;
-      background: #0757b8;
+      background: #d90429;
       color: white;
       padding: 15px;
       border-radius: 8px;
@@ -374,14 +369,14 @@
     }
 
     .checkout-button:hover {
-      background: #064b9d;
+      background: #9b001f;
     }
 
     .continue-button {
       display: block;
       width: 100%;
-      border: 2px solid #0757b8;
-      color: #0757b8;
+      border: 2px solid #d90429;
+      color: #d90429;
       background: white;
       padding: 13px;
       border-radius: 8px;
@@ -391,12 +386,12 @@
     }
 
     .continue-button:hover {
-      background: #eef5ff;
+      background: #fff0f2;
     }
 
     .empty-cart {
       background: white;
-      border: 1px solid #dce7f6;
+      border: 1px solid #f3c7cd;
       border-radius: 12px;
       padding: 60px 25px;
       text-align: center;
@@ -419,16 +414,20 @@
 
     .shop-button {
       display: inline-block;
-      background: #0757b8;
+      background: #d90429;
       color: white;
       padding: 13px 22px;
       border-radius: 8px;
       font-weight: 800;
     }
 
+    .shop-button:hover {
+      background: #9b001f;
+    }
+
     .login-message {
       background: white;
-      border: 1px solid #dce7f6;
+      border: 1px solid #f3c7cd;
       border-radius: 12px;
       padding: 55px 25px;
       text-align: center;
@@ -445,11 +444,15 @@
 
     .login-button {
       display: inline-block;
-      background: #0757b8;
+      background: #d90429;
       color: white;
       padding: 13px 22px;
       border-radius: 8px;
       font-weight: 800;
+    }
+
+    .login-button:hover {
+      background: #9b001f;
     }
 
     .loading {
@@ -462,7 +465,7 @@
     }
 
     footer {
-      background: #063b7a;
+      background: #9b001f;
       color: white;
       padding: 40px 20px 25px;
     }
@@ -481,14 +484,14 @@
     }
 
     footer p {
-      color: #dceaff;
+      color: #ffd9df;
       line-height: 1.6;
       font-size: 14px;
     }
 
     footer a {
       display: block;
-      color: #dceaff;
+      color: #ffd9df;
       margin-bottom: 9px;
       font-size: 14px;
     }
@@ -503,7 +506,7 @@
       padding-top: 18px;
       border-top: 1px solid rgba(255,255,255,.2);
       text-align: center;
-      color: #dceaff;
+      color: #ffd9df;
       font-size: 13px;
     }
 

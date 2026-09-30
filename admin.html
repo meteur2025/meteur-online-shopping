@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Admin Dashboard | METEUR MOBILE KENYA</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f5f5f5;
+      color: #222;
+    }
+
+    header {
+      background: #d71920;
+      color: white;
+      padding: 18px 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .logo-area h1 {
+      font-size: 24px;
+      margin-bottom: 4px;
+    }
+
+    .logo-area p {
+      font-size: 13px;
+      opacity: 0.9;
+    }
+
+    .header-buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+      border-radius: 6px;
+      padding: 10px 16px;
+      font-weight: bold;
+    }
+
+    .home-btn {
+      background: white;
+      color: #d71920;
+    }
+
+    .logout-btn {
+      background: #111;
+      color: white;
+    }
+
+    main {
+      max-width: 1400px;
+      margin: 25px auto;
+      padding: 0 18px;
+    }
+
+    .welcome {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .welcome h2 {
+      margin-bottom: 7px;
+    }
+
+    .welcome p {
+      color: #666;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .stat-card h3 {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .stat-number {
+      font-size: 28px;
+      font-weight: bold;
+      color: #d71920;
+    }
+
+    .toolbar {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .toolbar input,
+    .toolbar select {
+      padding: 11px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    .search-box {
+      flex: 1;
+      min-width: 220px;
+    }
+
+    .orders-container {
+      background: white;
+      border-radius: 10px;
+      padding: 18px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      overflow-x: auto;
+    }
+
+    .orders-container h2 {
+      margin-bottom: 15px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 950px;
+    }
+
+    th,
+    td {
+      padding: 12px 10px;
+      border-bottom: 1px solid #eee;
+      text-align: left;
+      vertical-align: middle;
+      font-size: 14px;
+    }
+
+    th {
+      background: #fafafa;
+      font-weight: bold;
+    }
+
+    tr:hover {
+      background: #fff8f8;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 5px 8px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .status-processing {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    .status-paid {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .status-pending {
+      background: #e2e3e5;
+      color: #383d41;
+    }
+
+    .status-failed {
+      background: #f8d7da;
+      color: #721c24;
+    }
+
+    .status-delivered {
+      background: #d1ecf1;
+      color: #0c5460;
+    }
+
+    .view-btn {
+      background: #d71920;
+      color: white;
+      padding: 7px 10px;
+      font-size: 12px;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 30px;
+      color: #666;
+    }
+
+    .error {
+      background: #f8d7da;
+      color: #721c24;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: none;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 35px;
+      color: #777;
+    }
+
+    /* Modal */
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .modal-content {
+      background: white;
+      max-width: 850px;
+      margin: 30px auto;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .modal-header {
+      background: #d71920;
+      color: white;
+      padding: 18px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .close-btn {
+      background: transparent;
+      color: white;
+      font-size: 25px;
+      padding: 0;
+    }
+
+    .modal-body {
+      padding: 20px;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .detail {
+      background: #f8f8f8;
+      padding: 12px;
+      border-radius: 6px;
+    }
+
+    .detail strong {
+      display: block;
+      font-size: 12px;
+      color: #777;
+      margin-bottom: 5px;
+    }
+
+    .detail span {
+      word-break: break-word;
+    }
+
+    .items-section {
+      margin-top: 20px;
+    }
+
+    .items-section h3 {
+      margin-bottom: 10px;
+    }
+
+    .item {
+      display: flex;
+      gap: 12px;
+      padding: 12px;
+      border: 1px solid #eee;
+      border-radius: 7px;
+      margin-bottom: 10px;
+      align-items: center;
+    }
+
+    .item img {
+      width: 65px;
+      height: 65px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+    }
+
+    .item-info {
+      flex: 1;
+    }
+
+    .item-info h4 {
+      margin-bottom: 5px;
+    }
+
+    .item-info p {
+      color: #666;
+      font-size: 13px;
+    }
+
+    .admin-actions {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid #eee;
+    }
+
+    .admin-actions label {
+      display: block;
+      margin-bottom: 7px;
+      font-weight: bold;
+    }
+
+    .admin-actions select {
+      width: 100%;
+      padding: 11px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+
+    .save-btn {
+      background: #d71920;
+      color: white;
+      width: 100%;
+    }
+
+    .success-message {
+      background: #d4edda;
+      color: #155724;
+      padding: 10px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      display: none;
+    }
+
+    @media (max-width: 800px) {
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .detail-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      header {
+        padding: 15px;
+      }
+
+      .logo-area h1 {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo-area">
+    <h1>METEUR MOBILE KENYA</h1>
+    <p>Administrator Dashboard</p>
+  </div>
+
+  <div class="header-buttons">
+    <button class="home-btn" onclick="window.location.href='index.html'">
+      🏠 Website
+    </button>
+
+    <button class="logout-btn" onclick="logout()">
+      Logout
+    </button>
+  </div>
+</header>
+
+<main>
+
+  <div class="welcome">
+    <h2>Admin Dashboard</h2>
+    <p id="adminEmailDisplay">Checking administrator account...</p>
+  </div>
+
+  <div id="errorMessage" class="error"></div>
+
+  <section class="stats">
+
+    <div class="stat-card">
+      <h3>Total Orders</h3>
+      <div class="stat-number" id="totalOrders">0</div>
+    </div>
+
+    <div class="stat-card">
+      <h3>Pending Payments</h3>
+      <div class="stat-number" id="pendingPayments">0</div>
+    </div>
+
+    <div class="stat-card">
+      <h3>Paid Orders</h3>
+      <div class="stat-number" id="paidOrders">0</div>
+    </div>
+
+    <div class="stat-card">
+      <h3>Processing</h3>
+      <div class="stat-number" id="processingOrders">0</div>
+    </div>
+
+  </section>
+
+  <section class="toolbar">
+
+    <input
+      type="text"
+      id="searchInput"
+      class="search-box"
+      placeholder="Search order number, customer, email or phone..."
+      oninput="filterOrders()"
+    >
+
+    <select id="statusFilter" onchange="filterOrders()">
+      <option value="all">All Statuses</option>
+      <option value="Payment Pending">Payment Pending</option>
+      <option value="Processing">Processing</option>
+      <option value="Paid">Paid</option>
+      <option value="Shipped">Shipped</option>
+      <option value="Delivered">Delivered</option>
+      <option value="Payment Failed">Payment Failed</option>
+      <option value="Cancelled">Cancelled</option>
+    </select>
+
+    <select id="paymentFilter" onchange="filterOrders()">
+      <option value="all">All Payments</option>
+      <option value="Pending">Pending</option>
+      <option value="Paid">Paid</option>
+      <option value="Failed">Failed</option>
+    </select>
+
+  </section>
+
+  <section class="orders-container">
+
+    <h2>Customer Orders</h2>
+
+    <div id="loading" class="loading">
+      Loading orders...
+    </div>
+
+    <div id="emptyOrders" class="empty" style="display:none;">
+      No orders found.
+    </div>
+
+    <table id="ordersTable" style="display:none;">
+
+      <thead>
+        <tr>
+          <th>Order</th>
+          <th>Customer</th>
+          <th>Phone</th>
+          <th>Total</th>
+          <th>Payment</th>
+          <th>Status</th>
+          <th>Date</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody id="ordersBody"></tbody>
+
+    </table>
+
+  </section>
+
+</main>
+
+<!-- ORDER DETAILS MODAL -->
+
+<div id="orderModal" class="modal">
+
+  <div class="modal-content">
+
+    <div class="modal-header">
+      <h2>Order Details</h2>
+
+      <button class="close-btn" onclick="closeModal()">
+        ×
+      </button>
+    </div>
+
+    <div class="modal-body">
+
+      <div id="successMessage" class="success-message">
+        Order updated successfully.
+      </div>
+
+      <div class="detail-grid">
+
+        <div class="detail">
+          <strong>Order Number</strong>
+          <span id="detailOrderNumber"></span>
+        </div>
+
+        <div class="detail">
+          <strong>Customer Name</strong>
+          <span id="detailName"></span>
+        </div>
+
+        <div class="detail">
+          <strong>Email</strong>
+          <span id="detailEmail"></span>
+        </div>
+
+        <div class="detail">
+          <strong>Phone</strong>
+          <span id="detailPhone"></span>
+        </div>
+
+        <div class="detail">
+          <strong>County</strong>
+          <span id="detailCounty"></span>
+        </div>
+
+        <div class="detail">
+          <strong>Town</strong>
+          <span id="detailTown"></span>
+        </div>
+
+        <div class="detail">
+          <strong>Address</strong>
+          <span id="detailAddress"></span>
+        </div>
+
+        <div class="detail">
+          <strong>Delivery Note</strong>
+          <span id="detailDeliveryNote"></span>
+        </div>
+
+        <div class="detail">
+          <strong>Payment Method</strong>
+          <span id="detailPaymentMethod"></span>
+        </div>
+
+        <div class="detail">
+          <strong>Payment Status</strong>
+          <span id="detailPaymentStatus"></span>
+        </div>
+
+        <div class="detail">
+          <strong>Subtotal</strong>
+          <span id="detailSubtotal"></span>
+        </div>
+
+        <div class="detail">
+          <strong>Delivery Fee</strong>
+          <span id="detailDeliveryFee"></span>
+        </div>
+
+        <div class="detail">
+          <strong>Total</strong>
+          <span id="detailTotal"></span>
+        </div>
+
+        <div class="detail">
+          <strong>Created</strong>
+          <span id="detailCreated"></span>
+        </div>
+
+        <div class="detail">
+          <strong>M-Pesa Receipt</strong>
+          <span id="detailMpesaReceipt"></span>
+        </div>
+
+        <div class="detail">
+          <strong>M-Pesa Phone</strong>
+          <span id="detailMpesaPhone"></span>
+        </div>
+
+        <div class="detail">
+          <strong>Checkout Request ID</strong>
+          <span id="detailCheckoutId"></span>
+        </div>
+
+        <div class="detail">
+          <strong>Merchant Request ID</strong>
+          <span id="detailMerchantId"></span>
+        </div>
+
+      </div>
+
+      <div class="items-section">
+        <h3>Ordered Products</h3>
+        <div id="orderItems"></div>
+      </div>
+
+      <div class="admin-actions">
+
+        <label for="orderStatus">
+          Change Order Status
+        </label>
+
+        <select id="orderStatus">
+
+          <option value="Payment Pending">
+            Payment Pending
+          </option>
+
+          <option value="Processing">
+            Processing
+          </option>
+
+          <option value="Paid">
+            Paid
+          </option>
+
+          <option value="Shipped">
+            Shipped
+          </option>
+
+          <option value="Delivered">
+            Delivered
+          </option>
+
+          <option value="Payment Failed">
+            Payment Failed
+          </option>
+
+          <option value="Cancelled">
+            Cancelled
+          </option>
+
+        </select>
+
+        <button class="save-btn" onclick="updateOrderStatus()">
+          Save Order Status
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+  const SUPABASE_URL =
+    "https://nytsdeupaootukcullgi.supabase.co";
+
+  const SUPABASE_ANON_KEY =
+    "sb_publishable_cIqzHoafy_AEdB48KS_Wpg_LDqE1sFC";
+
+  const ADMIN_EMAIL =
+    "daghlusmeteur@gmail.com";
+
+  const supabaseClient =
+    window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_ANON_KEY
+    );
+
+  let allOrders = [];
+  let selectedOrder = null;
+
+  async function checkAdmin() {
+
+    try {
+
+      const {
+        data: {
+          session
+        },
+        error
+      } = await supabaseClient.auth.getSession();
+
+      if (error) {
+        throw error;
+      }
+
+      if (!session || !session.user) {
+
+        window.location.href =
+          "login.html?redirect=admin.html";
+
+        return false;
+      }
+
+      const userEmail =
+        (session.user.email || "").toLowerCase().trim();
+
+      if (userEmail !== ADMIN_EMAIL.toLowerCase()) {
+
+        document.body.innerHTML = `
+          <div style="
+            min-height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            padding:20px;
+            font-family:Arial;
+            background:#f5f5f5;
+          ">
+            <div style="
+              background:white;
+              padding:35px;
+              border-radius:10px;
+              text-align:center;
+              max-width:500px;
+              box-shadow:0 2px 10px rgba(0,0,0,0.1);
+            ">
+              <h1 style="color:#d71920;margin-bottom:15px;">
+                Access Denied
+              </h1>
+
+              <p style="margin-bottom:20px;">
+                This account is not authorized to access
+                the administrator dashboard.
+              </p>
+
+              <button
+                onclick="logout()"
+                style="
+                  background:#d71920;
+                  color:white;
+                  border:none;
+                  padding:11px 20px;
+                  border-radius:6px;
+                  cursor:pointer;
+                  font-weight:bold;
+                "
+              >
+                Logout
+              </button>
+            </div>
+          </div>
+        `;
+
+        return false;
+      }
+
+      document.getElementById("adminEmailDisplay").textContent =
+        "Logged in as administrator: " + session.user.email;
+
+      return true;
+
+    } catch (error) {
+
+      showError(
+        "Unable to check administrator account: " +
+        error.message
+      );
+
+      return false;
+    }
+  }
+
+  async function loadOrders() {
+
+    document.getElementById("loading").style.display =
+      "block";
+
+    document.getElementById("ordersTable").style.display =
+      "none";
+
+    document.getElementById("emptyOrders").style.display =
+      "none";
+
+    try {
+
+      const {
+        data,
+        error
+      } = await supabaseClient
+        .from("orders")
+        .select("*")
+        .order("created_at", {
+          ascending: false
+        });
+
+      if (error) {
+        throw error;
+      }
+
+      allOrders = data || [];
+
+      updateStats();
+
+      renderOrders(allOrders);
+
+    } catch (error) {
+
+      showError(
+        "Unable to load orders: " +
+        error.message
+      );
+
+      document.getElementById("loading").style.display =
+        "none";
+    }
+  }
+
+  function updateStats() {
+
+    const total =
+      allOrders.length;
+
+    const pending =
+      allOrders.filter(order =>
+        String(order.payment_status || "")
+          .toLowerCase() === "pending"
+      ).length;
+
+    const paid =
+      allOrders.filter(order =>
+        String(order.payment_status || "")
+          .toLowerCase() === "paid"
+      ).length;
+
+    const processing =
+      allOrders.filter(order =>
+        String(order.status || "")
+          .toLowerCase() === "processing"
+      ).length;
+
+    document.getElementById("totalOrders").textContent =
+      total;
+
+    document.getElementById("pendingPayments").textContent =
+      pending;
+
+    document.getElementById("paidOrders").textContent =
+      paid;
+
+    document.getElementById("processingOrders").textContent =
+      processing;
+  }
+
+  function renderOrders(orders) {
+
+    const loading =
+      document.getElementById("loading");
+
+    const table =
+      document.getElementById("ordersTable");
+
+    const empty =
+      document.getElementById("emptyOrders");
+
+    const body =
+      document.getElementById("ordersBody");
+
+    loading.style.display =
+      "none";
+
+    body.innerHTML = "";
+
+    if (!orders.length) {
+
+      table.style.display =
+        "none";
+
+      empty.style.display =
+        "block";
+
+      return;
+    }
+
+    empty.style.display =
+      "none";
+
+    table.style.display =
+      "table";
+
+    orders.forEach(order => {
+
+      const row =
+        document.createElement("tr");
+
+      const date =
+        order.created_at
+          ? new Date(order.created_at)
+              .toLocaleString("en-KE")
+          : "-";
+
+      const paymentStatus =
+        order.payment_status || "Pending";
+
+      const status =
+        order.status || "Payment Pending";
+
+      row.innerHTML = `
+
+        <td>
+          <strong>
+            ${escapeHtml(order.order_number || "-")}
+          </strong>
+        </td>
+
+        <td>
+          ${escapeHtml(order.recipient_name || "-")}
+          <br>
+          <small>
+            ${escapeHtml(order.customer_email || "")}
+          </small>
+        </td>
+
+        <td>
+          ${escapeHtml(order.phone || "-")}
+        </td>
+
+        <td>
+          KSh ${formatMoney(order.total)}
+        </td>
+
+        <td>
+          ${createStatusBadge(paymentStatus)}
+        </td>
+
+        <td>
+          ${createStatusBadge(status)}
+        </td>
+
+        <td>
+          ${escapeHtml(date)}
+        </td>
+
+        <td>
+          <button
+            class="view-btn"
+            onclick="viewOrder('${order.id}')"
+          >
+            View
+          </button>
+        </td>
+
+      `;
+
+      body.appendChild(row);
+    });
+  }
+
+  function filterOrders() {
+
+    const search =
+      document.getElementById("searchInput")
+        .value
+        .toLowerCase()
+        .trim();
+
+    const statusFilter =
+      document.getElementById("statusFilter")
+        .value;
+
+    const paymentFilter =
+      document.getElementById("paymentFilter")
+        .value;
+
+    const filtered =
+      allOrders.filter(order => {
+
+        const searchText = [
+
+          order.order_number,
+          order.recipient_name,
+          order.customer_email,
+          order.phone,
+          order.town,
+          order.county
+
+        ]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
+
+        const matchesSearch =
+          !search ||
+          searchText.includes(search);
+
+        const matchesStatus =
+          statusFilter === "all" ||
+          String(order.status || "") === statusFilter;
+
+        const matchesPayment =
+          paymentFilter === "all" ||
+          String(order.payment_status || "") === paymentFilter;
+
+        return (
+          matchesSearch &&
+          matchesStatus &&
+          matchesPayment
+        );
+      });
+
+    renderOrders(filtered);
+  }
+
+  function viewOrder(orderId) {
+
+    const order =
+      allOrders.find(
+        item => String(item.id) === String(orderId)
+      );
+
+    if (!order) {
+      return;
+    }
+
+    selectedOrder =
+      order;
+
+    document.getElementById("detailOrderNumber").textContent =
+      order.order_number || "-";
+
+    document.getElementById("detailName").textContent =
+      order.recipient_name || "-";
+
+    document.getElementById("detailEmail").textContent =
+      order.customer_email || "-";
+
+    document.getElementById("detailPhone").textContent =
+      order.phone || "-";
+
+    document.getElementById("detailCounty").textContent =
+      order.county || "-";
+
+    document.getElementById("detailTown").textContent =
+      order.town || "-";
+
+    document.getElementById("detailAddress").textContent =
+      order.address || "-";
+
+    document.getElementById("detailDeliveryNote").textContent =
+      order.delivery_note || "-";
+
+    document.getElementById("detailPaymentMethod").textContent =
+      order.payment_method || "-";
+
+    document.getElementById("detailPaymentStatus").textContent =
+      order.payment_status || "-";
+
+    document.getElementById("detailSubtotal").textContent =
+      "KSh " + formatMoney(order.subtotal);
+
+    document.getElementById("detailDeliveryFee").textContent =
+      "KSh " + formatMoney(order.delivery_fee);
+
+    document.getElementById("detailTotal").textContent =
+      "KSh " + formatMoney(order.total);
+
+    document.getElementById("detailCreated").textContent =
+      order.created_at
+        ? new Date(order.created_at).toLocaleString("en-KE")
+        : "-";
+
+    document.getElementById("detailMpesaReceipt").textContent =
+      order.mpesa_receipt_number || "Not received yet";
+
+    document.getElementById("detailMpesaPhone").textContent =
+      order.mpesa_phone_number || "Not available";
+
+    document.getElementById("detailCheckoutId").textContent =
+      order.checkout_request_id || "Not available";
+
+    document.getElementById("detailMerchantId").textContent =
+      order.merchant_request_id || "Not available";
+
+    document.getElementById("orderStatus").value =
+      order.status || "Payment Pending";
+
+    renderOrderItems(order.items);
+
+    document.getElementById("successMessage").style.display =
+      "none";
+
+    document.getElementById("orderModal").style.display =
+      "block";
+  }
+
+  function renderOrderItems(items) {
+
+    const container =
+      document.getElementById("orderItems");
+
+    container.innerHTML = "";
+
+    let parsedItems =
+      items;
+
+    if (typeof items === "string") {
+
+      try {
+        parsedItems =
+          JSON.parse(items);
+      } catch {
+        parsedItems = [];
+      }
+    }
+
+    if (!Array.isArray(parsedItems) ||
+        parsedItems.length === 0) {
+
+      container.innerHTML =
+        "<p>No product information available.</p>";
+
+      return;
+    }
+
+    parsedItems.forEach(item => {
+
+      const div =
+        document.createElement("div");
+
+      div.className =
+        "item";
+
+      const image =
+        item.image_url ||
+        item.image ||
+        "";
+
+      div.innerHTML = `
+
+        ${
+          image
+          ? `<img
+               src="${escapeHtml(image)}"
+               alt="${escapeHtml(item.name || "Product")}"
+               onerror="this.style.display='none'"
+             >`
+          : ""
+        }
+
+        <div class="item-info">
+
+          <h4>
+            ${escapeHtml(item.name || "Product")}
+          </h4>
+
+          <p>
+            Price:
+            KSh ${formatMoney(item.price)}
+          </p>
+
+          <p>
+            Quantity:
+            ${escapeHtml(item.quantity || 1)}
+          </p>
+
+        </div>
+      `;
+
+      container.appendChild(div);
+    });
+  }
+
+  async function updateOrderStatus() {
+
+    if (!selectedOrder) {
+      return;
+    }
+
+    const newStatus =
+      document.getElementById("orderStatus").value;
+
+    try {
+
+      const {
+        error
+      } = await supabaseClient
+        .from("orders")
+        .update({
+          status: newStatus,
+          updated_at: new Date().toISOString()
+        })
+        .eq("id", selectedOrder.id);
+
+      if (error) {
+        throw error;
+      }
+
+      selectedOrder.status =
+        newStatus;
+
+      const index =
+        allOrders.findIndex(
+          order => order.id === selectedOrder.id
+        );
+
+      if (index !== -1) {
+        allOrders[index].status =
+          newStatus;
+      }
+
+      updateStats();
+
+      filterOrders();
+
+      document.getElementById("successMessage").textContent =
+        "Order status updated successfully.";
+
+      document.getElementById("successMessage").style.display =
+        "block";
+
+    } catch (error) {
+
+      showError(
+        "Unable to update order: " +
+        error.message
+      );
+    }
+  }
+
+  function closeModal() {
+
+    document.getElementById("orderModal").style.display =
+      "none";
+  }
+
+  async function logout() {
+
+    await supabaseClient.auth.signOut();
+
+    window.location.href =
+      "login.html";
+  }
+
+  function createStatusBadge(status) {
+
+    const value =
+      String(status || "Pending");
+
+    const lower =
+      value.toLowerCase();
+
+    let className =
+      "status-pending";
+
+    if (
+      lower.includes("paid") ||
+      lower.includes("delivered")
+    ) {
+      className =
+        lower.includes("delivered")
+          ? "status-delivered"
+          : "status-paid";
+    }
+
+    if (
+      lower.includes("processing") ||
+      lower.includes("shipped")
+    ) {
+      className =
+        "status-processing";
+    }
+
+    if (
+      lower.includes("failed") ||
+      lower.includes("cancelled")
+    ) {
+      className =
+        "status-failed";
+    }
+
+    return `
+      <span class="status ${className}">
+        ${escapeHtml(value)}
+      </span>
+    `;
+  }
+
+  function formatMoney(value) {
+
+    const number =
+      Number(value || 0);
+
+    return number.toLocaleString(
+      "en-KE",
+      {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      }
+    );
+  }
+
+  function escapeHtml(value) {
+
+    return String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function showError(message) {
+
+    const element =
+      document.getElementById("errorMessage");
+
+    element.textContent =
+      message;
+
+    element.style.display =
+      "block";
+  }
+
+  window.addEventListener(
+    "click",
+    function(event) {
+
+      const modal =
+        document.getElementById("orderModal");
+
+      if (event.target === modal) {
+        closeModal();
+      }
+
+    }
+  );
+
+  async function startAdminDashboard() {
+
+    const isAdmin =
+      await checkAdmin();
+
+    if (!isAdmin) {
+      return;
+    }
+
+    await loadOrders();
+  }
+
+  startAdminDashboard();
+
+</script>
+
+</body>
+</html>

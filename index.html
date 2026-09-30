@@ -92,12 +92,26 @@
     }
 
     .brand-text {
-      display: none;
+      display: flex;
+      flex-direction: column;
       color: white;
       font-weight: 800;
-      font-size: 15px;
-      line-height: 1.15;
+      line-height: 1.1;
       white-space: nowrap;
+    }
+
+    .brand-name {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: .2px;
+    }
+
+    .brand-tagline {
+      display: block;
+      margin-top: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .3px;
     }
 
     .search-box {
@@ -569,9 +583,19 @@
       }
 
       .brand-text {
-        display: block;
+        display: flex;
+        min-width: 0;
         overflow: hidden;
         text-overflow: ellipsis;
+      }
+
+      .brand-name {
+        font-size: 18px;
+      }
+
+      .brand-tagline {
+        font-size: 10px;
+        margin-top: 4px;
       }
 
       .search-box {
@@ -724,8 +748,12 @@
         padding-right: 10px;
       }
 
-      .brand-text {
-        font-size: 13px;
+      .brand-name {
+        font-size: 17px;
+      }
+
+      .brand-tagline {
+        font-size: 9px;
       }
 
       .cart-link {
@@ -791,10 +819,13 @@
         </a>
 
         <span class="brand-text">
-          METEUR MOBILE KENYA
-          <small style="display:block;font-size:11px;font-weight:600;margin-top:3px;">
+          <span class="brand-name">
+            METEUR MOBILE KENYA
+          </span>
+
+          <span class="brand-tagline">
             SMARTPHONES FOR EVERY BUDGET
-          </small>
+          </span>
         </span>
 
       </div>

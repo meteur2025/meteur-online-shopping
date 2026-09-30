@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,47 +35,48 @@
     .top-header {
       background: #d90429;
       color: white;
-      padding: 18px 20px;
+      padding: 15px 20px;
     }
 
     .header-inner {
-      max-width: 1200px;
+      max-width: 1250px;
       margin: auto;
       display: flex;
       align-items: center;
-      justify-content: space-between;
       gap: 20px;
     }
 
+    /* EXACT SAME LOGO AS HOMEPAGE */
     .brand {
       display: flex;
       align-items: center;
       gap: 12px;
+      flex-shrink: 0;
     }
 
-    .phone-logo {
+    .logo {
       width: 48px;
       height: 48px;
       background: white;
       border-radius: 9px;
-      position: relative;
-      flex-shrink: 0;
-      overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
+      flex-shrink: 0;
+      padding: 0;
+      border: none;
+      box-shadow: none;
     }
 
-    .phone-logo::before {
-      content: "M";
-      color: #0757b8;
-      font-size: 30px;
-      font-weight: 900;
-      line-height: 1;
-    }
-
-    .phone-logo::after {
-      display: none;
+    .real-logo {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      display: block;
+      background: white;
+      border: none;
+      border-radius: 9px;
     }
 
     .brand-text h1 {
@@ -92,16 +94,20 @@
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
+      margin-left: auto;
     }
 
     .header-actions a {
-      background: white;
-      color: #d90429;
-      padding: 10px 15px;
-      border-radius: 7px;
-      font-weight: 700;
+      color: white;
+      padding: 9px 10px;
+      border-radius: 5px;
+      font-weight: 600;
       font-size: 14px;
+    }
+
+    .header-actions a:hover {
+      background: rgba(255,255,255,.14);
     }
 
     .cart-link {
@@ -109,17 +115,20 @@
     }
 
     .cart-count {
-      display: inline-flex;
-      min-width: 20px;
-      height: 20px;
-      padding: 0 5px;
+      position: absolute;
+      top: -4px;
+      right: -3px;
+      min-width: 18px;
+      height: 18px;
+      padding: 2px 5px;
+      border-radius: 50%;
+      background: white;
+      color: #d90429;
+      font-size: 11px;
+      font-weight: bold;
+      display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 20px;
-      background: #9b001f;
-      color: white;
-      font-size: 11px;
-      margin-left: 5px;
     }
 
     nav {
@@ -128,11 +137,13 @@
     }
 
     .nav-inner {
-      max-width: 1200px;
+      max-width: 1250px;
       margin: auto;
+      padding: 0 20px;
       display: flex;
-      align-items: stretch;
+      gap: 28px;
       overflow-x: auto;
+      white-space: nowrap;
       scrollbar-width: none;
     }
 
@@ -142,21 +153,21 @@
 
     .nav-inner a {
       position: relative;
-      padding: 16px 18px;
+      padding: 13px 2px 11px;
       font-size: 14px;
-      font-weight: 700;
-      white-space: nowrap;
+      font-weight: 600;
+      color: white;
     }
 
     .nav-inner a:hover {
-      background: rgba(255,255,255,.08);
+      background: transparent;
     }
 
     .nav-inner a.active::after {
       content: "";
       position: absolute;
-      left: 15px;
-      right: 15px;
+      left: 0;
+      right: 0;
       bottom: 0;
       height: 3px;
       background: white;
@@ -164,19 +175,20 @@
     }
 
     .search-area {
-      max-width: 1200px;
+      max-width: 1250px;
       margin: 22px auto 0;
       padding: 0 20px;
     }
 
     .search-box {
       display: flex;
-      gap: 10px;
+      gap: 0;
       background: white;
-      padding: 12px;
-      border-radius: 10px;
+      padding: 0;
+      border-radius: 6px;
       border: 1px solid #f3c7cd;
       box-shadow: 0 3px 12px rgba(0,0,0,.05);
+      overflow: hidden;
     }
 
     .search-box input {
@@ -184,7 +196,7 @@
       min-width: 0;
       border: 0;
       outline: 0;
-      padding: 10px;
+      padding: 13px 16px;
       font-size: 15px;
     }
 
@@ -192,14 +204,17 @@
       border: 0;
       background: #9b001f;
       color: white;
-      padding: 10px 20px;
-      border-radius: 7px;
+      padding: 0 22px;
       cursor: pointer;
       font-weight: 700;
     }
 
+    .search-box button:hover {
+      background: #760018;
+    }
+
     main {
-      max-width: 1200px;
+      max-width: 1250px;
       margin: 28px auto 60px;
       padding: 0 20px;
     }
@@ -471,11 +486,11 @@
     }
 
     .footer-inner {
-      max-width: 1200px;
+      max-width: 1250px;
       margin: auto;
       display: grid;
       grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 30px;
+      gap: 35px;
     }
 
     footer h3 {
@@ -501,7 +516,7 @@
     }
 
     .copyright {
-      max-width: 1200px;
+      max-width: 1250px;
       margin: 30px auto 0;
       padding-top: 18px;
       border-top: 1px solid rgba(255,255,255,.2);
@@ -511,6 +526,7 @@
     }
 
     @media (max-width: 900px) {
+
       .cart-layout {
         grid-template-columns: 1fr;
       }
@@ -518,38 +534,43 @@
       .footer-inner {
         grid-template-columns: 1fr 1fr;
       }
+
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 700px) {
+
       .top-header {
         padding: 14px;
       }
 
       .header-inner {
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      .brand {
-        justify-content: center;
-      }
-
-      .header-actions {
-        justify-content: center;
         flex-wrap: wrap;
       }
 
-      .header-actions a {
-        padding: 9px 11px;
-        font-size: 13px;
+      .brand {
+        width: auto;
       }
 
-      .nav-inner a {
-        padding: 14px 13px;
-        font-size: 13px;
+      .logo {
+        width: 48px;
+        min-width: 48px;
+        height: 48px;
       }
 
-      .search-area,
+      .real-logo {
+        width: 48px;
+        height: 48px;
+      }
+
+      .header-actions {
+        margin-left: auto;
+      }
+
+      .search-area {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+
       main {
         padding-left: 12px;
         padding-right: 12px;
@@ -586,6 +607,7 @@
       .footer-inner {
         grid-template-columns: 1fr;
       }
+
     }
   </style>
 </head>
@@ -593,33 +615,63 @@
 <body>
 
   <header class="top-header">
+
     <div class="header-inner">
 
       <a href="index.html" class="brand">
 
-        <div class="phone-logo"></div>
+        <!-- EXACT HOMEPAGE LOGO -->
+        <div class="logo">
+
+          <img
+            src="WhatsApp Image 2026-09-30 at 12.36.30.jpeg"
+            alt="Meteur Mobile Kenya M Logo"
+            class="real-logo"
+          >
+
+        </div>
 
         <div class="brand-text">
-          <h1>METEUR MOBILE KENYA</h1>
-          <p>MOBILE • ELECTRONICS • ACCESSORIES</p>
+
+          <h1>
+            METEUR MOBILE KENYA
+          </h1>
+
+          <p>
+            MOBILE • ELECTRONICS • ACCESSORIES
+          </p>
+
         </div>
 
       </a>
 
       <div class="header-actions">
 
-        <a href="login.html">Login</a>
+        <a href="login.html">
+          Login
+        </a>
 
-        <a href="register.html">Register</a>
+        <a href="register.html">
+          Register
+        </a>
 
         <a href="cart.html" class="cart-link">
+
           🛒 Cart
-          <span class="cart-count" id="cartCount">0</span>
+
+          <span
+            class="cart-count"
+            id="cartCount"
+          >
+            0
+          </span>
+
         </a>
 
       </div>
 
     </div>
+
   </header>
 
   <nav>
@@ -688,8 +740,15 @@
   <main>
 
     <div class="breadcrumb">
-      <a href="index.html">Home</a>
-      <span> / Cart</span>
+
+      <a href="index.html">
+        Home
+      </a>
+
+      <span>
+        / Cart
+      </span>
+
     </div>
 
     <h1 class="page-title">
@@ -712,7 +771,9 @@
 
       <div>
 
-        <h3>METEUR MOBILE KENYA</h3>
+        <h3>
+          METEUR MOBILE KENYA
+        </h3>
 
         <p>
           Your online destination for mobile phones,
@@ -723,7 +784,9 @@
 
       <div>
 
-        <h3>Shop</h3>
+        <h3>
+          Shop
+        </h3>
 
         <a href="shop.html">
           All Products
@@ -745,7 +808,9 @@
 
       <div>
 
-        <h3>Account</h3>
+        <h3>
+          Account
+        </h3>
 
         <a href="login.html">
           Login
@@ -767,7 +832,9 @@
 
       <div>
 
-        <h3>Help</h3>
+        <h3>
+          Help
+        </h3>
 
         <a href="contact.html">
           Contact Us
@@ -935,11 +1002,6 @@
       if (!user) {
         return;
       }
-
-      const container =
-        document.getElementById(
-          "cartContainer"
-        );
 
       const localCart =
         getLocalCart();
@@ -1368,3 +1430,4 @@
 
 </body>
 </html>
+```

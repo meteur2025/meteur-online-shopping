@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -106,6 +107,7 @@
     .date {
       color: #777;
       font-size: 14px;
+      margin-top: 5px;
     }
 
     .details {
@@ -138,13 +140,122 @@
       margin-bottom: 10px;
     }
 
+    .message-label {
+      font-size: 14px;
+      font-weight: bold;
+      color: #555;
+      margin-bottom: 7px;
+    }
+
     .message-text {
       background: #f9f9f9;
       padding: 15px;
       border-radius: 8px;
       white-space: pre-wrap;
       word-break: break-word;
-      margin-bottom: 18px;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    /* REPLY SECTION */
+
+    .reply-section {
+      margin-top: 20px;
+      padding: 20px;
+      background: #fff7ef;
+      border: 1px solid #ffd8b5;
+      border-radius: 10px;
+    }
+
+    .reply-section h3 {
+      margin-bottom: 8px;
+      color: #d65f00;
+    }
+
+    .reply-section p {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .reply-textarea {
+      width: 100%;
+      min-height: 130px;
+      padding: 14px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      resize: vertical;
+      font-family: Arial, sans-serif;
+      font-size: 15px;
+      line-height: 1.5;
+      background: white;
+    }
+
+    .reply-textarea:focus {
+      outline: none;
+      border-color: #ff7900;
+      box-shadow: 0 0 0 2px rgba(255,121,0,0.12);
+    }
+
+    .reply-info {
+      background: white;
+      border-radius: 8px;
+      padding: 12px;
+      margin-top: 12px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .reply-info strong {
+      color: #222;
+    }
+
+    .reply-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .reply-btn {
+      background: #ff7900;
+      color: white;
+    }
+
+    .reply-btn:hover {
+      background: #e66d00;
+    }
+
+    .reply-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .saved-reply {
+      margin-top: 18px;
+      background: #f0fff4;
+      border: 1px solid #b7e4c7;
+      border-radius: 10px;
+      padding: 16px;
+    }
+
+    .saved-reply h4 {
+      color: #19733e;
+      margin-bottom: 8px;
+    }
+
+    .saved-reply-text {
+      white-space: pre-wrap;
+      word-break: break-word;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    .replied-date {
+      color: #777;
+      font-size: 13px;
+      margin-top: 10px;
     }
 
     .actions {
@@ -152,6 +263,7 @@
       align-items: center;
       gap: 10px;
       flex-wrap: wrap;
+      margin-top: 18px;
     }
 
     select {
@@ -159,6 +271,7 @@
       border: 1px solid #ddd;
       border-radius: 7px;
       background: white;
+      cursor: pointer;
     }
 
     button {
@@ -183,6 +296,14 @@
       background: #b42318;
     }
 
+    .edit-reply-btn {
+      background: #555;
+    }
+
+    .edit-reply-btn:hover {
+      background: #333;
+    }
+
     .status {
       padding: 6px 10px;
       border-radius: 20px;
@@ -190,6 +311,21 @@
       color: #d65f00;
       font-size: 13px;
       font-weight: bold;
+    }
+
+    .status-replied {
+      background: #e8f8ee;
+      color: #19733e;
+    }
+
+    .status-closed {
+      background: #eeeeee;
+      color: #555;
+    }
+
+    .status-read {
+      background: #eaf2ff;
+      color: #2457a6;
     }
 
     .empty,
@@ -203,6 +339,20 @@
 
     .error {
       color: #a12626;
+    }
+
+    .success-message {
+      background: #e8f8ee;
+      color: #19733e;
+      padding: 12px;
+      border-radius: 8px;
+      margin-top: 12px;
+      display: none;
+      font-weight: bold;
+    }
+
+    .footer-space {
+      height: 20px;
     }
 
     footer {
@@ -234,6 +384,18 @@
       .message-top {
         flex-direction: column;
       }
+
+      .reply-actions,
+      .actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .reply-actions button,
+      .actions button,
+      .actions select {
+        width: 100%;
+      }
     }
   </style>
 </head>
@@ -242,7 +404,10 @@
 
 <header>
   <div class="header-inner">
-    <a href="admin-dashboard.html" class="logo">🛒 Meteur Admin</a>
+
+    <a href="admin-dashboard.html" class="logo">
+      🛒 Meteur Admin
+    </a>
 
     <nav class="nav">
       <a href="admin-dashboard.html">Dashboard</a>
@@ -252,6 +417,7 @@
       <a href="admin-orders.html">Orders</a>
       <a href="index.html">View Store</a>
     </nav>
+
   </div>
 </header>
 
@@ -259,11 +425,15 @@
 
   <section class="page-header">
     <h1>💬 Customer Messages</h1>
-    <p>View and manage messages submitted through the Meteur Contact Us page.</p>
+    <p>
+      View, reply to, and manage messages submitted through the Meteur Contact Us page.
+    </p>
   </section>
 
   <div id="messagesContainer">
-    <div class="empty">Loading customer messages...</div>
+    <div class="empty">
+      Loading customer messages...
+    </div>
   </div>
 
 </main>
@@ -273,40 +443,66 @@
 </footer>
 
 <script>
+
   const SUPABASE_URL = "https://nytsdeupaootukcullgi.supabase.co";
-  const SUPABASE_KEY = "sb_publishable_cIqzHoafy_AEdB48KS_Wpg_LDqE1sFC";
+
+  const SUPABASE_KEY =
+    "sb_publishable_cIqzHoafy_AEdB48KS_Wpg_LDqE1sFC";
 
   const supabaseClient = window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_KEY
   );
 
-  const messagesContainer = document.getElementById("messagesContainer");
+  const messagesContainer =
+    document.getElementById("messagesContainer");
+
+
+  /* ==============================
+     CHECK ADMIN
+  ============================== */
 
   async function checkAdmin() {
+
     const {
       data: { user },
       error: userError
     } = await supabaseClient.auth.getUser();
 
     if (userError || !user) {
+
       window.location.href = "login.html";
+
       return false;
     }
 
-    const { data, error } = await supabaseClient.rpc(
+
+    const {
+      data,
+      error
+    } = await supabaseClient.rpc(
       "is_current_user_admin"
     );
 
+
     if (error || data !== true) {
+
       window.location.href = "dashboard.html";
+
       return false;
     }
+
 
     return true;
   }
 
+
+  /* ==============================
+     ESCAPE HTML
+  ============================== */
+
   function escapeHtml(value) {
+
     return String(value ?? "")
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
@@ -315,8 +511,16 @@
       .replace(/'/g, "&#039;");
   }
 
+
+  /* ==============================
+     FORMAT DATE
+  ============================== */
+
   function formatDate(dateValue) {
-    if (!dateValue) return "Unknown";
+
+    if (!dateValue) {
+      return "Unknown";
+    }
 
     const date = new Date(dateValue);
 
@@ -326,10 +530,44 @@
     });
   }
 
+
+  /* ==============================
+     STATUS CLASS
+  ============================== */
+
+  function getStatusClass(status) {
+
+    const normalized =
+      String(status || "New").toLowerCase();
+
+    if (normalized === "replied") {
+      return "status-replied";
+    }
+
+    if (normalized === "closed") {
+      return "status-closed";
+    }
+
+    if (normalized === "read") {
+      return "status-read";
+    }
+
+    return "";
+  }
+
+
+  /* ==============================
+     LOAD MESSAGES
+  ============================== */
+
   async function loadMessages() {
+
     const isAdmin = await checkAdmin();
 
-    if (!isAdmin) return;
+    if (!isAdmin) {
+      return;
+    }
+
 
     const {
       data: messages,
@@ -337,155 +575,604 @@
     } = await supabaseClient
       .from("customer_messages")
       .select("*")
-      .order("created_at", { ascending: false });
+      .order("created_at", {
+        ascending: false
+      });
+
 
     if (error) {
-      console.error(error);
+
+      console.error("Load messages error:", error);
 
       messagesContainer.innerHTML = `
         <div class="error">
-          Unable to load customer messages.
+          <h2>Unable to load customer messages.</h2>
+          <p>Please check your Supabase permissions.</p>
         </div>
       `;
 
       return;
     }
+
 
     if (!messages || messages.length === 0) {
+
       messagesContainer.innerHTML = `
         <div class="empty">
+
           <h2>No Customer Messages</h2>
-          <p>Customer messages submitted through the Contact Us page will appear here.</p>
+
+          <p>
+            Customer messages submitted through the Contact Us page
+            will appear here.
+          </p>
+
         </div>
       `;
 
       return;
     }
 
-    messagesContainer.innerHTML = messages.map(message => `
-      <article class="message-box">
 
-        <div class="message-top">
-          <div>
-            <div class="customer-name">
-              👤 ${escapeHtml(message.first_name)} ${escapeHtml(message.last_name)}
+    messagesContainer.innerHTML = messages.map(message => {
+
+      const status =
+        message.status || "New";
+
+      const hasReply =
+        message.admin_reply &&
+        message.admin_reply.trim() !== "";
+
+
+      return `
+
+        <article class="message-box">
+
+          <!-- MESSAGE HEADER -->
+
+          <div class="message-top">
+
+            <div>
+
+              <div class="customer-name">
+
+                👤
+                ${escapeHtml(message.first_name)}
+                ${escapeHtml(message.last_name)}
+
+              </div>
+
+              <div class="date">
+
+                Received:
+                ${escapeHtml(
+                  formatDate(message.created_at)
+                )}
+
+              </div>
+
             </div>
 
-            <div class="date">
-              Received: ${escapeHtml(formatDate(message.created_at))}
+
+            <div>
+
+              <span class="status ${getStatusClass(status)}">
+
+                ${escapeHtml(status)}
+
+              </span>
+
             </div>
+
           </div>
 
-          <div>
-            <span class="status">
-              ${escapeHtml(message.status || "New")}
-            </span>
+
+          <!-- CUSTOMER DETAILS -->
+
+          <div class="details">
+
+            <div class="detail">
+
+              <strong>Email</strong>
+
+              <span>
+                ${escapeHtml(message.email)}
+              </span>
+
+            </div>
+
+
+            <div class="detail">
+
+              <strong>Phone</strong>
+
+              <span>
+                ${escapeHtml(
+                  message.phone || "Not provided"
+                )}
+              </span>
+
+            </div>
+
+
+            <div class="detail">
+
+              <strong>Message ID</strong>
+
+              <span>
+                ${escapeHtml(message.id)}
+              </span>
+
+            </div>
+
           </div>
-        </div>
 
-        <div class="details">
 
-          <div class="detail">
-            <strong>Email</strong>
-            <span>${escapeHtml(message.email)}</span>
+          <!-- SUBJECT -->
+
+          <div class="subject">
+
+            ${escapeHtml(message.subject)}
+
           </div>
 
-          <div class="detail">
-            <strong>Phone</strong>
-            <span>${escapeHtml(message.phone || "Not provided")}</span>
+
+          <!-- CUSTOMER MESSAGE -->
+
+          <div class="message-label">
+            Customer Message
           </div>
 
-          <div class="detail">
-            <strong>Message ID</strong>
-            <span>${escapeHtml(message.id)}</span>
+          <div class="message-text">
+
+            ${escapeHtml(message.message)}
+
           </div>
 
-        </div>
 
-        <div class="subject">
-          ${escapeHtml(message.subject)}
-        </div>
+          <!-- REPLY SECTION -->
 
-        <div class="message-text">
-          ${escapeHtml(message.message)}
-        </div>
+          <div class="reply-section">
 
-        <div class="actions">
+            <h3>✉️ Reply to Customer</h3>
 
-          <select id="status-${escapeHtml(message.id)}">
-            <option value="New" ${message.status === "New" ? "selected" : ""}>New</option>
-            <option value="Read" ${message.status === "Read" ? "selected" : ""}>Read</option>
-            <option value="Replied" ${message.status === "Replied" ? "selected" : ""}>Replied</option>
-            <option value="Closed" ${message.status === "Closed" ? "selected" : ""}>Closed</option>
-          </select>
+            <p>
+              Write your response below. This reply will be saved
+              in your Meteur admin system.
+            </p>
 
-          <button onclick="updateStatus('${escapeHtml(message.id)}')">
-            Update Status
-          </button>
 
-          <button
-            class="delete-btn"
-            onclick="deleteMessage('${escapeHtml(message.id)}')">
-            Delete
-          </button>
+            <textarea
+              id="reply-${escapeHtml(message.id)}"
+              class="reply-textarea"
+              placeholder="Write your reply to this customer..."
+            >${escapeHtml(message.admin_reply || "")}</textarea>
 
-        </div>
 
-      </article>
-    `).join("");
+            <div class="reply-info">
+
+              <strong>Customer email:</strong>
+              ${escapeHtml(message.email)}
+
+              <br>
+
+              <strong>Customer phone:</strong>
+              ${escapeHtml(
+                message.phone || "Not provided"
+              )}
+
+            </div>
+
+
+            <div class="reply-actions">
+
+              <button
+                class="reply-btn"
+                id="reply-button-${escapeHtml(message.id)}"
+                onclick="saveReply('${escapeHtml(message.id)}')"
+              >
+
+                ${hasReply ? "💾 Update Reply" : "💾 Save Reply"}
+
+              </button>
+
+              ${
+                hasReply
+                ? `
+                  <button
+                    class="edit-reply-btn"
+                    onclick="focusReply('${escapeHtml(message.id)}')"
+                  >
+                    ✏️ Edit Reply
+                  </button>
+                `
+                : ""
+              }
+
+            </div>
+
+
+            <div
+              id="success-${escapeHtml(message.id)}"
+              class="success-message"
+            >
+              Reply saved successfully.
+            </div>
+
+
+            ${
+              hasReply
+              ? `
+
+                <div class="saved-reply">
+
+                  <h4>
+                    ✅ Saved Admin Reply
+                  </h4>
+
+                  <div class="saved-reply-text">
+
+                    ${escapeHtml(message.admin_reply)}
+
+                  </div>
+
+                  ${
+                    message.replied_at
+                    ? `
+                      <div class="replied-date">
+
+                        Saved:
+                        ${escapeHtml(
+                          formatDate(message.replied_at)
+                        )}
+
+                      </div>
+                    `
+                    : ""
+                  }
+
+                </div>
+
+              `
+              : ""
+            }
+
+          </div>
+
+
+          <!-- STATUS AND DELETE -->
+
+          <div class="actions">
+
+            <select
+              id="status-${escapeHtml(message.id)}"
+            >
+
+              <option
+                value="New"
+                ${status === "New" ? "selected" : ""}
+              >
+                New
+              </option>
+
+              <option
+                value="Read"
+                ${status === "Read" ? "selected" : ""}
+              >
+                Read
+              </option>
+
+              <option
+                value="Replied"
+                ${status === "Replied" ? "selected" : ""}
+              >
+                Replied
+              </option>
+
+              <option
+                value="Closed"
+                ${status === "Closed" ? "selected" : ""}
+              >
+                Closed
+              </option>
+
+            </select>
+
+
+            <button
+              onclick="updateStatus('${escapeHtml(message.id)}')"
+            >
+              Update Status
+            </button>
+
+
+            <button
+              class="delete-btn"
+              onclick="deleteMessage('${escapeHtml(message.id)}')"
+            >
+              Delete
+            </button>
+
+          </div>
+
+        </article>
+
+      `;
+
+    }).join("");
+
   }
 
-  async function updateStatus(messageId) {
-    const select = document.getElementById("status-" + messageId);
 
-    if (!select) return;
+  /* ==============================
+     SAVE ADMIN REPLY
+  ============================== */
 
-    const newStatus = select.value;
+  async function saveReply(messageId) {
 
-    const { error } = await supabaseClient
+    const textarea =
+      document.getElementById(
+        "reply-" + messageId
+      );
+
+    const button =
+      document.getElementById(
+        "reply-button-" + messageId
+      );
+
+    const successBox =
+      document.getElementById(
+        "success-" + messageId
+      );
+
+
+    if (!textarea) {
+      return;
+    }
+
+
+    const reply =
+      textarea.value.trim();
+
+
+    if (!reply) {
+
+      alert(
+        "Please write a reply before saving."
+      );
+
+      textarea.focus();
+
+      return;
+    }
+
+
+    if (button) {
+
+      button.disabled = true;
+
+      button.textContent =
+        "Saving...";
+    }
+
+
+    const {
+      error
+    } = await supabaseClient
       .from("customer_messages")
       .update({
-        status: newStatus,
-        updated_at: new Date().toISOString()
+
+        admin_reply: reply,
+
+        replied_at:
+          new Date().toISOString(),
+
+        status: "Replied",
+
+        updated_at:
+          new Date().toISOString()
+
       })
       .eq("id", messageId);
 
+
     if (error) {
-      alert("Unable to update the message status.");
-      console.error(error);
+
+      console.error(
+        "Save reply error:",
+        error
+      );
+
+      if (button) {
+
+        button.disabled = false;
+
+        button.textContent =
+          "💾 Save Reply";
+      }
+
+      alert(
+        "Unable to save the reply. Please check your Supabase permissions."
+      );
+
       return;
     }
 
-    alert("Message status updated successfully.");
 
-    loadMessages();
+    if (successBox) {
+
+      successBox.style.display =
+        "block";
+
+      successBox.textContent =
+        "Reply saved successfully.";
+
+    }
+
+
+    if (button) {
+
+      button.disabled = false;
+
+      button.textContent =
+        "💾 Update Reply";
+
+    }
+
+
+    setTimeout(() => {
+
+      loadMessages();
+
+    }, 700);
+
   }
 
-  async function deleteMessage(messageId) {
-    const confirmed = confirm(
-      "Are you sure you want to delete this customer message?"
+
+  /* ==============================
+     FOCUS REPLY BOX
+  ============================== */
+
+  function focusReply(messageId) {
+
+    const textarea =
+      document.getElementById(
+        "reply-" + messageId
+      );
+
+    if (!textarea) {
+      return;
+    }
+
+    textarea.focus();
+
+    textarea.scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+
+  }
+
+
+  /* ==============================
+     UPDATE STATUS
+  ============================== */
+
+  async function updateStatus(messageId) {
+
+    const select =
+      document.getElementById(
+        "status-" + messageId
+      );
+
+
+    if (!select) {
+      return;
+    }
+
+
+    const newStatus =
+      select.value;
+
+
+    const {
+      error
+    } = await supabaseClient
+      .from("customer_messages")
+      .update({
+
+        status: newStatus,
+
+        updated_at:
+          new Date().toISOString()
+
+      })
+      .eq("id", messageId);
+
+
+    if (error) {
+
+      console.error(
+        "Update status error:",
+        error
+      );
+
+      alert(
+        "Unable to update the message status."
+      );
+
+      return;
+    }
+
+
+    alert(
+      "Message status updated successfully."
     );
 
-    if (!confirmed) return;
 
-    const { error } = await supabaseClient
+    loadMessages();
+
+  }
+
+
+  /* ==============================
+     DELETE MESSAGE
+  ============================== */
+
+  async function deleteMessage(messageId) {
+
+    const confirmed =
+      confirm(
+        "Are you sure you want to delete this customer message?"
+      );
+
+
+    if (!confirmed) {
+      return;
+    }
+
+
+    const {
+      error
+    } = await supabaseClient
       .from("customer_messages")
       .delete()
       .eq("id", messageId);
 
+
     if (error) {
-      alert("Unable to delete this message.");
-      console.error(error);
+
+      console.error(
+        "Delete message error:",
+        error
+      );
+
+      alert(
+        "Unable to delete this message."
+      );
+
       return;
     }
 
-    alert("Customer message deleted successfully.");
+
+    alert(
+      "Customer message deleted successfully."
+    );
+
 
     loadMessages();
+
   }
 
+
+  /* ==============================
+     START
+  ============================== */
+
   loadMessages();
+
 </script>
 
 </body>
 </html>
+```

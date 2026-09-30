@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -97,16 +96,29 @@
       margin-left: auto;
     }
 
-    .header-actions a {
+    .header-actions a,
+    .header-actions button {
       color: white;
       padding: 9px 10px;
       border-radius: 5px;
       font-weight: 600;
       font-size: 14px;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
     }
 
-    .header-actions a:hover {
+    .header-actions a:hover,
+    .header-actions button:hover {
       background: rgba(255,255,255,.14);
+    }
+
+    .account-email {
+      max-width: 190px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      opacity: .95;
     }
 
     .cart-link {
@@ -503,15 +515,31 @@
       font-size: 14px;
     }
 
-    footer a {
+    footer a,
+    footer button {
       display: block;
       color: #ffd9df;
       margin-bottom: 9px;
       font-size: 14px;
+      background: transparent;
+      border: 0;
+      padding: 0;
+      cursor: pointer;
+      text-align: left;
+      font-family: inherit;
     }
 
-    footer a:hover {
+    footer a:hover,
+    footer button:hover {
       color: white;
+    }
+
+    .footer-account-status {
+      color: #ffd9df;
+      font-size: 13px;
+      margin-bottom: 12px;
+      line-height: 1.4;
+      word-break: break-word;
     }
 
     .copyright {
@@ -563,6 +591,12 @@
 
       .header-actions {
         margin-left: auto;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+
+      .account-email {
+        max-width: 130px;
       }
 
       .search-area {
@@ -631,9 +665,7 @@
 
         <div class="brand-text">
 
-          <h1>
-            METEUR MOBILE KENYA
-          </h1>
+          <h1>METEUR MOBILE KENYA</h1>
 
           <p>
             MOBILE • ELECTRONICS • ACCESSORIES
@@ -643,7 +675,12 @@
 
       </a>
 
-      <div class="header-actions">
+      <!-- ACCOUNT AREA IS UPDATED AUTOMATICALLY BY SUPABASE -->
+
+      <div
+        class="header-actions"
+        id="headerAccountArea"
+      >
 
         <a href="login.html">
           Login
@@ -671,6 +708,7 @@
     </div>
 
   </header>
+
 
   <nav>
 
@@ -717,6 +755,7 @@
 
   </nav>
 
+
   <section class="search-area">
 
     <div class="search-box">
@@ -734,6 +773,7 @@
     </div>
 
   </section>
+
 
   <main>
 
@@ -763,6 +803,7 @@
 
   </main>
 
+
   <footer>
 
     <div class="footer-inner">
@@ -779,6 +820,7 @@
         </p>
 
       </div>
+
 
       <div>
 
@@ -804,29 +846,42 @@
 
       </div>
 
+
       <div>
 
         <h3>
           Account
         </h3>
 
-        <a href="login.html">
-          Login
-        </a>
+        <div
+          id="footerAccountStatus"
+          class="footer-account-status"
+        >
+          Checking account...
+        </div>
 
-        <a href="register.html">
-          Register
-        </a>
+        <div id="footerAccountLinks">
 
-        <a href="profile.html">
-          My Profile
-        </a>
+          <a href="login.html">
+            Login
+          </a>
 
-        <a href="orders.html">
-          My Orders
-        </a>
+          <a href="register.html">
+            Register
+          </a>
+
+          <a href="profile.html">
+            My Profile
+          </a>
+
+          <a href="orders.html">
+            My Orders
+          </a>
+
+        </div>
 
       </div>
+
 
       <div>
 
@@ -850,11 +905,13 @@
 
     </div>
 
+
     <div class="copyright">
       © 2026 METEUR MOBILE KENYA. All rights reserved.
     </div>
 
   </footer>
+
 
   <script>
 
@@ -870,8 +927,9 @@
         SUPABASE_KEY
       );
 
+
     /*
-      ALL CART PRICES ARE NOW IN USD
+      ALL CUSTOMER-FACING CART PRICES ARE IN USD
     */
 
     const DELIVERY_FEE = 2.50;
@@ -894,53 +952,220 @@
     }
 
 
-    function setActiveNavigation() {
+    /*
+      UPDATE HEADER ACCOUNT AREA
+    */
 
-      const path =
-        window.location.pathname.toLowerCase();
+    function updateHeaderAccount(user) {
 
-      document
-        .querySelectorAll(".nav-inner a")
-        .forEach(link => {
+      const area =
+        document.getElementById(
+          "headerAccountArea"
+        );
 
-          link.classList.remove("active");
+      if (!area) {
+        return;
+      }
 
-        });
 
-      let target = "shop";
+      if (user) {
 
-      if (
-        path.endsWith("/") ||
-        path.endsWith("/index.html")
-      ) {
+        const email =
+          user.email || "My Account";
 
-        target = "home";
 
-      } else if (
-        path.includes("orders")
-      ) {
+        area.innerHTML = `
 
-        target = "orders";
+          <a
+            href="profile.html"
+            class="account-email"
+            title="${escapeAttribute(email)}"
+          >
+            👤 ${escapeHtml(email)}
+          </a>
 
-      } else if (
-        path.includes("contact")
-      ) {
+          <button
+            type="button"
+            onclick="logoutCustomer()"
+          >
+            Logout
+          </button>
 
-        target = "contact";
+          <a
+            href="cart.html"
+            class="cart-link"
+          >
+
+            🛒 Cart
+
+            <span
+              class="cart-count"
+              id="cartCount"
+            >
+              0
+            </span>
+
+          </a>
+
+        `;
+
+      } else {
+
+        area.innerHTML = `
+
+          <a href="login.html">
+            Login
+          </a>
+
+          <a href="register.html">
+            Register
+          </a>
+
+          <a
+            href="cart.html"
+            class="cart-link"
+          >
+
+            🛒 Cart
+
+            <span
+              class="cart-count"
+              id="cartCount"
+            >
+              0
+            </span>
+
+          </a>
+
+        `;
 
       }
 
-      const activeLink =
-        document.querySelector(
-          `[data-nav="${target}"]`
+
+      updateCartCount();
+
+    }
+
+
+    /*
+      UPDATE FOOTER ACCOUNT AREA
+    */
+
+    function updateFooterAccount(user) {
+
+      const status =
+        document.getElementById(
+          "footerAccountStatus"
         );
 
-      if (activeLink) {
-        activeLink.classList.add("active");
+      const links =
+        document.getElementById(
+          "footerAccountLinks"
+        );
+
+
+      if (!status || !links) {
+        return;
+      }
+
+
+      if (user) {
+
+        const email =
+          user.email || "Customer";
+
+
+        status.innerHTML = `
+          Signed in as:<br>
+          <strong>${escapeHtml(email)}</strong>
+        `;
+
+
+        links.innerHTML = `
+
+          <a href="profile.html">
+            My Profile
+          </a>
+
+          <a href="orders.html">
+            My Orders
+          </a>
+
+          <button
+            type="button"
+            onclick="logoutCustomer()"
+          >
+            Logout
+          </button>
+
+        `;
+
+      } else {
+
+        status.textContent =
+          "Sign in to manage your account.";
+
+
+        links.innerHTML = `
+
+          <a href="login.html">
+            Login
+          </a>
+
+          <a href="register.html">
+            Register
+          </a>
+
+          <a href="profile.html">
+            My Profile
+          </a>
+
+          <a href="orders.html">
+            My Orders
+          </a>
+
+        `;
+
       }
 
     }
 
+
+    /*
+      LOGOUT CUSTOMER
+    */
+
+    async function logoutCustomer() {
+
+      const {
+        error
+      } =
+        await supabaseClient.auth.signOut();
+
+
+      if (error) {
+
+        alert(
+          "Unable to log out right now. Please try again."
+        );
+
+        return;
+
+      }
+
+
+      updateHeaderAccount(null);
+
+      updateFooterAccount(null);
+
+      showLoginMessage();
+
+    }
+
+
+    /*
+      CHECK SUPABASE AUTHENTICATION
+    */
 
     async function checkAuthentication() {
 
@@ -950,15 +1175,54 @@
       } =
         await supabaseClient.auth.getUser();
 
+
       if (error || !data.user) {
+
+        updateHeaderAccount(null);
+
+        updateFooterAccount(null);
 
         showLoginMessage();
 
         return null;
+
       }
 
+
+      updateHeaderAccount(data.user);
+
+      updateFooterAccount(data.user);
+
+
       return data.user;
+
     }
+
+
+    /*
+      LISTEN FOR LOGIN / LOGOUT CHANGES
+    */
+
+    supabaseClient.auth.onAuthStateChange(
+      function(event, session) {
+
+        const user =
+          session ? session.user : null;
+
+
+        updateHeaderAccount(user);
+
+        updateFooterAccount(user);
+
+
+        if (event === "SIGNED_OUT") {
+
+          showLoginMessage();
+
+        }
+
+      }
+    );
 
 
     function showLoginMessage() {
@@ -997,7 +1261,9 @@
       try {
 
         return JSON.parse(
-          localStorage.getItem("meteur_cart") || "[]"
+          localStorage.getItem(
+            "meteur_cart"
+          ) || "[]"
         );
 
       } catch (error) {
@@ -1024,12 +1290,15 @@
       const user =
         await checkAuthentication();
 
+
       if (!user) {
         return;
       }
 
+
       const localCart =
         getLocalCart();
+
 
       if (
         !localCart ||
@@ -1039,7 +1308,9 @@
         showEmptyCart();
 
         return;
+
       }
+
 
       renderCart(localCart);
 
@@ -1077,6 +1348,7 @@
 
       `;
 
+
       updateCartCount();
 
     }
@@ -1089,7 +1361,9 @@
           "cartContainer"
         );
 
+
       let subtotal = 0;
+
 
       cart.forEach(item => {
 
@@ -1111,6 +1385,7 @@
             const itemTotal =
               Number(item.price || 0) *
               Number(item.quantity || 0);
+
 
             const image =
               item.image_url || "";
@@ -1293,18 +1568,22 @@
       const cart =
         getLocalCart();
 
+
       if (!cart[index]) {
         return;
       }
 
 
       let newQuantity =
-        Number(cart[index].quantity || 0) +
-        change;
+        Number(
+          cart[index].quantity || 0
+        ) + change;
 
 
       const stock =
-        Number(cart[index].stock || 0);
+        Number(
+          cart[index].stock || 0
+        );
 
 
       if (newQuantity < 1) {
@@ -1338,6 +1617,7 @@
       const cart =
         getLocalCart();
 
+
       if (!cart[index]) {
         return;
       }
@@ -1366,7 +1646,11 @@
       const cart =
         getLocalCart();
 
-      if (!cart || cart.length === 0) {
+
+      if (
+        !cart ||
+        cart.length === 0
+      ) {
 
         showEmptyCart();
 
@@ -1382,7 +1666,10 @@
         await supabaseClient.auth.getUser();
 
 
-      if (error || !data.user) {
+      if (
+        error ||
+        !data.user
+      ) {
 
         window.location.href =
           "login.html?redirect=checkout.html";
@@ -1408,7 +1695,9 @@
         cart.reduce(
           (total, item) =>
             total +
-            Number(item.quantity || 0),
+            Number(
+              item.quantity || 0
+            ),
           0
         );
 
@@ -1457,7 +1746,9 @@
         function(event) {
 
           if (event.key === "Enter") {
+
             searchProducts();
+
           }
 
         }
@@ -1467,11 +1758,26 @@
     function escapeHtml(value) {
 
       return String(value || "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+        .replace(
+          /</g,
+          "&lt;"
+        )
+        .replace(
+          />/g,
+          "&gt;"
+        )
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+        .replace(
+          /'/g,
+          "&#039;"
+        );
 
     }
 
@@ -1483,9 +1789,81 @@
     }
 
 
+    function setActiveNavigation() {
+
+      const path =
+        window.location.pathname.toLowerCase();
+
+
+      document
+        .querySelectorAll(
+          ".nav-inner a"
+        )
+        .forEach(link => {
+
+          link.classList.remove(
+            "active"
+          );
+
+        });
+
+
+      let target = "shop";
+
+
+      if (
+        path.endsWith("/") ||
+        path.endsWith("/index.html")
+      ) {
+
+        target = "home";
+
+      } else if (
+        path.includes("orders")
+      ) {
+
+        target = "orders";
+
+      } else if (
+        path.includes("contact")
+      ) {
+
+        target = "contact";
+
+      }
+
+
+      const activeLink =
+        document.querySelector(
+          `[data-nav="${target}"]`
+        );
+
+
+      if (activeLink) {
+
+        activeLink.classList.add(
+          "active"
+        );
+
+      }
+
+    }
+
+
+    /*
+      START CART PAGE
+    */
+
     setActiveNavigation();
 
     updateCartCount();
+
+    /*
+      Load the real Supabase session.
+      This controls Login/Register/Logout.
+    */
+
+    checkAuthentication();
 
     loadCart();
 
@@ -1493,4 +1871,3 @@
 
 </body>
 </html>
-```

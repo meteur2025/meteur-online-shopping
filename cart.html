@@ -46,7 +46,6 @@
       gap: 20px;
     }
 
-    /* EXACT SAME LOGO AS HOMEPAGE */
     .brand {
       display: flex;
       align-items: center;
@@ -620,7 +619,6 @@
 
       <a href="index.html" class="brand">
 
-        <!-- EXACT HOMEPAGE LOGO -->
         <div class="logo">
 
           <img
@@ -872,7 +870,29 @@
         SUPABASE_KEY
       );
 
-    const DELIVERY_FEE = 250;
+    /*
+      ALL CART PRICES ARE NOW IN USD
+    */
+
+    const DELIVERY_FEE = 2.50;
+
+
+    function formatUSD(value) {
+
+      const amount =
+        Number(value || 0);
+
+      return "$" +
+        amount.toLocaleString(
+          "en-US",
+          {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 2
+          }
+        );
+
+    }
+
 
     function setActiveNavigation() {
 
@@ -921,6 +941,7 @@
 
     }
 
+
     async function checkAuthentication() {
 
       const {
@@ -938,6 +959,7 @@
 
       return data.user;
     }
+
 
     function showLoginMessage() {
 
@@ -969,6 +991,7 @@
 
     }
 
+
     function getLocalCart() {
 
       try {
@@ -985,6 +1008,7 @@
 
     }
 
+
     function saveLocalCart(cart) {
 
       localStorage.setItem(
@@ -993,6 +1017,7 @@
       );
 
     }
+
 
     async function loadCart() {
 
@@ -1019,6 +1044,7 @@
       renderCart(localCart);
 
     }
+
 
     function showEmptyCart() {
 
@@ -1055,6 +1081,7 @@
 
     }
 
+
     function renderCart(cart) {
 
       const container =
@@ -1072,8 +1099,10 @@
 
       });
 
+
       const total =
         subtotal + DELIVERY_FEE;
+
 
       const itemsHtml =
         cart.map(
@@ -1085,6 +1114,7 @@
 
             const image =
               item.image_url || "";
+
 
             return `
 
@@ -1110,15 +1140,18 @@
 
                 </div>
 
+
                 <div class="item-info">
 
                   <h3>
                     ${escapeHtml(item.name)}
                   </h3>
 
+
                   <div class="item-price">
-                    KSh ${formatNumber(item.price)}
+                    ${formatUSD(item.price)}
                   </div>
+
 
                   <div class="quantity-control">
 
@@ -1140,7 +1173,9 @@
 
                   </div>
 
+
                   <br>
+
 
                   <button
                     class="remove-button"
@@ -1151,9 +1186,10 @@
 
                 </div>
 
+
                 <div class="item-total">
 
-                  KSh ${formatNumber(itemTotal)}
+                  ${formatUSD(itemTotal)}
 
                 </div>
 
@@ -1163,6 +1199,7 @@
 
           }
         ).join("");
+
 
       container.innerHTML = `
 
@@ -1174,11 +1211,13 @@
 
           </div>
 
+
           <aside class="summary">
 
             <h2>
               Order Summary
             </h2>
+
 
             <div class="summary-row">
 
@@ -1187,10 +1226,11 @@
               </span>
 
               <strong>
-                KSh ${formatNumber(subtotal)}
+                ${formatUSD(subtotal)}
               </strong>
 
             </div>
+
 
             <div class="summary-row">
 
@@ -1199,10 +1239,11 @@
               </span>
 
               <strong>
-                KSh ${formatNumber(DELIVERY_FEE)}
+                ${formatUSD(DELIVERY_FEE)}
               </strong>
 
             </div>
+
 
             <div class="summary-row total">
 
@@ -1211,10 +1252,11 @@
               </span>
 
               <strong>
-                KSh ${formatNumber(total)}
+                ${formatUSD(total)}
               </strong>
 
             </div>
+
 
             <button
               class="checkout-button"
@@ -1222,6 +1264,7 @@
             >
               Proceed to Checkout
             </button>
+
 
             <a
               href="shop.html"
@@ -1236,9 +1279,11 @@
 
       `;
 
+
       updateCartCount();
 
     }
+
 
     function changeQuantity(
       index,
@@ -1252,16 +1297,20 @@
         return;
       }
 
+
       let newQuantity =
         Number(cart[index].quantity || 0) +
         change;
 
+
       const stock =
         Number(cart[index].stock || 0);
+
 
       if (newQuantity < 1) {
         newQuantity = 1;
       }
+
 
       if (
         stock > 0 &&
@@ -1272,14 +1321,17 @@
 
       }
 
+
       cart[index].quantity =
         newQuantity;
+
 
       saveLocalCart(cart);
 
       renderCart(cart);
 
     }
+
 
     function removeItem(index) {
 
@@ -1290,9 +1342,11 @@
         return;
       }
 
+
       cart.splice(index, 1);
 
       saveLocalCart(cart);
+
 
       if (cart.length === 0) {
 
@@ -1305,6 +1359,7 @@
       }
 
     }
+
 
     async function goToCheckout() {
 
@@ -1319,11 +1374,13 @@
 
       }
 
+
       const {
         data,
         error
       } =
         await supabaseClient.auth.getUser();
+
 
       if (error || !data.user) {
 
@@ -1334,15 +1391,18 @@
 
       }
 
+
       window.location.href =
         "checkout.html";
 
     }
 
+
     function updateCartCount() {
 
       const cart =
         getLocalCart();
+
 
       const count =
         cart.reduce(
@@ -1352,16 +1412,19 @@
           0
         );
 
+
       const element =
         document.getElementById(
           "cartCount"
         );
+
 
       if (element) {
         element.textContent = count;
       }
 
     }
+
 
     function searchProducts() {
 
@@ -1370,18 +1433,22 @@
           "searchInput"
         );
 
+
       const query =
         input.value.trim();
+
 
       if (!query) {
         return;
       }
+
 
       window.location.href =
         "shop.html?search=" +
         encodeURIComponent(query);
 
     }
+
 
     document
       .getElementById("searchInput")
@@ -1396,12 +1463,6 @@
         }
       );
 
-    function formatNumber(value) {
-
-      return Number(value || 0)
-        .toLocaleString("en-KE");
-
-    }
 
     function escapeHtml(value) {
 
@@ -1414,11 +1475,13 @@
 
     }
 
+
     function escapeAttribute(value) {
 
       return escapeHtml(value);
 
     }
+
 
     setActiveNavigation();
 

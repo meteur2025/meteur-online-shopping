@@ -31,6 +31,10 @@
       font: inherit;
     }
 
+    /* =========================
+       HEADER
+    ========================= */
+
     .top-header {
       background: #d90429;
       color: white;
@@ -52,35 +56,30 @@
       gap: 12px;
     }
 
-    .phone-logo {
-      width: 34px;
-      height: 52px;
-      border: 3px solid white;
-      border-radius: 8px;
-      position: relative;
+    /* Exact homepage logo */
+    .logo {
+      width: 48px;
+      height: 48px;
+      background: white;
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
       flex-shrink: 0;
+      padding: 0;
+      border: none;
+      box-shadow: none;
     }
 
-    .phone-logo::before {
-      content: "";
-      position: absolute;
-      width: 12px;
-      height: 3px;
+    .real-logo {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
       background: white;
-      border-radius: 3px;
-      top: 5px;
-      left: 8px;
-    }
-
-    .phone-logo::after {
-      content: "";
-      position: absolute;
-      width: 5px;
-      height: 5px;
-      background: white;
-      border-radius: 50%;
-      bottom: 5px;
-      left: 12px;
+      border: none;
+      border-radius: 9px;
     }
 
     .brand-text h1 {
@@ -111,6 +110,10 @@
       font-size: 14px;
     }
 
+    .header-actions a:hover {
+      background: #fff0f2;
+    }
+
     .cart-link {
       position: relative;
     }
@@ -128,6 +131,10 @@
       font-size: 11px;
       margin-left: 5px;
     }
+
+    /* =========================
+       NAVIGATION
+    ========================= */
 
     nav {
       background: #9b001f;
@@ -170,6 +177,10 @@
       border-radius: 3px 3px 0 0;
     }
 
+    /* =========================
+       SEARCH
+    ========================= */
+
     .search-area {
       max-width: 1200px;
       margin: 22px auto 0;
@@ -194,6 +205,11 @@
       padding: 10px;
       font-size: 15px;
       background: transparent;
+      color: #172033;
+    }
+
+    .search-box input::placeholder {
+      color: #8793a6;
     }
 
     .search-box button {
@@ -209,6 +225,10 @@
     .search-box button:hover {
       background: #d90429;
     }
+
+    /* =========================
+       MAIN
+    ========================= */
 
     main {
       max-width: 1200px;
@@ -226,6 +246,10 @@
       color: #d90429;
       font-weight: 700;
     }
+
+    /* =========================
+       PRODUCT
+    ========================= */
 
     .product-section {
       background: white;
@@ -247,6 +271,7 @@
       justify-content: center;
       padding: 25px;
       position: relative;
+      overflow: hidden;
     }
 
     .product-image-box img {
@@ -332,6 +357,7 @@
       color: #4f5f77;
       line-height: 1.7;
       margin-bottom: 22px;
+      white-space: pre-line;
     }
 
     .quantity-title {
@@ -423,6 +449,10 @@
       color: #b42323;
     }
 
+    /* =========================
+       RELATED PRODUCTS
+    ========================= */
+
     .related-section {
       margin-top: 35px;
     }
@@ -468,6 +498,7 @@
       font-size: 15px;
       min-height: 38px;
       margin-bottom: 8px;
+      color: #172033;
     }
 
     .related-price {
@@ -483,6 +514,10 @@
       font-size: 13px;
       font-weight: 800;
     }
+
+    /* =========================
+       FOOTER
+    ========================= */
 
     footer {
       background: #9b001f;
@@ -530,6 +565,10 @@
       font-size: 13px;
     }
 
+    /* =========================
+       LOADING / ERROR
+    ========================= */
+
     .loading {
       text-align: center;
       padding: 60px 20px;
@@ -546,6 +585,14 @@
       color: #a32323;
     }
 
+    .error-box h2 {
+      margin-bottom: 10px;
+    }
+
+    /* =========================
+       TABLET
+    ========================= */
+
     @media (max-width: 900px) {
       .product-section {
         grid-template-columns: 1fr;
@@ -560,7 +607,12 @@
       }
     }
 
+    /* =========================
+       MOBILE
+    ========================= */
+
     @media (max-width: 600px) {
+
       .top-header {
         padding: 14px;
       }
@@ -574,8 +626,32 @@
         justify-content: center;
       }
 
+      .logo {
+        width: 48px;
+        min-width: 48px;
+        height: 48px;
+        border-radius: 9px;
+        padding: 0;
+      }
+
+      .real-logo {
+        width: 48px;
+        height: 48px;
+        background: #ffffff;
+        border-radius: 9px;
+      }
+
+      .brand-text h1 {
+        font-size: 19px;
+      }
+
+      .brand-text p {
+        font-size: 9px;
+      }
+
       .header-actions {
         justify-content: center;
+        flex-wrap: wrap;
       }
 
       .header-actions a {
@@ -592,8 +668,22 @@
         padding: 0 12px;
       }
 
+      .search-box {
+        padding: 9px;
+      }
+
+      .search-box input {
+        font-size: 14px;
+        padding: 9px;
+      }
+
+      .search-box button {
+        padding: 9px 14px;
+      }
+
       main {
         padding: 0 12px;
+        margin-top: 20px;
       }
 
       .product-section {
@@ -603,6 +693,7 @@
 
       .product-image-box {
         min-height: 330px;
+        padding: 15px;
       }
 
       .product-image-box img {
@@ -615,6 +706,18 @@
 
       .price {
         font-size: 26px;
+      }
+
+      .old-price {
+        font-size: 15px;
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      .actions button {
+        width: 100%;
       }
 
       .related-grid {
@@ -630,77 +733,139 @@
 
 <body>
 
+  <!-- =========================
+       HEADER
+  ========================== -->
+
   <header class="top-header">
     <div class="header-inner">
 
       <a href="index.html" class="brand">
-        <div class="phone-logo"></div>
+
+        <div class="logo">
+          <img
+            src="WhatsApp Image 2026-09-30 at 12.36.30.jpeg"
+            alt="Meteur Mobile Kenya M Logo"
+            class="real-logo"
+          >
+        </div>
 
         <div class="brand-text">
           <h1>METEUR MOBILE KENYA</h1>
           <p>MOBILE • ELECTRONICS • ACCESSORIES</p>
         </div>
+
       </a>
 
       <div class="header-actions">
-        <a href="login.html">Login</a>
-        <a href="register.html">Register</a>
+
+        <a href="login.html">
+          Login
+        </a>
+
+        <a href="register.html">
+          Register
+        </a>
+
         <a href="cart.html" class="cart-link">
           🛒 Cart
           <span class="cart-count" id="cartCount">0</span>
         </a>
+
       </div>
 
     </div>
   </header>
 
+  <!-- =========================
+       NAVIGATION
+  ========================== -->
+
   <nav>
     <div class="nav-inner">
 
-      <a href="index.html" data-nav="home">Home</a>
+      <a href="index.html" data-nav="home">
+        Home
+      </a>
 
-      <a href="shop.html" data-nav="shop">Shop</a>
+      <a href="shop.html" data-nav="shop">
+        Shop
+      </a>
 
-      <a href="shop.html?category=Phones%20and%20Tablets" data-nav="phones">
+      <a
+        href="shop.html?category=Phones%20and%20Tablets"
+        data-nav="phones"
+      >
         Phones & Tablets
       </a>
 
-      <a href="shop.html?category=Electronics" data-nav="electronics">
+      <a
+        href="shop.html?category=Electronics"
+        data-nav="electronics"
+      >
         Electronics
       </a>
 
-      <a href="shop.html?category=Accessories" data-nav="accessories">
+      <a
+        href="shop.html?category=Accessories"
+        data-nav="accessories"
+      >
         Accessories
       </a>
 
-      <a href="orders.html" data-nav="orders">My Orders</a>
+      <a href="orders.html" data-nav="orders">
+        My Orders
+      </a>
 
-      <a href="contact.html" data-nav="contact">Contact Us</a>
+      <a href="contact.html" data-nav="contact">
+        Contact Us
+      </a>
 
     </div>
   </nav>
 
+  <!-- =========================
+       SEARCH
+  ========================== -->
+
   <section class="search-area">
 
     <div class="search-box">
+
       <input
         type="search"
         id="searchInput"
         placeholder="Search smartphones, tablets, accessories..."
       >
 
-      <button onclick="searchProducts()">Search</button>
+      <button onclick="searchProducts()">
+        Search
+      </button>
+
     </div>
 
   </section>
 
+  <!-- =========================
+       MAIN CONTENT
+  ========================== -->
+
   <main>
 
     <div class="breadcrumb">
-      <a href="index.html">Home</a>
+
+      <a href="index.html">
+        Home
+      </a>
+
       <span> / </span>
-      <a href="shop.html">Shop</a>
+
+      <a href="shop.html">
+        Shop
+      </a>
+
       <span> / Product</span>
+
     </div>
 
     <div id="productContainer">
@@ -711,59 +876,112 @@
 
     </div>
 
+    <!-- =========================
+         RELATED PRODUCTS
+    ========================== -->
+
     <section class="related-section">
 
       <h2 class="section-title">
         Related Products
       </h2>
 
-      <div id="relatedProducts" class="related-grid">
-
-      </div>
+      <div
+        id="relatedProducts"
+        class="related-grid"
+      ></div>
 
     </section>
 
   </main>
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
 
   <footer>
 
     <div class="footer-inner">
 
       <div>
-        <h3>METEUR MOBILE KENYA</h3>
+
+        <h3>
+          METEUR MOBILE KENYA
+        </h3>
 
         <p>
-          Your online destination for mobile phones, electronics,
-          accessories and smart devices in Kenya.
+          Your online destination for mobile phones,
+          electronics, accessories and smart devices in Kenya.
         </p>
+
       </div>
 
       <div>
-        <h3>Shop</h3>
 
-        <a href="shop.html">All Products</a>
-        <a href="shop.html?deal=true">Flash Deals</a>
-        <a href="shop.html?new=true">New Arrivals</a>
+        <h3>
+          Shop
+        </h3>
+
+        <a href="shop.html">
+          All Products
+        </a>
+
+        <a href="shop.html?deal=true">
+          Flash Deals
+        </a>
+
+        <a href="shop.html?new=true">
+          New Arrivals
+        </a>
+
         <a href="shop.html?category=Phones%20and%20Tablets">
           Phones & Tablets
         </a>
+
       </div>
 
       <div>
-        <h3>Account</h3>
 
-        <a href="login.html">Login</a>
-        <a href="register.html">Register</a>
-        <a href="profile.html">My Profile</a>
-        <a href="orders.html">My Orders</a>
+        <h3>
+          Account
+        </h3>
+
+        <a href="login.html">
+          Login
+        </a>
+
+        <a href="register.html">
+          Register
+        </a>
+
+        <a href="profile.html">
+          My Profile
+        </a>
+
+        <a href="orders.html">
+          My Orders
+        </a>
+
       </div>
 
       <div>
-        <h3>Help</h3>
 
-        <a href="contact.html">Contact Us</a>
-        <a href="track-order.html">Track Order</a>
-        <a href="seller-register.html">Sell on Meteur</a>
+        <h3>
+          Help
+        </h3>
+
+        <a href="contact.html">
+          Contact Us
+        </a>
+
+        <a href="track-order.html">
+          Track Order
+        </a>
+
+        <a href="seller-register.html">
+          Sell on Meteur
+        </a>
+
       </div>
 
     </div>
@@ -774,7 +992,12 @@
 
   </footer>
 
+  <!-- =========================
+       JAVASCRIPT
+  ========================== -->
+
   <script>
+
     const SUPABASE_URL =
       "https://nytsdeupaootukcullgi.supabase.co";
 
@@ -790,13 +1013,19 @@
     let currentProduct = null;
     let quantity = 1;
 
+    /* =========================
+       ACTIVE NAVIGATION
+    ========================== */
+
     function setActiveNavigation() {
 
       const path =
         window.location.pathname.toLowerCase();
 
       const params =
-        new URLSearchParams(window.location.search);
+        new URLSearchParams(
+          window.location.search
+        );
 
       const category =
         (params.get("category") || "").toLowerCase();
@@ -811,16 +1040,22 @@
 
       let target = "shop";
 
-      if (path.endsWith("/") ||
-          path.endsWith("/index.html")) {
+      if (
+        path.endsWith("/") ||
+        path.endsWith("/index.html")
+      ) {
 
         target = "home";
 
-      } else if (path.includes("orders")) {
+      } else if (
+        path.includes("orders")
+      ) {
 
         target = "orders";
 
-      } else if (path.includes("contact")) {
+      } else if (
+        path.includes("contact")
+      ) {
 
         target = "contact";
 
@@ -855,13 +1090,23 @@
       }
     }
 
+    /* =========================
+       PRODUCT ID
+    ========================== */
+
     function getProductId() {
 
       const params =
-        new URLSearchParams(window.location.search);
+        new URLSearchParams(
+          window.location.search
+        );
 
       return params.get("id");
     }
+
+    /* =========================
+       LOAD PRODUCT
+    ========================== */
 
     async function loadProduct() {
 
@@ -901,8 +1146,13 @@
         container.innerHTML = `
           <div class="error-box">
             <h2>Product not found</h2>
-            <p>We could not find this product.</p>
+
+            <p>
+              We could not find this product.
+            </p>
+
             <br>
+
             <a
               href="shop.html"
               style="color:#d90429;font-weight:800;"
@@ -921,8 +1171,15 @@
 
       displayProduct(data);
 
-      loadRelatedProducts(data.category, data.id);
+      loadRelatedProducts(
+        data.category,
+        data.id
+      );
     }
+
+    /* =========================
+       DISPLAY PRODUCT
+    ========================== */
 
     function displayProduct(product) {
 
@@ -932,8 +1189,7 @@
         );
 
       const image =
-        product.image_url ||
-        "";
+        product.image_url || "";
 
       const stock =
         Number(product.stock || 0);
@@ -944,17 +1200,26 @@
       const reviews =
         Number(product.review_count || 0);
 
-      const stars =
-        "★".repeat(
-          Math.round(rating)
-        ) +
-        "☆".repeat(
-          5 - Math.round(rating)
+      const roundedRating =
+        Math.max(
+          0,
+          Math.min(
+            5,
+            Math.round(rating)
+          )
         );
+
+      const stars =
+        "★".repeat(roundedRating) +
+        "☆".repeat(5 - roundedRating);
 
       const badge =
         product.badge
-          ? `<span class="badge">${escapeHtml(product.badge)}</span>`
+          ? `
+            <span class="badge">
+              ${escapeHtml(product.badge)}
+            </span>
+          `
           : "";
 
       const oldPrice =
@@ -1000,7 +1265,9 @@
             ${badge}
 
             <div class="category">
-              ${escapeHtml(product.category || "Product")}
+              ${escapeHtml(
+                product.category || "Product"
+              )}
             </div>
 
             <h2>
@@ -1008,25 +1275,35 @@
             </h2>
 
             <div class="rating">
+
               ${stars}
+
               <span>
-                ${rating.toFixed(1)} (${reviews} reviews)
+                ${rating.toFixed(1)}
+                (${reviews} reviews)
               </span>
+
             </div>
 
             <div class="price-box">
 
               <div>
+
                 <span class="price">
                   KSh ${formatNumber(product.price)}
                 </span>
 
                 ${oldPrice}
+
               </div>
 
               <div
                 class="stock"
-                style="${stock <= 0 ? "color:#b42323;" : ""}"
+                style="${
+                  stock <= 0
+                    ? "color:#b42323;"
+                    : ""
+                }"
               >
                 ${stockText}
               </div>
@@ -1046,13 +1323,17 @@
             ${
               stock > 0
                 ? `
+
                   <div class="quantity-title">
                     Quantity
                   </div>
 
                   <div class="quantity-control">
 
-                    <button onclick="changeQuantity(-1)">
+                    <button
+                      onclick="changeQuantity(-1)"
+                      aria-label="Decrease quantity"
+                    >
                       −
                     </button>
 
@@ -1060,7 +1341,10 @@
                       1
                     </span>
 
-                    <button onclick="changeQuantity(1)">
+                    <button
+                      onclick="changeQuantity(1)"
+                      aria-label="Increase quantity"
+                    >
                       +
                     </button>
 
@@ -1084,12 +1368,21 @@
 
                   </div>
 
-                  <div id="message" class="message"></div>
+                  <div
+                    id="message"
+                    class="message"
+                  ></div>
+
                 `
                 : `
-                  <div class="message error" style="display:block;">
+
+                  <div
+                    class="message error"
+                    style="display:block;"
+                  >
                     This product is currently out of stock.
                   </div>
+
                 `
             }
 
@@ -1100,6 +1393,10 @@
       `;
     }
 
+    /* =========================
+       QUANTITY
+    ========================== */
+
     function changeQuantity(change) {
 
       if (!currentProduct) {
@@ -1107,7 +1404,9 @@
       }
 
       const stock =
-        Number(currentProduct.stock || 0);
+        Number(
+          currentProduct.stock || 0
+        );
 
       quantity += change;
 
@@ -1120,20 +1419,30 @@
       }
 
       const quantityElement =
-        document.getElementById("quantity");
+        document.getElementById(
+          "quantity"
+        );
 
       if (quantityElement) {
+
         quantityElement.textContent =
           quantity;
+
       }
     }
+
+    /* =========================
+       CART
+    ========================== */
 
     function getCart() {
 
       try {
 
         return JSON.parse(
-          localStorage.getItem("meteur_cart") || "[]"
+          localStorage.getItem(
+            "meteur_cart"
+          ) || "[]"
         );
 
       } catch (error) {
@@ -1153,6 +1462,10 @@
       updateCartCount();
     }
 
+    /* =========================
+       ADD TO CART
+    ========================== */
+
     function addToCart() {
 
       if (!currentProduct) {
@@ -1160,9 +1473,12 @@
       }
 
       const stock =
-        Number(currentProduct.stock || 0);
+        Number(
+          currentProduct.stock || 0
+        );
 
       if (stock <= 0) {
+
         showMessage(
           "This product is out of stock.",
           "error"
@@ -1177,7 +1493,8 @@
       const existing =
         cart.find(
           item =>
-            item.id === currentProduct.id
+            item.id ===
+            currentProduct.id
         );
 
       if (existing) {
@@ -1191,12 +1508,27 @@
       } else {
 
         cart.push({
-          id: currentProduct.id,
-          name: currentProduct.name,
-          price: Number(currentProduct.price),
-          image_url: currentProduct.image_url || "",
-          quantity: quantity,
-          stock: stock
+
+          id:
+            currentProduct.id,
+
+          name:
+            currentProduct.name,
+
+          price:
+            Number(
+              currentProduct.price
+            ),
+
+          image_url:
+            currentProduct.image_url || "",
+
+          quantity:
+            quantity,
+
+          stock:
+            stock
+
         });
 
       }
@@ -1209,6 +1541,10 @@
       );
     }
 
+    /* =========================
+       BUY NOW
+    ========================== */
+
     function buyNow() {
 
       if (!currentProduct) {
@@ -1216,9 +1552,12 @@
       }
 
       const stock =
-        Number(currentProduct.stock || 0);
+        Number(
+          currentProduct.stock || 0
+        );
 
       if (stock <= 0) {
+
         showMessage(
           "This product is out of stock.",
           "error"
@@ -1233,7 +1572,8 @@
       const existing =
         cart.find(
           item =>
-            item.id === currentProduct.id
+            item.id ===
+            currentProduct.id
         );
 
       if (existing) {
@@ -1247,12 +1587,27 @@
       } else {
 
         cart.push({
-          id: currentProduct.id,
-          name: currentProduct.name,
-          price: Number(currentProduct.price),
-          image_url: currentProduct.image_url || "",
-          quantity: quantity,
-          stock: stock
+
+          id:
+            currentProduct.id,
+
+          name:
+            currentProduct.name,
+
+          price:
+            Number(
+              currentProduct.price
+            ),
+
+          image_url:
+            currentProduct.image_url || "",
+
+          quantity:
+            quantity,
+
+          stock:
+            stock
+
         });
 
       }
@@ -1263,13 +1618,19 @@
         "cart.html";
     }
 
+    /* =========================
+       MESSAGE
+    ========================== */
+
     function showMessage(
       message,
       type
     ) {
 
       const element =
-        document.getElementById("message");
+        document.getElementById(
+          "message"
+        );
 
       if (!element) {
         return;
@@ -1288,6 +1649,10 @@
 
       }, 3500);
     }
+
+    /* =========================
+       RELATED PRODUCTS
+    ========================== */
 
     async function loadRelatedProducts(
       category,
@@ -1338,7 +1703,9 @@
           return `
 
             <a
-              href="product.html?id=${encodeURIComponent(product.id)}"
+              href="product.html?id=${encodeURIComponent(
+                product.id
+              )}"
               class="related-card"
             >
 
@@ -1389,6 +1756,10 @@
         }).join("");
     }
 
+    /* =========================
+       CART COUNT
+    ========================== */
+
     function updateCartCount() {
 
       const cart =
@@ -1398,18 +1769,28 @@
         cart.reduce(
           (total, item) =>
             total +
-            Number(item.quantity || 0),
+            Number(
+              item.quantity || 0
+            ),
           0
         );
 
       const element =
-        document.getElementById("cartCount");
+        document.getElementById(
+          "cartCount"
+        );
 
       if (element) {
+
         element.textContent =
           count;
+
       }
     }
+
+    /* =========================
+       SEARCH
+    ========================== */
 
     function searchProducts() {
 
@@ -1431,7 +1812,9 @@
     }
 
     document
-      .getElementById("searchInput")
+      .getElementById(
+        "searchInput"
+      )
       .addEventListener(
         "keydown",
         function(event) {
@@ -1443,32 +1826,62 @@
         }
       );
 
+    /* =========================
+       FORMATTING
+    ========================== */
+
     function formatNumber(value) {
 
-      return Number(value || 0)
-        .toLocaleString("en-KE");
+      return Number(
+        value || 0
+      ).toLocaleString(
+        "en-KE"
+      );
     }
 
     function escapeHtml(value) {
 
-      return String(value || "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+      return String(
+        value || ""
+      )
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+        .replace(
+          /</g,
+          "&lt;"
+        )
+        .replace(
+          />/g,
+          "&gt;"
+        )
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+        .replace(
+          /'/g,
+          "&#039;"
+        );
     }
 
     function escapeAttribute(value) {
 
       return escapeHtml(value);
+
     }
+
+    /* =========================
+       START
+    ========================== */
 
     setActiveNavigation();
 
     updateCartCount();
 
     loadProduct();
+
   </script>
 
 </body>

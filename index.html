@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -187,52 +188,31 @@
 
     /* =========================
        HERO
+       IPHONE IS THE BACKGROUND
     ========================= */
 
     .hero {
       position: relative;
       overflow: hidden;
-      background:
-        radial-gradient(
-          circle at 80% 20%,
-          rgba(255,255,255,.16),
-          transparent 30%
-        ),
-        linear-gradient(
-          135deg,
-          #d90429 0%,
-          #b40023 45%,
-          #760018 100%
-        );
-      color: white;
-      min-height: 470px;
+      min-height: 560px;
       display: flex;
       align-items: center;
-      padding: 55px 20px;
-    }
+      padding: 70px 20px;
+      color: white;
 
-    .hero::before {
-      content: "";
-      position: absolute;
-      width: 300px;
-      height: 300px;
-      border: 1px solid rgba(255,255,255,.14);
-      border-radius: 50%;
-      right: -90px;
-      top: -100px;
-      z-index: 0;
-    }
+      background-image:
+        linear-gradient(
+          90deg,
+          rgba(0, 0, 0, .72) 0%,
+          rgba(0, 0, 0, .52) 38%,
+          rgba(0, 0, 0, .18) 70%,
+          rgba(0, 0, 0, .08) 100%
+        ),
+        url("21.webp");
 
-    .hero::after {
-      content: "";
-      position: absolute;
-      width: 220px;
-      height: 220px;
-      border: 1px solid rgba(255,255,255,.10);
-      border-radius: 50%;
-      right: 80px;
-      bottom: -130px;
-      z-index: 0;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
 
     .hero-inner {
@@ -241,47 +221,45 @@
       max-width: 1250px;
       width: 100%;
       margin: auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 40px;
     }
 
     .hero-content {
-      flex: 1;
-      min-width: 0;
+      width: 58%;
+      max-width: 720px;
       position: relative;
       z-index: 3;
     }
 
     .hero-label {
       display: inline-block;
-      background: rgba(255,255,255,.14);
-      border: 1px solid rgba(255,255,255,.22);
-      padding: 7px 13px;
+      background: rgba(255,255,255,.16);
+      border: 1px solid rgba(255,255,255,.35);
+      padding: 8px 14px;
       border-radius: 30px;
       font-size: 12px;
       font-weight: 700;
       letter-spacing: 1px;
       margin-bottom: 18px;
       text-transform: uppercase;
+      backdrop-filter: blur(5px);
     }
 
     .hero h1 {
-      font-size: 48px;
-      line-height: 1.08;
-      max-width: 760px;
-      margin-bottom: 16px;
+      font-size: 52px;
+      line-height: 1.06;
+      margin-bottom: 18px;
       font-weight: 900;
       letter-spacing: -.8px;
+      text-shadow: 0 3px 12px rgba(0,0,0,.45);
     }
 
     .hero p {
       font-size: 18px;
-      max-width: 680px;
-      margin-bottom: 28px;
+      max-width: 650px;
+      margin-bottom: 30px;
       line-height: 1.6;
-      color: #ffe5e9;
+      color: white;
+      text-shadow: 0 2px 8px rgba(0,0,0,.55);
     }
 
     .hero-buttons {
@@ -294,10 +272,11 @@
       display: inline-block;
       background: white;
       color: #d90429;
-      padding: 13px 23px;
+      padding: 14px 24px;
       border-radius: 7px;
       font-weight: 800;
       transition: .2s;
+      box-shadow: 0 5px 15px rgba(0,0,0,.18);
     }
 
     .hero-button:hover {
@@ -306,64 +285,14 @@
     }
 
     .hero-button.secondary {
-      background: transparent;
+      background: rgba(0,0,0,.25);
       color: white;
-      border: 1px solid rgba(255,255,255,.55);
+      border: 1px solid rgba(255,255,255,.65);
+      backdrop-filter: blur(4px);
     }
 
     .hero-button.secondary:hover {
-      background: rgba(255,255,255,.12);
-    }
-
-    /* =========================
-       IPHONE HERO IMAGE
-    ========================= */
-
-    .hero-phone {
-      flex: 0 0 43%;
-      min-width: 300px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      z-index: 2;
-    }
-
-    .hero-phone::before {
-      content: "";
-      position: absolute;
-      width: 330px;
-      height: 330px;
-      background: radial-gradient(
-        circle,
-        rgba(255,255,255,.22) 0%,
-        rgba(255,255,255,.08) 40%,
-        rgba(255,255,255,0) 72%
-      );
-      border-radius: 50%;
-      z-index: -1;
-    }
-
-    .hero-phone img {
-      width: min(390px, 100%);
-      max-height: 430px;
-      object-fit: contain;
-      display: block;
-      filter:
-        drop-shadow(0 20px 25px rgba(0,0,0,.35))
-        drop-shadow(0 5px 12px rgba(0,0,0,.25));
-      animation: phoneFloat 4s ease-in-out infinite;
-    }
-
-    @keyframes phoneFloat {
-      0%,
-      100% {
-        transform: translateY(0);
-      }
-
-      50% {
-        transform: translateY(-10px);
-      }
+      background: rgba(0,0,0,.4);
     }
 
     /* =========================
@@ -634,22 +563,16 @@
         grid-template-columns: repeat(2, 1fr);
       }
 
-      .hero-inner {
-        gap: 25px;
+      .hero {
+        min-height: 520px;
+      }
+
+      .hero-content {
+        width: 65%;
       }
 
       .hero h1 {
-        font-size: 42px;
-      }
-
-      .hero-phone {
-        flex-basis: 40%;
-        min-width: 260px;
-      }
-
-      .hero-phone img {
-        width: min(330px, 100%);
-        max-height: 380px;
+        font-size: 44px;
       }
 
     }
@@ -722,18 +645,21 @@
       }
 
       .hero {
-        min-height: auto;
-        padding: 45px 18px 40px;
+        min-height: 560px;
+        padding: 55px 18px 45px;
+        align-items: center;
+
+        background-position: center;
       }
 
       .hero-inner {
-        flex-direction: column;
-        text-align: center;
-        gap: 25px;
+        width: 100%;
       }
 
       .hero-content {
         width: 100%;
+        max-width: 100%;
+        text-align: center;
       }
 
       .hero-label {
@@ -742,15 +668,16 @@
       }
 
       .hero h1 {
-        font-size: 34px;
-        line-height: 1.12;
+        font-size: 35px;
+        line-height: 1.1;
         letter-spacing: -.4px;
       }
 
       .hero p {
         font-size: 15px;
         line-height: 1.5;
-        margin-bottom: 24px;
+        margin: 0 auto 24px;
+        max-width: 520px;
       }
 
       .hero-buttons {
@@ -760,22 +687,6 @@
       .hero-button {
         padding: 12px 18px;
         font-size: 13px;
-      }
-
-      .hero-phone {
-        width: 100%;
-        min-width: 0;
-        flex: none;
-      }
-
-      .hero-phone::before {
-        width: 270px;
-        height: 270px;
-      }
-
-      .hero-phone img {
-        width: min(300px, 82%);
-        max-height: 330px;
       }
 
       .container {
@@ -878,8 +789,9 @@
       }
 
       .hero {
-        min-height: auto;
-        padding: 40px 14px 35px;
+        min-height: 540px;
+        padding: 45px 14px 35px;
+        background-position: center;
       }
 
       .hero h1 {
@@ -898,11 +810,6 @@
       .hero-button {
         width: 85%;
         text-align: center;
-      }
-
-      .hero-phone img {
-        width: min(260px, 78%);
-        max-height: 290px;
       }
 
       .categories,
@@ -1061,18 +968,6 @@
           </a>
 
         </div>
-
-      </div>
-
-
-      <!-- IPHONE 18 PRO MAX -->
-
-      <div class="hero-phone">
-
-        <img
-          src="21.webp"
-          alt="iPhone 18 Pro Max"
-        >
 
       </div>
 
@@ -1691,3 +1586,4 @@
 
 </body>
 </html>
+```

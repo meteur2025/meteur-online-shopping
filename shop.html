@@ -16,7 +16,7 @@
 
     body {
       font-family: Arial, Helvetica, sans-serif;
-      background: #f4f8ff;
+      background: #fff5f6;
       color: #1f2937;
     }
 
@@ -32,7 +32,7 @@
     }
 
     header {
-      background: #0757b8;
+      background: #d90429;
       color: white;
       position: sticky;
       top: 0;
@@ -63,7 +63,7 @@
       height: 42px;
       border: 3px solid white;
       border-radius: 9px;
-      background: #063b7a;
+      background: #9b001f;
       position: relative;
       display: flex;
       align-items: center;
@@ -124,7 +124,7 @@
     .search-box button {
       border: none;
       padding: 0 22px;
-      background: #063b7a;
+      background: #9b001f;
       color: white;
       font-weight: bold;
       cursor: pointer;
@@ -163,7 +163,7 @@
       padding: 2px 5px;
       border-radius: 50%;
       background: white;
-      color: #0757b8;
+      color: #d90429;
       font-size: 11px;
       font-weight: bold;
       display: none;
@@ -171,10 +171,8 @@
       justify-content: center;
     }
 
-    /* NAVIGATION */
-
     .nav-bar {
-      background: #063b7a;
+      background: #9b001f;
     }
 
     .nav-inner {
@@ -206,8 +204,6 @@
       border-radius: 3px 3px 0 0;
     }
 
-    /* PAGE */
-
     .page {
       max-width: 1250px;
       margin: auto;
@@ -219,7 +215,7 @@
     }
 
     .page-heading h1 {
-      color: #0757b8;
+      color: #d90429;
       font-size: 32px;
       margin-bottom: 8px;
     }
@@ -228,8 +224,6 @@
       color: #6b7280;
       font-size: 15px;
     }
-
-    /* FILTERS */
 
     .filters {
       background: white;
@@ -254,14 +248,18 @@
     .filter-group select {
       width: 100%;
       padding: 11px 12px;
-      border: 1px solid #cbd5e1;
+      border: 1px solid #f3c7cd;
       border-radius: 6px;
       outline: none;
       background: white;
       font-size: 14px;
     }
 
-    /* CATEGORY TABS */
+    .filter-group input:focus,
+    .filter-group select:focus {
+      border-color: #d90429;
+      box-shadow: 0 0 0 2px rgba(217,4,41,.08);
+    }
 
     .category-tabs {
       display: flex;
@@ -273,8 +271,8 @@
 
     .category-tab {
       background: white;
-      color: #0757b8;
-      border: 1px solid #cbd5e1;
+      color: #d90429;
+      border: 1px solid #f3c7cd;
       border-radius: 6px;
       padding: 10px 16px;
       white-space: nowrap;
@@ -284,17 +282,15 @@
     }
 
     .category-tab:hover {
-      background: #eef6ff;
-      border-color: #0757b8;
+      background: #fff0f2;
+      border-color: #d90429;
     }
 
     .category-tab.active {
-      background: #0757b8;
+      background: #d90429;
       color: white;
-      border-color: #0757b8;
+      border-color: #d90429;
     }
-
-    /* PRODUCTS */
 
     .products-grid {
       display: grid;
@@ -306,13 +302,13 @@
       background: white;
       border-radius: 10px;
       overflow: hidden;
-      border: 1px solid #e5e7eb;
+      border: 1px solid #f3c7cd;
       transition: .2s;
     }
 
     .product-card:hover {
       transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(7,87,184,.12);
+      box-shadow: 0 5px 15px rgba(217,4,41,.12);
     }
 
     .product-image-wrap {
@@ -332,7 +328,7 @@
       position: absolute;
       top: 10px;
       left: 10px;
-      background: #0757b8;
+      background: #d90429;
       color: white;
       padding: 5px 8px;
       border-radius: 4px;
@@ -361,7 +357,7 @@
 
     .price {
       margin-top: 8px;
-      color: #0757b8;
+      color: #d90429;
       font-size: 19px;
       font-weight: 800;
     }
@@ -377,12 +373,16 @@
       display: block;
       margin-top: 12px;
       text-align: center;
-      background: #0757b8;
+      background: #d90429;
       color: white;
       padding: 10px;
       border-radius: 5px;
       font-size: 13px;
       font-weight: bold;
+    }
+
+    .view-product:hover {
+      background: #9b001f;
     }
 
     .loading,
@@ -400,10 +400,8 @@
       color: #dc2626;
     }
 
-    /* FOOTER */
-
     footer {
-      background: #063b7a;
+      background: #9b001f;
       color: white;
     }
 
@@ -421,7 +419,7 @@
     }
 
     .footer-brand p {
-      color: #dbeafe;
+      color: #ffd9df;
       line-height: 1.6;
       font-size: 14px;
     }
@@ -433,7 +431,7 @@
 
     .footer-column a {
       display: block;
-      color: #dbeafe;
+      color: #ffd9df;
       font-size: 13px;
       margin-bottom: 9px;
     }
@@ -446,7 +444,7 @@
       border-top: 1px solid rgba(255,255,255,.15);
       text-align: center;
       padding: 16px 20px;
-      color: #dbeafe;
+      color: #ffd9df;
       font-size: 12px;
     }
 
@@ -599,24 +597,15 @@
         Shop
       </a>
 
-      <a
-        href="shop.html?category=Phones%20and%20Tablets"
-        data-nav="phones"
-      >
+      <a href="shop.html?category=Phones%20and%20Tablets" data-nav="phones">
         Phones & Tablets
       </a>
 
-      <a
-        href="shop.html?category=Electronics"
-        data-nav="electronics"
-      >
+      <a href="shop.html?category=Electronics" data-nav="electronics">
         Electronics
       </a>
 
-      <a
-        href="shop.html?category=Accessories"
-        data-nav="accessories"
-      >
+      <a href="shop.html?category=Accessories" data-nav="accessories">
         Accessories
       </a>
 
@@ -700,43 +689,23 @@
 
   <div class="category-tabs">
 
-    <button
-      type="button"
-      class="category-tab"
-      data-category=""
-    >
+    <button type="button" class="category-tab" data-category="">
       All Products
     </button>
 
-    <button
-      type="button"
-      class="category-tab"
-      data-category="Phones and Tablets"
-    >
+    <button type="button" class="category-tab" data-category="Phones and Tablets">
       Phones & Tablets
     </button>
 
-    <button
-      type="button"
-      class="category-tab"
-      data-category="Electronics"
-    >
+    <button type="button" class="category-tab" data-category="Electronics">
       Electronics
     </button>
 
-    <button
-      type="button"
-      class="category-tab"
-      data-category="Accessories"
-    >
+    <button type="button" class="category-tab" data-category="Accessories">
       Accessories
     </button>
 
-    <button
-      type="button"
-      class="category-tab"
-      data-category="Smart Devices"
-    >
+    <button type="button" class="category-tab" data-category="Smart Devices">
       Smart Devices
     </button>
 
@@ -853,7 +822,6 @@
       SUPABASE_ANON_KEY
     );
 
-
   let allProducts = [];
 
   let currentCategory = "";
@@ -875,22 +843,6 @@
   }
 
 
-  /*
-    ACTIVE NAVIGATION
-
-    Shop:
-    shop.html
-
-    Phones:
-    shop.html?category=Phones%20and%20Tablets
-
-    Electronics:
-    shop.html?category=Electronics
-
-    Accessories:
-    shop.html?category=Accessories
-  */
-
   function setActiveNavigation() {
 
     document
@@ -899,21 +851,17 @@
         link.classList.remove("active");
       });
 
-
     const params =
       new URLSearchParams(
         window.location.search
       );
-
 
     const category =
       (
         params.get("category") || ""
       ).toLowerCase();
 
-
     let activeNav = "shop";
-
 
     if (
       category === "phones and tablets"
@@ -935,12 +883,10 @@
 
     }
 
-
     const activeLink =
       document.querySelector(
         `[data-nav="${activeNav}"]`
       );
-
 
     if (activeLink) {
       activeLink.classList.add("active");
@@ -956,19 +902,15 @@
         window.location.search
       );
 
-
     currentCategory =
       params.get("category") || "";
-
 
     currentSearch =
       params.get("search") || "";
 
-
     document.getElementById(
       "searchFilter"
     ).value = currentSearch;
-
 
     updateCategoryTabs();
 
@@ -986,9 +928,7 @@
         const tabCategory =
           tab.dataset.category || "";
 
-
         tab.classList.remove("active");
-
 
         if (
           tabCategory.toLowerCase() ===
@@ -1015,7 +955,6 @@
       document.getElementById(
         "pageDescription"
       );
-
 
     if (currentCategory) {
 
@@ -1053,13 +992,11 @@
         "productsGrid"
       );
 
-
     grid.innerHTML = `
       <div class="loading">
         Loading products...
       </div>
     `;
-
 
     try {
 
@@ -1076,7 +1013,6 @@
               ascending: false
             }
           );
-
 
       if (error) {
 
@@ -1095,12 +1031,10 @@
 
       }
 
-
       allProducts =
         Array.isArray(data)
           ? data
           : [];
-
 
       renderProducts();
 
@@ -1110,7 +1044,6 @@
         "Products loading error:",
         error
       );
-
 
       grid.innerHTML = `
         <div class="error-message">
@@ -1128,7 +1061,6 @@
     let products =
       [...allProducts];
 
-
     if (currentCategory) {
 
       products =
@@ -1142,12 +1074,10 @@
 
     }
 
-
     if (currentSearch) {
 
       const search =
         currentSearch.toLowerCase();
-
 
       products =
         products.filter(
@@ -1158,18 +1088,15 @@
                 product.name || ""
               ).toLowerCase();
 
-
             const category =
               String(
                 product.category || ""
               ).toLowerCase();
 
-
             const description =
               String(
                 product.description || ""
               ).toLowerCase();
-
 
             return (
               name.includes(search) ||
@@ -1181,7 +1108,6 @@
         );
 
     }
-
 
     if (
       currentSort === "price-low"
@@ -1195,7 +1121,6 @@
 
     }
 
-
     if (
       currentSort === "price-high"
     ) {
@@ -1208,7 +1133,6 @@
 
     }
 
-
     if (
       currentSort === "rating"
     ) {
@@ -1220,7 +1144,6 @@
       );
 
     }
-
 
     if (
       currentSort === "name"
@@ -1239,7 +1162,6 @@
 
     }
 
-
     return products;
 
   }
@@ -1252,10 +1174,8 @@
         "productsGrid"
       );
 
-
     const products =
       getFilteredProducts();
-
 
     if (!products.length) {
 
@@ -1269,7 +1189,6 @@
 
     }
 
-
     grid.innerHTML =
       products
         .map(product => {
@@ -1279,12 +1198,10 @@
               product.rating || 0
             );
 
-
           const reviews =
             Number(
               product.review_count || 0
             );
-
 
           const roundedRating =
             Math.max(
@@ -1295,7 +1212,6 @@
               )
             );
 
-
           const stars =
             "★".repeat(
               roundedRating
@@ -1304,11 +1220,9 @@
               5 - roundedRating
             );
 
-
           const image =
             product.image_url ||
             "https://via.placeholder.com/400x300?text=Meteur+Mobile";
-
 
           return `
 
@@ -1408,7 +1322,6 @@
           const category =
             this.dataset.category || "";
 
-
           if (category) {
 
             window.location.href =
@@ -1435,13 +1348,11 @@
 
         event.preventDefault();
 
-
         const search =
           document
             .getElementById("searchInput")
             .value
             .trim();
-
 
         if (search) {
 
@@ -1493,7 +1404,6 @@
 
     let cart = [];
 
-
     try {
 
       cart =
@@ -1509,11 +1419,9 @@
 
     }
 
-
     if (!Array.isArray(cart)) {
       cart = [];
     }
-
 
     const total =
       cart.reduce(
@@ -1525,12 +1433,10 @@
         0
       );
 
-
     const count =
       document.getElementById(
         "cartCount"
       );
-
 
     if (total > 0) {
 
@@ -1549,8 +1455,6 @@
 
   }
 
-
-  /* START */
 
   setActiveNavigation();
 

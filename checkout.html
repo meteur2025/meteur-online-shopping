@@ -319,6 +319,66 @@
     }
 
     /* =========================
+       ADDRESS AUTOCOMPLETE
+    ========================= */
+
+    .autocomplete-wrapper {
+      position: relative;
+    }
+
+    .autocomplete-suggestions {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      background: white;
+      border: 1px solid #e5b8bf;
+      border-radius: 8px;
+      box-shadow: 0 8px 20px rgba(0,0,0,.12);
+      max-height: 240px;
+      overflow-y: auto;
+      z-index: 1000;
+      display: none;
+    }
+
+    .autocomplete-suggestions.show {
+      display: block;
+    }
+
+    .autocomplete-item {
+      padding: 12px 14px;
+      cursor: pointer;
+      border-bottom: 1px solid #f3e1e4;
+      font-size: 14px;
+    }
+
+    .autocomplete-item:last-child {
+      border-bottom: none;
+    }
+
+    .autocomplete-item:hover,
+    .autocomplete-item.active {
+      background: #fff0f2;
+      color: #d90429;
+    }
+
+    .autocomplete-main {
+      font-weight: 700;
+    }
+
+    .autocomplete-secondary {
+      color: #61718a;
+      font-size: 12px;
+      margin-top: 3px;
+    }
+
+    .autocomplete-help {
+      color: #61718a;
+      font-size: 12px;
+      margin-top: 6px;
+    }
+
+    /* =========================
        PAYMENT
     ========================= */
 
@@ -371,6 +431,36 @@
     }
 
     /* =========================
+       MONEY DISPLAY
+    ========================= */
+
+    .kes-equivalent {
+      color: #61718a;
+      font-size: 12px;
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+
+    .kes-equivalent strong {
+      color: #146c32;
+    }
+
+    .rate-note {
+      background: #f8fafc;
+      border: 1px solid #e4e8ee;
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-top: 15px;
+      color: #61718a;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .rate-note strong {
+      color: #172033;
+    }
+
+    /* =========================
        ORDER SUMMARY
     ========================= */
 
@@ -420,6 +510,7 @@
 
     .summary-row strong {
       color: #172033;
+      text-align: right;
     }
 
     .summary-row.total {
@@ -433,6 +524,22 @@
 
     .summary-row.total strong {
       color: #d90429;
+    }
+
+    .summary-kes {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: #61718a;
+      margin-top: 4px;
+    }
+
+    .summary-total-kes {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: #146c32;
+      margin-top: 4px;
     }
 
     /* =========================
@@ -893,6 +1000,10 @@
 
   <script>
 
+    /* =========================
+       SUPABASE
+    ========================= */
+
     const SUPABASE_URL =
       "https://nytsdeupaootukcullgi.supabase.co";
 
@@ -905,7 +1016,33 @@
         SUPABASE_KEY
       );
 
-    const DELIVERY_FEE = 250;
+
+    /* =========================
+       STORE SETTINGS
+    ========================= */
+
+    /*
+      Store currency:
+      USD
+
+      Approximate USD -> KES rate.
+      This is refreshed from a public exchange-rate
+      service when possible, with this value as fallback.
+
+      Current reference is approximately:
+      $1 = KSh 129.7
+    */
+
+    const FALLBACK_USD_TO_KES = 129.7;
+
+    let usdToKesRate =
+      FALLBACK_USD_TO_KES;
+
+    /*
+      Delivery fee is $2.50.
+    */
+
+    const DELIVERY_FEE = 2.50;
 
     let currentUser = null;
 
@@ -914,6 +1051,716 @@
     let subtotal = 0;
 
     let total = 0;
+
+
+    /* =========================
+       KENYAN LOCATIONS
+    ========================= */
+
+    const kenyaLocations = [
+
+      /* Major cities and towns */
+
+      {
+        name: "Nairobi",
+        county: "Nairobi County",
+        type: "City"
+      },
+
+      {
+        name: "Nakuru",
+        county: "Nakuru County",
+        type: "City"
+      },
+
+      {
+        name: "Mombasa",
+        county: "Mombasa County",
+        type: "City"
+      },
+
+      {
+        name: "Kisumu",
+        county: "Kisumu County",
+        type: "City"
+      },
+
+      {
+        name: "Eldoret",
+        county: "Uasin Gishu County",
+        type: "Town"
+      },
+
+      {
+        name: "Thika",
+        county: "Kiambu County",
+        type: "Town"
+      },
+
+      {
+        name: "Naivasha",
+        county: "Nakuru County",
+        type: "Town"
+      },
+
+      {
+        name: "Nanyuki",
+        county: "Laikipia County",
+        type: "Town"
+      },
+
+      {
+        name: "Narok",
+        county: "Narok County",
+        type: "Town"
+      },
+
+      {
+        name: "Nyeri",
+        county: "Nyeri County",
+        type: "Town"
+      },
+
+      {
+        name: "Nyahururu",
+        county: "Laikipia County",
+        type: "Town"
+      },
+
+      {
+        name: "Machakos",
+        county: "Machakos County",
+        type: "Town"
+      },
+
+      {
+        name: "Kitui",
+        county: "Kitui County",
+        type: "Town"
+      },
+
+      {
+        name: "Meru",
+        county: "Meru County",
+        type: "Town"
+      },
+
+      {
+        name: "Embu",
+        county: "Embu County",
+        type: "Town"
+      },
+
+      {
+        name: "Kerugoya",
+        county: "Kirinyaga County",
+        type: "Town"
+      },
+
+      {
+        name: "Kakamega",
+        county: "Kakamega County",
+        type: "Town"
+      },
+
+      {
+        name: "Kisii",
+        county: "Kisii County",
+        type: "Town"
+      },
+
+      {
+        name: "Bungoma",
+        county: "Bungoma County",
+        type: "Town"
+      },
+
+      {
+        name: "Webuye",
+        county: "Bungoma County",
+        type: "Town"
+      },
+
+      {
+        name: "Kitale",
+        county: "Trans Nzoia County",
+        type: "Town"
+      },
+
+      {
+        name: "Busia",
+        county: "Busia County",
+        type: "Town"
+      },
+
+      {
+        name: "Siaya",
+        county: "Siaya County",
+        type: "Town"
+      },
+
+      {
+        name: "Migori",
+        county: "Migori County",
+        type: "Town"
+      },
+
+      {
+        name: "Homa Bay",
+        county: "Homa Bay County",
+        type: "Town"
+      },
+
+      {
+        name: "Kericho",
+        county: "Kericho County",
+        type: "Town"
+      },
+
+      {
+        name: "Bomet",
+        county: "Bomet County",
+        type: "Town"
+      },
+
+      {
+        name: "Kisumu",
+        county: "Kisumu County",
+        type: "City"
+      },
+
+      {
+        name: "Voi",
+        county: "Taita-Taveta County",
+        type: "Town"
+      },
+
+      {
+        name: "Malindi",
+        county: "Kilifi County",
+        type: "Town"
+      },
+
+      {
+        name: "Kilifi",
+        county: "Kilifi County",
+        type: "Town"
+      },
+
+      {
+        name: "Lamu",
+        county: "Lamu County",
+        type: "Town"
+      },
+
+      {
+        name: "Garissa",
+        county: "Garissa County",
+        type: "Town"
+      },
+
+      {
+        name: "Wajir",
+        county: "Wajir County",
+        type: "Town"
+      },
+
+      {
+        name: "Mandera",
+        county: "Mandera County",
+        type: "Town"
+      },
+
+      {
+        name: "Marsabit",
+        county: "Marsabit County",
+        type: "Town"
+      },
+
+      {
+        name: "Isiolo",
+        county: "Isiolo County",
+        type: "Town"
+      },
+
+      {
+        name: "Moyale",
+        county: "Marsabit County",
+        type: "Town"
+      },
+
+      {
+        name: "Lodwar",
+        county: "Turkana County",
+        type: "Town"
+      },
+
+      {
+        name: "Kapenguria",
+        county: "West Pokot County",
+        type: "Town"
+      },
+
+      {
+        name: "Kapsabet",
+        county: "Nandi County",
+        type: "Town"
+      },
+
+      {
+        name: "Bomet",
+        county: "Bomet County",
+        type: "Town"
+      },
+
+      {
+        name: "Murang'a",
+        county: "Murang'a County",
+        type: "Town"
+      },
+
+      {
+        name: "Kiambu",
+        county: "Kiambu County",
+        type: "Town"
+      },
+
+      {
+        name: "Limuru",
+        county: "Kiambu County",
+        type: "Town"
+      },
+
+      {
+        name: "Ruiru",
+        county: "Kiambu County",
+        type: "Town"
+      },
+
+      {
+        name: "Kikuyu",
+        county: "Kiambu County",
+        type: "Town"
+      },
+
+      {
+        name: "Githurai",
+        county: "Kiambu County",
+        type: "Town"
+      },
+
+      {
+        name: "Juja",
+        county: "Kiambu County",
+        type: "Town"
+      },
+
+      {
+        name: "Athi River",
+        county: "Machakos County",
+        type: "Town"
+      },
+
+      {
+        name: "Kitengela",
+        county: "Kajiado County",
+        type: "Town"
+      },
+
+      {
+        name: "Ngong",
+        county: "Kajiado County",
+        type: "Town"
+      },
+
+      {
+        name: "Kajiado",
+        county: "Kajiado County",
+        type: "Town"
+      },
+
+      /* Nairobi areas */
+
+      {
+        name: "Nairobi CBD",
+        county: "Nairobi County",
+        type: "Nairobi Area"
+      },
+
+      {
+        name: "Westlands",
+        county: "Nairobi County",
+        type: "Nairobi Area"
+      },
+
+      {
+        name: "Kilimani",
+        county: "Nairobi County",
+        type: "Nairobi Area"
+      },
+
+      {
+        name: "Lavington",
+        county: "Nairobi County",
+        type: "Nairobi Area"
+      },
+
+      {
+        name: "Kileleshwa",
+        county: "Nairobi County",
+        type: "Nairobi Area"
+      },
+
+      {
+        name: "Karen",
+        county: "Nairobi County",
+        type: "Nairobi Area"
+      },
+
+      {
+        name: "Lang'ata",
+        county: "Nairobi County",
+        type: "Nairobi Area"
+      },
+
+      {
+        name: "South B",
+        county: "Nairobi County",
+        type: "Nairobi Area"
+      },
+
+      {
+        name: "South C",
+        county: "Nairobi County",
+        type: "Nairobi Area"
+      },
+
+      {
+        name: "Eastleigh",
+        county: "Nairobi County",
+        type: "Nairobi Area"
+      },
+
+      {
+        name: "Kasarani",
+        county: "Nairobi County",
+        type: "Nairobi Area"
+      },
+
+      {
+        name: "Embakasi",
+        county: "Nairobi County",
+        type: "Nairobi Area"
+      },
+
+      {
+        name: "Donholm",
+        county: "Nairobi County",
+        type: "Nairobi Area"
+      },
+
+      {
+        name: "Umoja",
+        county: "Nairobi County",
+        type: "Nairobi Area"
+      },
+
+      {
+        name: "Buruburu",
+        county: "Nairobi County",
+        type: "Nairobi Area"
+      },
+
+      {
+        name: "Roysambu",
+        county: "Nairobi County",
+        type: "Nairobi Area"
+      },
+
+      {
+        name: "Ruaka",
+        county: "Kiambu County",
+        type: "Town"
+      },
+
+      {
+        name: "Rongai",
+        county: "Kajiado County",
+        type: "Town"
+      },
+
+      {
+        name: "Dagoretti",
+        county: "Nairobi County",
+        type: "Nairobi Area"
+      },
+
+      {
+        name: "Kangemi",
+        county: "Nairobi County",
+        type: "Nairobi Area"
+      },
+
+      {
+        name: "Kawangware",
+        county: "Nairobi County",
+        type: "Nairobi Area"
+      },
+
+      {
+        name: "Gikambura",
+        county: "Kiambu County",
+        type: "Town"
+      },
+
+      /* Common Kenyan locations */
+
+      {
+        name: "Bungoma Town",
+        county: "Bungoma County",
+        type: "Town"
+      },
+
+      {
+        name: "Kimilili",
+        county: "Bungoma County",
+        type: "Town"
+      },
+
+      {
+        name: "Chwele",
+        county: "Bungoma County",
+        type: "Town"
+      },
+
+      {
+        name: "Malakisi",
+        county: "Bungoma County",
+        type: "Town"
+      },
+
+      {
+        name: "Sirisia",
+        county: "Bungoma County",
+        type: "Town"
+      },
+
+      {
+        name: "Mumias",
+        county: "Kakamega County",
+        type: "Town"
+      },
+
+      {
+        name: "Busia Town",
+        county: "Busia County",
+        type: "Town"
+      },
+
+      {
+        name: "Mumias",
+        county: "Kakamega County",
+        type: "Town"
+      },
+
+      {
+        name: "Kisii Town",
+        county: "Kisii County",
+        type: "Town"
+      },
+
+      {
+        name: "Ongata Rongai",
+        county: "Kajiado County",
+        type: "Town"
+      },
+
+      {
+        name: "Kiserian",
+        county: "Kajiado County",
+        type: "Town"
+      },
+
+      {
+        name: "Mlolongo",
+        county: "Machakos County",
+        type: "Town"
+      },
+
+      {
+        name: "Syokimau",
+        county: "Machakos County",
+        type: "Town"
+      },
+
+      {
+        name: "Ruai",
+        county: "Nairobi County",
+        type: "Nairobi Area"
+      }
+
+    ];
+
+
+    /* =========================
+       COUNTY LIST
+    ========================= */
+
+    const kenyaCounties = [
+
+      "Baringo County",
+      "Bomet County",
+      "Bungoma County",
+      "Busia County",
+      "Elgeyo-Marakwet County",
+      "Embu County",
+      "Garissa County",
+      "Homa Bay County",
+      "Isiolo County",
+      "Kajiado County",
+      "Kakamega County",
+      "Kericho County",
+      "Kiambu County",
+      "Kilifi County",
+      "Kirinyaga County",
+      "Kisii County",
+      "Kisumu County",
+      "Kitui County",
+      "Kwale County",
+      "Laikipia County",
+      "Lamu County",
+      "Machakos County",
+      "Makueni County",
+      "Mandera County",
+      "Marsabit County",
+      "Meru County",
+      "Migori County",
+      "Mombasa County",
+      "Murang'a County",
+      "Nairobi County",
+      "Nakuru County",
+      "Nandi County",
+      "Narok County",
+      "Nyamira County",
+      "Nyandarua County",
+      "Nyeri County",
+      "Samburu County",
+      "Siaya County",
+      "Taita-Taveta County",
+      "Tana River County",
+      "Tharaka-Nithi County",
+      "Trans Nzoia County",
+      "Turkana County",
+      "Uasin Gishu County",
+      "Vihiga County",
+      "Wajir County",
+      "West Pokot County"
+    ];
+
+
+    /* =========================
+       CURRENCY
+    ========================= */
+
+    async function loadExchangeRate() {
+
+      try {
+
+        const response =
+          await fetch(
+            "https://open.er-api.com/v6/latest/USD",
+            {
+              cache: "no-store"
+            }
+          );
+
+        if (!response.ok) {
+          throw new Error(
+            "Exchange rate request failed"
+          );
+        }
+
+        const data =
+          await response.json();
+
+        const rate =
+          Number(
+            data?.rates?.KES
+          );
+
+        if (
+          Number.isFinite(rate) &&
+          rate > 0
+        ) {
+
+          usdToKesRate = rate;
+
+        }
+
+      } catch (error) {
+
+        console.warn(
+          "Using fallback USD/KES rate:",
+          error
+        );
+
+        usdToKesRate =
+          FALLBACK_USD_TO_KES;
+
+      }
+
+    }
+
+
+    function usdToKes(amount) {
+
+      return Number(amount || 0) *
+        usdToKesRate;
+
+    }
+
+
+    function formatUSD(value) {
+
+      return "$" +
+        Number(value || 0)
+          .toLocaleString(
+            "en-US",
+            {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2
+            }
+          );
+
+    }
+
+
+    function formatKES(value) {
+
+      return "KSh " +
+        Number(value || 0)
+          .toLocaleString(
+            "en-KE",
+            {
+              maximumFractionDigits: 0
+            }
+          );
+
+    }
+
+
+    function getKesEquivalent(value) {
+
+      return formatKES(
+        usdToKes(value)
+      );
+
+    }
+
+
+    /* =========================
+       NAVIGATION
+    ========================= */
 
     function setActiveNavigation() {
 
@@ -969,6 +1816,11 @@
 
     }
 
+
+    /* =========================
+       USER AUTHENTICATION
+    ========================= */
+
     async function checkUser() {
 
       const {
@@ -1017,6 +1869,7 @@
       return true;
 
     }
+
 
     async function verifyCurrentUserBeforeOrder() {
 
@@ -1067,12 +1920,19 @@
 
     }
 
+
+    /* =========================
+       CART
+    ========================= */
+
     function getCart() {
 
       try {
 
         return JSON.parse(
-          localStorage.getItem("meteur_cart") || "[]"
+          localStorage.getItem(
+            "meteur_cart"
+          ) || "[]"
         );
 
       } catch (error) {
@@ -1083,6 +1943,7 @@
 
     }
 
+
     function saveCart() {
 
       localStorage.setItem(
@@ -1092,13 +1953,16 @@
 
     }
 
+
     function updateCartCount() {
 
       const count =
         cart.reduce(
           (sum, item) =>
             sum +
-            Number(item.quantity || 0),
+            Number(
+              item.quantity || 0
+            ),
           0
         );
 
@@ -1108,10 +1972,16 @@
         );
 
       if (element) {
-        element.textContent = count;
+        element.textContent =
+          count;
       }
 
     }
+
+
+    /* =========================
+       CHECKOUT
+    ========================= */
 
     async function loadCheckout() {
 
@@ -1136,8 +2006,10 @@
           "checkoutContainer"
         ).innerHTML = `
 
-          <div class="checkout-card"
-               style="text-align:center;">
+          <div
+            class="checkout-card"
+            style="text-align:center;"
+          >
 
             <h2>
               Your cart is empty
@@ -1178,7 +2050,12 @@
 
       await loadCustomerInformation();
 
+      initializeAutocomplete();
+
+      updateCurrencyDisplay();
+
     }
+
 
     function calculateTotals() {
 
@@ -1186,8 +2063,12 @@
         cart.reduce(
           (sum, item) =>
             sum +
-            Number(item.price || 0) *
-            Number(item.quantity || 0),
+            Number(
+              item.price || 0
+            ) *
+            Number(
+              item.quantity || 0
+            ),
           0
         );
 
@@ -1196,6 +2077,11 @@
         DELIVERY_FEE;
 
     }
+
+
+    /* =========================
+       CUSTOMER INFORMATION
+    ========================= */
 
     async function loadCustomerInformation() {
 
@@ -1218,7 +2104,9 @@
       if (fullName) {
 
         const parts =
-          fullName.trim().split(/\s+/);
+          fullName
+            .trim()
+            .split(/\s+/);
 
         firstName =
           parts.shift() || "";
@@ -1249,18 +2137,24 @@
         );
 
       if (firstNameInput) {
+
         firstNameInput.value =
           firstName;
+
       }
 
       if (lastNameInput) {
+
         lastNameInput.value =
           lastName;
+
       }
 
       if (emailInput) {
+
         emailInput.value =
           currentUser.email || "";
+
       }
 
       if (phoneInput) {
@@ -1272,6 +2166,11 @@
 
     }
 
+
+    /* =========================
+       RENDER CHECKOUT
+    ========================= */
+
     function renderCheckout() {
 
       const container =
@@ -1280,65 +2179,78 @@
         );
 
       const itemsHtml =
-        cart.map(item => {
+        cart
+          .map(item => {
 
-          const image =
-            item.image_url || "";
+            const image =
+              item.image_url || "";
 
-          const itemTotal =
-            Number(item.price || 0) *
-            Number(item.quantity || 0);
+            const itemTotal =
+              Number(
+                item.price || 0
+              ) *
+              Number(
+                item.quantity || 0
+              );
 
-          return `
+            return `
 
-            <div class="summary-item">
+              <div class="summary-item">
 
-              ${
-                image
-                  ? `
-                    <img
-                      src="${escapeAttribute(image)}"
-                      alt="${escapeAttribute(item.name)}"
-                    >
-                  `
-                  : `
-                    <div
-                      style="
-                        width:70px;
-                        height:70px;
-                        background:#fff5f6;
-                        border-radius:7px;
-                        display:flex;
-                        align-items:center;
-                        justify-content:center;
-                      "
-                    >
-                      📦
-                    </div>
-                  `
-              }
+                ${
+                  image
+                    ? `
+                      <img
+                        src="${escapeAttribute(image)}"
+                        alt="${escapeAttribute(item.name)}"
+                      >
+                    `
+                    : `
+                      <div
+                        style="
+                          width:70px;
+                          height:70px;
+                          background:#fff5f6;
+                          border-radius:7px;
+                          display:flex;
+                          align-items:center;
+                          justify-content:center;
+                        "
+                      >
+                        📦
+                      </div>
+                    `
+                }
 
-              <div>
+                <div>
 
-                <div class="summary-item-name">
-                  ${escapeHtml(item.name)}
+                  <div class="summary-item-name">
+                    ${escapeHtml(item.name)}
+                  </div>
+
+                  <div class="summary-item-qty">
+                    Qty: ${Number(item.quantity || 0)}
+                  </div>
+
                 </div>
 
-                <div class="summary-item-qty">
-                  Qty: ${Number(item.quantity || 0)}
+                <div class="summary-item-price">
+
+                  ${formatUSD(itemTotal)}
+
+                  <div class="kes-equivalent">
+                    ≈ ${getKesEquivalent(itemTotal)}
+                  </div>
+
                 </div>
 
               </div>
 
-              <div class="summary-item-price">
-                KSh ${formatNumber(itemTotal)}
-              </div>
+            `;
 
-            </div>
+          })
+          .join("");
 
-          `;
-
-        }).join("");
 
       container.innerHTML = `
 
@@ -1367,6 +2279,7 @@
 
               </div>
 
+
               <div class="form-group">
 
                 <label for="lastName">
@@ -1382,6 +2295,7 @@
 
               </div>
 
+
               <div class="form-group">
 
                 <label for="email">
@@ -1396,6 +2310,7 @@
                 >
 
               </div>
+
 
               <div class="form-group">
 
@@ -1413,20 +2328,40 @@
 
               </div>
 
+
+              <!-- COUNTY AUTOCOMPLETE -->
+
               <div class="form-group">
 
                 <label for="county">
                   County *
                 </label>
 
-                <input
-                  id="county"
-                  type="text"
-                  required
-                  placeholder="e.g. Nairobi"
-                >
+                <div class="autocomplete-wrapper">
+
+                  <input
+                    id="county"
+                    type="text"
+                    required
+                    placeholder="Start typing e.g. Na..."
+                    autocomplete="off"
+                  >
+
+                  <div
+                    id="countySuggestions"
+                    class="autocomplete-suggestions"
+                  ></div>
+
+                </div>
+
+                <div class="autocomplete-help">
+                  Start typing to see Kenyan county suggestions.
+                </div>
 
               </div>
+
+
+              <!-- TOWN AUTOCOMPLETE -->
 
               <div class="form-group">
 
@@ -1434,14 +2369,31 @@
                   Town / City *
                 </label>
 
-                <input
-                  id="town"
-                  type="text"
-                  required
-                  placeholder="e.g. Nairobi"
-                >
+                <div class="autocomplete-wrapper">
+
+                  <input
+                    id="town"
+                    type="text"
+                    required
+                    placeholder="Start typing e.g. Na..."
+                    autocomplete="off"
+                  >
+
+                  <div
+                    id="townSuggestions"
+                    class="autocomplete-suggestions"
+                  ></div>
+
+                </div>
+
+                <div class="autocomplete-help">
+                  Kenyan towns and cities will appear as you type.
+                </div>
 
               </div>
+
+
+              <!-- ADDRESS AUTOCOMPLETE -->
 
               <div class="form-group full">
 
@@ -1449,13 +2401,29 @@
                   Delivery Address *
                 </label>
 
-                <textarea
-                  id="address"
-                  required
-                  placeholder="Enter your full delivery address"
-                ></textarea>
+                <div class="autocomplete-wrapper">
+
+                  <textarea
+                    id="address"
+                    required
+                    placeholder="Start typing your delivery area, street, building or landmark..."
+                    autocomplete="street-address"
+                  ></textarea>
+
+                  <div
+                    id="addressSuggestions"
+                    class="autocomplete-suggestions"
+                  ></div>
+
+                </div>
+
+                <div class="autocomplete-help">
+                  Type a few letters to see common Kenyan location suggestions.
+                  You can also enter the complete address manually.
+                </div>
 
               </div>
+
 
               <div class="form-group full">
 
@@ -1472,9 +2440,11 @@
 
             </div>
 
+
             <h2 style="margin-top:10px;">
               Payment Method
             </h2>
+
 
             <div class="payment-options">
 
@@ -1502,6 +2472,7 @@
 
               </label>
 
+
               <label class="payment-option">
 
                 <input
@@ -1527,6 +2498,7 @@
 
             </div>
 
+
             <div
               id="mpesaFields"
               class="mpesa-fields show"
@@ -1547,24 +2519,59 @@
                 font-size:13px;
                 margin-top:8px;
               ">
-                You will receive an M-Pesa payment prompt after placing the order.
+                Your M-Pesa payment prompt will use the Kenyan Shilling equivalent of your USD order total.
               </p>
 
             </div>
+
+
+            <div class="rate-note">
+
+              <strong>Currency conversion:</strong>
+
+              Your store prices are in USD.
+
+              The Kenyan Shilling amount shown is an approximate
+              equivalent used to help Kenyan customers understand
+              the price and for M-Pesa payment processing.
+
+              <br><br>
+
+              <strong>
+                Current reference:
+              </strong>
+
+              $1 ≈ ${formatKES(usdToKesRate)}
+
+            </div>
+
 
             <button
               id="placeOrderButton"
               class="place-order"
               onclick="placeOrder()"
             >
-              Confirm Order — KSh ${formatNumber(total)}
+              Confirm Order — ${formatUSD(total)}
+              <br>
+              <span
+                id="placeOrderKes"
+                style="
+                  font-size:13px;
+                  font-weight:700;
+                  opacity:.9;
+                "
+              >
+                ≈ ${getKesEquivalent(total)}
+              </span>
             </button>
+
 
             <div class="secure-note">
               🔒 Secure checkout • Your information is protected
             </div>
 
           </section>
+
 
           <aside class="summary-card">
 
@@ -1574,6 +2581,7 @@
 
             ${itemsHtml}
 
+
             <div class="summary-row">
 
               <span>
@@ -1581,10 +2589,17 @@
               </span>
 
               <strong>
-                KSh ${formatNumber(subtotal)}
+
+                ${formatUSD(subtotal)}
+
+                <span class="summary-kes">
+                  ≈ ${getKesEquivalent(subtotal)}
+                </span>
+
               </strong>
 
             </div>
+
 
             <div class="summary-row">
 
@@ -1593,10 +2608,17 @@
               </span>
 
               <strong>
-                KSh ${formatNumber(DELIVERY_FEE)}
+
+                ${formatUSD(DELIVERY_FEE)}
+
+                <span class="summary-kes">
+                  ≈ ${getKesEquivalent(DELIVERY_FEE)}
+                </span>
+
               </strong>
 
             </div>
+
 
             <div class="summary-row total">
 
@@ -1605,7 +2627,13 @@
               </span>
 
               <strong>
-                KSh ${formatNumber(total)}
+
+                ${formatUSD(total)}
+
+                <span class="summary-total-kes">
+                  ≈ ${getKesEquivalent(total)}
+                </span>
+
               </strong>
 
             </div>
@@ -1617,6 +2645,565 @@
       `;
 
     }
+
+
+    /* =========================
+       UPDATE CURRENCY DISPLAY
+    ========================= */
+
+    function updateCurrencyDisplay() {
+
+      const button =
+        document.getElementById(
+          "placeOrderButton"
+        );
+
+      const kesElement =
+        document.getElementById(
+          "placeOrderKes"
+        );
+
+      if (button) {
+
+        button.childNodes[0].textContent =
+          `Confirm Order — ${formatUSD(total)}`;
+
+      }
+
+      if (kesElement) {
+
+        kesElement.textContent =
+          `≈ ${getKesEquivalent(total)}`;
+
+      }
+
+      const rateNotes =
+        document.querySelectorAll(
+          ".rate-note"
+        );
+
+      rateNotes.forEach(note => {
+
+        note.innerHTML = `
+
+          <strong>Currency conversion:</strong>
+
+          Your store prices are in USD.
+
+          The Kenyan Shilling amount shown is an approximate
+          equivalent used to help Kenyan customers understand
+          the price and for M-Pesa payment processing.
+
+          <br><br>
+
+          <strong>
+            Current reference:
+          </strong>
+
+          $1 ≈ ${formatKES(usdToKesRate)}
+
+        `;
+
+      });
+
+    }
+
+
+    /* =========================
+       ADDRESS AUTOCOMPLETE
+    ========================= */
+
+    function initializeAutocomplete() {
+
+      setupLocationAutocomplete(
+        "county",
+        "countySuggestions",
+        "county"
+      );
+
+      setupLocationAutocomplete(
+        "town",
+        "townSuggestions",
+        "town"
+      );
+
+      setupAddressAutocomplete();
+
+      document.addEventListener(
+        "click",
+        function(event) {
+
+          if (
+            !event.target.closest(
+              ".autocomplete-wrapper"
+            )
+          ) {
+
+            closeAllSuggestions();
+
+          }
+
+        }
+      );
+
+    }
+
+
+    function setupLocationAutocomplete(
+      inputId,
+      suggestionsId,
+      type
+    ) {
+
+      const input =
+        document.getElementById(
+          inputId
+        );
+
+      const suggestions =
+        document.getElementById(
+          suggestionsId
+        );
+
+      if (
+        !input ||
+        !suggestions
+      ) {
+        return;
+      }
+
+      input.addEventListener(
+        "input",
+        function() {
+
+          const query =
+            input.value
+              .trim()
+              .toLowerCase();
+
+          if (query.length === 0) {
+
+            suggestions.innerHTML = "";
+
+            suggestions.classList.remove(
+              "show"
+            );
+
+            return;
+
+          }
+
+          let results = [];
+
+          if (type === "county") {
+
+            results =
+              kenyaCounties
+                .filter(county =>
+                  county
+                    .toLowerCase()
+                    .startsWith(query)
+                )
+                .slice(0, 8);
+
+            renderCountySuggestions(
+              input,
+              suggestions,
+              results
+            );
+
+          } else {
+
+            results =
+              kenyaLocations
+                .filter(location =>
+                  location.name
+                    .toLowerCase()
+                    .startsWith(query)
+                )
+                .slice(0, 8);
+
+            renderTownSuggestions(
+              input,
+              suggestions,
+              results
+            );
+
+          }
+
+        }
+      );
+
+
+      input.addEventListener(
+        "keydown",
+        function(event) {
+
+          if (
+            event.key === "Escape"
+          ) {
+
+            suggestions.classList.remove(
+              "show"
+            );
+
+          }
+
+        }
+      );
+
+    }
+
+
+    function renderCountySuggestions(
+      input,
+      suggestions,
+      results
+    ) {
+
+      if (!results.length) {
+
+        suggestions.innerHTML = "";
+
+        suggestions.classList.remove(
+          "show"
+        );
+
+        return;
+
+      }
+
+      suggestions.innerHTML =
+        results
+          .map(county => `
+
+            <div
+              class="autocomplete-item"
+              data-value="${escapeAttribute(county)}"
+            >
+
+              <div class="autocomplete-main">
+                ${escapeHtml(county)}
+              </div>
+
+              <div class="autocomplete-secondary">
+                Kenyan County
+              </div>
+
+            </div>
+
+          `)
+          .join("");
+
+
+      suggestions
+        .querySelectorAll(
+          ".autocomplete-item"
+        )
+        .forEach(item => {
+
+          item.addEventListener(
+            "click",
+            function() {
+
+              input.value =
+                this.dataset.value;
+
+              suggestions.classList.remove(
+                "show"
+              );
+
+            }
+          );
+
+        });
+
+
+      suggestions.classList.add(
+        "show"
+      );
+
+    }
+
+
+    function renderTownSuggestions(
+      input,
+      suggestions,
+      results
+    ) {
+
+      if (!results.length) {
+
+        suggestions.innerHTML = "";
+
+        suggestions.classList.remove(
+          "show"
+        );
+
+        return;
+
+      }
+
+      suggestions.innerHTML =
+        results
+          .map(location => `
+
+            <div
+              class="autocomplete-item"
+              data-name="${escapeAttribute(location.name)}"
+              data-county="${escapeAttribute(location.county)}"
+            >
+
+              <div class="autocomplete-main">
+                ${escapeHtml(location.name)}
+              </div>
+
+              <div class="autocomplete-secondary">
+                ${escapeHtml(location.county)}
+                •
+                ${escapeHtml(location.type)}
+              </div>
+
+            </div>
+
+          `)
+          .join("");
+
+
+      suggestions
+        .querySelectorAll(
+          ".autocomplete-item"
+        )
+        .forEach(item => {
+
+          item.addEventListener(
+            "click",
+            function() {
+
+              input.value =
+                this.dataset.name;
+
+              const countyInput =
+                document.getElementById(
+                  "county"
+                );
+
+              if (
+                countyInput &&
+                !countyInput.value.trim()
+              ) {
+
+                countyInput.value =
+                  this.dataset.county;
+
+              }
+
+              suggestions.classList.remove(
+                "show"
+              );
+
+            }
+          );
+
+        });
+
+
+      suggestions.classList.add(
+        "show"
+      );
+
+    }
+
+
+    function setupAddressAutocomplete() {
+
+      const input =
+        document.getElementById(
+          "address"
+        );
+
+      const suggestions =
+        document.getElementById(
+          "addressSuggestions"
+        );
+
+      if (
+        !input ||
+        !suggestions
+      ) {
+        return;
+      }
+
+      input.addEventListener(
+        "input",
+        function() {
+
+          const query =
+            input.value
+              .trim()
+              .toLowerCase();
+
+          if (
+            query.length < 2
+          ) {
+
+            suggestions.innerHTML = "";
+
+            suggestions.classList.remove(
+              "show"
+            );
+
+            return;
+
+          }
+
+          const results =
+            kenyaLocations
+              .filter(location => {
+
+                const combined =
+                  (
+                    location.name +
+                    " " +
+                    location.county
+                  ).toLowerCase();
+
+                return combined.includes(
+                  query
+                );
+
+              })
+              .slice(0, 10);
+
+
+          if (!results.length) {
+
+            suggestions.innerHTML = "";
+
+            suggestions.classList.remove(
+              "show"
+            );
+
+            return;
+
+          }
+
+
+          suggestions.innerHTML =
+            results
+              .map(location => `
+
+                <div
+                  class="autocomplete-item"
+                  data-name="${escapeAttribute(location.name)}"
+                  data-county="${escapeAttribute(location.county)}"
+                >
+
+                  <div class="autocomplete-main">
+                    ${escapeHtml(location.name)}
+                  </div>
+
+                  <div class="autocomplete-secondary">
+                    ${escapeHtml(location.county)}
+                    •
+                    ${escapeHtml(location.type)}
+                  </div>
+
+                </div>
+
+              `)
+              .join("");
+
+
+          suggestions
+            .querySelectorAll(
+              ".autocomplete-item"
+            )
+            .forEach(item => {
+
+              item.addEventListener(
+                "click",
+                function() {
+
+                  const name =
+                    this.dataset.name;
+
+                  const county =
+                    this.dataset.county;
+
+                  input.value =
+                    `${name}, ${county}`;
+
+                  const townInput =
+                    document.getElementById(
+                      "town"
+                    );
+
+                  const countyInput =
+                    document.getElementById(
+                      "county"
+                    );
+
+                  if (
+                    townInput &&
+                    !townInput.value.trim()
+                  ) {
+
+                    townInput.value =
+                      name;
+
+                  }
+
+                  if (
+                    countyInput &&
+                    !countyInput.value.trim()
+                  ) {
+
+                    countyInput.value =
+                      county;
+
+                  }
+
+                  suggestions.classList.remove(
+                    "show"
+                  );
+
+                }
+              );
+
+            });
+
+
+          suggestions.classList.add(
+            "show"
+          );
+
+        }
+      );
+
+    }
+
+
+    function closeAllSuggestions() {
+
+      document
+        .querySelectorAll(
+          ".autocomplete-suggestions"
+        )
+        .forEach(element => {
+
+          element.classList.remove(
+            "show"
+          );
+
+        });
+
+    }
+
+
+    /* =========================
+       PAYMENT
+    ========================= */
 
     function toggleMpesa() {
 
@@ -1635,15 +3222,24 @@
         selected.value === "M-Pesa"
       ) {
 
-        fields.classList.add("show");
+        fields.classList.add(
+          "show"
+        );
 
       } else {
 
-        fields.classList.remove("show");
+        fields.classList.remove(
+          "show"
+        );
 
       }
 
     }
+
+
+    /* =========================
+       PLACE ORDER
+    ========================= */
 
     async function placeOrder() {
 
@@ -1654,60 +3250,96 @@
         return;
       }
 
+
       const firstName =
-        document.getElementById(
-          "firstName"
-        ).value.trim();
+        document
+          .getElementById(
+            "firstName"
+          )
+          .value
+          .trim();
+
 
       const lastName =
-        document.getElementById(
-          "lastName"
-        ).value.trim();
+        document
+          .getElementById(
+            "lastName"
+          )
+          .value
+          .trim();
+
 
       const email =
-        document.getElementById(
-          "email"
-        ).value.trim();
+        document
+          .getElementById(
+            "email"
+          )
+          .value
+          .trim();
+
 
       const phone =
-        document.getElementById(
-          "phone"
-        ).value.trim();
+        document
+          .getElementById(
+            "phone"
+          )
+          .value
+          .trim();
+
 
       const county =
-        document.getElementById(
-          "county"
-        ).value.trim();
+        document
+          .getElementById(
+            "county"
+          )
+          .value
+          .trim();
+
 
       const town =
-        document.getElementById(
-          "town"
-        ).value.trim();
+        document
+          .getElementById(
+            "town"
+          )
+          .value
+          .trim();
+
 
       const address =
-        document.getElementById(
-          "address"
-        ).value.trim();
+        document
+          .getElementById(
+            "address"
+          )
+          .value
+          .trim();
+
 
       const deliveryNote =
-        document.getElementById(
-          "deliveryNote"
-        ).value.trim();
+        document
+          .getElementById(
+            "deliveryNote"
+          )
+          .value
+          .trim();
+
 
       const paymentMethod =
         document.querySelector(
           'input[name="paymentMethod"]:checked'
         )?.value;
 
+
       const mpesaPhoneElement =
         document.getElementById(
           "mpesaPhone"
         );
 
+
       const mpesaPhone =
         mpesaPhoneElement
           ? mpesaPhoneElement.value.trim()
           : "";
+
 
       if (
         !firstName ||
@@ -1728,6 +3360,7 @@
 
       }
 
+
       if (!paymentMethod) {
 
         showPageMessage(
@@ -1738,6 +3371,7 @@
         return;
 
       }
+
 
       if (
         paymentMethod === "M-Pesa" &&
@@ -1753,6 +3387,7 @@
 
       }
 
+
       if (
         !cart ||
         cart.length === 0
@@ -1767,37 +3402,67 @@
 
       }
 
+
       const button =
         document.getElementById(
           "placeOrderButton"
         );
+
 
       button.disabled = true;
 
       button.textContent =
         "Creating your order...";
 
+
       calculateTotals();
+
 
       const recipientName =
         `${firstName} ${lastName}`.trim();
 
+
       const orderNumber =
         generateOrderNumber();
 
+
       const items =
         cart.map(item => ({
-          id: item.id,
-          name: item.name,
-          price: Number(item.price || 0),
-          quantity: Number(item.quantity || 0),
-          image_url: item.image_url || ""
+
+          id:
+            item.id,
+
+          name:
+            item.name,
+
+          price:
+            Number(
+              item.price || 0
+            ),
+
+          quantity:
+            Number(
+              item.quantity || 0
+            ),
+
+          image_url:
+            item.image_url || ""
+
         }));
 
-      const {
-        data: order,
-        error: orderError
-      } =
+
+      /*
+        IMPORTANT:
+
+        Order amounts are stored in USD
+        because USD is the store currency.
+
+        M-Pesa receives the KSh equivalent
+        when the payment request is sent.
+      */
+
+
+      const { data: order, error: orderError } =
         await supabaseClient
           .from("orders")
           .insert({
@@ -1815,7 +3480,9 @@
               recipientName,
 
             phone:
-              normalizeKenyanPhone(phone),
+              normalizeKenyanPhone(
+                phone
+              ),
 
             county:
               county,
@@ -1856,6 +3523,7 @@
           .select()
           .single();
 
+
       if (orderError) {
 
         console.error(
@@ -1865,8 +3533,20 @@
 
         button.disabled = false;
 
-        button.textContent =
-          `Confirm Order — KSh ${formatNumber(total)}`;
+        button.innerHTML =
+          `
+            Confirm Order — ${formatUSD(total)}
+            <br>
+            <span
+              style="
+                font-size:13px;
+                font-weight:700;
+                opacity:.9;
+              "
+            >
+              ≈ ${getKesEquivalent(total)}
+            </span>
+          `;
 
         showPageMessage(
           "We could not create your order. Please try again.",
@@ -1877,6 +3557,7 @@
 
       }
 
+
       if (
         paymentMethod === "M-Pesa"
       ) {
@@ -1884,18 +3565,32 @@
         button.textContent =
           "Sending M-Pesa prompt...";
 
+
         const paymentStarted =
           await startMpesaPayment(
             order,
             mpesaPhone
           );
 
+
         if (!paymentStarted) {
 
           button.disabled = false;
 
-          button.textContent =
-            `Confirm Order — KSh ${formatNumber(total)}`;
+          button.innerHTML =
+            `
+              Confirm Order — ${formatUSD(total)}
+              <br>
+              <span
+                style="
+                  font-size:13px;
+                  font-weight:700;
+                  opacity:.9;
+                "
+              >
+                ≈ ${getKesEquivalent(total)}
+              </span>
+            `;
 
           return;
 
@@ -1903,13 +3598,22 @@
 
       }
 
+
       saveCartAfterOrder();
+
 
       window.location.href =
         "order-confirmation.html?order=" +
-        encodeURIComponent(orderNumber);
+        encodeURIComponent(
+          orderNumber
+        );
 
     }
+
+
+    /* =========================
+       M-PESA
+    ========================= */
 
     async function startMpesaPayment(
       order,
@@ -1918,10 +3622,25 @@
 
       try {
 
+        /*
+          M-Pesa amount must be KSh.
+
+          Example:
+          $10 × 129.7 = KSh 1,297
+        */
+
+        const mpesaAmount =
+          Math.round(
+            Number(order.total || 0) *
+            usdToKesRate
+          );
+
+
         const response =
           await fetch(
             "/api/mpesa/stk-push",
             {
+
               method: "POST",
 
               headers: {
@@ -1929,29 +3648,43 @@
                   "application/json"
               },
 
-              body: JSON.stringify({
+              body:
+                JSON.stringify({
 
-                orderId:
-                  order.id,
+                  orderId:
+                    order.id,
 
-                orderNumber:
-                  order.order_number,
+                  orderNumber:
+                    order.order_number,
 
-                amount:
-                  Number(order.total),
+                  amount:
+                    mpesaAmount,
 
-                phone:
-                  normalizeKenyanPhone(
-                    mpesaPhone
-                  )
+                  currency:
+                    "KES",
 
-              })
+                  usdAmount:
+                    Number(
+                      order.total || 0
+                    ),
+
+                  exchangeRate:
+                    usdToKesRate,
+
+                  phone:
+                    normalizeKenyanPhone(
+                      mpesaPhone
+                    )
+
+                })
 
             }
           );
 
+
         const result =
           await response.json();
+
 
         if (!response.ok) {
 
@@ -1969,6 +3702,7 @@
           return false;
 
         }
+
 
         if (
           result.checkoutRequestId
@@ -1993,12 +3727,15 @@
 
         }
 
+
         showPageMessage(
-          "M-Pesa payment prompt sent. Complete the payment on your phone.",
+          `M-Pesa payment prompt sent for approximately ${formatKES(mpesaAmount)}. Complete the payment on your phone.`,
           "success"
         );
 
+
         return true;
+
 
       } catch (error) {
 
@@ -2018,6 +3755,11 @@
 
     }
 
+
+    /* =========================
+       SAVE CART AFTER ORDER
+    ========================= */
+
     function saveCartAfterOrder() {
 
       cart = [];
@@ -2030,42 +3772,75 @@
 
     }
 
+
+    /* =========================
+       ORDER NUMBER
+    ========================= */
+
     function generateOrderNumber() {
 
       const now =
         new Date();
 
+
       const year =
         now.getFullYear();
+
 
       const month =
         String(
           now.getMonth() + 1
-        ).padStart(2, "0");
+        )
+        .padStart(
+          2,
+          "0"
+        );
+
 
       const day =
         String(
           now.getDate()
-        ).padStart(2, "0");
+        )
+        .padStart(
+          2,
+          "0"
+        );
+
 
       const random =
         Math.floor(
           10000 +
-          Math.random() * 90000
+          Math.random() *
+          90000
         );
+
 
       return `MET${year}${month}${day}${random}`;
 
     }
+
+
+    /* =========================
+       PHONE NORMALIZATION
+    ========================= */
 
     function normalizeKenyanPhone(
       phone
     ) {
 
       let value =
-        String(phone || "")
-          .replace(/\s+/g, "")
-          .replace(/-/g, "");
+        String(
+          phone || ""
+        )
+        .replace(
+          /\s+/g,
+          ""
+        )
+        .replace(
+          /-/g,
+          ""
+        );
+
 
       if (
         value.startsWith("+254")
@@ -2093,9 +3868,15 @@
 
       }
 
+
       return value;
 
     }
+
+
+    /* =========================
+       MESSAGES
+    ========================= */
 
     function showPageMessage(
       message,
@@ -2107,15 +3888,19 @@
           "pageMessage"
         );
 
+
       if (!element) {
         return;
       }
 
+
       element.textContent =
         message;
 
+
       element.className =
         `message show ${type}`;
+
 
       window.scrollTo({
         top: 0,
@@ -2124,6 +3909,11 @@
 
     }
 
+
+    /* =========================
+       SEARCH
+    ========================= */
+
     function searchProducts() {
 
       const input =
@@ -2131,59 +3921,109 @@
           "searchInput"
         );
 
+
       const query =
         input.value.trim();
+
 
       if (!query) {
         return;
       }
 
+
       window.location.href =
         "shop.html?search=" +
-        encodeURIComponent(query);
+        encodeURIComponent(
+          query
+        );
 
     }
 
+
     document
-      .getElementById("searchInput")
+      .getElementById(
+        "searchInput"
+      )
       .addEventListener(
         "keydown",
         function(event) {
 
-          if (event.key === "Enter") {
+          if (
+            event.key === "Enter"
+          ) {
+
             searchProducts();
+
           }
 
         }
       );
 
-    function formatNumber(value) {
 
-      return Number(value || 0)
-        .toLocaleString("en-KE");
+    /* =========================
+       HTML HELPERS
+    ========================= */
+
+    function escapeHtml(
+      value
+    ) {
+
+      return String(
+        value || ""
+      )
+      .replace(
+        /&/g,
+        "&amp;"
+      )
+      .replace(
+        /</g,
+        "&lt;"
+      )
+      .replace(
+        />/g,
+        "&gt;"
+      )
+      .replace(
+        /"/g,
+        "&quot;"
+      )
+      .replace(
+        /'/g,
+        "&#039;"
+      );
 
     }
 
-    function escapeHtml(value) {
 
-      return String(value || "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+    function escapeAttribute(
+      value
+    ) {
 
-    }
-
-    function escapeAttribute(value) {
-
-      return escapeHtml(value);
+      return escapeHtml(
+        value
+      );
 
     }
 
-    setActiveNavigation();
 
-    loadCheckout();
+    /* =========================
+       START
+    ========================= */
+
+    async function startCheckoutPage() {
+
+      setActiveNavigation();
+
+      await loadExchangeRate();
+
+      await loadCheckout();
+
+      updateCurrencyDisplay();
+
+    }
+
+
+    startCheckoutPage();
 
   </script>
 

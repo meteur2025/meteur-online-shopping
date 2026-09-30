@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,23 +32,19 @@
       color: inherit;
     }
 
-    /* =========================
-       HEADER
-    ========================= */
-
     header {
       position: sticky;
       top: 0;
       z-index: 1000;
       color: white;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, .12);
+      box-shadow: 0 2px 10px rgba(0,0,0,.12);
       background-image:
         linear-gradient(
           90deg,
-          rgba(0, 0, 0, .68) 0%,
-          rgba(0, 0, 0, .48) 42%,
-          rgba(0, 0, 0, .20) 72%,
-          rgba(0, 0, 0, .08) 100%
+          rgba(0,0,0,.68) 0%,
+          rgba(0,0,0,.48) 42%,
+          rgba(0,0,0,.20) 72%,
+          rgba(0,0,0,.08) 100%
         ),
         url("22.jpeg");
       background-size: cover;
@@ -138,7 +135,24 @@
     }
 
     .header-link:hover {
-      background: rgba(255, 255, 255, .14);
+      background: rgba(255,255,255,.14);
+    }
+
+    .account-email {
+      max-width: 220px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .logout-button {
+      border: 0;
+      cursor: pointer;
+      font-family: inherit;
+      background: rgba(255,255,255,.12);
+    }
+
+    .logout-button:hover {
+      background: rgba(255,255,255,.22);
     }
 
     .cart-link {
@@ -162,12 +176,8 @@
       justify-content: center;
     }
 
-    /* =========================
-       NAVIGATION
-    ========================= */
-
     .nav-bar {
-      background: rgba(155, 0, 31, .94);
+      background: rgba(155,0,31,.94);
       backdrop-filter: blur(4px);
     }
 
@@ -200,11 +210,6 @@
       border-radius: 3px 3px 0 0;
     }
 
-    /* =========================
-       HERO
-       IPHONE 18 BACKGROUND
-    ========================= */
-
     .hero {
       position: relative;
       overflow: hidden;
@@ -217,10 +222,10 @@
       background-image:
         linear-gradient(
           90deg,
-          rgba(0, 0, 0, .72) 0%,
-          rgba(0, 0, 0, .50) 38%,
-          rgba(0, 0, 0, .18) 70%,
-          rgba(0, 0, 0, .08) 100%
+          rgba(0,0,0,.72) 0%,
+          rgba(0,0,0,.50) 38%,
+          rgba(0,0,0,.18) 70%,
+          rgba(0,0,0,.08) 100%
         ),
         url("21.webp");
 
@@ -309,10 +314,6 @@
       background: rgba(0,0,0,.4);
     }
 
-    /* =========================
-       MAIN CONTENT
-    ========================= */
-
     .container {
       max-width: 1250px;
       margin: auto;
@@ -327,7 +328,7 @@
 
     .categories {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(4,1fr);
       gap: 18px;
       margin-bottom: 50px;
     }
@@ -344,7 +345,7 @@
     .category-card:hover {
       transform: translateY(-3px);
       border-color: #d90429;
-      box-shadow: 0 5px 15px rgba(217, 4, 41, .12);
+      box-shadow: 0 5px 15px rgba(217,4,41,.12);
     }
 
     .category-icon {
@@ -363,13 +364,9 @@
       font-size: 13px;
     }
 
-    /* =========================
-       PRODUCTS
-    ========================= */
-
     .products-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(4,1fr);
       gap: 18px;
     }
 
@@ -383,7 +380,7 @@
 
     .product-card:hover {
       transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(217, 4, 41, .12);
+      box-shadow: 0 5px 15px rgba(217,4,41,.12);
     }
 
     .product-image-wrap {
@@ -478,6 +475,13 @@
       margin-top: 8px;
       color: #f59e0b;
       font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .rating-number {
+      color: #6b7280;
+      margin-left: 5px;
+      font-size: 12px;
     }
 
     .price {
@@ -485,6 +489,14 @@
       color: #d90429;
       font-size: 19px;
       font-weight: 800;
+    }
+
+    .price-ks {
+      display: block;
+      color: #6b7280;
+      font-size: 12px;
+      font-weight: 600;
+      margin-top: 3px;
     }
 
     .old-price {
@@ -509,10 +521,6 @@
     .view-product:hover {
       background: #9b001f;
     }
-
-    /* =========================
-       FOOTER
-    ========================= */
 
     footer {
       background: #9b001f;
@@ -555,26 +563,21 @@
     }
 
     .footer-bottom {
-      border-top: 1px solid rgba(255, 255, 255, .15);
+      border-top: 1px solid rgba(255,255,255,.15);
       text-align: center;
       padding: 16px 20px;
       color: #ffd9df;
       font-size: 12px;
     }
 
-    /* =========================
-       TABLET
-    ========================= */
-
-    @media (max-width: 1000px) {
-
+    @media (max-width:1000px) {
       .categories,
       .products-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2,1fr);
       }
 
       .footer-inner {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2,1fr);
       }
 
       .hero {
@@ -588,15 +591,9 @@
       .hero h1 {
         font-size: 44px;
       }
-
     }
 
-    /* =========================
-       MOBILE
-    ========================= */
-
-    @media (max-width: 700px) {
-
+    @media (max-width:700px) {
       .header-top {
         display: flex;
         align-items: center;
@@ -713,7 +710,7 @@
 
       .categories,
       .products-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2,1fr);
         gap: 12px;
       }
 
@@ -752,6 +749,10 @@
         font-size: 16px;
       }
 
+      .price-ks {
+        font-size: 11px;
+      }
+
       .view-product {
         font-size: 12px;
         padding: 9px 5px;
@@ -766,15 +767,9 @@
       .footer-brand h2 {
         font-size: 19px;
       }
-
     }
 
-    /* =========================
-       SMALL PHONES
-    ========================= */
-
-    @media (max-width: 430px) {
-
+    @media (max-width:430px) {
       .header-top {
         padding-left: 10px;
         padding-right: 10px;
@@ -842,246 +837,947 @@
         font-size: 15px;
       }
 
+      .price-ks {
+        font-size: 10px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <header>
+<header>
 
-    <div class="header-top">
+  <div class="header-top">
 
-      <div class="brand-area">
+    <div class="brand-area">
 
-        <a href="index.html" class="logo">
+      <a href="index.html" class="logo">
 
-          <img
-            src="WhatsApp Image 2026-09-30 at 12.36.30.jpeg"
-            alt=""
-            class="real-logo"
-            onerror="this.style.display='none'; this.parentElement.textContent='M';"
-          >
+        <img
+          src="WhatsApp Image 2026-09-30 at 12.36.30.jpeg"
+          alt="METEUR MOBILE KENYA"
+          class="real-logo"
+          onerror="this.style.display='none'; this.parentElement.textContent='M';"
+        >
 
+      </a>
+
+      <span class="brand-text">
+
+        <span class="brand-name">
+          METEUR MOBILE KENYA
+        </span>
+
+        <span class="brand-tagline">
+          SMARTPHONES FOR EVERY BUDGET
+        </span>
+
+      </span>
+
+    </div>
+
+    <div class="header-actions">
+
+      <a
+        href="login.html"
+        id="loginLink"
+        class="header-link"
+      >
+        Login
+      </a>
+
+      <a
+        href="register.html"
+        id="registerLink"
+        class="header-link"
+      >
+        Register
+      </a>
+
+      <a
+        href="profile.html"
+        id="accountEmail"
+        class="header-link account-email"
+        style="display:none;"
+      >
+        Account
+      </a>
+
+      <button
+        type="button"
+        id="logoutButton"
+        class="header-link logout-button"
+        style="display:none;"
+      >
+        Logout
+      </button>
+
+      <a
+        href="cart.html"
+        class="header-link cart-link"
+      >
+        🛒 Cart
+        <span
+          id="cartCount"
+          class="cart-count"
+        >
+          0
+        </span>
+      </a>
+
+    </div>
+
+  </div>
+
+  <nav class="nav-bar">
+
+    <div class="nav-inner">
+
+      <a href="index.html" data-nav="home">
+        Home
+      </a>
+
+      <a href="shop.html" data-nav="shop">
+        Shop
+      </a>
+
+      <a href="shop.html?condition=New" data-nav="new">
+        New Phones
+      </a>
+
+      <a href="shop.html?condition=Used" data-nav="used">
+        Used Phones
+      </a>
+
+      <a href="orders.html" data-nav="orders">
+        My Orders
+      </a>
+
+      <a href="contact.html" data-nav="contact">
+        Contact Us
+      </a>
+
+    </div>
+
+  </nav>
+
+</header>
+
+
+<section class="hero">
+
+  <div class="hero-inner">
+
+    <div class="hero-content">
+
+      <div class="hero-label">
+        METEUR MOBILE KENYA
+      </div>
+
+      <h1>
+        YOUR NEXT PHONE<br>
+        STARTS HERE
+      </h1>
+
+      <p>
+        Discover new and quality used smartphones
+        at prices made for every budget.
+      </p>
+
+      <div class="hero-buttons">
+
+        <a
+          href="shop.html?condition=New"
+          class="hero-button"
+        >
+          Shop New Phones
         </a>
 
-        <span class="brand-text">
+        <a
+          href="shop.html?condition=Used"
+          class="hero-button secondary"
+        >
+          Shop Used Phones
+        </a>
 
-          <span class="brand-name">
-            METEUR MOBILE KENYA
-          </span>
+      </div>
 
-          <span class="brand-tagline">
-            SMARTPHONES FOR EVERY BUDGET
-          </span>
+    </div>
 
+  </div>
+
+</section>
+
+
+<main class="container">
+
+  <h2 class="section-title">
+    Shop by Category
+  </h2>
+
+  <div class="categories">
+
+    <a
+      href="shop.html?condition=New"
+      class="category-card"
+    >
+
+      <div class="category-icon">
+        📱
+      </div>
+
+      <h3>
+        New Phones
+      </h3>
+
+      <p>
+        New smartphone models
+      </p>
+
+    </a>
+
+    <a
+      href="shop.html?condition=Used"
+      class="category-card"
+    >
+
+      <div class="category-icon">
+        ♻️
+      </div>
+
+      <h3>
+        Used Phones
+      </h3>
+
+      <p>
+        Quality pre-owned smartphones
+      </p>
+
+    </a>
+
+    <a
+      href="shop.html"
+      class="category-card"
+    >
+
+      <div class="category-icon">
+        ⭐
+      </div>
+
+      <h3>
+        Featured Phones
+      </h3>
+
+      <p>
+        Browse selected smartphones
+      </p>
+
+    </a>
+
+    <a
+      href="shop.html"
+      class="category-card"
+    >
+
+      <div class="category-icon">
+        🛍️
+      </div>
+
+      <h3>
+        All Phones
+      </h3>
+
+      <p>
+        Browse our smartphone catalogue
+      </p>
+
+    </a>
+
+  </div>
+
+
+  <h2 class="section-title">
+    Featured Phones
+  </h2>
+
+  <div
+    id="productsGrid"
+    class="products-grid"
+  >
+
+    <div
+      style="
+        grid-column:1/-1;
+        text-align:center;
+        padding:40px;
+        color:#6b7280;
+      "
+    >
+      Loading phones...
+    </div>
+
+  </div>
+
+</main>
+
+
+<footer>
+
+  <div class="footer-inner">
+
+    <div class="footer-brand">
+
+      <h2>
+        METEUR MOBILE KENYA
+      </h2>
+
+      <p>
+        Your online destination for smartphones
+        and mobile devices in Kenya.
+      </p>
+
+    </div>
+
+
+    <div class="footer-column">
+
+      <h3>
+        Shop
+      </h3>
+
+      <a href="shop.html">
+        All Phones
+      </a>
+
+      <a href="shop.html?condition=New">
+        New Phones
+      </a>
+
+      <a href="shop.html?condition=Used">
+        Used Phones
+      </a>
+
+    </div>
+
+
+    <div class="footer-column">
+
+      <h3>
+        Account
+      </h3>
+
+      <a
+        href="login.html"
+        id="footerLogin"
+      >
+        Login
+      </a>
+
+      <a
+        href="register.html"
+        id="footerRegister"
+      >
+        Register
+      </a>
+
+      <a href="profile.html">
+        My Profile
+      </a>
+
+      <a href="orders.html">
+        My Orders
+      </a>
+
+    </div>
+
+
+    <div class="footer-column">
+
+      <h3>
+        Help
+      </h3>
+
+      <a href="contact.html">
+        Contact Us
+      </a>
+
+      <a href="track-order.html">
+        Track Order
+      </a>
+
+    </div>
+
+  </div>
+
+
+  <div class="footer-bottom">
+
+    © 2026 METEUR MOBILE KENYA. All rights reserved.
+
+  </div>
+
+</footer>
+
+
+<script>
+
+  const SUPABASE_URL =
+    "https://nytsdeupaootukcullgi.supabase.co";
+
+  const SUPABASE_ANON_KEY =
+    "sb_publishable_cIqzHoafy_AEdB48KS_Wpg_LDqE1sFC";
+
+  const supabaseClient =
+    window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_ANON_KEY
+    );
+
+
+  const FALLBACK_USD_KES =
+    129.7;
+
+  let usdKesRate =
+    FALLBACK_USD_KES;
+
+
+  function formatUSD(value) {
+
+    const amount =
+      Number(value || 0);
+
+    return "$" +
+      amount.toLocaleString(
+        "en-US",
+        {
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 2
+        }
+      );
+
+  }
+
+
+  function formatKES(value) {
+
+    const amount =
+      Number(value || 0);
+
+    return "KSh " +
+      Math.round(amount).toLocaleString(
+        "en-KE"
+      );
+
+  }
+
+
+  async function loadExchangeRate() {
+
+    try {
+
+      const response =
+        await fetch(
+          "https://open.er-api.com/v6/latest/USD",
+          {
+            cache: "no-store"
+          }
+        );
+
+      if (!response.ok) {
+        throw new Error(
+          "Exchange rate request failed"
+        );
+      }
+
+      const result =
+        await response.json();
+
+      const rate =
+        Number(
+          result?.rates?.KES
+        );
+
+      if (
+        Number.isFinite(rate) &&
+        rate > 0
+      ) {
+
+        usdKesRate =
+          rate;
+
+      }
+
+    } catch (error) {
+
+      console.warn(
+        "Using fallback USD/KES rate:",
+        error
+      );
+
+      usdKesRate =
+        FALLBACK_USD_KES;
+
+    }
+
+  }
+
+
+  function setActiveNavigation() {
+
+    const links =
+      document.querySelectorAll(
+        "[data-nav]"
+      );
+
+    links.forEach(
+      link =>
+        link.classList.remove(
+          "active"
+        )
+    );
+
+    const homeLink =
+      document.querySelector(
+        '[data-nav="home"]'
+      );
+
+    if (homeLink) {
+
+      homeLink.classList.add(
+        "active"
+      );
+
+    }
+
+  }
+
+
+  function updateCartCount() {
+
+    let cart = [];
+
+    try {
+
+      cart =
+        JSON.parse(
+          localStorage.getItem(
+            "meteur_cart"
+          ) || "[]"
+        );
+
+    } catch {
+
+      cart = [];
+
+    }
+
+    if (!Array.isArray(cart)) {
+
+      cart = [];
+
+    }
+
+    const total =
+      cart.reduce(
+        (sum, item) =>
+          sum +
+          Number(
+            item.quantity || 1
+          ),
+        0
+      );
+
+    const count =
+      document.getElementById(
+        "cartCount"
+      );
+
+    if (!count) {
+      return;
+    }
+
+    if (total > 0) {
+
+      count.textContent =
+        total;
+
+      count.style.display =
+        "flex";
+
+    } else {
+
+      count.style.display =
+        "none";
+
+    }
+
+  }
+
+
+  async function updateAccountUI() {
+
+    const loginLink =
+      document.getElementById(
+        "loginLink"
+      );
+
+    const registerLink =
+      document.getElementById(
+        "registerLink"
+      );
+
+    const accountEmail =
+      document.getElementById(
+        "accountEmail"
+      );
+
+    const logoutButton =
+      document.getElementById(
+        "logoutButton"
+      );
+
+    const footerLogin =
+      document.getElementById(
+        "footerLogin"
+      );
+
+    const footerRegister =
+      document.getElementById(
+        "footerRegister"
+      );
+
+
+    try {
+
+      const {
+        data: {
+          user
+        }
+      } =
+        await supabaseClient.auth.getUser();
+
+
+      if (user) {
+
+        if (loginLink) {
+          loginLink.style.display =
+            "none";
+        }
+
+        if (registerLink) {
+          registerLink.style.display =
+            "none";
+        }
+
+        if (accountEmail) {
+
+          accountEmail.textContent =
+            user.email || "My Account";
+
+          accountEmail.style.display =
+            "inline-block";
+
+        }
+
+        if (logoutButton) {
+
+          logoutButton.style.display =
+            "inline-block";
+
+        }
+
+        if (footerLogin) {
+          footerLogin.style.display =
+            "none";
+        }
+
+        if (footerRegister) {
+          footerRegister.style.display =
+            "none";
+        }
+
+      } else {
+
+        if (loginLink) {
+          loginLink.style.display =
+            "inline-block";
+        }
+
+        if (registerLink) {
+          registerLink.style.display =
+            "inline-block";
+        }
+
+        if (accountEmail) {
+          accountEmail.style.display =
+            "none";
+        }
+
+        if (logoutButton) {
+          logoutButton.style.display =
+            "none";
+        }
+
+        if (footerLogin) {
+          footerLogin.style.display =
+            "block";
+        }
+
+        if (footerRegister) {
+          footerRegister.style.display =
+            "block";
+        }
+
+      }
+
+    } catch (error) {
+
+      console.error(
+        "Account UI error:",
+        error
+      );
+
+    }
+
+  }
+
+
+  async function logoutUser() {
+
+    const {
+      error
+    } =
+      await supabaseClient.auth.signOut();
+
+    if (error) {
+
+      console.error(
+        "Logout error:",
+        error
+      );
+
+      alert(
+        "Unable to log out right now. Please try again."
+      );
+
+      return;
+
+    }
+
+    window.location.href =
+      "index.html";
+
+  }
+
+
+  function escapeHtml(value) {
+
+    return String(
+      value ?? ""
+    )
+      .replace(
+        /&/g,
+        "&amp;"
+      )
+      .replace(
+        /</g,
+        "&lt;"
+      )
+      .replace(
+        />/g,
+        "&gt;"
+      )
+      .replace(
+        /"/g,
+        "&quot;"
+      )
+      .replace(
+        /'/g,
+        "&#039;"
+      );
+
+  }
+
+
+  function createImageHtml(product) {
+
+    const image =
+      product.image_url || "";
+
+    if (!image) {
+
+      return `
+        <div class="image-unavailable show">
+          <strong>Image unavailable</strong>
+          <span>${escapeHtml(product.name)}</span>
+        </div>
+      `;
+
+    }
+
+    return `
+
+      <div class="image-loading">
+        Loading image...
+      </div>
+
+      <img
+        src="${escapeHtml(image)}"
+        alt="${escapeHtml(product.name)}"
+        class="product-image"
+        loading="eager"
+        decoding="async"
+        referrerpolicy="no-referrer"
+        onload="
+          this.classList.add('loaded');
+          const loading=this.parentElement.querySelector('.image-loading');
+          if(loading) loading.style.display='none';
+        "
+        onerror="
+          this.classList.add('failed');
+          const loading=this.parentElement.querySelector('.image-loading');
+          if(loading) loading.style.display='none';
+          const unavailable=this.parentElement.querySelector('.image-unavailable');
+          if(unavailable) unavailable.classList.add('show');
+        "
+      >
+
+      <div class="image-unavailable">
+
+        <strong>
+          Image unavailable
+        </strong>
+
+        <span>
+          ${escapeHtml(product.name)}
         </span>
 
       </div>
 
+    `;
+
+  }
+
+
+  function isPhoneProduct(product) {
+
+    const category =
+      String(
+        product.category || ""
+      ).toLowerCase();
+
+    const name =
+      String(
+        product.name || ""
+      ).toLowerCase();
+
+    const phoneWords = [
+      "phone",
+      "phones",
+      "smartphone",
+      "smartphones",
+      "mobile",
+      "iphone",
+      "ipad",
+      "tablet",
+      "samsung",
+      "galaxy",
+      "tecno",
+      "infinix",
+      "xiaomi",
+      "redmi",
+      "poco",
+      "oppo",
+      "vivo",
+      "pixel",
+      "nokia",
+      "oneplus",
+      "realme"
+    ];
 
-      <div class="header-actions">
+    return phoneWords.some(
+      word =>
+        category.includes(word) ||
+        name.includes(word)
+    );
 
-        <a href="login.html" class="header-link">
-          Login
-        </a>
+  }
 
-        <a href="register.html" class="header-link">
-          Register
-        </a>
 
-        <a href="cart.html" class="header-link cart-link">
-          🛒 Cart
-          <span id="cartCount" class="cart-count">
-            0
-          </span>
-        </a>
+  function getProductRating(product) {
 
-      </div>
+    const seedSource =
+      String(
+        product.id ||
+        product.name ||
+        "product"
+      );
 
-    </div>
+    let hash = 0;
 
+    for (
+      let i = 0;
+      i < seedSource.length;
+      i++
+    ) {
 
-    <nav class="nav-bar">
+      hash =
+        ((hash << 5) -
+          hash) +
+        seedSource.charCodeAt(i);
 
-      <div class="nav-inner">
+      hash |= 0;
 
-        <a href="index.html" data-nav="home">
-          Home
-        </a>
+    }
 
-        <a href="shop.html" data-nav="shop">
-          Shop
-        </a>
+    const normalized =
+      Math.abs(hash) /
+      2147483647;
 
-        <a href="shop.html?condition=New" data-nav="new">
-          New Phones
-        </a>
+    const rating =
+      2 +
+      normalized * 3;
 
-        <a href="shop.html?condition=Used" data-nav="used">
-          Used Phones
-        </a>
+    return Math.round(
+      rating * 10
+    ) / 10;
 
-        <a href="orders.html" data-nav="orders">
-          My Orders
-        </a>
+  }
 
-        <a href="contact.html" data-nav="contact">
-          Contact Us
-        </a>
 
-      </div>
+  function getStarDisplay(rating) {
 
-    </nav>
+    const rounded =
+      Math.max(
+        2,
+        Math.min(
+          5,
+          Math.round(rating)
+        )
+      );
 
-  </header>
+    return (
+      "★".repeat(rounded) +
+      "☆".repeat(5 - rounded)
+    );
 
+  }
 
-  <!-- HERO -->
 
-  <section class="hero">
+  async function loadProducts() {
 
-    <div class="hero-inner">
+    const grid =
+      document.getElementById(
+        "productsGrid"
+      );
 
-      <div class="hero-content">
+    if (!grid) {
+      return;
+    }
 
-        <div class="hero-label">
-          METEUR MOBILE KENYA
-        </div>
 
-        <h1>
-          YOUR NEXT PHONE<br>
-          STARTS HERE
-        </h1>
-
-        <p>
-          Discover new and quality used smartphones
-          at prices made for every budget.
-        </p>
-
-        <div class="hero-buttons">
-
-          <a
-            href="shop.html?condition=New"
-            class="hero-button"
-          >
-            Shop New Phones
-          </a>
-
-          <a
-            href="shop.html?condition=Used"
-            class="hero-button secondary"
-          >
-            Shop Used Phones
-          </a>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <main class="container">
-
-    <h2 class="section-title">
-      Shop by Category
-    </h2>
-
-    <div class="categories">
-
-      <a
-        href="shop.html?condition=New"
-        class="category-card"
-      >
-
-        <div class="category-icon">
-          📱
-        </div>
-
-        <h3>
-          New Phones
-        </h3>
-
-        <p>
-          New smartphone models
-        </p>
-
-      </a>
-
-
-      <a
-        href="shop.html?condition=Used"
-        class="category-card"
-      >
-
-        <div class="category-icon">
-          ♻️
-        </div>
-
-        <h3>
-          Used Phones
-        </h3>
-
-        <p>
-          Quality pre-owned smartphones
-        </p>
-
-      </a>
-
-
-      <a
-        href="shop.html"
-        class="category-card"
-      >
-
-        <div class="category-icon">
-          ⭐
-        </div>
-
-        <h3>
-          Featured Phones
-        </h3>
-
-        <p>
-          Browse selected smartphones
-        </p>
-
-      </a>
-
-
-      <a
-        href="shop.html"
-        class="category-card"
-      >
-
-        <div class="category-icon">
-          🛍️
-        </div>
-
-        <h3>
-          All Phones
-        </h3>
-
-        <p>
-          Browse our smartphone catalogue
-        </p>
-
-      </a>
-
-    </div>
-
-
-    <h2 class="section-title">
-      Featured Phones
-    </h2>
-
-    <div
-      id="productsGrid"
-      class="products-grid"
-    >
+    grid.innerHTML = `
 
       <div style="
         grid-column:1/-1;
@@ -1092,318 +1788,10 @@
         Loading phones...
       </div>
 
-    </div>
+    `;
 
-  </main>
 
-
-  <footer>
-
-    <div class="footer-inner">
-
-      <div class="footer-brand">
-
-        <h2>
-          METEUR MOBILE KENYA
-        </h2>
-
-        <p>
-          Your online destination for smartphones
-          and mobile devices in Kenya.
-        </p>
-
-      </div>
-
-
-      <div class="footer-column">
-
-        <h3>
-          Shop
-        </h3>
-
-        <a href="shop.html">
-          All Phones
-        </a>
-
-        <a href="shop.html?condition=New">
-          New Phones
-        </a>
-
-        <a href="shop.html?condition=Used">
-          Used Phones
-        </a>
-
-      </div>
-
-
-      <div class="footer-column">
-
-        <h3>
-          Account
-        </h3>
-
-        <a href="login.html">
-          Login
-        </a>
-
-        <a href="register.html">
-          Register
-        </a>
-
-        <a href="profile.html">
-          My Profile
-        </a>
-
-        <a href="orders.html">
-          My Orders
-        </a>
-
-      </div>
-
-
-      <div class="footer-column">
-
-        <h3>
-          Help
-        </h3>
-
-        <a href="contact.html">
-          Contact Us
-        </a>
-
-        <a href="track-order.html">
-          Track Order
-        </a>
-
-      </div>
-
-    </div>
-
-
-    <div class="footer-bottom">
-
-      © 2026 METEUR MOBILE KENYA. All rights reserved.
-
-    </div>
-
-  </footer>
-
-
-  <script>
-
-    const SUPABASE_URL =
-      "https://nytsdeupaootukcullgi.supabase.co";
-
-    const SUPABASE_ANON_KEY =
-      "sb_publishable_cIqzHoafy_AEdB48KS_Wpg_LDqE1sFC";
-
-    const supabaseClient =
-      window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_ANON_KEY
-      );
-
-
-    function formatUSD(value) {
-
-      const amount =
-        Number(value || 0);
-
-      return "$" +
-        amount.toLocaleString(
-          "en-US",
-          {
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 2
-          }
-        );
-
-    }
-
-
-    function setActiveNavigation() {
-
-      const links =
-        document.querySelectorAll(
-          "[data-nav]"
-        );
-
-      links.forEach(
-        link =>
-          link.classList.remove(
-            "active"
-          )
-      );
-
-      const homeLink =
-        document.querySelector(
-          '[data-nav="home"]'
-        );
-
-      if (homeLink) {
-
-        homeLink.classList.add(
-          "active"
-        );
-
-      }
-
-    }
-
-
-    function updateCartCount() {
-
-      let cart = [];
-
-      try {
-
-        cart =
-          JSON.parse(
-            localStorage.getItem(
-              "meteur_cart"
-            ) || "[]"
-          );
-
-      } catch {
-
-        cart = [];
-
-      }
-
-      if (!Array.isArray(cart)) {
-
-        cart = [];
-
-      }
-
-      const total =
-        cart.reduce(
-          (sum, item) =>
-            sum +
-            Number(
-              item.quantity || 1
-            ),
-          0
-        );
-
-      const count =
-        document.getElementById(
-          "cartCount"
-        );
-
-      if (total > 0) {
-
-        count.textContent =
-          total;
-
-        count.style.display =
-          "flex";
-
-      } else {
-
-        count.style.display =
-          "none";
-
-      }
-
-    }
-
-
-    function escapeHtml(value) {
-
-      return String(
-        value ?? ""
-      )
-        .replace(
-          /&/g,
-          "&amp;"
-        )
-        .replace(
-          /</g,
-          "&lt;"
-        )
-        .replace(
-          />/g,
-          "&gt;"
-        )
-        .replace(
-          /"/g,
-          "&quot;"
-        )
-        .replace(
-          /'/g,
-          "&#039;"
-        );
-
-    }
-
-
-    function createImageHtml(product) {
-
-      const image =
-        product.image_url || "";
-
-      if (!image) {
-
-        return `
-          <div class="image-unavailable show">
-            <strong>Image unavailable</strong>
-            <span>${escapeHtml(product.name)}</span>
-          </div>
-        `;
-
-      }
-
-      return `
-
-        <div class="image-loading">
-          Loading image...
-        </div>
-
-        <img
-          src="${escapeHtml(image)}"
-          alt="${escapeHtml(product.name)}"
-          class="product-image"
-          loading="eager"
-          decoding="async"
-          referrerpolicy="no-referrer"
-          onload="
-            this.classList.add('loaded');
-            const loading=this.parentElement.querySelector('.image-loading');
-            if(loading) loading.style.display='none';
-          "
-          onerror="
-            this.classList.add('failed');
-            const loading=this.parentElement.querySelector('.image-loading');
-            if(loading) loading.style.display='none';
-            const unavailable=this.parentElement.querySelector('.image-unavailable');
-            if(unavailable) unavailable.classList.add('show');
-          "
-        >
-
-        <div class="image-unavailable">
-
-          <strong>
-            Image unavailable
-          </strong>
-
-          <span>
-            ${escapeHtml(product.name)}
-          </span>
-
-        </div>
-
-      `;
-
-    }
-
-
-    async function loadProducts() {
-
-      const grid =
-        document.getElementById(
-          "productsGrid"
-        );
+    try {
 
       const {
         data,
@@ -1412,11 +1800,7 @@
         await supabaseClient
           .from("products")
           .select(
-            "id,name,category,price,old_price,image_url,rating,review_count,stock,badge"
-          )
-          .eq(
-            "category",
-            "Phones"
+            "id,name,category,price,old_price,image_url,rating,review_count,stock,badge,condition,created_at"
           )
           .order(
             "created_at",
@@ -1424,35 +1808,29 @@
               ascending: false
             }
           )
-          .limit(8);
+          .limit(50);
 
 
       if (error) {
 
-        console.error(
-          "Product loading error:",
-          error
-        );
-
-        grid.innerHTML = `
-
-          <div style="
-            grid-column:1/-1;
-            text-align:center;
-            padding:40px;
-            color:#dc2626;
-          ">
-            Unable to load phones.
-          </div>
-
-        `;
-
-        return;
+        throw error;
 
       }
 
 
-      if (!data || !data.length) {
+      const phones =
+        (data || [])
+          .filter(
+            product =>
+              isPhoneProduct(product)
+          )
+          .slice(
+            0,
+            8
+          );
+
+
+      if (!phones.length) {
 
         grid.innerHTML = `
 
@@ -1462,7 +1840,18 @@
             padding:40px;
             color:#6b7280;
           ">
-            No phones available.
+
+            <strong>
+              No phones available.
+            </strong>
+
+            <div style="
+              margin-top:8px;
+              font-size:13px;
+            ">
+              Add phone products in Supabase to display them here.
+            </div>
+
           </div>
 
         `;
@@ -1473,20 +1862,36 @@
 
 
       grid.innerHTML =
-        data.map(
+        phones.map(
           product => {
 
             const rating =
-              Number(
-                product.rating || 0
+              getProductRating(
+                product
               );
 
             const stars =
-              "★".repeat(
-                Math.round(
-                  rating
-                )
+              getStarDisplay(
+                rating
               );
+
+            const price =
+              Number(
+                product.price || 0
+              );
+
+            const priceKES =
+              price *
+              usdKesRate;
+
+            const oldPrice =
+              Number(
+                product.old_price || 0
+              );
+
+            const oldPriceKES =
+              oldPrice *
+              usdKesRate;
 
 
             return `
@@ -1527,15 +1932,10 @@
 
                     <div class="rating">
 
-                      ${stars || "☆"}
+                      ${stars}
 
-                      <span style="
-                        color:#6b7280;
-                        margin-left:4px;
-                      ">
-                        (${Number(
-                          product.review_count || 0
-                        )})
+                      <span class="rating-number">
+                        ${rating.toFixed(1)}
                       </span>
 
                     </div>
@@ -1543,21 +1943,21 @@
 
                     <div class="price">
 
-                      ${formatUSD(
-                        product.price
-                      )}
+                      ${formatUSD(price)}
 
                       ${
-                        product.old_price
+                        oldPrice > 0
                           ? `
                             <span class="old-price">
-                              ${formatUSD(
-                                product.old_price
-                              )}
+                              ${formatUSD(oldPrice)}
                             </span>
                           `
                           : ""
                       }
+
+                      <span class="price-ks">
+                        ≈ ${formatKES(priceKES)}
+                      </span>
 
                     </div>
 
@@ -1577,16 +1977,100 @@
           }
         ).join("");
 
+    } catch (error) {
+
+      console.error(
+        "Product loading error:",
+        error
+      );
+
+      grid.innerHTML = `
+
+        <div style="
+          grid-column:1/-1;
+          text-align:center;
+          padding:40px;
+          color:#dc2626;
+        ">
+
+          <strong>
+            Unable to load phones.
+          </strong>
+
+          <div style="
+            margin-top:8px;
+            font-size:13px;
+            color:#6b7280;
+          ">
+            ${escapeHtml(
+              error?.message ||
+              "Please try again."
+            )}
+          </div>
+
+          <button
+            type="button"
+            onclick="loadProducts()"
+            style="
+              margin-top:15px;
+              border:0;
+              background:#d90429;
+              color:white;
+              padding:10px 18px;
+              border-radius:6px;
+              cursor:pointer;
+              font-weight:bold;
+            "
+          >
+            Try Again
+          </button>
+
+        </div>
+
+      `;
+
     }
 
+  }
+
+
+  document
+    .getElementById("logoutButton")
+    ?.addEventListener(
+      "click",
+      logoutUser
+    );
+
+
+  supabaseClient.auth.onAuthStateChange(
+    () => {
+      setTimeout(
+        updateAccountUI,
+        0
+      );
+    }
+  );
+
+
+  async function startPage() {
 
     setActiveNavigation();
 
     updateCartCount();
 
-    loadProducts();
+    await updateAccountUI();
 
-  </script>
+    await loadExchangeRate();
+
+    await loadProducts();
+
+  }
+
+
+  startPage();
+
+</script>
 
 </body>
 </html>
+```

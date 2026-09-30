@@ -27,6 +27,10 @@
             color: inherit;
         }
 
+        button {
+            font-family: inherit;
+        }
+
         /* =========================
            HEADER
         ========================= */
@@ -62,9 +66,6 @@
             justify-content: center;
             overflow: hidden;
             flex-shrink: 0;
-            padding: 0;
-            border: none;
-            box-shadow: none;
         }
 
         .real-logo {
@@ -73,7 +74,6 @@
             object-fit: contain;
             display: block;
             background: white;
-            border: none;
             border-radius: 9px;
         }
 
@@ -123,6 +123,25 @@
             white-space: nowrap;
         }
 
+        .cart-link {
+            font-weight: 700 !important;
+        }
+
+        .cart-count {
+            display: inline-flex;
+            min-width: 20px;
+            height: 20px;
+            align-items: center;
+            justify-content: center;
+            padding: 0 5px;
+            margin-left: 3px;
+            border-radius: 20px;
+            background: white;
+            color: #d90429;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
         /* =========================
            NAVIGATION
         ========================= */
@@ -153,10 +172,6 @@
             font-size: 14px;
             font-weight: 600;
             color: white;
-        }
-
-        .nav-inner a:hover {
-            background: transparent;
         }
 
         .nav-inner a.active::after {
@@ -329,6 +344,7 @@
             margin-top: 15px;
             color: #61718a;
             font-size: 13px;
+            line-height: 1.5;
         }
 
         .currency-info strong {
@@ -368,7 +384,6 @@
             display: inline-block;
             background: #d90429;
             color: white;
-            text-decoration: none;
             padding: 11px 18px;
             border-radius: 7px;
             font-weight: bold;
@@ -404,7 +419,6 @@
             display: inline-block;
             background: #d90429;
             color: white;
-            text-decoration: none;
             padding: 13px 22px;
             border-radius: 7px;
             font-weight: bold;
@@ -468,10 +482,6 @@
             color: white;
         }
 
-        .footer-account-link {
-            display: block;
-        }
-
         .footer-logout {
             display: none;
             color: #ffd9df;
@@ -481,7 +491,6 @@
             border: none;
             padding: 0;
             cursor: pointer;
-            font-family: inherit;
         }
 
         .footer-logout:hover {
@@ -507,7 +516,6 @@
             .footer-inner {
                 grid-template-columns: 1fr 1fr;
             }
-
         }
 
         @media (max-width: 700px) {
@@ -520,19 +528,10 @@
                 flex-wrap: wrap;
             }
 
-            .logo {
-                width: 48px;
-                min-width: 48px;
-                height: 48px;
-                border-radius: 9px;
-                padding: 0;
-            }
-
+            .logo,
             .real-logo {
                 width: 48px;
                 height: 48px;
-                background: #ffffff;
-                border-radius: 9px;
             }
 
             .brand-text h1 {
@@ -589,7 +588,6 @@
             .footer-inner {
                 grid-template-columns: 1fr;
             }
-
         }
     </style>
 </head>
@@ -610,7 +608,7 @@
 
                 <img
                     src="WhatsApp Image 2026-09-30 at 12.36.30.jpeg"
-                    alt="Meteur Mobile Kenya M Logo"
+                    alt="METEUR MOBILE KENYA Logo"
                     class="real-logo"
                 >
 
@@ -618,13 +616,9 @@
 
             <div class="brand-text">
 
-                <h1>
-                    METEUR MOBILE KENYA
-                </h1>
+                <h1>METEUR MOBILE KENYA</h1>
 
-                <p>
-                    MOBILE • ELECTRONICS • ACCESSORIES
-                </p>
+                <p>MOBILE • ELECTRONICS • ACCESSORIES</p>
 
             </div>
 
@@ -641,10 +635,28 @@
             </a>
 
             <a
-                href="dashboard.html"
+                href="cart.html"
+                class="cart-link"
+            >
+                🛒 Cart
+                <span
+                    id="cartCount"
+                    class="cart-count"
+                >0</span>
+            </a>
+
+            <a
+                href="login.html"
                 id="accountLink"
             >
-                Account
+                Login
+            </a>
+
+            <a
+                href="register.html"
+                id="registerLink"
+            >
+                Register
             </a>
 
             <span
@@ -730,7 +742,10 @@
         My Orders
     </h1>
 
-    <div id="message" class="message"></div>
+    <div
+        id="message"
+        class="message"
+    ></div>
 
     <div id="ordersContainer">
 
@@ -795,23 +810,20 @@
 
             <div id="footerLoggedOut">
 
-                <a
-                    href="login.html"
-                    class="footer-account-link"
-                >
+                <a href="login.html">
                     Login
                 </a>
 
-                <a
-                    href="register.html"
-                    class="footer-account-link"
-                >
+                <a href="register.html">
                     Register
                 </a>
 
             </div>
 
-            <div id="footerLoggedIn" style="display:none;">
+            <div
+                id="footerLoggedIn"
+                style="display:none;"
+            >
 
                 <a href="profile.html">
                     My Profile
@@ -863,6 +875,20 @@
 </footer>
 
 <script>
+
+    /* =========================
+       ELEMENTS
+    ========================= */
+
+    const ordersContainer =
+        document.getElementById(
+            "ordersContainer"
+        );
+
+    const messageBox =
+        document.getElementById(
+            "message"
+        );
 
     /* =========================
        EXCHANGE RATE
@@ -941,14 +967,19 @@
 
     }
 
-    function getKesEquivalent(usdAmount) {
+    function getKesEquivalent(
+        usdAmount
+    ) {
 
-        return Number(usdAmount || 0) *
-            usdToKesRate;
+        return Number(
+            usdAmount || 0
+        ) * usdToKesRate;
 
     }
 
-    function formatKESApprox(usdAmount) {
+    function formatKESApprox(
+        usdAmount
+    ) {
 
         return "≈ " +
             formatKES(
@@ -965,33 +996,91 @@
 
     function escapeHtml(value) {
 
-        return String(value ?? "")
-            .replace(
-                /&/g,
-                "&amp;"
-            )
-            .replace(
-                /</g,
-                "&lt;"
-            )
-            .replace(
-                />/g,
-                "&gt;"
-            )
-            .replace(
-                /"/g,
-                "&quot;"
-            )
-            .replace(
-                /'/g,
-                "&#039;"
-            );
+        return String(
+            value ?? ""
+        )
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
     }
 
-    function escapeAttribute(value) {
+    function escapeAttribute(
+        value
+    ) {
 
-        return escapeHtml(value);
+        return escapeHtml(
+            value
+        );
+
+    }
+
+    /* =========================
+       CART COUNT
+    ========================= */
+
+    function updateCartCount() {
+
+        const cartCount =
+            document.getElementById(
+                "cartCount"
+            );
+
+        if (!cartCount) {
+            return;
+        }
+
+        let cart = [];
+
+        try {
+
+            cart =
+                JSON.parse(
+                    localStorage.getItem(
+                        "meteur_cart"
+                    ) || "[]"
+                );
+
+        } catch (error) {
+
+            cart = [];
+
+        }
+
+        const count =
+            cart.reduce(
+                (total, item) => {
+
+                    return total +
+                        (
+                            Number(
+                                item.quantity
+                            ) || 1
+                        );
+
+                },
+                0
+            );
+
+        cartCount.textContent =
+            count;
 
     }
 
@@ -1004,6 +1093,11 @@
         const accountLink =
             document.getElementById(
                 "accountLink"
+            );
+
+        const registerLink =
+            document.getElementById(
+                "registerLink"
             );
 
         const accountEmail =
@@ -1031,7 +1125,8 @@
             const {
                 data,
                 error
-            } = await supabaseClient.auth.getUser();
+            } =
+                await supabaseClient.auth.getUser();
 
             if (
                 error ||
@@ -1041,6 +1136,11 @@
 
                 if (accountLink) {
                     accountLink.style.display =
+                        "inline-block";
+                }
+
+                if (registerLink) {
+                    registerLink.style.display =
                         "inline-block";
                 }
 
@@ -1079,6 +1179,11 @@
                     "none";
             }
 
+            if (registerLink) {
+                registerLink.style.display =
+                    "none";
+            }
+
             if (accountEmail) {
 
                 accountEmail.textContent =
@@ -1090,8 +1195,10 @@
             }
 
             if (logoutButton) {
+
                 logoutButton.style.display =
                     "inline-block";
+
             }
 
             if (footerLoggedOut) {
@@ -1125,7 +1232,8 @@
 
             const {
                 error
-            } = await supabaseClient.auth.signOut();
+            } =
+                await supabaseClient.auth.signOut();
 
             if (error) {
                 throw error;
@@ -1153,7 +1261,9 @@
        ERROR MESSAGE
     ========================= */
 
-    function showError(message) {
+    function showError(
+        message
+    ) {
 
         messageBox.textContent =
             message;
@@ -1167,15 +1277,30 @@
        DATE FORMATTING
     ========================= */
 
-    function formatDate(dateString) {
+    function formatDate(
+        dateString
+    ) {
 
         if (!dateString) {
             return "Date unavailable";
         }
 
-        return new Date(
-            dateString
-        ).toLocaleDateString(
+        const date =
+            new Date(
+                dateString
+            );
+
+        if (
+            Number.isNaN(
+                date.getTime()
+            )
+        ) {
+
+            return "Date unavailable";
+
+        }
+
+        return date.toLocaleDateString(
             "en-KE",
             {
                 year: "numeric",
@@ -1190,7 +1315,9 @@
        RENDER ORDERS
     ========================= */
 
-    function renderOrders(orders) {
+    function renderOrders(
+        orders
+    ) {
 
         if (
             !orders ||
@@ -1225,251 +1352,278 @@
 
         ordersContainer.innerHTML = "";
 
-        orders.forEach(order => {
+        orders.forEach(
+            order => {
 
-            let items = [];
+                let items = [];
 
-            try {
+                try {
 
-                items =
-                    Array.isArray(order.items)
-                        ? order.items
-                        : JSON.parse(
-                            order.items || "[]"
-                        );
+                    items =
+                        Array.isArray(
+                            order.items
+                        )
+                            ? order.items
+                            : JSON.parse(
+                                order.items || "[]"
+                            );
 
-            } catch (error) {
+                } catch (error) {
 
-                items = [];
+                    items = [];
 
-            }
+                }
 
-            const orderCard =
-                document.createElement(
-                    "div"
-                );
+                const orderCard =
+                    document.createElement(
+                        "div"
+                    );
 
-            orderCard.className =
-                "order-card";
+                orderCard.className =
+                    "order-card";
 
-            let itemsHTML = "";
+                let itemsHTML = "";
 
-            if (
-                items.length === 0
-            ) {
+                if (
+                    items.length === 0
+                ) {
 
-                itemsHTML = `
+                    itemsHTML = `
 
-                    <p style="color:#61718a;">
-                        Order items unavailable.
-                    </p>
+                        <p
+                            style="
+                                color:#61718a;
+                                padding:10px 0;
+                            "
+                        >
+                            Order items unavailable.
+                        </p>
 
-                `;
+                    `;
 
-            } else {
+                } else {
 
-                itemsHTML =
-                    items.map(item => {
+                    itemsHTML =
+                        items.map(
+                            item => {
 
-                        const quantity =
-                            Number(
-                                item.quantity
-                            ) || 1;
+                                const quantity =
+                                    Number(
+                                        item.quantity
+                                    ) || 1;
 
-                        const price =
-                            Number(
-                                item.price
-                            ) || 0;
+                                const price =
+                                    Number(
+                                        item.price
+                                    ) || 0;
 
-                        const image =
-                            item.image ||
-                            item.image_url ||
-                            "";
+                                const image =
+                                    item.image ||
+                                    item.image_url ||
+                                    "";
 
-                        const productName =
-                            item.name ||
-                            "Product";
+                                const productName =
+                                    item.name ||
+                                    "Product";
 
-                        const totalItemUSD =
-                            price *
-                            quantity;
+                                const totalItemUSD =
+                                    price *
+                                    quantity;
 
-                        const imageHTML =
-                            image
-                                ? `
+                                const imageHTML =
+                                    image
+                                        ? `
 
-                                    <img
-                                        src="${escapeAttribute(image)}"
-                                        alt="${escapeAttribute(productName)}"
-                                        onerror="this.style.display='none';"
-                                    >
+                                            <img
+                                                src="${escapeAttribute(image)}"
+                                                alt="${escapeAttribute(productName)}"
+                                                onerror="this.style.display='none';"
+                                            >
 
-                                  `
-                                : `
+                                          `
+                                        : `
 
-                                    <div
-                                        style="
-                                            width:65px;
-                                            height:65px;
-                                            border-radius:8px;
-                                            background:#fff5f6;
-                                            display:flex;
-                                            align-items:center;
-                                            justify-content:center;
-                                            color:#72809a;
-                                            font-size:11px;
-                                            text-align:center;
-                                            flex-shrink:0;
-                                        "
-                                    >
-                                        No image
+                                            <div
+                                                style="
+                                                    width:65px;
+                                                    height:65px;
+                                                    border-radius:8px;
+                                                    background:#fff5f6;
+                                                    display:flex;
+                                                    align-items:center;
+                                                    justify-content:center;
+                                                    color:#72809a;
+                                                    font-size:11px;
+                                                    text-align:center;
+                                                    flex-shrink:0;
+                                                "
+                                            >
+                                                No image
+                                            </div>
+
+                                          `;
+
+                                return `
+
+                                    <div class="item">
+
+                                        ${imageHTML}
+
+                                        <div class="item-info">
+
+                                            <div class="item-name">
+
+                                                ${escapeHtml(
+                                                    productName
+                                                )}
+
+                                            </div>
+
+                                            <div class="item-quantity">
+
+                                                Quantity:
+                                                ${quantity}
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="item-price">
+
+                                            ${formatUSD(
+                                                totalItemUSD
+                                            )}
+
+                                            <span class="item-kes">
+
+                                                ${formatKESApprox(
+                                                    totalItemUSD
+                                                )}
+
+                                            </span>
+
+                                        </div>
+
                                     </div>
 
-                                  `;
+                                `;
 
-                        return `
+                            }
+                        ).join("");
 
-                            <div class="item">
+                }
 
-                                ${imageHTML}
+                const orderTotal =
+                    Number(
+                        order.total
+                    ) || 0;
 
-                                <div class="item-info">
+                const status =
+                    order.status ||
+                    "Processing";
 
-                                    <div class="item-name">
-                                        ${escapeHtml(productName)}
-                                    </div>
+                orderCard.innerHTML = `
 
-                                    <div class="item-quantity">
-                                        Quantity: ${quantity}
-                                    </div>
+                    <div class="order-top">
 
-                                </div>
+                        <div>
 
-                                <div class="item-price">
+                            <div class="order-number">
 
-                                    ${formatUSD(
-                                        totalItemUSD
-                                    )}
-
-                                    <span class="item-kes">
-
-                                        ${formatKESApprox(
-                                            totalItemUSD
-                                        )}
-
-                                    </span>
-
-                                </div>
+                                Order
+                                ${escapeHtml(
+                                    order.order_number
+                                )}
 
                             </div>
 
-                        `;
+                            <div class="order-date">
 
-                    }).join("");
+                                ${formatDate(
+                                    order.created_at
+                                )}
 
-            }
+                            </div>
 
-            const orderTotal =
-                Number(
-                    order.total
-                ) || 0;
+                        </div>
 
-            const status =
-                order.status ||
-                "Processing";
+                        <div class="status">
 
-            orderCard.innerHTML = `
-
-                <div class="order-top">
-
-                    <div>
-
-                        <div class="order-number">
-
-                            Order
                             ${escapeHtml(
-                                order.order_number
-                            )}
-
-                        </div>
-
-                        <div class="order-date">
-
-                            ${formatDate(
-                                order.created_at
+                                status
                             )}
 
                         </div>
 
                     </div>
 
-                    <div class="status">
+                    <div class="order-items">
 
-                        ${escapeHtml(
-                            status
-                        )}
+                        ${itemsHTML}
 
                     </div>
 
-                </div>
+                    <div class="currency-info">
 
-                <div class="order-items">
+                        <strong>
+                            Currency:
+                        </strong>
 
-                    ${itemsHTML}
+                        Prices are shown in USD.
 
-                </div>
+                        KSh amounts are approximate
+                        equivalents based on the current
+                        USD/KES exchange rate.
 
-                <div class="currency-info">
+                        <br>
 
-                    <strong>
-                        Currency:
-                    </strong>
+                        <strong>
+                            1 USD ≈ KSh
+                            ${Math.round(
+                                usdToKesRate
+                            )}
+                        </strong>
 
-                    Prices are shown in USD.
+                    </div>
 
-                    KSh amounts are approximate
-                    equivalents based on the current
-                    USD/KES exchange rate.
+                    <div class="order-bottom">
 
-                </div>
+                        <div class="total">
 
-                <div class="order-bottom">
-
-                    <div class="total">
-
-                        Total:
-                        ${formatUSD(
-                            orderTotal
-                        )}
-
-                        <span class="total-kes">
-
-                            ${formatKESApprox(
+                            Total:
+                            ${formatUSD(
                                 orderTotal
                             )}
 
-                        </span>
+                            <span class="total-kes">
+
+                                ${formatKESApprox(
+                                    orderTotal
+                                )}
+
+                            </span>
+
+                        </div>
+
+                        <a
+                            href="track-order.html?order=${encodeURIComponent(
+                                order.order_number || ""
+                            )}"
+                            class="track-button"
+                        >
+                            Track Order
+                        </a>
 
                     </div>
 
-                    <a
-                        href="track-order.html?order=${encodeURIComponent(
-                            order.order_number || ""
-                        )}"
-                        class="track-button"
-                    >
-                        Track Order
-                    </a>
+                `;
 
-                </div>
+                ordersContainer.appendChild(
+                    orderCard
+                );
 
-            `;
-
-            ordersContainer.appendChild(
-                orderCard
-            );
-
-        });
+            }
+        );
 
     }
 
@@ -1546,6 +1700,7 @@
         } catch (error) {
 
             console.error(
+                "Orders error:",
                 error
             );
 
@@ -1578,9 +1733,19 @@
 
     updateAccountUI();
 
-    loadExchangeRate();
+    updateCartCount();
 
-    loadOrders();
+    loadExchangeRate()
+        .then(() => {
+
+            loadOrders();
+
+        })
+        .catch(() => {
+
+            loadOrders();
+
+        });
 
 </script>
 

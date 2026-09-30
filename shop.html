@@ -7,7 +7,6 @@
   <title>Shop Phones - METEUR MOBILE KENYA</title>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="supabase-config.js"></script>
 
   <style>
     * {
@@ -32,10 +31,6 @@
     select {
       font-family: inherit;
     }
-
-    /* =========================
-       HEADER
-    ========================== */
 
     header {
       background: #d90429;
@@ -104,10 +99,6 @@
       color: #ffd9df;
     }
 
-    /* =========================
-       SEARCH
-    ========================== */
-
     .search-box {
       width: 100%;
       display: flex;
@@ -140,10 +131,6 @@
     .search-box button:hover {
       background: #7d0019;
     }
-
-    /* =========================
-       HEADER ACTIONS
-    ========================== */
 
     .header-actions {
       display: flex;
@@ -202,10 +189,6 @@
       justify-content: center;
     }
 
-    /* =========================
-       NAVIGATION
-    ========================== */
-
     .nav-bar {
       background: #9b001f;
     }
@@ -248,10 +231,6 @@
       border-radius: 3px 3px 0 0;
     }
 
-    /* =========================
-       PAGE
-    ========================== */
-
     .page {
       max-width: 1250px;
       margin: auto;
@@ -272,10 +251,6 @@
       color: #61718a;
       font-size: 15px;
     }
-
-    /* =========================
-       FILTERS
-    ========================== */
 
     .filters {
       background: white;
@@ -314,10 +289,6 @@
       box-shadow: 0 0 0 2px rgba(217, 4, 41, 0.08);
     }
 
-    /* =========================
-       CONDITION TABS
-    ========================== */
-
     .category-tabs {
       display: flex;
       gap: 10px;
@@ -353,10 +324,6 @@
       color: white;
       border-color: #d90429;
     }
-
-    /* =========================
-       PRODUCTS
-    ========================== */
 
     .products-grid {
       display: grid;
@@ -394,8 +361,6 @@
       padding: 15px;
       display: block;
       background: white;
-      position: relative;
-      z-index: 1;
     }
 
     .badge {
@@ -512,9 +477,27 @@
       color: #dc2626;
     }
 
-    /* =========================
-       FOOTER
-    ========================== */
+    .error-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: #dc2626;
+    }
+
+    .retry-button {
+      margin-top: 15px;
+      border: none;
+      background: #d90429;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .retry-button:hover {
+      background: #9b001f;
+    }
 
     footer {
       background: #9b001f;
@@ -579,12 +562,7 @@
       font-size: 12px;
     }
 
-    /* =========================
-       TABLET
-    ========================== */
-
     @media (max-width: 1000px) {
-
       .products-grid {
         grid-template-columns: repeat(3, 1fr);
       }
@@ -595,7 +573,6 @@
     }
 
     @media (max-width: 800px) {
-
       .filters {
         grid-template-columns: 1fr;
       }
@@ -605,12 +582,7 @@
       }
     }
 
-    /* =========================
-       MOBILE
-    ========================== */
-
     @media (max-width: 700px) {
-
       .header-top {
         display: grid;
         grid-template-columns: 1fr auto;
@@ -624,7 +596,6 @@
       .logo {
         grid-area: brand;
         width: 100%;
-        min-width: 0;
       }
 
       .search-box {
@@ -632,13 +603,11 @@
         width: 100%;
         max-width: none;
         margin: 0;
-        min-width: 0;
       }
 
       .search-box input {
         padding: 12px 13px;
         font-size: 14px;
-        min-width: 0;
       }
 
       .search-box button {
@@ -648,9 +617,6 @@
 
       .header-actions {
         grid-area: cart;
-        position: static;
-        margin: 0;
-        display: flex;
       }
 
       .header-actions .header-link:not(.cart-link),
@@ -705,21 +671,7 @@
       }
     }
 
-    /* =========================
-       SMALL PHONES
-    ========================== */
-
     @media (max-width: 430px) {
-
-      .header-top {
-        grid-template-columns: 1fr auto;
-        grid-template-areas:
-          "brand brand"
-          "search cart";
-        padding-left: 10px;
-        padding-right: 10px;
-      }
-
       .logo-main {
         font-size: 16px;
       }
@@ -786,16 +738,13 @@
     <a href="index.html" class="logo">
 
       <div class="logo-icon">
-
         <img
           src="WhatsApp Image 2026-09-30 at 12.36.30.jpeg"
           alt="METEUR MOBILE KENYA Logo"
         >
-
       </div>
 
       <div class="logo-text">
-
         <span class="logo-main">
           METEUR MOBILE KENYA
         </span>
@@ -803,15 +752,11 @@
         <span class="logo-sub">
           MOBILE • ELECTRONICS • ACCESSORIES
         </span>
-
       </div>
 
     </a>
 
-    <form
-      class="search-box"
-      id="searchForm"
-    >
+    <form class="search-box" id="searchForm">
 
       <input
         type="search"
@@ -863,7 +808,6 @@
         href="cart.html"
         class="header-link cart-link"
       >
-
         🛒 Cart
 
         <span
@@ -872,7 +816,6 @@
         >
           0
         </span>
-
       </a>
 
     </div>
@@ -883,17 +826,11 @@
 
     <div class="nav-inner">
 
-      <a
-        href="index.html"
-        data-nav="home"
-      >
+      <a href="index.html" data-nav="home">
         Home
       </a>
 
-      <a
-        href="shop.html"
-        data-nav="shop"
-      >
+      <a href="shop.html" data-nav="shop">
         Shop
       </a>
 
@@ -932,17 +869,11 @@
         Accessories
       </a>
 
-      <a
-        href="orders.html"
-        data-nav="orders"
-      >
+      <a href="orders.html" data-nav="orders">
         My Orders
       </a>
 
-      <a
-        href="contact.html"
-        data-nav="contact"
-      >
+      <a href="contact.html" data-nav="contact">
         Contact Us
       </a>
 
@@ -1176,9 +1107,9 @@
 
 <script>
 
-  /* =========================
-     SUPABASE
-  ========================== */
+  /* ==========================================
+     SUPABASE CONNECTION
+  ========================================== */
 
   const SUPABASE_URL =
     "https://nytsdeupaootukcullgi.supabase.co";
@@ -1186,17 +1117,37 @@
   const SUPABASE_ANON_KEY =
     "sb_publishable_cIqzHoafy_AEdB48KS_Wpg_LDqE1sFC";
 
-  /*
-    Use the existing supabaseClient
-    from supabase-config.js when available.
-  */
+  let db;
 
-  const db =
-    window.supabaseClient ||
-    window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_ANON_KEY
+  try {
+
+    if (
+      window.supabase &&
+      typeof window.supabase.createClient === "function"
+    ) {
+
+      db =
+        window.supabase.createClient(
+          SUPABASE_URL,
+          SUPABASE_ANON_KEY
+        );
+
+    } else {
+
+      throw new Error(
+        "Supabase library did not load."
+      );
+
+    }
+
+  } catch (error) {
+
+    console.error(
+      "Supabase initialization error:",
+      error
     );
+
+  }
 
   let allProducts = [];
 
@@ -1204,13 +1155,16 @@
 
   let currentSearch = "";
 
+  let currentCategory = "";
+
   let currentSort = "newest";
 
   let usdToKesRate = 129.7;
 
-  /* =========================
-     EXCHANGE RATE
-  ========================== */
+
+  /* ==========================================
+     CURRENCY
+  ========================================== */
 
   async function loadExchangeRate() {
 
@@ -1255,9 +1209,6 @@
 
   }
 
-  /* =========================
-     CURRENCY
-  ========================== */
 
   function formatUSD(value) {
 
@@ -1275,6 +1226,7 @@
 
   }
 
+
   function formatKES(value) {
 
     return "KSh " +
@@ -1286,16 +1238,6 @@
 
   }
 
-  function getKesEquivalent(
-    usdAmount
-  ) {
-
-    return (
-      Number(usdAmount || 0) *
-      usdToKesRate
-    );
-
-  }
 
   function formatKESApprox(
     usdAmount
@@ -1303,46 +1245,32 @@
 
     return "≈ " +
       formatKES(
-        getKesEquivalent(
-          usdAmount
-        )
+        Number(usdAmount || 0) *
+        usdToKesRate
       );
 
   }
 
-  /* =========================
+
+  /* ==========================================
      HTML SAFETY
-  ========================== */
+  ========================================== */
 
   function escapeHtml(value) {
 
     return String(value ?? "")
-      .replace(
-        /&/g,
-        "&amp;"
-      )
-      .replace(
-        /</g,
-        "&lt;"
-      )
-      .replace(
-        />/g,
-        "&gt;"
-      )
-      .replace(
-        /"/g,
-        "&quot;"
-      )
-      .replace(
-        /'/g,
-        "&#039;"
-      );
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
 
   }
 
-  /* =========================
-     ACCOUNT UI
-  ========================== */
+
+  /* ==========================================
+     ACCOUNT
+  ========================================== */
 
   async function updateAccountUI() {
 
@@ -1375,6 +1303,10 @@
       document.getElementById(
         "footerLoggedIn"
       );
+
+    if (!db) {
+      return;
+    }
 
     try {
 
@@ -1424,13 +1356,6 @@
 
       }
 
-      const user =
-        data.user;
-
-      const email =
-        user.email ||
-        "Account";
-
       if (loginLink) {
         loginLink.style.display =
           "none";
@@ -1444,7 +1369,11 @@
       if (accountEmail) {
 
         accountEmail.textContent =
-          "👤 " + email;
+          "👤 " +
+          (
+            data.user.email ||
+            "Account"
+          );
 
         accountEmail.style.display =
           "inline-block";
@@ -1452,10 +1381,8 @@
       }
 
       if (logoutButton) {
-
         logoutButton.style.display =
           "inline-block";
-
       }
 
       if (footerLoggedOut) {
@@ -1479,11 +1406,16 @@
 
   }
 
-  /* =========================
+
+  /* ==========================================
      LOGOUT
-  ========================== */
+  ========================================== */
 
   async function logoutUser() {
+
+    if (!db) {
+      return;
+    }
 
     try {
 
@@ -1514,9 +1446,10 @@
 
   }
 
-  /* =========================
-     CART COUNT
-  ========================== */
+
+  /* ==========================================
+     CART
+  ========================================== */
 
   function updateCartCount() {
 
@@ -1582,113 +1515,10 @@
 
   }
 
-  /* =========================
-     ACTIVE NAVIGATION
-  ========================== */
 
-  function setActiveNavigation() {
-
-    document
-      .querySelectorAll("[data-nav]")
-      .forEach(
-        link => {
-
-          link.classList.remove(
-            "active"
-          );
-
-        }
-      );
-
-    const params =
-      new URLSearchParams(
-        window.location.search
-      );
-
-    const condition =
-      (
-        params.get(
-          "condition"
-        ) || ""
-      ).toLowerCase();
-
-    const category =
-      (
-        params.get(
-          "category"
-        ) || ""
-      ).toLowerCase();
-
-    let activeNav =
-      "shop";
-
-    if (
-      condition === "new"
-    ) {
-
-      activeNav =
-        "new";
-
-    }
-
-    if (
-      condition === "used"
-    ) {
-
-      activeNav =
-        "used";
-
-    }
-
-    if (
-      category.includes(
-        "phone"
-      )
-    ) {
-
-      activeNav =
-        "phones";
-
-    }
-
-    if (
-      category ===
-      "electronics"
-    ) {
-
-      activeNav =
-        "electronics";
-
-    }
-
-    if (
-      category ===
-      "accessories"
-    ) {
-
-      activeNav =
-        "accessories";
-
-    }
-
-    const activeLink =
-      document.querySelector(
-        `[data-nav="${activeNav}"]`
-      );
-
-    if (activeLink) {
-
-      activeLink.classList.add(
-        "active"
-      );
-
-    }
-
-  }
-
-  /* =========================
+  /* ==========================================
      URL STATE
-  ========================== */
+  ========================================== */
 
   function readUrlState() {
 
@@ -1705,6 +1535,11 @@
     currentSearch =
       params.get(
         "search"
+      ) || "";
+
+    currentCategory =
+      params.get(
+        "category"
       ) || "";
 
     const searchFilter =
@@ -1731,11 +1566,204 @@
 
     updatePageHeading();
 
+    setActiveNavigation();
+
   }
 
-  /* =========================
+
+  /* ==========================================
+     PAGE HEADING
+  ========================================== */
+
+  function updatePageHeading() {
+
+    const title =
+      document.getElementById(
+        "pageTitle"
+      );
+
+    const description =
+      document.getElementById(
+        "pageDescription"
+      );
+
+    const category =
+      currentCategory
+        .toLowerCase()
+        .trim();
+
+    if (
+      currentCondition.toLowerCase() ===
+      "new"
+    ) {
+
+      title.textContent =
+        "New Phones";
+
+      description.textContent =
+        "Browse new smartphones available at METEUR MOBILE KENYA.";
+
+      return;
+
+    }
+
+    if (
+      currentCondition.toLowerCase() ===
+      "used"
+    ) {
+
+      title.textContent =
+        "Used Phones";
+
+      description.textContent =
+        "Browse used smartphones available at METEUR MOBILE KENYA.";
+
+      return;
+
+    }
+
+    if (
+      category.includes("phone") ||
+      category.includes("tablet")
+    ) {
+
+      title.textContent =
+        "Phones & Tablets";
+
+      description.textContent =
+        "Browse phones and tablets available at METEUR MOBILE KENYA.";
+
+      return;
+
+    }
+
+    if (
+      category === "electronics"
+    ) {
+
+      title.textContent =
+        "Electronics";
+
+      description.textContent =
+        "Browse electronics available at METEUR MOBILE KENYA.";
+
+      return;
+
+    }
+
+    if (
+      category === "accessories"
+    ) {
+
+      title.textContent =
+        "Accessories";
+
+      description.textContent =
+        "Browse accessories available at METEUR MOBILE KENYA.";
+
+      return;
+
+    }
+
+    if (currentSearch) {
+
+      title.textContent =
+        `Search results for "${currentSearch}"`;
+
+      description.textContent =
+        "Products matching your search.";
+
+      return;
+
+    }
+
+    title.textContent =
+      "Shop Phones";
+
+    description.textContent =
+      "Discover new and used smartphones at METEUR MOBILE KENYA.";
+
+  }
+
+
+  /* ==========================================
+     ACTIVE NAVIGATION
+  ========================================== */
+
+  function setActiveNavigation() {
+
+    document
+      .querySelectorAll(
+        "[data-nav]"
+      )
+      .forEach(
+        link => {
+
+          link.classList.remove(
+            "active"
+          );
+
+        }
+      );
+
+    const category =
+      currentCategory
+        .toLowerCase()
+        .trim();
+
+    let activeNav =
+      "shop";
+
+    if (
+      currentCondition.toLowerCase() ===
+      "new"
+    ) {
+      activeNav = "new";
+    }
+
+    if (
+      currentCondition.toLowerCase() ===
+      "used"
+    ) {
+      activeNav = "used";
+    }
+
+    if (
+      category.includes("phone") ||
+      category.includes("tablet")
+    ) {
+      activeNav = "phones";
+    }
+
+    if (
+      category === "electronics"
+    ) {
+      activeNav = "electronics";
+    }
+
+    if (
+      category === "accessories"
+    ) {
+      activeNav = "accessories";
+    }
+
+    const activeLink =
+      document.querySelector(
+        `[data-nav="${activeNav}"]`
+      );
+
+    if (activeLink) {
+      activeLink.classList.add(
+        "active"
+      );
+    }
+
+  }
+
+
+  /* ==========================================
      CONDITION TABS
-  ========================== */
+  ========================================== */
 
   function updateConditionTabs() {
 
@@ -1770,133 +1798,10 @@
 
   }
 
-  /* =========================
-     PAGE HEADING
-  ========================== */
 
-  function updatePageHeading() {
-
-    const title =
-      document.getElementById(
-        "pageTitle"
-      );
-
-    const description =
-      document.getElementById(
-        "pageDescription"
-      );
-
-    const params =
-      new URLSearchParams(
-        window.location.search
-      );
-
-    const category =
-      (
-        params.get(
-          "category"
-        ) || ""
-      ).toLowerCase();
-
-    if (
-      currentCondition.toLowerCase() ===
-      "new"
-    ) {
-
-      title.textContent =
-        "New Phones";
-
-      description.textContent =
-        "Browse new smartphones available at METEUR MOBILE KENYA.";
-
-      return;
-
-    }
-
-    if (
-      currentCondition.toLowerCase() ===
-      "used"
-    ) {
-
-      title.textContent =
-        "Used Phones";
-
-      description.textContent =
-        "Browse used smartphones available at METEUR MOBILE KENYA.";
-
-      return;
-
-    }
-
-    if (
-      category.includes(
-        "phone"
-      )
-    ) {
-
-      title.textContent =
-        "Phones & Tablets";
-
-      description.textContent =
-        "Browse phones and tablets available at METEUR MOBILE KENYA.";
-
-      return;
-
-    }
-
-    if (
-      category ===
-      "electronics"
-    ) {
-
-      title.textContent =
-        "Electronics";
-
-      description.textContent =
-        "Browse electronics available at METEUR MOBILE KENYA.";
-
-      return;
-
-    }
-
-    if (
-      category ===
-      "accessories"
-    ) {
-
-      title.textContent =
-        "Accessories";
-
-      description.textContent =
-        "Browse accessories available at METEUR MOBILE KENYA.";
-
-      return;
-
-    }
-
-    if (currentSearch) {
-
-      title.textContent =
-        `Search results for "${currentSearch}"`;
-
-      description.textContent =
-        "Products matching your search.";
-
-      return;
-
-    }
-
-    title.textContent =
-      "Shop Phones";
-
-    description.textContent =
-      "Discover new and used smartphones at METEUR MOBILE KENYA.";
-
-  }
-
-  /* =========================
+  /* ==========================================
      LOAD PRODUCTS
-  ========================== */
+  ========================================== */
 
   async function loadProducts() {
 
@@ -1905,13 +1810,52 @@
         "productsGrid"
       );
 
+    if (!grid) {
+      return;
+    }
+
     grid.innerHTML = `
       <div class="loading">
         Loading phones...
       </div>
     `;
 
+    if (!db) {
+
+      grid.innerHTML = `
+        <div class="error-message">
+          <div class="error-title">
+            Supabase connection failed
+          </div>
+
+          <div>
+            The shop could not connect to the product database.
+          </div>
+
+          <button
+            class="retry-button"
+            onclick="loadProducts()"
+          >
+            Try Again
+          </button>
+        </div>
+      `;
+
+      return;
+
+    }
+
     try {
+
+      /*
+        IMPORTANT:
+        We load all products first instead of requiring
+        category = "Phones".
+
+        This prevents the shop from becoming empty
+        when the database uses "Phones and Tablets",
+        "Phones & Tablets", or another category name.
+      */
 
       const {
         data,
@@ -1920,10 +1864,6 @@
         await db
           .from("products")
           .select("*")
-          .eq(
-            "category",
-            "Phones"
-          )
           .order(
             "created_at",
             {
@@ -1940,7 +1880,25 @@
 
         grid.innerHTML = `
           <div class="error-message">
-            Unable to load products.
+
+            <div class="error-title">
+              Unable to load products
+            </div>
+
+            <div>
+              ${escapeHtml(
+                error.message ||
+                "Supabase returned an error."
+              )}
+            </div>
+
+            <button
+              class="retry-button"
+              onclick="loadProducts()"
+            >
+              Try Again
+            </button>
+
           </div>
         `;
 
@@ -1953,6 +1911,11 @@
           ? data
           : [];
 
+      console.log(
+        "METEUR products loaded:",
+        allProducts
+      );
+
       renderProducts();
 
     } catch (error) {
@@ -1964,7 +1927,25 @@
 
       grid.innerHTML = `
         <div class="error-message">
-          Unable to load products.
+
+          <div class="error-title">
+            Unable to load products
+          </div>
+
+          <div>
+            ${escapeHtml(
+              error.message ||
+              "An unexpected error occurred."
+            )}
+          </div>
+
+          <button
+            class="retry-button"
+            onclick="loadProducts()"
+          >
+            Try Again
+          </button>
+
         </div>
       `;
 
@@ -1972,14 +1953,159 @@
 
   }
 
-  /* =========================
-     FILTER PRODUCTS
-  ========================== */
+
+  /* ==========================================
+     PRODUCT FILTERING
+  ========================================== */
+
+  function isPhoneProduct(product) {
+
+    const category =
+      String(
+        product.category ||
+        ""
+      )
+      .toLowerCase()
+      .trim();
+
+    const name =
+      String(
+        product.name ||
+        ""
+      )
+      .toLowerCase();
+
+    const description =
+      String(
+        product.description ||
+        ""
+      )
+      .toLowerCase();
+
+    /*
+      Recognize several possible phone category names.
+    */
+
+    if (
+      category.includes("phone") ||
+      category.includes("tablet") ||
+      category.includes("mobile")
+    ) {
+      return true;
+    }
+
+    /*
+      Also recognize common phone names if the category
+      was entered differently.
+    */
+
+    const phoneWords = [
+      "iphone",
+      "samsung",
+      "galaxy",
+      "tecno",
+      "infinix",
+      "xiaomi",
+      "redmi",
+      "oppo",
+      "vivo",
+      "google pixel",
+      "pixel",
+      "nokia",
+      "oneplus",
+      "realme",
+      "phone",
+      "smartphone",
+      "tablet",
+      "ipad"
+    ];
+
+    return phoneWords.some(
+      word =>
+        name.includes(word) ||
+        description.includes(word)
+    );
+
+  }
+
+
+  function matchesCategory(
+    product
+  ) {
+
+    if (!currentCategory) {
+
+      return isPhoneProduct(
+        product
+      );
+
+    }
+
+    const requested =
+      currentCategory
+        .toLowerCase()
+        .trim();
+
+    const productCategory =
+      String(
+        product.category ||
+        ""
+      )
+      .toLowerCase()
+      .trim();
+
+    if (
+      requested.includes("phone") ||
+      requested.includes("tablet")
+    ) {
+
+      return isPhoneProduct(
+        product
+      );
+
+    }
+
+    if (
+      requested ===
+      "electronics"
+    ) {
+
+      return (
+        productCategory ===
+        "electronics"
+      );
+
+    }
+
+    if (
+      requested ===
+      "accessories"
+    ) {
+
+      return (
+        productCategory ===
+        "accessories"
+      );
+
+    }
+
+    return (
+      productCategory ===
+      requested
+    );
+
+  }
+
 
   function getFilteredProducts() {
 
     let products =
-      [...allProducts];
+      allProducts.filter(
+        product =>
+          matchesCategory(
+            product
+          )
+      );
 
     if (currentCondition) {
 
@@ -2010,7 +2136,9 @@
     if (currentSearch) {
 
       const search =
-        currentSearch.toLowerCase();
+        currentSearch
+          .toLowerCase()
+          .trim();
 
       products =
         products.filter(
@@ -2118,9 +2246,10 @@
 
   }
 
-  /* =========================
+
+  /* ==========================================
      PRODUCT IMAGE
-  ========================== */
+  ========================================== */
 
   function getImageProxyUrl(
     imageUrl
@@ -2139,6 +2268,7 @@
 
   }
 
+
   function createImageHtml(
     product
   ) {
@@ -2154,8 +2284,6 @@
       return `
         <div
           style="
-            position:relative;
-            z-index:2;
             color:#9ca3af;
             font-size:12px;
             padding:20px;
@@ -2174,7 +2302,6 @@
       );
 
     return `
-
       <img
         src="${escapeHtml(
           originalImage
@@ -2201,14 +2328,14 @@
           }
         "
       >
-
     `;
 
   }
 
-  /* =========================
+
+  /* ==========================================
      RENDER PRODUCTS
-  ========================== */
+  ========================================== */
 
   function renderProducts() {
 
@@ -2216,6 +2343,10 @@
       document.getElementById(
         "productsGrid"
       );
+
+    if (!grid) {
+      return;
+    }
 
     const products =
       getFilteredProducts();
@@ -2246,7 +2377,6 @@
       }
 
       grid.innerHTML = `
-
         <div class="no-products">
 
           ${escapeHtml(
@@ -2254,7 +2384,6 @@
           )}
 
         </div>
-
       `;
 
       return;
@@ -2328,10 +2457,7 @@
               );
 
             return `
-
-              <article
-                class="product-card"
-              >
+              <article class="product-card">
 
                 <a
                   href="product.html?id=${encodeURIComponent(
@@ -2339,22 +2465,16 @@
                   )}"
                 >
 
-                  <div
-                    class="product-image-wrap"
-                  >
+                  <div class="product-image-wrap">
 
                     ${
                       product.badge
                         ? `
-
                           <span class="badge">
-
                             ${escapeHtml(
                               product.badge
                             )}
-
                           </span>
-
                         `
                         : ""
                     }
@@ -2362,9 +2482,7 @@
                     <span
                       class="condition-badge ${conditionClass}"
                     >
-
                       ${conditionLabel}
-
                     </span>
 
                     ${createImageHtml(
@@ -2373,23 +2491,15 @@
 
                   </div>
 
-                  <div
-                    class="product-info"
-                  >
+                  <div class="product-info">
 
-                    <div
-                      class="product-name"
-                    >
-
+                    <div class="product-name">
                       ${escapeHtml(
                         product.name
                       )}
-
                     </div>
 
-                    <div
-                      class="rating"
-                    >
+                    <div class="rating">
 
                       ${stars}
 
@@ -2399,16 +2509,12 @@
                           margin-left:4px;
                         "
                       >
-
                         (${reviews})
-
                       </span>
 
                     </div>
 
-                    <div
-                      class="price"
-                    >
+                    <div class="price">
 
                       ${formatUSD(
                         price
@@ -2417,47 +2523,31 @@
                       ${
                         oldPrice > 0
                           ? `
-
-                            <span
-                              class="old-price"
-                            >
-
+                            <span class="old-price">
                               ${formatUSD(
                                 oldPrice
                               )}
-
                             </span>
-
                           `
                           : ""
                       }
 
                     </div>
 
-                    <span
-                      class="price-kes"
-                    >
-
+                    <span class="price-kes">
                       ${formatKESApprox(
                         price
                       )}
-
                     </span>
 
-                    <span
-                      class="conversion-note"
-                    >
-
+                    <span class="conversion-note">
                       1 USD ≈ KSh
                       ${Math.round(
                         usdToKesRate
                       )}
-
                     </span>
 
-                    <span
-                      class="view-product"
-                    >
+                    <span class="view-product">
                       View Product
                     </span>
 
@@ -2466,7 +2556,6 @@
                 </a>
 
               </article>
-
             `;
 
           }
@@ -2475,9 +2564,10 @@
 
   }
 
-  /* =========================
+
+  /* ==========================================
      CONDITION BUTTONS
-  ========================== */
+  ========================================== */
 
   document
     .querySelectorAll(
@@ -2514,9 +2604,10 @@
       }
     );
 
-  /* =========================
+
+  /* ==========================================
      SEARCH FORM
-  ========================== */
+  ========================================== */
 
   document
     .getElementById(
@@ -2553,9 +2644,10 @@
       }
     );
 
-  /* =========================
+
+  /* ==========================================
      SEARCH FILTER
-  ========================== */
+  ========================================== */
 
   document
     .getElementById(
@@ -2573,9 +2665,10 @@
       }
     );
 
-  /* =========================
+
+  /* ==========================================
      SORT
-  ========================== */
+  ========================================== */
 
   document
     .getElementById(
@@ -2593,26 +2686,30 @@
       }
     );
 
-  /* =========================
+
+  /* ==========================================
      AUTH STATE
-  ========================== */
+  ========================================== */
 
-  db.auth.onAuthStateChange(
-    () => {
+  if (db) {
 
-      setTimeout(
-        updateAccountUI,
-        0
-      );
+    db.auth.onAuthStateChange(
+      () => {
 
-    }
-  );
+        setTimeout(
+          updateAccountUI,
+          0
+        );
 
-  /* =========================
+      }
+    );
+
+  }
+
+
+  /* ==========================================
      START
-  ========================== */
-
-  setActiveNavigation();
+  ========================================== */
 
   readUrlState();
 

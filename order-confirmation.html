@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Confirmed - Meteur Online Shopping</title>
+
+    <title>Order Confirmed | METEUR MOBILE KENYA</title>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabase-config.js"></script>
@@ -17,47 +18,164 @@
 
         body {
             font-family: Arial, Helvetica, sans-serif;
-            background: #f5f5f5;
-            color: #222;
+            background: #fff5f6;
+            color: #172033;
         }
 
-        header {
-            background: #f97316;
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .top-header {
+            background: #d90429;
             color: white;
-            padding: 18px 5%;
+            padding: 18px 20px;
         }
 
         .header-inner {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: auto;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
         .logo {
-            font-size: 24px;
-            font-weight: bold;
+            width: 48px;
+            height: 48px;
+            background: white;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
+            padding: 0;
+            border: none;
+            box-shadow: none;
         }
 
-        header a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
+        .real-logo {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            background: white;
+            border: none;
+            border-radius: 9px;
         }
+
+        .brand-text h1 {
+            font-size: 23px;
+            font-weight: 800;
+            letter-spacing: .3px;
+        }
+
+        .brand-text p {
+            font-size: 11px;
+            margin-top: 3px;
+            opacity: .95;
+            letter-spacing: 1px;
+        }
+
+        .continue-shopping {
+            background: white;
+            color: #d90429;
+            padding: 10px 16px;
+            border-radius: 7px;
+            font-weight: 800;
+            font-size: 14px;
+        }
+
+        .continue-shopping:hover {
+            background: #fff0f2;
+        }
+
+        /* =========================
+           NAVIGATION
+        ========================= */
+
+        nav {
+            background: #9b001f;
+            color: white;
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            align-items: stretch;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .nav-inner::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-inner a {
+            position: relative;
+            padding: 16px 18px;
+            font-size: 14px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .nav-inner a:hover {
+            background: rgba(255,255,255,.08);
+        }
+
+        .nav-inner a.active::after {
+            content: "";
+            position: absolute;
+            left: 15px;
+            right: 15px;
+            bottom: 0;
+            height: 3px;
+            background: white;
+            border-radius: 3px 3px 0 0;
+        }
+
+        /* =========================
+           MAIN
+        ========================= */
 
         .container {
             max-width: 900px;
-            margin: 40px auto;
+            margin: 35px auto 60px;
             padding: 0 20px;
+        }
+
+        .breadcrumb {
+            color: #61718a;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .breadcrumb a {
+            color: #d90429;
+            font-weight: 700;
         }
 
         .success-card {
             background: white;
+            border: 1px solid #f3c7cd;
             border-radius: 14px;
             padding: 40px;
             text-align: center;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 15px rgba(217,4,41,.06);
             margin-bottom: 25px;
         }
 
@@ -65,8 +183,9 @@
             width: 75px;
             height: 75px;
             border-radius: 50%;
-            background: #dcfce7;
-            color: #16a34a;
+            background: #fff0f2;
+            color: #d90429;
+            border: 2px solid #f3c7cd;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -77,28 +196,35 @@
 
         .success-card h1 {
             margin-bottom: 10px;
+            font-size: 30px;
         }
 
         .success-card p {
-            color: #666;
+            color: #61718a;
+            line-height: 1.6;
         }
 
         .order-number {
             margin-top: 20px;
-            background: #fff7ed;
-            border: 1px solid #fed7aa;
+            background: #fff0f2;
+            border: 1px solid #f3c7cd;
             padding: 15px;
             border-radius: 8px;
-            color: #c2410c;
+            color: #d90429;
             font-weight: bold;
             font-size: 18px;
         }
 
+        /* =========================
+           CARDS
+        ========================= */
+
         .card {
             background: white;
+            border: 1px solid #f3c7cd;
             border-radius: 12px;
             padding: 25px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 15px rgba(217,4,41,.05);
             margin-bottom: 20px;
         }
 
@@ -111,8 +237,8 @@
             display: flex;
             justify-content: space-between;
             gap: 20px;
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
+            padding: 11px 0;
+            border-bottom: 1px solid #f0dce0;
         }
 
         .info-row:last-child {
@@ -120,20 +246,25 @@
         }
 
         .label {
-            color: #666;
+            color: #61718a;
         }
 
         .value {
             font-weight: bold;
             text-align: right;
+            word-break: break-word;
         }
+
+        /* =========================
+           ORDER ITEMS
+        ========================= */
 
         .order-item {
             display: flex;
             align-items: center;
             gap: 12px;
             padding: 12px 0;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #f0dce0;
         }
 
         .order-item:last-child {
@@ -143,37 +274,53 @@
         .order-item img {
             width: 65px;
             height: 65px;
-            object-fit: cover;
+            object-fit: contain;
+            background: #fff5f6;
             border-radius: 8px;
+            padding: 5px;
+            flex-shrink: 0;
         }
 
         .item-info {
             flex: 1;
+            min-width: 0;
         }
 
         .item-name {
             font-weight: bold;
+            word-break: break-word;
         }
 
         .item-quantity {
-            color: #666;
+            color: #61718a;
             font-size: 13px;
             margin-top: 4px;
         }
 
         .item-price {
+            color: #d90429;
             font-weight: bold;
+            white-space: nowrap;
         }
 
         .total {
             display: flex;
             justify-content: space-between;
-            border-top: 1px solid #ddd;
+            gap: 20px;
+            border-top: 1px solid #f0dce0;
             padding-top: 18px;
             margin-top: 10px;
             font-size: 20px;
             font-weight: bold;
         }
+
+        .total span:last-child {
+            color: #d90429;
+        }
+
+        /* =========================
+           BUTTONS
+        ========================= */
 
         .buttons {
             display: flex;
@@ -192,24 +339,41 @@
         }
 
         .primary {
-            background: #f97316;
+            background: #d90429;
             color: white;
         }
 
-        .secondary {
-            background: #eee;
-            color: #222;
+        .primary:hover {
+            background: #b90323;
         }
+
+        .secondary {
+            background: #fff0f2;
+            color: #d90429;
+            border: 1px solid #f3c7cd;
+        }
+
+        .secondary:hover {
+            background: #ffe3e7;
+        }
+
+        /* =========================
+           LOADING / ERROR
+        ========================= */
 
         .loading {
             background: white;
+            border: 1px solid #f3c7cd;
             text-align: center;
             padding: 60px 20px;
             border-radius: 12px;
+            color: #61718a;
+            font-weight: 700;
         }
 
         .error {
             background: white;
+            border: 1px solid #f3c7cd;
             text-align: center;
             padding: 50px 20px;
             border-radius: 12px;
@@ -220,21 +384,136 @@
         }
 
         .error p {
-            color: #666;
+            color: #61718a;
             margin-bottom: 20px;
         }
 
+        /* =========================
+           FOOTER
+        ========================= */
+
         footer {
-            background: #222;
+            background: #9b001f;
             color: white;
-            text-align: center;
-            padding: 30px;
+            padding: 40px 20px 25px;
             margin-top: 40px;
         }
 
+        .footer-inner {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 30px;
+        }
+
+        footer h3 {
+            margin-bottom: 12px;
+            font-size: 18px;
+        }
+
+        footer p {
+            color: #ffd9df;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        footer a {
+            display: block;
+            color: #ffd9df;
+            margin-bottom: 9px;
+            font-size: 14px;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+
+        .copyright {
+            max-width: 1200px;
+            margin: 30px auto 0;
+            padding-top: 18px;
+            border-top: 1px solid rgba(255,255,255,.2);
+            text-align: center;
+            color: #ffd9df;
+            font-size: 13px;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            .footer-inner {
+                grid-template-columns: 1fr 1fr;
+            }
+
+        }
+
         @media (max-width: 600px) {
+
+            .top-header {
+                padding: 14px;
+            }
+
+            .header-inner {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .brand {
+                justify-content: center;
+            }
+
+            .logo {
+                width: 48px;
+                min-width: 48px;
+                height: 48px;
+                border-radius: 9px;
+                padding: 0;
+            }
+
+            .real-logo {
+                width: 48px;
+                height: 48px;
+                background: #ffffff;
+                border-radius: 9px;
+            }
+
+            .brand-text h1 {
+                font-size: 19px;
+            }
+
+            .brand-text p {
+                font-size: 9px;
+            }
+
+            .continue-shopping {
+                text-align: center;
+                font-size: 13px;
+            }
+
+            .nav-inner a {
+                padding: 14px 13px;
+                font-size: 13px;
+            }
+
+            .container {
+                padding: 0 12px;
+                margin-top: 25px;
+            }
+
             .success-card {
                 padding: 30px 20px;
+            }
+
+            .success-card h1 {
+                font-size: 25px;
+            }
+
+            .card {
+                padding: 18px;
             }
 
             .info-row {
@@ -246,40 +525,269 @@
                 text-align: left;
             }
 
-            .header-inner {
-                gap: 15px;
+            .order-item {
+                align-items: flex-start;
             }
+
+            .order-item img {
+                width: 60px;
+                height: 60px;
+            }
+
+            .item-price {
+                font-size: 14px;
+            }
+
+            .total {
+                font-size: 18px;
+            }
+
+            .footer-inner {
+                grid-template-columns: 1fr;
+            }
+
         }
     </style>
 </head>
 
 <body>
 
-<header>
+<!-- HEADER -->
+<header class="top-header">
+
     <div class="header-inner">
-        <div class="logo">Meteur Online Shopping</div>
-        <a href="shop.html">Continue Shopping</a>
+
+        <a href="index.html" class="brand">
+
+            <div class="logo">
+                <img
+                    src="WhatsApp Image 2026-09-30 at 12.36.30.jpeg"
+                    alt="Meteur Mobile Kenya M Logo"
+                    class="real-logo"
+                >
+            </div>
+
+            <div class="brand-text">
+                <h1>METEUR MOBILE KENYA</h1>
+                <p>MOBILE • ELECTRONICS • ACCESSORIES</p>
+            </div>
+
+        </a>
+
+        <a
+            href="shop.html"
+            class="continue-shopping"
+        >
+            Continue Shopping
+        </a>
+
     </div>
+
 </header>
 
+<!-- NAVIGATION -->
+<nav>
+
+    <div class="nav-inner">
+
+        <a href="index.html" data-nav="home">
+            Home
+        </a>
+
+        <a href="shop.html" data-nav="shop">
+            Shop
+        </a>
+
+        <a
+            href="shop.html?category=Phones%20and%20Tablets"
+            data-nav="phones"
+        >
+            Phones & Tablets
+        </a>
+
+        <a
+            href="shop.html?category=Electronics"
+            data-nav="electronics"
+        >
+            Electronics
+        </a>
+
+        <a
+            href="shop.html?category=Accessories"
+            data-nav="accessories"
+        >
+            Accessories
+        </a>
+
+        <a href="orders.html" data-nav="orders">
+            My Orders
+        </a>
+
+        <a href="contact.html" data-nav="contact">
+            Contact Us
+        </a>
+
+    </div>
+
+</nav>
+
+<!-- MAIN -->
 <div class="container">
 
+    <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <span> / </span>
+        <a href="orders.html">My Orders</a>
+        <span> / Order Confirmation</span>
+    </div>
+
     <div id="content">
+
         <div class="loading">
             Loading your order...
         </div>
+
     </div>
 
 </div>
 
+<!-- FOOTER -->
 <footer>
-    <p>© 2026 Meteur Online Shopping. All rights reserved.</p>
+
+    <div class="footer-inner">
+
+        <div>
+
+            <h3>METEUR MOBILE KENYA</h3>
+
+            <p>
+                Your online destination for mobile phones,
+                electronics, accessories and smart devices in Kenya.
+            </p>
+
+        </div>
+
+        <div>
+
+            <h3>Shop</h3>
+
+            <a href="shop.html">
+                All Products
+            </a>
+
+            <a href="shop.html?deal=true">
+                Flash Deals
+            </a>
+
+            <a href="shop.html?new=true">
+                New Arrivals
+            </a>
+
+            <a href="shop.html?category=Phones%20and%20Tablets">
+                Phones & Tablets
+            </a>
+
+        </div>
+
+        <div>
+
+            <h3>Account</h3>
+
+            <a href="login.html">
+                Login
+            </a>
+
+            <a href="register.html">
+                Register
+            </a>
+
+            <a href="profile.html">
+                My Profile
+            </a>
+
+            <a href="orders.html">
+                My Orders
+            </a>
+
+        </div>
+
+        <div>
+
+            <h3>Help</h3>
+
+            <a href="contact.html">
+                Contact Us
+            </a>
+
+            <a href="track-order.html">
+                Track Order
+            </a>
+
+            <a href="seller-register.html">
+                Sell on Meteur
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="copyright">
+        © 2026 METEUR MOBILE KENYA. All rights reserved.
+    </div>
+
 </footer>
 
 <script>
 
     const content =
         document.getElementById("content");
+
+    function setActiveNavigation() {
+
+        const path =
+            window.location.pathname.toLowerCase();
+
+        document
+            .querySelectorAll(".nav-inner a")
+            .forEach(link => {
+
+                link.classList.remove("active");
+
+            });
+
+        let target = "orders";
+
+        if (
+            path.endsWith("/") ||
+            path.endsWith("/index.html")
+        ) {
+
+            target = "home";
+
+        } else if (
+            path.includes("shop")
+        ) {
+
+            target = "shop";
+
+        } else if (
+            path.includes("contact")
+        ) {
+
+            target = "contact";
+
+        }
+
+        const activeLink =
+            document.querySelector(
+                `[data-nav="${target}"]`
+            );
+
+        if (activeLink) {
+            activeLink.classList.add("active");
+        }
+
+    }
 
     function formatMoney(amount) {
 
@@ -348,16 +856,38 @@
                     Number(item.price) || 0;
 
                 const image =
+                    item.image_url ||
                     item.image ||
-                    "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300";
+                    "";
 
                 return `
                     <div class="order-item">
 
-                        <img
-                            src="${escapeHTML(image)}"
-                            alt="${escapeHTML(item.name || "Product")}"
-                        >
+                        ${
+                            image
+                                ? `
+                                    <img
+                                        src="${escapeHTML(image)}"
+                                        alt="${escapeHTML(item.name || "Product")}"
+                                    >
+                                `
+                                : `
+                                    <div
+                                        style="
+                                            width:65px;
+                                            height:65px;
+                                            background:#fff5f6;
+                                            border-radius:8px;
+                                            display:flex;
+                                            align-items:center;
+                                            justify-content:center;
+                                            flex-shrink:0;
+                                        "
+                                    >
+                                        📦
+                                    </div>
+                                `
+                        }
 
                         <div class="item-info">
 
@@ -396,15 +926,19 @@
                     ✓
                 </div>
 
-                <h1>Order Confirmed!</h1>
+                <h1>
+                    Order Confirmed!
+                </h1>
 
                 <p>
-                    Thank you for shopping with Meteur Online Shopping.
+                    Thank you for shopping with
+                    METEUR MOBILE KENYA.
                     Your order has been received successfully.
                 </p>
 
                 <div class="order-number">
-                    Order Number: ${escapeHTML(order.order_number)}
+                    Order Number:
+                    ${escapeHTML(order.order_number)}
                 </div>
 
                 <div class="buttons">
@@ -429,118 +963,191 @@
 
             <div class="card">
 
-                <h2>Order Details</h2>
+                <h2>
+                    Order Details
+                </h2>
 
                 <div class="info-row">
-                    <span class="label">Order Number</span>
+
+                    <span class="label">
+                        Order Number
+                    </span>
+
                     <span class="value">
                         ${escapeHTML(order.order_number)}
                     </span>
+
                 </div>
 
                 <div class="info-row">
-                    <span class="label">Order Date</span>
+
+                    <span class="label">
+                        Order Date
+                    </span>
+
                     <span class="value">
                         ${formatDate(order.created_at)}
                     </span>
+
                 </div>
 
                 <div class="info-row">
-                    <span class="label">Status</span>
+
+                    <span class="label">
+                        Status
+                    </span>
+
                     <span class="value">
                         ${escapeHTML(order.status || "Processing")}
                     </span>
+
                 </div>
 
                 <div class="info-row">
-                    <span class="label">Payment Method</span>
-                    <span class="value">
-                        ${escapeHTML(order.payment_method)}
+
+                    <span class="label">
+                        Payment Method
                     </span>
+
+                    <span class="value">
+                        ${escapeHTML(order.payment_method || "Not specified")}
+                    </span>
+
                 </div>
 
             </div>
 
             <div class="card">
 
-                <h2>Delivery Information</h2>
+                <h2>
+                    Delivery Information
+                </h2>
 
                 <div class="info-row">
-                    <span class="label">Recipient</span>
+
+                    <span class="label">
+                        Recipient
+                    </span>
+
                     <span class="value">
                         ${escapeHTML(order.recipient_name)}
                     </span>
+
                 </div>
 
                 <div class="info-row">
-                    <span class="label">Phone</span>
+
+                    <span class="label">
+                        Phone
+                    </span>
+
                     <span class="value">
                         ${escapeHTML(order.phone)}
                     </span>
+
                 </div>
 
                 <div class="info-row">
-                    <span class="label">County</span>
+
+                    <span class="label">
+                        County
+                    </span>
+
                     <span class="value">
                         ${escapeHTML(order.county)}
                     </span>
+
                 </div>
 
                 <div class="info-row">
-                    <span class="label">Town / Area</span>
+
+                    <span class="label">
+                        Town / Area
+                    </span>
+
                     <span class="value">
                         ${escapeHTML(order.town)}
                     </span>
+
                 </div>
 
                 <div class="info-row">
-                    <span class="label">Address</span>
+
+                    <span class="label">
+                        Address
+                    </span>
+
                     <span class="value">
                         ${escapeHTML(order.address)}
                     </span>
+
                 </div>
 
                 ${
                     order.delivery_note
-                    ? `
-                        <div class="info-row">
-                            <span class="label">Delivery Note</span>
-                            <span class="value">
-                                ${escapeHTML(order.delivery_note)}
-                            </span>
-                        </div>
-                    `
-                    : ""
+                        ? `
+                            <div class="info-row">
+
+                                <span class="label">
+                                    Delivery Note
+                                </span>
+
+                                <span class="value">
+                                    ${escapeHTML(order.delivery_note)}
+                                </span>
+
+                            </div>
+                        `
+                        : ""
                 }
 
             </div>
 
             <div class="card">
 
-                <h2>Items Ordered</h2>
+                <h2>
+                    Items Ordered
+                </h2>
 
                 ${
                     itemsHTML ||
-                    "<p>No item information available.</p>"
+                    "<p style='color:#61718a;'>No item information available.</p>"
                 }
 
                 <div class="info-row">
-                    <span class="label">Subtotal</span>
+
+                    <span class="label">
+                        Subtotal
+                    </span>
+
                     <span class="value">
                         ${formatMoney(order.subtotal)}
                     </span>
+
                 </div>
 
                 <div class="info-row">
-                    <span class="label">Delivery</span>
+
+                    <span class="label">
+                        Delivery
+                    </span>
+
                     <span class="value">
                         ${deliveryText}
                     </span>
+
                 </div>
 
                 <div class="total">
-                    <span>Total</span>
-                    <span>${formatMoney(order.total)}</span>
+
+                    <span>
+                        Total
+                    </span>
+
+                    <span>
+                        ${formatMoney(order.total)}
+                    </span>
+
                 </div>
 
             </div>
@@ -585,18 +1192,26 @@
             if (!orderNumber) {
 
                 content.innerHTML = `
+
                     <div class="error">
-                        <h2>Order Not Found</h2>
+
+                        <h2>
+                            Order Not Found
+                        </h2>
+
                         <p>
                             We could not find an order number.
                         </p>
+
                         <a
                             href="orders.html"
                             class="button primary"
                         >
                             View My Orders
                         </a>
+
                     </div>
+
                 `;
 
                 return;
@@ -621,8 +1236,12 @@
                 );
 
                 content.innerHTML = `
+
                     <div class="error">
-                        <h2>Order Not Found</h2>
+
+                        <h2>
+                            Order Not Found
+                        </h2>
 
                         <p>
                             We could not find this order
@@ -635,7 +1254,9 @@
                         >
                             View My Orders
                         </a>
+
                     </div>
+
                 `;
 
                 return;
@@ -649,8 +1270,12 @@
             console.error(error);
 
             content.innerHTML = `
+
                 <div class="error">
-                    <h2>Something went wrong</h2>
+
+                    <h2>
+                        Something went wrong
+                    </h2>
 
                     <p>
                         Please try again or view your orders.
@@ -662,12 +1287,16 @@
                     >
                         View My Orders
                     </a>
+
                 </div>
+
             `;
 
         }
 
     }
+
+    setActiveNavigation();
 
     loadOrder();
 

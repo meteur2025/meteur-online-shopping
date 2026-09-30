@@ -7,6 +7,7 @@
   <title>Shop Phones - METEUR MOBILE KENYA</title>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
 
   <style>
     * {
@@ -151,17 +152,33 @@
       flex-shrink: 0;
     }
 
-    .header-link {
+    .header-link,
+    .header-button {
       color: white;
       font-size: 14px;
       font-weight: 600;
       padding: 9px 10px;
       border-radius: 5px;
       white-space: nowrap;
+      background: transparent;
+      border: none;
+      cursor: pointer;
     }
 
-    .header-link:hover {
+    .header-link:hover,
+    .header-button:hover {
       background: rgba(255, 255, 255, 0.14);
+    }
+
+    .account-email {
+      color: white;
+      font-size: 13px;
+      font-weight: 700;
+      max-width: 220px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      padding: 9px 6px;
     }
 
     .cart-link {
@@ -201,6 +218,11 @@
       gap: 28px;
       overflow-x: auto;
       white-space: nowrap;
+      scrollbar-width: none;
+    }
+
+    .nav-inner::-webkit-scrollbar {
+      display: none;
     }
 
     .nav-inner a {
@@ -293,7 +315,7 @@
     }
 
     /* =========================
-       PHONE CONDITION TABS
+       CONDITION TABS
     ========================== */
 
     .category-tabs {
@@ -302,6 +324,11 @@
       overflow-x: auto;
       margin-bottom: 25px;
       padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+
+    .category-tabs::-webkit-scrollbar {
+      display: none;
     }
 
     .category-tab {
@@ -371,13 +398,6 @@
       z-index: 1;
     }
 
-    .image-loading {
-      position: absolute;
-      color: #9ca3af;
-      font-size: 12px;
-      z-index: 0;
-    }
-
     .badge {
       position: absolute;
       top: 10px;
@@ -442,6 +462,22 @@
       font-size: 12px;
       text-decoration: line-through;
       margin-left: 5px;
+      font-weight: 600;
+    }
+
+    .price-kes {
+      display: block;
+      color: #61718a;
+      font-size: 12px;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    .conversion-note {
+      display: block;
+      color: #8a96a8;
+      font-size: 10px;
+      margin-top: 3px;
     }
 
     .view-product {
@@ -520,6 +556,21 @@
       color: white;
     }
 
+    .footer-logout {
+      display: none;
+      color: #ffd9df;
+      font-size: 13px;
+      margin-bottom: 9px;
+      background: transparent;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    .footer-logout:hover {
+      color: white;
+    }
+
     .footer-bottom {
       border-top: 1px solid rgba(255, 255, 255, 0.15);
       text-align: center;
@@ -533,6 +584,7 @@
     ========================== */
 
     @media (max-width: 1000px) {
+
       .products-grid {
         grid-template-columns: repeat(3, 1fr);
       }
@@ -543,6 +595,7 @@
     }
 
     @media (max-width: 800px) {
+
       .filters {
         grid-template-columns: 1fr;
       }
@@ -557,6 +610,7 @@
     ========================== */
 
     @media (max-width: 700px) {
+
       .header-top {
         display: grid;
         grid-template-columns: 1fr auto;
@@ -599,8 +653,10 @@
         display: flex;
       }
 
-      .header-link:not(.cart-link) {
-        display: none;
+      .header-actions .header-link:not(.cart-link),
+      .header-actions .account-email,
+      .header-actions .header-button {
+        display: none !important;
       }
 
       .cart-link {
@@ -654,6 +710,7 @@
     ========================== */
 
     @media (max-width: 430px) {
+
       .header-top {
         grid-template-columns: 1fr auto;
         grid-template-areas:
@@ -703,6 +760,19 @@
         font-size: 9px;
         padding: 4px 6px;
       }
+
+      .price {
+        font-size: 15px;
+      }
+
+      .price-kes {
+        font-size: 11px;
+      }
+
+      .view-product {
+        font-size: 12px;
+        padding: 9px 5px;
+      }
     }
   </style>
 </head>
@@ -716,10 +786,12 @@
     <a href="index.html" class="logo">
 
       <div class="logo-icon">
+
         <img
           src="WhatsApp Image 2026-09-30 at 12.36.30.jpeg"
           alt="METEUR MOBILE KENYA Logo"
         >
+
       </div>
 
       <div class="logo-text">
@@ -729,14 +801,17 @@
         </span>
 
         <span class="logo-sub">
-          NEW PHONES • USED PHONES • SMARTPHONES
+          MOBILE • ELECTRONICS • ACCESSORIES
         </span>
 
       </div>
 
     </a>
 
-    <form class="search-box" id="searchForm">
+    <form
+      class="search-box"
+      id="searchForm"
+    >
 
       <input
         type="search"
@@ -752,19 +827,49 @@
 
     <div class="header-actions">
 
-      <a href="login.html" class="header-link">
+      <a
+        href="login.html"
+        class="header-link"
+        id="loginLink"
+      >
         Login
       </a>
 
-      <a href="register.html" class="header-link">
+      <a
+        href="register.html"
+        class="header-link"
+        id="registerLink"
+      >
         Register
       </a>
 
-      <a href="cart.html" class="header-link cart-link">
+      <span
+        id="accountEmail"
+        class="account-email"
+        style="display:none;"
+      ></span>
+
+      <button
+        type="button"
+        id="logoutButton"
+        class="header-button"
+        style="display:none;"
+        onclick="logoutUser()"
+      >
+        Logout
+      </button>
+
+      <a
+        href="cart.html"
+        class="header-link cart-link"
+      >
 
         🛒 Cart
 
-        <span id="cartCount" class="cart-count">
+        <span
+          id="cartCount"
+          class="cart-count"
+        >
           0
         </span>
 
@@ -778,12 +883,25 @@
 
     <div class="nav-inner">
 
-      <a href="index.html" data-nav="home">
+      <a
+        href="index.html"
+        data-nav="home"
+      >
         Home
       </a>
 
-      <a href="shop.html" data-nav="shop">
+      <a
+        href="shop.html"
+        data-nav="shop"
+      >
         Shop
+      </a>
+
+      <a
+        href="shop.html?category=Phones%20and%20Tablets"
+        data-nav="phones"
+      >
+        Phones & Tablets
       </a>
 
       <a
@@ -800,11 +918,31 @@
         Used Phones
       </a>
 
-      <a href="orders.html" data-nav="orders">
+      <a
+        href="shop.html?category=Electronics"
+        data-nav="electronics"
+      >
+        Electronics
+      </a>
+
+      <a
+        href="shop.html?category=Accessories"
+        data-nav="accessories"
+      >
+        Accessories
+      </a>
+
+      <a
+        href="orders.html"
+        data-nav="orders"
+      >
         My Orders
       </a>
 
-      <a href="contact.html" data-nav="contact">
+      <a
+        href="contact.html"
+        data-nav="contact"
+      >
         Contact Us
       </a>
 
@@ -930,9 +1068,8 @@
       </h2>
 
       <p>
-        A dedicated phone shop offering smartphones
-        and mobile devices in Kenya, with separate
-        new and used phone options.
+        Your online destination for mobile phones,
+        electronics, accessories and smart devices in Kenya.
       </p>
 
     </div>
@@ -940,7 +1077,7 @@
     <div class="footer-column">
 
       <h3>
-        Phones
+        Shop
       </h3>
 
       <a href="shop.html">
@@ -955,6 +1092,14 @@
         Used Phones
       </a>
 
+      <a href="shop.html?category=Electronics">
+        Electronics
+      </a>
+
+      <a href="shop.html?category=Accessories">
+        Accessories
+      </a>
+
     </div>
 
     <div class="footer-column">
@@ -963,21 +1108,41 @@
         Account
       </h3>
 
-      <a href="login.html">
-        Login
-      </a>
+      <div id="footerLoggedOut">
 
-      <a href="register.html">
-        Register
-      </a>
+        <a href="login.html">
+          Login
+        </a>
 
-      <a href="profile.html">
-        My Profile
-      </a>
+        <a href="register.html">
+          Register
+        </a>
 
-      <a href="orders.html">
-        My Orders
-      </a>
+      </div>
+
+      <div
+        id="footerLoggedIn"
+        style="display:none;"
+      >
+
+        <a href="profile.html">
+          My Profile
+        </a>
+
+        <a href="orders.html">
+          My Orders
+        </a>
+
+        <button
+          type="button"
+          id="footerLogoutButton"
+          class="footer-logout"
+          onclick="logoutUser()"
+        >
+          Logout
+        </button>
+
+      </div>
 
     </div>
 
@@ -1011,13 +1176,23 @@
 
 <script>
 
+  /* =========================
+     SUPABASE
+  ========================== */
+
   const SUPABASE_URL =
     "https://nytsdeupaootukcullgi.supabase.co";
 
   const SUPABASE_ANON_KEY =
     "sb_publishable_cIqzHoafy_AEdB48KS_Wpg_LDqE1sFC";
 
-  const supabaseClient =
+  /*
+    Use the existing supabaseClient
+    from supabase-config.js when available.
+  */
+
+  const db =
+    window.supabaseClient ||
     window.supabase.createClient(
       SUPABASE_URL,
       SUPABASE_ANON_KEY
@@ -1031,16 +1206,58 @@
 
   let currentSort = "newest";
 
-  function escapeHtml(value) {
+  let usdToKesRate = 129.7;
 
-    return String(value ?? "")
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
+  /* =========================
+     EXCHANGE RATE
+  ========================== */
+
+  async function loadExchangeRate() {
+
+    try {
+
+      const response =
+        await fetch(
+          "https://open.er-api.com/v6/latest/USD"
+        );
+
+      if (!response.ok) {
+        throw new Error(
+          "Exchange rate request failed."
+        );
+      }
+
+      const data =
+        await response.json();
+
+      const rate =
+        Number(
+          data?.rates?.KES
+        );
+
+      if (
+        Number.isFinite(rate) &&
+        rate > 0
+      ) {
+
+        usdToKesRate = rate;
+
+      }
+
+    } catch (error) {
+
+      console.warn(
+        "Using fallback USD/KES rate:",
+        usdToKesRate
+      );
+
+    }
 
   }
+
+  /* =========================
+     CURRENCY
+  ========================== */
 
   function formatUSD(value) {
 
@@ -1058,26 +1275,330 @@
 
   }
 
-  function getImageProxyUrl(imageUrl) {
+  function formatKES(value) {
 
-    if (!imageUrl) {
-      return "";
-    }
+    return "KSh " +
+      Math.round(
+        Number(value || 0)
+      ).toLocaleString(
+        "en-KE"
+      );
+
+  }
+
+  function getKesEquivalent(
+    usdAmount
+  ) {
 
     return (
-      "https://images.weserv.nl/?url=" +
-      encodeURIComponent(imageUrl)
+      Number(usdAmount || 0) *
+      usdToKesRate
     );
 
   }
+
+  function formatKESApprox(
+    usdAmount
+  ) {
+
+    return "≈ " +
+      formatKES(
+        getKesEquivalent(
+          usdAmount
+        )
+      );
+
+  }
+
+  /* =========================
+     HTML SAFETY
+  ========================== */
+
+  function escapeHtml(value) {
+
+    return String(value ?? "")
+      .replace(
+        /&/g,
+        "&amp;"
+      )
+      .replace(
+        /</g,
+        "&lt;"
+      )
+      .replace(
+        />/g,
+        "&gt;"
+      )
+      .replace(
+        /"/g,
+        "&quot;"
+      )
+      .replace(
+        /'/g,
+        "&#039;"
+      );
+
+  }
+
+  /* =========================
+     ACCOUNT UI
+  ========================== */
+
+  async function updateAccountUI() {
+
+    const loginLink =
+      document.getElementById(
+        "loginLink"
+      );
+
+    const registerLink =
+      document.getElementById(
+        "registerLink"
+      );
+
+    const accountEmail =
+      document.getElementById(
+        "accountEmail"
+      );
+
+    const logoutButton =
+      document.getElementById(
+        "logoutButton"
+      );
+
+    const footerLoggedOut =
+      document.getElementById(
+        "footerLoggedOut"
+      );
+
+    const footerLoggedIn =
+      document.getElementById(
+        "footerLoggedIn"
+      );
+
+    try {
+
+      const {
+        data,
+        error
+      } =
+        await db.auth.getUser();
+
+      if (
+        error ||
+        !data ||
+        !data.user
+      ) {
+
+        if (loginLink) {
+          loginLink.style.display =
+            "inline-block";
+        }
+
+        if (registerLink) {
+          registerLink.style.display =
+            "inline-block";
+        }
+
+        if (accountEmail) {
+          accountEmail.style.display =
+            "none";
+        }
+
+        if (logoutButton) {
+          logoutButton.style.display =
+            "none";
+        }
+
+        if (footerLoggedOut) {
+          footerLoggedOut.style.display =
+            "block";
+        }
+
+        if (footerLoggedIn) {
+          footerLoggedIn.style.display =
+            "none";
+        }
+
+        return;
+
+      }
+
+      const user =
+        data.user;
+
+      const email =
+        user.email ||
+        "Account";
+
+      if (loginLink) {
+        loginLink.style.display =
+          "none";
+      }
+
+      if (registerLink) {
+        registerLink.style.display =
+          "none";
+      }
+
+      if (accountEmail) {
+
+        accountEmail.textContent =
+          "👤 " + email;
+
+        accountEmail.style.display =
+          "inline-block";
+
+      }
+
+      if (logoutButton) {
+
+        logoutButton.style.display =
+          "inline-block";
+
+      }
+
+      if (footerLoggedOut) {
+        footerLoggedOut.style.display =
+          "none";
+      }
+
+      if (footerLoggedIn) {
+        footerLoggedIn.style.display =
+          "block";
+      }
+
+    } catch (error) {
+
+      console.error(
+        "Account UI error:",
+        error
+      );
+
+    }
+
+  }
+
+  /* =========================
+     LOGOUT
+  ========================== */
+
+  async function logoutUser() {
+
+    try {
+
+      const {
+        error
+      } =
+        await db.auth.signOut();
+
+      if (error) {
+        throw error;
+      }
+
+      window.location.href =
+        "index.html";
+
+    } catch (error) {
+
+      console.error(
+        "Logout error:",
+        error
+      );
+
+      alert(
+        "We could not log you out. Please try again."
+      );
+
+    }
+
+  }
+
+  /* =========================
+     CART COUNT
+  ========================== */
+
+  function updateCartCount() {
+
+    const countElement =
+      document.getElementById(
+        "cartCount"
+      );
+
+    if (!countElement) {
+      return;
+    }
+
+    let cart = [];
+
+    try {
+
+      cart =
+        JSON.parse(
+          localStorage.getItem(
+            "meteur_cart"
+          ) || "[]"
+        );
+
+    } catch (error) {
+
+      cart = [];
+
+    }
+
+    if (!Array.isArray(cart)) {
+      cart = [];
+    }
+
+    const total =
+      cart.reduce(
+        (sum, item) => {
+
+          return sum +
+            (
+              Number(
+                item.quantity
+              ) || 1
+            );
+
+        },
+        0
+      );
+
+    if (total > 0) {
+
+      countElement.textContent =
+        total;
+
+      countElement.style.display =
+        "flex";
+
+    } else {
+
+      countElement.style.display =
+        "none";
+
+    }
+
+  }
+
+  /* =========================
+     ACTIVE NAVIGATION
+  ========================== */
 
   function setActiveNavigation() {
 
     document
       .querySelectorAll("[data-nav]")
-      .forEach(link => {
-        link.classList.remove("active");
-      });
+      .forEach(
+        link => {
+
+          link.classList.remove(
+            "active"
+          );
+
+        }
+      );
 
     const params =
       new URLSearchParams(
@@ -1086,17 +1607,68 @@
 
     const condition =
       (
-        params.get("condition") || ""
+        params.get(
+          "condition"
+        ) || ""
       ).toLowerCase();
 
-    let activeNav = "shop";
+    const category =
+      (
+        params.get(
+          "category"
+        ) || ""
+      ).toLowerCase();
 
-    if (condition === "new") {
-      activeNav = "new";
+    let activeNav =
+      "shop";
+
+    if (
+      condition === "new"
+    ) {
+
+      activeNav =
+        "new";
+
     }
 
-    if (condition === "used") {
-      activeNav = "used";
+    if (
+      condition === "used"
+    ) {
+
+      activeNav =
+        "used";
+
+    }
+
+    if (
+      category.includes(
+        "phone"
+      )
+    ) {
+
+      activeNav =
+        "phones";
+
+    }
+
+    if (
+      category ===
+      "electronics"
+    ) {
+
+      activeNav =
+        "electronics";
+
+    }
+
+    if (
+      category ===
+      "accessories"
+    ) {
+
+      activeNav =
+        "accessories";
+
     }
 
     const activeLink =
@@ -1105,10 +1677,18 @@
       );
 
     if (activeLink) {
-      activeLink.classList.add("active");
+
+      activeLink.classList.add(
+        "active"
+      );
+
     }
 
   }
+
+  /* =========================
+     URL STATE
+  ========================== */
 
   function readUrlState() {
 
@@ -1118,18 +1698,34 @@
       );
 
     currentCondition =
-      params.get("condition") || "";
+      params.get(
+        "condition"
+      ) || "";
 
     currentSearch =
-      params.get("search") || "";
+      params.get(
+        "search"
+      ) || "";
 
-    document.getElementById(
-      "searchFilter"
-    ).value = currentSearch;
+    const searchFilter =
+      document.getElementById(
+        "searchFilter"
+      );
 
-    document.getElementById(
-      "searchInput"
-    ).value = currentSearch;
+    const searchInput =
+      document.getElementById(
+        "searchInput"
+      );
+
+    if (searchFilter) {
+      searchFilter.value =
+        currentSearch;
+    }
+
+    if (searchInput) {
+      searchInput.value =
+        currentSearch;
+    }
 
     updateConditionTabs();
 
@@ -1137,29 +1733,46 @@
 
   }
 
+  /* =========================
+     CONDITION TABS
+  ========================== */
+
   function updateConditionTabs() {
 
     document
-      .querySelectorAll(".category-tab")
-      .forEach(tab => {
+      .querySelectorAll(
+        ".category-tab"
+      )
+      .forEach(
+        tab => {
 
-        const tabCondition =
-          tab.dataset.condition || "";
+          const tabCondition =
+            tab.dataset.condition ||
+            "";
 
-        tab.classList.remove("active");
+          tab.classList.remove(
+            "active"
+          );
 
-        if (
-          tabCondition.toLowerCase() ===
-          currentCondition.toLowerCase()
-        ) {
+          if (
+            tabCondition.toLowerCase() ===
+            currentCondition.toLowerCase()
+          ) {
 
-          tab.classList.add("active");
+            tab.classList.add(
+              "active"
+            );
+
+          }
 
         }
-
-      });
+      );
 
   }
+
+  /* =========================
+     PAGE HEADING
+  ========================== */
 
   function updatePageHeading() {
 
@@ -1172,6 +1785,18 @@
       document.getElementById(
         "pageDescription"
       );
+
+    const params =
+      new URLSearchParams(
+        window.location.search
+      );
+
+    const category =
+      (
+        params.get(
+          "category"
+        ) || ""
+      ).toLowerCase();
 
     if (
       currentCondition.toLowerCase() ===
@@ -1203,13 +1828,59 @@
 
     }
 
+    if (
+      category.includes(
+        "phone"
+      )
+    ) {
+
+      title.textContent =
+        "Phones & Tablets";
+
+      description.textContent =
+        "Browse phones and tablets available at METEUR MOBILE KENYA.";
+
+      return;
+
+    }
+
+    if (
+      category ===
+      "electronics"
+    ) {
+
+      title.textContent =
+        "Electronics";
+
+      description.textContent =
+        "Browse electronics available at METEUR MOBILE KENYA.";
+
+      return;
+
+    }
+
+    if (
+      category ===
+      "accessories"
+    ) {
+
+      title.textContent =
+        "Accessories";
+
+      description.textContent =
+        "Browse accessories available at METEUR MOBILE KENYA.";
+
+      return;
+
+    }
+
     if (currentSearch) {
 
       title.textContent =
         `Search results for "${currentSearch}"`;
 
       description.textContent =
-        "Phones matching your search.";
+        "Products matching your search.";
 
       return;
 
@@ -1222,6 +1893,10 @@
       "Discover new and used smartphones at METEUR MOBILE KENYA.";
 
   }
+
+  /* =========================
+     LOAD PRODUCTS
+  ========================== */
 
   async function loadProducts() {
 
@@ -1242,10 +1917,13 @@
         data,
         error
       } =
-        await supabaseClient
+        await db
           .from("products")
           .select("*")
-          .eq("category", "Phones")
+          .eq(
+            "category",
+            "Phones"
+          )
           .order(
             "created_at",
             {
@@ -1294,6 +1972,10 @@
 
   }
 
+  /* =========================
+     FILTER PRODUCTS
+  ========================== */
+
   function getFilteredProducts() {
 
     let products =
@@ -1307,8 +1989,11 @@
 
             const condition =
               String(
-                product.condition || "New"
-              ).trim().toLowerCase();
+                product.condition ||
+                "New"
+              )
+              .trim()
+              .toLowerCase();
 
             return (
               condition ===
@@ -1333,17 +2018,20 @@
 
             const name =
               String(
-                product.name || ""
+                product.name ||
+                ""
               ).toLowerCase();
 
             const category =
               String(
-                product.category || ""
+                product.category ||
+                ""
               ).toLowerCase();
 
             const description =
               String(
-                product.description || ""
+                product.description ||
+                ""
               ).toLowerCase();
 
             return (
@@ -1358,43 +2046,59 @@
     }
 
     if (
-      currentSort === "price-low"
+      currentSort ===
+      "price-low"
     ) {
 
       products.sort(
         (a, b) =>
-          Number(a.price || 0) -
-          Number(b.price || 0)
+          Number(
+            a.price || 0
+          ) -
+          Number(
+            b.price || 0
+          )
       );
 
     }
 
     if (
-      currentSort === "price-high"
+      currentSort ===
+      "price-high"
     ) {
 
       products.sort(
         (a, b) =>
-          Number(b.price || 0) -
-          Number(a.price || 0)
+          Number(
+            b.price || 0
+          ) -
+          Number(
+            a.price || 0
+          )
       );
 
     }
 
     if (
-      currentSort === "rating"
+      currentSort ===
+      "rating"
     ) {
 
       products.sort(
         (a, b) =>
-          Number(b.rating || 0) -
-          Number(a.rating || 0)
+          Number(
+            b.rating || 0
+          ) -
+          Number(
+            a.rating || 0
+          )
       );
 
     }
 
     if (
-      currentSort === "name"
+      currentSort ===
+      "name"
     ) {
 
       products.sort(
@@ -1414,22 +2118,48 @@
 
   }
 
-  function createImageHtml(product) {
+  /* =========================
+     PRODUCT IMAGE
+  ========================== */
+
+  function getImageProxyUrl(
+    imageUrl
+  ) {
+
+    if (!imageUrl) {
+      return "";
+    }
+
+    return (
+      "https://images.weserv.nl/?url=" +
+      encodeURIComponent(
+        imageUrl
+      )
+    );
+
+  }
+
+  function createImageHtml(
+    product
+  ) {
 
     const originalImage =
       String(
-        product.image_url || ""
+        product.image_url ||
+        ""
       ).trim();
 
     if (!originalImage) {
 
       return `
         <div
-          class="image-loading"
           style="
             position:relative;
-            z-index:1;
+            z-index:2;
             color:#9ca3af;
+            font-size:12px;
+            padding:20px;
+            text-align:center;
           "
         >
           Image unavailable
@@ -1438,42 +2168,47 @@
 
     }
 
-    const safeOriginal =
-      escapeHtml(originalImage);
-
     const proxyImage =
       getImageProxyUrl(
         originalImage
       );
 
-    const safeProxy =
-      escapeHtml(proxyImage);
-
     return `
+
       <img
-        src="${safeOriginal}"
-        alt="${escapeHtml(product.name)}"
+        src="${escapeHtml(
+          originalImage
+        )}"
+        alt="${escapeHtml(
+          product.name
+        )}"
         class="product-image"
         loading="lazy"
         referrerpolicy="no-referrer"
-        data-original-image="${safeOriginal}"
-        data-proxy-image="${safeProxy}"
+        data-proxy-image="${escapeHtml(
+          proxyImage
+        )}"
         onerror="
-          if (this.dataset.proxyImage && this.src !== this.dataset.proxyImage) {
-            this.src = this.dataset.proxyImage;
+          if (
+            this.dataset.proxyImage &&
+            this.src !== this.dataset.proxyImage
+          ) {
+            this.src =
+              this.dataset.proxyImage;
           } else {
             this.onerror = null;
             this.style.display = 'none';
-            this.parentElement.insertAdjacentHTML(
-              'beforeend',
-              '<div style=&quot;position:relative;z-index:2;color:#9ca3af;font-size:12px;padding:20px;text-align:center;&quot;>Phone image unavailable</div>'
-            );
           }
         "
       >
+
     `;
 
   }
+
+  /* =========================
+     RENDER PRODUCTS
+  ========================== */
 
   function renderProducts() {
 
@@ -1511,9 +2246,15 @@
       }
 
       grid.innerHTML = `
+
         <div class="no-products">
-          ${escapeHtml(message)}
+
+          ${escapeHtml(
+            message
+          )}
+
         </div>
+
       `;
 
       return;
@@ -1522,165 +2263,265 @@
 
     grid.innerHTML =
       products
-        .map(product => {
+        .map(
+          product => {
 
-          const rating =
-            Number(
-              product.rating || 0
-            );
+            const rating =
+              Number(
+                product.rating || 0
+              );
 
-          const reviews =
-            Number(
-              product.review_count || 0
-            );
+            const reviews =
+              Number(
+                product.review_count || 0
+              );
 
-          const roundedRating =
-            Math.max(
-              0,
-              Math.min(
-                5,
-                Math.round(rating)
-              )
-            );
+            const roundedRating =
+              Math.max(
+                0,
+                Math.min(
+                  5,
+                  Math.round(
+                    rating
+                  )
+                )
+              );
 
-          const stars =
-            "★".repeat(
-              roundedRating
-            ) +
-            "☆".repeat(
-              5 - roundedRating
-            );
+            const stars =
+              "★".repeat(
+                roundedRating
+              ) +
+              "☆".repeat(
+                5 -
+                roundedRating
+              );
 
-          const condition =
-            String(
-              product.condition || "New"
-            ).trim();
+            const condition =
+              String(
+                product.condition ||
+                "New"
+              ).trim();
 
-          const normalizedCondition =
-            condition.toLowerCase();
+            const normalizedCondition =
+              condition.toLowerCase();
 
-          const conditionClass =
-            normalizedCondition === "used"
-              ? "condition-used"
-              : "condition-new";
+            const conditionClass =
+              normalizedCondition ===
+              "used"
+                ? "condition-used"
+                : "condition-new";
 
-          const conditionLabel =
-            normalizedCondition === "used"
-              ? "Used"
-              : "New";
+            const conditionLabel =
+              normalizedCondition ===
+              "used"
+                ? "Used"
+                : "New";
 
-          return `
-            <article class="product-card">
+            const price =
+              Number(
+                product.price || 0
+              );
 
-              <a
-                href="product.html?id=${encodeURIComponent(product.id)}"
+            const oldPrice =
+              Number(
+                product.old_price || 0
+              );
+
+            return `
+
+              <article
+                class="product-card"
               >
 
-                <div class="product-image-wrap">
+                <a
+                  href="product.html?id=${encodeURIComponent(
+                    product.id
+                  )}"
+                >
 
-                  ${
-                    product.badge
-                      ? `
-                        <span class="badge">
-                          ${escapeHtml(product.badge)}
-                        </span>
-                      `
-                      : ""
-                  }
-
-                  <span
-                    class="condition-badge ${conditionClass}"
+                  <div
+                    class="product-image-wrap"
                   >
-                    ${conditionLabel}
-                  </span>
-
-                  ${createImageHtml(product)}
-
-                </div>
-
-                <div class="product-info">
-
-                  <div class="product-name">
-                    ${escapeHtml(product.name)}
-                  </div>
-
-                  <div class="rating">
-
-                    ${stars}
-
-                    <span
-                      style="
-                        color:#6b7280;
-                        margin-left:4px;
-                      "
-                    >
-                      (${reviews})
-                    </span>
-
-                  </div>
-
-                  <div class="price">
-
-                    ${formatUSD(product.price)}
 
                     ${
-                      product.old_price
+                      product.badge
                         ? `
-                          <span class="old-price">
-                            ${formatUSD(product.old_price)}
+
+                          <span class="badge">
+
+                            ${escapeHtml(
+                              product.badge
+                            )}
+
                           </span>
+
                         `
                         : ""
                     }
 
+                    <span
+                      class="condition-badge ${conditionClass}"
+                    >
+
+                      ${conditionLabel}
+
+                    </span>
+
+                    ${createImageHtml(
+                      product
+                    )}
+
                   </div>
 
-                  <span class="view-product">
-                    View Product
-                  </span>
+                  <div
+                    class="product-info"
+                  >
 
-                </div>
+                    <div
+                      class="product-name"
+                    >
 
-              </a>
+                      ${escapeHtml(
+                        product.name
+                      )}
 
-            </article>
-          `;
+                    </div>
 
-        })
+                    <div
+                      class="rating"
+                    >
+
+                      ${stars}
+
+                      <span
+                        style="
+                          color:#6b7280;
+                          margin-left:4px;
+                        "
+                      >
+
+                        (${reviews})
+
+                      </span>
+
+                    </div>
+
+                    <div
+                      class="price"
+                    >
+
+                      ${formatUSD(
+                        price
+                      )}
+
+                      ${
+                        oldPrice > 0
+                          ? `
+
+                            <span
+                              class="old-price"
+                            >
+
+                              ${formatUSD(
+                                oldPrice
+                              )}
+
+                            </span>
+
+                          `
+                          : ""
+                      }
+
+                    </div>
+
+                    <span
+                      class="price-kes"
+                    >
+
+                      ${formatKESApprox(
+                        price
+                      )}
+
+                    </span>
+
+                    <span
+                      class="conversion-note"
+                    >
+
+                      1 USD ≈ KSh
+                      ${Math.round(
+                        usdToKesRate
+                      )}
+
+                    </span>
+
+                    <span
+                      class="view-product"
+                    >
+                      View Product
+                    </span>
+
+                  </div>
+
+                </a>
+
+              </article>
+
+            `;
+
+          }
+        )
         .join("");
 
   }
 
+  /* =========================
+     CONDITION BUTTONS
+  ========================== */
+
   document
-    .querySelectorAll(".category-tab")
-    .forEach(tab => {
+    .querySelectorAll(
+      ".category-tab"
+    )
+    .forEach(
+      tab => {
 
-      tab.addEventListener(
-        "click",
-        function() {
+        tab.addEventListener(
+          "click",
+          function() {
 
-          const condition =
-            this.dataset.condition || "";
+            const condition =
+              this.dataset.condition ||
+              "";
 
-          if (condition) {
+            if (condition) {
 
-            window.location.href =
-              `shop.html?condition=${encodeURIComponent(condition)}`;
+              window.location.href =
+                `shop.html?condition=${encodeURIComponent(
+                  condition
+                )}`;
 
-          } else {
+            } else {
 
-            window.location.href =
-              "shop.html";
+              window.location.href =
+                "shop.html";
+
+            }
 
           }
+        );
 
-        }
-      );
+      }
+    );
 
-    });
+  /* =========================
+     SEARCH FORM
+  ========================== */
 
   document
-    .getElementById("searchForm")
+    .getElementById(
+      "searchForm"
+    )
     .addEventListener(
       "submit",
       function(event) {
@@ -1689,14 +2530,18 @@
 
         const search =
           document
-            .getElementById("searchInput")
+            .getElementById(
+              "searchInput"
+            )
             .value
             .trim();
 
         if (search) {
 
           window.location.href =
-            `shop.html?search=${encodeURIComponent(search)}`;
+            `shop.html?search=${encodeURIComponent(
+              search
+            )}`;
 
         } else {
 
@@ -1708,8 +2553,14 @@
       }
     );
 
+  /* =========================
+     SEARCH FILTER
+  ========================== */
+
   document
-    .getElementById("searchFilter")
+    .getElementById(
+      "searchFilter"
+    )
     .addEventListener(
       "input",
       function() {
@@ -1722,8 +2573,14 @@
       }
     );
 
+  /* =========================
+     SORT
+  ========================== */
+
   document
-    .getElementById("sortFilter")
+    .getElementById(
+      "sortFilter"
+    )
     .addEventListener(
       "change",
       function() {
@@ -1736,66 +2593,41 @@
       }
     );
 
-  function updateCartCount() {
+  /* =========================
+     AUTH STATE
+  ========================== */
 
-    let cart = [];
+  db.auth.onAuthStateChange(
+    () => {
 
-    try {
-
-      cart =
-        JSON.parse(
-          localStorage.getItem(
-            "meteur_cart"
-          ) || "[]"
-        );
-
-    } catch {
-
-      cart = [];
-
-    }
-
-    if (!Array.isArray(cart)) {
-      cart = [];
-    }
-
-    const total =
-      cart.reduce(
-        (sum, item) =>
-          sum +
-          Number(
-            item.quantity || 1
-          ),
+      setTimeout(
+        updateAccountUI,
         0
       );
 
-    const count =
-      document.getElementById(
-        "cartCount"
-      );
-
-    if (total > 0) {
-
-      count.textContent =
-        total;
-
-      count.style.display =
-        "flex";
-
-    } else {
-
-      count.style.display =
-        "none";
-
     }
+  );
 
-  }
+  /* =========================
+     START
+  ========================== */
 
   setActiveNavigation();
 
   readUrlState();
 
   updateCartCount();
+
+  updateAccountUI();
+
+  loadExchangeRate()
+    .then(
+      () => {
+
+        renderProducts();
+
+      }
+    );
 
   loadProducts();
 

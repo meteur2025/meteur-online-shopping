@@ -2,932 +2,641 @@
 
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-```
-<title>Create Account | METEUR MOBILE KENYA</title>
+  <title>Create Account | METEUR MOBILE KENYA</title>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="supabase-config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<style>
+  <style>
     * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-        font-family: Arial, Helvetica, sans-serif;
-        background: #fff5f6;
-        color: #172033;
-        min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f5f5f5;
+      color: #222;
+      min-height: 100vh;
     }
 
     a {
-        text-decoration: none;
+      text-decoration: none;
+      color: inherit;
     }
 
     .top-header {
-        background-image: url("21.webp");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        color: white;
-        padding: 18px 20px;
+      width: 100%;
+      min-height: 190px;
+      background-image: url("21.webp");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 25px 20px;
     }
 
-    .header-inner {
-        width: 100%;
-        max-width: 1200px;
-        margin: 0 auto;
+    .header-content {
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .brand {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        width: 100%;
-        min-width: 0;
+    .brand-area {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      width: 100%;
     }
 
-    .logo {
-        width: 48px;
-        height: 48px;
-        background: white;
-        border-radius: 9px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-        flex-shrink: 0;
-    }
-
-    .real-logo {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        display: block;
-        background: white;
-        border-radius: 9px;
+    .brand-logo {
+      width: 72px;
+      height: 72px;
+      object-fit: cover;
+      border-radius: 10px;
+      flex-shrink: 0;
+      background: white;
     }
 
     .brand-text {
-        min-width: 0;
-        flex: 1;
+      min-width: 0;
+      text-align: left;
     }
 
-    .brand-text h1 {
-        font-size: 23px;
-        font-weight: 900;
-        letter-spacing: .2px;
-        white-space: nowrap;
-        color: white;
-        text-shadow: 0 2px 7px rgba(0,0,0,.35);
+    .brand-name {
+      font-size: 30px;
+      font-weight: 800;
+      color: white;
+      line-height: 1.1;
+      white-space: nowrap;
+      overflow: visible;
     }
 
-    .brand-text p {
-        font-size: 11px;
-        margin-top: 4px;
-        font-weight: 600;
-        letter-spacing: .3px;
-        white-space: nowrap;
-        color: white;
-        text-shadow: 0 2px 6px rgba(0,0,0,.35);
+    .brand-tagline {
+      margin-top: 8px;
+      font-size: 16px;
+      font-weight: 700;
+      color: white;
+      line-height: 1.2;
+      white-space: nowrap;
     }
 
-    nav {
-        background: #9b001f;
-        color: white;
+    .main-nav {
+      width: 100%;
+      background: #111;
+      border-bottom: 1px solid #333;
     }
 
     .nav-inner {
-        max-width: 1200px;
-        margin: auto;
-        display: flex;
-        overflow-x: auto;
-        scrollbar-width: none;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
     }
 
-    .nav-inner::-webkit-scrollbar {
-        display: none;
+    .nav-link {
+      position: relative;
+      color: white;
+      padding: 16px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      white-space: nowrap;
     }
 
-    .nav-inner a {
-        position: relative;
-        color: white;
-        padding: 16px 18px;
-        font-size: 14px;
-        font-weight: 700;
-        white-space: nowrap;
+    .nav-link:hover {
+      background: #222;
     }
 
-    .nav-inner a:hover {
-        background: rgba(255,255,255,.08);
-    }
-
-    .nav-inner a.active::after {
-        content: "";
-        position: absolute;
-        left: 15px;
-        right: 15px;
-        bottom: 0;
-        height: 3px;
-        background: white;
-        border-radius: 3px 3px 0 0;
+    .nav-link.active::after {
+      content: "";
+      position: absolute;
+      left: 15px;
+      right: 15px;
+      bottom: 0;
+      height: 3px;
+      background: white;
     }
 
     .register-section {
-        min-height: calc(100vh - 220px);
-        padding: 60px 0;
-        background: #fff5f6;
+      width: 100%;
+      padding: 45px 20px 60px;
+      display: flex;
+      justify-content: center;
     }
 
-    .container {
-        width: 100%;
-        max-width: 1200px;
-        margin: 0 auto;
+    .register-card {
+      width: 100%;
+      max-width: 500px;
+      background: white;
+      border-radius: 12px;
+      padding: 35px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     }
 
-    .card {
-        width: 100%;
-        max-width: 500px;
-        margin: 0 auto;
-        background: white;
-        padding: 40px;
-        border-radius: 14px;
-        border: 1px solid #f3c7cd;
-        box-shadow: 0 5px 20px rgba(217, 4, 41, 0.08);
+    .success-icon {
+      width: 58px;
+      height: 58px;
+      margin: 0 auto 18px;
+      border-radius: 50%;
+      background: #111;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      font-weight: bold;
     }
 
-    .register-header {
-        text-align: center;
-        margin-bottom: 30px;
+    .register-card h1 {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 10px;
     }
 
-    .register-icon {
-        width: 64px;
-        height: 64px;
-        margin: 0 auto 18px;
-        border-radius: 50%;
-        background: #fff0f2;
-        border: 1px solid #f3c7cd;
-        color: #d90429;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 28px;
-        font-weight: bold;
-    }
-
-    h2 {
-        margin-bottom: 10px;
-        color: #172033;
-        font-size: 29px;
-    }
-
-    .subtitle {
-        color: #61718a;
-        line-height: 1.6;
+    .register-description {
+      text-align: center;
+      color: #666;
+      line-height: 1.5;
+      margin-bottom: 28px;
+      font-size: 14px;
     }
 
     .form-group {
-        margin-bottom: 19px;
+      margin-bottom: 18px;
     }
 
-    label {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: 700;
-        font-size: 14px;
-        color: #172033;
+    .form-group label {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 14px;
+      font-weight: 700;
     }
 
-    input {
-        width: 100%;
-        padding: 14px;
-        border: 1px solid #d9dfe7;
-        border-radius: 7px;
-        font-size: 15px;
-        color: #172033;
-        background: white;
+    .form-group input {
+      width: 100%;
+      padding: 13px 14px;
+      border: 1px solid #ccc;
+      border-radius: 7px;
+      font-size: 15px;
+      outline: none;
+      background: white;
     }
 
-    input:focus {
-        outline: none;
-        border-color: #d90429;
-        box-shadow: 0 0 0 3px rgba(217, 4, 41, .08);
+    .form-group input:focus {
+      border-color: #111;
     }
 
-    button {
-        width: 100%;
-        border: none;
-        background: #d90429;
-        color: white;
-        padding: 14px;
-        border-radius: 7px;
-        font-size: 16px;
-        font-weight: bold;
-        cursor: pointer;
-        margin-top: 5px;
+    .register-button {
+      width: 100%;
+      border: none;
+      border-radius: 7px;
+      padding: 14px;
+      background: #d90429;
+      color: white;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 5px;
     }
 
-    button:hover {
-        background: #b90323;
+    .register-button:hover {
+      background: #b80322;
     }
 
-    button:disabled {
-        opacity: 0.7;
-        cursor: not-allowed;
+    .register-button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
     }
 
     .message {
-        margin-top: 18px;
-        padding: 12px;
-        border-radius: 7px;
-        display: none;
-        line-height: 1.5;
-        font-size: 14px;
-        text-align: center;
+      display: none;
+      margin-top: 18px;
+      padding: 12px;
+      border-radius: 7px;
+      font-size: 14px;
+      line-height: 1.5;
+      text-align: center;
     }
 
-    .success {
-        display: block;
-        background: #eaf8ef;
-        color: #187a32;
-        border: 1px solid #bce3c7;
+    .message.success {
+      display: block;
+      background: #e8f7ed;
+      color: #176b35;
+      border: 1px solid #b9e6c7;
     }
 
-    .error {
-        display: block;
-        background: #fff0f2;
-        color: #b00020;
-        border: 1px solid #f3c7cd;
+    .message.error {
+      display: block;
+      background: #fdecec;
+      color: #a40018;
+      border: 1px solid #f2bcbc;
     }
 
-    .login-link {
-        text-align: center;
-        margin-top: 22px;
-        padding-top: 20px;
-        border-top: 1px solid #f0dce0;
-        color: #61718a;
+    .account-link {
+      text-align: center;
+      margin-top: 22px;
+      font-size: 14px;
+      color: #555;
     }
 
-    .login-link a {
-        color: #d90429;
-        font-weight: bold;
+    .account-link a {
+      color: #d90429;
+      font-weight: 700;
     }
 
-    .login-link a:hover {
-        text-decoration: underline;
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 18px;
+      color: #222;
+      font-size: 14px;
+      font-weight: 600;
     }
 
-    .back-home {
-        text-align: center;
-        margin-top: 18px;
-    }
-
-    .back-home a {
-        color: #d90429;
-        font-weight: 700;
-    }
-
-    .back-home a:hover {
-        text-decoration: underline;
+    .back-link:hover {
+      text-decoration: underline;
     }
 
     footer {
-        background: #9b001f;
-        color: white;
-        padding: 40px 20px 25px;
+      background: #111;
+      color: white;
+      padding: 40px 20px 20px;
     }
 
     .footer-inner {
-        max-width: 1200px;
-        margin: auto;
-        display: grid;
-        grid-template-columns: 2fr 1fr 1fr 1fr;
-        gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 35px;
     }
 
-    footer h3 {
-        margin-bottom: 12px;
-        font-size: 18px;
+    .footer-column h3 {
+      font-size: 18px;
+      margin-bottom: 15px;
     }
 
-    footer p {
-        color: #ffd9df;
-        line-height: 1.6;
-        font-size: 14px;
+    .footer-column p {
+      color: #ccc;
+      font-size: 14px;
+      line-height: 1.6;
     }
 
-    footer a {
-        display: block;
-        color: #ffd9df;
-        margin-bottom: 9px;
-        font-size: 14px;
+    .footer-column a {
+      display: block;
+      color: #ccc;
+      font-size: 14px;
+      margin-bottom: 9px;
     }
 
-    footer a:hover {
-        color: white;
+    .footer-column a:hover {
+      color: white;
     }
 
     .copyright {
-        max-width: 1200px;
-        margin: 30px auto 0;
-        padding-top: 18px;
-        border-top: 1px solid rgba(255,255,255,.2);
-        text-align: center;
-        color: #ffd9df;
+      max-width: 1200px;
+      margin: 30px auto 0;
+      padding-top: 18px;
+      border-top: 1px solid #333;
+      text-align: center;
+      color: #aaa;
+      font-size: 13px;
+    }
+
+    @media (max-width: 700px) {
+      .top-header {
+        min-height: auto;
+        padding: 20px 14px;
+      }
+
+      .header-content {
+        width: 100%;
+      }
+
+      .brand-area {
+        width: 100%;
+        justify-content: flex-start;
+        gap: 10px;
+      }
+
+      .brand-logo {
+        width: 58px;
+        height: 58px;
+      }
+
+      .brand-text {
+        flex: 1;
+      }
+
+      .brand-name {
+        font-size: 20px;
+        white-space: nowrap;
+      }
+
+      .brand-tagline {
+        font-size: 12px;
+        margin-top: 5px;
+        white-space: normal;
+      }
+
+      .nav-inner {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        overflow: visible;
+      }
+
+      .nav-link {
+        padding: 13px 10px;
         font-size: 13px;
+      }
+
+      .nav-link.active::after {
+        left: 8px;
+        right: 8px;
+      }
+
+      .register-section {
+        padding: 30px 14px 45px;
+      }
+
+      .register-card {
+        padding: 25px 18px;
+      }
+
+      .register-card h1 {
+        font-size: 24px;
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr;
+        gap: 25px;
+      }
     }
 
-    @media (max-width: 900px) {
-        .footer-inner {
-            grid-template-columns: 1fr 1fr;
-        }
+    @media (max-width: 400px) {
+      .brand-logo {
+        width: 52px;
+        height: 52px;
+      }
+
+      .brand-name {
+        font-size: 18px;
+      }
+
+      .brand-tagline {
+        font-size: 11px;
+      }
+
+      .nav-link {
+        padding: 11px 8px;
+        font-size: 12px;
+      }
     }
-
-    @media (max-width: 600px) {
-
-        .top-header {
-            padding: 14px;
-        }
-
-        .brand {
-            gap: 10px;
-        }
-
-        .logo {
-            width: 48px;
-            min-width: 48px;
-            height: 48px;
-        }
-
-        .real-logo {
-            width: 48px;
-            height: 48px;
-        }
-
-        .brand-text {
-            min-width: 0;
-            flex: 1;
-        }
-
-        .brand-text h1 {
-            font-size: 18px;
-            white-space: nowrap;
-        }
-
-        .brand-text p {
-            font-size: 8px;
-            white-space: nowrap;
-            letter-spacing: .2px;
-        }
-
-        .nav-inner {
-            width: 100%;
-        }
-
-        .nav-inner a {
-            padding: 14px 13px;
-            font-size: 13px;
-        }
-
-        .register-section {
-            padding: 35px 0 45px;
-        }
-
-        .card {
-            width: calc(100% - 28px);
-            padding: 28px 20px;
-        }
-
-        h2 {
-            font-size: 25px;
-        }
-
-        .footer-inner {
-            grid-template-columns: 1fr;
-        }
-    }
-
-    @media (max-width: 430px) {
-
-        .top-header {
-            padding-left: 10px;
-            padding-right: 10px;
-        }
-
-        .brand {
-            gap: 8px;
-        }
-
-        .logo {
-            width: 44px;
-            min-width: 44px;
-            height: 44px;
-        }
-
-        .real-logo {
-            width: 44px;
-            height: 44px;
-        }
-
-        .brand-text h1 {
-            font-size: 16px;
-        }
-
-        .brand-text p {
-            font-size: 7px;
-            letter-spacing: .1px;
-        }
-
-        .nav-inner a {
-            font-size: 12px;
-            padding-left: 12px;
-            padding-right: 12px;
-        }
-    }
-
-    @media (max-width: 360px) {
-
-        .brand {
-            gap: 7px;
-        }
-
-        .logo {
-            width: 42px;
-            min-width: 42px;
-            height: 42px;
-        }
-
-        .real-logo {
-            width: 42px;
-            height: 42px;
-        }
-
-        .brand-text h1 {
-            font-size: 15px;
-        }
-
-        .brand-text p {
-            font-size: 6.5px;
-        }
-    }
-</style>
-```
+  </style>
 
 </head>
 
 <body>
 
-<header class="top-header">
+  <header class="top-header">
+    <div class="header-content">
+      <div class="brand-area">
+        <img
+          src="WhatsApp Image 2026-09-30 at 12.36.30.jpeg"
+          alt="METEUR MOBILE KENYA Logo"
+          class="brand-logo"
+        >
 
 ```
-<div class="header-inner">
+    <div class="brand-text">
+      <div class="brand-name">METEUR MOBILE KENYA</div>
+      <div class="brand-tagline">SMARTPHONES FOR EVERY BUDGET</div>
+    </div>
+  </div>
+</div>
+```
 
-    <a href="index.html" class="brand">
+  </header>
 
-        <div class="logo">
-            <img
-                src="WhatsApp Image 2026-09-30 at 12.36.30.jpeg"
-                alt="METEUR MOBILE KENYA"
-                class="real-logo"
-            >
-        </div>
+  <nav class="main-nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="shop.html" class="nav-link">Shop</a>
+      <a href="new-phones.html" class="nav-link">New Phones</a>
+      <a href="used-phones.html" class="nav-link">Used Phones</a>
+      <a href="orders.html" class="nav-link">My Orders</a>
+      <a href="contact.html" class="nav-link">Contact Us</a>
+    </div>
+  </nav>
 
-        <div class="brand-text">
-            <h1>METEUR MOBILE KENYA</h1>
-            <p>SMARTPHONES FOR EVERY BUDGET</p>
-        </div>
+  <main class="register-section">
+    <div class="register-card">
 
-    </a>
+```
+  <div class="success-icon">✓</div>
+
+  <h1>Create Your Account</h1>
+
+  <p class="register-description">
+    Register as a customer to shop, place orders, save products, and manage your account.
+  </p>
+
+  <form id="registerForm">
+
+    <div class="form-group">
+      <label for="fullName">Full Name</label>
+      <input
+        type="text"
+        id="fullName"
+        placeholder="Enter your full name"
+        required
+      >
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input
+        type="email"
+        id="email"
+        placeholder="Enter your email address"
+        required
+      >
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        placeholder="Create a password"
+        minlength="6"
+        required
+      >
+    </div>
+
+    <div class="form-group">
+      <label for="confirmPassword">Confirm Password</label>
+      <input
+        type="password"
+        id="confirmPassword"
+        placeholder="Confirm your password"
+        minlength="6"
+        required
+      >
+    </div>
+
+    <button type="submit" class="register-button" id="registerButton">
+      Create Account
+    </button>
+
+  </form>
+
+  <div id="message" class="message"></div>
+
+  <div class="account-link">
+    Already have an account?
+    <a href="login.html">Login</a>
+  </div>
+
+  <a href="index.html" class="back-link">
+    ← Back to shopping
+  </a>
 
 </div>
 ```
 
-</header>
+  </main>
 
-<nav>
-
-```
-<div class="nav-inner">
-
-    <a href="index.html">
-        Home
-    </a>
-
-    <a href="shop.html">
-        Shop
-    </a>
-
-    <a href="shop.html?condition=New">
-        New Phones
-    </a>
-
-    <a href="shop.html?condition=Used">
-        Used Phones
-    </a>
-
-    <a href="orders.html">
-        My Orders
-    </a>
-
-    <a href="contact.html">
-        Contact Us
-    </a>
-
-</div>
-```
-
-</nav>
-
-<main>
+  <footer>
+    <div class="footer-inner">
 
 ```
-<section class="register-section">
+  <div class="footer-column">
+    <h3>METEUR MOBILE KENYA</h3>
+    <p>
+      Your online destination for smartphones at prices made for every budget in Kenya.
+    </p>
+  </div>
 
-    <div class="container">
+  <div class="footer-column">
+    <h3>Shop</h3>
+    <a href="shop.html">All Products</a>
+    <a href="shop.html">Flash Deals</a>
+    <a href="shop.html">New Arrivals</a>
+    <a href="new-phones.html">New Phones</a>
+    <a href="used-phones.html">Used Phones</a>
+  </div>
 
-        <div class="card">
-
-            <div class="register-header">
-
-                <div class="register-icon">
-                    ✓
-                </div>
-
-                <h2>
-                    Create Your Account
-                </h2>
-
-                <p class="subtitle">
-                    Register as a customer to shop, place orders,
-                    save products, and manage your account.
-                </p>
-
-            </div>
-
-            <form id="registerForm">
-
-                <div class="form-group">
-
-                    <label for="fullName">
-                        Full Name
-                    </label>
-
-                    <input
-                        type="text"
-                        id="fullName"
-                        placeholder="Enter your full name"
-                        autocomplete="name"
-                        required
-                    >
-
-                </div>
-
-                <div class="form-group">
-
-                    <label for="email">
-                        Email Address
-                    </label>
-
-                    <input
-                        type="email"
-                        id="email"
-                        placeholder="Enter your email address"
-                        autocomplete="email"
-                        required
-                    >
-
-                </div>
-
-                <div class="form-group">
-
-                    <label for="password">
-                        Password
-                    </label>
-
-                    <input
-                        type="password"
-                        id="password"
-                        placeholder="Create a password"
-                        minlength="6"
-                        autocomplete="new-password"
-                        required
-                    >
-
-                </div>
-
-                <div class="form-group">
-
-                    <label for="confirmPassword">
-                        Confirm Password
-                    </label>
-
-                    <input
-                        type="password"
-                        id="confirmPassword"
-                        placeholder="Confirm your password"
-                        minlength="6"
-                        autocomplete="new-password"
-                        required
-                    >
-
-                </div>
-
-                <button
-                    type="submit"
-                    id="registerBtn"
-                >
-                    Create Account
-                </button>
-
-            </form>
-
-            <div id="message" class="message"></div>
-
-            <div class="login-link">
-                Already have an account?
-                <a href="login.html">Login</a>
-            </div>
-
-            <div class="back-home">
-                <a href="index.html">← Back to shopping</a>
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-```
-
-</main>
-
-<footer>
-
-```
-<div class="footer-inner">
-
-    <div>
-
-        <h3>METEUR MOBILE KENYA</h3>
-
-        <p>
-            Your online destination for smartphones
-            at prices made for every budget in Kenya.
-        </p>
-
-    </div>
-
-    <div>
-
-        <h3>Shop</h3>
-
-        <a href="shop.html">All Products</a>
-
-        <a href="shop.html?deal=true">Flash Deals</a>
-
-        <a href="shop.html?new=true">New Arrivals</a>
-
-        <a href="shop.html?condition=New">New Phones</a>
-
-        <a href="shop.html?condition=Used">Used Phones</a>
-
-    </div>
-
-    <div>
-
-        <h3>Account</h3>
-
-        <a href="login.html">Login</a>
-
-        <a href="register.html">Register</a>
-
-        <a href="profile.html">My Profile</a>
-
-        <a href="orders.html">My Orders</a>
-
-    </div>
-
-    <div>
-
-        <h3>Help</h3>
-
-        <a href="contact.html">Contact Us</a>
-
-        <a href="track-order.html">Track Order</a>
-
-        <a href="seller-register.html">Sell on Meteur</a>
-
-    </div>
+  <div class="footer-column">
+    <h3>Account</h3>
+    <a href="login.html">Login</a>
+    <a href="register.html">Register</a>
+    <a href="profile.html">My Profile</a>
+    <a href="orders.html">My Orders</a>
+  </div>
 
 </div>
 
 <div class="copyright">
-    © 2026 METEUR MOBILE KENYA. All rights reserved.
+  © 2026 METEUR MOBILE KENYA. All rights reserved.
 </div>
 ```
 
-</footer>
-
-<script>
-
-    const registerForm =
-        document.getElementById("registerForm");
-
-    const registerBtn =
-        document.getElementById("registerBtn");
-
-    const message =
-        document.getElementById("message");
-
-
-    function showMessage(text, type) {
-
-        message.textContent = text;
-
-        message.className =
-            "message " + type;
-
-    }
-
-
-    registerForm.addEventListener(
-        "submit",
-        async function(event) {
-
-            event.preventDefault();
-
-
-            const fullName =
-                document
-                    .getElementById("fullName")
-                    .value
-                    .trim();
-
-
-            const email =
-                document
-                    .getElementById("email")
-                    .value
-                    .trim();
-
-
-            const password =
-                document
-                    .getElementById("password")
-                    .value;
-
-
-            const confirmPassword =
-                document
-                    .getElementById("confirmPassword")
-                    .value;
-
-
-            if (!fullName) {
-
-                showMessage(
-                    "Please enter your full name.",
-                    "error"
-                );
-
-                return;
-
-            }
-
-
-            if (!email) {
-
-                showMessage(
-                    "Please enter your email address.",
-                    "error"
-                );
-
-                return;
-
-            }
-
-
-            if (password.length < 6) {
-
-                showMessage(
-                    "Password must be at least 6 characters.",
-                    "error"
-                );
-
-                return;
-
-            }
-
-
-            if (password !== confirmPassword) {
-
-                showMessage(
-                    "Passwords do not match.",
-                    "error"
-                );
-
-                return;
-
-            }
-
-
-            registerBtn.disabled = true;
-
-            registerBtn.textContent =
-                "Creating Account...";
-
-
-            showMessage(
-                "Creating your account...",
-                "success"
-            );
-
-
-            try {
-
-                const {
-                    data,
-                    error
-                } =
-                    await supabaseClient.auth.signUp({
-
-                        email: email,
-
-                        password: password,
-
-                        options: {
-
-                            data: {
-
-                                full_name: fullName,
-
-                                name: fullName
-
-                            }
-
-                        }
-
-                    });
-
-
-                if (error) {
-                    throw error;
-                }
-
-
-                if (!data || !data.user) {
-
-                    throw new Error(
-                        "Account creation failed. Please try again."
-                    );
-
-                }
-
-
-                sessionStorage.setItem(
-                    "meteurVerificationEmail",
-                    email
-                );
-
-
-                window.location.href =
-                    "verify-email.html?email=" +
-                    encodeURIComponent(email);
-
-
-            } catch (error) {
-
-                console.error(
-                    "Registration error:",
-                    error
-                );
-
-
-                showMessage(
-                    error.message ||
-                    "Unable to create your account. Please try again.",
-                    "error"
-                );
-
-
-                registerBtn.disabled =
-                    false;
-
-                registerBtn.textContent =
-                    "Create Account";
-
-            }
-
-        }
+  </footer>
+
+  <script>
+    const SUPABASE_URL = "https://nytsdeupaootukcullgi.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_cIqzHoafy_AEdB48KS_Wpg_LDqE1sFC";
+
+    const supabaseClient = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
     );
 
-</script>
+    const registerForm = document.getElementById("registerForm");
+    const registerButton = document.getElementById("registerButton");
+    const message = document.getElementById("message");
+
+    registerForm.addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      const fullName = document.getElementById("fullName").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+
+      message.className = "message";
+      message.textContent = "";
+
+      if (!fullName) {
+        message.className = "message error";
+        message.textContent = "Please enter your full name.";
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        message.className = "message error";
+        message.textContent = "Passwords do not match.";
+        return;
+      }
+
+      if (password.length < 6) {
+        message.className = "message error";
+        message.textContent = "Password must be at least 6 characters.";
+        return;
+      }
+
+      registerButton.disabled = true;
+      registerButton.textContent = "Creating Account...";
+
+      try {
+        const { data, error } = await supabaseClient.auth.signUp({
+          email: email,
+          password: password,
+          options: {
+            data: {
+              full_name: fullName
+            },
+            emailRedirectTo: window.location.origin + "/login.html"
+          }
+        });
+
+        if (error) {
+          throw error;
+        }
+
+        message.className = "message success";
+
+        if (data.user && !data.session) {
+          message.textContent =
+            "Account created successfully. Please check your email and click the verification link before logging in.";
+        } else {
+          message.textContent =
+            "Account created successfully. You can now log in.";
+        }
+
+        registerForm.reset();
+
+      } catch (error) {
+        message.className = "message error";
+        message.textContent = error.message || "Unable to create your account.";
+      } finally {
+        registerButton.disabled = false;
+        registerButton.textContent = "Create Account";
+      }
+    });
+  </script>
 
 </body>
 </html>

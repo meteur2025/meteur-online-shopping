@@ -1,692 +1,731 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>My Orders - METEUR MOBILE KENYA</title>
+```
+<title>My Orders - METEUR MOBILE KENYA</title>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="supabase-config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        background: #fff5f6;
+        color: #172033;
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    button {
+        font-family: inherit;
+    }
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    header {
+        background: #d90429;
+        color: white;
+        padding: 15px 20px;
+    }
+
+    .header-inner {
+        max-width: 1250px;
+        margin: auto;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-shrink: 0;
+        min-width: 0;
+    }
+
+    .logo {
+        width: 48px;
+        height: 48px;
+        background: white;
+        border-radius: 9px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        flex-shrink: 0;
+    }
+
+    .real-logo {
+        width: 48px;
+        height: 48px;
+        object-fit: contain;
+        display: block;
+        background: white;
+        border-radius: 9px;
+    }
+
+    .brand-text {
+        min-width: 0;
+    }
+
+    .brand-text h1 {
+        font-size: 23px;
+        font-weight: 800;
+        white-space: nowrap;
+    }
+
+    .brand-text p {
+        font-size: 11px;
+        margin-top: 3px;
+        opacity: 0.9;
+        letter-spacing: 1px;
+        white-space: nowrap;
+    }
+
+    .header-links {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-left: auto;
+        flex-wrap: wrap;
+    }
+
+    .header-links a,
+    .header-links button {
+        color: white;
+        padding: 9px 10px;
+        border-radius: 5px;
+        font-weight: 600;
+        font-size: 14px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+    }
+
+    .header-links a:hover,
+    .header-links button:hover {
+        background: rgba(255, 255, 255, 0.14);
+    }
+
+    .account-email {
+        font-size: 13px !important;
+        font-weight: 700 !important;
+        max-width: 260px;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .cart-link {
+        font-weight: 700 !important;
+    }
+
+    .cart-count {
+        display: inline-flex;
+        min-width: 20px;
+        height: 20px;
+        align-items: center;
+        justify-content: center;
+        padding: 0 5px;
+        margin-left: 3px;
+        border-radius: 20px;
+        background: white;
+        color: #d90429;
+        font-size: 11px;
+        font-weight: 800;
+    }
+
+    /* =========================
+       NAVIGATION
+    ========================= */
+
+    nav {
+        background: #9b001f;
+        color: white;
+    }
+
+    .nav-inner {
+        max-width: 1250px;
+        margin: auto;
+        padding: 0 20px;
+        display: flex;
+        gap: 28px;
+        overflow-x: auto;
+        white-space: nowrap;
+        scrollbar-width: none;
+    }
+
+    .nav-inner::-webkit-scrollbar {
+        display: none;
+    }
+
+    .nav-inner a {
+        position: relative;
+        padding: 13px 2px 11px;
+        font-size: 14px;
+        font-weight: 600;
+        color: white;
+    }
+
+    .nav-inner a.active::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 3px;
+        background: white;
+        border-radius: 3px 3px 0 0;
+    }
+
+    /* =========================
+       MAIN
+    ========================= */
+
+    .container {
+        max-width: 1250px;
+        margin: 30px auto 60px;
+        padding: 0 20px;
+    }
+
+    .breadcrumb {
+        color: #61718a;
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
+
+    .breadcrumb a {
+        color: #d90429;
+        font-weight: 700;
+    }
+
+    h1.page-title {
+        font-size: 30px;
+        margin-bottom: 25px;
+        color: #172033;
+    }
+
+    /* =========================
+       MESSAGE
+    ========================= */
+
+    .message {
+        background: #fee2e2;
+        color: #991b1b;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        display: none;
+        border: 1px solid #fecaca;
+    }
+
+    /* =========================
+       ORDER CARD
+    ========================= */
+
+    .order-card {
+        background: white;
+        border-radius: 12px;
+        padding: 22px;
+        margin-bottom: 20px;
+        border: 1px solid #f3c7cd;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .order-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+        border-bottom: 1px solid #f1d9dd;
+        padding-bottom: 15px;
+    }
+
+    .order-number {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .order-date {
+        color: #61718a;
+        font-size: 13px;
+        margin-top: 5px;
+    }
+
+    /* =========================
+       STATUS
+    ========================= */
+
+    .status {
+        background: #fff0f2;
+        color: #d90429;
+        padding: 7px 12px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+    /* =========================
+       ORDER ITEMS
+    ========================= */
+
+    .order-items {
+        margin-top: 15px;
+    }
+
+    .item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 0;
+        border-bottom: 1px solid #f1d9dd;
+    }
+
+    .item:last-child {
+        border-bottom: none;
+    }
+
+    .item img {
+        width: 65px;
+        height: 65px;
+        object-fit: cover;
+        border-radius: 8px;
+        background: #fff5f6;
+        flex-shrink: 0;
+    }
+
+    .item-info {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .item-name {
+        font-weight: bold;
+        word-break: break-word;
+    }
+
+    .item-quantity {
+        color: #61718a;
+        font-size: 13px;
+        margin-top: 4px;
+    }
+
+    .item-price {
+        font-weight: bold;
+        color: #172033;
+        text-align: right;
+        white-space: nowrap;
+    }
+
+    .item-kes {
+        display: block;
+        color: #61718a;
+        font-size: 12px;
+        font-weight: 600;
+        margin-top: 4px;
+    }
+
+    /* =========================
+       CURRENCY INFO
+    ========================= */
+
+    .currency-info {
+        background: #fff5f6;
+        border: 1px solid #f3dfe2;
+        border-radius: 8px;
+        padding: 10px 12px;
+        margin-top: 15px;
+        color: #61718a;
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+    .currency-info strong {
+        color: #172033;
+    }
+
+    /* =========================
+       ORDER TOTAL
+    ========================= */
+
+    .order-bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 18px;
+        gap: 15px;
+    }
+
+    .total {
+        font-size: 19px;
+        font-weight: bold;
+    }
+
+    .total-kes {
+        display: block;
+        color: #61718a;
+        font-size: 13px;
+        margin-top: 5px;
+        font-weight: 600;
+    }
+
+    /* =========================
+       TRACK BUTTON
+    ========================= */
+
+    .track-button {
+        display: inline-block;
+        background: #d90429;
+        color: white;
+        padding: 11px 18px;
+        border-radius: 7px;
+        font-weight: bold;
+    }
+
+    .track-button:hover {
+        background: #9b001f;
+    }
+
+    /* =========================
+       EMPTY ORDERS
+    ========================= */
+
+    .empty {
+        background: white;
+        text-align: center;
+        padding: 60px 20px;
+        border-radius: 12px;
+        border: 1px solid #f3c7cd;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .empty h2 {
+        margin-bottom: 10px;
+    }
+
+    .empty p {
+        color: #61718a;
+        margin-bottom: 20px;
+    }
+
+    .shop-button {
+        display: inline-block;
+        background: #d90429;
+        color: white;
+        padding: 13px 22px;
+        border-radius: 7px;
+        font-weight: bold;
+    }
+
+    .shop-button:hover {
+        background: #9b001f;
+    }
+
+    /* =========================
+       LOADING
+    ========================= */
+
+    .loading {
+        background: white;
+        text-align: center;
+        padding: 50px;
+        color: #61718a;
+        border-radius: 12px;
+        border: 1px solid #f3c7cd;
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+        background: #9b001f;
+        color: white;
+        padding: 40px 20px 25px;
+        margin-top: 40px;
+    }
+
+    .footer-inner {
+        max-width: 1250px;
+        margin: auto;
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 35px;
+    }
+
+    footer h3 {
+        margin-bottom: 12px;
+        font-size: 18px;
+    }
+
+    footer p {
+        color: #ffd9df;
+        line-height: 1.6;
+        font-size: 14px;
+    }
+
+    footer a {
+        display: block;
+        color: #ffd9df;
+        margin-bottom: 9px;
+        font-size: 14px;
+    }
+
+    footer a:hover {
+        color: white;
+    }
+
+    .footer-logout {
+        display: none;
+        color: #ffd9df;
+        margin-bottom: 9px;
+        font-size: 14px;
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+    }
+
+    .footer-logout:hover {
+        color: white;
+    }
+
+    .copyright {
+        max-width: 1250px;
+        margin: 30px auto 0;
+        padding-top: 18px;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        text-align: center;
+        color: #ffd9df;
+        font-size: 13px;
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 900px) {
+
+        .footer-inner {
+            grid-template-columns: 1fr 1fr;
         }
+    }
 
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #fff5f6;
-            color: #172033;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        button {
-            font-family: inherit;
-        }
-
-        /* =========================
-           HEADER
-        ========================= */
+    @media (max-width: 700px) {
 
         header {
-            background: #d90429;
-            color: white;
-            padding: 15px 20px;
+            padding: 14px;
         }
 
         .header-inner {
-            max-width: 1250px;
-            margin: auto;
-            display: flex;
-            align-items: center;
-            gap: 20px;
+            width: 100%;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 10px;
         }
 
         .brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-shrink: 0;
+            width: 100%;
+            justify-content: flex-start;
         }
 
-        .logo {
-            width: 48px;
-            height: 48px;
-            background: white;
-            border-radius: 9px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            flex-shrink: 0;
-        }
-
+        .logo,
         .real-logo {
             width: 48px;
             height: 48px;
-            object-fit: contain;
-            display: block;
-            background: white;
-            border-radius: 9px;
         }
 
-        .brand-text h1 {
-            font-size: 23px;
-            font-weight: 800;
-        }
-
-        .brand-text p {
-            font-size: 11px;
-            margin-top: 3px;
-            opacity: 0.9;
-            letter-spacing: 1px;
-        }
-
-        .header-links {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-left: auto;
-            flex-wrap: wrap;
-        }
-
-        .header-links a,
-        .header-links button {
-            color: white;
-            padding: 9px 10px;
-            border-radius: 5px;
-            font-weight: 600;
-            font-size: 14px;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-        }
-
-        .header-links a:hover,
-        .header-links button:hover {
-            background: rgba(255, 255, 255, 0.14);
-        }
-
-        .account-email {
-            font-size: 13px !important;
-            font-weight: 700 !important;
-            max-width: 260px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .cart-link {
-            font-weight: 700 !important;
-        }
-
-        .cart-count {
-            display: inline-flex;
-            min-width: 20px;
-            height: 20px;
-            align-items: center;
-            justify-content: center;
-            padding: 0 5px;
-            margin-left: 3px;
-            border-radius: 20px;
-            background: white;
-            color: #d90429;
-            font-size: 11px;
-            font-weight: 800;
-        }
-
-        /* =========================
-           NAVIGATION
-        ========================= */
-
-        nav {
-            background: #9b001f;
-            color: white;
-        }
-
-        .nav-inner {
-            max-width: 1250px;
-            margin: auto;
-            padding: 0 20px;
-            display: flex;
-            gap: 28px;
-            overflow-x: auto;
-            white-space: nowrap;
-            scrollbar-width: none;
-        }
-
-        .nav-inner::-webkit-scrollbar {
-            display: none;
-        }
-
-        .nav-inner a {
-            position: relative;
-            padding: 13px 2px 11px;
-            font-size: 14px;
-            font-weight: 600;
-            color: white;
-        }
-
-        .nav-inner a.active::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            height: 3px;
-            background: white;
-            border-radius: 3px 3px 0 0;
-        }
-
-        /* =========================
-           MAIN
-        ========================= */
-
-        .container {
-            max-width: 1250px;
-            margin: 30px auto 60px;
-            padding: 0 20px;
-        }
-
-        .breadcrumb {
-            color: #61718a;
-            font-size: 14px;
-            margin-bottom: 15px;
-        }
-
-        .breadcrumb a {
-            color: #d90429;
-            font-weight: 700;
-        }
-
-        h1.page-title {
-            font-size: 30px;
-            margin-bottom: 25px;
-            color: #172033;
-        }
-
-        /* =========================
-           MESSAGE
-        ========================= */
-
-        .message {
-            background: #fee2e2;
-            color: #991b1b;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            display: none;
-            border: 1px solid #fecaca;
-        }
-
-        /* =========================
-           ORDER CARD
-        ========================= */
-
-        .order-card {
-            background: white;
-            border-radius: 12px;
-            padding: 22px;
-            margin-bottom: 20px;
-            border: 1px solid #f3c7cd;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-        }
-
-        .order-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-            border-bottom: 1px solid #f1d9dd;
-            padding-bottom: 15px;
-        }
-
-        .order-number {
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .order-date {
-            color: #61718a;
-            font-size: 13px;
-            margin-top: 5px;
-        }
-
-        /* =========================
-           STATUS
-        ========================= */
-
-        .status {
-            background: #fff0f2;
-            color: #d90429;
-            padding: 7px 12px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: bold;
-        }
-
-        /* =========================
-           ORDER ITEMS
-        ========================= */
-
-        .order-items {
-            margin-top: 15px;
-        }
-
-        .item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 10px 0;
-            border-bottom: 1px solid #f1d9dd;
-        }
-
-        .item:last-child {
-            border-bottom: none;
-        }
-
-        .item img {
-            width: 65px;
-            height: 65px;
-            object-fit: cover;
-            border-radius: 8px;
-            background: #fff5f6;
-            flex-shrink: 0;
-        }
-
-        .item-info {
+        .brand-text {
             flex: 1;
             min-width: 0;
         }
 
-        .item-name {
-            font-weight: bold;
-            word-break: break-word;
+        .brand-text h1 {
+            font-size: 18px;
+            white-space: nowrap;
+            overflow: visible;
         }
 
-        .item-quantity {
-            color: #61718a;
+        .brand-text p {
+            font-size: 9px;
+            white-space: nowrap;
+            overflow: visible;
+        }
+
+        .header-links {
+            width: 100%;
+            margin-left: 0;
+            padding-top: 9px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+
+        .header-links a,
+        .header-links button {
             font-size: 13px;
-            margin-top: 4px;
+            padding: 8px 9px;
+        }
+
+        .account-email {
+            max-width: 100%;
+        }
+
+        .container {
+            padding: 0 12px;
+            margin-top: 25px;
+        }
+
+        h1.page-title {
+            font-size: 25px;
+        }
+
+        .order-top,
+        .order-bottom {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .order-card {
+            padding: 17px;
+        }
+
+        .item {
+            align-items: flex-start;
         }
 
         .item-price {
-            font-weight: bold;
-            color: #172033;
-            text-align: right;
-            white-space: nowrap;
-        }
-
-        .item-kes {
-            display: block;
-            color: #61718a;
-            font-size: 12px;
-            font-weight: 600;
-            margin-top: 4px;
-        }
-
-        /* =========================
-           CURRENCY INFO
-        ========================= */
-
-        .currency-info {
-            background: #fff5f6;
-            border: 1px solid #f3dfe2;
-            border-radius: 8px;
-            padding: 10px 12px;
-            margin-top: 15px;
-            color: #61718a;
-            font-size: 13px;
-            line-height: 1.5;
-        }
-
-        .currency-info strong {
-            color: #172033;
-        }
-
-        /* =========================
-           ORDER TOTAL
-        ========================= */
-
-        .order-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 18px;
-            gap: 15px;
-        }
-
-        .total {
-            font-size: 19px;
-            font-weight: bold;
-        }
-
-        .total-kes {
-            display: block;
-            color: #61718a;
-            font-size: 13px;
-            margin-top: 5px;
-            font-weight: 600;
-        }
-
-        /* =========================
-           TRACK BUTTON
-        ========================= */
-
-        .track-button {
-            display: inline-block;
-            background: #d90429;
-            color: white;
-            padding: 11px 18px;
-            border-radius: 7px;
-            font-weight: bold;
-        }
-
-        .track-button:hover {
-            background: #9b001f;
-        }
-
-        /* =========================
-           EMPTY ORDERS
-        ========================= */
-
-        .empty {
-            background: white;
-            text-align: center;
-            padding: 60px 20px;
-            border-radius: 12px;
-            border: 1px solid #f3c7cd;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-        }
-
-        .empty h2 {
-            margin-bottom: 10px;
-        }
-
-        .empty p {
-            color: #61718a;
-            margin-bottom: 20px;
-        }
-
-        .shop-button {
-            display: inline-block;
-            background: #d90429;
-            color: white;
-            padding: 13px 22px;
-            border-radius: 7px;
-            font-weight: bold;
-        }
-
-        .shop-button:hover {
-            background: #9b001f;
-        }
-
-        /* =========================
-           LOADING
-        ========================= */
-
-        .loading {
-            background: white;
-            text-align: center;
-            padding: 50px;
-            color: #61718a;
-            border-radius: 12px;
-            border: 1px solid #f3c7cd;
-        }
-
-        /* =========================
-           FOOTER
-        ========================= */
-
-        footer {
-            background: #9b001f;
-            color: white;
-            padding: 40px 20px 25px;
-            margin-top: 40px;
+            font-size: 14px;
+            margin-left: auto;
         }
 
         .footer-inner {
-            max-width: 1250px;
-            margin: auto;
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 35px;
+            grid-template-columns: 1fr;
         }
 
-        footer h3 {
-            margin-bottom: 12px;
-            font-size: 18px;
+        .nav-inner {
+            gap: 22px;
+            padding: 0 14px;
         }
 
-        footer p {
-            color: #ffd9df;
-            line-height: 1.6;
-            font-size: 14px;
-        }
-
-        footer a {
-            display: block;
-            color: #ffd9df;
-            margin-bottom: 9px;
-            font-size: 14px;
-        }
-
-        footer a:hover {
-            color: white;
-        }
-
-        .footer-logout {
-            display: none;
-            color: #ffd9df;
-            margin-bottom: 9px;
-            font-size: 14px;
-            background: none;
-            border: none;
-            padding: 0;
-            cursor: pointer;
-        }
-
-        .footer-logout:hover {
-            color: white;
-        }
-
-        .copyright {
-            max-width: 1250px;
-            margin: 30px auto 0;
-            padding-top: 18px;
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-            text-align: center;
-            color: #ffd9df;
+        .nav-inner a {
             font-size: 13px;
         }
+    }
 
-        /* =========================
-           MOBILE
-        ========================= */
+    @media (max-width: 430px) {
 
-        @media (max-width: 900px) {
-
-            .footer-inner {
-                grid-template-columns: 1fr 1fr;
-            }
+        .brand-text h1 {
+            font-size: 17px;
         }
 
-        @media (max-width: 700px) {
-
-            header {
-                padding: 14px;
-            }
-
-            .header-inner {
-                flex-wrap: wrap;
-            }
-
-            .logo,
-            .real-logo {
-                width: 48px;
-                height: 48px;
-            }
-
-            .brand-text h1 {
-                font-size: 18px;
-            }
-
-            .brand-text p {
-                font-size: 9px;
-            }
-
-            .header-links {
-                width: 100%;
-                margin-left: 0;
-                flex-wrap: wrap;
-            }
-
-            .header-links a,
-            .header-links button {
-                font-size: 13px;
-            }
-
-            .account-email {
-                max-width: 100%;
-            }
-
-            .container {
-                padding: 0 12px;
-                margin-top: 25px;
-            }
-
-            h1.page-title {
-                font-size: 25px;
-            }
-
-            .order-top,
-            .order-bottom {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .order-card {
-                padding: 17px;
-            }
-
-            .item {
-                align-items: flex-start;
-            }
-
-            .item-price {
-                font-size: 14px;
-                margin-left: auto;
-            }
-
-            .footer-inner {
-                grid-template-columns: 1fr;
-            }
+        .brand-text p {
+            font-size: 8px;
+            letter-spacing: 0.6px;
         }
-    </style>
+
+        .logo,
+        .real-logo {
+            width: 45px;
+            height: 45px;
+        }
+
+        .header-links a,
+        .header-links button {
+            font-size: 12px;
+            padding: 8px 7px;
+        }
+
+        .nav-inner {
+            gap: 20px;
+        }
+    }
+
+    @media (max-width: 360px) {
+
+        .brand {
+            gap: 8px;
+        }
+
+        .brand-text h1 {
+            font-size: 15px;
+        }
+
+        .brand-text p {
+            font-size: 7px;
+        }
+
+        .logo,
+        .real-logo {
+            width: 42px;
+            height: 42px;
+        }
+
+        .header-links a,
+        .header-links button {
+            font-size: 11px;
+            padding: 7px 6px;
+        }
+
+        .nav-inner {
+            gap: 18px;
+        }
+
+        .nav-inner a {
+            font-size: 12px;
+        }
+    }
+</style>
+```
+
 </head>
 
 <body>
 
-<!-- =========================
-     HEADER
-========================= -->
-
 <header>
 
-    <div class="header-inner">
+```
+<div class="header-inner">
 
-        <a href="index.html" class="brand">
+    <a href="index.html" class="brand">
 
-            <div class="logo">
+        <div class="logo">
 
-                <img
-                    src="WhatsApp Image 2026-09-30 at 12.36.30.jpeg"
-                    alt="METEUR MOBILE KENYA Logo"
-                    class="real-logo"
-                >
-
-            </div>
-
-            <div class="brand-text">
-
-                <h1>METEUR MOBILE KENYA</h1>
-
-                <p>MOBILE • ELECTRONICS • ACCESSORIES</p>
-
-            </div>
-
-        </a>
-
-        <div class="header-links">
-
-            <a href="index.html">
-                Home
-            </a>
-
-            <a href="shop.html">
-                Shop
-            </a>
-
-            <a
-                href="cart.html"
-                class="cart-link"
+            <img
+                src="WhatsApp Image 2026-09-30 at 12.36.30.jpeg"
+                alt="METEUR MOBILE KENYA Logo"
+                class="real-logo"
             >
-                🛒 Cart
-                <span
-                    id="cartCount"
-                    class="cart-count"
-                >0</span>
-            </a>
-
-            <a
-                href="login.html"
-                id="accountLink"
-            >
-                Login
-            </a>
-
-            <a
-                href="register.html"
-                id="registerLink"
-            >
-                Register
-            </a>
-
-            <span
-                id="accountEmail"
-                class="account-email"
-                style="display:none;"
-            ></span>
-
-            <button
-                type="button"
-                id="logoutButton"
-                style="display:none;"
-                onclick="logoutUser()"
-            >
-                Logout
-            </button>
 
         </div>
 
-    </div>
+        <div class="brand-text">
 
-</header>
+            <h1>METEUR MOBILE KENYA</h1>
 
-<!-- =========================
-     NAVIGATION
-========================= -->
+            <p>MOBILE • ELECTRONICS • ACCESSORIES</p>
 
-<nav>
+        </div>
 
-    <div class="nav-inner">
+    </a>
+
+    <div class="header-links">
 
         <a href="index.html">
             Home
@@ -696,189 +735,242 @@
             Shop
         </a>
 
-        <a href="shop.html?category=Phones%20and%20Tablets">
-            Phones & Tablets
+        <a
+            href="cart.html"
+            class="cart-link"
+        >
+            🛒 Cart
+            <span
+                id="cartCount"
+                class="cart-count"
+            >0</span>
         </a>
 
-        <a href="shop.html?category=Electronics">
-            Electronics
+        <a
+            href="login.html"
+            id="accountLink"
+        >
+            Login
         </a>
 
-        <a href="shop.html?category=Accessories">
-            Accessories
+        <a
+            href="register.html"
+            id="registerLink"
+        >
+            Register
         </a>
 
-        <a href="orders.html" class="active">
-            My Orders
+        <span
+            id="accountEmail"
+            class="account-email"
+            style="display:none;"
+        ></span>
+
+        <button
+            type="button"
+            id="logoutButton"
+            style="display:none;"
+            onclick="logoutUser()"
+        >
+            Logout
+        </button>
+
+    </div>
+
+</div>
+```
+
+</header>
+
+<nav>
+
+```
+<div class="nav-inner">
+
+    <a href="index.html">
+        Home
+    </a>
+
+    <a href="shop.html">
+        Shop
+    </a>
+
+    <a href="shop.html?condition=New">
+        New Phones
+    </a>
+
+    <a href="shop.html?condition=Used">
+        Used Phones
+    </a>
+
+    <a href="orders.html" class="active">
+        My Orders
+    </a>
+
+    <a href="contact.html">
+        Contact Us
+    </a>
+
+</div>
+```
+
+</nav>
+
+<div class="container">
+
+```
+<div class="breadcrumb">
+
+    <a href="index.html">
+        Home
+    </a>
+
+    <span>
+        / My Orders
+    </span>
+
+</div>
+
+<h1 class="page-title">
+    My Orders
+</h1>
+
+<div
+    id="message"
+    class="message"
+></div>
+
+<div id="ordersContainer">
+
+    <div class="loading">
+        Loading your orders...
+    </div>
+
+</div>
+```
+
+</div>
+
+<footer>
+
+```
+<div class="footer-inner">
+
+    <div>
+
+        <h3>
+            METEUR MOBILE KENYA
+        </h3>
+
+        <p>
+            Your online destination for mobile phones,
+            electronics, accessories and smart devices in Kenya.
+        </p>
+
+    </div>
+
+    <div>
+
+        <h3>
+            Shop
+        </h3>
+
+        <a href="shop.html">
+            All Products
         </a>
+
+        <a href="shop.html?deal=true">
+            Flash Deals
+        </a>
+
+        <a href="shop.html?new=true">
+            New Arrivals
+        </a>
+
+        <a href="shop.html?condition=New">
+            New Phones
+        </a>
+
+        <a href="shop.html?condition=Used">
+            Used Phones
+        </a>
+
+    </div>
+
+    <div>
+
+        <h3>
+            Account
+        </h3>
+
+        <div id="footerLoggedOut">
+
+            <a href="login.html">
+                Login
+            </a>
+
+            <a href="register.html">
+                Register
+            </a>
+
+        </div>
+
+        <div
+            id="footerLoggedIn"
+            style="display:none;"
+        >
+
+            <a href="profile.html">
+                My Profile
+            </a>
+
+            <a href="orders.html">
+                My Orders
+            </a>
+
+            <button
+                type="button"
+                id="footerLogoutButton"
+                class="footer-logout"
+                onclick="logoutUser()"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </div>
+
+    <div>
+
+        <h3>
+            Help
+        </h3>
 
         <a href="contact.html">
             Contact Us
         </a>
 
-    </div>
-
-</nav>
-
-<!-- =========================
-     MAIN
-========================= -->
-
-<div class="container">
-
-    <div class="breadcrumb">
-
-        <a href="index.html">
-            Home
+        <a href="track-order.html">
+            Track Order
         </a>
 
-        <span>
-            / My Orders
-        </span>
-
-    </div>
-
-    <h1 class="page-title">
-        My Orders
-    </h1>
-
-    <div
-        id="message"
-        class="message"
-    ></div>
-
-    <div id="ordersContainer">
-
-        <div class="loading">
-            Loading your orders...
-        </div>
+        <a href="seller-register.html">
+            Sell on Meteur
+        </a>
 
     </div>
 
 </div>
 
-<!-- =========================
-     FOOTER
-========================= -->
-
-<footer>
-
-    <div class="footer-inner">
-
-        <div>
-
-            <h3>
-                METEUR MOBILE KENYA
-            </h3>
-
-            <p>
-                Your online destination for mobile phones,
-                electronics, accessories and smart devices in Kenya.
-            </p>
-
-        </div>
-
-        <div>
-
-            <h3>
-                Shop
-            </h3>
-
-            <a href="shop.html">
-                All Products
-            </a>
-
-            <a href="shop.html?deal=true">
-                Flash Deals
-            </a>
-
-            <a href="shop.html?new=true">
-                New Arrivals
-            </a>
-
-            <a href="shop.html?category=Phones%20and%20Tablets">
-                Phones & Tablets
-            </a>
-
-        </div>
-
-        <div>
-
-            <h3>
-                Account
-            </h3>
-
-            <div id="footerLoggedOut">
-
-                <a href="login.html">
-                    Login
-                </a>
-
-                <a href="register.html">
-                    Register
-                </a>
-
-            </div>
-
-            <div
-                id="footerLoggedIn"
-                style="display:none;"
-            >
-
-                <a href="profile.html">
-                    My Profile
-                </a>
-
-                <a href="orders.html">
-                    My Orders
-                </a>
-
-                <button
-                    type="button"
-                    id="footerLogoutButton"
-                    class="footer-logout"
-                    onclick="logoutUser()"
-                >
-                    Logout
-                </button>
-
-            </div>
-
-        </div>
-
-        <div>
-
-            <h3>
-                Help
-            </h3>
-
-            <a href="contact.html">
-                Contact Us
-            </a>
-
-            <a href="track-order.html">
-                Track Order
-            </a>
-
-            <a href="seller-register.html">
-                Sell on Meteur
-            </a>
-
-        </div>
-
-    </div>
-
-    <div class="copyright">
-        © 2026 METEUR MOBILE KENYA. All rights reserved.
-    </div>
+<div class="copyright">
+    © 2026 METEUR MOBILE KENYA. All rights reserved.
+</div>
+```
 
 </footer>
 
 <script>
-
-    /* =========================
-       ELEMENTS
-    ========================= */
 
     const ordersContainer =
         document.getElementById(
@@ -889,10 +981,6 @@
         document.getElementById(
             "message"
         );
-
-    /* =========================
-       EXCHANGE RATE
-    ========================= */
 
     let usdToKesRate = 129.7;
 
@@ -938,10 +1026,6 @@
         }
 
     }
-
-    /* =========================
-       CURRENCY FORMATTING
-    ========================= */
 
     function formatUSD(amount) {
 
@@ -990,10 +1074,6 @@
 
     }
 
-    /* =========================
-       HTML SAFETY
-    ========================= */
-
     function escapeHtml(value) {
 
         return String(
@@ -1031,10 +1111,6 @@
         );
 
     }
-
-    /* =========================
-       CART COUNT
-    ========================= */
 
     function updateCartCount() {
 
@@ -1083,10 +1159,6 @@
             count;
 
     }
-
-    /* =========================
-       ACCOUNT UI
-    ========================= */
 
     async function updateAccountUI() {
 
@@ -1165,6 +1237,7 @@
                 }
 
                 return;
+
             }
 
             const user =
@@ -1222,10 +1295,6 @@
 
     }
 
-    /* =========================
-       LOGOUT
-    ========================= */
-
     async function logoutUser() {
 
         try {
@@ -1257,10 +1326,6 @@
 
     }
 
-    /* =========================
-       ERROR MESSAGE
-    ========================= */
-
     function showError(
         message
     ) {
@@ -1272,10 +1337,6 @@
             "block";
 
     }
-
-    /* =========================
-       DATE FORMATTING
-    ========================= */
 
     function formatDate(
         dateString
@@ -1311,10 +1372,6 @@
 
     }
 
-    /* =========================
-       RENDER ORDERS
-    ========================= */
-
     function renderOrders(
         orders
     ) {
@@ -1348,6 +1405,7 @@
             `;
 
             return;
+
         }
 
         ordersContainer.innerHTML = "";
@@ -1627,10 +1685,6 @@
 
     }
 
-    /* =========================
-       LOAD ORDERS
-    ========================= */
-
     async function loadOrders() {
 
         try {
@@ -1712,10 +1766,6 @@
 
     }
 
-    /* =========================
-       AUTH STATE
-    ========================= */
-
     supabaseClient.auth.onAuthStateChange(
         () => {
 
@@ -1726,10 +1776,6 @@
 
         }
     );
-
-    /* =========================
-       START
-    ========================= */
 
     updateAccountUI();
 

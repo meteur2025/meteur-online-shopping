@@ -84,6 +84,12 @@
       color: #d90429;
       font-size: 28px;
       font-weight: 900;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .logo:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0,0,0,.22);
     }
 
     .real-logo {
@@ -178,9 +184,12 @@
       justify-content: center;
     }
 
+    /* Clean navigation area */
     .nav-bar {
-      background: rgba(155,0,31,.94);
-      backdrop-filter: blur(4px);
+      background: #ffffff;
+      border-bottom: 1px solid #e5e7eb;
+      box-shadow: 0 2px 8px rgba(0,0,0,.06);
+      backdrop-filter: none;
     }
 
     .nav-inner {
@@ -199,11 +208,20 @@
     }
 
     .nav-inner a {
-      color: white;
+      color: #374151;
       font-size: 14px;
       font-weight: 600;
       padding: 13px 2px 11px;
       position: relative;
+      transition: color .2s ease;
+    }
+
+    .nav-inner a:hover {
+      color: #d90429;
+    }
+
+    .nav-inner a.active {
+      color: #d90429;
     }
 
     .nav-inner a.active::after {
@@ -213,7 +231,7 @@
       right: 0;
       bottom: 0;
       height: 3px;
-      background: white;
+      background: #d90429;
       border-radius: 3px 3px 0 0;
     }
 

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -30,10 +31,6 @@
     input {
       font: inherit;
     }
-
-    /* =========================
-       HEADER
-    ========================= */
 
     .top-header {
       background: #d90429;
@@ -128,7 +125,6 @@
       font-weight: 700;
       max-width: 230px;
       overflow: hidden;
-      text-overflow: ellipsis;
       white-space: nowrap;
     }
 
@@ -164,10 +160,6 @@
       font-size: 11px;
       margin-left: 5px;
     }
-
-    /* =========================
-       NAVIGATION
-    ========================= */
 
     nav {
       background: #9b001f;
@@ -209,10 +201,6 @@
       background: white;
       border-radius: 3px 3px 0 0;
     }
-
-    /* =========================
-       SEARCH
-    ========================= */
 
     .search-area {
       max-width: 1200px;
@@ -259,10 +247,6 @@
       background: #d90429;
     }
 
-    /* =========================
-       MAIN
-    ========================= */
-
     main {
       max-width: 1200px;
       margin: 25px auto 60px;
@@ -279,10 +263,6 @@
       color: #d90429;
       font-weight: 700;
     }
-
-    /* =========================
-       PRODUCT
-    ========================= */
 
     .product-section {
       background: white;
@@ -489,10 +469,6 @@
       color: #b42323;
     }
 
-    /* =========================
-       RELATED PRODUCTS
-    ========================= */
-
     .related-section {
       margin-top: 35px;
     }
@@ -562,10 +538,6 @@
       font-weight: 800;
     }
 
-    /* =========================
-       FOOTER
-    ========================= */
-
     footer {
       background: #9b001f;
       color: white;
@@ -624,10 +596,6 @@
       font-size: 13px;
     }
 
-    /* =========================
-       LOADING / ERROR
-    ========================= */
-
     .loading {
       text-align: center;
       padding: 60px 20px;
@@ -648,11 +616,8 @@
       margin-bottom: 10px;
     }
 
-    /* =========================
-       TABLET
-    ========================= */
-
     @media (max-width: 900px) {
+
       .product-section {
         grid-template-columns: 1fr;
       }
@@ -664,11 +629,8 @@
       .footer-inner {
         grid-template-columns: 1fr 1fr;
       }
-    }
 
-    /* =========================
-       MOBILE
-    ========================= */
+    }
 
     @media (max-width: 600px) {
 
@@ -800,366 +762,346 @@
       .footer-inner {
         grid-template-columns: 1fr;
       }
+
     }
   </style>
+
 </head>
 
 <body>
 
-  <!-- =========================
-       HEADER
-  ========================== -->
-
   <header class="top-header">
 
-    <div class="header-inner">
+```
+<div class="header-inner">
 
-      <a href="index.html" class="brand">
+  <a href="index.html" class="brand">
 
-        <div class="logo">
-          <img
-            src="WhatsApp Image 2026-09-30 at 12.36.30.jpeg"
-            alt="Meteur Mobile Kenya M Logo"
-            class="real-logo"
-          >
-        </div>
-
-        <div class="brand-text">
-          <h1>METEUR MOBILE KENYA</h1>
-          <p>MOBILE • ELECTRONICS • ACCESSORIES</p>
-        </div>
-
-      </a>
-
-      <div class="header-actions">
-
-        <a
-          href="login.html"
-          id="loginLink"
-        >
-          Login
-        </a>
-
-        <a
-          href="register.html"
-          id="registerLink"
-        >
-          Register
-        </a>
-
-        <div
-          class="account-user"
-          id="loggedInArea"
-        >
-
-          <span
-            class="account-email"
-            id="userEmailDisplay"
-          >
-            Account
-          </span>
-
-          <button
-            type="button"
-            class="logout-link"
-            id="logoutLink"
-          >
-            Logout
-          </button>
-
-        </div>
-
-        <a
-          href="cart.html"
-          class="cart-link"
-        >
-          🛒 Cart
-          <span
-            class="cart-count"
-            id="cartCount"
-          >
-            0
-          </span>
-        </a>
-
-      </div>
-
+    <div class="logo">
+      <img
+        src="WhatsApp Image 2026-09-30 at 12.36.30.jpeg"
+        alt="Meteur Mobile Kenya M Logo"
+        class="real-logo"
+      >
     </div>
 
-  </header>
-
-  <!-- =========================
-       NAVIGATION
-  ========================== -->
-
-  <nav>
-
-    <div class="nav-inner">
-
-      <a
-        href="index.html"
-        data-nav="home"
-      >
-        Home
-      </a>
-
-      <a
-        href="shop.html"
-        data-nav="shop"
-      >
-        Shop
-      </a>
-
-      <a
-        href="shop.html?category=Phones%20and%20Tablets"
-        data-nav="phones"
-      >
-        Phones & Tablets
-      </a>
-
-      <a
-        href="shop.html?category=Electronics"
-        data-nav="electronics"
-      >
-        Electronics
-      </a>
-
-      <a
-        href="shop.html?category=Accessories"
-        data-nav="accessories"
-      >
-        Accessories
-      </a>
-
-      <a
-        href="orders.html"
-        data-nav="orders"
-      >
-        My Orders
-      </a>
-
-      <a
-        href="contact.html"
-        data-nav="contact"
-      >
-        Contact Us
-      </a>
-
+    <div class="brand-text">
+      <h1>METEUR MOBILE KENYA</h1>
+      <p>MOBILE • ELECTRONICS • ACCESSORIES</p>
     </div>
 
-  </nav>
+  </a>
 
-  <!-- =========================
-       SEARCH
-  ========================== -->
+  <div class="header-actions">
 
-  <section class="search-area">
+    <a
+      href="login.html"
+      id="loginLink"
+    >
+      Login
+    </a>
 
-    <div class="search-box">
+    <a
+      href="register.html"
+      id="registerLink"
+    >
+      Register
+    </a>
 
-      <input
-        type="search"
-        id="searchInput"
-        placeholder="Search smartphones, tablets, accessories..."
+    <div
+      class="account-user"
+      id="loggedInArea"
+    >
+
+      <span
+        class="account-email"
+        id="userEmailDisplay"
       >
+        Account
+      </span>
 
       <button
         type="button"
-        onclick="searchProducts()"
+        class="logout-link"
+        id="logoutLink"
       >
-        Search
+        Logout
       </button>
 
     </div>
 
-  </section>
+    <a
+      href="cart.html"
+      class="cart-link"
+    >
+      🛒 Cart
+      <span
+        class="cart-count"
+        id="cartCount"
+      >
+        0
+      </span>
+    </a>
 
-  <!-- =========================
-       MAIN CONTENT
-  ========================== -->
+  </div>
+
+</div>
+```
+
+  </header>
+
+  <nav>
+
+```
+<div class="nav-inner">
+
+  <a
+    href="index.html"
+    data-nav="home"
+  >
+    Home
+  </a>
+
+  <a
+    href="shop.html"
+    data-nav="shop"
+  >
+    Shop
+  </a>
+
+  <a
+    href="shop.html?category=Phones%20and%20Tablets"
+    data-nav="phones"
+  >
+    Phones & Tablets
+  </a>
+
+  <a
+    href="shop.html?category=Electronics"
+    data-nav="electronics"
+  >
+    Electronics
+  </a>
+
+  <a
+    href="shop.html?category=Accessories"
+    data-nav="accessories"
+  >
+    Accessories
+  </a>
+
+  <a
+    href="orders.html"
+    data-nav="orders"
+  >
+    My Orders
+  </a>
+
+  <a
+    href="contact.html"
+    data-nav="contact"
+  >
+    Contact Us
+  </a>
+
+</div>
+```
+
+  </nav>
+
+  <section class="search-area">
+
+```
+<div class="search-box">
+
+  <input
+    type="search"
+    id="searchInput"
+    placeholder="Search smartphones, tablets, accessories..."
+  >
+
+  <button
+    type="button"
+    onclick="searchProducts()"
+  >
+    Search
+  </button>
+
+</div>
+```
+
+  </section>
 
   <main>
 
-    <div class="breadcrumb">
+```
+<div class="breadcrumb">
 
-      <a href="index.html">
-        Home
-      </a>
+  <a href="index.html">
+    Home
+  </a>
 
-      <span> / </span>
+  <span> / </span>
 
-      <a href="shop.html">
-        Shop
-      </a>
+  <a href="shop.html">
+    Shop
+  </a>
 
-      <span> / Product</span>
+  <span> / Product</span>
 
-    </div>
+</div>
 
-    <div id="productContainer">
+<div id="productContainer">
 
-      <div class="loading">
-        Loading product...
-      </div>
+  <div class="loading">
+    Loading product...
+  </div>
 
-    </div>
+</div>
 
-    <!-- =========================
-         RELATED PRODUCTS
-    ========================== -->
+<section class="related-section">
 
-    <section class="related-section">
+  <h2 class="section-title">
+    Related Products
+  </h2>
 
-      <h2 class="section-title">
-        Related Products
-      </h2>
+  <div
+    id="relatedProducts"
+    class="related-grid"
+  ></div>
 
-      <div
-        id="relatedProducts"
-        class="related-grid"
-      ></div>
-
-    </section>
+</section>
+```
 
   </main>
 
-  <!-- =========================
-       FOOTER
-  ========================== -->
-
   <footer>
 
-    <div class="footer-inner">
+```
+<div class="footer-inner">
 
-      <div>
+  <div>
 
-        <h3>
-          METEUR MOBILE KENYA
-        </h3>
+    <h3>
+      METEUR MOBILE KENYA
+    </h3>
 
-        <p>
-          Your online destination for mobile phones,
-          electronics, accessories and smart devices in Kenya.
-        </p>
+    <p>
+      Your online destination for mobile phones,
+      electronics, accessories and smart devices in Kenya.
+    </p>
 
+  </div>
+
+  <div>
+
+    <h3>
+      Shop
+    </h3>
+
+    <a href="shop.html">
+      All Products
+    </a>
+
+    <a href="shop.html?deal=true">
+      Flash Deals
+    </a>
+
+    <a href="shop.html?new=true">
+      New Arrivals
+    </a>
+
+    <a href="shop.html?category=Phones%20and%20Tablets">
+      Phones & Tablets
+    </a>
+
+  </div>
+
+  <div>
+
+    <h3>
+      Account
+    </h3>
+
+    <div
+      id="footerLoggedIn"
+      style="display:none;"
+    >
+
+      <div
+        class="footer-user"
+        id="footerUserEmail"
+      >
       </div>
 
-      <div>
-
-        <h3>
-          Shop
-        </h3>
-
-        <a href="shop.html">
-          All Products
-        </a>
-
-        <a href="shop.html?deal=true">
-          Flash Deals
-        </a>
-
-        <a href="shop.html?new=true">
-          New Arrivals
-        </a>
-
-        <a href="shop.html?category=Phones%20and%20Tablets">
-          Phones & Tablets
-        </a>
-
-      </div>
-
-      <div>
-
-        <h3>
-          Account
-        </h3>
-
-        <div
-          id="footerLoggedIn"
-          style="display:none;"
-        >
-
-          <div
-            class="footer-user"
-            id="footerUserEmail"
-          >
-          </div>
-
-          <a
-            href="#"
-            class="footer-logout"
-            id="footerLogoutLink"
-          >
-            Logout
-          </a>
-
-        </div>
-
-        <div id="footerLoggedOut">
-
-          <a
-            href="login.html"
-            id="footerLoginLink"
-          >
-            Login
-          </a>
-
-          <a
-            href="register.html"
-            id="footerRegisterLink"
-          >
-            Register
-          </a>
-
-        </div>
-
-        <a href="profile.html">
-          My Profile
-        </a>
-
-        <a href="orders.html">
-          My Orders
-        </a>
-
-      </div>
-
-      <div>
-
-        <h3>
-          Help
-        </h3>
-
-        <a href="contact.html">
-          Contact Us
-        </a>
-
-        <a href="track-order.html">
-          Track Order
-        </a>
-
-        <a href="seller-register.html">
-          Sell on Meteur
-        </a>
-
-      </div>
+      <a
+        href="#"
+        class="footer-logout"
+        id="footerLogoutLink"
+      >
+        Logout
+      </a>
 
     </div>
 
-    <div class="copyright">
-      © 2026 METEUR MOBILE KENYA. All rights reserved.
+    <div id="footerLoggedOut">
+
+      <a
+        href="login.html"
+        id="footerLoginLink"
+      >
+        Login
+      </a>
+
+      <a
+        href="register.html"
+        id="footerRegisterLink"
+      >
+        Register
+      </a>
+
     </div>
+
+    <a href="profile.html">
+      My Profile
+    </a>
+
+    <a href="orders.html">
+      My Orders
+    </a>
+
+  </div>
+
+  <div>
+
+    <h3>
+      Help
+    </h3>
+
+    <a href="contact.html">
+      Contact Us
+    </a>
+
+    <a href="track-order.html">
+      Track Order
+    </a>
+
+    <a href="seller-register.html">
+      Sell on Meteur
+    </a>
+
+  </div>
+
+</div>
+
+<div class="copyright">
+  © 2026 METEUR MOBILE KENYA. All rights reserved.
+</div>
+```
 
   </footer>
 
-  <!-- =========================
-       JAVASCRIPT
-  ========================== -->
-
   <script>
-
-    /* =========================
-       SUPABASE
-    ========================== */
 
     const SUPABASE_URL =
       "https://nytsdeupaootukcullgi.supabase.co";
@@ -1173,10 +1115,6 @@
         SUPABASE_KEY
       );
 
-    /* =========================
-       GLOBAL VARIABLES
-    ========================== */
-
     let currentProduct = null;
 
     let quantity = 1;
@@ -1185,10 +1123,6 @@
 
     let usdToKesRate =
       FALLBACK_USD_TO_KES;
-
-    /* =========================
-       EXCHANGE RATE
-    ========================== */
 
     async function loadExchangeRate() {
 
@@ -1236,10 +1170,6 @@
 
     }
 
-    /* =========================
-       CURRENCY FORMATTING
-    ========================== */
-
     function formatUSD(value) {
 
       const amount =
@@ -1278,11 +1208,7 @@
 
     }
 
-    /* =========================
-       ACCOUNT UI
-    ========================== */
-
-    async function updateAccountUI() {
+    async function getCurrentUser() {
 
       try {
 
@@ -1295,14 +1221,35 @@
             .getUser();
 
         if (error) {
+
           console.warn(
-            "Could not get user:",
+            "Could not get current user:",
             error
           );
+
+          return null;
         }
 
+        return data?.user || null;
+
+      } catch (error) {
+
+        console.error(
+          "Authentication check error:",
+          error
+        );
+
+        return null;
+      }
+
+    }
+
+    async function updateAccountUI() {
+
+      try {
+
         const user =
-          data?.user || null;
+          await getCurrentUser();
 
         const loginLink =
           document.getElementById(
@@ -1407,6 +1354,8 @@
 
         }
 
+        return user;
+
       } catch (error) {
 
         console.error(
@@ -1414,13 +1363,10 @@
           error
         );
 
+        return null;
       }
 
     }
-
-    /* =========================
-       LOGOUT
-    ========================== */
 
     async function logoutUser(event) {
 
@@ -1451,6 +1397,10 @@
           return;
         }
 
+        localStorage.removeItem(
+          "meteur_cart"
+        );
+
         window.location.href =
           "index.html";
 
@@ -1469,28 +1419,33 @@
 
     }
 
-    /* =========================
-       AUTH STATE
-    ========================== */
-
     supabaseClient
       .auth
       .onAuthStateChange(
         () => {
 
           setTimeout(
-            () => {
-              updateAccountUI();
+            async () => {
+
+              const user =
+                await updateAccountUI();
+
+              if (!user) {
+
+                localStorage.removeItem(
+                  "meteur_cart"
+                );
+
+                updateCartCount();
+
+              }
+
             },
             0
           );
 
         }
       );
-
-    /* =========================
-       ACTIVE NAVIGATION
-    ========================== */
 
     function setActiveNavigation() {
 
@@ -1602,10 +1557,6 @@
 
     }
 
-    /* =========================
-       PRODUCT ID
-    ========================== */
-
     function getProductId() {
 
       const params =
@@ -1618,10 +1569,6 @@
       );
 
     }
-
-    /* =========================
-       LOAD PRODUCT
-    ========================== */
 
     async function loadProduct() {
 
@@ -1709,10 +1656,6 @@
       );
 
     }
-
-    /* =========================
-       DISPLAY PRODUCT
-    ========================== */
 
     function displayProduct(
       product
@@ -2000,10 +1943,6 @@
 
     }
 
-    /* =========================
-       QUANTITY
-    ========================== */
-
     function changeQuantity(
       change
     ) {
@@ -2053,10 +1992,6 @@
 
     }
 
-    /* =========================
-       CART
-    ========================== */
-
     function getCart() {
 
       try {
@@ -2095,13 +2030,48 @@
 
     }
 
-    /* =========================
-       ADD TO CART
-    ========================== */
+    async function requireLoggedIn() {
 
-    function addToCart() {
+      const user =
+        await getCurrentUser();
+
+      if (user) {
+        return user;
+      }
+
+      localStorage.removeItem(
+        "meteur_cart"
+      );
+
+      updateCartCount();
+
+      const currentUrl =
+        window.location.pathname +
+        window.location.search;
+
+      const registerUrl =
+        "register.html?redirect=" +
+        encodeURIComponent(
+          currentUrl
+        );
+
+      window.location.href =
+        registerUrl;
+
+      return null;
+
+    }
+
+    async function addToCart() {
 
       if (!currentProduct) {
+        return;
+      }
+
+      const user =
+        await requireLoggedIn();
+
+      if (!user) {
         return;
       }
 
@@ -2185,13 +2155,16 @@
 
     }
 
-    /* =========================
-       BUY NOW
-    ========================== */
-
-    function buyNow() {
+    async function buyNow() {
 
       if (!currentProduct) {
+        return;
+      }
+
+      const user =
+        await requireLoggedIn();
+
+      if (!user) {
         return;
       }
 
@@ -2273,10 +2246,6 @@
 
     }
 
-    /* =========================
-       MESSAGE
-    ========================== */
-
     function showMessage(
       message,
       type
@@ -2308,10 +2277,6 @@
       );
 
     }
-
-    /* =========================
-       RELATED PRODUCTS
-    ========================== */
 
     async function loadRelatedProducts(
       category,
@@ -2459,10 +2424,6 @@
 
     }
 
-    /* =========================
-       CART COUNT
-    ========================== */
-
     function updateCartCount() {
 
       const cart =
@@ -2495,10 +2456,6 @@
       }
 
     }
-
-    /* =========================
-       SEARCH
-    ========================== */
 
     function searchProducts() {
 
@@ -2547,10 +2504,6 @@
 
     }
 
-    /* =========================
-       ESCAPE HTML
-    ========================== */
-
     function escapeHtml(
       value
     ) {
@@ -2591,10 +2544,6 @@
 
     }
 
-    /* =========================
-       EVENT LISTENERS
-    ========================== */
-
     document
       .getElementById(
         "logoutLink"
@@ -2613,17 +2562,22 @@
         logoutUser
       );
 
-    /* =========================
-       START
-    ========================== */
-
     async function startProductPage() {
 
       setActiveNavigation();
 
-      updateCartCount();
+      const user =
+        await updateAccountUI();
 
-      updateAccountUI();
+      if (!user) {
+
+        localStorage.removeItem(
+          "meteur_cart"
+        );
+
+      }
+
+      updateCartCount();
 
       await loadExchangeRate();
 

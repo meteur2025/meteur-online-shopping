@@ -51,6 +51,7 @@
       display: flex;
       align-items: center;
       gap: 12px;
+      min-width: 0;
     }
 
     .logo {
@@ -78,6 +79,10 @@
       border-radius: 9px;
     }
 
+    .brand-text {
+      min-width: 0;
+    }
+
     .brand-text h1 {
       font-size: 23px;
       font-weight: 800;
@@ -95,6 +100,7 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      flex-shrink: 0;
     }
 
     .header-actions > a {
@@ -617,7 +623,6 @@
     }
 
     @media (max-width: 900px) {
-
       .product-section {
         grid-template-columns: 1fr;
       }
@@ -629,11 +634,9 @@
       .footer-inner {
         grid-template-columns: 1fr 1fr;
       }
-
     }
 
     @media (max-width: 600px) {
-
       .top-header {
         padding: 14px;
       }
@@ -641,38 +644,62 @@
       .header-inner {
         flex-direction: column;
         align-items: stretch;
+        justify-content: flex-start;
+        gap: 10px;
+        width: 100%;
       }
 
       .brand {
-        justify-content: center;
+        width: 100%;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
       }
 
       .logo {
-        width: 48px;
-        min-width: 48px;
-        height: 48px;
+        width: 46px;
+        min-width: 46px;
+        height: 46px;
         border-radius: 9px;
         padding: 0;
       }
 
       .real-logo {
-        width: 48px;
-        height: 48px;
+        width: 46px;
+        height: 46px;
         background: #ffffff;
         border-radius: 9px;
       }
 
+      .brand-text {
+        min-width: 0;
+        flex: 1;
+      }
+
       .brand-text h1 {
-        font-size: 19px;
+        font-size: 18px;
+        line-height: 1.15;
+        white-space: nowrap;
+        overflow: visible;
+        letter-spacing: .2px;
       }
 
       .brand-text p {
-        font-size: 9px;
+        font-size: 8px;
+        margin-top: 3px;
+        white-space: nowrap;
+        letter-spacing: .7px;
       }
 
       .header-actions {
+        width: 100%;
         justify-content: center;
+        align-items: center;
         flex-wrap: wrap;
+        gap: 8px;
+        padding-top: 10px;
+        border-top: 1px solid rgba(255,255,255,.18);
       }
 
       .header-actions > a {
@@ -683,6 +710,7 @@
       .account-user {
         justify-content: center;
         flex-wrap: wrap;
+        width: auto;
       }
 
       .account-email {
@@ -762,7 +790,28 @@
       .footer-inner {
         grid-template-columns: 1fr;
       }
+    }
 
+    @media (max-width: 360px) {
+      .brand {
+        gap: 8px;
+      }
+
+      .logo,
+      .real-logo {
+        width: 44px;
+        min-width: 44px;
+        height: 44px;
+      }
+
+      .brand-text h1 {
+        font-size: 16px;
+      }
+
+      .brand-text p {
+        font-size: 7px;
+        letter-spacing: .5px;
+      }
     }
   </style>
 
@@ -1031,8 +1080,7 @@
       <div
         class="footer-user"
         id="footerUserEmail"
-      >
-      </div>
+      ></div>
 
       <a
         href="#"
@@ -1183,6 +1231,7 @@
             maximumFractionDigits: 2
           }
         );
+
     }
 
     function formatKES(value) {
@@ -1195,6 +1244,7 @@
           .toLocaleString(
             "en-KE"
           );
+
     }
 
     function getKesEquivalent(

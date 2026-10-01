@@ -28,10 +28,17 @@
         text-decoration: none;
     }
 
+    /* =========================
+       TOP HEADER
+    ========================= */
+
     .top-header {
-        background: #d90429;
         color: white;
         padding: 18px 20px;
+        background-image: url("21.webp");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
     }
 
     .header-inner {
@@ -120,6 +127,10 @@
         background: #fff0f2;
     }
 
+    /* =========================
+       NAVIGATION
+    ========================= */
+
     nav {
         background: #9b001f;
         color: white;
@@ -161,6 +172,10 @@
         border-radius: 3px 3px 0 0;
     }
 
+    /* =========================
+       LOGIN SECTION
+    ========================= */
+
     .auth-section {
         min-height: calc(100vh - 220px);
         display: flex;
@@ -173,23 +188,6 @@
     .auth-container {
         width: 100%;
         max-width: 850px;
-    }
-
-    .promo-image {
-        width: 100%;
-        height: 230px;
-        margin-bottom: 25px;
-        border-radius: 14px;
-        overflow: hidden;
-        box-shadow: 0 6px 22px rgba(217, 4, 41, 0.12);
-        background: #f3dfe2;
-    }
-
-    .promo-image img {
-        width: 100%;
-        height: 100%;
-        display: block;
-        object-fit: cover;
     }
 
     .auth-card {
@@ -368,6 +366,10 @@
         border-top: 1px solid #f0dce0;
     }
 
+    /* =========================
+       FOOTER
+    ========================= */
+
     footer {
         background: #9b001f;
         color: white;
@@ -414,18 +416,25 @@
         font-size: 13px;
     }
 
-    @media (max-width: 900px) {
+    /* =========================
+       TABLET
+    ========================= */
 
+    @media (max-width: 900px) {
         .footer-inner {
             grid-template-columns: 1fr 1fr;
         }
-
     }
+
+    /* =========================
+       MOBILE
+    ========================= */
 
     @media (max-width: 600px) {
 
         .top-header {
             padding: 14px;
+            background-position: center;
         }
 
         .header-inner {
@@ -438,6 +447,7 @@
             width: 100%;
             justify-content: flex-start;
             align-items: center;
+            overflow: visible;
         }
 
         .logo {
@@ -458,16 +468,19 @@
         .brand-text {
             flex: 1;
             min-width: 0;
+            overflow: visible;
         }
 
         .brand-text h1 {
             font-size: 18px;
             white-space: nowrap;
+            overflow: visible;
         }
 
         .brand-text p {
             font-size: 8px;
             white-space: nowrap;
+            overflow: visible;
         }
 
         .header-link {
@@ -497,12 +510,6 @@
             max-width: 100%;
         }
 
-        .promo-image {
-            height: 170px;
-            margin-bottom: 20px;
-            border-radius: 12px;
-        }
-
         .auth-card {
             padding: 28px 20px;
         }
@@ -514,7 +521,6 @@
         .footer-inner {
             grid-template-columns: 1fr;
         }
-
     }
 
     @media (max-width: 380px) {
@@ -538,11 +544,6 @@
             width: 44px;
             height: 44px;
         }
-
-        .promo-image {
-            height: 145px;
-        }
-
     }
 </style>
 ```
@@ -562,7 +563,7 @@
 
             <img
                 src="WhatsApp Image 2026-09-30 at 12.36.30.jpeg"
-                alt="Meteur Mobile Kenya M Logo"
+                alt="METEUR MOBILE KENYA"
                 class="real-logo"
             >
 
@@ -572,9 +573,7 @@
 
             <h1>METEUR MOBILE KENYA</h1>
 
-            <p>
-                MOBILE • ELECTRONICS • ACCESSORIES
-            </p>
+            <p>SMARTPHONES FOR EVERY BUDGET</p>
 
         </div>
 
@@ -632,15 +631,6 @@
 <section class="auth-section">
 
     <div class="auth-container">
-
-        <div class="promo-image">
-
-            <img
-                src="21.webp"
-                alt="METEUR MOBILE KENYA smartphones and special offers"
-            >
-
-        </div>
 
         <div class="auth-card">
 
@@ -766,8 +756,9 @@
         </h3>
 
         <p>
-            Your online destination for mobile phones,
-            electronics, accessories and smart devices in Kenya.
+            Your online destination for smartphones
+            and smart devices at prices made for
+            every budget in Kenya.
         </p>
 
     </div>

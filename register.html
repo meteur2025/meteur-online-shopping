@@ -5,7 +5,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Create Account | METEUR MOBILE KENYA</title>
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
@@ -122,7 +121,7 @@ a {
   background: white;
   border-radius: 12px;
   padding: 35px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 .success-icon {
@@ -194,6 +193,11 @@ a {
   background: #b80322;
 }
 
+.register-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .message {
   display: none;
   margin-top: 18px;
@@ -247,7 +251,7 @@ footer {
   max-width: 1200px;
   margin: auto;
   display: grid;
-  grid-template-columns: repeat(3,1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 35px;
 }
 
@@ -279,7 +283,7 @@ footer {
   font-size: 13px;
 }
 
-@media (max-width:700px) {
+@media (max-width: 700px) {
 
   .top-header {
     min-height: auto;
@@ -332,7 +336,7 @@ footer {
   }
 }
 
-@media (max-width:400px) {
+@media (max-width: 400px) {
 
   .brand-logo {
     width: 52px;
@@ -359,6 +363,7 @@ footer {
 <body>
 
 <header class="top-header">
+
   <div class="header-content">
 
 ```
@@ -371,14 +376,22 @@ footer {
   >
 
   <div class="brand-text">
-    <div class="brand-name">METEUR MOBILE KENYA</div>
-    <div class="brand-tagline">SMARTPHONES FOR EVERY BUDGET</div>
+
+    <div class="brand-name">
+      METEUR MOBILE KENYA
+    </div>
+
+    <div class="brand-tagline">
+      SMARTPHONES FOR EVERY BUDGET
+    </div>
+
   </div>
 
 </div>
 ```
 
   </div>
+
 </header>
 
 <nav class="main-nav">
@@ -386,17 +399,29 @@ footer {
   <div class="nav-inner">
 
 ```
-<a href="index.html" class="nav-link">Home</a>
+<a href="index.html" class="nav-link">
+  Home
+</a>
 
-<a href="shop.html" class="nav-link">Shop</a>
+<a href="shop.html" class="nav-link">
+  Shop
+</a>
 
-<a href="new-phones.html" class="nav-link">New Phones</a>
+<a href="new-phones.html" class="nav-link">
+  New Phones
+</a>
 
-<a href="used-phones.html" class="nav-link">Used Phones</a>
+<a href="used-phones.html" class="nav-link">
+  Used Phones
+</a>
 
-<a href="orders.html" class="nav-link">My Orders</a>
+<a href="orders.html" class="nav-link">
+  My Orders
+</a>
 
-<a href="contact.html" class="nav-link">Contact Us</a>
+<a href="contact.html" class="nav-link">
+  Contact Us
+</a>
 ```
 
   </div>
@@ -408,9 +433,13 @@ footer {
   <div class="register-card">
 
 ```
-<div class="success-icon">✓</div>
+<div class="success-icon">
+  ✓
+</div>
 
-<h1>Create Your Account</h1>
+<h1>
+  Create Your Account
+</h1>
 
 <p class="register-description">
   Register as a customer to shop, place orders, save products, and manage your account.
@@ -420,7 +449,9 @@ footer {
 
   <div class="form-group">
 
-    <label for="fullName">Full Name</label>
+    <label for="fullName">
+      Full Name
+    </label>
 
     <input
       type="text"
@@ -433,7 +464,9 @@ footer {
 
   <div class="form-group">
 
-    <label for="email">Email Address</label>
+    <label for="email">
+      Email Address
+    </label>
 
     <input
       type="email"
@@ -446,7 +479,9 @@ footer {
 
   <div class="form-group">
 
-    <label for="password">Password</label>
+    <label for="password">
+      Password
+    </label>
 
     <input
       type="password"
@@ -460,7 +495,9 @@ footer {
 
   <div class="form-group">
 
-    <label for="confirmPassword">Confirm Password</label>
+    <label for="confirmPassword">
+      Confirm Password
+    </label>
 
     <input
       type="password"
@@ -486,7 +523,9 @@ footer {
 
 <div class="account-link">
   Already have an account?
-  <a href="login.html">Login</a>
+  <a href="login.html">
+    Login
+  </a>
 </div>
 
 <a href="index.html" class="back-link">
@@ -505,7 +544,9 @@ footer {
 ```
 <div class="footer-column">
 
-  <h3>METEUR MOBILE KENYA</h3>
+  <h3>
+    METEUR MOBILE KENYA
+  </h3>
 
   <p>
     Your online destination for smartphones at prices made for every budget in Kenya.
@@ -515,24 +556,53 @@ footer {
 
 <div class="footer-column">
 
-  <h3>Shop</h3>
+  <h3>
+    Shop
+  </h3>
 
-  <a href="shop.html">All Products</a>
-  <a href="shop.html">Flash Deals</a>
-  <a href="shop.html">New Arrivals</a>
-  <a href="new-phones.html">New Phones</a>
-  <a href="used-phones.html">Used Phones</a>
+  <a href="shop.html">
+    All Products
+  </a>
+
+  <a href="shop.html">
+    Flash Deals
+  </a>
+
+  <a href="shop.html">
+    New Arrivals
+  </a>
+
+  <a href="new-phones.html">
+    New Phones
+  </a>
+
+  <a href="used-phones.html">
+    Used Phones
+  </a>
 
 </div>
 
 <div class="footer-column">
 
-  <h3>Account</h3>
+  <h3>
+    Account
+  </h3>
 
-  <a href="login.html">Login</a>
-  <a href="register.html">Register</a>
-  <a href="profile.html">My Profile</a>
-  <a href="orders.html">My Orders</a>
+  <a href="login.html">
+    Login
+  </a>
+
+  <a href="register.html">
+    Register
+  </a>
+
+  <a href="profile.html">
+    My Profile
+  </a>
+
+  <a href="orders.html">
+    My Orders
+  </a>
 
 </div>
 ```
@@ -587,7 +657,6 @@ registerForm.addEventListener(
       document.getElementById("confirmPassword").value;
 
     message.className = "message";
-
     message.textContent = "";
 
     if (!fullName) {

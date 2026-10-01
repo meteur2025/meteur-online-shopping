@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -115,7 +114,6 @@
     .account-email {
       max-width: 180px;
       overflow: hidden;
-      text-overflow: ellipsis;
     }
 
     .cart-link {
@@ -462,7 +460,6 @@
       }
     }
   </style>
-
 </head>
 
 <body>
@@ -471,119 +468,115 @@
 
   <div class="top-header">
 
-```
-<a href="index.html" class="brand">
+    <a href="index.html" class="brand">
 
-  <img
-    src="WhatsApp Image 2026-09-30 at 12.36.30.jpeg"
-    alt="METEUR MOBILE KENYA Logo"
-  >
+      <img
+        src="WhatsApp Image 2026-09-30 at 12.36.30.jpeg"
+        alt="METEUR MOBILE KENYA Logo"
+      >
 
-  <div class="brand-text">
+      <div class="brand-text">
 
-    <div class="brand-name">
-      METEUR MOBILE KENYA
+        <div class="brand-name">
+          METEUR MOBILE KENYA
+        </div>
+
+        <div class="brand-subtitle">
+          MOBILE • PHONES • TABLETS
+        </div>
+
+      </div>
+
+    </a>
+
+    <div class="search-box">
+
+      <input
+        type="text"
+        id="topSearch"
+        placeholder="Search smartphones..."
+      >
+
+      <button onclick="performTopSearch()">
+        Search
+      </button>
+
     </div>
 
-    <div class="brand-subtitle">
-      MOBILE • PHONES • TABLETS
+    <div class="header-actions">
+
+      <a href="login.html" id="loginLink">
+        Login
+      </a>
+
+      <a href="register.html" id="registerLink">
+        Register
+      </a>
+
+      <span
+        id="accountEmail"
+        class="account-email"
+        style="display:none;"
+      ></span>
+
+      <button
+        id="logoutButton"
+        style="display:none;"
+        onclick="logoutUser()"
+      >
+        Logout
+      </button>
+
+      <a href="cart.html" class="cart-link">
+        🛒 Cart <span id="cartCount">0</span>
+      </a>
+
     </div>
-
-  </div>
-
-</a>
-
-<div class="search-box">
-
-  <input
-    type="text"
-    id="topSearch"
-    placeholder="Search smartphones..."
-  >
-
-  <button onclick="performTopSearch()">
-    Search
-  </button>
-
-</div>
-
-<div class="header-actions">
-
-  <a href="login.html" id="loginLink">
-    Login
-  </a>
-
-  <a href="register.html" id="registerLink">
-    Register
-  </a>
-
-  <span
-    id="accountEmail"
-    class="account-email"
-    style="display:none;"
-  ></span>
-
-  <button
-    id="logoutButton"
-    style="display:none;"
-    onclick="logoutUser()"
-  >
-    Logout
-  </button>
-
-  <a href="cart.html" class="cart-link">
-    🛒 Cart <span id="cartCount">0</span>
-  </a>
-
-</div>
-```
 
   </div>
 
   <nav>
 
-```
-<div class="nav-container">
+    <div class="nav-container">
 
-  <a href="index.html" data-nav="home">
-    Home
-  </a>
+      <a href="index.html" data-nav="home">
+        Home
+      </a>
 
-  <a href="shop.html" data-nav="shop">
-    Shop
-  </a>
+      <a href="shop.html" data-nav="shop">
+        Shop
+      </a>
 
-  <a
-    href="shop.html?category=Phones%20and%20Tablets"
-    data-nav="phones-tablets"
-  >
-    Phones &amp; Tablets
-  </a>
+      <a
+        href="shop.html?category=Phones%20and%20Tablets"
+        data-nav="phones-tablets"
+      >
+        Phones &amp; Tablets
+      </a>
 
-  <a
-    href="shop.html?condition=New"
-    data-nav="new"
-  >
-    New Phones
-  </a>
+      <a
+        href="shop.html?condition=New"
+        data-nav="new"
+      >
+        New Phones
+      </a>
 
-  <a
-    href="shop.html?condition=Used"
-    data-nav="used"
-  >
-    Used Phones
-  </a>
+      <a
+        href="shop.html?condition=Used"
+        data-nav="used"
+      >
+        Used Phones
+      </a>
 
-  <a href="orders.html" data-nav="orders">
-    My Orders
-  </a>
+      <a href="orders.html" data-nav="orders">
+        My Orders
+      </a>
 
-  <a href="contact.html" data-nav="contact">
-    Contact Us
-  </a>
+      <a href="contact.html" data-nav="contact">
+        Contact Us
+      </a>
 
-</div>
-```
+    </div>
 
   </nav>
 
@@ -593,83 +586,79 @@
 
   <div class="page-heading">
 
-```
-<h1 id="pageTitle">
-  Phones
-</h1>
+    <h1 id="pageTitle">
+      Phones
+    </h1>
 
-<p id="pageDescription">
-  Browse new and quality used smartphones and tablets available at METEUR MOBILE KENYA.
-</p>
-```
+    <p id="pageDescription">
+      Browse new and quality used smartphones and tablets available at METEUR MOBILE KENYA.
+    </p>
 
   </div>
 
   <section class="filters">
 
-```
-<div class="filter-row">
+    <div class="filter-row">
 
-  <input
-    type="text"
-    id="searchFilter"
-    placeholder="Search phones..."
-  >
+      <input
+        type="text"
+        id="searchFilter"
+        placeholder="Search phones..."
+      >
 
-  <select id="sortFilter">
+      <select id="sortFilter">
 
-    <option value="newest">
-      Newest
-    </option>
+        <option value="newest">
+          Newest
+        </option>
 
-    <option value="price-low">
-      Price: Low to High
-    </option>
+        <option value="price-low">
+          Price: Low to High
+        </option>
 
-    <option value="price-high">
-      Price: High to Low
-    </option>
+        <option value="price-high">
+          Price: High to Low
+        </option>
 
-    <option value="rating">
-      Highest Rated
-    </option>
+        <option value="rating">
+          Highest Rated
+        </option>
 
-    <option value="name">
-      Name: A-Z
-    </option>
+        <option value="name">
+          Name: A-Z
+        </option>
 
-  </select>
+      </select>
 
-</div>
+    </div>
 
-<div class="tabs">
+    <div class="tabs">
 
-  <button
-    class="tab active"
-    data-condition="all"
-    onclick="changeCondition('all', this)"
-  >
-    All Phones
-  </button>
+      <button
+        class="tab active"
+        data-condition="all"
+        onclick="changeCondition('all', this)"
+      >
+        All Phones
+      </button>
 
-  <button
-    class="tab"
-    data-condition="New"
-    onclick="changeCondition('New', this)"
-  >
-    New Phones
-  </button>
+      <button
+        class="tab"
+        data-condition="New"
+        onclick="changeCondition('New', this)"
+      >
+        New Phones
+      </button>
 
-  <button
-    class="tab"
-    data-condition="Used"
-    onclick="changeCondition('Used', this)"
-  >
-    Used Phones
-  </button>
+      <button
+        class="tab"
+        data-condition="Used"
+        onclick="changeCondition('Used', this)"
+      >
+        Used Phones
+      </button>
 
-</div>
-```
+    </div>
 
   </section>
 
@@ -678,11 +667,9 @@
     class="products-grid"
   >
 
-```
-<div class="status-message">
-  Loading phones...
-</div>
-```
+    <div class="status-message">
+      Loading phones...
+    </div>
 
   </div>
 
@@ -692,84 +679,82 @@
 
   <div class="footer-container">
 
-```
-<div>
+    <div>
 
-  <h3>
-    METEUR MOBILE KENYA
-  </h3>
+      <h3>
+        METEUR MOBILE KENYA
+      </h3>
 
-  <p>
-    Your online destination for mobile phones,
-    tablets and smart devices in Kenya.
-  </p>
+      <p>
+        Your online destination for mobile phones,
+        tablets and smart devices in Kenya.
+      </p>
 
-</div>
+    </div>
 
-<div>
+    <div>
 
-  <h4>
-    Shop
-  </h4>
+      <h4>
+        Shop
+      </h4>
 
-  <a href="shop.html">
-    All Phones
-  </a>
+      <a href="shop.html">
+        All Phones
+      </a>
 
-  <a href="shop.html?condition=New">
-    New Phones
-  </a>
+      <a href="shop.html?condition=New">
+        New Phones
+      </a>
 
-  <a href="shop.html?condition=Used">
-    Used Phones
-  </a>
+      <a href="shop.html?condition=Used">
+        Used Phones
+      </a>
 
-  <a href="shop.html?category=Phones%20and%20Tablets">
-    Phones &amp; Tablets
-  </a>
+      <a href="shop.html?category=Phones%20and%20Tablets">
+        Phones &amp; Tablets
+      </a>
 
-</div>
+    </div>
 
-<div>
+    <div>
 
-  <h4>
-    Account
-  </h4>
+      <h4>
+        Account
+      </h4>
 
-  <a href="profile.html">
-    My Profile
-  </a>
+      <a href="profile.html">
+        My Profile
+      </a>
 
-  <a href="orders.html">
-    My Orders
-  </a>
+      <a href="orders.html">
+        My Orders
+      </a>
 
-  <a href="cart.html">
-    My Cart
-  </a>
+      <a href="cart.html">
+        My Cart
+      </a>
 
-</div>
+    </div>
 
-<div>
+    <div>
 
-  <h4>
-    Help
-  </h4>
+      <h4>
+        Help
+      </h4>
 
-  <a href="contact.html">
-    Contact Us
-  </a>
+      <a href="contact.html">
+        Contact Us
+      </a>
 
-  <a href="track-order.html">
-    Track Order
-  </a>
+      <a href="track-order.html">
+        Track Order
+      </a>
 
-  <a href="seller-register.html">
-    Sell on Meteur
-  </a>
+      <a href="seller-register.html">
+        Sell on Meteur
+      </a>
 
-</div>
-```
+    </div>
 
   </div>
 

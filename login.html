@@ -46,8 +46,6 @@
         margin: auto;
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        gap: 20px;
     }
 
     .brand {
@@ -99,32 +97,6 @@
         opacity: .95;
         letter-spacing: 1px;
         white-space: nowrap;
-    }
-
-    .header-link {
-        position: relative;
-        background: white;
-        color: #d90429;
-        padding: 10px 16px;
-        border-radius: 7px;
-        font-weight: 800;
-        font-size: 14px;
-        flex-shrink: 0;
-    }
-
-    .header-link::after {
-        content: "";
-        position: absolute;
-        left: 8px;
-        right: 8px;
-        bottom: -7px;
-        height: 3px;
-        background: white;
-        border-radius: 3px 3px 0 0;
-    }
-
-    .header-link:hover {
-        background: #fff0f2;
     }
 
     /* =========================
@@ -421,9 +393,11 @@
     ========================= */
 
     @media (max-width: 900px) {
+
         .footer-inner {
             grid-template-columns: 1fr 1fr;
         }
+
     }
 
     /* =========================
@@ -438,9 +412,7 @@
         }
 
         .header-inner {
-            flex-direction: column;
-            align-items: stretch;
-            gap: 12px;
+            width: 100%;
         }
 
         .brand {
@@ -483,16 +455,6 @@
             overflow: visible;
         }
 
-        .header-link {
-            width: 100%;
-            text-align: center;
-            font-size: 13px;
-        }
-
-        .header-link::after {
-            bottom: -5px;
-        }
-
         .nav-inner {
             width: 100%;
         }
@@ -521,6 +483,7 @@
         .footer-inner {
             grid-template-columns: 1fr;
         }
+
     }
 
     @media (max-width: 380px) {
@@ -544,6 +507,7 @@
             width: 44px;
             height: 44px;
         }
+
     }
 </style>
 ```
@@ -577,13 +541,6 @@
 
         </div>
 
-    </a>
-
-    <a
-        href="shop.html"
-        class="header-link"
-    >
-        Continue Shopping
     </a>
 
 </div>

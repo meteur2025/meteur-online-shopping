@@ -30,14 +30,7 @@
     }
 
     .top-header {
-        background-image:
-            linear-gradient(
-                90deg,
-                rgba(217, 4, 41, .82) 0%,
-                rgba(155, 0, 31, .68) 55%,
-                rgba(0, 0, 0, .30) 100%
-            ),
-            url("21.webp");
+        background-image: url("21.webp");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -50,7 +43,6 @@
         margin: auto;
         display: flex;
         align-items: center;
-        justify-content: space-between;
         gap: 20px;
     }
 
@@ -59,6 +51,7 @@
         align-items: center;
         gap: 12px;
         min-width: 0;
+        width: 100%;
     }
 
     .logo {
@@ -96,6 +89,7 @@
         font-weight: 900;
         letter-spacing: .2px;
         white-space: nowrap;
+        overflow: visible;
         text-shadow: 0 2px 7px rgba(0,0,0,.35);
     }
 
@@ -106,33 +100,8 @@
         opacity: .98;
         letter-spacing: .3px;
         white-space: nowrap;
+        overflow: visible;
         text-shadow: 0 2px 6px rgba(0,0,0,.35);
-    }
-
-    .header-link {
-        position: relative;
-        background: white;
-        color: #d90429;
-        padding: 10px 16px;
-        border-radius: 7px;
-        font-weight: 800;
-        font-size: 14px;
-        flex-shrink: 0;
-    }
-
-    .header-link::after {
-        content: "";
-        position: absolute;
-        left: 8px;
-        right: 8px;
-        bottom: -7px;
-        height: 3px;
-        background: white;
-        border-radius: 3px 3px 0 0;
-    }
-
-    .header-link:hover {
-        background: #fff0f2;
     }
 
     nav {
@@ -396,7 +365,7 @@
         .header-inner {
             flex-direction: column;
             align-items: stretch;
-            gap: 12px;
+            gap: 10px;
         }
 
         .brand {
@@ -434,16 +403,6 @@
             white-space: nowrap;
             overflow: visible;
             letter-spacing: .2px;
-        }
-
-        .header-link {
-            width: 100%;
-            text-align: center;
-            font-size: 13px;
-        }
-
-        .header-link::after {
-            bottom: -5px;
         }
 
         .nav-inner {
@@ -504,11 +463,6 @@
             letter-spacing: .1px;
         }
 
-        .header-link {
-            font-size: 12px;
-            padding: 9px 11px;
-        }
-
         .nav-inner a {
             font-size: 12px;
             padding-left: 12px;
@@ -540,11 +494,6 @@
         .brand-text p {
             font-size: 6.5px;
         }
-
-        .header-link {
-            padding: 8px 9px;
-            font-size: 12px;
-        }
     }
 </style>
 ```
@@ -574,19 +523,10 @@
 
             <h1>METEUR MOBILE KENYA</h1>
 
-            <p>
-                SMARTPHONES FOR EVERY BUDGET
-            </p>
+            <p>SMARTPHONES FOR EVERY BUDGET</p>
 
         </div>
 
-    </a>
-
-    <a
-        href="login.html"
-        class="header-link"
-    >
-        Login
     </a>
 
 </div>

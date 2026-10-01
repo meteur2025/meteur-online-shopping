@@ -43,7 +43,6 @@
             gap: 20px;
         }
 
-        /* EXACT SAME LOGO AS HOMEPAGE */
         .brand {
             display: flex;
             align-items: center;
@@ -107,7 +106,7 @@
             background: rgba(255, 255, 255, 0.14);
         }
 
-        /* NAVIGATION */
+        /* MAIN NAVIGATION */
         nav {
             background: #9b001f;
             color: white;
@@ -151,7 +150,7 @@
             border-radius: 3px 3px 0 0;
         }
 
-        /* MAIN PROFILE */
+        /* PROFILE PAGE */
         .profile-page {
             padding: 30px 20px 60px;
             background: #fff5f6;
@@ -522,7 +521,7 @@
                 </h1>
 
                 <p>
-                    MOBILE • ELECTRONICS • ACCESSORIES
+                    MOBILE PHONES • NEW & USED
                 </p>
 
             </div>
@@ -561,16 +560,16 @@
             Shop
         </a>
 
-        <a href="shop.html?category=Phones%20and%20Tablets">
-            Phones & Tablets
+        <a href="shop.html?category=New%20Phones">
+            New Phones
         </a>
 
-        <a href="shop.html?category=Electronics">
-            Electronics
+        <a href="shop.html?category=Used%20Phones">
+            Used Phones
         </a>
 
-        <a href="shop.html?category=Accessories">
-            Accessories
+        <a href="shop.html?deal=true">
+            Hot Deals
         </a>
 
         <a href="orders.html">
@@ -770,8 +769,7 @@
             </h3>
 
             <p>
-                Your online destination for mobile phones,
-                electronics, accessories and smart devices in Kenya.
+                Your online destination for new and quality used mobile phones in Kenya.
             </p>
 
         </div>
@@ -783,19 +781,19 @@
             </h4>
 
             <a href="shop.html">
-                All Products
+                All Phones
+            </a>
+
+            <a href="shop.html?category=New%20Phones">
+                New Phones
+            </a>
+
+            <a href="shop.html?category=Used%20Phones">
+                Used Phones
             </a>
 
             <a href="shop.html?deal=true">
-                Flash Deals
-            </a>
-
-            <a href="shop.html?new=true">
-                New Arrivals
-            </a>
-
-            <a href="shop.html?category=Phones%20and%20Tablets">
-                Phones & Tablets
+                Hot Deals
             </a>
 
         </div>
@@ -806,14 +804,6 @@
                 Account
             </h4>
 
-            <a href="login.html">
-                Login
-            </a>
-
-            <a href="register.html">
-                Register
-            </a>
-
             <a href="profile.html">
                 My Profile
             </a>
@@ -821,6 +811,28 @@
             <a href="orders.html">
                 My Orders
             </a>
+
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+            <button
+                type="button"
+                onclick="logoutUser()"
+                style="
+                    display:block;
+                    background:none;
+                    border:none;
+                    padding:0;
+                    margin:0 0 9px;
+                    color:#ffd9df;
+                    font-size:14px;
+                    cursor:pointer;
+                    text-align:left;
+                "
+            >
+                Log Out
+            </button>
 
         </div>
 
@@ -838,10 +850,6 @@
                 Track Order
             </a>
 
-            <a href="seller-register.html">
-                Sell on Meteur
-            </a>
-
         </div>
 
     </div>
@@ -855,64 +863,6 @@
 <script>
 
 let currentUser = null;
-
-function updateCartCount() {
-
-    const cart =
-        JSON.parse(
-            localStorage.getItem("meteurCart")
-        ) || [];
-
-    const total =
-        cart.reduce(
-            function(sum, product) {
-                return sum + (product.quantity || 1);
-            },
-            0
-        );
-
-    const cartCount =
-        document.getElementById("cartCount");
-
-    if (cartCount) {
-        cartCount.textContent = total;
-    }
-
-}
-
-function searchProducts() {
-
-    const input =
-        document.getElementById("searchInput");
-
-    if (!input) {
-        return;
-    }
-
-    const search =
-        input.value.trim();
-
-    if (search) {
-
-        window.location.href =
-            "shop.html?search=" +
-            encodeURIComponent(search);
-
-    }
-
-}
-
-function showMessage(message, type) {
-
-    const box =
-        document.getElementById("statusMessage");
-
-    box.textContent = message;
-
-    box.className =
-        "status-message " + type;
-
-}
 
 async function loadProfile() {
 
@@ -932,8 +882,7 @@ async function loadProfile() {
 
         }
 
-        currentUser =
-            data.user;
+        currentUser = data.user;
 
         const metadata =
             currentUser.user_metadata || {};
@@ -997,6 +946,18 @@ async function loadProfile() {
             "Unable to load your profile. Please try again.";
 
     }
+
+}
+
+function showMessage(message, type) {
+
+    const box =
+        document.getElementById("statusMessage");
+
+    box.textContent = message;
+
+    box.className =
+        "status-message " + type;
 
 }
 
@@ -1140,8 +1101,6 @@ async function logoutUser() {
         "login.html";
 
 }
-
-updateCartCount();
 
 loadProfile();
 

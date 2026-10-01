@@ -193,6 +193,11 @@ content="Shop new and used smartphones at METEUR MOBILE KENYA."
       gap: 28px;
       overflow-x: auto;
       white-space: nowrap;
+      scrollbar-width: none;
+    }
+
+    .nav-inner::-webkit-scrollbar {
+      display: none;
     }
 
     .nav-inner a {
@@ -222,7 +227,6 @@ content="Shop new and used smartphones at METEUR MOBILE KENYA."
       align-items: center;
       padding: 70px 20px;
       color: white;
-
       background-image:
         linear-gradient(
           90deg,
@@ -232,7 +236,6 @@ content="Shop new and used smartphones at METEUR MOBILE KENYA."
           rgba(0,0,0,.08) 100%
         ),
         url("21.webp");
-
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -627,7 +630,6 @@ content="Shop new and used smartphones at METEUR MOBILE KENYA."
     }
 
     @media (max-width:700px) {
-
       .header-top {
         display: flex;
         flex-direction: column;
@@ -844,7 +846,6 @@ content="Shop new and used smartphones at METEUR MOBILE KENYA."
     }
 
     @media (max-width:430px) {
-
       .header-top {
         padding-left: 10px;
         padding-right: 10px;
@@ -940,7 +941,6 @@ content="Shop new and used smartphones at METEUR MOBILE KENYA."
     }
 
     @media (max-width:360px) {
-
       .brand-area {
         gap: 7px;
       }
@@ -1047,12 +1047,14 @@ content="Shop new and used smartphones at METEUR MOBILE KENYA."
     class="header-link cart-link"
   >
     🛒 Cart
+
     <span
       id="cartCount"
       class="cart-count"
     >
       0
     </span>
+
   </a>
 
 </div>
@@ -1357,11 +1359,7 @@ content="Shop new and used smartphones at METEUR MOBILE KENYA."
   </div>
 
   <div class="footer-bottom">
-
-```
-© 2026 METEUR MOBILE KENYA. All rights reserved.
-```
-
+    © 2026 METEUR MOBILE KENYA. All rights reserved.
   </div>
 
 </footer>
@@ -1427,11 +1425,9 @@ content="Shop new and used smartphones at METEUR MOBILE KENYA."
         );
 
       if (!response.ok) {
-
         throw new Error(
           "Exchange rate request failed"
         );
-
       }
 
       const result =
@@ -1446,10 +1442,8 @@ content="Shop new and used smartphones at METEUR MOBILE KENYA."
         Number.isFinite(rate) &&
         rate > 0
       ) {
-
         usdKesRate =
           rate;
-
       }
 
     } catch (error) {
@@ -1486,11 +1480,9 @@ content="Shop new and used smartphones at METEUR MOBILE KENYA."
       );
 
     if (homeLink) {
-
       homeLink.classList.add(
         "active"
       );
-
     }
 
   }
@@ -1515,9 +1507,7 @@ content="Shop new and used smartphones at METEUR MOBILE KENYA."
     }
 
     if (!Array.isArray(cart)) {
-
       cart = [];
-
     }
 
     const total =
@@ -1599,35 +1589,43 @@ content="Shop new and used smartphones at METEUR MOBILE KENYA."
       );
 
     if (loginLink) {
-      loginLink.style.display = "none";
+      loginLink.style.display =
+        "none";
     }
 
     if (registerLink) {
-      registerLink.style.display = "none";
+      registerLink.style.display =
+        "none";
     }
 
     if (accountEmail) {
-      accountEmail.style.display = "none";
+      accountEmail.style.display =
+        "none";
     }
 
     if (logoutButton) {
-      logoutButton.style.display = "none";
+      logoutButton.style.display =
+        "none";
     }
 
     if (footerLogin) {
-      footerLogin.style.display = "none";
+      footerLogin.style.display =
+        "none";
     }
 
     if (footerRegister) {
-      footerRegister.style.display = "none";
+      footerRegister.style.display =
+        "none";
     }
 
     if (footerAccountStatus) {
-      footerAccountStatus.style.display = "none";
+      footerAccountStatus.style.display =
+        "none";
     }
 
     if (footerLogout) {
-      footerLogout.style.display = "none";
+      footerLogout.style.display =
+        "none";
     }
 
     try {
@@ -1687,31 +1685,23 @@ content="Shop new and used smartphones at METEUR MOBILE KENYA."
       } else {
 
         if (loginLink) {
-
           loginLink.style.display =
             "inline-flex";
-
         }
 
         if (registerLink) {
-
           registerLink.style.display =
             "inline-flex";
-
         }
 
         if (footerLogin) {
-
           footerLogin.style.display =
             "block";
-
         }
 
         if (footerRegister) {
-
           footerRegister.style.display =
             "block";
-
         }
 
       }
@@ -1821,7 +1811,6 @@ content="Shop new and used smartphones at METEUR MOBILE KENYA."
     }
 
     return `
-
       <div class="image-loading">
         Loading image...
       </div>
@@ -1848,17 +1837,9 @@ content="Shop new and used smartphones at METEUR MOBILE KENYA."
       >
 
       <div class="image-unavailable">
-
-        <strong>
-          Image unavailable
-        </strong>
-
-        <span>
-          ${escapeHtml(product.name)}
-        </span>
-
+        <strong>Image unavailable</strong>
+        <span>${escapeHtml(product.name)}</span>
       </div>
-
     `;
 
   }
@@ -1925,8 +1906,7 @@ content="Shop new and used smartphones at METEUR MOBILE KENYA."
     ) {
 
       hash =
-        ((hash << 5) -
-          hash) +
+        ((hash << 5) - hash) +
         seedSource.charCodeAt(i);
 
       hash |= 0;
@@ -1977,7 +1957,6 @@ content="Shop new and used smartphones at METEUR MOBILE KENYA."
     }
 
     grid.innerHTML = `
-
       <div style="
         grid-column:1/-1;
         text-align:center;
@@ -1986,7 +1965,6 @@ content="Shop new and used smartphones at METEUR MOBILE KENYA."
       ">
         Loading phones...
       </div>
-
     `;
 
     try {
@@ -2026,14 +2004,12 @@ content="Shop new and used smartphones at METEUR MOBILE KENYA."
       if (!phones.length) {
 
         grid.innerHTML = `
-
           <div style="
             grid-column:1/-1;
             text-align:center;
             padding:40px;
             color:#6b7280;
           ">
-
             <strong>
               No phones available.
             </strong>
@@ -2044,9 +2020,7 @@ content="Shop new and used smartphones at METEUR MOBILE KENYA."
             ">
               Add phone products in Supabase to display them here.
             </div>
-
           </div>
-
         `;
 
         return;
@@ -2082,7 +2056,6 @@ content="Shop new and used smartphones at METEUR MOBILE KENYA."
               );
 
             return `
-
               <article class="product-card">
 
                 <a
@@ -2095,9 +2068,7 @@ content="Shop new and used smartphones at METEUR MOBILE KENYA."
                       product.badge
                         ? `
                           <span class="badge">
-                            ${escapeHtml(
-                              product.badge
-                            )}
+                            ${escapeHtml(product.badge)}
                           </span>
                         `
                         : ""
@@ -2110,9 +2081,7 @@ content="Shop new and used smartphones at METEUR MOBILE KENYA."
                   <div class="product-info">
 
                     <div class="product-name">
-                      ${escapeHtml(
-                        product.name
-                      )}
+                      ${escapeHtml(product.name)}
                     </div>
 
                     <div class="rating">
@@ -2158,7 +2127,6 @@ content="Shop new and used smartphones at METEUR MOBILE KENYA."
                 </a>
 
               </article>
-
             `;
 
           }
@@ -2172,7 +2140,6 @@ content="Shop new and used smartphones at METEUR MOBILE KENYA."
       );
 
       grid.innerHTML = `
-
         <div style="
           grid-column:1/-1;
           text-align:center;
@@ -2213,7 +2180,6 @@ content="Shop new and used smartphones at METEUR MOBILE KENYA."
           </button>
 
         </div>
-
       `;
 
     }

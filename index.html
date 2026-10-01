@@ -184,7 +184,6 @@
       justify-content: center;
     }
 
-    /* Clean navigation area */
     .nav-bar {
       background: #ffffff;
       border-bottom: 1px solid #e5e7eb;
@@ -233,6 +232,11 @@
       height: 3px;
       background: #d90429;
       border-radius: 3px 3px 0 0;
+    }
+
+    /* Account-only navigation */
+    .auth-only {
+      display: none;
     }
 
     .hero {
@@ -1172,7 +1176,13 @@
         Hot Deals
       </a>
 
-      <a href="orders.html" data-nav="orders">
+      <!-- Only logged-in customers can see My Orders -->
+      <a
+        href="orders.html"
+        id="ordersNavLink"
+        class="auth-only"
+        data-nav="orders"
+      >
         My Orders
       </a>
 
@@ -1382,11 +1392,20 @@
         Register
       </a>
 
-      <a href="profile.html">
+      <!-- Only logged-in customers can see these -->
+      <a
+        href="profile.html"
+        id="footerProfile"
+        class="auth-only"
+      >
         My Profile
       </a>
 
-      <a href="orders.html">
+      <a
+        href="orders.html"
+        id="footerOrders"
+        class="auth-only"
+      >
         My Orders
       </a>
 
@@ -1619,6 +1638,36 @@
 
   }
 
+  function showLoggedInElements() {
+
+    document
+      .querySelectorAll(
+        ".auth-only"
+      )
+      .forEach(
+        element => {
+          element.style.display =
+            "inline-block";
+        }
+      );
+
+  }
+
+  function hideLoggedInElements() {
+
+    document
+      .querySelectorAll(
+        ".auth-only"
+      )
+      .forEach(
+        element => {
+          element.style.display =
+            "none";
+        }
+      );
+
+  }
+
   async function updateAccountUI() {
 
     const loginLink =
@@ -1660,6 +1709,9 @@
       document.getElementById(
         "footerLogout"
       );
+
+    /* Start with all account-only elements hidden */
+    hideLoggedInElements();
 
     if (loginLink) {
       loginLink.style.display = "none";
@@ -1710,6 +1762,10 @@
 
       if (user) {
 
+        /* Logged-in customer */
+
+        showLoggedInElements();
+
         if (accountEmail) {
 
           accountEmail.textContent =
@@ -1749,6 +1805,10 @@
 
       } else {
 
+        /* Visitor / logged-out customer */
+
+        hideLoggedInElements();
+
         if (loginLink) {
 
           loginLink.style.display =
@@ -1786,24 +1846,37 @@
         error
       );
 
+      /* If authentication cannot be read,
+         treat the visitor as logged out. */
+
+      hideLoggedInElements();
+
       if (loginLink) {
+
         loginLink.style.display =
           "inline-flex";
+
       }
 
       if (registerLink) {
+
         registerLink.style.display =
           "inline-flex";
+
       }
 
       if (footerLogin) {
+
         footerLogin.style.display =
           "block";
+
       }
 
       if (footerRegister) {
+
         footerRegister.style.display =
           "block";
+
       }
 
     }
@@ -1831,6 +1904,8 @@
       return;
 
     }
+
+    hideLoggedInElements();
 
     await updateAccountUI();
 

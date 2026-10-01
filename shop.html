@@ -24,8 +24,10 @@
     }
 
     header {
-      background: #d90429;
-      color: white;
+      background: #ffffff;
+      color: #222;
+      border-bottom: 1px solid #e5e7eb;
+      box-shadow: 0 2px 8px rgba(0,0,0,.06);
     }
 
     .top-header {
@@ -51,11 +53,18 @@
       object-fit: cover;
       border-radius: 8px;
       background: white;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .brand:hover img {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0,0,0,.16);
     }
 
     .brand-text {
       font-weight: bold;
       line-height: 1.2;
+      color: #222;
     }
 
     .brand-name {
@@ -64,7 +73,7 @@
 
     .brand-subtitle {
       font-size: 11px;
-      opacity: 0.95;
+      color: #666;
       margin-top: 4px;
     }
 
@@ -77,7 +86,7 @@
     .search-box input {
       width: 100%;
       padding: 12px 14px;
-      border: none;
+      border: 1px solid #ddd;
       border-radius: 6px 0 0 6px;
       font-size: 15px;
       outline: none;
@@ -86,11 +95,15 @@
     .search-box button {
       padding: 12px 18px;
       border: none;
-      background: #9b001f;
+      background: #d90429;
       color: white;
       font-weight: bold;
       border-radius: 0 6px 6px 0;
       cursor: pointer;
+    }
+
+    .search-box button:hover {
+      background: #b90323;
     }
 
     .header-actions {
@@ -103,12 +116,17 @@
 
     .header-actions a,
     .header-actions button {
-      color: white;
+      color: #374151;
       background: none;
       border: none;
       cursor: pointer;
       font-size: 14px;
       font-weight: bold;
+    }
+
+    .header-actions a:hover,
+    .header-actions button:hover {
+      color: #d90429;
     }
 
     .account-email {
@@ -121,10 +139,13 @@
       color: #d90429 !important;
       padding: 9px 12px;
       border-radius: 6px;
+      border: 1px solid #e5e7eb;
     }
 
     nav {
-      background: #9b001f;
+      background: #ffffff;
+      border-top: 1px solid #f1f1f1;
+      border-bottom: 1px solid #e5e7eb;
     }
 
     .nav-container {
@@ -136,15 +157,21 @@
     }
 
     nav a {
-      color: white;
+      color: #374151;
       padding: 14px 12px 11px;
       font-size: 14px;
       font-weight: bold;
       position: relative;
+      transition: color .2s ease, background .2s ease;
     }
 
     nav a:hover {
-      background: #7c0019;
+      background: #f8f8f8;
+      color: #d90429;
+    }
+
+    nav a.active {
+      color: #d90429;
     }
 
     nav a.active::after {
@@ -154,7 +181,7 @@
       right: 12px;
       bottom: 0;
       height: 3px;
-      background: white;
+      background: #d90429;
       border-radius: 3px 3px 0 0;
     }
 
@@ -1045,9 +1072,11 @@
 
     navLinks.forEach(
       link => {
+
         link.classList.remove(
           "active"
         );
+
       }
     );
 

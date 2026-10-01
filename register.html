@@ -77,7 +77,6 @@
       color: white;
       line-height: 1.1;
       white-space: nowrap;
-      overflow: visible;
     }
 
     .brand-tagline {
@@ -86,7 +85,6 @@
       font-weight: 700;
       color: white;
       line-height: 1.2;
-      white-space: nowrap;
     }
 
     .main-nav {
@@ -320,12 +318,7 @@
         padding: 20px 14px;
       }
 
-      .header-content {
-        width: 100%;
-      }
-
       .brand-area {
-        width: 100%;
         justify-content: flex-start;
         gap: 10px;
       }
@@ -347,11 +340,10 @@
       .brand-tagline {
         font-size: 12px;
         margin-top: 5px;
-        white-space: normal;
       }
 
       .nav-inner {
-        justify-content: flex-start;
+        justify-content: center;
         flex-wrap: wrap;
         overflow: visible;
       }
@@ -412,17 +404,19 @@
   <header class="top-header">
     <div class="header-content">
       <div class="brand-area">
-        <img
-          src="WhatsApp Image 2026-09-30 at 12.36.30.jpeg"
-          alt="METEUR MOBILE KENYA Logo"
-          class="brand-logo"
-        >
 
 ```
+    <img
+      src="WhatsApp Image 2026-09-30 at 12.36.30.jpeg"
+      alt="METEUR MOBILE KENYA Logo"
+      class="brand-logo"
+    >
+
     <div class="brand-text">
       <div class="brand-name">METEUR MOBILE KENYA</div>
       <div class="brand-tagline">SMARTPHONES FOR EVERY BUDGET</div>
     </div>
+
   </div>
 </div>
 ```
@@ -431,19 +425,30 @@
 
   <nav class="main-nav">
     <div class="nav-inner">
-      <a href="index.html" class="nav-link">Home</a>
-      <a href="shop.html" class="nav-link">Shop</a>
-      <a href="new-phones.html" class="nav-link">New Phones</a>
-      <a href="used-phones.html" class="nav-link">Used Phones</a>
-      <a href="orders.html" class="nav-link">My Orders</a>
-      <a href="contact.html" class="nav-link">Contact Us</a>
-    </div>
+
+```
+  <a href="index.html" class="nav-link">Home</a>
+
+  <a href="shop.html" class="nav-link">Shop</a>
+
+  <a href="new-phones.html" class="nav-link">New Phones</a>
+
+  <a href="used-phones.html" class="nav-link">Used Phones</a>
+
+  <a href="orders.html" class="nav-link">My Orders</a>
+
+  <a href="contact.html" class="nav-link">Contact Us</a>
+
+</div>
+```
+
   </nav>
 
   <main class="register-section">
-    <div class="register-card">
 
 ```
+<div class="register-card">
+
   <div class="success-icon">✓</div>
 
   <h1>Create Your Account</h1>
@@ -456,6 +461,7 @@
 
     <div class="form-group">
       <label for="fullName">Full Name</label>
+
       <input
         type="text"
         id="fullName"
@@ -466,6 +472,7 @@
 
     <div class="form-group">
       <label for="email">Email Address</label>
+
       <input
         type="email"
         id="email"
@@ -476,6 +483,7 @@
 
     <div class="form-group">
       <label for="password">Password</label>
+
       <input
         type="password"
         id="password"
@@ -487,6 +495,7 @@
 
     <div class="form-group">
       <label for="confirmPassword">Confirm Password</label>
+
       <input
         type="password"
         id="confirmPassword"
@@ -496,7 +505,11 @@
       >
     </div>
 
-    <button type="submit" class="register-button" id="registerButton">
+    <button
+      type="submit"
+      class="register-button"
+      id="registerButton"
+    >
       Create Account
     </button>
 
@@ -519,31 +532,46 @@
   </main>
 
   <footer>
-    <div class="footer-inner">
 
 ```
+<div class="footer-inner">
+
   <div class="footer-column">
     <h3>METEUR MOBILE KENYA</h3>
+
     <p>
       Your online destination for smartphones at prices made for every budget in Kenya.
     </p>
   </div>
 
   <div class="footer-column">
+
     <h3>Shop</h3>
+
     <a href="shop.html">All Products</a>
+
     <a href="shop.html">Flash Deals</a>
+
     <a href="shop.html">New Arrivals</a>
+
     <a href="new-phones.html">New Phones</a>
+
     <a href="used-phones.html">Used Phones</a>
+
   </div>
 
   <div class="footer-column">
+
     <h3>Account</h3>
+
     <a href="login.html">Login</a>
+
     <a href="register.html">Register</a>
+
     <a href="profile.html">My Profile</a>
+
     <a href="orders.html">My Orders</a>
+
   </div>
 
 </div>
@@ -557,6 +585,7 @@
 
   <script>
     const SUPABASE_URL = "https://nytsdeupaootukcullgi.supabase.co";
+
     const SUPABASE_KEY = "sb_publishable_cIqzHoafy_AEdB48KS_Wpg_LDqE1sFC";
 
     const supabaseClient = window.supabase.createClient(
@@ -565,76 +594,127 @@
     );
 
     const registerForm = document.getElementById("registerForm");
+
     const registerButton = document.getElementById("registerButton");
+
     const message = document.getElementById("message");
 
-    registerForm.addEventListener("submit", async function (event) {
+    registerForm.addEventListener("submit", async function(event) {
+
       event.preventDefault();
 
-      const fullName = document.getElementById("fullName").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value;
-      const confirmPassword = document.getElementById("confirmPassword").value;
+      const fullName =
+        document.getElementById("fullName").value.trim();
+
+      const email =
+        document.getElementById("email").value.trim();
+
+      const password =
+        document.getElementById("password").value;
+
+      const confirmPassword =
+        document.getElementById("confirmPassword").value;
 
       message.className = "message";
+
       message.textContent = "";
 
       if (!fullName) {
+
         message.className = "message error";
-        message.textContent = "Please enter your full name.";
+
+        message.textContent =
+          "Please enter your full name.";
+
         return;
       }
 
       if (password !== confirmPassword) {
+
         message.className = "message error";
-        message.textContent = "Passwords do not match.";
+
+        message.textContent =
+          "Passwords do not match.";
+
         return;
       }
 
       if (password.length < 6) {
+
         message.className = "message error";
-        message.textContent = "Password must be at least 6 characters.";
+
+        message.textContent =
+          "Password must be at least 6 characters.";
+
         return;
       }
 
       registerButton.disabled = true;
-      registerButton.textContent = "Creating Account...";
+
+      registerButton.textContent =
+        "Creating Account...";
 
       try {
-        const { data, error } = await supabaseClient.auth.signUp({
-          email: email,
-          password: password,
-          options: {
-            data: {
-              full_name: fullName
-            },
-            emailRedirectTo: window.location.origin + "/login.html"
-          }
-        });
+
+        const { data, error } =
+          await supabaseClient.auth.signUp({
+
+            email: email,
+
+            password: password,
+
+            options: {
+
+              data: {
+                full_name: fullName
+              },
+
+              emailRedirectTo:
+                window.location.origin + "/login.html"
+
+            }
+
+          });
 
         if (error) {
           throw error;
         }
 
-        message.className = "message success";
+        message.className =
+          "message success";
 
         if (data.user && !data.session) {
+
           message.textContent =
             "Account created successfully. Please check your email and click the verification link before logging in.";
+
         } else {
+
           message.textContent =
             "Account created successfully. You can now log in.";
+
         }
 
         registerForm.reset();
 
       } catch (error) {
-        message.className = "message error";
-        message.textContent = error.message || "Unable to create your account.";
+
+        message.className =
+          "message error";
+
+        message.textContent =
+          error.message ||
+          "Unable to create your account.";
+
       } finally {
+
         registerButton.disabled = false;
-        registerButton.textContent = "Create Account";
+
+        registerButton.textContent =
+          "Create Account";
+
       }
+
     });
   </script>
 

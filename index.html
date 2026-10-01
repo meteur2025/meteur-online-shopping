@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -664,13 +663,6 @@
         margin-left: auto;
       }
 
-      /*
-        IMPORTANT:
-        Do not hide account links here.
-        JavaScript decides whether Login/Register
-        or Account/Logout should be visible.
-      */
-
       .header-link:not(.cart-link) {
         display: inline-flex;
       }
@@ -932,7 +924,6 @@
 
     </div>
 
-
     <div class="header-actions">
 
       <a
@@ -986,7 +977,6 @@
 
   </div>
 
-
   <nav class="nav-bar">
 
     <div class="nav-inner">
@@ -1020,7 +1010,6 @@
   </nav>
 
 </header>
-
 
 <section class="hero">
 
@@ -1066,7 +1055,6 @@
 
 </section>
 
-
 <main class="container">
 
   <h2 class="section-title">
@@ -1094,7 +1082,6 @@
 
     </a>
 
-
     <a
       href="shop.html?condition=Used"
       class="category-card"
@@ -1114,7 +1101,6 @@
 
     </a>
 
-
     <a
       href="shop.html"
       class="category-card"
@@ -1133,7 +1119,6 @@
       </p>
 
     </a>
-
 
     <a
       href="shop.html"
@@ -1155,7 +1140,6 @@
     </a>
 
   </div>
-
 
   <h2 class="section-title">
     Featured Phones
@@ -1181,7 +1165,6 @@
 
 </main>
 
-
 <footer>
 
   <div class="footer-inner">
@@ -1198,7 +1181,6 @@
       </p>
 
     </div>
-
 
     <div class="footer-column">
 
@@ -1219,7 +1201,6 @@
       </a>
 
     </div>
-
 
     <div class="footer-column">
 
@@ -1264,7 +1245,6 @@
 
     </div>
 
-
     <div class="footer-column">
 
       <h3>
@@ -1283,7 +1263,6 @@
 
   </div>
 
-
   <div class="footer-bottom">
 
     © 2026 METEUR MOBILE KENYA. All rights reserved.
@@ -1291,7 +1270,6 @@
   </div>
 
 </footer>
-
 
 <script>
 
@@ -1307,13 +1285,11 @@
       SUPABASE_ANON_KEY
     );
 
-
   const FALLBACK_USD_KES =
     129.7;
 
   let usdKesRate =
     FALLBACK_USD_KES;
-
 
   function formatUSD(value) {
 
@@ -1331,7 +1307,6 @@
 
   }
 
-
   function formatKES(value) {
 
     const amount =
@@ -1343,7 +1318,6 @@
       );
 
   }
-
 
   async function loadExchangeRate() {
 
@@ -1397,7 +1371,6 @@
 
   }
 
-
   function setActiveNavigation() {
 
     const links =
@@ -1426,7 +1399,6 @@
     }
 
   }
-
 
   function updateCartCount() {
 
@@ -1489,7 +1461,6 @@
 
   }
 
-
   async function updateAccountUI() {
 
     const loginLink =
@@ -1532,14 +1503,6 @@
         "footerLogout"
       );
 
-
-    /*
-      Hide account controls first.
-      This prevents Login/Register from
-      briefly appearing while Supabase
-      checks the current session.
-    */
-
     if (loginLink) {
       loginLink.style.display = "none";
     }
@@ -1572,7 +1535,6 @@
       footerLogout.style.display = "none";
     }
 
-
     try {
 
       const {
@@ -1581,23 +1543,14 @@
       } =
         await supabaseClient.auth.getUser();
 
-
       if (error) {
-
         throw error;
-
       }
-
 
       const user =
         data?.user || null;
 
-
       if (user) {
-
-        /*
-          LOGGED IN
-        */
 
         if (accountEmail) {
 
@@ -1638,10 +1591,6 @@
 
       } else {
 
-        /*
-          NOT LOGGED IN
-        */
-
         if (loginLink) {
 
           loginLink.style.display =
@@ -1679,11 +1628,6 @@
         error
       );
 
-      /*
-        If the session check itself fails,
-        show the normal logged-out controls.
-      */
-
       if (loginLink) {
         loginLink.style.display =
           "inline-flex";
@@ -1708,14 +1652,12 @@
 
   }
 
-
   async function logoutUser() {
 
     const {
       error
     } =
       await supabaseClient.auth.signOut();
-
 
     if (error) {
 
@@ -1732,14 +1674,12 @@
 
     }
 
-
     await updateAccountUI();
 
     window.location.href =
       "index.html";
 
   }
-
 
   function escapeHtml(value) {
 
@@ -1769,12 +1709,10 @@
 
   }
 
-
   function createImageHtml(product) {
 
     const image =
       product.image_url || "";
-
 
     if (!image) {
 
@@ -1786,7 +1724,6 @@
       `;
 
     }
-
 
     return `
 
@@ -1830,7 +1767,6 @@
     `;
 
   }
-
 
   function isPhoneProduct(product) {
 
@@ -1876,7 +1812,6 @@
 
   }
 
-
   function getProductRating(product) {
 
     const seedSource =
@@ -1917,7 +1852,6 @@
 
   }
 
-
   function getStarDisplay(rating) {
 
     const rounded =
@@ -1936,7 +1870,6 @@
 
   }
 
-
   async function loadProducts() {
 
     const grid =
@@ -1947,7 +1880,6 @@
     if (!grid) {
       return;
     }
-
 
     grid.innerHTML = `
 
@@ -1961,7 +1893,6 @@
       </div>
 
     `;
-
 
     try {
 
@@ -1982,13 +1913,9 @@
           )
           .limit(50);
 
-
       if (error) {
-
         throw error;
-
       }
-
 
       const phones =
         (data || [])
@@ -2000,7 +1927,6 @@
             0,
             8
           );
-
 
       if (!phones.length) {
 
@@ -2032,7 +1958,6 @@
 
       }
 
-
       grid.innerHTML =
         phones.map(
           product => {
@@ -2061,7 +1986,6 @@
                 product.old_price || 0
               );
 
-
             return `
 
               <article class="product-card">
@@ -2088,7 +2012,6 @@
 
                   </div>
 
-
                   <div class="product-info">
 
                     <div class="product-name">
@@ -2096,7 +2019,6 @@
                         product.name
                       )}
                     </div>
-
 
                     <div class="rating">
 
@@ -2111,7 +2033,6 @@
                       </span>
 
                     </div>
-
 
                     <div class="price">
 
@@ -2133,7 +2054,6 @@
 
                     </div>
 
-
                     <span class="view-product">
                       View Product
                     </span>
@@ -2148,7 +2068,6 @@
 
           }
         ).join("");
-
 
     } catch (error) {
 
@@ -2206,7 +2125,6 @@
 
   }
 
-
   document
     .getElementById("logoutButton")
     ?.addEventListener(
@@ -2214,14 +2132,12 @@
       logoutUser
     );
 
-
   document
     .getElementById("footerLogout")
     ?.addEventListener(
       "click",
       logoutUser
     );
-
 
   supabaseClient.auth.onAuthStateChange(
     () => {
@@ -2236,18 +2152,15 @@
     }
   );
 
-
   window.addEventListener(
     "storage",
     updateCartCount
   );
 
-
   window.addEventListener(
     "focus",
     updateCartCount
   );
-
 
   async function startPage() {
 
@@ -2263,11 +2176,9 @@
 
   }
 
-
   startPage();
 
 </script>
 
 </body>
 </html>
-```

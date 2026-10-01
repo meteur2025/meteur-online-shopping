@@ -161,6 +161,17 @@
             color: #e65100;
         }
 
+        .hot-deal {
+            display: inline-block;
+            background: #dc3545;
+            color: white;
+            padding: 5px 9px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
         .price {
             font-size: 20px;
             font-weight: bold;
@@ -280,6 +291,12 @@
             resize: vertical;
         }
 
+        .deal-note {
+            margin-top: 6px;
+            font-size: 13px;
+            color: #777;
+        }
+
         .checkbox-row {
             display: flex;
             gap: 20px;
@@ -358,7 +375,7 @@
 
     <section class="page-title">
         <h2>Phone Product Management</h2>
-        <p>Review, edit and remove phone products. Select whether each phone is New or Used.</p>
+        <p>Review, edit and remove phone products. Choose New Phone, Used Phone or Hot Deal for each product.</p>
     </section>
 
     <div id="message" class="message"></div>
@@ -373,6 +390,9 @@
 
         <select id="categoryFilter">
             <option value="">All categories</option>
+            <option value="New Phone">New Phones</option>
+            <option value="Used Phone">Used Phones</option>
+            <option value="Hot Deal">Hot Deals</option>
         </select>
 
         <select id="conditionFilter">
@@ -401,6 +421,8 @@
 
             <input type="hidden" id="productId">
 
+            <input type="hidden" id="productCondition" value="New">
+
             <div class="form-group">
                 <label for="productName">Product name</label>
 
@@ -425,63 +447,22 @@
                         Select category
                     </option>
 
-                    <option>
-                        Phones and Tablets
+                    <option value="New Phone">
+                        New Phone
                     </option>
 
-                    <option>
-                        Computing
+                    <option value="Used Phone">
+                        Used Phone
                     </option>
 
-                    <option>
-                        Electronics
-                    </option>
-
-                    <option>
-                        Shoes
-                    </option>
-
-                    <option>
-                        Smart Devices
-                    </option>
-
-                    <option>
-                        Cameras
-                    </option>
-
-                    <option>
-                        Kitchen
-                    </option>
-
-                    <option>
-                        Fashion
-                    </option>
-
-                    <option>
-                        Home and Appliances
+                    <option value="Hot Deal">
+                        Hot Deal
                     </option>
                 </select>
 
-            </div>
-
-            <div class="form-group">
-
-                <label for="productCondition">
-                    Phone Condition
-                </label>
-
-                <select
-                    id="productCondition"
-                    required
-                >
-                    <option value="New">
-                        New
-                    </option>
-
-                    <option value="Used">
-                        Used
-                    </option>
-                </select>
+                <div class="deal-note">
+                    Hot Deal automatically marks the product as a deal.
+                </div>
 
             </div>
 
@@ -575,14 +556,6 @@
                 <label>
                     <input
                         type="checkbox"
-                        id="productDeal"
-                    >
-                    Flash Deal
-                </label>
-
-                <label>
-                    <input
-                        type="checkbox"
                         id="productNew"
                     >
                     New Arrival
@@ -641,6 +614,9 @@
     const productForm =
         document.getElementById("productForm");
 
+    const productCategory =
+        document.getElementById("productCategory");
+
     let allProducts = [];
 
     let adminUser = null;
@@ -667,6 +643,53 @@
     function hideMessage() {
 
         message.style.display = "none";
+
+    }
+
+    function getDisplayCategory(product) {
+
+        const storedCategory =
+            String(product.category || "")
+                .trim();
+
+        if (
+            storedCategory === "New Phone" ||
+            storedCategory === "Used Phone" ||
+            storedCategory === "Hot Deal"
+        ) {
+            return storedCategory;
+        }
+
+        if (Boolean(product.is_deal)) {
+            return "Hot Deal";
+        }
+
+        if (
+            String(product.condition || "New") === "Used"
+        ) {
+            return "Used Phone";
+        }
+
+        return "New Phone";
+
+    }
+
+    function getDisplayCondition(product) {
+
+        const displayCategory =
+            getDisplayCategory(product);
+
+        if (displayCategory === "Used Phone") {
+            return "Used";
+        }
+
+        if (displayCategory === "New Phone") {
+            return "New";
+        }
+
+        return product.condition === "Used"
+            ? "Used"
+            : "New";
 
     }
 
@@ -753,31 +776,7 @@
 
         allProducts = data || [];
 
-        buildCategoryFilter();
-
         renderProducts();
-
-    }
-
-    function buildCategoryFilter() {
-
-        const categories = [
-            ...new Set(
-                allProducts
-                    .map(product => product.category)
-                    .filter(Boolean)
-            )
-        ].sort();
-
-        categoryFilter.innerHTML =
-            `<option value="">All categories</option>` +
-            categories
-                .map(category =>
-                    `<option value="${escapeHtml(category)}">
-                        ${escapeHtml(category)}
-                    </option>`
-                )
-                .join("");
 
     }
 
@@ -806,12 +805,15 @@
                         .toLowerCase()
                         .includes(searchTerm);
 
-                const matchesCategory =
-                    !selectedCategory ||
-                    product.category === selectedCategory;
+                const displayCategory =
+                    getDisplayCategory(product);
 
                 const productCondition =
-                    product.condition || "New";
+                    getDisplayCondition(product);
+
+                const matchesCategory =
+                    !selectedCategory ||
+                    displayCategory === selectedCategory;
 
                 const matchesCondition =
                     !selectedCondition ||
@@ -864,13 +866,19 @@
                                 })
                             : "";
 
+                    const displayCategory =
+                        getDisplayCategory(product);
+
                     const condition =
-                        product.condition || "New";
+                        getDisplayCondition(product);
 
                     const conditionClass =
                         condition === "Used"
                             ? "condition-used"
                             : "condition-new";
+
+                    const isHotDeal =
+                        displayCategory === "Hot Deal";
 
                     return `
                         <article class="product-card">
@@ -889,12 +897,22 @@
                                 </h3>
 
                                 <div class="category">
-                                    ${escapeHtml(product.category)}
+                                    ${escapeHtml(displayCategory)}
                                 </div>
 
-                                <span class="condition ${conditionClass}">
-                                    ${escapeHtml(condition)} Phone
-                                </span>
+                                ${
+                                    isHotDeal
+                                    ? `
+                                        <span class="hot-deal">
+                                            🔥 Hot Deal
+                                        </span>
+                                    `
+                                    : `
+                                        <span class="condition ${conditionClass}">
+                                            ${escapeHtml(condition)} Phone
+                                        </span>
+                                    `
+                                }
 
                                 <div>
 
@@ -993,6 +1011,12 @@
             return;
         }
 
+        const displayCategory =
+            getDisplayCategory(product);
+
+        const displayCondition =
+            getDisplayCondition(product);
+
         document.getElementById("modalTitle")
             .textContent =
             "Edit Product";
@@ -1007,11 +1031,11 @@
 
         document.getElementById("productCategory")
             .value =
-            product.category || "";
+            displayCategory;
 
         document.getElementById("productCondition")
             .value =
-            product.condition || "New";
+            displayCondition;
 
         document.getElementById("productPrice")
             .value =
@@ -1037,10 +1061,6 @@
             .value =
             product.badge || "";
 
-        document.getElementById("productDeal")
-            .checked =
-            Boolean(product.is_deal);
-
         document.getElementById("productNew")
             .checked =
             Boolean(product.is_new);
@@ -1060,7 +1080,34 @@
         document.getElementById("productId")
             .value = "";
 
+        document.getElementById("productCondition")
+            .value = "New";
+
     }
+
+    productCategory.addEventListener(
+        "change",
+        () => {
+
+            const category =
+                productCategory.value;
+
+            if (category === "New Phone") {
+
+                document.getElementById("productCondition")
+                    .value = "New";
+
+            }
+
+            if (category === "Used Phone") {
+
+                document.getElementById("productCondition")
+                    .value = "Used";
+
+            }
+
+        }
+    );
 
     productForm.addEventListener(
         "submit",
@@ -1083,7 +1130,7 @@
                 document.getElementById("productCategory")
                     .value;
 
-            const condition =
+            let condition =
                 document.getElementById("productCondition")
                     .value;
 
@@ -1123,10 +1170,6 @@
                     .value
                     .trim();
 
-            const isDeal =
-                document.getElementById("productDeal")
-                    .checked;
-
             const isNew =
                 document.getElementById("productNew")
                     .checked;
@@ -1141,16 +1184,20 @@
 
             }
 
+            if (category === "New Phone") {
+                condition = "New";
+            }
+
+            if (category === "Used Phone") {
+                condition = "Used";
+            }
+
             if (
                 condition !== "New" &&
                 condition !== "Used"
             ) {
 
-                showMessage(
-                    "Select whether the phone is New or Used."
-                );
-
-                return;
+                condition = "New";
 
             }
 
@@ -1196,6 +1243,14 @@
 
             }
 
+            const isDeal =
+                category === "Hot Deal";
+
+            const finalBadge =
+                isDeal
+                    ? (badge || "Hot Deal")
+                    : (badge || null);
+
             const updates = {
 
                 name,
@@ -1217,7 +1272,7 @@
                     description || null,
 
                 badge:
-                    badge || null,
+                    finalBadge,
 
                 is_deal:
                     isDeal,

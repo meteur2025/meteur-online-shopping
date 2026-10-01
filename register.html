@@ -30,7 +30,17 @@
     }
 
     .top-header {
-        background: #d90429;
+        background-image:
+            linear-gradient(
+                90deg,
+                rgba(217, 4, 41, .82) 0%,
+                rgba(155, 0, 31, .68) 55%,
+                rgba(0, 0, 0, .30) 100%
+            ),
+            url("21.webp");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
         color: white;
         padding: 18px 20px;
     }
@@ -78,21 +88,25 @@
 
     .brand-text {
         min-width: 0;
+        flex: 1;
     }
 
     .brand-text h1 {
         font-size: 23px;
-        font-weight: 800;
-        letter-spacing: .3px;
+        font-weight: 900;
+        letter-spacing: .2px;
         white-space: nowrap;
+        text-shadow: 0 2px 7px rgba(0,0,0,.35);
     }
 
     .brand-text p {
         font-size: 11px;
-        margin-top: 3px;
-        opacity: .95;
-        letter-spacing: 1px;
+        margin-top: 4px;
+        font-weight: 600;
+        opacity: .98;
+        letter-spacing: .3px;
         white-space: nowrap;
+        text-shadow: 0 2px 6px rgba(0,0,0,.35);
     }
 
     .header-link {
@@ -164,7 +178,7 @@
 
     .register-section {
         min-height: calc(100vh - 220px);
-        padding: 0 0 60px;
+        padding: 60px 0;
         background: #fff5f6;
     }
 
@@ -172,28 +186,6 @@
         width: 100%;
         max-width: 1200px;
         margin: 0 auto;
-    }
-
-    /*
-        Large homepage-style promotional banner.
-        The image is now wide and prominent at the top
-        instead of being a small image above the card.
-    */
-    .promo-image {
-        width: 100%;
-        height: 360px;
-        margin: 0 0 45px;
-        overflow: hidden;
-        background: #f3dfe2;
-        box-shadow: 0 6px 22px rgba(217, 4, 41, 0.12);
-    }
-
-    .promo-image img {
-        width: 100%;
-        height: 100%;
-        display: block;
-        object-fit: cover;
-        object-position: center;
     }
 
     .card {
@@ -393,10 +385,6 @@
         .footer-inner {
             grid-template-columns: 1fr 1fr;
         }
-
-        .promo-image {
-            height: 320px;
-        }
     }
 
     @media (max-width: 600px) {
@@ -415,36 +403,37 @@
             width: 100%;
             justify-content: flex-start;
             align-items: center;
+            gap: 10px;
         }
 
         .logo {
             width: 48px;
             min-width: 48px;
             height: 48px;
-            border-radius: 9px;
-            padding: 0;
         }
 
         .real-logo {
             width: 48px;
             height: 48px;
-            background: #ffffff;
-            border-radius: 9px;
         }
 
         .brand-text {
             flex: 1;
             min-width: 0;
+            overflow: visible;
         }
 
         .brand-text h1 {
             font-size: 18px;
             white-space: nowrap;
+            overflow: visible;
         }
 
         .brand-text p {
             font-size: 8px;
             white-space: nowrap;
+            overflow: visible;
+            letter-spacing: .2px;
         }
 
         .header-link {
@@ -467,19 +456,7 @@
         }
 
         .register-section {
-            padding: 0 0 45px;
-        }
-
-        .promo-image {
-            width: 100%;
-            height: 210px;
-            margin-bottom: 30px;
-            border-radius: 0;
-        }
-
-        .promo-image img {
-            object-fit: cover;
-            object-position: center;
+            padding: 35px 0 45px;
         }
 
         .card {
@@ -496,15 +473,15 @@
         }
     }
 
-    @media (max-width: 380px) {
+    @media (max-width: 430px) {
 
-        .brand-text h1 {
-            font-size: 16px;
+        .top-header {
+            padding-left: 10px;
+            padding-right: 10px;
         }
 
-        .brand-text p {
-            font-size: 7px;
-            letter-spacing: .6px;
+        .brand {
+            gap: 8px;
         }
 
         .logo {
@@ -518,12 +495,55 @@
             height: 44px;
         }
 
-        .promo-image {
-            height: 180px;
+        .brand-text h1 {
+            font-size: 16px;
         }
 
-        .card {
-            width: calc(100% - 20px);
+        .brand-text p {
+            font-size: 7px;
+            letter-spacing: .1px;
+        }
+
+        .header-link {
+            font-size: 12px;
+            padding: 9px 11px;
+        }
+
+        .nav-inner a {
+            font-size: 12px;
+            padding-left: 12px;
+            padding-right: 12px;
+        }
+    }
+
+    @media (max-width: 360px) {
+
+        .brand {
+            gap: 7px;
+        }
+
+        .logo {
+            width: 42px;
+            min-width: 42px;
+            height: 42px;
+        }
+
+        .real-logo {
+            width: 42px;
+            height: 42px;
+        }
+
+        .brand-text h1 {
+            font-size: 15px;
+        }
+
+        .brand-text p {
+            font-size: 6.5px;
+        }
+
+        .header-link {
+            padding: 8px 9px;
+            font-size: 12px;
         }
     }
 </style>
@@ -544,7 +564,7 @@
 
             <img
                 src="WhatsApp Image 2026-09-30 at 12.36.30.jpeg"
-                alt="Meteur Mobile Kenya M Logo"
+                alt="METEUR MOBILE KENYA"
                 class="real-logo"
             >
 
@@ -555,7 +575,7 @@
             <h1>METEUR MOBILE KENYA</h1>
 
             <p>
-                MOBILE • ELECTRONICS • ACCESSORIES
+                SMARTPHONES FOR EVERY BUDGET
             </p>
 
         </div>
@@ -614,15 +634,6 @@
 <section class="register-section">
 
     <div class="container">
-
-        <div class="promo-image">
-
-            <img
-                src="21.webp"
-                alt="METEUR MOBILE KENYA smartphones and special offers"
-            >
-
-        </div>
 
         <div class="card">
 
@@ -764,8 +775,8 @@
         </h3>
 
         <p>
-            Your online destination for mobile phones,
-            electronics, accessories and smart devices in Kenya.
+            Your online destination for smartphones
+            at prices made for every budget in Kenya.
         </p>
 
     </div>

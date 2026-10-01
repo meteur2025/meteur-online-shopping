@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -7,11 +6,10 @@
 
   <title>METEUR MOBILE KENYA</title>
 
-<meta
-name="description"
-content="Shop new and used smartphones at METEUR MOBILE KENYA."
-
->
+  <meta
+    name="description"
+    content="Shop new and used smartphones at METEUR MOBILE KENYA."
+  >
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -257,25 +255,26 @@ content="Shop new and used smartphones at METEUR MOBILE KENYA."
     }
 
     .hero-label {
-      display: inline-block;
-      background: rgba(255,255,255,.16);
-      border: 1px solid rgba(255,255,255,.35);
-      padding: 8px 14px;
-      border-radius: 30px;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      margin-bottom: 18px;
+      display: block;
+      background: transparent;
+      border: 0;
+      padding: 0;
+      border-radius: 0;
+      font-size: 30px;
+      line-height: 1.15;
+      font-weight: 900;
+      letter-spacing: .3px;
+      margin-bottom: 14px;
       text-transform: uppercase;
-      backdrop-filter: blur(5px);
+      text-shadow: 0 3px 12px rgba(0,0,0,.55);
     }
 
     .hero h1 {
-      font-size: 52px;
-      line-height: 1.06;
+      font-size: 39px;
+      line-height: 1.08;
       margin-bottom: 18px;
-      font-weight: 900;
-      letter-spacing: -.8px;
+      font-weight: 800;
+      letter-spacing: -.5px;
       text-shadow: 0 3px 12px rgba(0,0,0,.45);
     }
 
@@ -635,8 +634,12 @@ content="Shop new and used smartphones at METEUR MOBILE KENYA."
         width: 65%;
       }
 
+      .hero-label {
+        font-size: 27px;
+      }
+
       .hero h1 {
-        font-size: 44px;
+        font-size: 34px;
       }
     }
 
@@ -760,14 +763,16 @@ content="Shop new and used smartphones at METEUR MOBILE KENYA."
       }
 
       .hero-label {
-        font-size: 10px;
-        margin-bottom: 15px;
+        font-size: 25px;
+        line-height: 1.15;
+        margin-bottom: 12px;
       }
 
       .hero h1 {
-        font-size: 35px;
+        font-size: 29px;
         line-height: 1.1;
-        letter-spacing: -.4px;
+        letter-spacing: -.3px;
+        margin-bottom: 17px;
       }
 
       .hero p {
@@ -915,8 +920,13 @@ content="Shop new and used smartphones at METEUR MOBILE KENYA."
         background-position: center;
       }
 
+      .hero-label {
+        font-size: 22px;
+        line-height: 1.15;
+      }
+
       .hero h1 {
-        font-size: 30px;
+        font-size: 26px;
       }
 
       .hero p {
@@ -1004,6 +1014,14 @@ content="Shop new and used smartphones at METEUR MOBILE KENYA."
         font-size: 12px;
       }
 
+      .hero-label {
+        font-size: 20px;
+      }
+
+      .hero h1 {
+        font-size: 24px;
+      }
+
       .categories {
         gap: 6px;
       }
@@ -1022,7 +1040,6 @@ content="Shop new and used smartphones at METEUR MOBILE KENYA."
       }
     }
   </style>
-
 </head>
 
 <body>
@@ -1031,125 +1048,121 @@ content="Shop new and used smartphones at METEUR MOBILE KENYA."
 
   <div class="header-top">
 
-```
-<div class="brand-area">
+    <div class="brand-area">
 
-  <a href="index.html" class="logo">
+      <a href="index.html" class="logo">
 
-    <img
-      src="WhatsApp Image 2026-09-30 at 12.36.30.jpeg"
-      alt="METEUR MOBILE KENYA"
-      class="real-logo"
-      onerror="this.style.display='none'; this.parentElement.textContent='M';"
-    >
+        <img
+          src="WhatsApp Image 2026-09-30 at 12.36.30.jpeg"
+          alt="METEUR MOBILE KENYA"
+          class="real-logo"
+          onerror="this.style.display='none'; this.parentElement.textContent='M';"
+        >
 
-  </a>
+      </a>
 
-  <span class="brand-text">
+      <span class="brand-text">
 
-    <span class="brand-name">
-      METEUR MOBILE KENYA
-    </span>
+        <span class="brand-name">
+          METEUR MOBILE KENYA
+        </span>
 
-    <span class="brand-tagline">
-      SMARTPHONES FOR EVERY BUDGET
-    </span>
+        <span class="brand-tagline">
+          SMARTPHONES FOR EVERY BUDGET
+        </span>
 
-  </span>
+      </span>
 
-</div>
+    </div>
 
-<div class="header-actions">
+    <div class="header-actions">
 
-  <a
-    href="login.html"
-    id="loginLink"
-    class="header-link"
-  >
-    Login
-  </a>
+      <a
+        href="login.html"
+        id="loginLink"
+        class="header-link"
+      >
+        Login
+      </a>
 
-  <a
-    href="register.html"
-    id="registerLink"
-    class="header-link"
-  >
-    Register
-  </a>
+      <a
+        href="register.html"
+        id="registerLink"
+        class="header-link"
+      >
+        Register
+      </a>
 
-  <a
-    href="profile.html"
-    id="accountEmail"
-    class="header-link account-email"
-    style="display:none;"
-  >
-    My Account
-  </a>
+      <a
+        href="profile.html"
+        id="accountEmail"
+        class="header-link account-email"
+        style="display:none;"
+      >
+        My Account
+      </a>
 
-  <button
-    type="button"
-    id="logoutButton"
-    class="header-link logout-button"
-    style="display:none;"
-  >
-    Logout
-  </button>
+      <button
+        type="button"
+        id="logoutButton"
+        class="header-link logout-button"
+        style="display:none;"
+      >
+        Logout
+      </button>
 
-  <a
-    href="cart.html"
-    class="header-link cart-link"
-  >
-    🛒 Cart
+      <a
+        href="cart.html"
+        class="header-link cart-link"
+      >
+        🛒 Cart
 
-    <span
-      id="cartCount"
-      class="cart-count"
-    >
-      0
-    </span>
+        <span
+          id="cartCount"
+          class="cart-count"
+        >
+          0
+        </span>
 
-  </a>
+      </a>
 
-</div>
-```
+    </div>
 
   </div>
 
   <nav class="nav-bar">
 
-```
-<div class="nav-inner">
+    <div class="nav-inner">
 
-  <a href="index.html" data-nav="home">
-    Home
-  </a>
+      <a href="index.html" data-nav="home">
+        Home
+      </a>
 
-  <a href="shop.html" data-nav="shop">
-    Shop
-  </a>
+      <a href="shop.html" data-nav="shop">
+        Shop
+      </a>
 
-  <a href="shop.html?condition=New" data-nav="new">
-    New Phones
-  </a>
+      <a href="shop.html?condition=New" data-nav="new">
+        New Phones
+      </a>
 
-  <a href="shop.html?condition=Used" data-nav="used">
-    Used Phones
-  </a>
+      <a href="shop.html?condition=Used" data-nav="used">
+        Used Phones
+      </a>
 
-  <a href="shop.html?category=Hot%20Deal" data-nav="hot-deals">
-    Hot Deals
-  </a>
+      <a href="shop.html?category=Hot%20Deal" data-nav="hot-deals">
+        Hot Deals
+      </a>
 
-  <a href="orders.html" data-nav="orders">
-    My Orders
-  </a>
+      <a href="orders.html" data-nav="orders">
+        My Orders
+      </a>
 
-  <a href="contact.html" data-nav="contact">
-    Contact Us
-  </a>
+      <a href="contact.html" data-nav="contact">
+        Contact Us
+      </a>
 
-</div>
-```
+    </div>
 
   </nav>
 
@@ -1159,43 +1172,41 @@ content="Shop new and used smartphones at METEUR MOBILE KENYA."
 
   <div class="hero-inner">
 
-```
-<div class="hero-content">
+    <div class="hero-content">
 
-  <div class="hero-label">
-    METEUR MOBILE KENYA
-  </div>
+      <div class="hero-label">
+        METEUR MOBILE KENYA
+      </div>
 
-  <h1>
-    YOUR NEXT PHONE<br>
-    STARTS HERE
-  </h1>
+      <h1>
+        YOUR NEXT PHONE<br>
+        STARTS HERE
+      </h1>
 
-  <p>
-    Discover new and quality used smartphones
-    at prices made for every budget.
-  </p>
+      <p>
+        Discover new and quality used smartphones
+        at prices made for every budget.
+      </p>
 
-  <div class="hero-buttons">
+      <div class="hero-buttons">
 
-    <a
-      href="shop.html?condition=New"
-      class="hero-button"
-    >
-      Shop New Phones
-    </a>
+        <a
+          href="shop.html?condition=New"
+          class="hero-button"
+        >
+          Shop New Phones
+        </a>
 
-    <a
-      href="shop.html?condition=Used"
-      class="hero-button secondary"
-    >
-      Shop Used Phones
-    </a>
+        <a
+          href="shop.html?condition=Used"
+          class="hero-button secondary"
+        >
+          Shop Used Phones
+        </a>
 
-  </div>
+      </div>
 
-</div>
-```
+    </div>
 
   </div>
 
@@ -1209,64 +1220,62 @@ content="Shop new and used smartphones at METEUR MOBILE KENYA."
 
   <div class="categories">
 
-```
-<a
-  href="shop.html?condition=New"
-  class="category-card"
->
+    <a
+      href="shop.html?condition=New"
+      class="category-card"
+    >
 
-  <div class="category-icon">
-    📱
-  </div>
+      <div class="category-icon">
+        📱
+      </div>
 
-  <h3>
-    New Phones
-  </h3>
+      <h3>
+        New Phones
+      </h3>
 
-  <p>
-    New smartphone models
-  </p>
+      <p>
+        New smartphone models
+      </p>
 
-</a>
+    </a>
 
-<a
-  href="shop.html?condition=Used"
-  class="category-card"
->
+    <a
+      href="shop.html?condition=Used"
+      class="category-card"
+    >
 
-  <div class="category-icon">
-    ♻️
-  </div>
+      <div class="category-icon">
+        ♻️
+      </div>
 
-  <h3>
-    Used Phones
-  </h3>
+      <h3>
+        Used Phones
+      </h3>
 
-  <p>
-    Quality pre-owned smartphones
-  </p>
+      <p>
+        Quality pre-owned smartphones
+      </p>
 
-</a>
+    </a>
 
-<a
-  href="shop.html?category=Hot%20Deal"
-  class="category-card hot-deal-card"
->
+    <a
+      href="shop.html?category=Hot%20Deal"
+      class="category-card hot-deal-card"
+    >
 
-  <div class="category-icon">
-    🔥
-  </div>
+      <div class="category-icon">
+        🔥
+      </div>
 
-  <h3>
-    Hot Deals
-  </h3>
+      <h3>
+        Hot Deals
+      </h3>
 
-  <p>
-    Special phone deals
-  </p>
+      <p>
+        Special phone deals
+      </p>
 
-</a>
-```
+    </a>
 
   </div>
 
@@ -1279,18 +1288,16 @@ content="Shop new and used smartphones at METEUR MOBILE KENYA."
     class="products-grid"
   >
 
-```
-<div
-  style="
-    grid-column:1/-1;
-    text-align:center;
-    padding:40px;
-    color:#6b7280;
-  "
->
-  Loading phones...
-</div>
-```
+    <div
+      style="
+        grid-column:1/-1;
+        text-align:center;
+        padding:40px;
+        color:#6b7280;
+      "
+    >
+      Loading phones...
+    </div>
 
   </div>
 
@@ -1300,103 +1307,101 @@ content="Shop new and used smartphones at METEUR MOBILE KENYA."
 
   <div class="footer-inner">
 
-```
-<div class="footer-brand">
+    <div class="footer-brand">
 
-  <h2>
-    METEUR MOBILE KENYA
-  </h2>
+      <h2>
+        METEUR MOBILE KENYA
+      </h2>
 
-  <p>
-    Your online destination for smartphones
-    at prices made for every budget in Kenya.
-  </p>
+      <p>
+        Your online destination for smartphones
+        at prices made for every budget in Kenya.
+      </p>
 
-</div>
+    </div>
 
-<div class="footer-column">
+    <div class="footer-column">
 
-  <h3>
-    Shop
-  </h3>
+      <h3>
+        Shop
+      </h3>
 
-  <a href="shop.html">
-    All Phones
-  </a>
+      <a href="shop.html">
+        All Phones
+      </a>
 
-  <a href="shop.html?condition=New">
-    New Phones
-  </a>
+      <a href="shop.html?condition=New">
+        New Phones
+      </a>
 
-  <a href="shop.html?condition=Used">
-    Used Phones
-  </a>
+      <a href="shop.html?condition=Used">
+        Used Phones
+      </a>
 
-  <a href="shop.html?category=Hot%20Deal">
-    Hot Deals
-  </a>
+      <a href="shop.html?category=Hot%20Deal">
+        Hot Deals
+      </a>
 
-</div>
+    </div>
 
-<div class="footer-column">
+    <div class="footer-column">
 
-  <h3>
-    Account
-  </h3>
+      <h3>
+        Account
+      </h3>
 
-  <a
-    href="login.html"
-    id="footerLogin"
-  >
-    Login
-  </a>
+      <a
+        href="login.html"
+        id="footerLogin"
+      >
+        Login
+      </a>
 
-  <a
-    href="register.html"
-    id="footerRegister"
-  >
-    Register
-  </a>
+      <a
+        href="register.html"
+        id="footerRegister"
+      >
+        Register
+      </a>
 
-  <a href="profile.html">
-    My Profile
-  </a>
+      <a href="profile.html">
+        My Profile
+      </a>
 
-  <a href="orders.html">
-    My Orders
-  </a>
+      <a href="orders.html">
+        My Orders
+      </a>
 
-  <span
-    id="footerAccountStatus"
-    class="footer-account-status"
-  ></span>
+      <span
+        id="footerAccountStatus"
+        class="footer-account-status"
+      ></span>
 
-  <button
-    type="button"
-    id="footerLogout"
-    class="footer-logout"
-  >
-    Logout
-  </button>
+      <button
+        type="button"
+        id="footerLogout"
+        class="footer-logout"
+      >
+        Logout
+      </button>
 
-</div>
+    </div>
 
-<div class="footer-column">
+    <div class="footer-column">
 
-  <h3>
-    Help
-  </h3>
+      <h3>
+        Help
+      </h3>
 
-  <a href="contact.html">
-    Contact Us
-  </a>
+      <a href="contact.html">
+        Contact Us
+      </a>
 
-  <a href="track-order.html">
-    Track Order
-  </a>
+      <a href="track-order.html">
+        Track Order
+      </a>
 
-</div>
-```
+    </div>
 
   </div>
 

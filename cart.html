@@ -89,46 +89,112 @@
       letter-spacing: 1px;
     }
 
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    /* =========================
+       TOP-RIGHT MENU
+    ========================== */
+
+    .menu-button {
       margin-left: auto;
-    }
-
-    .header-actions a {
+      width: 48px;
+      height: 48px;
+      border: 0;
+      border-radius: 8px;
+      background: rgba(255,255,255,.12);
       color: white;
-      padding: 9px 10px;
-      border-radius: 5px;
-      font-weight: 700;
-      font-size: 14px;
-    }
-
-    .header-actions a:hover {
-      background: rgba(255,255,255,.14);
-    }
-
-    .cart-link {
-      position: relative;
-    }
-
-    .cart-count {
-      position: absolute;
-      top: -5px;
-      right: -5px;
-      min-width: 18px;
-      height: 18px;
-      padding: 2px 5px;
-      border-radius: 50%;
-      background: white;
-      color: #d90429;
-      font-size: 11px;
-      font-weight: bold;
+      cursor: pointer;
+      z-index: 1001;
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-direction: column;
+      gap: 5px;
+      flex-shrink: 0;
     }
 
+    .menu-button span {
+      display: block;
+      width: 25px;
+      height: 3px;
+      background: white;
+      border-radius: 3px;
+      transition: .2s ease;
+    }
+
+    .menu-button:hover {
+      background: rgba(255,255,255,.22);
+    }
+
+    .menu-button.open span:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+
+    .menu-button.open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-button.open span:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+
+    .mobile-menu {
+      position: absolute;
+      top: 76px;
+      right: 20px;
+      width: 255px;
+      max-height: calc(100vh - 95px);
+      overflow-y: auto;
+      background: white;
+      border: 1px solid #f3c7cd;
+      border-radius: 13px;
+      box-shadow: 0 10px 35px rgba(0,0,0,.22);
+      z-index: 1000;
+      padding: 9px;
+      display: none;
+    }
+
+    .mobile-menu.show {
+      display: block;
+    }
+
+    .mobile-menu a,
+    .mobile-menu button {
+      width: 100%;
+      display: block;
+      border: 0;
+      background: white;
+      color: #172033;
+      text-align: left;
+      padding: 12px 13px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      margin: 1px 0;
+    }
+
+    .mobile-menu a:hover,
+    .mobile-menu button:hover {
+      background: #fff0f2;
+      color: #d90429;
+    }
+
+    .mobile-menu .menu-divider {
+      height: 1px;
+      background: #f1d9dd;
+      margin: 7px 5px;
+    }
+
+    .mobile-menu .menu-user {
+      padding: 10px 13px;
+      font-size: 12px;
+      color: #61718a;
+      word-break: break-word;
+      line-height: 1.4;
+    }
+
+    .mobile-menu .menu-user strong {
+      color: #172033;
+    }
 
     /* =========================
        SEARCH
@@ -172,7 +238,6 @@
       background: #760018;
     }
 
-
     /* =========================
        MAIN
     ========================== */
@@ -200,7 +265,6 @@
       margin-bottom: 22px;
       color: #172033;
     }
-
 
     /* =========================
        CART
@@ -313,7 +377,6 @@
       text-decoration: underline;
     }
 
-
     /* =========================
        SUMMARY
     ========================== */
@@ -382,7 +445,6 @@
     .continue-button:hover {
       background: #fff0f2;
     }
-
 
     /* =========================
        EMPTY / LOGIN / LOADING
@@ -464,7 +526,6 @@
       font-weight: 700;
     }
 
-
     /* =========================
        FOOTER
     ========================== */
@@ -531,119 +592,6 @@
       font-size: 13px;
     }
 
-
-    /* =========================
-       BOTTOM-RIGHT MENU
-    ========================== */
-
-    .menu-button {
-      position: fixed;
-      right: 22px;
-      bottom: 22px;
-      width: 56px;
-      height: 56px;
-      border: 0;
-      border-radius: 50%;
-      background: #d90429;
-      color: white;
-      cursor: pointer;
-      z-index: 1001;
-      box-shadow: 0 6px 20px rgba(0,0,0,.25);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      gap: 5px;
-    }
-
-    .menu-button span {
-      display: block;
-      width: 25px;
-      height: 3px;
-      background: white;
-      border-radius: 3px;
-      transition: .2s ease;
-    }
-
-    .menu-button:hover {
-      background: #9b001f;
-      transform: scale(1.03);
-    }
-
-    .menu-button.open span:nth-child(1) {
-      transform: translateY(8px) rotate(45deg);
-    }
-
-    .menu-button.open span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .menu-button.open span:nth-child(3) {
-      transform: translateY(-8px) rotate(-45deg);
-    }
-
-
-    .mobile-menu {
-      position: fixed;
-      right: 22px;
-      bottom: 88px;
-      width: 255px;
-      max-height: calc(100vh - 120px);
-      overflow-y: auto;
-      background: white;
-      border: 1px solid #f3c7cd;
-      border-radius: 13px;
-      box-shadow: 0 10px 35px rgba(0,0,0,.22);
-      z-index: 1000;
-      padding: 9px;
-      display: none;
-    }
-
-    .mobile-menu.show {
-      display: block;
-    }
-
-    .mobile-menu a,
-    .mobile-menu button {
-      width: 100%;
-      display: block;
-      border: 0;
-      background: white;
-      color: #172033;
-      text-align: left;
-      padding: 12px 13px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      margin: 1px 0;
-    }
-
-    .mobile-menu a:hover,
-    .mobile-menu button:hover {
-      background: #fff0f2;
-      color: #d90429;
-    }
-
-    .mobile-menu .menu-divider {
-      height: 1px;
-      background: #f1d9dd;
-      margin: 7px 5px;
-    }
-
-    .mobile-menu .menu-user {
-      padding: 10px 13px;
-      font-size: 12px;
-      color: #61718a;
-      word-break: break-word;
-      line-height: 1.4;
-    }
-
-    .mobile-menu .menu-user strong {
-      color: #172033;
-    }
-
-
     /* =========================
        RESPONSIVE
     ========================== */
@@ -659,7 +607,6 @@
       }
 
     }
-
 
     @media (max-width: 700px) {
 
@@ -695,17 +642,22 @@
         height: 43px;
       }
 
-      .header-actions {
-        margin-left: auto;
+      .menu-button {
+        width: 43px;
+        height: 43px;
+        border-radius: 7px;
       }
 
-      .header-actions a:not(.cart-link) {
-        display: none;
+      .menu-button span {
+        width: 22px;
+        height: 3px;
       }
 
-      .cart-link {
-        font-size: 13px !important;
-        padding: 8px 6px !important;
+      .mobile-menu {
+        top: 67px;
+        right: 12px;
+        width: min(255px, calc(100vw - 24px));
+        max-height: calc(100vh - 85px);
       }
 
       .search-area {
@@ -751,19 +703,6 @@
         grid-template-columns: 1fr;
       }
 
-      .menu-button {
-        right: 17px;
-        bottom: 17px;
-        width: 54px;
-        height: 54px;
-      }
-
-      .mobile-menu {
-        right: 17px;
-        bottom: 82px;
-        width: min(255px, calc(100vw - 34px));
-      }
-
     }
   </style>
 </head>
@@ -803,32 +742,87 @@
       </a>
 
 
-      <div
-        class="header-actions"
-        id="headerAccountArea"
+      <!-- TOP-RIGHT THREE-LINE MENU -->
+
+      <button
+        type="button"
+        class="menu-button"
+        id="menuButton"
+        aria-label="Open menu"
+        aria-expanded="false"
+        onclick="toggleMenu(event)"
       >
 
-        <a
-          href="cart.html"
-          class="cart-link"
-        >
+        <span></span>
+        <span></span>
+        <span></span>
 
-          🛒 Cart
-
-          <span
-            class="cart-count"
-            id="cartCount"
-          >
-            0
-          </span>
-
-        </a>
-
-      </div>
+      </button>
 
     </div>
 
   </header>
+
+
+  <!-- =========================
+       MENU
+  ========================== -->
+
+  <div
+    class="mobile-menu"
+    id="mobileMenu"
+  >
+
+    <a href="index.html">
+      🏠 Home
+    </a>
+
+    <a href="shop.html">
+      🛍️ Shop
+    </a>
+
+    <a href="shop.html?category=Phones%20and%20Tablets">
+      📱 Phones & Tablets
+    </a>
+
+    <a href="shop.html?category=Electronics">
+      💻 Electronics
+    </a>
+
+    <a href="shop.html?category=Accessories">
+      🎧 Accessories
+    </a>
+
+    <a href="shop.html?deal=true">
+      🔥 Hot Deals
+    </a>
+
+    <a href="cart.html">
+      🛒 Cart
+      <span id="menuCartCount">
+        (0)
+      </span>
+    </a>
+
+    <a href="contact.html">
+      📞 Contact Us
+    </a>
+
+    <div class="menu-divider"></div>
+
+    <div id="menuAccountArea">
+
+      <a href="login.html">
+        🔐 Login
+      </a>
+
+      <a href="register.html">
+        📝 Register
+      </a>
+
+    </div>
+
+  </div>
 
 
   <!-- =========================
@@ -992,85 +986,6 @@
   </footer>
 
 
-  <!-- =========================
-       BOTTOM-RIGHT THREE-LINE MENU
-  ========================== -->
-
-  <button
-    type="button"
-    class="menu-button"
-    id="menuButton"
-    aria-label="Open menu"
-    aria-expanded="false"
-    onclick="toggleMenu()"
-  >
-
-    <span></span>
-    <span></span>
-    <span></span>
-
-  </button>
-
-
-  <div
-    class="mobile-menu"
-    id="mobileMenu"
-  >
-
-    <a href="index.html">
-      🏠 Home
-    </a>
-
-    <a href="shop.html">
-      🛍️ Shop
-    </a>
-
-    <a href="shop.html?category=Phones%20and%20Tablets">
-      📱 Phones & Tablets
-    </a>
-
-    <a href="shop.html?category=Electronics">
-      💻 Electronics
-    </a>
-
-    <a href="shop.html?category=Accessories">
-      🎧 Accessories
-    </a>
-
-    <a href="shop.html?deal=true">
-      🔥 Hot Deals
-    </a>
-
-    <a href="cart.html">
-      🛒 Cart
-      <span id="menuCartCount">
-        (0)
-      </span>
-    </a>
-
-    <a href="contact.html">
-      📞 Contact Us
-    </a>
-
-    <div class="menu-divider"></div>
-
-    <div
-      id="menuAccountArea"
-    >
-
-      <a href="login.html">
-        🔐 Login
-      </a>
-
-      <a href="register.html">
-        📝 Register
-      </a>
-
-    </div>
-
-  </div>
-
-
   <script>
 
     /* =========================
@@ -1144,13 +1059,9 @@
     /* =========================
        CART STORAGE
 
-       IMPORTANT:
-       The website has used both:
+       Supports both:
        meteur_cart
-       and
        meteurCart
-
-       This function supports BOTH.
     ========================== */
 
     function getLocalCart() {
@@ -1209,12 +1120,10 @@
 
 
       /*
-        If the current cart has products,
+        If the main cart contains products,
         use it.
 
-        Otherwise use the older cart key.
-        This fixes the situation where Home
-        shows Cart 1 but Cart page shows 0.
+        Otherwise restore the older cart key.
       */
 
       if (currentCart.length > 0) {
@@ -1225,11 +1134,6 @@
 
 
       if (oldCart.length > 0) {
-
-        /*
-          Migrate the old cart to the
-          current cart key.
-        */
 
         localStorage.setItem(
           "meteur_cart",
@@ -1246,12 +1150,9 @@
     }
 
 
-    /*
-      SAVE TO BOTH CART KEYS.
-
-      This keeps older pages compatible
-      while the website is being updated.
-    */
+    /* =========================
+       SAVE CART
+    ========================== */
 
     function saveLocalCart(cart) {
 
@@ -1301,20 +1202,6 @@
         );
 
 
-      const headerCount =
-        document.getElementById(
-          "cartCount"
-        );
-
-
-      if (headerCount) {
-
-        headerCount.textContent =
-          count;
-
-      }
-
-
       const menuCount =
         document.getElementById(
           "menuCartCount"
@@ -1327,56 +1214,6 @@
           "(" + count + ")";
 
       }
-
-    }
-
-
-    /* =========================
-       HEADER ACCOUNT
-    ========================== */
-
-    function updateHeaderAccount(user) {
-
-      /*
-        Cart remains visible in the
-        header, but Login/Register and
-        account information are handled
-        through the three-line menu.
-      */
-
-      const area =
-        document.getElementById(
-          "headerAccountArea"
-        );
-
-
-      if (!area) {
-        return;
-      }
-
-
-      area.innerHTML = `
-
-        <a
-          href="cart.html"
-          class="cart-link"
-        >
-
-          🛒 Cart
-
-          <span
-            class="cart-count"
-            id="cartCount"
-          >
-            0
-          </span>
-
-        </a>
-
-      `;
-
-
-      updateCartCount();
 
     }
 
@@ -1461,7 +1298,12 @@
        THREE-LINE MENU
     ========================== */
 
-    function toggleMenu() {
+    function toggleMenu(event) {
+
+      if (event) {
+        event.stopPropagation();
+      }
+
 
       const menu =
         document.getElementById(
@@ -1501,9 +1343,9 @@
     }
 
 
-    /*
-      Close menu when clicking outside it.
-    */
+    /* =========================
+       CLOSE MENU OUTSIDE
+    ========================== */
 
     document.addEventListener(
       "click",
@@ -1647,8 +1489,6 @@
       }
 
 
-      updateHeaderAccount(null);
-
       updateFooterAccount(null);
 
       updateMenuAccount(null);
@@ -1677,8 +1517,6 @@
         !data.user
       ) {
 
-        updateHeaderAccount(null);
-
         updateFooterAccount(null);
 
         updateMenuAccount(null);
@@ -1689,10 +1527,6 @@
 
       }
 
-
-      updateHeaderAccount(
-        data.user
-      );
 
       updateFooterAccount(
         data.user
@@ -1721,10 +1555,6 @@
             : null;
 
 
-        updateHeaderAccount(
-          user
-        );
-
         updateFooterAccount(
           user
         );
@@ -1738,9 +1568,6 @@
           IMPORTANT:
           We do NOT delete the cart
           when the user logs out.
-
-          This prevents the cart from
-          disappearing unexpectedly.
         */
 
         if (
@@ -1807,11 +1634,6 @@
         return;
       }
 
-
-      /*
-        Read from the same localStorage
-        system used by the shopping pages.
-      */
 
       const localCart =
         getLocalCart();
@@ -1975,9 +1797,7 @@
 
 
                   <div class="item-price">
-
                     ${formatUSD(item.price)}
-
                   </div>
 
 
@@ -2021,9 +1841,7 @@
 
 
                 <div class="item-total">
-
                   ${formatUSD(itemTotal)}
-
                 </div>
 
               </div>
@@ -2039,9 +1857,7 @@
         <div class="cart-layout">
 
           <div class="cart-items">
-
             ${itemsHtml}
-
           </div>
 
 
@@ -2151,9 +1967,7 @@
 
 
       if (newQuantity < 1) {
-
         newQuantity = 1;
-
       }
 
 
@@ -2261,11 +2075,6 @@
         !data ||
         !data.user
       ) {
-
-        /*
-          Preserve the cart.
-          We do NOT clear it here.
-        */
 
         localStorage.setItem(
           "meteur_after_login",

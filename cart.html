@@ -741,9 +741,6 @@
 
       </a>
 
-
-      <!-- TOP-RIGHT THREE-LINE MENU -->
-
       <button
         type="button"
         class="menu-button"
@@ -902,7 +899,6 @@
 
       </div>
 
-
       <div>
 
         <h3>
@@ -926,7 +922,6 @@
         </a>
 
       </div>
-
 
       <div>
 
@@ -955,7 +950,6 @@
 
       </div>
 
-
       <div>
 
         <h3>
@@ -977,7 +971,6 @@
       </div>
 
     </div>
-
 
     <div class="copyright">
       © 2026 METEUR MOBILE KENYA. All rights reserved.
@@ -1004,17 +997,6 @@
         SUPABASE_KEY
       );
 
-
-    /*
-      CUSTOMER-FACING CART PRICES ARE IN USD.
-
-      IMPORTANT:
-      Product prices are refreshed from the
-      Supabase products.price field before
-      the cart is displayed or checkout begins.
-
-      This keeps Cart synchronized with Home.
-    */
 
     const DELIVERY_FEE = 2.50;
 
@@ -1065,10 +1047,6 @@
 
     /* =========================
        CART STORAGE
-
-       Supports both:
-       meteur_cart
-       meteurCart
     ========================== */
 
     function getLocalCart() {
@@ -1126,13 +1104,6 @@
       }
 
 
-      /*
-        If the main cart contains products,
-        use it.
-
-        Otherwise restore the older cart key.
-      */
-
       if (currentCart.length > 0) {
 
         return currentCart;
@@ -1142,10 +1113,7 @@
 
       if (oldCart.length > 0) {
 
-        localStorage.setItem(
-          "meteur_cart",
-          JSON.stringify(oldCart)
-        );
+        saveLocalCart(oldCart);
 
         return oldCart;
 
@@ -1163,11 +1131,15 @@
 
     function saveLocalCart(cart) {
 
+      const safeCart =
+        Array.isArray(cart)
+          ? cart
+          : [];
+
+
       const cartData =
         JSON.stringify(
-          Array.isArray(cart)
-            ? cart
-            : []
+          safeCart
         );
 
 
@@ -1186,7 +1158,7 @@
 
 
     /* =========================
-       GET PRODUCT IDENTIFIER
+       GET PRODUCT ID
     ========================== */
 
     function getCartProductId(item) {
@@ -1203,7 +1175,9 @@
       ];
 
 
-      for (const id of possibleIds) {
+      for (
+        const id of possibleIds
+      ) {
 
         if (
           id !== undefined &&
@@ -1211,7 +1185,7 @@
           String(id).trim() !== ""
         ) {
 
-          return String(id);
+          return String(id).trim();
 
         }
 
@@ -1224,7 +1198,7 @@
 
 
     /* =========================
-       GET CART PRODUCT NAME
+       GET PRODUCT NAME
     ========================== */
 
     function getCartProductName(item) {
@@ -1244,14 +1218,75 @@
 
 
     /* =========================
+       FIND PRODUCT BY NAME
+       
+       Used as a fallback when
+       the stored cart ID is old,
+       missing or incorrect.
+    ========================== */
+
+    async function findProductByName(name) {
+
+      if (!name) {
+        return null;
+      }
+
+
+      const {
+        data,
+        error
+      } =
+        await supabaseClient
+          .from("products")
+          .select(
+            "id,name,price,stock,image_url"
+          )
+          .ilike(
+            "name",
+            name
+          )
+          .limit(1);
+
+
+      if (error) {
+
+        console.warn(
+          "Product name lookup failed:",
+          error
+        );
+
+        return null;
+
+      }
+
+
+      if (
+        data &&
+        data.length > 0
+      ) {
+
+        return data[0];
+
+      }
+
+
+      return null;
+
+    }
+
+
+    /* =========================
        REFRESH CART PRICES
        
-       The Home page reads:
+       HOME uses:
        products.price
 
-       This function reads the same
-       database field and updates the
-       local cart before rendering.
+       CART now uses the exact
+       same database field.
+
+       Matching order:
+       1. Product ID
+       2. Product name fallback
     ========================== */
 
     async function syncCartPrices(cart) {
@@ -1261,7 +1296,7 @@
         cart.length === 0
       ) {
 
-        return cart;
+        return [];
 
       }
 
@@ -1278,32 +1313,12 @@
       ];
 
 
-      const names = [
-        ...new Set(
-          cart
-            .filter(
-              item =>
-                !getCartProductId(item)
-            )
-            .map(
-              item =>
-                getCartProductName(item)
-            )
-            .filter(Boolean)
-        )
-      ];
-
-
       let products = [];
 
 
-      /*
-        First try product IDs.
-
-        This is the most reliable way
-        to match a cart item to the
-        Supabase products table.
-      */
+      /* =========================
+         FIRST: MATCH BY PRODUCT ID
+      ========================== */
 
       if (ids.length > 0) {
 
@@ -1339,77 +1354,11 @@
       }
 
 
-      /*
-        For older cart items that do not
-        contain a product ID, match by
-        exact product name.
-      */
-
-      const matchedNames =
-        new Set(
-          products.map(
-            product =>
-              String(
-                product.name || ""
-              ).trim()
-          )
-        );
-
-
-      const remainingNames =
-        names.filter(
-          name =>
-            !matchedNames.has(name)
-        );
-
-
-      if (
-        remainingNames.length > 0
-      ) {
-
-        const {
-          data,
-          error
-        } =
-          await supabaseClient
-            .from("products")
-            .select(
-              "id,name,price,stock,image_url"
-            )
-            .in(
-              "name",
-              remainingNames
-            );
-
-
-        if (error) {
-
-          console.warn(
-            "Product name price sync failed:",
-            error
-          );
-
-        } else {
-
-          products =
-            products.concat(
-              data || []
-            );
-
-        }
-
-      }
-
-
-      /*
-        Build lookup maps.
-      */
+      /* =========================
+         BUILD ID LOOKUP
+      ========================== */
 
       const productsById =
-        new Map();
-
-
-      const productsByName =
         new Map();
 
 
@@ -1422,23 +1371,7 @@
           ) {
 
             productsById.set(
-              String(product.id),
-              product
-            );
-
-          }
-
-
-          const productName =
-            String(
-              product.name || ""
-            ).trim();
-
-
-          if (productName) {
-
-            productsByName.set(
-              productName,
+              String(product.id).trim(),
               product
             );
 
@@ -1448,93 +1381,135 @@
       );
 
 
+      /* =========================
+         SYNC EACH CART ITEM
+         
+         IMPORTANT:
+         If ID does not match,
+         search by product name.
+      ========================== */
+
+      const syncedCart = [];
+
+
+      for (
+        const item of cart
+      ) {
+
+        const productId =
+          getCartProductId(item);
+
+
+        const productName =
+          getCartProductName(item);
+
+
+        let product = null;
+
+
+        /* Match by ID first */
+
+        if (productId) {
+
+          product =
+            productsById.get(
+              productId
+            ) || null;
+
+        }
+
+
+        /*
+          If ID did not find the
+          product, use the name.
+        */
+
+        if (
+          !product &&
+          productName
+        ) {
+
+          product =
+            await findProductByName(
+              productName
+            );
+
+        }
+
+
+        /*
+          If a real product was found,
+          replace the stored price with
+          products.price.
+        */
+
+        if (
+          product &&
+          Number.isFinite(
+            Number(product.price)
+          )
+        ) {
+
+          syncedCart.push({
+
+            ...item,
+
+            id:
+              product.id !== undefined &&
+              product.id !== null
+                ? product.id
+                : item.id,
+
+            name:
+              product.name ||
+              item.name ||
+              item.product_name ||
+              "Product",
+
+            price:
+              Number(
+                product.price
+              ),
+
+            stock:
+              product.stock !== null &&
+              product.stock !== undefined
+                ? product.stock
+                : item.stock,
+
+            image_url:
+              product.image_url ||
+              item.image_url ||
+              item.image ||
+              item.imageUrl ||
+              ""
+
+          });
+
+        } else {
+
+          /*
+            No matching product was found.
+            Keep the item rather than deleting
+            customer cart data.
+          */
+
+          syncedCart.push({
+            ...item,
+            price: Number(
+              item.price || 0
+            )
+          });
+
+        }
+
+      }
+
+
       /*
-        Replace the stored cart price
-        with the current Supabase price.
-
-        Home uses products.price,
-        therefore Cart now uses
-        products.price as well.
+        Save the corrected prices to both
+        supported cart storage keys.
       */
-
-      const syncedCart =
-        cart.map(
-          item => {
-
-            const productId =
-              getCartProductId(item);
-
-
-            const productName =
-              getCartProductName(item);
-
-
-            const product =
-              (
-                productId
-                  ? productsById.get(
-                      productId
-                    )
-                  : null
-              ) ||
-              productsByName.get(
-                productName
-              );
-
-
-            if (
-              product &&
-              Number.isFinite(
-                Number(product.price)
-              )
-            ) {
-
-              return {
-                ...item,
-
-                id:
-                  product.id ??
-                  item.id,
-
-                name:
-                  product.name ||
-                  item.name ||
-                  item.product_name,
-
-                price:
-                  Number(
-                    product.price
-                  ),
-
-                stock:
-                  product.stock !== null &&
-                  product.stock !== undefined
-                    ? product.stock
-                    : item.stock,
-
-                image_url:
-                  product.image_url ||
-                  item.image_url ||
-                  item.image ||
-                  item.imageUrl ||
-                  ""
-              };
-
-            }
-
-
-            /*
-              If a matching database product
-              cannot be found, preserve the
-              existing cart item instead of
-              deleting it.
-            */
-
-            return item;
-
-          }
-        );
-
 
       saveLocalCart(
         syncedCart
@@ -1603,15 +1578,21 @@
         );
 
 
-      if (!status || !links) {
+      if (
+        !status ||
+        !links
+      ) {
+
         return;
+
       }
 
 
       if (user) {
 
         const email =
-          user.email || "Customer";
+          user.email ||
+          "Customer";
 
 
         status.innerHTML = `
@@ -1684,8 +1665,13 @@
         );
 
 
-      if (!menu || !button) {
+      if (
+        !menu ||
+        !button
+      ) {
+
         return;
+
       }
 
 
@@ -1730,8 +1716,13 @@
           );
 
 
-        if (!menu || !button) {
+        if (
+          !menu ||
+          !button
+        ) {
+
           return;
+
         }
 
 
@@ -1779,7 +1770,8 @@
       if (user) {
 
         const email =
-          user.email || "Customer";
+          user.email ||
+          "Customer";
 
 
         area.innerHTML = `
@@ -1859,8 +1851,7 @@
 
       /*
         IMPORTANT:
-        The cart is intentionally NOT
-        deleted when the customer logs out.
+        Cart is intentionally preserved.
       */
 
       updateFooterAccount(null);
@@ -1937,12 +1928,6 @@
           user
         );
 
-
-        /*
-          IMPORTANT:
-          We do NOT delete the cart
-          when the user logs out.
-        */
 
         if (
           event === "SIGNED_OUT"
@@ -2026,12 +2011,8 @@
 
 
       /*
-        IMPORTANT:
-        Refresh the prices from Supabase
-        before rendering the Cart.
-
-        This is what makes the Cart price
-        match the Home page price.
+        Refresh every product price
+        from Supabase before displaying.
       */
 
       const syncedCart =
@@ -2375,17 +2356,6 @@
         newQuantity;
 
 
-      saveLocalCart(
-        cart
-      );
-
-
-      /*
-        Refresh the current database
-        price before displaying the new
-        cart totals.
-      */
-
       const syncedCart =
         await syncCartPrices(
           cart
@@ -2492,13 +2462,8 @@
 
 
       /*
-        Final price refresh immediately
-        before checkout.
-
-        This prevents an old localStorage
-        price from being carried into checkout
-        when the current Supabase product price
-        has changed.
+        Final database price verification
+        before entering checkout.
       */
 
       cart =
@@ -2573,8 +2538,6 @@
     ========================== */
 
     updateCartCount();
-
-    checkAuthentication();
 
     loadCart();
 

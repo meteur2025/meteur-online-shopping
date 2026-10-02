@@ -31,6 +31,10 @@
       font: inherit;
     }
 
+    /* =========================
+       HEADER
+    ========================== */
+
     .top-header {
       background: #d90429;
       color: white;
@@ -62,9 +66,6 @@
       justify-content: center;
       overflow: hidden;
       flex-shrink: 0;
-      padding: 0;
-      border: none;
-      box-shadow: none;
     }
 
     .real-logo {
@@ -73,7 +74,6 @@
       object-fit: contain;
       display: block;
       background: white;
-      border: none;
       border-radius: 9px;
     }
 
@@ -96,29 +96,16 @@
       margin-left: auto;
     }
 
-    .header-actions a,
-    .header-actions button {
+    .header-actions a {
       color: white;
       padding: 9px 10px;
       border-radius: 5px;
-      font-weight: 600;
+      font-weight: 700;
       font-size: 14px;
-      border: 0;
-      background: transparent;
-      cursor: pointer;
     }
 
-    .header-actions a:hover,
-    .header-actions button:hover {
+    .header-actions a:hover {
       background: rgba(255,255,255,.14);
-    }
-
-    .account-email {
-      max-width: 190px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      opacity: .95;
     }
 
     .cart-link {
@@ -127,8 +114,8 @@
 
     .cart-count {
       position: absolute;
-      top: -4px;
-      right: -3px;
+      top: -5px;
+      right: -5px;
       min-width: 18px;
       height: 18px;
       padding: 2px 5px;
@@ -142,48 +129,10 @@
       justify-content: center;
     }
 
-    nav {
-      background: #9b001f;
-      color: white;
-    }
 
-    .nav-inner {
-      max-width: 1250px;
-      margin: auto;
-      padding: 0 20px;
-      display: flex;
-      gap: 28px;
-      overflow-x: auto;
-      white-space: nowrap;
-      scrollbar-width: none;
-    }
-
-    .nav-inner::-webkit-scrollbar {
-      display: none;
-    }
-
-    .nav-inner a {
-      position: relative;
-      padding: 13px 2px 11px;
-      font-size: 14px;
-      font-weight: 600;
-      color: white;
-    }
-
-    .nav-inner a:hover {
-      background: transparent;
-    }
-
-    .nav-inner a.active::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 3px;
-      background: white;
-      border-radius: 3px 3px 0 0;
-    }
+    /* =========================
+       SEARCH
+    ========================== */
 
     .search-area {
       max-width: 1250px;
@@ -195,7 +144,6 @@
       display: flex;
       gap: 0;
       background: white;
-      padding: 0;
       border-radius: 6px;
       border: 1px solid #f3c7cd;
       box-shadow: 0 3px 12px rgba(0,0,0,.05);
@@ -224,10 +172,16 @@
       background: #760018;
     }
 
+
+    /* =========================
+       MAIN
+    ========================== */
+
     main {
       max-width: 1250px;
       margin: 28px auto 60px;
       padding: 0 20px;
+      min-height: 430px;
     }
 
     .breadcrumb {
@@ -246,6 +200,11 @@
       margin-bottom: 22px;
       color: #172033;
     }
+
+
+    /* =========================
+       CART
+    ========================== */
 
     .cart-layout {
       display: grid;
@@ -324,6 +283,10 @@
       font-size: 18px;
     }
 
+    .quantity-control button:hover {
+      background: #ffe0e5;
+    }
+
     .quantity-control span {
       width: 42px;
       text-align: center;
@@ -349,6 +312,11 @@
     .remove-button:hover {
       text-decoration: underline;
     }
+
+
+    /* =========================
+       SUMMARY
+    ========================== */
 
     .summary {
       background: white;
@@ -415,6 +383,11 @@
       background: #fff0f2;
     }
 
+
+    /* =========================
+       EMPTY / LOGIN / LOADING
+    ========================== */
+
     .empty-cart {
       background: white;
       border: 1px solid #f3c7cd;
@@ -457,6 +430,7 @@
       border-radius: 12px;
       padding: 55px 25px;
       text-align: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,.05);
     }
 
     .login-message h2 {
@@ -489,6 +463,11 @@
       color: #61718a;
       font-weight: 700;
     }
+
+
+    /* =========================
+       FOOTER
+    ========================== */
 
     footer {
       background: #9b001f;
@@ -552,6 +531,123 @@
       font-size: 13px;
     }
 
+
+    /* =========================
+       BOTTOM-RIGHT MENU
+    ========================== */
+
+    .menu-button {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      width: 56px;
+      height: 56px;
+      border: 0;
+      border-radius: 50%;
+      background: #d90429;
+      color: white;
+      cursor: pointer;
+      z-index: 1001;
+      box-shadow: 0 6px 20px rgba(0,0,0,.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .menu-button span {
+      display: block;
+      width: 25px;
+      height: 3px;
+      background: white;
+      border-radius: 3px;
+      transition: .2s ease;
+    }
+
+    .menu-button:hover {
+      background: #9b001f;
+      transform: scale(1.03);
+    }
+
+    .menu-button.open span:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+
+    .menu-button.open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-button.open span:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+
+
+    .mobile-menu {
+      position: fixed;
+      right: 22px;
+      bottom: 88px;
+      width: 255px;
+      max-height: calc(100vh - 120px);
+      overflow-y: auto;
+      background: white;
+      border: 1px solid #f3c7cd;
+      border-radius: 13px;
+      box-shadow: 0 10px 35px rgba(0,0,0,.22);
+      z-index: 1000;
+      padding: 9px;
+      display: none;
+    }
+
+    .mobile-menu.show {
+      display: block;
+    }
+
+    .mobile-menu a,
+    .mobile-menu button {
+      width: 100%;
+      display: block;
+      border: 0;
+      background: white;
+      color: #172033;
+      text-align: left;
+      padding: 12px 13px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      margin: 1px 0;
+    }
+
+    .mobile-menu a:hover,
+    .mobile-menu button:hover {
+      background: #fff0f2;
+      color: #d90429;
+    }
+
+    .mobile-menu .menu-divider {
+      height: 1px;
+      background: #f1d9dd;
+      margin: 7px 5px;
+    }
+
+    .mobile-menu .menu-user {
+      padding: 10px 13px;
+      font-size: 12px;
+      color: #61718a;
+      word-break: break-word;
+      line-height: 1.4;
+    }
+
+    .mobile-menu .menu-user strong {
+      color: #172033;
+    }
+
+
+    /* =========================
+       RESPONSIVE
+    ========================== */
+
     @media (max-width: 900px) {
 
       .cart-layout {
@@ -564,39 +660,52 @@
 
     }
 
+
     @media (max-width: 700px) {
 
       .top-header {
-        padding: 14px;
+        padding: 12px;
       }
 
       .header-inner {
-        flex-wrap: wrap;
+        gap: 10px;
       }
 
       .brand {
-        width: auto;
+        min-width: 0;
       }
 
-      .logo {
-        width: 48px;
-        min-width: 48px;
-        height: 48px;
+      .brand-text {
+        min-width: 0;
       }
 
+      .brand-text h1 {
+        font-size: 17px;
+        white-space: nowrap;
+      }
+
+      .brand-text p {
+        font-size: 8px;
+        letter-spacing: .7px;
+      }
+
+      .logo,
       .real-logo {
-        width: 48px;
-        height: 48px;
+        width: 43px;
+        height: 43px;
       }
 
       .header-actions {
         margin-left: auto;
-        flex-wrap: wrap;
-        justify-content: flex-end;
       }
 
-      .account-email {
-        max-width: 130px;
+      .header-actions a:not(.cart-link) {
+        display: none;
+      }
+
+      .cart-link {
+        font-size: 13px !important;
+        padding: 8px 6px !important;
       }
 
       .search-area {
@@ -607,6 +716,7 @@
       main {
         padding-left: 12px;
         padding-right: 12px;
+        margin-top: 22px;
       }
 
       .page-title {
@@ -641,11 +751,28 @@
         grid-template-columns: 1fr;
       }
 
+      .menu-button {
+        right: 17px;
+        bottom: 17px;
+        width: 54px;
+        height: 54px;
+      }
+
+      .mobile-menu {
+        right: 17px;
+        bottom: 82px;
+        width: min(255px, calc(100vw - 34px));
+      }
+
     }
   </style>
 </head>
 
 <body>
+
+  <!-- =========================
+       HEADER
+  ========================== -->
 
   <header class="top-header">
 
@@ -675,22 +802,16 @@
 
       </a>
 
-      <!-- ACCOUNT AREA IS UPDATED AUTOMATICALLY BY SUPABASE -->
 
       <div
         class="header-actions"
         id="headerAccountArea"
       >
 
-        <a href="login.html">
-          Login
-        </a>
-
-        <a href="register.html">
-          Register
-        </a>
-
-        <a href="cart.html" class="cart-link">
+        <a
+          href="cart.html"
+          class="cart-link"
+        >
 
           🛒 Cart
 
@@ -710,51 +831,9 @@
   </header>
 
 
-  <nav>
-
-    <div class="nav-inner">
-
-      <a href="index.html" data-nav="home">
-        Home
-      </a>
-
-      <a href="shop.html" data-nav="shop">
-        Shop
-      </a>
-
-      <a
-        href="shop.html?category=Phones%20and%20Tablets"
-        data-nav="phones"
-      >
-        Phones & Tablets
-      </a>
-
-      <a
-        href="shop.html?category=Electronics"
-        data-nav="electronics"
-      >
-        Electronics
-      </a>
-
-      <a
-        href="shop.html?category=Accessories"
-        data-nav="accessories"
-      >
-        Accessories
-      </a>
-
-      <a href="orders.html" data-nav="orders">
-        My Orders
-      </a>
-
-      <a href="contact.html" data-nav="contact">
-        Contact Us
-      </a>
-
-    </div>
-
-  </nav>
-
+  <!-- =========================
+       SEARCH
+  ========================== -->
 
   <section class="search-area">
 
@@ -774,6 +853,10 @@
 
   </section>
 
+
+  <!-- =========================
+       MAIN CONTENT
+  ========================== -->
 
   <main>
 
@@ -803,6 +886,10 @@
 
   </main>
 
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
 
   <footer>
 
@@ -870,14 +957,6 @@
             Register
           </a>
 
-          <a href="profile.html">
-            My Profile
-          </a>
-
-          <a href="orders.html">
-            My Orders
-          </a>
-
         </div>
 
       </div>
@@ -913,7 +992,90 @@
   </footer>
 
 
+  <!-- =========================
+       BOTTOM-RIGHT THREE-LINE MENU
+  ========================== -->
+
+  <button
+    type="button"
+    class="menu-button"
+    id="menuButton"
+    aria-label="Open menu"
+    aria-expanded="false"
+    onclick="toggleMenu()"
+  >
+
+    <span></span>
+    <span></span>
+    <span></span>
+
+  </button>
+
+
+  <div
+    class="mobile-menu"
+    id="mobileMenu"
+  >
+
+    <a href="index.html">
+      🏠 Home
+    </a>
+
+    <a href="shop.html">
+      🛍️ Shop
+    </a>
+
+    <a href="shop.html?category=Phones%20and%20Tablets">
+      📱 Phones & Tablets
+    </a>
+
+    <a href="shop.html?category=Electronics">
+      💻 Electronics
+    </a>
+
+    <a href="shop.html?category=Accessories">
+      🎧 Accessories
+    </a>
+
+    <a href="shop.html?deal=true">
+      🔥 Hot Deals
+    </a>
+
+    <a href="cart.html">
+      🛒 Cart
+      <span id="menuCartCount">
+        (0)
+      </span>
+    </a>
+
+    <a href="contact.html">
+      📞 Contact Us
+    </a>
+
+    <div class="menu-divider"></div>
+
+    <div
+      id="menuAccountArea"
+    >
+
+      <a href="login.html">
+        🔐 Login
+      </a>
+
+      <a href="register.html">
+        📝 Register
+      </a>
+
+    </div>
+
+  </div>
+
+
   <script>
+
+    /* =========================
+       SUPABASE
+    ========================== */
 
     const SUPABASE_URL =
       "https://nytsdeupaootukcullgi.supabase.co";
@@ -929,11 +1091,15 @@
 
 
     /*
-      ALL CUSTOMER-FACING CART PRICES ARE IN USD
+      CUSTOMER-FACING CART PRICES ARE IN USD
     */
 
     const DELIVERY_FEE = 2.50;
 
+
+    /* =========================
+       FORMAT PRICE
+    ========================== */
 
     function formatUSD(value) {
 
@@ -952,94 +1118,262 @@
     }
 
 
+    /* =========================
+       HTML SAFETY
+    ========================== */
+
+    function escapeHtml(value) {
+
+      return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+    }
+
+
+    function escapeAttribute(value) {
+
+      return escapeHtml(value);
+
+    }
+
+
+    /* =========================
+       CART STORAGE
+
+       IMPORTANT:
+       The website has used both:
+       meteur_cart
+       and
+       meteurCart
+
+       This function supports BOTH.
+    ========================== */
+
+    function getLocalCart() {
+
+      let currentCart = [];
+      let oldCart = [];
+
+      try {
+
+        const currentValue =
+          localStorage.getItem(
+            "meteur_cart"
+          );
+
+        if (currentValue) {
+
+          const parsed =
+            JSON.parse(currentValue);
+
+          if (Array.isArray(parsed)) {
+            currentCart = parsed;
+          }
+
+        }
+
+      } catch (error) {
+
+        currentCart = [];
+
+      }
+
+
+      try {
+
+        const oldValue =
+          localStorage.getItem(
+            "meteurCart"
+          );
+
+        if (oldValue) {
+
+          const parsed =
+            JSON.parse(oldValue);
+
+          if (Array.isArray(parsed)) {
+            oldCart = parsed;
+          }
+
+        }
+
+      } catch (error) {
+
+        oldCart = [];
+
+      }
+
+
+      /*
+        If the current cart has products,
+        use it.
+
+        Otherwise use the older cart key.
+        This fixes the situation where Home
+        shows Cart 1 but Cart page shows 0.
+      */
+
+      if (currentCart.length > 0) {
+
+        return currentCart;
+
+      }
+
+
+      if (oldCart.length > 0) {
+
+        /*
+          Migrate the old cart to the
+          current cart key.
+        */
+
+        localStorage.setItem(
+          "meteur_cart",
+          JSON.stringify(oldCart)
+        );
+
+        return oldCart;
+
+      }
+
+
+      return [];
+
+    }
+
+
     /*
-      UPDATE HEADER ACCOUNT AREA
+      SAVE TO BOTH CART KEYS.
+
+      This keeps older pages compatible
+      while the website is being updated.
     */
 
+    function saveLocalCart(cart) {
+
+      const cartData =
+        JSON.stringify(
+          Array.isArray(cart)
+            ? cart
+            : []
+        );
+
+
+      localStorage.setItem(
+        "meteur_cart",
+        cartData
+      );
+
+
+      localStorage.setItem(
+        "meteurCart",
+        cartData
+      );
+
+    }
+
+
+    /* =========================
+       CART COUNT
+    ========================== */
+
+    function updateCartCount() {
+
+      const cart =
+        getLocalCart();
+
+
+      const count =
+        cart.reduce(
+          (total, item) => {
+
+            return total +
+              Number(
+                item.quantity || 0
+              );
+
+          },
+          0
+        );
+
+
+      const headerCount =
+        document.getElementById(
+          "cartCount"
+        );
+
+
+      if (headerCount) {
+
+        headerCount.textContent =
+          count;
+
+      }
+
+
+      const menuCount =
+        document.getElementById(
+          "menuCartCount"
+        );
+
+
+      if (menuCount) {
+
+        menuCount.textContent =
+          "(" + count + ")";
+
+      }
+
+    }
+
+
+    /* =========================
+       HEADER ACCOUNT
+    ========================== */
+
     function updateHeaderAccount(user) {
+
+      /*
+        Cart remains visible in the
+        header, but Login/Register and
+        account information are handled
+        through the three-line menu.
+      */
 
       const area =
         document.getElementById(
           "headerAccountArea"
         );
 
+
       if (!area) {
         return;
       }
 
 
-      if (user) {
+      area.innerHTML = `
 
-        const email =
-          user.email || "My Account";
+        <a
+          href="cart.html"
+          class="cart-link"
+        >
 
+          🛒 Cart
 
-        area.innerHTML = `
-
-          <a
-            href="profile.html"
-            class="account-email"
-            title="${escapeAttribute(email)}"
+          <span
+            class="cart-count"
+            id="cartCount"
           >
-            👤 ${escapeHtml(email)}
-          </a>
+            0
+          </span>
 
-          <button
-            type="button"
-            onclick="logoutCustomer()"
-          >
-            Logout
-          </button>
+        </a>
 
-          <a
-            href="cart.html"
-            class="cart-link"
-          >
-
-            🛒 Cart
-
-            <span
-              class="cart-count"
-              id="cartCount"
-            >
-              0
-            </span>
-
-          </a>
-
-        `;
-
-      } else {
-
-        area.innerHTML = `
-
-          <a href="login.html">
-            Login
-          </a>
-
-          <a href="register.html">
-            Register
-          </a>
-
-          <a
-            href="cart.html"
-            class="cart-link"
-          >
-
-            🛒 Cart
-
-            <span
-              class="cart-count"
-              id="cartCount"
-            >
-              0
-            </span>
-
-          </a>
-
-        `;
-
-      }
+      `;
 
 
       updateCartCount();
@@ -1047,9 +1381,9 @@
     }
 
 
-    /*
-      UPDATE FOOTER ACCOUNT AREA
-    */
+    /* =========================
+       FOOTER ACCOUNT
+    ========================== */
 
     function updateFooterAccount(user) {
 
@@ -1116,12 +1450,171 @@
             Register
           </a>
 
+        `;
+
+      }
+
+    }
+
+
+    /* =========================
+       THREE-LINE MENU
+    ========================== */
+
+    function toggleMenu() {
+
+      const menu =
+        document.getElementById(
+          "mobileMenu"
+        );
+
+      const button =
+        document.getElementById(
+          "menuButton"
+        );
+
+
+      if (!menu || !button) {
+        return;
+      }
+
+
+      const isOpen =
+        menu.classList.toggle(
+          "show"
+        );
+
+
+      button.classList.toggle(
+        "open",
+        isOpen
+      );
+
+
+      button.setAttribute(
+        "aria-expanded",
+        isOpen
+          ? "true"
+          : "false"
+      );
+
+    }
+
+
+    /*
+      Close menu when clicking outside it.
+    */
+
+    document.addEventListener(
+      "click",
+      function(event) {
+
+        const menu =
+          document.getElementById(
+            "mobileMenu"
+          );
+
+        const button =
+          document.getElementById(
+            "menuButton"
+          );
+
+
+        if (!menu || !button) {
+          return;
+        }
+
+
+        if (
+          !menu.contains(event.target) &&
+          !button.contains(event.target)
+        ) {
+
+          menu.classList.remove(
+            "show"
+          );
+
+          button.classList.remove(
+            "open"
+          );
+
+          button.setAttribute(
+            "aria-expanded",
+            "false"
+          );
+
+        }
+
+      }
+    );
+
+
+    /* =========================
+       ACCOUNT MENU
+    ========================== */
+
+    function updateMenuAccount(user) {
+
+      const area =
+        document.getElementById(
+          "menuAccountArea"
+        );
+
+
+      if (!area) {
+        return;
+      }
+
+
+      if (user) {
+
+        const email =
+          user.email || "Customer";
+
+
+        area.innerHTML = `
+
+          <div class="menu-user">
+
+            Signed in as:<br>
+
+            <strong>
+              ${escapeHtml(email)}
+            </strong>
+
+          </div>
+
+          <a href="dashboard.html">
+            📊 My Dashboard
+          </a>
+
           <a href="profile.html">
-            My Profile
+            👤 My Account
           </a>
 
           <a href="orders.html">
-            My Orders
+            📦 My Orders
+          </a>
+
+          <button
+            type="button"
+            onclick="logoutCustomer()"
+          >
+            🚪 Logout
+          </button>
+
+        `;
+
+      } else {
+
+        area.innerHTML = `
+
+          <a href="login.html">
+            🔐 Login
+          </a>
+
+          <a href="register.html">
+            📝 Register
           </a>
 
         `;
@@ -1131,9 +1624,9 @@
     }
 
 
-    /*
-      LOGOUT CUSTOMER
-    */
+    /* =========================
+       LOGOUT
+    ========================== */
 
     async function logoutCustomer() {
 
@@ -1158,14 +1651,16 @@
 
       updateFooterAccount(null);
 
+      updateMenuAccount(null);
+
       showLoginMessage();
 
     }
 
 
-    /*
-      CHECK SUPABASE AUTHENTICATION
-    */
+    /* =========================
+       AUTHENTICATION
+    ========================== */
 
     async function checkAuthentication() {
 
@@ -1176,11 +1671,17 @@
         await supabaseClient.auth.getUser();
 
 
-      if (error || !data.user) {
+      if (
+        error ||
+        !data ||
+        !data.user
+      ) {
 
         updateHeaderAccount(null);
 
         updateFooterAccount(null);
+
+        updateMenuAccount(null);
 
         showLoginMessage();
 
@@ -1189,9 +1690,17 @@
       }
 
 
-      updateHeaderAccount(data.user);
+      updateHeaderAccount(
+        data.user
+      );
 
-      updateFooterAccount(data.user);
+      updateFooterAccount(
+        data.user
+      );
+
+      updateMenuAccount(
+        data.user
+      );
 
 
       return data.user;
@@ -1199,23 +1708,44 @@
     }
 
 
-    /*
-      LISTEN FOR LOGIN / LOGOUT CHANGES
-    */
+    /* =========================
+       AUTH STATE CHANGES
+    ========================== */
 
     supabaseClient.auth.onAuthStateChange(
       function(event, session) {
 
         const user =
-          session ? session.user : null;
+          session
+            ? session.user
+            : null;
 
 
-        updateHeaderAccount(user);
+        updateHeaderAccount(
+          user
+        );
 
-        updateFooterAccount(user);
+        updateFooterAccount(
+          user
+        );
+
+        updateMenuAccount(
+          user
+        );
 
 
-        if (event === "SIGNED_OUT") {
+        /*
+          IMPORTANT:
+          We do NOT delete the cart
+          when the user logs out.
+
+          This prevents the cart from
+          disappearing unexpectedly.
+        */
+
+        if (
+          event === "SIGNED_OUT"
+        ) {
 
           showLoginMessage();
 
@@ -1224,6 +1754,10 @@
       }
     );
 
+
+    /* =========================
+       LOGIN MESSAGE
+    ========================== */
 
     function showLoginMessage() {
 
@@ -1253,37 +1787,15 @@
 
       `;
 
-    }
 
-
-    function getLocalCart() {
-
-      try {
-
-        return JSON.parse(
-          localStorage.getItem(
-            "meteur_cart"
-          ) || "[]"
-        );
-
-      } catch (error) {
-
-        return [];
-
-      }
+      updateCartCount();
 
     }
 
 
-    function saveLocalCart(cart) {
-
-      localStorage.setItem(
-        "meteur_cart",
-        JSON.stringify(cart)
-      );
-
-    }
-
+    /* =========================
+       LOAD CART
+    ========================== */
 
     async function loadCart() {
 
@@ -1295,6 +1807,11 @@
         return;
       }
 
+
+      /*
+        Read from the same localStorage
+        system used by the shopping pages.
+      */
 
       const localCart =
         getLocalCart();
@@ -1312,10 +1829,16 @@
       }
 
 
-      renderCart(localCart);
+      renderCart(
+        localCart
+      );
 
     }
 
+
+    /* =========================
+       EMPTY CART
+    ========================== */
 
     function showEmptyCart() {
 
@@ -1354,6 +1877,10 @@
     }
 
 
+    /* =========================
+       RENDER CART
+    ========================== */
+
     function renderCart(cart) {
 
       const container =
@@ -1365,17 +1892,24 @@
       let subtotal = 0;
 
 
-      cart.forEach(item => {
+      cart.forEach(
+        item => {
 
-        subtotal +=
-          Number(item.price || 0) *
-          Number(item.quantity || 0);
+          subtotal +=
+            Number(
+              item.price || 0
+            ) *
+            Number(
+              item.quantity || 0
+            );
 
-      });
+        }
+      );
 
 
       const total =
-        subtotal + DELIVERY_FEE;
+        subtotal +
+        DELIVERY_FEE;
 
 
       const itemsHtml =
@@ -1383,12 +1917,25 @@
           (item, index) => {
 
             const itemTotal =
-              Number(item.price || 0) *
-              Number(item.quantity || 0);
+              Number(
+                item.price || 0
+              ) *
+              Number(
+                item.quantity || 0
+              );
 
 
             const image =
-              item.image_url || "";
+              item.image_url ||
+              item.image ||
+              item.imageUrl ||
+              "";
+
+
+            const name =
+              item.name ||
+              item.product_name ||
+              "Product";
 
 
             return `
@@ -1400,16 +1947,20 @@
                   ${
                     image
                       ? `
+
                         <img
                           src="${escapeAttribute(image)}"
-                          alt="${escapeAttribute(item.name)}"
+                          alt="${escapeAttribute(name)}"
                           onerror="this.style.display='none';"
                         >
+
                       `
                       : `
+
                         <span>
                           📦
                         </span>
+
                       `
                   }
 
@@ -1419,19 +1970,23 @@
                 <div class="item-info">
 
                   <h3>
-                    ${escapeHtml(item.name)}
+                    ${escapeHtml(name)}
                   </h3>
 
 
                   <div class="item-price">
+
                     ${formatUSD(item.price)}
+
                   </div>
 
 
                   <div class="quantity-control">
 
                     <button
+                      type="button"
                       onclick="changeQuantity(${index}, -1)"
+                      aria-label="Decrease quantity"
                     >
                       −
                     </button>
@@ -1441,7 +1996,9 @@
                     </span>
 
                     <button
+                      type="button"
                       onclick="changeQuantity(${index}, 1)"
+                      aria-label="Increase quantity"
                     >
                       +
                     </button>
@@ -1453,6 +2010,7 @@
 
 
                   <button
+                    type="button"
                     class="remove-button"
                     onclick="removeItem(${index})"
                   >
@@ -1534,6 +2092,7 @@
 
 
             <button
+              type="button"
               class="checkout-button"
               onclick="goToCheckout()"
             >
@@ -1560,6 +2119,10 @@
     }
 
 
+    /* =========================
+       CHANGE QUANTITY
+    ========================== */
+
     function changeQuantity(
       index,
       change
@@ -1577,7 +2140,8 @@
       let newQuantity =
         Number(
           cart[index].quantity || 0
-        ) + change;
+        ) +
+        change;
 
 
       const stock =
@@ -1587,7 +2151,9 @@
 
 
       if (newQuantity < 1) {
+
         newQuantity = 1;
+
       }
 
 
@@ -1596,7 +2162,8 @@
         newQuantity > stock
       ) {
 
-        newQuantity = stock;
+        newQuantity =
+          stock;
 
       }
 
@@ -1605,12 +2172,21 @@
         newQuantity;
 
 
-      saveLocalCart(cart);
+      saveLocalCart(
+        cart
+      );
 
-      renderCart(cart);
+
+      renderCart(
+        cart
+      );
 
     }
 
+
+    /* =========================
+       REMOVE ITEM
+    ========================== */
 
     function removeItem(index) {
 
@@ -1623,23 +2199,37 @@
       }
 
 
-      cart.splice(index, 1);
+      cart.splice(
+        index,
+        1
+      );
 
-      saveLocalCart(cart);
+
+      saveLocalCart(
+        cart
+      );
 
 
-      if (cart.length === 0) {
+      if (
+        cart.length === 0
+      ) {
 
         showEmptyCart();
 
       } else {
 
-        renderCart(cart);
+        renderCart(
+          cart
+        );
 
       }
 
     }
 
+
+    /* =========================
+       CHECKOUT
+    ========================== */
 
     async function goToCheckout() {
 
@@ -1668,8 +2258,20 @@
 
       if (
         error ||
+        !data ||
         !data.user
       ) {
+
+        /*
+          Preserve the cart.
+          We do NOT clear it here.
+        */
+
+        localStorage.setItem(
+          "meteur_after_login",
+          "checkout.html"
+        );
+
 
         window.location.href =
           "login.html?redirect=checkout.html";
@@ -1685,35 +2287,9 @@
     }
 
 
-    function updateCartCount() {
-
-      const cart =
-        getLocalCart();
-
-
-      const count =
-        cart.reduce(
-          (total, item) =>
-            total +
-            Number(
-              item.quantity || 0
-            ),
-          0
-        );
-
-
-      const element =
-        document.getElementById(
-          "cartCount"
-        );
-
-
-      if (element) {
-        element.textContent = count;
-      }
-
-    }
-
+    /* =========================
+       SEARCH
+    ========================== */
 
     function searchProducts() {
 
@@ -1734,18 +2310,24 @@
 
       window.location.href =
         "shop.html?search=" +
-        encodeURIComponent(query);
+        encodeURIComponent(
+          query
+        );
 
     }
 
 
     document
-      .getElementById("searchInput")
+      .getElementById(
+        "searchInput"
+      )
       .addEventListener(
         "keydown",
         function(event) {
 
-          if (event.key === "Enter") {
+          if (
+            event.key === "Enter"
+          ) {
 
             searchProducts();
 
@@ -1755,113 +2337,11 @@
       );
 
 
-    function escapeHtml(value) {
-
-      return String(value || "")
-        .replace(
-          /&/g,
-          "&amp;"
-        )
-        .replace(
-          /</g,
-          "&lt;"
-        )
-        .replace(
-          />/g,
-          "&gt;"
-        )
-        .replace(
-          /"/g,
-          "&quot;"
-        )
-        .replace(
-          /'/g,
-          "&#039;"
-        );
-
-    }
-
-
-    function escapeAttribute(value) {
-
-      return escapeHtml(value);
-
-    }
-
-
-    function setActiveNavigation() {
-
-      const path =
-        window.location.pathname.toLowerCase();
-
-
-      document
-        .querySelectorAll(
-          ".nav-inner a"
-        )
-        .forEach(link => {
-
-          link.classList.remove(
-            "active"
-          );
-
-        });
-
-
-      let target = "shop";
-
-
-      if (
-        path.endsWith("/") ||
-        path.endsWith("/index.html")
-      ) {
-
-        target = "home";
-
-      } else if (
-        path.includes("orders")
-      ) {
-
-        target = "orders";
-
-      } else if (
-        path.includes("contact")
-      ) {
-
-        target = "contact";
-
-      }
-
-
-      const activeLink =
-        document.querySelector(
-          `[data-nav="${target}"]`
-        );
-
-
-      if (activeLink) {
-
-        activeLink.classList.add(
-          "active"
-        );
-
-      }
-
-    }
-
-
-    /*
-      START CART PAGE
-    */
-
-    setActiveNavigation();
+    /* =========================
+       START CART PAGE
+    ========================== */
 
     updateCartCount();
-
-    /*
-      Load the real Supabase session.
-      This controls Login/Register/Logout.
-    */
 
     checkAuthentication();
 

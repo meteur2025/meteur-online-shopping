@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1095,29 +1096,19 @@
   </footer>
 
   <script>
+
     /*
       ============================================================
       METEUR MOBILE KENYA
       PRODUCT PAGE
 
-      IMPORTANT CART FLOW:
+      PRICE CONTROL:
 
-      1. Logged-in customer:
-         Add to Cart → product is saved → Cart page opens.
+      The product price used by the cart MUST come directly
+      from the current Supabase products.price value.
 
-      2. Logged-out visitor:
-         Add to Cart → selected product is saved temporarily →
-         visitor is sent to Login.
-
-      3. The temporary product is NOT deleted.
-         login.html will later use this information after
-         successful login and send the customer to Cart.
-
-      4. The same cart key is used throughout this page:
-         "meteur_cart"
-
-      5. We also support the older "meteurCart" key so an
-         existing cart is not unnecessarily lost.
+      This prevents an old/stale localStorage price from being
+      saved when a customer adds a product to the cart.
       ============================================================
     */
 
@@ -1158,7 +1149,6 @@
           );
 
         if (!response.ok) {
-
           throw new Error(
             "Exchange rate request failed"
           );
@@ -1327,76 +1317,55 @@
         if (user) {
 
           if (loginLink) {
-            loginLink.style.display =
-              "none";
+            loginLink.style.display = "none";
           }
 
           if (registerLink) {
-            registerLink.style.display =
-              "none";
+            registerLink.style.display = "none";
           }
 
           if (loggedInArea) {
-            loggedInArea.style.display =
-              "flex";
+            loggedInArea.style.display = "flex";
           }
 
           if (userEmailDisplay) {
-
             userEmailDisplay.textContent =
-              user.email ||
-              "Account";
+              user.email || "Account";
           }
 
           if (footerLoggedIn) {
-
-            footerLoggedIn.style.display =
-              "block";
+            footerLoggedIn.style.display = "block";
           }
 
           if (footerLoggedOut) {
-
-            footerLoggedOut.style.display =
-              "none";
+            footerLoggedOut.style.display = "none";
           }
 
           if (footerUserEmail) {
-
             footerUserEmail.textContent =
-              user.email ||
-              "Account";
+              user.email || "Account";
           }
 
         } else {
 
           if (loginLink) {
-
-            loginLink.style.display =
-              "block";
+            loginLink.style.display = "block";
           }
 
           if (registerLink) {
-
-            registerLink.style.display =
-              "block";
+            registerLink.style.display = "block";
           }
 
           if (loggedInArea) {
-
-            loggedInArea.style.display =
-              "none";
+            loggedInArea.style.display = "none";
           }
 
           if (footerLoggedIn) {
-
-            footerLoggedIn.style.display =
-              "none";
+            footerLoggedIn.style.display = "none";
           }
 
           if (footerLoggedOut) {
-
-            footerLoggedOut.style.display =
-              "block";
+            footerLoggedOut.style.display = "block";
           }
         }
 
@@ -1417,11 +1386,6 @@
     /*
       ============================================================
       LOGOUT
-
-      IMPORTANT:
-      We no longer delete the customer's cart during logout.
-
-      This prevents unexpected cart disappearance.
       ============================================================
     */
 
@@ -1455,9 +1419,8 @@
         }
 
         /*
-          Keep the cart instead of deleting it.
-          This prevents the customer from losing products
-          simply because they logged out.
+          IMPORTANT:
+          The cart is intentionally preserved.
         */
 
         window.location.href =
@@ -1521,9 +1484,7 @@
 
       const category =
         (
-          params.get(
-            "category"
-          ) || ""
+          params.get("category") || ""
         ).toLowerCase();
 
       document
@@ -1539,66 +1500,45 @@
           }
         );
 
-      let target =
-        "shop";
+      let target = "shop";
 
       if (
         path.endsWith("/") ||
-        path.endsWith(
-          "/index.html"
-        )
+        path.endsWith("/index.html")
       ) {
 
-        target =
-          "home";
+        target = "home";
 
       } else if (
-        path.includes(
-          "orders"
-        )
+        path.includes("orders")
       ) {
 
-        target =
-          "orders";
+        target = "orders";
 
       } else if (
-        path.includes(
-          "contact"
-        )
+        path.includes("contact")
       ) {
 
-        target =
-          "contact";
+        target = "contact";
 
       } else if (
-        category.includes(
-          "phones"
-        ) ||
-        category.includes(
-          "tablets"
-        )
+        category.includes("phones") ||
+        category.includes("tablets")
       ) {
 
-        target =
-          "phones";
+        target = "phones";
 
       } else if (
-        category.includes(
-          "electronics"
-        )
+        category.includes("electronics")
       ) {
 
-        target =
-          "electronics";
+        target = "electronics";
 
       } else if (
-        category.includes(
-          "accessories"
-        )
+        category.includes("accessories")
       ) {
 
-        target =
-          "accessories";
+        target = "accessories";
       }
 
       const activeLink =
@@ -1607,10 +1547,7 @@
         );
 
       if (activeLink) {
-
-        activeLink.classList.add(
-          "active"
-        );
+        activeLink.classList.add("active");
       }
     }
 
@@ -1628,9 +1565,7 @@
           window.location.search
         );
 
-      return params.get(
-        "id"
-      );
+      return params.get("id");
     }
 
 
@@ -1669,10 +1604,7 @@
         await supabaseClient
           .from("products")
           .select("*")
-          .eq(
-            "id",
-            productId
-          )
+          .eq("id", productId)
           .single();
 
       if (
@@ -1680,9 +1612,7 @@
         !data
       ) {
 
-        console.error(
-          error
-        );
+        console.error(error);
 
         container.innerHTML = `
           <div class="error-box">
@@ -1734,70 +1664,47 @@
         );
 
       const image =
-        product.image_url ||
-        "";
+        product.image_url || "";
 
       const stock =
-        Number(
-          product.stock || 0
-        );
+        Number(product.stock || 0);
 
       const rating =
-        Number(
-          product.rating || 0
-        );
+        Number(product.rating || 0);
 
       const reviews =
-        Number(
-          product.review_count || 0
-        );
+        Number(product.review_count || 0);
 
       const price =
-        Number(
-          product.price || 0
-        );
+        Number(product.price || 0);
 
       const oldPriceValue =
-        Number(
-          product.old_price || 0
-        );
+        Number(product.old_price || 0);
 
       const kesPrice =
-        getKesEquivalent(
-          price
-        );
+        getKesEquivalent(price);
 
       const kesOldPrice =
-        getKesEquivalent(
-          oldPriceValue
-        );
+        getKesEquivalent(oldPriceValue);
 
       const roundedRating =
         Math.max(
           0,
           Math.min(
             5,
-            Math.round(
-              rating
-            )
+            Math.round(rating)
           )
         );
 
       const stars =
-        "★".repeat(
-          roundedRating
-        ) +
-        "☆".repeat(
-          5 - roundedRating
-        );
+        "★".repeat(roundedRating) +
+        "☆".repeat(5 - roundedRating);
 
       const badge =
         product.badge
           ? `
             <span class="badge">
-              ${escapeHtml(
-                product.badge
-              )}
+              ${escapeHtml(product.badge)}
             </span>
           `
           : "";
@@ -1806,9 +1713,7 @@
         oldPriceValue > 0
           ? `
             <span class="old-price">
-              ${formatUSD(
-                oldPriceValue
-              )}
+              ${formatUSD(oldPriceValue)}
             </span>
           `
           : "";
@@ -1817,9 +1722,7 @@
         oldPriceValue > 0
           ? `
             <div class="kes-equivalent">
-              ≈ ${formatKES(
-                kesOldPrice
-              )}
+              ≈ ${formatKES(kesOldPrice)}
             </div>
           `
           : "";
@@ -1839,12 +1742,8 @@
               image
                 ? `
                   <img
-                    src="${escapeAttribute(
-                      image
-                    )}"
-                    alt="${escapeAttribute(
-                      product.name
-                    )}"
+                    src="${escapeAttribute(image)}"
+                    alt="${escapeAttribute(product.name)}"
                     onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\\'no-image\\'>Image unavailable</div>';"
                   >
                 `
@@ -1863,15 +1762,12 @@
 
             <div class="category">
               ${escapeHtml(
-                product.category ||
-                "Product"
+                product.category || "Product"
               )}
             </div>
 
             <h2>
-              ${escapeHtml(
-                product.name
-              )}
+              ${escapeHtml(product.name)}
             </h2>
 
             <div class="rating">
@@ -1890,9 +1786,7 @@
               <div>
 
                 <span class="price">
-                  ${formatUSD(
-                    price
-                  )}
+                  ${formatUSD(price)}
                 </span>
 
                 ${oldPrice}
@@ -1900,9 +1794,7 @@
               </div>
 
               <div class="kes-equivalent">
-                ≈ ${formatKES(
-                  kesPrice
-                )}
+                ≈ ${formatKES(kesPrice)}
               </div>
 
               ${oldKesPrice}
@@ -1924,9 +1816,7 @@
 
               ${
                 product.description
-                  ? escapeHtml(
-                      product.description
-                    )
+                  ? escapeHtml(product.description)
                   : "No description available for this product."
               }
 
@@ -2016,9 +1906,7 @@
       ============================================================
     */
 
-    function changeQuantity(
-      change
-    ) {
+    function changeQuantity(change) {
 
       if (!currentProduct) {
         return;
@@ -2026,27 +1914,17 @@
 
       const stock =
         Number(
-          currentProduct.stock ||
-          0
+          currentProduct.stock || 0
         );
 
-      quantity +=
-        change;
+      quantity += change;
 
-      if (
-        quantity < 1
-      ) {
-
-        quantity =
-          1;
+      if (quantity < 1) {
+        quantity = 1;
       }
 
-      if (
-        quantity > stock
-      ) {
-
-        quantity =
-          stock;
+      if (quantity > stock) {
+        quantity = stock;
       }
 
       const quantityElement =
@@ -2055,7 +1933,6 @@
         );
 
       if (quantityElement) {
-
         quantityElement.textContent =
           quantity;
       }
@@ -2065,13 +1942,6 @@
     /*
       ============================================================
       CART FUNCTIONS
-
-      We support both:
-        meteur_cart
-        meteurCart
-
-      This protects an existing cart created by another page
-      while the website is being standardized.
       ============================================================
     */
 
@@ -2087,14 +1957,9 @@
         if (currentCart) {
 
           const parsed =
-            JSON.parse(
-              currentCart
-            );
+            JSON.parse(currentCart);
 
-          if (
-            Array.isArray(parsed)
-          ) {
-
+          if (Array.isArray(parsed)) {
             return parsed;
           }
         }
@@ -2107,21 +1972,13 @@
         if (oldCart) {
 
           const parsedOldCart =
-            JSON.parse(
-              oldCart
-            );
+            JSON.parse(oldCart);
 
-          if (
-            Array.isArray(
-              parsedOldCart
-            )
-          ) {
+          if (Array.isArray(parsedOldCart)) {
 
             localStorage.setItem(
               "meteur_cart",
-              JSON.stringify(
-                parsedOldCart
-              )
+              JSON.stringify(parsedOldCart)
             );
 
             return parsedOldCart;
@@ -2142,24 +1999,16 @@
     }
 
 
-    function saveCart(
-      cart
-    ) {
+    function saveCart(cart) {
 
       const cartJson =
-        JSON.stringify(
-          cart
-        );
+        JSON.stringify(cart);
 
       localStorage.setItem(
         "meteur_cart",
         cartJson
       );
 
-      /*
-        Keep the older key synchronized while the other
-        pages of the website are being updated.
-      */
       localStorage.setItem(
         "meteurCart",
         cartJson
@@ -2171,12 +2020,138 @@
 
     /*
       ============================================================
+      REFRESH PRODUCT BEFORE CART SAVE
+      ============================================================
+
+      This is the important price fix.
+
+      The product page may have been left open while the price
+      was changed in Supabase.
+
+      Before saving the cart, we fetch the product again.
+
+      Therefore:
+
+      Supabase products.price
+              ↓
+      latest product data
+              ↓
+      cart item price
+              ↓
+      cart.html
+              ↓
+      checkout
+      ============================================================
+    */
+
+    async function refreshCurrentProduct() {
+
+      if (!currentProduct?.id) {
+        return null;
+      }
+
+      try {
+
+        const {
+          data,
+          error
+        } =
+          await supabaseClient
+            .from("products")
+            .select("*")
+            .eq(
+              "id",
+              currentProduct.id
+            )
+            .single();
+
+        if (error) {
+
+          console.error(
+            "Could not refresh product price:",
+            error
+          );
+
+          return null;
+        }
+
+        if (!data) {
+          return null;
+        }
+
+        currentProduct =
+          data;
+
+        return data;
+
+      } catch (error) {
+
+        console.error(
+          "Product refresh error:",
+          error
+        );
+
+        return null;
+      }
+    }
+
+
+    /*
+      ============================================================
+      CREATE CART ITEM FROM CURRENT DATABASE PRODUCT
+      ============================================================
+    */
+
+    function createCartItem(
+      product,
+      itemQuantity
+    ) {
+
+      const productPrice =
+        Number(product.price);
+
+      const productStock =
+        Number(product.stock || 0);
+
+      if (
+        !Number.isFinite(productPrice)
+      ) {
+
+        throw new Error(
+          "This product does not have a valid price."
+        );
+      }
+
+      return {
+
+        id:
+          product.id,
+
+        name:
+          product.name,
+
+        /*
+          IMPORTANT:
+          Always use the latest Supabase price.
+        */
+        price:
+          productPrice,
+
+        image_url:
+          product.image_url || "",
+
+        quantity:
+          itemQuantity,
+
+        stock:
+          productStock
+      };
+    }
+
+
+    /*
+      ============================================================
       TEMPORARY CART ITEM
-
-      When a visitor is not logged in, we remember exactly what
-      they wanted to add.
-
-      login.html will use this later after successful login.
       ============================================================
     */
 
@@ -2185,11 +2160,6 @@
       if (!currentProduct) {
         return;
       }
-
-      const stock =
-        Number(
-          currentProduct.stock || 0
-        );
 
       const pendingItem = {
 
@@ -2201,31 +2171,26 @@
 
         price:
           Number(
-            currentProduct.price || 0
+            currentProduct.price
           ),
 
         image_url:
-          currentProduct.image_url ||
-          "",
+          currentProduct.image_url || "",
 
         quantity:
           quantity,
 
         stock:
-          stock
+          Number(
+            currentProduct.stock || 0
+          )
       };
 
       localStorage.setItem(
         "meteur_pending_cart_item",
-        JSON.stringify(
-          pendingItem
-        )
+        JSON.stringify(pendingItem)
       );
 
-      /*
-        Tell login.html that after authentication the customer
-        should continue to the cart.
-      */
       localStorage.setItem(
         "meteur_after_login",
         "cart"
@@ -2236,11 +2201,6 @@
     /*
       ============================================================
       LOGIN REDIRECT
-
-      The product is remembered before leaving this page.
-
-      We send the customer to LOGIN instead of REGISTER because
-      the customer is trying to complete a purchase.
       ============================================================
     */
 
@@ -2250,17 +2210,9 @@
         await getCurrentUser();
 
       if (user) {
-
         return user;
       }
 
-      /*
-        IMPORTANT:
-        Do NOT delete the cart here.
-
-        Instead, save the product the customer selected so
-        login.html can restore it after successful login.
-      */
       savePendingCartItem();
 
       const currentUrl =
@@ -2269,9 +2221,7 @@
 
       const loginUrl =
         "login.html?redirect=cart&from=" +
-        encodeURIComponent(
-          currentUrl
-        );
+        encodeURIComponent(currentUrl);
 
       window.location.href =
         loginUrl;
@@ -2283,12 +2233,6 @@
     /*
       ============================================================
       ADD TO CART
-
-      LOGGED IN:
-        Save product → Go directly to Cart.
-
-      LOGGED OUT:
-        Save pending product → Go to Login.
       ============================================================
     */
 
@@ -2305,17 +2249,55 @@
         return;
       }
 
-      const stock =
-        Number(
-          currentProduct.stock || 0
+      /*
+        IMPORTANT:
+        Refresh the product from Supabase immediately before
+        putting it into the cart.
+      */
+
+      const latestProduct =
+        await refreshCurrentProduct();
+
+      if (!latestProduct) {
+
+        showMessage(
+          "We could not verify the latest product price. Please try again.",
+          "error"
         );
 
-      if (
-        stock <= 0
-      ) {
+        return;
+      }
+
+      const stock =
+        Number(
+          latestProduct.stock || 0
+        );
+
+      if (stock <= 0) {
 
         showMessage(
           "This product is out of stock.",
+          "error"
+        );
+
+        return;
+      }
+
+      if (quantity > stock) {
+        quantity = stock;
+      }
+
+      const productPrice =
+        Number(
+          latestProduct.price
+        );
+
+      if (
+        !Number.isFinite(productPrice)
+      ) {
+
+        showMessage(
+          "This product does not have a valid price.",
           "error"
         );
 
@@ -2329,7 +2311,7 @@
         cart.find(
           item =>
             String(item.id) ===
-            String(currentProduct.id)
+            String(latestProduct.id)
         );
 
       if (existing) {
@@ -2338,66 +2320,39 @@
           Math.min(
             Number(
               existing.quantity || 0
-            ) +
-            quantity,
+            ) + quantity,
             stock
           );
 
         /*
-          Update the current product information as well.
-          This prevents an old image/name/price from remaining
-          in an existing cart item.
+          Replace ALL important product information with
+          the latest Supabase values.
         */
+
         existing.name =
-          currentProduct.name;
+          latestProduct.name;
 
         existing.price =
-          Number(
-            currentProduct.price || 0
-          );
+          productPrice;
 
         existing.image_url =
-          currentProduct.image_url ||
-          "";
+          latestProduct.image_url || "";
 
         existing.stock =
           stock;
 
       } else {
 
-        cart.push({
-
-          id:
-            currentProduct.id,
-
-          name:
-            currentProduct.name,
-
-          price:
-            Number(
-              currentProduct.price || 0
-            ),
-
-          image_url:
-            currentProduct.image_url ||
-            "",
-
-          quantity:
-            quantity,
-
-          stock:
-            stock
-        });
+        cart.push(
+          createCartItem(
+            latestProduct,
+            quantity
+          )
+        );
       }
 
-      saveCart(
-        cart
-      );
+      saveCart(cart);
 
-      /*
-        Remove any old pending item because the product has now
-        been successfully added by a logged-in customer.
-      */
       localStorage.removeItem(
         "meteur_pending_cart_item"
       );
@@ -2406,10 +2361,6 @@
         "meteur_after_login"
       );
 
-      /*
-        Send the customer directly to the cart.
-        This makes the purchase flow clear and trustworthy.
-      */
       window.location.href =
         "cart.html";
     }
@@ -2418,8 +2369,6 @@
     /*
       ============================================================
       BUY NOW
-
-      Buy Now also requires login and then goes to Cart.
       ============================================================
     */
 
@@ -2436,17 +2385,54 @@
         return;
       }
 
-      const stock =
-        Number(
-          currentProduct.stock || 0
+      /*
+        Always get the latest price from Supabase before
+        saving the product.
+      */
+
+      const latestProduct =
+        await refreshCurrentProduct();
+
+      if (!latestProduct) {
+
+        showMessage(
+          "We could not verify the latest product price. Please try again.",
+          "error"
         );
 
-      if (
-        stock <= 0
-      ) {
+        return;
+      }
+
+      const stock =
+        Number(
+          latestProduct.stock || 0
+        );
+
+      if (stock <= 0) {
 
         showMessage(
           "This product is out of stock.",
+          "error"
+        );
+
+        return;
+      }
+
+      if (quantity > stock) {
+        quantity = stock;
+      }
+
+      const productPrice =
+        Number(
+          latestProduct.price
+        );
+
+      if (
+        !Number.isFinite(productPrice)
+      ) {
+
+        showMessage(
+          "This product does not have a valid price.",
           "error"
         );
 
@@ -2460,7 +2446,7 @@
         cart.find(
           item =>
             String(item.id) ===
-            String(currentProduct.id)
+            String(latestProduct.id)
         );
 
       if (existing) {
@@ -2469,56 +2455,33 @@
           Math.min(
             Number(
               existing.quantity || 0
-            ) +
-            quantity,
+            ) + quantity,
             stock
           );
 
         existing.name =
-          currentProduct.name;
+          latestProduct.name;
 
         existing.price =
-          Number(
-            currentProduct.price || 0
-          );
+          productPrice;
 
         existing.image_url =
-          currentProduct.image_url ||
-          "";
+          latestProduct.image_url || "";
 
         existing.stock =
           stock;
 
       } else {
 
-        cart.push({
-
-          id:
-            currentProduct.id,
-
-          name:
-            currentProduct.name,
-
-          price:
-            Number(
-              currentProduct.price || 0
-            ),
-
-          image_url:
-            currentProduct.image_url ||
-            "",
-
-          quantity:
-            quantity,
-
-          stock:
-            stock
-        });
+        cart.push(
+          createCartItem(
+            latestProduct,
+            quantity
+          )
+        );
       }
 
-      saveCart(
-        cart
-      );
+      saveCart(cart);
 
       localStorage.removeItem(
         "meteur_pending_cart_item"
@@ -2561,10 +2524,8 @@
 
       setTimeout(
         () => {
-
           element.className =
             "message";
-
         },
         3500
       );
@@ -2594,24 +2555,15 @@
         await supabaseClient
           .from("products")
           .select("*")
-          .eq(
-            "category",
-            category
-          )
-          .neq(
-            "id",
-            currentId
-          )
+          .eq("category", category)
+          .neq("id", currentId)
           .limit(4);
 
       if (error) {
 
-        console.error(
-          error
-        );
+        console.error(error);
 
-        container.innerHTML =
-          "";
+        container.innerHTML = "";
 
         return;
       }
@@ -2636,8 +2588,7 @@
             product => {
 
               const image =
-                product.image_url ||
-                "";
+                product.image_url || "";
 
               const price =
                 Number(
@@ -2662,9 +2613,7 @@
                     image
                       ? `
                         <img
-                          src="${escapeAttribute(
-                            image
-                          )}"
+                          src="${escapeAttribute(image)}"
                           alt="${escapeAttribute(
                             product.name
                           )}"
@@ -2689,21 +2638,15 @@
                   <div class="related-content">
 
                     <h3>
-                      ${escapeHtml(
-                        product.name
-                      )}
+                      ${escapeHtml(product.name)}
                     </h3>
 
                     <div class="related-price">
-                      ${formatUSD(
-                        price
-                      )}
+                      ${formatUSD(price)}
                     </div>
 
                     <div class="related-kes">
-                      ≈ ${formatKES(
-                        kesPrice
-                      )}
+                      ≈ ${formatKES(kesPrice)}
                     </div>
 
                     <span class="view-product">
@@ -2751,7 +2694,6 @@
         );
 
       if (element) {
-
         element.textContent =
           count;
       }
@@ -2780,9 +2722,7 @@
 
       window.location.href =
         "shop.html?search=" +
-        encodeURIComponent(
-          query
-        );
+        encodeURIComponent(query);
     }
 
 
@@ -2798,8 +2738,7 @@
         function(event) {
 
           if (
-            event.key ===
-            "Enter"
+            event.key === "Enter"
           ) {
 
             searchProducts();
@@ -2815,43 +2754,20 @@
       ============================================================
     */
 
-    function escapeHtml(
-      value
-    ) {
+    function escapeHtml(value) {
 
-      return String(
-        value || ""
-      )
-        .replace(
-          /&/g,
-          "&amp;"
-        )
-        .replace(
-          /</g,
-          "&lt;"
-        )
-        .replace(
-          />/g,
-          "&gt;"
-        )
-        .replace(
-          /"/g,
-          "&quot;"
-        )
-        .replace(
-          /'/g,
-          "&#039;"
-        );
+      return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
     }
 
 
-    function escapeAttribute(
-      value
-    ) {
+    function escapeAttribute(value) {
 
-      return escapeHtml(
-        value
-      );
+      return escapeHtml(value);
     }
 
 
@@ -2862,18 +2778,14 @@
     */
 
     document
-      .getElementById(
-        "logoutLink"
-      )
+      .getElementById("logoutLink")
       ?.addEventListener(
         "click",
         logoutUser
       );
 
     document
-      .getElementById(
-        "footerLogoutLink"
-      )
+      .getElementById("footerLogoutLink")
       ?.addEventListener(
         "click",
         logoutUser
@@ -2890,12 +2802,6 @@
 
       setActiveNavigation();
 
-      /*
-        We deliberately do NOT delete the cart when the user
-        is logged out.
-
-        The cart must survive the login process.
-      */
       await updateAccountUI();
 
       updateCartCount();
@@ -2907,7 +2813,9 @@
 
 
     startProductPage();
+
   </script>
 
 </body>
 </html>
+```

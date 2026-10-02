@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -32,6 +31,7 @@
         ========================= */
 
         .top-header {
+            position: relative;
             color: white;
             padding: 18px 20px;
             background-image: url("21.webp");
@@ -45,6 +45,7 @@
             margin: auto;
             display: flex;
             align-items: center;
+            justify-content: space-between;
         }
 
         .brand {
@@ -99,48 +100,149 @@
         }
 
         /* =========================
-           NAVIGATION
+           COMPACT MENU BUTTON
         ========================= */
 
-        nav {
-            background: #9b001f;
+        .menu-button {
+            width: 48px;
+            height: 48px;
+            border: none;
+            border-radius: 8px;
+            background: #0b285f;
             color: white;
-        }
-
-        .nav-inner {
-            max-width: 1200px;
-            margin: auto;
             display: flex;
-            overflow-x: auto;
-            scrollbar-width: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            cursor: pointer;
+            flex-shrink: 0;
+            margin-left: 15px;
         }
 
-        .nav-inner::-webkit-scrollbar {
+        .menu-button span {
+            display: block;
+            width: 22px;
+            height: 3px;
+            background: white;
+            border-radius: 3px;
+        }
+
+        .menu-button:hover {
+            background: #061d49;
+        }
+
+        /* =========================
+           MENU OVERLAY
+        ========================= */
+
+        .menu-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .45);
+            z-index: 998;
             display: none;
         }
 
-        .nav-inner a {
-            position: relative;
-            color: white;
-            padding: 16px 18px;
-            font-size: 14px;
-            font-weight: 700;
-            white-space: nowrap;
+        .menu-overlay.active {
+            display: block;
         }
 
-        .nav-inner a:hover {
-            background: rgba(255,255,255,.08);
-        }
+        /* =========================
+           SIDE MENU
+        ========================= */
 
-        .nav-inner a.active::after {
-            content: "";
-            position: absolute;
-            left: 15px;
-            right: 15px;
-            bottom: 0;
-            height: 3px;
+        .side-menu {
+            position: fixed;
+            top: 0;
+            right: -340px;
+            width: 320px;
+            max-width: 88%;
+            height: 100vh;
             background: white;
-            border-radius: 3px 3px 0 0;
+            z-index: 999;
+            box-shadow: -5px 0 20px rgba(0, 0, 0, .2);
+            transition: right .25s ease;
+            overflow-y: auto;
+        }
+
+        .side-menu.active {
+            right: 0;
+        }
+
+        .menu-header {
+            background: #9b001f;
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .menu-header h2 {
+            font-size: 19px;
+            margin: 0;
+        }
+
+        .menu-close {
+            width: 38px;
+            height: 38px;
+            border: none;
+            border-radius: 7px;
+            background: rgba(255,255,255,.12);
+            color: white;
+            font-size: 26px;
+            line-height: 1;
+            cursor: pointer;
+        }
+
+        .menu-close:hover {
+            background: rgba(255,255,255,.22);
+        }
+
+        .menu-links {
+            padding: 12px 0;
+        }
+
+        .menu-links a,
+        .menu-logout {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 14px 20px;
+            color: #172033;
+            font-size: 15px;
+            font-weight: 700;
+            border: none;
+            background: white;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .menu-links a:hover,
+        .menu-logout:hover {
+            background: #fff0f2;
+            color: #d90429;
+        }
+
+        .menu-divider {
+            height: 1px;
+            background: #e8e8e8;
+            margin: 8px 20px;
+        }
+
+        .menu-user {
+            padding: 12px 20px;
+            color: #61718a;
+            font-size: 13px;
+            border-bottom: 1px solid #eeeeee;
+            word-break: break-word;
+        }
+
+        .menu-user strong {
+            display: block;
+            color: #172033;
+            margin-bottom: 4px;
         }
 
         /* =========================
@@ -148,7 +250,7 @@
         ========================= */
 
         .auth-section {
-            min-height: calc(100vh - 220px);
+            min-height: calc(100vh - 170px);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -415,7 +517,8 @@
             }
 
             .brand {
-                width: 100%;
+                flex: 1;
+                min-width: 0;
                 justify-content: flex-start;
                 align-items: center;
                 overflow: visible;
@@ -454,13 +557,14 @@
                 overflow: visible;
             }
 
-            .nav-inner {
-                width: 100%;
+            .menu-button {
+                width: 44px;
+                height: 44px;
+                margin-left: 10px;
             }
 
-            .nav-inner a {
-                padding: 14px 13px;
-                font-size: 13px;
+            .side-menu {
+                width: 310px;
             }
 
             .auth-section {
@@ -507,6 +611,11 @@
                 height: 44px;
             }
 
+            .menu-button {
+                width: 42px;
+                height: 42px;
+            }
+
         }
     </style>
 
@@ -540,13 +649,63 @@
 
         </a>
 
+        <!-- COMPACT THREE-LINE MENU -->
+
+        <button
+            type="button"
+            class="menu-button"
+            id="menuButton"
+            aria-label="Open menu"
+            aria-expanded="false"
+        >
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
     </div>
 
 </header>
 
-<nav>
 
-    <div class="nav-inner">
+<!-- MENU OVERLAY -->
+
+<div
+    class="menu-overlay"
+    id="menuOverlay"
+></div>
+
+
+<!-- SIDE MENU -->
+
+<aside
+    class="side-menu"
+    id="sideMenu"
+    aria-hidden="true"
+>
+
+    <div class="menu-header">
+
+        <h2>METEUR MENU</h2>
+
+        <button
+            type="button"
+            class="menu-close"
+            id="menuClose"
+            aria-label="Close menu"
+        >
+            ×
+        </button>
+
+    </div>
+
+    <div
+        class="menu-user"
+        id="menuUser"
+        style="display:none;"
+    ></div>
+
+    <div class="menu-links">
 
         <a href="index.html">
             Home
@@ -556,25 +715,79 @@
             Shop
         </a>
 
-        <a href="shop.html?condition=New">
-            New Phones
+        <a href="shop.html?category=Phones%20%26%20Tablets">
+            Phones &amp; Tablets
         </a>
 
-        <a href="shop.html?condition=Used">
-            Used Phones
+        <a href="shop.html?category=Electronics">
+            Electronics
         </a>
 
-        <a href="orders.html">
-            My Orders
+        <a href="shop.html?category=Accessories">
+            Accessories
+        </a>
+
+        <a href="shop.html?deal=true">
+            Hot Deals
+        </a>
+
+        <a href="cart.html">
+            Cart <span id="menuCartCount">(0)</span>
         </a>
 
         <a href="contact.html">
             Contact Us
         </a>
 
+        <div class="menu-divider"></div>
+
+        <!-- SHOWN WHEN LOGGED OUT -->
+
+        <div id="loggedOutMenu">
+
+            <a href="login.html">
+                Login
+            </a>
+
+            <a href="register.html">
+                Register
+            </a>
+
+        </div>
+
+        <!-- SHOWN WHEN LOGGED IN -->
+
+        <div
+            id="loggedInMenu"
+            style="display:none;"
+        >
+
+            <a href="dashboard.html">
+                My Dashboard
+            </a>
+
+            <a href="profile.html">
+                My Account
+            </a>
+
+            <a href="orders.html">
+                My Orders
+            </a>
+
+            <button
+                type="button"
+                class="menu-logout"
+                id="menuLogout"
+            >
+                Logout
+            </button>
+
+        </div>
+
     </div>
 
-</nav>
+</aside>
+
 
 <main>
 
@@ -693,6 +906,7 @@
 
 </main>
 
+
 <footer>
 
     <div class="footer-inner">
@@ -793,7 +1007,281 @@
 
 </footer>
 
+
 <script>
+
+/* =========================
+   MENU
+========================= */
+
+const menuButton =
+    document.getElementById("menuButton");
+
+const menuClose =
+    document.getElementById("menuClose");
+
+const sideMenu =
+    document.getElementById("sideMenu");
+
+const menuOverlay =
+    document.getElementById("menuOverlay");
+
+
+function openMenu() {
+
+    sideMenu.classList.add("active");
+
+    menuOverlay.classList.add("active");
+
+    sideMenu.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+
+    menuButton.setAttribute(
+        "aria-expanded",
+        "true"
+    );
+
+}
+
+
+function closeMenu() {
+
+    sideMenu.classList.remove("active");
+
+    menuOverlay.classList.remove("active");
+
+    sideMenu.setAttribute(
+        "aria-hidden",
+        "true"
+    );
+
+    menuButton.setAttribute(
+        "aria-expanded",
+        "false"
+    );
+
+}
+
+
+menuButton.addEventListener(
+    "click",
+    openMenu
+);
+
+
+menuClose.addEventListener(
+    "click",
+    closeMenu
+);
+
+
+menuOverlay.addEventListener(
+    "click",
+    closeMenu
+);
+
+
+/* =========================
+   CART COUNT
+========================= */
+
+function getMenuCartCount() {
+
+    let cart = [];
+
+    try {
+
+        cart = JSON.parse(
+            localStorage.getItem("meteur_cart") ||
+            localStorage.getItem("meteurCart") ||
+            "[]"
+        );
+
+    } catch (error) {
+
+        cart = [];
+
+    }
+
+    return cart.reduce(
+        function(total, item) {
+
+            return total +
+                Number(item.quantity || 0);
+
+        },
+        0
+    );
+
+}
+
+
+function updateMenuCartCount() {
+
+    const count =
+        getMenuCartCount();
+
+    const cartCount =
+        document.getElementById(
+            "menuCartCount"
+        );
+
+    if (cartCount) {
+
+        cartCount.textContent =
+            "(" + count + ")";
+
+    }
+
+}
+
+
+updateMenuCartCount();
+
+
+/* =========================
+   MENU LOGIN STATE
+========================= */
+
+async function updateMenuAuthState() {
+
+    const loggedOutMenu =
+        document.getElementById(
+            "loggedOutMenu"
+        );
+
+    const loggedInMenu =
+        document.getElementById(
+            "loggedInMenu"
+        );
+
+    const menuUser =
+        document.getElementById(
+            "menuUser"
+        );
+
+
+    try {
+
+        const {
+            data
+        } =
+            await supabaseClient.auth.getUser();
+
+
+        if (data && data.user) {
+
+            loggedOutMenu.style.display =
+                "none";
+
+            loggedInMenu.style.display =
+                "block";
+
+            menuUser.style.display =
+                "block";
+
+            menuUser.innerHTML =
+                "<strong>Signed in</strong>" +
+                data.user.email;
+
+        } else {
+
+            loggedOutMenu.style.display =
+                "block";
+
+            loggedInMenu.style.display =
+                "none";
+
+            menuUser.style.display =
+                "none";
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Menu authentication check error:",
+            error
+        );
+
+        loggedOutMenu.style.display =
+            "block";
+
+        loggedInMenu.style.display =
+            "none";
+
+        menuUser.style.display =
+            "none";
+
+    }
+
+}
+
+
+updateMenuAuthState();
+
+
+/* =========================
+   MENU LOGOUT
+========================= */
+
+const menuLogout =
+    document.getElementById(
+        "menuLogout"
+    );
+
+
+menuLogout.addEventListener(
+    "click",
+    async function() {
+
+        try {
+
+            const {
+                error
+            } =
+                await supabaseClient.auth.signOut();
+
+
+            if (error) {
+
+                console.error(
+                    "Logout error:",
+                    error
+                );
+
+                return;
+
+            }
+
+
+            /*
+             * Do NOT remove cart data here.
+             * The customer's cart must remain available
+             * after logout.
+             */
+
+            window.location.href =
+                "index.html";
+
+        } catch (error) {
+
+            console.error(
+                "Logout error:",
+                error
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================
+   LOGIN FORM
+========================= */
 
 const loginForm =
     document.getElementById("loginForm");
